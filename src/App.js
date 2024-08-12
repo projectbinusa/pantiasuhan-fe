@@ -1,5 +1,5 @@
 import { Route, Switch, BrowserRouter } from "react-router-dom";
-import Home from "./views/pages/Home";
+import Dashbaord from "./views/pagesekolah/Dashbaord";
 import SertaMerta from "./views/pages/informasi/SertaMerta";
 import SetiapSaat from "./views/pages/informasi/SetiapSaat";
 import "./css/style.css";
@@ -115,7 +115,7 @@ function App() {
           <Route path="/login" component={Login} exact />
           <Route path="/register" component={Register} exact />
           {/* page */}
-          <Route path="/" component={Home} exact />
+          <Route path="/" component={Dashbaord} exact />
 
           <Route path="/profil" component={Profil} exact />
           <Route path="/pengumuman" component={Pengumuman} exact />
