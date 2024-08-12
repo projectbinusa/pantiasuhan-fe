@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+#gambar{
+	 background: #103cbe;
+}
+body {
+	font-family: "Poppins", sans-serif;
+	background: #ececec;
+}
+
+/*------------ Login container ------------*/
+
+.box-area {
+	width: 930px;
+}
+
+/*------------ Right box ------------*/
+
+.right-box {
+	padding: 40px 30px 40px 40px;
+}
+
+/*------------ Custom Placeholder ------------*/
+
+::placeholder {
+	font-size: 16px;
+}
+
+.rounded-4 {
+	border-radius: 20px;
+}
+.rounded-5 {
+	border-radius: 30px;
+}
+#gambar{
+	background: #103cbe;
+}
+
+
+
+/*------------ For small screens------------*/
+
+@media only screen and (max-width: 390px) {
+	.box-area {
+		margin: 0 10px;
+	}
+	.left-box {
+		height: 100px;
+		overflow: hidden;
+	}
+	.right-box {
+		padding: 20px;
+		
+	}
+	.img-login-register{
+	}
+	.img-login{
+		height: 1px;
+	}
+	.container-login{
+		margin: 50px;
+		padding: 100px;
+		padding-left: 100px;
+	}
+	.padding-login{
+		padding: 50px;
+		padding-left: 100px;
+	}
+	#responsive-register{
+		padding: 50px;
+		width: 380px;
+	}
+	#responsive-login{
+		padding: 50px;
+		width: 380px;
+	}
+	#gambar{
+		background-color: transparent;
+	}
+	.img-login-register{
+		display: none;
+	}
+	
+}
+@media screen and (max-width:768px) {
+	#responsive-register{
+		padding: 50px;
+		width: 700px;
+		height: 550px;
+	}
+	#responsive-login{
+		padding: 50px;
+		width: 700px;
+		height: 550px;
+	}
+	
+	/* .img-login{
+		
+	} */
+}

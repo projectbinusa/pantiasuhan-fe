@@ -1,0 +1,77 @@
+.btn-primary:hover {
+    background-color: #000000; /* Warna latar belakang yang diinginkan saat dihover */
+  }
+  #btn-1{
+    margin-top: 55px;
+  }
+  #btn-2{
+margin-top: 60px;
+  }
+  #btn-3{
+    margin-top: 55px;
+  }
+  #btn-4{
+    margin-top: 60px;
+  }
+  #btn-5{
+    margin-top: 40px;
+  }
+  #btn-6{
+    margin-top: 40px;
+  }
+  @media (max-width: 768px) {
+    .single-service-inner{
+     
+      height: 250px;
+  }
+  #btn-1{
+    margin-top: 80px;
+  }
+  #btn-2{
+    margin-top: 60px;
+  }
+  #btn-3{
+    margin-top: 60px;
+  }
+  #btn-4{
+    margin-top: 60px;
+  }
+ #btn-5{
+  margin-top: 60px;
+ }
+ #btn-6{
+  margin-top: 60px;
+ }
+ 
+}
+
+  @media (max-width: 390px) {
+    .single-service-inner{
+  
+  height: 250px;
+    }
+    #btn-1{
+      margin-top: 60px;
+     
+    }
+    #btn-2{
+      margin-top: 60px;
+     
+    }
+    #btn-3{
+      margin-top: 60px;
+     
+    }
+    #btn-4{
+      margin-top: 60px;
+     
+    }
+    #btn-5{
+      margin-top: 60px;
+     
+    }
+    #btn-6{
+      margin-top: 60px;
+     
+    }
+  }

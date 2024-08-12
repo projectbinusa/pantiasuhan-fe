@@ -1,0 +1,148 @@
+ .span-img{
+  width: 50px;
+  height: 25px;
+}
+.folder-txt a {
+  text-decoration: none;
+}
+.logo-dikecualikan {
+  margin-right: 100px;
+  padding:40px;
+}
+@media (max-width: 768px) {
+
+}
+.d-flex {
+  display: flex;
+}
+
+.col-lg-5,
+.col-10 {
+  flex: 0 0 calc(50% - 30px); /* Two columns per row, with some spacing */
+  max-width: calc(50% - 30px);
+  box-sizing: border-box;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+/* Responsive styles for 390px width */
+
+.pmbngks-txt-folder{
+  padding-top: 20px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  padding-right: 20px;
+  display: flex;
+  gap: 20px;
+}
+.style-logo{
+  display: flex;
+}
+.logo-dikecualikan{
+  height: fit-content;
+  padding:10px;
+}
+.h4-text{
+  width: 300px;
+  text-align: center;
+}
+.folder-txt{
+  padding:10px;
+  background-color:#EEF5FF;
+  border-radius: 10px;
+  width: 80px;
+  height: 105px;
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 768px) {
+    .judul {
+      font-size: 30px !important;
+    }
+    #judul-2{
+        font-size: 20px !important;
+    }
+    .kolom-image{
+
+        flex-wrap: wrap !important;
+    }
+    .text{
+   margin-top: 100px;
+        font-size: 10px !important;
+    }
+    #div-img{
+
+        /* width: 100% !important; */
+    }
+    #img{
+        /* width: 100% !important; */
+    }
+    .folder-txt {
+      width: 100%; /* Sesuaikan dengan kebutuhan Anda */
+    }
+    .folder-txt{
+      padding:10px;
+      background-color:#EEF5FF;
+      border-radius: 10px;
+      width: 500px;
+      height: 105px;
+      margin-bottom: 20px;
+    }
+    .folderCol{
+      width: 500px;
+    }
+    .style-logo{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .pmbngks-txt-folder{
+      padding-top: 20px;
+      padding-bottom: 50px;
+      padding-left: 140px;
+      padding-right: 20px;
+      display: flex;
+      gap: 20px;
+    }
+    .logo-dikecualikan{
+      margin: 50px;
+      padding: 100px;
+      display: flex;
+      width: 500px;
+      height: 650px;
+      padding-top: 10px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  @media (max-width: 390px) {
+    .col-lg-5,
+    .col-10 {
+      flex: 0 0 100%; /* Full width for small screens */
+      margin-right: 0;
+    }
+    .folder-txt{
+      height: 130px;
+    }
+    .pmbngks-txt-folder{
+      padding-top: 20px;
+      padding-bottom: 50px;
+      padding-left: 55px;
+      padding-right: 2px;
+      display: flex;
+      gap: 20px;
+    }
+    .logo-dikecualikan{
+      margin: 30px 30px 2px 30px;
+      padding: 80px;
+      width: 350px;
+      height: 400px;
+    }
+  }
+  .img-top{
+    padding-top: 70px;
+  }
+
+
+

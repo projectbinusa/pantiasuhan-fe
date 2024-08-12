@@ -1,0 +1,136 @@
+.body{
+background-image: url(https://www.solverwp.com/demo/html/itechie/assets/img/bg/1.webp);
+
+}
+.div{
+    padding: 0px;
+}
+.alert{
+    padding:50px;
+    background-image: url("../../aset/bg-img.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+.head{
+    padding: 25px;
+}
+.undraw{
+    padding: 20px;
+    width: 500px;
+    display: flex;
+    align-items: center;
+}
+.profil{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+.icon1{
+ display: flex;
+ gap: 140px;
+}
+.visi{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+.img-visi{
+    padding: 20px;
+    width: 500px;
+    display: flex;
+    align-items: center;
+}
+.icon2{
+    display: flex;
+    gap: 140px; 
+}
+.body{ 
+    background-image: url(https://www.solverwp.com/demo/html/itechie/assets/img/bg/1.webp); 
+    /* background-color: black; */ 
+     
+    } 
+    .alert{ 
+        padding:50px; 
+        background-image: url("../../aset/bg-img.webp"); 
+        background-repeat: no-repeat; 
+        background-size: cover; 
+         
+    } 
+    .head{ 
+        padding: 25px; 
+    } 
+    .undraw{ 
+        padding: 20px; 
+        width: 500px; 
+        display: flex; 
+        align-items: center; 
+    } 
+    .profil{ 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center; 
+        justify-items: center; 
+    } 
+    .icon1{ 
+     display: flex; 
+     gap: 140px; 
+    } 
+    .visi{ 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center; 
+        justify-items: center; 
+    } 
+    .img-visi{ 
+        padding: 20px; 
+        width: 500px; 
+        display: flex; 
+        align-items: center; 
+    } 
+    .icon2{ 
+        display: flex; 
+        gap: 140px;  
+    }
+    #btn-selanjutnya{
+        width:100px ;
+        height: 40px;
+    }
+    @media screen and (max-width: 390px) {
+        #strukturOrganisasi{
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #img-struktur{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        #singel-security{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+        }
+    }
+    @media screen  and (max-width: 768px){
+        .img-profil{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }

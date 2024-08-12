@@ -1,0 +1,278 @@
+.pmbngks-img {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+}
+.pmbngks-img2{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.wrapper1 {
+    width: 600px;
+    padding-top: 100px;
+}
+
+.wrap-img1 {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230313035729.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+.wrap-opacity1 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#wrap-text1-penyelesaian {
+    color: white;
+    font-size: 20px;
+    padding: 50px;
+    padding-left: 100px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.wrap-img2 {
+    background-image: url("https://asset.kompas.com/crops/1SVGY3spa0tEBGwDb0Frz8wh-1w=/7x48:5815x3920/750x500/data/photo/2022/06/06/629dacca2562a.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+.wrap-opacity2 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+.wrap-text2 {
+    color: white;
+    font-size: 20px;
+    padding: 30px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.wrapper2 {
+    width: 350px;
+    padding-top: 100px;
+}
+
+.wrapper3 {
+    width: 300px;
+    padding-top: 100px;
+
+}
+
+#wrap-img3-penyelesaian {
+    background-image: url("https://www.djkn.kemenkeu.go.id/foto-thumbnail/300/2020/12/pra2/Arbitrase-Dan-Alternatif-Penyelesaian-Sengketa.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 250px;
+
+}
+
+.wrap-opacity3 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#wrap-text3-penyelesaian{
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+#wrap-img4-penyelesaian {
+    background-image: url("https://kotadepok.bawaslu.go.id/wp-content/uploads/2020/09/IMG_3810-scaled.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 235px;
+}
+.wrap-opacity4 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+
+.wrap-opacity3 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+
+.a-href{
+    display: flex;
+    gap: 100px;
+    text-align: center;
+    padding: 20px;
+    justify-content: center;
+}
+.txt-kehumasan{
+    padding: 50px;
+}
+.bg-gray{
+    background-color: lightgray;
+    width: 700px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+}
+.txt-gray{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.pmbngks-txt-logo{
+    display: flex;
+}
+.logo{
+    padding: 50px;
+}
+@media screen and (max-width: 768px) {
+    .pmbngks-img2-penyelesaian{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+#pmbngks-img-penyelesaian {
+        display: flex;
+        gap: 10px;
+        padding: 20px;
+    }
+    #wrapper1-penyelesaian{
+        width: 300px;
+    }
+    #wrapper2-penyelesaian{
+        width: 230px;
+    }
+    #wrapper3-penyelesaian{
+        width: 180px;
+    }
+    #wrapper3-penyelesaian{
+        width: 180px;
+    }
+    #wrap-img4-penyelesaian{
+        height: 235px;
+    }
+    #wrap-text1-penyelesaian{
+        text-align: center;
+        padding: 10px 20px;
+        font-size: 15px;
+
+    }
+    #wrap-text2-penyelesaian{
+        text-align: center;
+        padding: 5px;
+        font-size: 15px;
+
+    }
+    #wrap-text3-penyelesaian{
+        text-align: center;
+        padding: 2px;
+        font-size: 15px;
+    }
+    #bg-gray-penyelesaian{
+        width: 350px;
+        height: 50px;
+    }
+    #hr-penyelesaian{
+        width: 250px;
+    }
+    #text-logo-penyelesaian{
+        display: flex;
+        gap: 10px;
+    }
+    #txt-penyelesaian{
+        padding: 30px;
+    }
+    #logo-penyelesaian{
+        padding: 10px 30px;
+    }
+    #h3-penyelesaian{
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 320px) {
+    #pmbngks-img-penyelesaian {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 20px;
+    }
+    #wrapper1-penyelesaian{
+        width: 280px;
+        height: 600px;
+    }
+    #wrapper2-penyelesaian{
+        width: 280px;
+        height: 500px;
+        padding-top: 5px;
+
+    }
+    #wrapper3-penyelesaian{
+        width: 280px;
+        padding-top: 5px;
+
+    }
+    #wrapper3-penyelesaian{
+        width: 280px;
+    }
+    #wrap-img4-penyelesaian{
+        height: 235px;
+    }
+    #wrap-text3-penyelesaian{
+        text-align: center;
+        padding: 4.5px;
+        font-size: 15px;
+    }
+    #a-href-penyelesaian{
+        gap: 25px;
+    }
+    #txt-penyelesaian{
+        width: 300px;
+        font-size: 15px;
+    }
+    #bg-gray-penyelesaian{
+        width: 255px;
+    }
+    #text-logo-penyelesaian{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    #hr-penyelesaian{
+        text-align: center;
+        width: 250px;
+    }
+    #logo-sosisalisasi{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #img-logo-penyelesaian{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+    #h3-penyelesaian{
+        text-align: center;
+    }
+
+}

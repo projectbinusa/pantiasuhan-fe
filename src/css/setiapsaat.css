@@ -1,0 +1,10 @@
+@media screen and (max-width: 320px) {
+    #button{
+        width: 200px;
+    }
+    #tengah{
+        display: flex;
+        justify-content: center;
+        
+    }
+}

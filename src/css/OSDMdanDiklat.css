@@ -1,0 +1,312 @@
+.pmbngks-img {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+}
+.pmbngks-img2{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.wrappper1 {
+    width: 600px;
+    padding-top: 100px;
+}
+
+#wrapp-img1 {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230718121531.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+    /* border: 1px solid red; */
+}
+
+#wrapp-opacity1 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#wrapp-text1{
+    color: white;
+    font-size: 20px;
+    padding: 50px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#wrapp-img2 {
+    background-image: url("https://sulbar.bawaslu.go.id/wp-content/uploads/2023/02/WhatsApp-Image-2023-02-01-at-9.36.20-PM11.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+.wrap-opacity2 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+.wrap-text2 {
+    color: white;
+    font-size: 20px;
+    padding: 30px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.wrapper2 {
+    width: 350px;
+    padding-top: 100px;
+}
+
+.warappper3 {
+    width: 300px;
+    padding-top: 100px;
+
+}
+
+.wrap-img3 {
+    background-image: url("https://pohuwato.bawaslu.go.id/wp-content/uploads/2023/08/WhatsApp-Image-2023-08-29-at-22.09.01-1030x438.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 250px;
+
+}
+
+.wrap-opacity3 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+.wrap-text3 {
+    color: white;
+    font-size: 20px;
+    padding: 50px;
+    padding-left: 140px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.wrap-img4 {
+    background-image: url("https://liputan4.com/wp-content/uploads/2023/10/92920231226242.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 235px;
+}
+
+.wrap-opacity3 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+.wrap-text3 {
+    color: white;
+    font-size: 20px;
+    padding: 50px;
+    padding-left: 140px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.a-href{
+    display: flex;
+    gap: 100px;
+    text-align: center;
+    padding: 20px;
+    justify-content: center;
+}
+.txt-kehumasan{
+    padding: 50px;
+}
+.bg-gray{
+    background-color: lightgray;
+    width: 700px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+}
+.txt-gray{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.pmbngks-txt-logo{
+    display: flex;
+}
+.logo{
+    padding: 50px;
+}
+.span-txt{
+    font-size: 10px;
+}
+.wrap-img-penangan-1{
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230330094921.jpeg");
+}
+#al-txt{
+    font-size: 20px;
+}
+#tautan{
+    text-align: center;
+}
+@media screen and (max-width: 1024px) {
+    #warappper3 {
+        width: 300px;
+        padding-top: 100px;
+
+    }
+    #wrappper1 {
+        width: 350px;
+        padding-top: 100px;
+
+    }
+    #wrapp-img2 {
+        height: 450px;
+    }
+    #wrapp-text1 {
+        color: white;
+        font-size: 20px;
+        padding: 50px;
+        padding-left: 70px;
+        padding-top: 100px;
+        text-align: center;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    #wrapp-img1 {
+        height: 450px;
+        /* border: 1px solid red; */
+    }
+    #warappper3 {
+        width: 300px;
+        padding-top: 100px;
+
+    }
+    #wrapp-img3 {
+        height: 215px;
+        /* border: 1px solid red; */
+    }
+    #wrapp-img4 {
+        height: 220px;
+    }
+}
+@media screen and (max-width:768px) {
+    #warappper3 {
+        width: 180px;
+        padding-top: 100px;
+
+    }
+    #wrappper1{
+        width: 300px;
+    }
+    #wrapp-img1 {
+        height: 350px;
+        /* border: 1px solid red; */
+    }
+    #wrapp-text1 {
+        color: white;
+        font-size: 15px;
+        padding: 40px;
+        text-align: center;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+    #wrapp-img2 {
+        height: 350px;
+        /* border: 1px solid red; */
+    }
+    #wrappper2 {
+        width: 200px;
+        padding-top: 100px;
+    }
+    #wrappper3 {
+        width: 250px;
+        padding-top: 100px;
+
+    }
+    #wrapp-img3 {
+        height: 170px;
+        /* border: 1px solid red; */
+    }
+    #wrapp-img4 {
+        height: 170px;
+    }
+    .hrr{
+        width: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    #al-txt{
+        font-size: 18px;
+    }
+    #img-logo{
+        padding-right: 100px;
+    }
+
+    #tautan{
+padding-right: 100px;
+    }
+}
+@media screen and (max-width: 320px) {
+    #wrappper1{
+        width: 280px;
+    }
+    #wrapp-img1 {
+        height: 200px;
+        /* border: 1px solid red; */
+    }
+    #wrapp-text1 {
+        font-size: 9px;
+        padding: 5px 23px;
+        text-align: center;
+    }
+    #wrappper2 {
+        width: 280px;
+        padding-top: 10px;
+
+    }
+    #wrapp-img2 {
+        height: 200px;
+        /* border: 1px solid red; */
+    }
+    #warappper3 {
+        width:280px;
+        padding-top: 10px;
+
+    }
+    #wrapp-img3 {
+        height: 100px;
+        /* border: 1px solid red; */
+    }
+    #wrapp-img4 {
+        height: 95px;
+        /* border: 1px solid red; */
+    }
+    #al-txt{
+        font-size: 10px;
+    }
+
+    #hhr{
+        width: 300px;
+        text-align: center;
+    }
+    #tautan{
+        padding: 5px;
+
+    }
+
+    #img-logo{
+padding: 5px ;
+ }
+}

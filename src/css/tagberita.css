@@ -1,0 +1,44 @@
+#ptop{
+    padding-top: 100px;
+}
+.bukan-text{
+    width: 300px;
+}
+.gabungin{
+    display: flex;
+    gap: 10px;
+}
+.kmpnye{
+    width: 450px;
+}
+@media screen and (max-width: 768px) {
+    .gbngan{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    #this-logo{
+        padding-right: 100px;
+    }
+    .this-logo{
+       padding-left: 5px;
+    }
+    .bgng{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+@media screen and (max-width: 320px) {
+    .gabungin{
+        display: flex;
+        flex-direction: column;
+    }
+    .bukan-text{
+        width: 220px;
+    }
+    .kmpnye{
+        width: 230px;
+    }
+}

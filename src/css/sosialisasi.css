@@ -1,0 +1,278 @@
+.pmbngks-img {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+}
+.pmbngks-img2{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.wrapper1 {
+    width: 600px;
+    padding-top: 100px;
+}
+
+#wrap-img1-sosialisasi {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230803014724.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+.wrap-opacity1 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#wrap-text1-sosialisasi {
+    color: white;
+    font-size: 20px;
+    padding: 50px;
+    padding-left: 100px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#wrap-img2-sosialisasi {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230711105903.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+.wrap-opacity2 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+.wrap-text2 {
+    color: white;
+    font-size: 20px;
+    padding: 30px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.wrapper2 {
+    width: 350px;
+    padding-top: 100px;
+}
+
+.wrapper3 {
+    width: 300px;
+    padding-top: 100px;
+
+}
+
+#wrap-img3-sosialisasi {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230330094921-350x250.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 250px;
+
+}
+
+.wrap-opacity3 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#wrap-text3-sosialisasi{
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+#wrap-img4-sosialisasi {
+    background-image: url("https://jatengprov.go.id/wp-content/uploads/2023/02/IMG-20230210-WA0066.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 235px;
+}
+.wrap-opacity4 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+
+.wrap-opacity3 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+
+.a-href{
+    display: flex;
+    gap: 100px;
+    text-align: center;
+    padding: 20px;
+    justify-content: center;
+}
+.txt-kehumasan{
+    padding: 50px;
+}
+.bg-gray{
+    background-color: lightgray;
+    width: 700px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+}
+.txt-gray{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.pmbngks-txt-logo{
+    display: flex;
+}
+.logo{
+    padding: 50px;
+}
+@media screen and (max-width: 768px) {
+    .pmbngks-img2-sosialisasi{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+#pmbngks-img-sosialisasi {
+        display: flex;
+        gap: 10px;
+        padding: 20px;
+    }
+    #wrapper1-sosialisasi{
+        width: 300px;
+    }
+    #wrapper2-sosialisasi{
+        width: 230px;
+    }
+    #wrapper3-sosialisasi{
+        width: 180px;
+    }
+    #wrapper3-sosialisasi{
+        width: 180px;
+    }
+    #wrap-img4-sosialisasi{
+        height: 235px;
+    }
+    #wrap-text1-sosialisasi{
+        text-align: center;
+        padding: 10px 20px;
+        font-size: 15px;
+
+    }
+    #wrap-text2-sosialisasi{
+        text-align: center;
+        padding: 5px;
+        font-size: 15px;
+
+    }
+    #wrap-text3-sosialisasi{
+        text-align: center;
+        padding: 2px;
+        font-size: 15px;
+    }
+    #bg-gray-sosialisasi{
+        width: 350px;
+        height: 50px;
+    }
+    #hr-sosialisasi{
+        width: 250px;
+    }
+    #text-logo-sosialisasi{
+        display: flex;
+        gap: 10px;
+    }
+    #txt-sosialisasi{
+        padding: 30px;
+    }
+    #logo-sosialisasi{
+        padding: 10px 30px;
+    }
+    #h3-sosialisasi{
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 320px) {
+    #pmbngks-img-sosialisasi {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 20px;
+    }
+    #wrapper1-sosialisasi{
+        width: 280px;
+        height: 600px;
+    }
+    #wrapper2-sosialisasi{
+        width: 280px;
+        height: 500px;
+        padding-top: 5px;
+
+    }
+    #wrapper3-sosialisasi{
+        width: 280px;
+        padding-top: 5px;
+
+    }
+    #wrapper3-sosialisasi{
+        width: 280px;
+    }
+    #wrap-img4-sosialisasi{
+        height: 235px;
+    }
+    #wrap-text3-sosialisasi{
+        text-align: center;
+        padding: 4.5px;
+        font-size: 15px;
+    }
+    #a-href-sosialisasi{
+        gap: 25px;
+    }
+    #txt-sosialisasi{
+        width: 300px;
+        font-size: 15px;
+    }
+    #bg-gray-sosialisasi{
+        width: 255px;
+    }
+    #text-logo-sosialisasi{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    #hr-sosialisasi{
+        text-align: center;
+        width: 250px;
+    }
+    #logo-sosisalisasi{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #img-logo-sosialisasi{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+    #h3-sosialisasi{
+        text-align: center;
+    }
+
+}

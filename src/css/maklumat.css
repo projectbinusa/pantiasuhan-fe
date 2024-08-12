@@ -1,0 +1,17 @@
+@media screen and (max-width: 767px) {
+    
+ .thumb-img{
+   justify-content: center;
+   align-items: center;
+ }
+  
+  }
+
+  @media screen and (max-width: 320px) {
+    
+    .thumb-img{
+       justify-content: center;
+       align-items: center;
+     }
+  
+  }

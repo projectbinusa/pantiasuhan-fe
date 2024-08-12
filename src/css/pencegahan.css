@@ -1,0 +1,350 @@
+.pmbngks-img {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+}
+
+.pmbngks-img2 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.wrapper1 {
+    width: 600px;
+    padding-top: 100px;
+}
+
+#awrap-img1 {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230803014724.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+#awrap-opacity1 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#wirap-text1 {
+    color: white;
+    font-size: 20px;
+    padding: 50px;
+    padding-left: 110px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#awrap-img2 {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230718120146.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+#awrap-opacity2 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#awrap-text2 {
+    color: white;
+    font-size: 20px;
+    padding: 30px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.wrapper2 {
+    width: 350px;
+    padding-top: 100px;
+}
+
+.wrapper3 {
+    width: 300px;
+    padding-top: 100px;
+
+}
+
+#awrap-img3 {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230718121531-350x250.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 250px;
+
+}
+
+#awrap-opacity3 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#awrap-text3 {
+    color: white;
+    font-size: 15px;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#awrap-img4 {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230713014836-350x250.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 235px;
+}
+
+#awrap-opacity4 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#awrap-text4 {
+    color: white;
+    font-size: 15px;
+    padding: 5px 5px 5px 5px;
+    /* padding: 10px;
+    padding-left: 10px; */
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.a-href {
+    display: flex;
+    gap: 100px;
+    text-align: center;
+    padding: 20px;
+    justify-content: center;
+}
+
+.txt-kehumasan {
+    padding: 50px;
+}
+
+.bg-gray {
+    width: 700px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+}
+
+.txt-gray {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.pmbngks-txt-logo {
+    display: flex;
+}
+
+.logo {
+    padding: 50px;
+}
+
+.span-txt {
+    font-size: 10px;
+}
+
+.txt-bold {
+    font-family: 'Prompt', sans-serif;
+    color: gray;
+}
+
+.a-bold {
+    font-size: 20px;
+}
+
+.bg-img {
+    display: flex;
+    gap: 20px;
+    width: 700px;
+}
+
+.p-info {
+    font-size: 12px;
+}
+
+.nol {
+    font-family: 'Prompt', sans-serif;
+
+}
+
+.txt-p {
+    padding-top: 15px;
+    font-size: 15px;
+}
+
+.button {
+    width: 100px;
+    height: 30px;
+    border: 2px solid lightgray;
+}
+.button{
+    border: 1px solid gray;
+}
+
+@media screen and (max-width: 768px) {
+
+    #awrapper1 {
+        width: 300px;
+    }
+
+    #awrapper2 {
+        width: 250px;
+    }
+
+    #awrap-img5 {
+        width: 300px;
+    }
+
+    #awrap-img6 {
+        width: 300px;
+    }
+
+    #a-bold {
+        font-size: 17px;
+        width: 10px;
+    }
+
+    #p-info {
+        width: 400px;
+
+    }
+    #wirap-text1{
+padding-left: 50px;
+    }
+
+    #text {
+        width: 400px;
+    }
+
+    #bg-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #pmbngkos-txt-logo{
+        display: flex;
+        flex-direction: column;
+    }
+    #logo-img{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px 10px 100px;
+        width: 700px;
+    }
+    #awrep-img-src{
+        width: 700px;
+        height: 70px;
+    }
+   #h3{
+    text-align: center;
+   }
+   #img-logoo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.button{
+    border: 1px solid gray;
+}
+}
+
+@media screen and (max-width: 320px) {
+    #img-pmbngks{
+        display: flex;
+        flex-direction: column;
+    }
+    #awrapper1 {
+        width: 280px;
+        padding-top: 100px;
+    }
+
+    #awrapper2 {
+        width: 280px;
+        padding-top: 5px;
+
+    }
+    #wrapper {
+        width: 280px;
+        padding-top: 5px;
+    }
+
+    #awrap-img5 {
+        width: 280px;
+    }
+
+    #awrap-img6 {
+        width: 300px;
+    }
+    #aa-href{
+        gap: 30px;
+    }
+    #bg-img{
+        display: flex;
+        flex-direction: column;
+        padding-right: 480px;
+    }
+
+    #a-bold {
+        font-size: 15px;
+        width: 2px;
+    }
+
+    #p-info {
+        width: 230px;
+
+    }
+
+    #text {
+        width: 200px;
+    }
+    #logo-img{
+
+        padding: 10px 10px 10px 130px;
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #awrep-img-src{
+        width: 200px;
+        height: 50px;
+    }
+    #img-logoo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #wirap-text1 {
+        color: white;
+        font-size: 18px;
+        padding: 10px;
+        text-align: center;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+    .button{
+        width: 80px;
+        height: 20px;
+        border: 1px solid rgb(30, 28, 28);
+    }
+}

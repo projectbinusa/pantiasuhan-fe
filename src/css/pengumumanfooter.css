@@ -1,0 +1,416 @@
+.pmbngks-img {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+}
+
+.pmbngks-img2 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.wrapper1 {
+    width: 600px;
+    padding-top: 100px;
+}
+
+#awrap-img1-footer {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230819093248.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+#awrap-opacity1-footer {
+    background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(255, 255, 255, 0));
+    display: flex;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: flex-end;
+    height: inherit;
+}
+
+.wrap-text1 {
+    color: white;
+    font-size: 20px;
+    padding: 50px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#awrap-img2-footer {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230801113457.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+#awrap-opacity2-footer {
+    background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#awrap-text2-footer {
+    color: white;
+    font-size: 20px;
+    padding: 30px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.wrapper2 {
+    width: 350px;
+    padding-top: 100px;
+}
+
+.wrapper3 {
+    width: 300px;
+    padding-top: 100px;
+
+}
+
+#awrap-img3-footer {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230716035010-350x250.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 250px;
+
+}
+
+#awrap-opacity3-footer {
+    background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#awrap-text3-footer {
+    color: white;
+    font-size: 15px;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#awrap-img4-footer {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230714121845-350x250.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 235px;
+}
+
+#awrap-opacity4-footer {
+    background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#awrap-text4-footer {
+    color: white;
+    font-size: 15px;
+    padding: 5px 5px 5px 5px;
+    /* padding: 10px;
+    padding-left: 10px; */
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.a-href {
+    display: flex;
+    gap: 100px;
+    text-align: center;
+    padding: 20px;
+    justify-content: center;
+}
+
+.txt-kehumasan {
+    padding: 50px;
+}
+
+.bg-gray {
+    width: 700px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+}
+
+.txt-gray {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.pmbngks-txt-logo {
+    display: flex;
+}
+
+.logo {
+    padding: 50px;
+}
+
+.span-txt {
+    font-size: 10px;
+}
+
+.txt-bold {
+    font-family: 'Prompt', sans-serif;
+    color: gray;
+}
+
+.a-bold {
+    font-size: 20px;
+}
+
+.bg-img {
+    display: flex;
+    gap: 20px;
+    width: 700px;
+}
+
+.p-info {
+    font-size: 12px;
+}
+
+.nol {
+    font-family: 'Prompt', sans-serif;
+
+}
+
+.txt-p {
+    padding-top: 15px;
+    font-size: 15px;
+}
+
+.button {
+    width: 100px;
+    height: 30px;
+    border: 2px solid lightgray;
+}
+.button{
+    border: 1px solid gray;
+}
+#awrap-img5-footer {
+    width: 800px;
+}
+
+#awrap-img6-footer {
+    width: 600px;
+}
+#awrap-img7-footer{
+    width: 600px;
+}
+#awrap-img8-footer{
+    width: 575px;
+    height: 100px;
+}
+
+#img-awrap-footer{
+    height: 200px;
+    width: 500px;
+}
+#h3-footer{
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+
+    #awrapper1-footer {
+        width: 300px;
+    }
+    .wrap-text1{
+        font-size: 15px;
+        padding: 10px;
+    }
+    #awrap-text2-footer{
+        font-size: 15px;
+        padding: 10px;
+    }
+    #awrap-text3-footer{
+        font-size: 15px;
+    }
+    #awrap-text4-footer{
+        font-size: 15px;
+    }
+
+    #awrapper2-footer {
+        width: 250px;
+    }
+
+    #awrap-img5-footer {
+        width: 300px;
+    }
+
+    #awrap-img6-footer {
+        width: 300px;
+    }
+    #awrap-img8-footer {
+        width: 700px;
+        height: 70px;
+    }
+
+    #a-bold-footer {
+        font-size: 17px;
+        width: 10px;
+    }
+
+    #p-info-footer {
+        width: 400px;
+
+    }
+#bg-img-footer{
+}
+    #text-footer {
+        width: 400px;
+    }
+
+    #bg-img-footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #pembngkos-txt-logo{
+        display: flex;
+        flex-direction: column;
+    }
+    #logo-img-footer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 50px 20px 10px 100px;
+        width: 700px;
+    }
+    #awrep-img-src-footer{
+        width: 700px;
+        height: 70px;
+    }
+   #h3-footer{
+    text-align: center;
+   }
+   #img-logoo-footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.button{
+    border: 1px solid gray;
+}
+}
+
+@media screen and (max-width: 320px) {
+    #img-pmbngks-footer{
+        display: flex;
+        flex-direction: column;
+    }
+    #awrapper1-footer {
+        width: 280px;
+        padding-top: 100px;
+    }
+
+    #awrapper2-footer {
+        width: 280px;
+        padding-top: 5px;
+
+    }
+    #wrapper-footer {
+        width: 280px;
+        padding-top: 5px;
+    }
+
+    #awrap-img5-footer {
+        width: 280px;
+    }
+
+    #awrap-img6-footer {
+        width: 300px;
+    }
+    #aa-href-footer{
+        gap: 30px;
+    }
+    #bg-img-footer{
+        display: flex;
+        flex-direction: column;
+        padding-right: 480px;
+    }
+
+    #a-bold-footer {
+        font-size: 15px;
+        width: 2px;
+    }
+
+    #p-info-footer {
+        width: 230px;
+
+    }
+
+    #text-footer {
+        width: 200px;
+    }
+    #logo-img-footer{
+
+        padding: 10px 10px 10px 130px;
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #awrep-img-src-footer{
+        width: 200px;
+        height: 50px;
+    }
+    #img-logoo-footer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .button{
+        width: 80px;
+        height: 20px;
+        border: 1px solid rgb(30, 28, 28);
+    }
+}
+@media screen and ( max-width: 320px) {
+    #awrapper1-footer {
+        width: 280px;
+        padding-top: 100px;
+    }
+
+    #awrapper2-footer {
+        width: 280px;
+        padding-top: 5px;
+
+    }
+    #awrapper-footer {
+        width: 280px;
+        padding-top: 5px;
+    }
+
+    #awrap-img5-footer {
+        width: 280px;
+    }
+
+    #awrap-img6-footer {
+        width: 300px;
+    }
+    #awrap-img5-footer{
+        width: 250px;
+    }
+    #awrap-img6-footer{
+        width: 250px;
+    }
+    #awrap-img7-footer{
+        width: 250px;
+    }
+    #awrap-img8-footer{
+        width: 250px;
+    }
+}

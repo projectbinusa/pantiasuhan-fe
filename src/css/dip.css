@@ -1,0 +1,103 @@
+#widht{
+    width: 150px;
+    text-align: left;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+#display{
+    display: flex;
+    padding-right: 30px;
+}
+#button-dik{
+    display: flex;
+    gap: 100px;
+}
+
+
+
+
+
+@media screen and (max-width: 768px) {
+    #display{
+
+    }
+    #button-dik{
+        width: 200px;
+    }
+}
+@media screen and (max-width:390px) {
+
+    #ukuran{
+
+    }
+    #widht{
+        width: 220px;
+        padding-right: 10px;
+
+    }
+    #banner{
+        padding: 2px;
+    }
+    #awal{
+padding: 0px;   
+margin: 0px;
+}
+    #display{
+        display: flex;
+        flex-direction: column;
+        padding-right: 0;
+        gap: 5px;
+    }
+    #h2{
+        font-size: 200px;
+    }
+    #container{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+}
+    .button-dik{
+        width: 300px;
+
+    }
+    .button{
+        width: 300px;
+    }
+}
+@media screen and (max-width: 320px) {
+    #ukuran{
+
+    }
+    #widht{
+        width: 220px;
+        padding-right: 70px;
+
+    }
+    #banner{
+        padding: 2px;
+    }
+    #awal{
+padding: 0px;   
+margin: 0px;
+}
+    #display{
+        display: flex;
+        flex-direction: column;
+        padding-right: 0;
+        gap: 5px;
+    }
+    #h2{
+        font-size: 200px;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    #button-dik{
+        width: 200px;
+    }
+}

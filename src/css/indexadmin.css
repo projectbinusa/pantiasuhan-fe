@@ -1,0 +1,18 @@
+@media screen and(max-width: 768px)  {
+    #app-header{
+
+    }
+}
+@media (max-width: 320px) {
+    #card-header {
+      font-size: 1rem; /* Mengurangi ukuran font pada layar sangat kecil */
+    }
+  
+    .table th,
+    .table td {
+      padding: 0.3rem; /* Mengurangi padding pada sel tabel */
+    }
+    #butoon{
+        width: 50px;
+    }
+  }

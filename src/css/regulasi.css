@@ -1,0 +1,30 @@
+#display{
+    display: flex;
+}
+@media (min-width: 992px) {
+    .nav-link {
+      width: 250px; /* Sesuaikan dengan lebar yang Anda inginkan */
+      text-align: center;
+    }
+  }
+@media screen and (max-width: 390px) {
+    #display{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 300px;
+    }
+    .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+@media screen and (max-width: 320px) {
+    #display{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

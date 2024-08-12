@@ -1,0 +1,917 @@
+#img-berita-carousel{
+    width: 990px;
+}
+@media (max-width: 768px) {
+    #img-berita-carousel{
+        width: 600px;
+    }
+}
+.carousel-control-prev,
+.carousel-control-next {
+  color: white;
+}
+.img-berita-carousel{
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+}
+ #carousel-item{
+  padding: 100px;
+  margin: 100px;
+ }
+ #carouselExampleCaptions {
+  margin: 100px;
+  margin-top: 120px; /* Sesuaikan nilai sesuai kebutuhan Anda */
+  margin-bottom: 20px; /* Sesuaikan nilai sesuai kebutuhan Anda */
+}
+@media (max-width: 768px) {
+
+  #carouselExampleCaptions{
+  margin: 50px;
+  padding-top: 100px;
+  margin-top: 50px; /* Sesuaikan nilai sesuai kebutuhan Anda */
+ }
+}
+@media (max-width: 390px) {
+
+  #carouselExampleCaptions{
+  margin: 20px;
+  padding-top: 100px;
+  margin-top: 50px; /* Sesuaikan nilai sesuai kebutuhan Anda */
+ }
+}
+/*
+ * jQuery FlexSlider v2.7.1
+ * http://www.woothemes.com/flexslider/
+ *
+ * Copyright 2012 WooThemes
+ * Free to use under the GPLv2 and later license.
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Contributing author: Tyler Smith (@mbmufffin)
+ *
+ */
+/* ====================================================================================================================
+ * FONT-FACE
+ * ====================================================================================================================*/
+
+  /* ====================================================================================================================
+   * RESETS
+   * ====================================================================================================================*/
+  .flex-container a:hover,
+  .flex-slider a:hover {
+    outline: none;
+  }
+  .slides,
+  .slides > li,
+  .flex-control-nav,
+  .flex-direction-nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .flex-pauseplay span {
+    text-transform: capitalize;
+  }
+  /* ====================================================================================================================
+   * BASE STYLES
+   * ====================================================================================================================*/
+  .flexslider {
+    margin: 0;
+    padding: 0;
+  }
+  .flexslider .slides > li {
+    display: none;
+    -webkit-backface-visibility: hidden;
+  }
+  .flexslider .slides img {
+    width: 100%;
+    display: block;
+  }
+  .flexslider .slides:after {
+    content: "\0020";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+  }
+  html[xmlns] .flexslider .slides {
+    display: block;
+  }
+  * html .flexslider .slides {
+    height: 1%;
+  }
+  .no-js .flexslider .slides > li:first-child {
+    display: block;
+  }
+  /* ====================================================================================================================
+   * DEFAULT THEME
+   * ====================================================================================================================*/
+  .flexslider {
+    margin: 0;
+    background: #fff;
+    border: 4px solid #fff;
+    position: relative;
+    zoom: 1;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2);
+    -o-box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2);
+  }
+  .flexslider .slides {
+    zoom: 1;
+  }
+  .flexslider .slides img {
+    height: auto;
+    -moz-user-select: none;
+  }
+  .flex-viewport {
+    max-height: 2000px;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+  }
+  .loading .flex-viewport {
+    max-height: 300px;
+  }
+  @-moz-document url-prefix() {
+    .loading .flex-viewport {
+      max-height: none;
+    }
+  }
+  .carousel li {
+    margin-right: 5px;
+  }
+  .flex-direction-nav {
+    height: 0;
+  }
+  .flex-direction-nav a {
+    text-decoration: none;
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin: -20px 0 0;
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    overflow: hidden;
+    opacity: 0;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.8);
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  .flex-direction-nav a:before {
+    font-family: "flexslider-icon";
+    font-size: 26px;
+    display: inline-block;
+    content: '\f001';
+    color: rgba(0, 0, 0, 0.8);
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  .flex-direction-nav a.flex-next:before {
+    content: '\f002';
+  }
+  .flex-direction-nav .flex-prev {
+    left: -50px;
+  }
+  .flex-direction-nav .flex-next {
+    right: -50px;
+    text-align: right;
+  }
+  .flexslider:hover .flex-direction-nav .flex-prev {
+    opacity: 0.7;
+    left: 10px;
+  }
+  .flexslider:hover .flex-direction-nav .flex-prev:hover {
+    opacity: 1;
+  }
+  .flexslider:hover .flex-direction-nav .flex-next {
+    opacity: 0.7;
+    right: 10px;
+  }
+  .flexslider:hover .flex-direction-nav .flex-next:hover {
+    opacity: 1;
+  }
+  .flex-direction-nav .flex-disabled {
+    opacity: 0!important;
+    filter: alpha(opacity=0);
+    cursor: default;
+    z-index: -1;
+  }
+  .flex-pauseplay a {
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    opacity: 0.8;
+    z-index: 10;
+    overflow: hidden;
+    cursor: pointer;
+    color: #000;
+  }
+  .flex-pauseplay a:before {
+    font-family: "flexslider-icon";
+    font-size: 20px;
+    display: inline-block;
+    content: '\f004';
+  }
+  .flex-pauseplay a:hover {
+    opacity: 1;
+  }
+  .flex-pauseplay a.flex-play:before {
+    content: '\f003';
+  }
+  .flex-control-nav {
+    width: 100%;
+    position: absolute;
+    bottom: -40px;
+    text-align: center;
+  }
+  .flex-control-nav li {
+    margin: 0 6px;
+    display: inline-block;
+    zoom: 1;
+    display: inline;
+  }
+  .flex-control-paging li a {
+    width: 11px;
+    height: 11px;
+    display: block;
+    background: #666;
+    background: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    text-indent: -9999px;
+    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+    -o-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+  }
+  .flex-control-paging li a:hover {
+    background: #333;
+    background: rgba(0, 0, 0, 0.7);
+  }
+  .flex-control-paging li a.flex-active {
+    background: #000;
+    background: rgba(0, 0, 0, 0.9);
+    cursor: default;
+  }
+  .flex-control-thumbs {
+    margin: 5px 0 0;
+    position: static;
+    overflow: hidden;
+  }
+  .flex-control-thumbs li {
+    width: 25%;
+    float: left;
+    margin: 0;
+  }
+  .flex-control-thumbs img {
+    width: 100%;
+    height: auto;
+    display: block;
+    opacity: .7;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+  }
+  .flex-control-thumbs img:hover {
+    opacity: 1;
+  }
+  .flex-control-thumbs .flex-active {
+    opacity: 1;
+    cursor: default;
+  }
+  /* ====================================================================================================================
+   * RESPONSIVE
+   * ====================================================================================================================*/
+  @media screen and (max-width: 768px) {
+    .flex-direction-nav .flex-prev {
+      opacity: 1;
+      left: 10px;
+    }
+    .flex-direction-nav .flex-next {
+      opacity: 1;
+      right: 10px;
+    }
+    #img-carousel {
+        margin-top: 50px;
+        padding-top: 100px;
+        padding: 30px; /* Sesuaikan nilai padding sesuai kebutuhan */
+      }
+  }
+  .carousel-item img {
+    max-width: 100%; /* Membuat gambar sesuai lebar maksimum */
+    height: auto;    /* Menjaga aspek ratio gambar */
+  }
+
+  .carousel-caption {
+    padding: 20px;    /* Menambahkan padding pada caption */
+  }
+  .carousel-item img {
+    max-width: 100%; /* Membuat gambar sesuai lebar maksimum */
+    height: auto;    /* Menjaga aspek ratio gambar */
+  }
+
+  .carousel-caption {
+    padding: 20px;    /* Menambahkan padding pada caption */
+  }
+  #img-carousel{
+    width: auto;
+    height: 500px;
+    margin: 0 auto;
+  }
+
+/* Gaya untuk mengubah warna indicator carousel menjadi putih */
+.carousel-indicators button {
+  background-color: white;
+  border: 1px solid #fff;
+}
+@media (max-width: 768px) {
+    #img-carousel {
+        width: 300px;
+        margin-top: 50px;
+        padding-top: 100px;
+        padding: 30px; /* Sesuaikan nilai padding sesuai kebutuhan */
+      }
+}
+#img-carousel {
+    margin-top: 100px;
+    padding-top: 100px;
+    padding: 10px; /* Sesuaikan nilai padding sesuai kebutuhan */
+  }
+  #carouselExampleDark {
+    margin-top: 60px;
+    padding: 50px; /* Atur jarak dari layar */
+  }
+
+  .carousel-inner img {
+    height: 500px; /* Atur tinggi gambar */
+    width: auto; /* Atur lebar gambar agar tidak terdistorsi */
+    margin: 0 auto; /* Pusatkan gambar di dalam carousel */
+  }
+  .carousel-indicators button {
+    background-color: white; /* Atur warna latar belakang tombol */
+    border: 1px solid #fff; /* Atur warna border tombol */
+  }
+
+  .carousel-indicators .active {
+    background-color: #fff; /* Atur warna latar belakang tombol saat aktif */
+  }
+#background-linnear{
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+}
+.pmbngks-img-berita {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+}
+.pmbngks-img2{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#wrapper1-berita {
+    width: 500px;
+}
+
+.wrap-img1-berita {
+    background-image: url("https://bawaslu.go.id/sites/default/files/styles/gambar_berita_besar/public/foto_berita/6-5-Bawaslu%20KPU%20dan%20Kominfo%20teken%20kerja%20sama%20MoA%20terkait%20penangkalan%20hoaks%20dan%20konten%20negatif%20terkait%20Pilkada.jpg?itok=seYuLBoz");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 585px;
+}
+
+#warper-opacity1-berita {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    padding-left: 50px;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#wrapp-text1-berita {
+    color: white;
+    font-size: 20px;
+    padding: 50px;
+    padding-left: 100px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.wrap-img2 {
+    background-image: url("https://cdn-assetd.kompas.id/_RPDi5VwPIefC-qflRmJrWMJyiw=/1024x683/https%3A%2F%2Fasset.kgnewsroom.com%2Fphoto%2Fpre%2F2022%2F03%2F22%2F00c1978a-1f12-4201-b172-56b343607484_jpg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 600px;
+}
+
+.wrap-opacity2 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+.wrap-text2 {
+    color: white;
+    font-size: 20px;
+    padding: 30px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#wrapper2 {
+    width: 400px;
+}
+
+.wrapper3-berita {
+    width: 370px;
+
+}
+
+.wrap-img3-berita {
+    background-image: url("https://babel.bawaslu.go.id/wp-content/uploads/2023/11/f0a37a02-3694-4ce9-a300-12e5276dc045.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 290px;
+
+}
+
+.wrap-opacity3 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+.wrap-text3-berita {
+    color: white;
+    font-size: 20px;
+    padding: 30px;
+    padding-top: 120px;
+    padding-left: 70px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.wrap-text4-berita {
+    color: white;
+    font-size: 20px;
+    padding: 50px;
+    padding-left: 90px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+#wrap-img4-berita {
+    background-image: url("https://bawaslu.go.id/sites/default/files/styles/gambar_berita_besar/public/foto_berita/IMG-20221007-WA0025.jpg?itok=k2SoiDjr");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 280px;
+}
+#wrap-img5-berita {
+    background-image: url("https://gorontalokab.bawaslu.go.id/wp-content/uploads/2023/10/photo_2023-10-15_17-21-35-e1697362801189.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 290px;
+}
+#wrap-img6-berita {
+    background-image: url("https://www.bawaslu.go.id/sites/default/files/foto_berita/WhatsApp%20Image%202023-08-21%20at%2022.21.56.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 280px;
+}
+
+.wrap-opacity3 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+.wrap-text3 {
+    color: white;
+    font-size: 20px;
+    padding: 50px;
+    padding-left: 140px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+#pmbngks-img2-berita{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.a-href{
+    display: flex;
+    gap: 100px;
+    text-align: center;
+    padding: 20px;
+    justify-content: center;
+}
+.txt-kehumasan{
+    padding: 50px;
+}
+.bg-gray{
+    background-color: lightgray;
+    width: 700px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+}
+.txt-gray{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.pmbngks-txt-logo{
+    display: flex;
+    gap: 100px;
+}
+.logo{
+    padding: 50px;
+}
+.span-txt{
+    font-size: 10px;
+}
+.wrap-img-penangan-1{
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/09/20230330094921.jpeg");
+}
+#a-txt{
+    font-size: 20px;
+}
+@media screen and (max-width: 1024px) {
+    #pmbngks-img {
+        display: flex;
+        gap: 5px;
+        padding: 10px;
+        padding-top: 40px;
+    }
+    .pmbngks-txt-logo{
+        display: flex;
+        gap: 10px;
+    }
+    #wrapper1 {
+        width: 400px;
+        padding-top: 100px;
+    }
+    #wrap-img1 {
+
+        height: 450px;
+    }
+    #warper-opacity1 {
+        display: flex;
+        align-items: flex-end;
+        height: 450px;
+    }
+    #worapp-text1 {
+        color: white;
+        font-size: 18px;
+        padding-left: 60px;
+        text-align: center;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+    #wrap-img2 {
+
+        height: 450px;
+    }
+    #wrap-opacity2 {
+        display: flex;
+        align-items: flex-end;
+        height: 450px;
+    }
+    #wrap-text2 {
+        color: white;
+        font-size: 20px;
+        padding: 30px;
+        text-align: center;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+    #wrap-img3 {
+        height: 217px;
+
+    }
+    .wrap-opacity3 {
+
+        height:200px;
+    }
+    #warapper3 {
+        width: 200px;
+        padding-top: 100px;
+       }
+       #wrap-immg4 {
+        height: 217px;
+    }
+    #a-txt{
+        font-size: 25px;
+    }
+    #bg-gray{
+        background-color: lightgray;
+        width: 550px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+    }
+    #logo{
+        padding: 15px;
+        padding-top: 45px;
+    }
+    #img-src{
+        width: 250px;
+    }
+    #hr{
+        width: 250px;
+    }
+
+}
+@media screen and (max-width: 768px) {
+    #pmbngks-img {
+        display: flex;
+        gap: 15px;
+        padding: 30px;
+    }
+    .pmbngks-txt-logo{
+        display: flex;
+        gap: 10px;
+    }
+    #wrapper1-berita {
+        width: 250px;
+        padding-top: 100px;
+    }
+    #wrap-img1-berita {
+
+        height: 450px;
+    }
+    #warper-opacity1-berita {
+        display: flex;
+        align-items: flex-end;
+        height: 450px;
+    }
+    #wrapp-text1-berita {
+        color: white;
+        font-size: 15px;
+        padding: 5px ;
+        padding-right: 50px;
+
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+    #wrapper2-berita {
+        width: 250px;
+        padding-top: 100px;
+       }
+    #warapper3-berita {
+
+        height: 250px;
+    }
+    #wrap-opacity3-berita {
+        display: flex;
+        align-items: flex-end;
+        height: 350px;
+        padding: 1px;
+    }
+    #wrap-opacity5-berita {
+        display: flex;
+        align-items: flex-end;
+        height: 350px;
+        padding: 1px;
+    }
+    #wrapp-text3-berita {
+        color: white;
+        font-size: 15px;
+        padding: 5px;
+        padding-top:100px;
+        text-align: flex-end;
+        text-align: center;
+    }
+    .wrap-text4-berita {
+        color: white;
+        font-size: 15px;
+        padding: 5px;
+        padding-left: 40px;
+        padding-bottom: 50px;
+        text-align: center;
+    }
+    .wrap-text6-berita {
+        color: white;
+        font-size: 15px;
+        padding: 5px;
+        padding-left: 40px;
+        padding-bottom: 50px;
+        text-align: center;
+    }
+    #wrap-img3-berita {
+        height: 230px;
+
+    }
+    #wrap-img5-berita {
+        height: 230px;
+
+    }
+    .wrap-opacity3 {
+
+        height:230px;
+    }
+    #warapper3-berita {
+        width: 220px;
+        padding-top: 100px;
+       }
+       #wrap-img4-berita {
+        height: 210px;
+    }
+       #wrap-img6-berita {
+        height: 210px;
+    }
+    #pmbngks-img2-berita{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    #bg-gray{
+        background-color: lightgray;
+        width: 400px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+    }
+    #logo{
+        padding: 10px;
+        padding-top: 45px;
+    }
+    #img-src{
+        width: 205px;
+    }
+    #hr{
+        width: 205px;
+    }
+    #a-txt{
+        font-size: 20px;
+    }
+    #txt-h3-kehumasan{
+        padding-right: 100px;
+    }
+
+}
+@media screen and (max-width: 390px) {
+    #pmbngks-img-berita{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    #wrapper1-berita {
+        width: 355px;
+        padding-top: 0px;
+    }
+    #wrap-img1-berita {
+
+        height: 150px;
+    }
+    #wrap-img1-berita {
+        display: flex;
+        text-align: center;
+        align-items: flex-end;
+        height: 250px;
+    }
+    #wrapp-text1-berita {
+        color: white;
+        font-size: 10px;
+        padding: 10px 20px ;
+        padding-left: 90px;
+        text-align: center;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+    #warapper3-berita {
+        width: 355px;
+        padding-top: 0px;
+       }
+    #wrap-img2 {
+
+        height: 150px;
+    }
+    #wrap-opacity2 {
+        background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+        display: flex;
+        align-items: flex-end;
+        height: 355px;
+    }
+    #warper-opacity1-berita {
+        background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+        display: flex;
+        align-items: flex-end;
+        height: 150px;
+        width: 355px;
+    }
+    #wrap-text2 {
+        color: white;
+        font-size: 8px;
+        padding: 10px;
+        text-align: center;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+    #wrap-img3 {
+        height: 200px;
+
+    }
+
+    .wrap-opacity3 {
+
+        height:80px;
+    }
+    #wrap-opacity3 {
+        height:200px;
+    }
+    #wrapper3 {
+        width: 280px;
+        padding-top: 10px;
+       }
+       #wrap-immg4 {
+        height: 200px;
+    }
+    #pmbngks-img2-berita{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    /* .sejajar{
+        display:flex ;
+        flex-direction: column;
+    } */
+    #bg-gray{
+        background-color: lightgray;
+        width: 200px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+    }
+    #logo{
+        padding: 5px;
+        padding-top: 45px;
+    }
+    #img-src{
+        width: 200px;
+    }
+    #hr{
+        width: 300px;
+        text-align: center;
+    }
+    #a-href{
+        display: flex;
+        gap: 20px;
+        text-align: center;
+        padding: 20px;
+        justify-content: center;
+    }
+    #h1-khmsn{
+        font-size: 23px;
+    }
+    #p-khmsn{
+        font-size: 15px;
+    }
+    #pmbngks-txt-logo{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    #logo{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #img-logo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #h3{
+        text-align: center;
+    }
+    #a-txt{
+        font-size: 13px;
+    }
+    #txt-h3-kehumasan{
+padding-right: 20px;
+}
+}

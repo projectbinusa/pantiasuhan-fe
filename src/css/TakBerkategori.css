@@ -1,0 +1,278 @@
+.pmbngks-img {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+}
+.pmbngks-img2{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.wrapper1 {
+    width: 600px;
+    padding-top: 100px;
+}
+
+.wrap-img1 {
+    background-image: url("https://boyolali.bawaslu.go.id/cepogo/2023/10/Picture1-1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+.wrap-opacity1 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#wrap-text1-berkategori {
+    color: white;
+    font-size: 20px;
+    padding: 50px;
+    padding-left: 45px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.wrap-img2 {
+    background-image: url("https://pusdem.lppm.uns.ac.id/wp-content/uploads/sites/22/2022/12/Azhima-2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+}
+
+.wrap-opacity2 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+.wrap-text2 {
+    color: white;
+    font-size: 20px;
+    padding: 30px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.wrapper2 {
+    width: 350px;
+    padding-top: 100px;
+}
+
+.wrapper3 {
+    width: 300px;
+    padding-top: 100px;
+
+}
+
+#wrap-img3-berkategori {
+    background-image: url("https://awsimages.detik.net.id/community/media/visual/2022/09/26/panwascam_169.jpeg?w=1200");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 250px;
+
+}
+
+.wrap-opacity3 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+#wrap-text3-berkategori{
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+#wrap-img4-berkategori {
+    background-image: url("https://grobogan.bawaslu.go.id/wp-content/uploads/2023/10/IMG_3149-scaled.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 235px;
+}
+.wrap-opacity4 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+
+.wrap-opacity3 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0));
+    display: flex;
+    align-items: flex-end;
+    height: inherit;
+}
+
+
+.a-href{
+    display: flex;
+    gap: 100px;
+    text-align: center;
+    padding: 20px;
+    justify-content: center;
+}
+.txt-kehumasan{
+    padding: 50px;
+}
+.bg-gray{
+    background-color: lightgray;
+    width: 700px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+}
+.txt-gray{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.pmbngks-txt-logo{
+    display: flex;
+}
+.logo{
+    padding: 50px;
+}
+@media screen and (max-width: 768px) {
+    .pmbngks-img2-berkategori{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+#pmbngks-img-berkategori {
+        display: flex;
+        gap: 10px;
+        padding: 20px;
+    }
+    #wrapper1-berkategori{
+        width: 300px;
+    }
+    #wrapper2-berkategori{
+        width: 230px;
+    }
+    #wrapper3-berkategori{
+        width: 180px;
+    }
+    #wrapper3-berkategori{
+        width: 180px;
+    }
+    #wrap-img4-berkategori{
+        height: 235px;
+    }
+    #wrap-text1-berkategori{
+        text-align: center;
+        padding: 10px 20px;
+        font-size: 15px;
+
+    }
+    #wrap-text2-berkategori{
+        text-align: center;
+        padding: 5px;
+        font-size: 15px;
+
+    }
+    #wrap-text3-berkategori{
+        text-align: center;
+        padding: 2px;
+        font-size: 15px;
+    }
+    #bg-gray-berkategori{
+        width: 350px;
+        height: 50px;
+    }
+    #hr-berkategori{
+        width: 250px;
+    }
+    #text-logo-berkategori{
+        display: flex;
+        gap: 10px;
+    }
+    #txt-berkategori{
+        padding: 30px;
+    }
+    #logo-berkategori{
+        padding: 10px 30px;
+    }
+    #h3-berkategori{
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 320px) {
+    #pmbngks-img-berkategori {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 20px;
+    }
+    #wrapper1-berkategori{
+        width: 280px;
+        height: 600px;
+    }
+    #wrapper2-berkategori{
+        width: 280px;
+        height: 500px;
+        padding-top: 5px;
+
+    }
+    #wrapper3-berkategori{
+        width: 280px;
+        padding-top: 5px;
+
+    }
+    #wrapper3-berkategori{
+        width: 280px;
+    }
+    #wrap-img4-berkategori{
+        height: 235px;
+    }
+    #wrap-text3-berkategori{
+        text-align: center;
+        padding: 4.5px;
+        font-size: 15px;
+    }
+    #a-href-berkategori{
+        gap: 25px;
+    }
+    #txt-berkategori{
+        width: 300px;
+        font-size: 15px;
+    }
+    #bg-gray-berkategori{
+        width: 255px;
+    }
+    #text-logo-berkategori{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    #hr-berkategori{
+        text-align: center;
+        width: 250px;
+    }
+    #logo-sosisalisasi{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #img-logo-berkategori{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+    #h3-berkategori{
+        text-align: center;
+    }
+
+}
