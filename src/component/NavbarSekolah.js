@@ -48,35 +48,9 @@ function NavbarSekolah() {
     };
   }, []);
 
-  const [regulasi, setRegulasi] = useState([]);
-  const getRegulasi = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/bawaslu/api/jenis-regulasi/all?page=0&size=10&sortBy=id&sortOrder=desc
-        `
-      );
-      setRegulasi(response.data.data);
-      console.log(response.data.data);
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
+  const handleScrollToSection = (id) => {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
   };
-  const [informasi, setInformasi] = useState([]);
-  const getInformasi = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/bawaslu/api/jenis-informasi/all?page=0&size=10&sortBy=id&sortOrder=desc`
-      );
-      setInformasi(response.data.data);
-      console.log(response.data.data);
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
-  };
-  useEffect(() => {
-    getInformasi();
-    getRegulasi();
-  }, []);
   return (
     // <!-- navbar start -->
     <>
@@ -108,11 +82,11 @@ function NavbarSekolah() {
                 </div>
                 <div className="media-body">
                   <h6>Email</h6>
-                  {/* <p>
-                    <a href="mailto:set.boyolali@bawaslu.go.id">
-                      set.boyolali@bawaslu.go.id
+                  <p>
+                    <a href="mailto:smpn1_bergas@yahoo.co.id">
+                      smpn1_bergas@yahoo.co.id
                     </a>
-                  </p> */}
+                  </p>
                 </div>
               </div>
             </div>
@@ -122,7 +96,7 @@ function NavbarSekolah() {
                   <li>
                     <a
                       className="facebook"
-                    //   href="https://www.facebook.com/Bawaslu.Kabupaten.Boyolali"
+                      href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-facebook-f"></i>
@@ -130,17 +104,8 @@ function NavbarSekolah() {
                   </li>
                   <li>
                     <a
-                      className="twitter"
-                    //   href="https://twitter.com/i/flow/login?redirect_after_login=%2Fbawasluboyolali"
-                      target="_blank"
-                      rel="noreferrer">
-                      <i className="fab fa-twitter"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a
                       className="instagram"
-                    //   href="https://www.instagram.com/bawaslu_boyolali/"
+                      href="https://www.instagram.com/osisspensagas"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-instagram"></i>
@@ -149,7 +114,7 @@ function NavbarSekolah() {
                   <li>
                     <a
                       className="youtube"
-                    //   href="https://www.youtube.com/channel/UC-OZT-HT_Qg7cUmo-oHfkAw"
+                      href="https://www.youtube.com/@OSIS-SMPN1Bergas"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-youtube"></i>
@@ -202,18 +167,6 @@ function NavbarSekolah() {
               <li className="">
                 <a href="/" style={{paddingLeft:"15px"}}>Home</a>
               </li>
-              <li className="">
-                <a href="/profil" style={{paddingLeft:"15px"}}>Profile Sekolah</a>
-              </li>
-              <li className="">
-                <a href="/berita" style={{paddingLeft:"15px"}}>Berita</a>
-              </li>
-              <li className="">
-                <a href="/library" style={{paddingLeft:"15px"}}>E-Library</a>
-              </li>
-              <li className="">
-                <a href="/pengumuman" style={{paddingLeft:"15px"}}>Pengumuman</a>
-              </li>
               <li className="menu-item-has-children">
                 <a
                   href="#submenu"
@@ -222,26 +175,72 @@ function NavbarSekolah() {
                   aria-expanded="false"
                   aria-label="Toggle navigation"
                   onClick={toggleSubmenu}>
-                  Informasi Publik
+                  Profile Sekolah
                 </a>
                 <ul
                   className={`${isMobile ? "collapse" : "sub-menu"}`}
                   id="submenu"
                   data-bs-parent="#menu">
                   <li>
-                    <a href="/informasi-serta-merta">Informasi Serta Merta</a>
+                    <a href="/Sambutan">Sambutan Kepala Sekolah</a>
                   </li>
                   <li>
-                    <a href="/informasi-setiap-saat">Informasi Setiap Saat</a>
+                    <a href="/sejarah">Sejarah</a>
                   </li>
                   <li>
-                    <a href="/informasi-berkala">Informasi Berkala</a>
+                    <a href="/visi-misi">Visi & Misi</a>
                   </li>
                   <li>
-                    <a href="/informasi-dikecuali">Informasi DiKecualikan</a>
+                    <a href="/sarana-prasarana">Sarana Prasarana</a>
                   </li>
                   <li>
-                    <a href="/informasi-kanal">Kanal Pengawasan Pemilu 2024</a>
+                    <a href="">Kelas Layanan</a>
+                  </li>
+                  <li>
+                    <a href="/adiwiyata">Adiwiyata</a>
+                  </li>
+                  <li>
+                    <a href="">Struktur Organisasi</a>
+                  </li>
+                  <li>
+                    <a href="">Staf</a>
+                  </li>
+                </ul>
+              </li>
+              {/* <li className="">
+                <a href="/berita" style={{paddingLeft:"15px"}}>Berita</a>
+              </li>
+              <li className="">
+                <a href="/library" style={{paddingLeft:"15px"}}>E-Library</a>
+              </li>
+              <li className="">
+                <a href="/pengumuman" style={{paddingLeft:"15px"}}>Pengumuman</a>
+              </li> */}
+              <li className="menu-item-has-children">
+                <a
+                  href="#submenu"
+                  data-bs-toggle="collapse"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                  onClick={toggleSubmenu}>
+                  Berita
+                </a>
+                <ul
+                  className={`${isMobile ? "collapse" : "sub-menu"}`}
+                  id="submenu"
+                  data-bs-parent="#menu">
+                  <li>
+                    <a href="/berita-terbaru">Berita Terbaru</a>
+                  </li>
+                  <li>
+                    <a href="/info-sekolah">Info Sekolah</a>
+                  </li>
+                  <li>
+                    <a href="/agenda">Agenda</a>
+                  </li>
+                  <li>
+                    <a href="/galery">Galery</a>
                   </li>
                 </ul>
               </li>
@@ -253,100 +252,42 @@ function NavbarSekolah() {
                   aria-expanded="false"
                   aria-label="Toggle navigation"
                   onClick={toggleSubmenu}>
-                  Daftar Regulasi
+                  Keuangan
                 </a>
                 <ul
                   className={`${isMobile ? "collapse" : "sub-menu"}`}
                   id="submenu2"
                   data-bs-parent="#menu">
                   <li>
-                    <a href="/regulasi-public">Regulasi</a>
+                    <a href="/bos">BOS</a>
                   </li>
                   <li>
-                    <a href="/dip-public">DIP</a>
+                    <a href="/apbd">APBD</a>
                   </li>
                   <li>
-                    <a href="/sop-public">SOP</a>
-                  </li>
-                  <li>
-                    <a href="/maklumat-pelayanan">Maklumat Pelayanan</a>
+                    <a href="/komite">Komite</a>
                   </li>
                 </ul>
               </li>
-              <li className="menu-item-has-children">
-                <a
-                  href="#submenu3"
-                  data-bs-toggle="collapse"
-                  aria-controls="navbarSupportedContent"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                  onClick={toggleSubmenu}>
-                  Form Online
-                </a>
-                <ul
-                  className={`${isMobile ? "collapse" : "sub-menu"}`}
-                  id="submenu3"
-                  data-bs-parent="#menu">
-                  <li>
-                    <a href="/form-permohonan-informasi">
-                      Form Permohonan Informasi
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/form-permohonan-keberatan">
-                      Form Permohonan Keberatan
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/layanan-informasi-berbasis-android">
-                      Layanan Informasi Berbasis Adroid
-                    </a>
-                  </li>
-                </ul>
+              <li>
+                <a onClick={() => handleScrollToSection('pengumuman')} style={{paddingLeft:"15px"}}>Pengumuman</a>
               </li>
-              <li className="menu-item-has-children">
-                <a
-                  href="#submenu4"
-                  data-bs-toggle="collapse"
-                  aria-controls="navbarSupportedContent"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                  onClick={toggleSubmenu}>
-                  Prosedur
-                </a>
-                <ul
-                  className={`${isMobile ? "collapse" : "sub-menu"}`}
-                  id="submenu4"
-                  data-bs-parent="#menu">
-                  <li>
-                    <a href="/prosedur-permintaan-informasi">
-                      Prosedur Permintaan Informasi
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/prosedur-permohonan-keberatan">
-                      Prosedur Permohonan Keberatan
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/waktu-layanan">Waktu Layanan</a>
-                  </li>
-                  <li>
-                    <a href="/biaya-pelayanan">Biaya Layanan</a>
-                  </li>
-                  <li>
-                    <a href="/prosedur-permohonan-penyelesaian-sengketa-informasi">
-                      Prosedur Permohonan Penyelesaian <br /> Sengketa Informasi
-                    </a>
-                  </li>
-                </ul>
+              <li>
+                <a onClick={() => handleScrollToSection('ekstra-kulikuler')} style={{paddingLeft:"15px"}}>Ekstra Kulikuler</a>
               </li>
-              {/* <li><a href="contact.html">Contact Us</a></li> */}
+              <li>
+                <a onClick={() => handleScrollToSection('prestasi')} style={{paddingLeft:"15px"}}>Prestasi</a>
+              </li>
+              <li>
+                <a onClick={() => handleScrollToSection('alumni')} style={{paddingLeft:"15px"}}>Profil Alumni</a>
+              </li>
+              <li>
+                <a onClick={() => handleScrollToSection('hubungi-kami')} style={{paddingLeft:"15px"}}>Kontak</a>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
-      {/* <!-- navbar end --> */}
     </>
   );
 }

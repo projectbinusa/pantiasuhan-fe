@@ -1,5 +1,6 @@
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Dashbaord from "./views/pagesekolah/Dashbaord";
+import Home from "./views/pages/Home";
 import SertaMerta from "./views/pages/informasi/SertaMerta";
 import SetiapSaat from "./views/pages/informasi/SetiapSaat";
 import "./css/style.css";

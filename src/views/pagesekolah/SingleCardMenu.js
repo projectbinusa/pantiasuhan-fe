@@ -1,67 +1,116 @@
-import React from 'react';
-import { Card, CardContent, Typography, Button, Grid } from '@mui/material';
+import React from "react";
+import { Card, CardContent, Typography, Grid, Link } from "@mui/material";
+
+const announcements = [
+  {
+    id: 1,
+    title: "Pengumuman 1",
+    link: "/pengumuman1",
+    text: "Ini pengumuman pertama",
+  },
+  {
+    id: 2,
+    title: "Pengumuman 2",
+    link: "/pengumuman2",
+    text: "Ini pengumuman kedua",
+  },
+  {
+    id: 3,
+    title: "Pengumuman 3",
+    link: "/pengumuman3",
+    text: "Ini pengumuman ketiga",
+  },
+  {
+    id: 4,
+    title: "Pengumuman 4",
+    link: "/pengumuman4",
+    text: "Ini pengumuman keempat",
+  },
+];
 
 const SingleCardMenu = () => {
-  const handleScrollToSection = (id) => {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const menuItems = [
-    { id: 'pengumuman', title: 'Pengumuman' },
-    { id: 'berita-terbaru', title: 'Berita Terbaru' },
-    { id: 'ekstra-kulikuler', title: 'Ekstra Kulikuler' },
-    { id: 'prestasi', title: 'Prestasi' },
-    { id: 'guru-dan-tenaga-kependidikan', title: 'Guru dan Tenaga Kependidikan' },
-    { id: 'alumni', title: 'Alumni' },
-    { id: 'hubungi-kami', title: 'Hubungi Kami' },
-  ];
-
   return (
-    <Grid container spacing={3} style={{ padding: '0 16px' }} direction="row">
-      <Grid item xs={12} sm={6} md={4}>
-        <Card style={{ maxWidth: 400 }}>
-          <CardContent>
-            <Typography variant="h5" component="div">
-              Menu
-            </Typography>
-            {menuItems.map((item) => (
-              <Button
-                key={item.id}
-                variant="outlined"
-                color="primary"
-                onClick={() => handleScrollToSection(item.id)}
-                style={{ display: 'block', marginTop: 10 }}
+    <Grid container spacing={3} style={{ padding: "0 16px" }} direction="row">
+      <Grid item xs={12} sm={6} md={6}>
+        <Card style={{ maxWidth: 600 }}>
+          <CardContent style={{ padding: "0" }}>
+            <div
+              style={{
+                backgroundColor: "#0d47a1",
+                color: "white",
+                padding: "16px",
+                borderRadius: "8px 8px 0 0",
+                marginBottom: "16px",
+              }}
+            >
+              <Typography
+                variant="h5"
+                component="div"
+                style={{ fontWeight: "bold" }}
               >
-                {item.title}
-              </Button>
-            ))}
+                Pengumuman
+              </Typography>
+            </div>
+            <CardContent style={{ padding: "16px" }}>
+              {announcements.map((announcement, index) => (
+                <div key={announcement.id}>
+                  <Link
+                    href={announcement.link}
+                    style={{ color: "inherit", textDecoration: "none" }}
+                  >
+                    <Typography
+                      variant="h6"
+                      style={{
+                        marginBottom: "8px",
+                        fontWeight: "bold",
+                        fontSize: "1rem",
+                      }}
+                    >
+                      {announcement.text}
+                    </Typography>
+                  </Link>
+                  {index < announcements.length - 1 && (
+                    <hr
+                      style={{
+                        border: "none",
+                        borderBottom: "1px solid #000000",
+                        margin: "16px 0",
+                      }}
+                    />
+                  )}
+                </div>
+              ))}
+            </CardContent>
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12} sm={6} md={8}>
-        <Card style={{ maxWidth: 600, display: 'flex', flexDirection: 'column' }}>
+
+      <Grid item xs={12} sm={6} md={6}>
+        <div style={{ maxWidth: 600, padding: "16px", borderRadius: "8px" }}>
           <img
-            src="path-to-your-image.jpg" // Replace with the path to your image
+            src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png"
             alt="Kepala Sekolah"
-            style={{ width: '100%', height: 'auto', borderRadius: '8px 8px 0 0' }}
+            style={{
+              width: "40%",
+              height: "auto",
+              borderRadius: "8px",
+              display: "block",
+              margin: "0 auto 16px",
+            }}
           />
-          <CardContent>
-            <Typography variant="h5" component="div">
-              Kata Sambutan dari Kepala Sekolah
+          <div style={{ padding: "16px" }}>
+            <Typography variant="h6" component="div" style={{ fontWeight: "bold" }}>
+              Sambutan Kepala Sekolah
             </Typography>
             <Typography variant="body2" color="textSecondary">
-              Selamat datang di sekolah kami! Kami sangat senang Anda bergabung dengan kami dan berharap Anda mendapatkan pengalaman belajar yang bermanfaat dan menyenangkan.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Laudantium eos corporis necessitatibus alias officiis maxime optio
+              deleniti nihil laboriosam beatae reiciendis ipsam soluta
+              voluptates cumque, molestias earum dolores minima sint!{" "}
+              <Link href="/kata-sambutan"> ...Baca selengkapnya</Link>
             </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ marginTop: 16 }}
-              href="/kata-sambutan" // Replace with the link to the detailed page
-            >
-              Lihat Selengkapnya
-            </Button>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </Grid>
     </Grid>
   );
