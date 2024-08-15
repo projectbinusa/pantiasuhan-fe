@@ -107,7 +107,7 @@ const SingleCardMenu = () => {
               Laudantium eos corporis necessitatibus alias officiis maxime optio
               deleniti nihil laboriosam beatae reiciendis ipsam soluta
               voluptates cumque, molestias earum dolores minima sint!{" "}
-              <Link href="/kata-sambutan"> ...Baca selengkapnya</Link>
+              <Link href="/sambutan"> ...Baca selengkapnya</Link>
             </Typography>
           </div>
         </div>

@@ -276,7 +276,7 @@ function NavbarSekolah() {
                 <a onClick={() => handleScrollToSection('ekstra-kulikuler')} style={{paddingLeft:"15px"}}>Ekstra Kulikuler</a>
               </li>
               <li>
-                <a onClick={() => handleScrollToSection('prestasi')} style={{paddingLeft:"15px"}}>Prestasi</a>
+                <a onClick={() => handleScrollToSection('prestasi-terbaru')} style={{paddingLeft:"15px"}}>Prestasi</a>
               </li>
               <li>
                 <a onClick={() => handleScrollToSection('alumni')} style={{paddingLeft:"15px"}}>Profil Alumni</a>

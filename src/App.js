@@ -1,5 +1,5 @@
 import { Route, Switch, BrowserRouter } from "react-router-dom";
-import Dashbaord from "./views/pagesekolah/Dashbaord";
+import Dashbaord from "./views/pagesekolah/Home";
 import Home from "./views/pages/Home";
 import SertaMerta from "./views/pages/informasi/SertaMerta";
 import SetiapSaat from "./views/pages/informasi/SetiapSaat";
@@ -104,6 +104,7 @@ import AddCarousel from "./views/pages/admin/caraousel/AddCarousel";
 import AdminLibrary from "./views/pages/admin/eLibrary/AdminLibrary";
 import AddLibrary from "./views/pages/admin/eLibrary/AddLibrary";
 import PutLibrary from "./views/pages/admin/eLibrary/PutLibrary";
+import sambutan from "./views/pagesekolah/sambutan/SambutanKepala";
 
 // END ADMIN MENU REGULASI
 
@@ -117,6 +118,7 @@ function App() {
           <Route path="/register" component={Register} exact />
           {/* page */}
           <Route path="/" component={Dashbaord} exact />
+          <Route path="/sambutan" component={sambutan} exact />
 
           <Route path="/profil" component={Profil} exact />
           <Route path="/pengumuman" component={Pengumuman} exact />
