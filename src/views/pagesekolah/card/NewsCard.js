@@ -28,12 +28,6 @@ const mediaStyle = (isHovered) => ({
   transform: isHovered ? "scale(1.1)" : "scale(1)",
 });
 
-const titleStyle = {
-  textAlign: "center",
-  fontWeight: "bold",
-  marginBottom: "10px",
-};
-
 const contentStyle = {
   textAlign: "left",
 };
@@ -63,9 +57,17 @@ const dateTextStyle = {
   lineHeight: "12px",
 };
 
-const NewsCard = ({ image, title, content, date }) => {
+const NewsCard = ({ image, title, content, date, id }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isHovereds, setIsHovereds] = useState(false);
   const [day, month, year] = date.split(" ");
+
+  const titleStyle = {
+    textAlign: "center",
+    fontWeight: "bold",
+    marginBottom: "10px",
+    color: isHovereds ? "#FFCC00" : "#000000",
+  };
 
   return (
     <Card
@@ -84,14 +86,23 @@ const NewsCard = ({ image, title, content, date }) => {
         {date && (
           <div style={dateContainerStyle}>
             <div style={dateNumberStyle}>{day}</div>
-            <div style={dateTextStyle}>{month} {year}</div>
+            <div style={dateTextStyle}>
+              {month} {year}
+            </div>
           </div>
         )}
       </div>
       <CardContent>
-        <Typography variant="h6" component="div" style={titleStyle}>
-          {title}
-        </Typography>
+        <a
+          onMouseEnter={() => setIsHovereds(true)}
+          onMouseLeave={() => setIsHovereds(false)}
+          href={`/detail-berita/${id}`}
+          style={{ textDecoration: "none" }}
+        >
+          <Typography variant="h6" component="div" style={titleStyle}>
+            {title}
+          </Typography>
+        </a>
         <Typography variant="body2" color="textSecondary" style={contentStyle}>
           {content}
         </Typography>

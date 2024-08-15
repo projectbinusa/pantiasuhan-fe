@@ -259,16 +259,6 @@ function Home() {
     fontSize: "18px",
     padding: "10px",
   };
-  
-  const mapStyle = {
-    width: "100%",
-    height: "500px",
-    border: "none",
-  };
-  
-  const contactInfoStyle = {
-    textAlign: "left",
-  };
 
   const textOverlayStyle = {
     position: "absolute",
@@ -281,13 +271,14 @@ function Home() {
     textAlign: "center",
   };
 
-  const newsItems = Array(6).fill({
-    image:
-      "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-    title: "Berita Terbaru",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  });
+  const newsItems = [
+   { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "1", title: "Berita 1", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+   { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "2", title: "Berita 2", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+   { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "3", title: "Berita 3", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+   { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "4", title: "Berita 4", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+   { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "5", title: "Berita 5", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+   { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "6", title: "Berita 6", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+  ]
 
   const darkColors = [
     "#2c3e50",
@@ -396,10 +387,7 @@ function Home() {
       <div
         style={{ position: "relative", height: "600px", overflow: "hidden" }}
       >
-        <img
-          src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
-          style={imageStyle}
-        />
+        <img src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no" style={imageStyle} alt="" />
         <div style={textOverlayStyle}>
           <p style={{ color: "white" }}>SMP Negeri 1 BERGAS</p>
         </div>
@@ -431,6 +419,7 @@ function Home() {
               <div style={{ width: "100%", maxWidth: "400px" }} key={index}>
                 <NewsCard
                   image={item.image}
+                  id={item.id}
                   title={item.title}
                   content={item.content}
                   date="12 August 2024"
@@ -439,7 +428,7 @@ function Home() {
             ))}
           </div>
           <Link
-            href="/all-Berita"
+            href="/news"
             style={buttonStyles}
             onMouseEnter={() => setIsHovereds(true)}
             onMouseLeave={() => setIsHovereds(false)}
@@ -497,6 +486,7 @@ function Home() {
             {prestasiItems.map((item, index) => (
               <PrestasiCard
                 key={index}
+                id={item.id}
                 image={item.image}
                 title={item.title}
                 content={item.content}
@@ -643,7 +633,7 @@ function Home() {
       </div>
 
       <div style={contactSectionStyle}>
-        <section id="alumni" style={sectionStylesss}>
+        <section id="kontak" style={sectionStylesss}>
           <Typography
             style={{
               fontWeight: "bold",
