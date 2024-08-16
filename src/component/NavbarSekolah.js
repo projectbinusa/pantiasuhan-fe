@@ -51,6 +51,7 @@ function NavbarSekolah() {
   const handleScrollToSection = (id) => {
     document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
   };
+
   return (
     // <!-- navbar start -->
     <>
@@ -126,16 +127,15 @@ function NavbarSekolah() {
           </div>
         </div>
       </div>
+
       <nav
-        className={`navbar-area navbar-area-2 navbar-expand-lg ${
-          isSticky ? "sticky-active" : ""
-        }`}>
-        <div className="container nav-container m-0">
+        className={`navbar-area navbar-area-2 navbar-expand-lg ${isSticky ? "sticky-active" : ""
+          }`}>
+        <div className="nav-container m-0">
           <div className="responsive-mobile-menu">
             <button
-              className={`d-lg-none menu toggle-btn ${
-                menuOpen ? "is-active" : ""
-              }`}
+              className={`d-lg-none menu toggle-btn ${menuOpen ? "is-active" : ""
+                }`}
               onClick={toggleMenu}
               data-target="#Iitechie_main_menu"
               aria-expanded="false"
@@ -147,12 +147,12 @@ function NavbarSekolah() {
 
           <div className="d-inline-block d-lg-none">
             <a href="/">
-              <img src="https://boyolali.bawaslu.go.id/sites/boyolali/files/bawaslu_logo.png" />
+              <img style={{ width: "45px", height: "40px" }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd1W6Zktkl7wn7ar4kZHzbHhrugJNTkJMKjg&s" />
             </a>
           </div>
           <div
             style={{
-              width: windowWidth > 800 ? "max-content" : "",
+              width: windowWidth > 992 ? "max-content" : "",
               textAlign: "center",
             }}
             className={`collapse navbar-collapse ${menuOpen ? "sopen" : ""}`}
@@ -165,7 +165,7 @@ function NavbarSekolah() {
                 display: "flex",
               }}>
               <li className="">
-                <a href="/" style={{paddingLeft:"15px"}}>Home</a>
+                <a href="/" style={{ paddingLeft: "15px" }}>Beranda</a>
               </li>
               <li className="menu-item-has-children">
                 <a
@@ -175,14 +175,14 @@ function NavbarSekolah() {
                   aria-expanded="false"
                   aria-label="Toggle navigation"
                   onClick={toggleSubmenu}>
-                  Profile Sekolah
+                  Profil Sekolah
                 </a>
                 <ul
                   className={`${isMobile ? "collapse" : "sub-menu"}`}
                   id="submenu"
                   data-bs-parent="#menu">
                   <li>
-                    <a href="/Sambutan">Sambutan Kepala Sekolah</a>
+                    <a href="/sambutan">Sambutan Kepala Sekolah</a>
                   </li>
                   <li>
                     <a href="/sejarah">Sejarah</a>
@@ -194,31 +194,16 @@ function NavbarSekolah() {
                     <a href="/sarana-prasarana">Sarana Prasarana</a>
                   </li>
                   <li>
-                    <a href="">Kelas Layanan</a>
+                    <a href="/stuktur-organisasi">Struktur Organisasi</a>
                   </li>
                   <li>
-                    <a href="/adiwiyata">Adiwiyata</a>
-                  </li>
-                  <li>
-                    <a href="">Struktur Organisasi</a>
-                  </li>
-                  <li>
-                    <a href="">Staf</a>
+                    <a href="/staff">Staff</a>
                   </li>
                 </ul>
               </li>
-              {/* <li className="">
-                <a href="/berita" style={{paddingLeft:"15px"}}>Berita</a>
-              </li>
-              <li className="">
-                <a href="/library" style={{paddingLeft:"15px"}}>E-Library</a>
-              </li>
-              <li className="">
-                <a href="/pengumuman" style={{paddingLeft:"15px"}}>Pengumuman</a>
-              </li> */}
               <li className="menu-item-has-children">
                 <a
-                  href="#submenu"
+                  href="#submenu2"
                   data-bs-toggle="collapse"
                   aria-controls="navbarSupportedContent"
                   aria-expanded="false"
@@ -228,8 +213,8 @@ function NavbarSekolah() {
                 </a>
                 <ul
                   className={`${isMobile ? "collapse" : "sub-menu"}`}
-                  id="submenu"
-                  data-bs-parent="#menu">
+                  id="submenu2"
+                  data-bs-parent="#menu2">
                   <li>
                     <a href="/berita-terbaru">Berita Terbaru</a>
                   </li>
@@ -246,7 +231,7 @@ function NavbarSekolah() {
               </li>
               <li className="menu-item-has-children">
                 <a
-                  href="#submenu2"
+                  href="#submenu3"
                   data-bs-toggle="collapse"
                   aria-controls="navbarSupportedContent"
                   aria-expanded="false"
@@ -256,7 +241,7 @@ function NavbarSekolah() {
                 </a>
                 <ul
                   className={`${isMobile ? "collapse" : "sub-menu"}`}
-                  id="submenu2"
+                  id="submenu3"
                   data-bs-parent="#menu">
                   <li>
                     <a href="/bos">BOS</a>
@@ -270,19 +255,13 @@ function NavbarSekolah() {
                 </ul>
               </li>
               <li>
-                <a onClick={() => handleScrollToSection('pengumuman')} style={{paddingLeft:"15px"}}>Pengumuman</a>
+                <a onClick={() => handleScrollToSection('ekstra-kulikuler')} style={{ paddingLeft: "15px", cursor: "pointer" }}>Ekstrakulikuler</a>
               </li>
               <li>
-                <a onClick={() => handleScrollToSection('ekstra-kulikuler')} style={{paddingLeft:"15px"}}>Ekstra Kulikuler</a>
+                <a onClick={() => handleScrollToSection('prestasi-terbaru')} style={{ paddingLeft: "15px", cursor: "pointer" }}>Prestasi</a>
               </li>
               <li>
-                <a onClick={() => handleScrollToSection('prestasi-terbaru')} style={{paddingLeft:"15px"}}>Prestasi</a>
-              </li>
-              <li>
-                <a onClick={() => handleScrollToSection('alumni')} style={{paddingLeft:"15px"}}>Profil Alumni</a>
-              </li>
-              <li>
-                <a onClick={() => handleScrollToSection('hubungi-kami')} style={{paddingLeft:"15px"}}>Kontak</a>
+                <a onClick={() => handleScrollToSection('hubungi-kami')} style={{ paddingLeft: "15px", cursor: "pointer" }}>Kontak</a>
               </li>
             </ul>
           </div>

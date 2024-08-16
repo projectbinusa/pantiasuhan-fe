@@ -1,25 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
-const cardStyle = {
-  display: 'flex',
-  textAlign: "left",
-  border: '1px solid #ddd',
-  borderRadius: '10px',
-  padding: '20px',
-  marginBottom: '20px',
-  backgroundColor: '#fff',
-  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-};
-
-const imageStyle = {
-  width: '400px',
-  height: '250px',
-  objectFit: 'cover',
-  borderRadius: '8px',
-  marginRight: '20px',
-};
+import "../../../css/prestasi/card.css";
 
 const contentStyle = {
   flex: 1,
@@ -90,11 +70,11 @@ const PrestasiCard = ({ image, title, content, date, participant, description, i
 
   return (
     <div
-      style={cardStyle}
+      className="card-style"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img src={image} alt={title} style={imageStyle} />
+      <img src={image} alt={title} className="image-style" />
       <div style={contentStyle}>
         <a href={`/prestasi/${id}`} style={{ textDecoration: 'none' }}>
           <div style={titleStyle}>{title}</div>
