@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import Ikon from "../../../aset/ikon-web.png";
 import Swal from "sweetalert2";
 import axios from "axios";
+import logo from "../../../aset/smpn1bergas/logoSekolah.jpeg";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -31,7 +32,7 @@ function Login() {
           showConfirmButton: false,
           timer: 1500,
         });
-        history.push("/admin-berita");
+        history.push("/admin-guru");
         setTimeout(() => {
           window.location.reload();
         }, 1500);
@@ -75,7 +76,7 @@ function Login() {
               className="header-text mb-4 text-center "
               style={{ marginTop: "20px" }}>
               <h2>
-                <img style={{ width: "40px" }} src={Ikon} /> Login
+                <img style={{ width: "40px", height:"50px" }} src={logo} /> Login
               </h2>
               <p>Selamat Datang Kembali</p>
             </div>
