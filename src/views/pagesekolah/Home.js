@@ -242,7 +242,7 @@ function Home() {
     textAlign: "center",
     marginBottom: "40px",
   };
-  
+
   const formStyle = {
     display: "flex",
     flexDirection: "column",
@@ -251,7 +251,7 @@ function Home() {
     left: "0",
     alignItems: "left"
   };
-  
+
   const inputStyle = {
     marginBottom: "20px",
     width: "100%",
@@ -259,13 +259,13 @@ function Home() {
     fontSize: "18px",
     padding: "10px",
   };
-  
+
   const mapStyle = {
     width: "100%",
     height: "500px",
     border: "none",
   };
-  
+
   const contactInfoStyle = {
     textAlign: "left",
   };
@@ -439,7 +439,7 @@ function Home() {
             ))}
           </div>
           <Link
-            href="/all-Berita"
+            to="/all-Berita"
             style={buttonStyles}
             onMouseEnter={() => setIsHovereds(true)}
             onMouseLeave={() => setIsHovereds(false)}
