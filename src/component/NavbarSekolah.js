@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/gabung.css";
+import "../css/style.css";
 
 function NavbarSekolah() {
   const [isSticky, setIsSticky] = useState(false);

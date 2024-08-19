@@ -1,22 +1,10 @@
 import React, { useState } from "react";
-
-const cardStyle = {
-  display: "flex",
-  textAlign: "left",
-  border: "1px solid #ddd",
-  borderRadius: "10px",
-  padding: "20px",
-  marginBottom: "20px",
-  backgroundColor: "#fff",
-  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-  transition: "transform 0.3s ease, box-shadow 0.3s ease",
-};
+import "../../../css/prestasi/card.css"
 
 const imageStyle = {
-  width: "400px",
+  width: "100%",
   height: "250px",
   objectFit: "cover",
-  borderRadius: "8px",
   marginRight: "20px",
 };
 
@@ -43,11 +31,12 @@ const detailsStyle = {
 };
 
 const participantStyle = {
-  fontSize: "20px",
+  fontSize: "1.1em",
   color: "#333",
   marginTop: "10px",
   display: "flex",
   alignItems: "center",
+  fontWeight: "600"
 };
 
 const descriptionStyle = {
@@ -60,8 +49,8 @@ const descriptionStyle = {
 const UserIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
+    width="20"
+    height="20"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -96,7 +85,7 @@ const PrestasiCard = ({
   };
 
   return (
-    <div style={cardStyle}>
+    <div className="card-style">
       <img src={image} alt={title} style={imageStyle} />
       <div style={contentStyle}>
         <a
@@ -109,14 +98,14 @@ const PrestasiCard = ({
         </a>
         <div style={dateStyle}>{date}</div>
         <hr style={separatorStyle} />
-        <div style={detailsStyle}>{content}</div>
+        <div style={detailsStyle}>Skala {content}</div>
         <div style={participantStyle}>
           <UserIcon style={{ marginRight: "10px" }} />
           <span>
-            <strong>:</strong> {participant}
+            <strong style={{paddingLeft: "0.2rem"}}>:</strong> {participant}
           </span>
         </div>
-        {description && <div style={descriptionStyle}>{description}</div>}
+        {description && <div style={descriptionStyle}>Penyelenggara {description}</div>}
       </div>
     </div>
   );
