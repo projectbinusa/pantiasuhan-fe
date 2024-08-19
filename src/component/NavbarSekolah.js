@@ -1,7 +1,4 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { API_DUMMY } from "../utils/base_URL";
 import "../css/gabung.css";
 
 function NavbarSekolah() {
@@ -216,7 +213,7 @@ function NavbarSekolah() {
                   id="submenu2"
                   data-bs-parent="#menu2">
                   <li>
-                    <a href="/berita-terbaru">Berita Terbaru</a>
+                    <a href="/news">Berita Terbaru</a>
                   </li>
                   <li>
                     <a href="/info-sekolah">Info Sekolah</a>

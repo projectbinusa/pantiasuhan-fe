@@ -104,7 +104,36 @@ import AddCarousel from "./views/pages/admin/caraousel/AddCarousel";
 import AdminLibrary from "./views/pages/admin/eLibrary/AdminLibrary";
 import AddLibrary from "./views/pages/admin/eLibrary/AddLibrary";
 import PutLibrary from "./views/pages/admin/eLibrary/PutLibrary";
+
+// pageSekolah
 import sambutan from "./views/pagesekolah/sambutan/SambutanKepala";
+<<<<<<< HEAD
+=======
+import beritaNews from "./views/pagesekolah/berita/beritaNews";
+import Guru from "./views/pages/admin/smpn1bergas/menu/guru/Guru";
+import Alumni from "./views/pages/admin/smpn1bergas/menu/alumni/Alumni";
+import Kontak from "./views/pages/admin/smpn1bergas/menu/kontak/Kontak";
+import Sejarah from "./views/pages/admin/smpn1bergas/menu/sejarah/Sejarah";
+import Sambutan from "./views/pagesekolah/sambutan/SambutanKepala";
+import TenagaKenpendidikan from "./views/pages/admin/smpn1bergas/profileSekolah/tenagaKependidikan/TenagaKenpendidikan";
+import VisiMisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/VisiMisi";
+import TenagaPendidikan from "./views/pages/admin/smpn1bergas/profileSekolah/tenagaPendidikan/TenagaPendidikan";
+import AddGuru from "./views/pages/admin/smpn1bergas/menu/guru/AddGuru";
+import EditGuru from "./views/pages/admin/smpn1bergas/menu/guru/EditGuru";
+import AddAlumni from "./views/pages/admin/smpn1bergas/menu/alumni/AddAlumni";
+import EditAlumni from "./views/pages/admin/smpn1bergas/menu/alumni/EditAlumni";
+import AddKontak from "./views/pages/admin/smpn1bergas/menu/kontak/AddKontak";
+import EditKontak from "./views/pages/admin/smpn1bergas/menu/kontak/EditKontak";
+import AdminSambutan from "./views/pages/admin/smpn1bergas/menu/sambutan/Sambutan";
+import AddSambutan from "./views/pages/admin/smpn1bergas/menu/sambutan/AddSambutan";
+import EditSambutan from "./views/pages/admin/smpn1bergas/menu/sambutan/EditSambutan";
+import EditSejarah from "./views/pages/admin/smpn1bergas/menu/sejarah/EditSejarah";
+import AddSejarah from "./views/pages/admin/smpn1bergas/menu/sejarah/AddSejarah";
+import AddVisiMisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/AddVisiMisi";
+import EditVisiMisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/EditVisiMisi";
+import AddTenagaKependidikan from "./views/pages/admin/smpn1bergas/profileSekolah/tenagaKependidikan/AddTenagaKependidikan";
+import EditTenagaKependidikan from "./views/pages/admin/smpn1bergas/profileSekolah/tenagaKependidikan/EditTenagaKependidikan";
+>>>>>>> 2eb26dd5f10a4aef3fa9fa1dd194138704b006e5
 
 // END ADMIN MENU REGULASI
 
@@ -119,6 +148,8 @@ function App() {
           {/* page */}
           <Route path="/" component={Dashbaord} exact />
           <Route path="/sambutan" component={sambutan} exact />
+          <Route path="/news" component={beritaNews} exact />
+          
 
           <Route path="/profil" component={Profil} exact />
           <Route path="/pengumuman" component={Pengumuman} exact />
