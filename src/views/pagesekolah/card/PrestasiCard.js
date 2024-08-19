@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
 
 const cardStyle = {
-  display: 'flex',
+  display: "flex",
   textAlign: "left",
-  border: '1px solid #ddd',
-  borderRadius: '10px',
-  padding: '20px',
-  marginBottom: '20px',
-  backgroundColor: '#fff',
-  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+  border: "1px solid #ddd",
+  borderRadius: "10px",
+  padding: "20px",
+  marginBottom: "20px",
+  backgroundColor: "#fff",
+  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+  transition: "transform 0.3s ease, box-shadow 0.3s ease",
 };
 
 const imageStyle = {
-  width: '400px',
-  height: '250px',
-  objectFit: 'cover',
-  borderRadius: '8px',
-  marginRight: '20px',
+  width: "400px",
+  height: "250px",
+  objectFit: "cover",
+  borderRadius: "8px",
+  marginRight: "20px",
 };
 
 const contentStyle = {
@@ -26,36 +25,36 @@ const contentStyle = {
 };
 
 const dateStyle = {
-  fontSize: '16px',
-  color: '#777',
-  marginBottom: '10px',
+  fontSize: "16px",
+  color: "#777",
+  marginBottom: "10px",
 };
 
 const separatorStyle = {
-  border: 'none',
-  borderTop: '2px solid black',
-  margin: '10px 0',
+  border: "none",
+  borderTop: "2px solid black",
+  margin: "10px 0",
 };
 
 const detailsStyle = {
-  fontSize: '18px',
-  color: '#555',
-  marginBottom: '10px',
+  fontSize: "18px",
+  color: "#555",
+  marginBottom: "10px",
 };
 
 const participantStyle = {
-  fontSize: '20px',
-  color: '#333',
-  marginTop: '10px',
-  display: 'flex',
-  alignItems: 'center',
+  fontSize: "20px",
+  color: "#333",
+  marginTop: "10px",
+  display: "flex",
+  alignItems: "center",
 };
 
 const descriptionStyle = {
-  fontSize: '16px',
-  color: '#333',
-  marginTop: '10px',
-  lineHeight: '1.5',
+  fontSize: "16px",
+  color: "#333",
+  marginTop: "10px",
+  lineHeight: "1.5",
 };
 
 const UserIcon = () => (
@@ -76,37 +75,46 @@ const UserIcon = () => (
   </svg>
 );
 
-const PrestasiCard = ({ image, title, content, date, participant, description, id }) => {
+const PrestasiCard = ({
+  image,
+  title,
+  content,
+  date,
+  participant,
+  description,
+  id,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const titleStyle = {
-    fontSize: '22px',
-    fontWeight: 'bold',
-    marginBottom: '10px',
-    color: isHovered ? '#00f' : '#333', // Light blue on hover
-    cursor: 'pointer',
-    transition: 'color 0.3s ease',
+    fontSize: "22px",
+    fontWeight: "bold",
+    marginBottom: "10px",
+    color: isHovered ? "#00f" : "#333",
+    cursor: "pointer",
+    transition: "color 0.3s ease",
   };
 
   return (
-    <div
-      style={cardStyle}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div style={cardStyle}>
       <img src={image} alt={title} style={imageStyle} />
       <div style={contentStyle}>
-        <a href={`/prestasi/${id}`} style={{ textDecoration: 'none' }}>
+        <a
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          href={`/prestasi/${id}`}
+          style={{ textDecoration: "none" }}
+        >
           <div style={titleStyle}>{title}</div>
         </a>
         <div style={dateStyle}>{date}</div>
         <hr style={separatorStyle} />
-        <div style={detailsStyle}>
-          {content}
-        </div>
+        <div style={detailsStyle}>{content}</div>
         <div style={participantStyle}>
-          <UserIcon style={{ marginRight: '10px' }} />
-          <span><strong>:</strong> {participant}</span>
+          <UserIcon style={{ marginRight: "10px" }} />
+          <span>
+            <strong>:</strong> {participant}
+          </span>
         </div>
         {description && <div style={descriptionStyle}>{description}</div>}
       </div>

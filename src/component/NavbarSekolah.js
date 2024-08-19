@@ -1,7 +1,4 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { API_DUMMY } from "../utils/base_URL";
 import "../css/gabung.css";
 
 function NavbarSekolah() {
@@ -207,15 +204,6 @@ function NavbarSekolah() {
                   </li>
                 </ul>
               </li>
-              {/* <li className="">
-                <a href="/berita" style={{paddingLeft:"15px"}}>Berita</a>
-              </li>
-              <li className="">
-                <a href="/library" style={{paddingLeft:"15px"}}>E-Library</a>
-              </li>
-              <li className="">
-                <a href="/pengumuman" style={{paddingLeft:"15px"}}>Pengumuman</a>
-              </li> */}
               <li className="menu-item-has-children">
                 <a
                   href="#submenu"
@@ -231,7 +219,7 @@ function NavbarSekolah() {
                   id="submenu"
                   data-bs-parent="#menu">
                   <li>
-                    <a href="/berita-terbaru">Berita Terbaru</a>
+                    <a href="/news">Berita Terbaru</a>
                   </li>
                   <li>
                     <a href="/info-sekolah">Info Sekolah</a>

@@ -104,7 +104,10 @@ import AddCarousel from "./views/pages/admin/caraousel/AddCarousel";
 import AdminLibrary from "./views/pages/admin/eLibrary/AdminLibrary";
 import AddLibrary from "./views/pages/admin/eLibrary/AddLibrary";
 import PutLibrary from "./views/pages/admin/eLibrary/PutLibrary";
+
+// pageSekolah
 import sambutan from "./views/pagesekolah/sambutan/SambutanKepala";
+import beritaNews from "./views/pagesekolah/berita/beritaNews";
 import Guru from "./views/pages/admin/smpn1bergas/menu/guru/Guru";
 import Alumni from "./views/pages/admin/smpn1bergas/menu/alumni/Alumni";
 import Kontak from "./views/pages/admin/smpn1bergas/menu/kontak/Kontak";
@@ -142,6 +145,8 @@ function App() {
           {/* page */}
           <Route path="/" component={Dashbaord} exact />
           <Route path="/sambutan" component={sambutan} exact />
+          <Route path="/news" component={beritaNews} exact />
+          
 
           <Route path="/profil" component={Profil} exact />
           <Route path="/pengumuman" component={Pengumuman} exact />
