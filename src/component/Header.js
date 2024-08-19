@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Swal from "sweetalert2";
 import { API_DUMMY } from "../utils/base_URL";
 import axios from "axios";
+import logo from "../aset/smpn1bergas.png"
 
 function Header() {
   const [isSticky, setIsSticky] = useState(false);
@@ -110,9 +111,8 @@ function Header() {
     <>
       <div className="app-header header-shadow">
         <div className="app-header__logo">
-          <img
-            style={{ width: "60%" }}
-            src="https://upload.wikimedia.org/wikipedia/commons/6/62/Logo_Bawaslu.png"
+          <img className="logosmpn1bergas"
+            src={logo}
           />
           <div className="header__pane ml-auto">
             <div>
