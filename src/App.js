@@ -108,6 +108,29 @@ import PutLibrary from "./views/pages/admin/eLibrary/PutLibrary";
 // pageSekolah
 import sambutan from "./views/pagesekolah/sambutan/SambutanKepala";
 import beritaNews from "./views/pagesekolah/berita/beritaNews";
+import Guru from "./views/pages/admin/smpn1bergas/menu/guru/Guru";
+import Alumni from "./views/pages/admin/smpn1bergas/menu/alumni/Alumni";
+import Kontak from "./views/pages/admin/smpn1bergas/menu/kontak/Kontak";
+import Sejarah from "./views/pages/admin/smpn1bergas/menu/sejarah/Sejarah";
+import Sambutan from "./views/pagesekolah/sambutan/SambutanKepala";
+import TenagaKenpendidikan from "./views/pages/admin/smpn1bergas/profileSekolah/tenagaKependidikan/TenagaKenpendidikan";
+import VisiMisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/VisiMisi";
+import TenagaPendidikan from "./views/pages/admin/smpn1bergas/profileSekolah/tenagaPendidikan/TenagaPendidikan";
+import AddGuru from "./views/pages/admin/smpn1bergas/menu/guru/AddGuru";
+import EditGuru from "./views/pages/admin/smpn1bergas/menu/guru/EditGuru";
+import AddAlumni from "./views/pages/admin/smpn1bergas/menu/alumni/AddAlumni";
+import EditAlumni from "./views/pages/admin/smpn1bergas/menu/alumni/EditAlumni";
+import AddKontak from "./views/pages/admin/smpn1bergas/menu/kontak/AddKontak";
+import EditKontak from "./views/pages/admin/smpn1bergas/menu/kontak/EditKontak";
+import AdminSambutan from "./views/pages/admin/smpn1bergas/menu/sambutan/Sambutan";
+import AddSambutan from "./views/pages/admin/smpn1bergas/menu/sambutan/AddSambutan";
+import EditSambutan from "./views/pages/admin/smpn1bergas/menu/sambutan/EditSambutan";
+import EditSejarah from "./views/pages/admin/smpn1bergas/menu/sejarah/EditSejarah";
+import AddSejarah from "./views/pages/admin/smpn1bergas/menu/sejarah/AddSejarah";
+import AddVisiMisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/AddVisiMisi";
+import EditVisiMisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/EditVisiMisi";
+import AddTenagaKependidikan from "./views/pages/admin/smpn1bergas/profileSekolah/tenagaKependidikan/AddTenagaKependidikan";
+import EditTenagaKependidikan from "./views/pages/admin/smpn1bergas/profileSekolah/tenagaKependidikan/EditTenagaKependidikan";
 
 // END ADMIN MENU REGULASI
 
@@ -244,6 +267,70 @@ function App() {
           />
 
           {/* admin */}
+
+          {/* admin smpn1bergas */}
+          {/* guru */}
+          <PrivateRoute path="/admin-guru" component={Guru} exact />
+          <PrivateRoute path="/add-guru" component={AddGuru} exact />
+          <PrivateRoute path="/edit-guru/:id" component={EditGuru} exact />
+          {/* end guru */}
+          {/* alumni */}
+          <PrivateRoute path="/admin-alumni" component={Alumni} exact />
+          <PrivateRoute path="/add-alumni" component={AddAlumni} exact />
+          <PrivateRoute path="/edit-alumni/:id" component={EditAlumni} exact />
+          {/* edit alumni */}
+          {/* kontak */}
+          <PrivateRoute path="/admin-kontak" component={Kontak} exact />
+          <PrivateRoute path="/add-kontak" component={AddKontak} exact />
+          <PrivateRoute path="/edit-kontak/:id" component={EditKontak} exact />
+          {/* end kontak */}
+          {/* sambutan */}
+          <PrivateRoute
+            path="/admin-sambutan"
+            component={AdminSambutan}
+            exact
+          />
+          <PrivateRoute path="/add-sambutan" component={AddSambutan} exact />
+          <PrivateRoute
+            path="/edit-sambutan/:id"
+            component={EditSambutan}
+            exact
+          />
+          {/* end sambutan */}
+          {/* sejarah */}
+          <PrivateRoute path="/admin-sejarah" component={Sejarah} exact />
+          <PrivateRoute path="/add-sejarah" component={AddSejarah} exact />
+          <PrivateRoute path="/edit-sejarah/:id" component={EditSejarah} exact />
+          {/* end Sejarah */}
+          {/* tenaga kependidikan */}
+          <PrivateRoute
+            path="/admin-tenaga-kependidikan"
+            component={TenagaKenpendidikan}
+            exact
+          />
+          <PrivateRoute
+            path="/add-tenaga-kependidikan"
+            component={AddTenagaKependidikan}
+            exact
+          />
+          <PrivateRoute
+            path="/edit-tenaga-kependidikan/:id"
+            component={EditTenagaKependidikan}
+            exact
+          />
+          {/* end tenaga kependidikan */}
+          {/* VisiMisi */}
+          <PrivateRoute path="/admin-visimisi" component={VisiMisi} exact />
+          <PrivateRoute path="/add-visimisi" component={AddVisiMisi} exact />
+          <PrivateRoute path="/edit-visimisi/:id" component={EditVisiMisi} exact />
+          {/* end visimisi */}
+          <PrivateRoute
+            path="/admin-tenaga-pendidikan"
+            component={TenagaPendidikan}
+            exact
+          />
+          {/* end admin smpn1bergas */}
+
           {/* eLibrary */}
           <PrivateRoute path="/admin-library" component={AdminLibrary} exact />
           <PrivateRoute

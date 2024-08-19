@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "aos": "^2.3.4",
     "axios": "^1.6.0",
+    "bawaslu-client": "file:",
     "bootstrap": "^5.3.2",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
