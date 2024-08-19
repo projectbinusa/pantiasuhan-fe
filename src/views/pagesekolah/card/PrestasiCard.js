@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+import React, { useState } from 'react';
+import "../../../css/prestasi/card.css";
+=======
 import React, { useState } from "react";
 
 const cardStyle = {
@@ -19,6 +23,7 @@ const imageStyle = {
   borderRadius: "8px",
   marginRight: "20px",
 };
+>>>>>>> 2eb26dd5f10a4aef3fa9fa1dd194138704b006e5
 
 const contentStyle = {
   flex: 1,
@@ -96,8 +101,17 @@ const PrestasiCard = ({
   };
 
   return (
+<<<<<<< HEAD
+    <div
+      className="card-style"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <img src={image} alt={title} className="image-style" />
+=======
     <div style={cardStyle}>
       <img src={image} alt={title} style={imageStyle} />
+>>>>>>> 2eb26dd5f10a4aef3fa9fa1dd194138704b006e5
       <div style={contentStyle}>
         <a
           onMouseEnter={() => setIsHovered(true)}

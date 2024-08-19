@@ -26,6 +26,12 @@ const announcements = [
     link: "/pengumuman4",
     text: "Ini pengumuman keempat",
   },
+  {
+    id: 5,
+    title: "Pengumuman 5",
+    link: "/pengumuman5",
+    text: "Ini pengumuman kelima",
+  },
 ];
 
 const SingleCardMenu = () => {
@@ -103,10 +109,8 @@ const SingleCardMenu = () => {
               Sambutan Kepala Sekolah
             </Typography>
             <Typography variant="body2" color="textSecondary">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Laudantium eos corporis necessitatibus alias officiis maxime optio
-              deleniti nihil laboriosam beatae reiciendis ipsam soluta
-              voluptates cumque, molestias earum dolores minima sint!{" "}
+              Assalamu'alaikum Warahmatullahi Wabarakatuh,
+              Puji syukur kita panjatkan kehadirat Allah SWT yang telah memberikan rahmat dan karunia-Nya sehingga kita dapat melaksanakan tugas dan aktivitas kita sehari-hari dengan baik.
               <Link href="/sambutan"> ...Baca selengkapnya</Link>
             </Typography>
           </div>

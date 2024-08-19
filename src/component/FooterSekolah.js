@@ -4,24 +4,6 @@ import React, { useEffect, useState } from "react";
 import { API_DUMMY } from "../utils/base_URL";
 
 function FooterSekolah() {
-  const [category, setCategory] = useState([]);
-
-  const getCategoryBerita = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/bawaslu/api/category-berita/all-limit-7`
-      );
-      setCategory(response.data.data);
-      console.log(response.data.data);
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
-  };
-
-  useEffect(() => {
-    getCategoryBerita();
-  }, []);
-
   return (
     <>
       <footer
@@ -31,7 +13,7 @@ function FooterSekolah() {
         }}>
         <div className="container">
           <div className="row gap-5">
-            <div className="col-lg-3 col-md-6">
+            <div className="col-lg-4 col-md-6">
               <div className="widget widget_about">
                 <h4 className="widget-title">SMP Negeri 1 Bergas</h4>
                 <div className="details">
@@ -42,25 +24,15 @@ function FooterSekolah() {
                     <li>
                       <a
                         className="facebook"
-                        href="https://www.facebook.com/Bawaslu.Kabupaten.Boyolali"
-                        target="_blank"
+                        href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"                        target="_blank"
                         rel="noreferrer">
                         <i className="fab fa-facebook-f"></i>
                       </a>
                     </li>
                     <li>
                       <a
-                        className="twitter"
-                        href="https://twitter.com/i/flow/login?redirect_after_login=%2Fbawasluboyolali"
-                        target="_blank"
-                        rel="noreferrer">
-                        <i className="fab fa-twitter"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a
                         className="instagram"
-                        href="https://www.instagram.com/bawaslu_boyolali/"
+                        href="https://www.instagram.com/osisspensagas"
                         target="_blank"
                         rel="noreferrer">
                         <i className="fab fa-instagram"></i>
@@ -69,7 +41,7 @@ function FooterSekolah() {
                     <li>
                       <a
                         className="youtube"
-                        href="https://www.youtube.com/channel/UC-OZT-HT_Qg7cUmo-oHfkAw"
+                        href="https://www.youtube.com/@OSIS-SMPN1Bergas"
                         target="_blank"
                         rel="noreferrer">
                         <i className="fab fa-youtube"></i>
@@ -79,28 +51,7 @@ function FooterSekolah() {
                 </div>
               </div>
             </div>
-            <div className="col-lg-3 col-md-6">
-              <div className="widget widget_nav_menu row">
-                <h4 className="widget-title">Kategori</h4>
-                {category.map((cate) => {
-                  return (
-                    <div className="col-lg-8 col-md-6">
-                      {" "}
-                      <ul>
-                        <li>
-                          <a
-                            style={{ color: "white", textDecoration: "none" }}
-                            href={`category-berita/${cate.category}/${cate.id}`}>
-                            {cate.category}
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="col-lg-3 col-md-6">
+            <div className="col-lg-4 col-md-6">
               <div className="widget widget_subscribe">
                 <h4 className="widget-title">Alamat</h4>
                 <div className="details">
@@ -127,7 +78,7 @@ function FooterSekolah() {
                   <li>
                     <a
                       className="facebook"
-                    //   href="https://www.facebook.com/Bawaslu.Kabupaten.Boyolali"
+                      href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-facebook-f"></i>
@@ -135,17 +86,8 @@ function FooterSekolah() {
                   </li>
                   <li>
                     <a
-                      className="twitter"
-                    //   href="https://twitter.com/i/flow/login?redirect_after_login=%2Fbawasluboyolali"
-                      target="_blank"
-                      rel="noreferrer">
-                      <i className="fab fa-twitter"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a
                       className="instagram"
-                    //   href="https://www.instagram.com/bawaslu_boyolali/"
+                      href="https://www.instagram.com/osisspensagas"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-instagram"></i>
@@ -154,7 +96,7 @@ function FooterSekolah() {
                   <li>
                     <a
                       className="youtube"
-                    //   href="https://www.youtube.com/channel/UC-OZT-HT_Qg7cUmo-oHfkAw"
+                      href="https://www.youtube.com/@OSIS-SMPN1Bergas"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-youtube"></i>

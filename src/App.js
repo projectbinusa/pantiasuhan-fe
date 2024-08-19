@@ -107,6 +107,8 @@ import PutLibrary from "./views/pages/admin/eLibrary/PutLibrary";
 
 // pageSekolah
 import sambutan from "./views/pagesekolah/sambutan/SambutanKepala";
+<<<<<<< HEAD
+=======
 import beritaNews from "./views/pagesekolah/berita/beritaNews";
 import Guru from "./views/pages/admin/smpn1bergas/menu/guru/Guru";
 import Alumni from "./views/pages/admin/smpn1bergas/menu/alumni/Alumni";
@@ -131,6 +133,7 @@ import AddVisiMisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi
 import EditVisiMisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/EditVisiMisi";
 import AddTenagaKependidikan from "./views/pages/admin/smpn1bergas/profileSekolah/tenagaKependidikan/AddTenagaKependidikan";
 import EditTenagaKependidikan from "./views/pages/admin/smpn1bergas/profileSekolah/tenagaKependidikan/EditTenagaKependidikan";
+>>>>>>> 2eb26dd5f10a4aef3fa9fa1dd194138704b006e5
 
 // END ADMIN MENU REGULASI
 
@@ -267,70 +270,6 @@ function App() {
           />
 
           {/* admin */}
-
-          {/* admin smpn1bergas */}
-          {/* guru */}
-          <PrivateRoute path="/admin-guru" component={Guru} exact />
-          <PrivateRoute path="/add-guru" component={AddGuru} exact />
-          <PrivateRoute path="/edit-guru/:id" component={EditGuru} exact />
-          {/* end guru */}
-          {/* alumni */}
-          <PrivateRoute path="/admin-alumni" component={Alumni} exact />
-          <PrivateRoute path="/add-alumni" component={AddAlumni} exact />
-          <PrivateRoute path="/edit-alumni/:id" component={EditAlumni} exact />
-          {/* edit alumni */}
-          {/* kontak */}
-          <PrivateRoute path="/admin-kontak" component={Kontak} exact />
-          <PrivateRoute path="/add-kontak" component={AddKontak} exact />
-          <PrivateRoute path="/edit-kontak/:id" component={EditKontak} exact />
-          {/* end kontak */}
-          {/* sambutan */}
-          <PrivateRoute
-            path="/admin-sambutan"
-            component={AdminSambutan}
-            exact
-          />
-          <PrivateRoute path="/add-sambutan" component={AddSambutan} exact />
-          <PrivateRoute
-            path="/edit-sambutan/:id"
-            component={EditSambutan}
-            exact
-          />
-          {/* end sambutan */}
-          {/* sejarah */}
-          <PrivateRoute path="/admin-sejarah" component={Sejarah} exact />
-          <PrivateRoute path="/add-sejarah" component={AddSejarah} exact />
-          <PrivateRoute path="/edit-sejarah/:id" component={EditSejarah} exact />
-          {/* end Sejarah */}
-          {/* tenaga kependidikan */}
-          <PrivateRoute
-            path="/admin-tenaga-kependidikan"
-            component={TenagaKenpendidikan}
-            exact
-          />
-          <PrivateRoute
-            path="/add-tenaga-kependidikan"
-            component={AddTenagaKependidikan}
-            exact
-          />
-          <PrivateRoute
-            path="/edit-tenaga-kependidikan/:id"
-            component={EditTenagaKependidikan}
-            exact
-          />
-          {/* end tenaga kependidikan */}
-          {/* VisiMisi */}
-          <PrivateRoute path="/admin-visimisi" component={VisiMisi} exact />
-          <PrivateRoute path="/add-visimisi" component={AddVisiMisi} exact />
-          <PrivateRoute path="/edit-visimisi/:id" component={EditVisiMisi} exact />
-          {/* end visimisi */}
-          <PrivateRoute
-            path="/admin-tenaga-pendidikan"
-            component={TenagaPendidikan}
-            exact
-          />
-          {/* end admin smpn1bergas */}
-
           {/* eLibrary */}
           <PrivateRoute path="/admin-library" component={AdminLibrary} exact />
           <PrivateRoute

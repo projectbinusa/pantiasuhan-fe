@@ -2589,6 +2589,7 @@ ul {
   border-bottom: 1px solid #738193;
 }
 
+
 .navbar-area-3
   .nav-container
   .navbar-collapse
@@ -9961,17 +9962,3 @@ ul {
   -webkit-box-orient: vertical;
 }
 
-li a.active {
-  background: #C1EFFF;
-}
-.logosmpn1bergas {
-  width: 15%;
-  height: 65%;
-}
-
-@media all and (max-width: 1030px) {
-  .logosmpn1bergas {
-    width: 78%;
-    height: 90%;
-  }
-}

@@ -1,0 +1,72 @@
+.card-style {
+    display: flex;
+    text-align: left;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-style {
+    width: 400px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.content-style {
+    padding: 20px 50px;
+    margin-top: 30px;
+}
+
+.section-style {
+    margin-bottom: 40px;
+    text-align: center;
+    padding: 20px 50px;
+}
+
+.contact-section-style {
+    padding: 20px 50px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
+@media screen and (max-width: 992px) {
+    .card-style {
+        display: block;
+        padding: 10px;
+    }
+
+    .content-style {
+        padding: 10px 30px;
+        margin-top: 20px;
+    }
+
+    .section-style {
+        padding: 20px 40px;
+    }
+
+    .contact-section-style {
+        padding: 20px 40px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .content-style {
+        padding: 10px 20px;
+        margin-top: 20px;
+    }
+
+    .section-style {
+        padding: 10px 20px;
+    }
+
+    .contact-section-style {
+        padding: 10px 20px;
+    }
+}

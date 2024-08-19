@@ -9,10 +9,6 @@ import AlumniCard from "./card/AlumniCard";
 import Slider from "react-slick";
 import { Link, Typography, TextField, Button, Grid } from "@mui/material";
 
-const contentStyle = {
-  padding: "20px 50px",
-  marginTop: "30px",
-};
 
 const contentStyles = {
   marginTop: "10px",
@@ -32,18 +28,6 @@ const sectionStyless = {
   backgroundColor: "#003366",
   color: "white",
   padding: "50px 50px 100px 50px",
-};
-
-const sectionStyle = {
-  marginBottom: "40px",
-  textAlign: "center",
-  padding: "20px 50px",
-};
-
-const sectionStylesss = {
-  marginBottom: "40px",
-  textAlign: "center",
-  padding: "20px 50px",
 };
 
 const newsCardsContainerStyle = {
@@ -156,13 +140,24 @@ const NextArrow = ({ onClick }) => (
 );
 
 const sliderSettingsAlumni = {
+  nextArrow: <NextArrow />,
+  prevArrow: <PreviousArrow />,
   dots: false,
   infinite: true,
   speed: 500,
   slidesToShow: 2,
   slidesToScroll: 1,
-  nextArrow: <NextArrow />,
-  prevArrow: <PreviousArrow />,
+  arrows: false,
+  draggable: true,
+  responsive: [
+    {
+      breakpoint: 800,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
 };
 
 function Home() {
@@ -210,6 +205,7 @@ function Home() {
     display: "inline-block",
     padding: "10px 20px",
     fontSize: "16px",
+    fontWeight: "medium",
     width: "20%",
     color: isHovered ? "#000" : "#fff",
     backgroundColor: isHovered ? "#fff" : "#003366",
@@ -237,27 +233,26 @@ function Home() {
     transition: "background-color 0.3s, color 0.3s, border 0.3s",
   };
 
-  const contactSectionStyle = {
-    padding: "20px 50px",
-    textAlign: "center",
-    marginBottom: "40px",
-  };
-
   const formStyle = {
     display: "flex",
     flexDirection: "column",
     maxWidth: "1200px",
     margin: "0",
     left: "0",
-    alignItems: "left"
-  };
+    padding: "15px",
+    alignItems: "left",
+    border: "2px solid #ddd",
+    borderRadius: "10px",
+    backgroundColor: '#fff',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    };
 
   const inputStyle = {
     marginBottom: "20px",
     width: "100%",
     maxWidth: "1200px",
     fontSize: "18px",
-    padding: "10px",
+    padding: "10px 0",
   };
 
   const mapStyle = {
@@ -399,10 +394,10 @@ function Home() {
       >
         <img src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no" style={imageStyle} alt="" />
         <div style={textOverlayStyle}>
-          <p style={{ color: "white" }}>SMP Negeri 1 BERGAS</p>
+          <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
         </div>
       </div>
-      <div style={contentStyle}>
+      <div className="content-style">
         <section id="pengumuman">
           <div style={{ marginBottom: "30px" }}>
             <SingleCardMenu />
@@ -438,7 +433,11 @@ function Home() {
             ))}
           </div>
           <Link
+<<<<<<< HEAD
+            href="/all-berita"
+=======
             href="/news"
+>>>>>>> 2eb26dd5f10a4aef3fa9fa1dd194138704b006e5
             style={buttonStyles}
             onMouseEnter={() => setIsHovereds(true)}
             onMouseLeave={() => setIsHovereds(false)}
@@ -447,9 +446,8 @@ function Home() {
           </Link>
         </section>
       </div>
-
-      <div style={contentStyle}>
-        <section id="ekstra-kulikuler" style={sectionStyle}>
+      <div className="content-style">
+        <section id="ekstra-kulikuler" className="section-style">
           <Typography
             style={{
               fontWeight: "bold",
@@ -461,7 +459,7 @@ function Home() {
             variant="h4"
             gutterBottom
           >
-            Ekstra Kulikuler
+            Ekstrakulikuler
           </Typography>
           <div style={ekstraKulikulerContainerStyle}>
             {ekstraKulikulerItems.map((item, index) => (
@@ -476,9 +474,8 @@ function Home() {
           </div>
         </section>
       </div>
-
-      <div style={contentStyle}>
-        <section id="prestasi-terbaru" style={sectionStyle}>
+      <div className="content-style">
+        <section id="prestasi-terbaru" className="section-style">
           <Typography
             style={{
               fontWeight: "bold",
@@ -516,13 +513,14 @@ function Home() {
           </Link>
         </section>
       </div>
-
       <div
-        style={{ width: "100%", height: "100px", backgroundColor: "#003366" }}
-      />
+        style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "100px", backgroundColor: "#003366" }}
+      >
+        <h3 style={{ color: "white" }}>Pendidikan: Kunci Menuju Dunia Kemungkinan</h3>
+      </div>
 
-      <div style={contentStyle}>
-        <section id="guru-dan-tenaga-kependidikan" style={sectionStyle}>
+      <div className="content-style">
+        <section id="guru-dan-tenaga-kependidikan" className="section-style">
           <Typography
             style={{
               fontWeight: "bold",
@@ -642,8 +640,13 @@ function Home() {
         </section>
       </div>
 
+<<<<<<< HEAD
+      <div className="contact-section-style">
+        <section id="alumni" className="contact-section-style">
+=======
       <div style={contactSectionStyle}>
         <section id="kontak" style={sectionStylesss}>
+>>>>>>> 2eb26dd5f10a4aef3fa9fa1dd194138704b006e5
           <Typography
             style={{
               fontWeight: "bold",
@@ -679,22 +682,22 @@ function Home() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <Typography variant="body1" gutterBottom style={{ display: 'flex' }}>
                   <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M2.038 5.61A2.01 2.01 0 0 0 2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-.12-.01-.238-.03-.352l-.866.65-7.89 6.032a2 2 0 0 1-2.429 0L2.884 6.288l-.846-.677Z"/>
-                    <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z"/>
+                    <path d="M2.038 5.61A2.01 2.01 0 0 0 2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-.12-.01-.238-.03-.352l-.866.65-7.89 6.032a2 2 0 0 1-2.429 0L2.884 6.288l-.846-.677Z" />
+                    <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
                   </svg>
                   <strong style={{ marginLeft: '8px' }}>:</strong>
                   <span style={{ marginLeft: '8px' }}>smpn1_bergas@yahoo.co.id</span>
                 </Typography>
                 <Typography variant="body1" gutterBottom style={{ display: 'flex' }}>
                   <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z"/>
+                    <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z" />
                   </svg>
                   <strong style={{ marginLeft: '8px' }}>:</strong>
                   <span style={{ marginLeft: '8px' }}>+62 </span>
                 </Typography>
                 <Typography variant="body1" gutterBottom style={{ display: 'flex' }}>
                   <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                    <path fillRule="evenodd" d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z" clipRule="evenodd"/>
+                    <path fillRule="evenodd" d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z" clipRule="evenodd" />
                   </svg>
                   <strong style={{ marginLeft: '12px' }}>:</strong>
                   <span style={{ marginLeft: '8px', textAlign: 'left' }}>RCCG+P83, Jl. Krakatau, Gembongan, Karangjati, Kec. Bergas, Kabupaten Semarang, Jawa Tengah 50552</span>
@@ -703,6 +706,7 @@ function Home() {
             </Grid>
           </Grid>
 
+          <br /> <br />
           <form style={formStyle} onSubmit={(e) => e.preventDefault()}>
             <Typography variant="h5" gutterBottom style={{ fontWeight: 'bold', textAlign: 'left', margin: '20px 0px' }}>
               Kotak Saran
@@ -741,7 +745,7 @@ function Home() {
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
-              Kirim Pesan
+              Kirim
             </Button>
           </form>
         </section>

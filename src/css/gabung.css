@@ -1,31 +1,38 @@
 .my-custom-details {
-    color: black;
-    height: 500px;
-  }
-.pembungkus-gabung{
-    padding-top: 100px;
+  color: black;
+  height: 500px;
 }
-.media-social{
-    display: flex;
-    gap: 100px;
+
+.pembungkus-gabung {
+  padding-top: 100px;
 }
-.btn-kembali{
-    width: 100px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+
+.media-social {
+  display: flex;
+  gap: 100px;
 }
-.btn-kembali-berkala{
+
+.btn-kembali {
+  width: 100px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.btn-kembali-berkala {
   width: 100px;
 }
-#width-navbar-content{
+
+#width-navbar-content {
   width: max-content;
 }
-@media screen and (max-width:1440){
-  #width-navbar-content{
+
+@media screen and (max-width:1440) {
+  #width-navbar-content {
     width: max-content;
   }
 
 }
+
 /* .d-lg-none {
     display: none !important;
   }
@@ -36,72 +43,82 @@
 
 /* Sembunyikan dropdown mobile pada layar laptop */
 @media (min-width: 992px) {
-    /* .d-lg-none { */
-      /* display: none !important;
+  /* .d-lg-none { */
+  /* display: none !important;
     } */
-  }
+}
 
-  /* Sembunyikan dropdown laptop pada layar mobile */
-  @media (max-width: 991px) {
-    /* .d-md-none {
+/* Sembunyikan dropdown laptop pada layar mobile */
+@media (max-width: 992px) {
+  /* .d-md-none {
       display: none !important;
     } */
-  }
+}
 
 
 
 @media screen and (max-width:768px) {
-  .navbar-reponsive{
-    overflow-y: scroll;
-    height: 85vh;
+  .navbar-reponsive {
+    min-height: 100vh;
+    overflow-y: hidden;
     overflow-x: hidden;
   }
-  #strukturOrganisasi{
+
+  #strukturOrganisasi {
     justify-content: center;
     align-items: center;
     text-align: center;
   }
-    .pembungkus-gabung{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .text1-gabung{
-        text-align: center;
-    }
-    .text2-gabung{
-        text-align: center;
-    }
-    #thumb{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding-left: 100px;
-        margin-left: 50px;
-    }
 
-    #icon-text-waktu{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+  .pembungkus-gabung {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
-    }
-    #icon-waktu1{
-        padding-right: 120px;
-    }
-    #icon-waktu2{
-        padding-right: 75px;
-    }
-    #icon-waktu3{
-        padding-right: 110px;
-    }
-    #icon-waktu4{
-        padding-right: 5px;
-    }
-    /* .d-lg-none {
+  .text1-gabung {
+    text-align: center;
+  }
+
+  .text2-gabung {
+    text-align: center;
+  }
+
+  #thumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-left: 100px;
+    margin-left: 50px;
+  }
+
+  #icon-text-waktu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  #icon-waktu1 {
+    padding-right: 120px;
+  }
+
+  #icon-waktu2 {
+    padding-right: 75px;
+  }
+
+  #icon-waktu3 {
+    padding-right: 110px;
+  }
+
+  #icon-waktu4 {
+    padding-right: 5px;
+  }
+
+  /* .d-lg-none {
         display: none !important;
       }
       .d-md-none {
@@ -111,101 +128,116 @@
 }
 
 @media screen and (max-width: 320px) {
-  .navbar-reponsive{
-    overflow-x: scroll;
-    height: 85vh;
+  .navbar-reponsive {
+    min-height: 100vh;
+    overflow-y: hidden;
     overflow-x: hidden;
   }
-  #strukturOrganisasi{
+
+  #strukturOrganisasi {
     justify-content: center;
     align-items: center;
     text-align: center;
   }
-    /* .d-lg-none {
+
+  /* .d-lg-none {
         display: none !important;
       }
       .d-md-none {
         display: none !important;
       } */
-    #text1-gabung{
-        font-size: 15px;
-        text-align: center;
-        /* display: flex;
+  #text1-gabung {
+    font-size: 15px;
+    text-align: center;
+    /* display: flex;
         align-items:center ;
         justify-content: center; */
 
-    }
-    #text2-gabung{
-        font-size:20px;
-        /* padding-right: 100px; */
-        text-align: center;
-    }
+  }
 
-    .div-gabung{
-        /* padding-left: 90px; */
-        text-align: center;
+  #text2-gabung {
+    font-size: 20px;
+    /* padding-right: 100px; */
+    text-align: center;
+  }
 
-    }
-    /* #div-gabung-akhir{
+  .div-gabung {
+    /* padding-left: 90px; */
+    text-align: center;
+
+  }
+
+  /* #div-gabung-akhir{
         padding: 20px;
     } */
-    .pembungkus-gabung{
-        padding-right:50px ;
-    }
-    .keterangan-padding{
-        padding: 10px;
-        text-align: justify;
-    }
-      #div-gabung-akhir{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
+  .pembungkus-gabung {
+    padding-right: 50px;
+  }
+
+  .keterangan-padding {
+    padding: 10px;
+    text-align: justify;
+  }
+
+  #div-gabung-akhir {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
 
 }
+
 @media (max-width: 390px) {
-  .posisi{
-    position:relative;
+  .posisi {
+    position: relative;
 
   }
-  .navbar-reponsive{
-    overflow: scroll;
-    height: 85vh;
+
+  .navbar-reponsive {
+    overflow-y: hidden;
     overflow-x: hidden;
+    min-height: 100vh;
   }
-  #strukturOrganisasi{
+
+  #strukturOrganisasi {
     justify-content: center;
     align-items: center;
     text-align: center;
   }
-    /* .d-lg-none {
+
+  /* .d-lg-none {
         display: none !important;
       }
       .d-md-none {
         display: none !important;
       } */
-    .form-control.widget-content-right {
-      width: 100%;
-      margin: 10px 0; /* Add padding/margin as needed */
-    }
-
-    /* Optional: Center the input horizontally */
-    .form-control.widget-content-right.w-75 {
-      margin-left: auto;
-      margin-right: auto;
-    }
-    #icon-waktu1{
-        padding-right: 90px;
-    }
-    #icon-waktu2{
-        padding-right: 45px;
-    }
-    #icon-waktu3{
-        padding-right: 80px;
-    }
-    #icon-waktu4{
-        padding-left: 30px;
-    }
+  .form-control.widget-content-right {
+    width: 100%;
+    margin: 10px 0;
+    /* Add padding/margin as needed */
   }
+
+  /* Optional: Center the input horizontally */
+  .form-control.widget-content-right.w-75 {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #icon-waktu1 {
+    padding-right: 90px;
+  }
+
+  #icon-waktu2 {
+    padding-right: 45px;
+  }
+
+  #icon-waktu3 {
+    padding-right: 80px;
+  }
+
+  #icon-waktu4 {
+    padding-left: 30px;
+  }
+}
