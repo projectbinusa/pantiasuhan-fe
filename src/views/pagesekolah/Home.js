@@ -264,7 +264,7 @@ function Home() {
   const contactInfoStyle = {
     textAlign: "left",
   };
-  
+
   const textOverlayStyle = {
     position: "absolute",
     top: "50%",
@@ -433,11 +433,7 @@ function Home() {
             ))}
           </div>
           <Link
-<<<<<<< HEAD
             href="/all-berita"
-=======
-            href="/news"
->>>>>>> 2eb26dd5f10a4aef3fa9fa1dd194138704b006e5
             style={buttonStyles}
             onMouseEnter={() => setIsHovereds(true)}
             onMouseLeave={() => setIsHovereds(false)}
@@ -640,13 +636,8 @@ function Home() {
         </section>
       </div>
 
-<<<<<<< HEAD
       <div className="contact-section-style">
         <section id="alumni" className="contact-section-style">
-=======
-      <div style={contactSectionStyle}>
-        <section id="kontak" style={sectionStylesss}>
->>>>>>> 2eb26dd5f10a4aef3fa9fa1dd194138704b006e5
           <Typography
             style={{
               fontWeight: "bold",
