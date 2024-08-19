@@ -1,12 +1,12 @@
 .card-style {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
     text-align: left;
-    border: 1px solid #ddd;
-    border-radius: 10px;
     padding: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 2.5rem;
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -35,10 +35,20 @@
     margin-bottom: 40px;
 }
 
+.ekstrakulikuler-container-style {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.ekstrakulikuler-container-style .icon-ekstrakulikuler {
+    color: white;
+    font-size: 3rem;
+}
 
 @media screen and (max-width: 992px) {
     .card-style {
-        display: block;
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
         padding: 10px;
     }
 
@@ -54,6 +64,10 @@
     .contact-section-style {
         padding: 20px 40px;
     }
+
+    .ekstrakulikuler-container-style {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media screen and (max-width: 575px) {
@@ -68,5 +82,9 @@
 
     .contact-section-style {
         padding: 10px 20px;
+    }
+
+    .ekstrakulikuler-container-style {
+        grid-template-columns: repeat(1, 1fr);
     }
 }

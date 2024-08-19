@@ -130,6 +130,12 @@ import AddVisiMisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi
 import EditVisiMisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/EditVisiMisi";
 import AddTenagaKependidikan from "./views/pages/admin/smpn1bergas/profileSekolah/tenagaKependidikan/AddTenagaKependidikan";
 import EditTenagaKependidikan from "./views/pages/admin/smpn1bergas/profileSekolah/tenagaKependidikan/EditTenagaKependidikan";
+import AllAPBD from "./views/pagesekolah/keuangan/apbd/AllAPBD";
+import DetailAPBD from "./views/pagesekolah/keuangan/apbd/DetailAPBD";
+import DetailBOS from "./views/pagesekolah/keuangan/bos/DetailBOS";
+import DetailKomite from "./views/pagesekolah/keuangan/komite/DetailKomite";
+import AllBOS from "./views/pagesekolah/keuangan/bos/AllBos";
+import AllKomite from "./views/pagesekolah/keuangan/komite/AllKomite";
 
 // END ADMIN MENU REGULASI
 
@@ -651,6 +657,14 @@ function App() {
           <Route path="/dip-public" component={DipPublic} exact />
           <Route path="/sop-public" component={SopPublic} exact />
           {/* END PUBLIC MENU REGULASI */}
+
+          {/* KEUANGAN */}
+          <Route path="/keuangan-apbd" component={AllAPBD} exact />
+          <Route path="/detail-apbd-:id" component={DetailAPBD} exact />
+          <Route path="/keuangan-bos" component={AllBOS} exact />
+          <Route path="/detail-bos-:id" component={DetailBOS} exact />
+          <Route path="/keuangan-komite" component={AllKomite} exact />
+          <Route path="/detail-komite-:id" component={DetailKomite} exact />
         </Switch>
       </main>
     </BrowserRouter>

@@ -8,7 +8,7 @@ import PrestasiCard from "./card/PrestasiCard";
 import AlumniCard from "./card/AlumniCard";
 import Slider from "react-slick";
 import { Link, Typography, TextField, Button, Grid } from "@mui/material";
-
+import "../../css/prestasi/card.css"
 
 const contentStyles = {
   marginTop: "10px",
@@ -35,12 +35,6 @@ const newsCardsContainerStyle = {
   flexWrap: "wrap",
   gap: "20px",
   justifyContent: "center",
-};
-
-const ekstraKulikulerContainerStyle = {
-  display: "grid",
-  gridTemplateColumns: "repeat(4, 1fr)",
-  gap: "20px",
 };
 
 const teacherCardStyle = {
@@ -140,14 +134,14 @@ const NextArrow = ({ onClick }) => (
 );
 
 const sliderSettingsAlumni = {
-  nextArrow: <NextArrow />,
-  prevArrow: <PreviousArrow />,
   dots: false,
   infinite: true,
   speed: 500,
   slidesToShow: 2,
   slidesToScroll: 1,
-  arrows: false,
+  nextArrow: <NextArrow />,
+  prevArrow: <PreviousArrow />,
+  arrows: true,
   draggable: true,
   responsive: [
     {
@@ -241,11 +235,9 @@ function Home() {
     left: "0",
     padding: "15px",
     alignItems: "left",
-    border: "2px solid #ddd",
-    borderRadius: "10px",
     backgroundColor: '#fff',
     boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    };
+  };
 
   const inputStyle = {
     marginBottom: "20px",
@@ -277,12 +269,12 @@ function Home() {
   };
 
   const newsItems = [
-   { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "1", title: "Berita 1", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
-   { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "2", title: "Berita 2", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
-   { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "3", title: "Berita 3", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
-   { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "4", title: "Berita 4", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
-   { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "5", title: "Berita 5", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
-   { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "6", title: "Berita 6", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+    { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "1", title: "Berita 1", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+    { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "2", title: "Berita 2", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+    { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "3", title: "Berita 3", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+    { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "4", title: "Berita 4", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+    { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "5", title: "Berita 5", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+    { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "6", title: "Berita 6", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
   ]
 
   const darkColors = [
@@ -397,6 +389,8 @@ function Home() {
           <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
         </div>
       </div>
+
+      {/* PENGUMUMAN */}
       <div className="content-style">
         <section id="pengumuman">
           <div style={{ marginBottom: "30px" }}>
@@ -404,6 +398,8 @@ function Home() {
           </div>
         </section>
       </div>
+
+      {/* BERITA */}
       <div style={contentStyles}>
         <section id="berita-terbaru" style={sectionStyles}>
           <Typography
@@ -442,6 +438,8 @@ function Home() {
           </Link>
         </section>
       </div>
+
+      {/* EKSTRAKULIKULER */}
       <div className="content-style">
         <section id="ekstra-kulikuler" className="section-style">
           <Typography
@@ -457,12 +455,11 @@ function Home() {
           >
             Ekstrakulikuler
           </Typography>
-          <div style={ekstraKulikulerContainerStyle}>
+          <div className="ekstrakulikuler-container-style">
             {ekstraKulikulerItems.map((item, index) => (
               <div key={index}>
                 <EkstraKulikulerCard
                   title={item.title}
-                  content={item.content}
                   backgroundColor={darkColors[index % darkColors.length]}
                 />
               </div>
@@ -470,6 +467,8 @@ function Home() {
           </div>
         </section>
       </div>
+
+      {/* PRESTASI */}
       <div className="content-style">
         <section id="prestasi-terbaru" className="section-style">
           <Typography
@@ -515,6 +514,7 @@ function Home() {
         <h3 style={{ color: "white" }}>Pendidikan: Kunci Menuju Dunia Kemungkinan</h3>
       </div>
 
+      {/* GURU */}
       <div className="content-style">
         <section id="guru-dan-tenaga-kependidikan" className="section-style">
           <Typography
@@ -605,6 +605,7 @@ function Home() {
         </section>
       </div>
 
+      {/* ALUMNI */}
       <div style={contentStyles}>
         <section id="alumni" style={sectionStyless}>
           <Typography
@@ -637,7 +638,7 @@ function Home() {
       </div>
 
       <div className="contact-section-style">
-        <section id="alumni" className="contact-section-style">
+        <section id="hubungi-kami" className="contact-section-style">
           <Typography
             style={{
               fontWeight: "bold",
