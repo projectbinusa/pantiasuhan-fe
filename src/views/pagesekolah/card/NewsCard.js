@@ -30,6 +30,7 @@ const mediaStyle = (isHovered) => ({
 
 const contentStyle = {
   textAlign: "left",
+  fontFamily: "'Poppins', sans-serif" 
 };
 
 const dateContainerStyle = {
@@ -67,6 +68,7 @@ const NewsCard = ({ image, title, content, date, id }) => {
     fontWeight: "bold",
     marginBottom: "10px",
     color: isHovereds ? "#FFCC00" : "#000000",
+    fontFamily: "'Poppins', sans-serif" 
   };
 
   return (

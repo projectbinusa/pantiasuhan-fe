@@ -1,0 +1,45 @@
+.container-alumni {
+    padding: 20px 200px;
+    margin-top: 70px;
+}
+
+.header-alumni {
+    width: 100%;
+    background-color: #ddd;
+    margin-bottom: 2rem;
+    padding: 5px 0 0 0;
+}
+
+.header-alumni ul {
+    list-style: none;
+    display: flex;
+}
+
+.header-alumni ul li,
+.header-alumni ul li a {
+    font-weight: 500;
+    color: #002147;
+    text-decoration: none;
+}
+
+.header-alumni ul li:nth-child(2) {
+    margin-left: 1rem;
+}
+.header-alumni ul li:nth-child(3) {
+    margin-left: 1rem;
+}
+
+.container-alumni img {
+    transform: translateY(scrollY * 0.5px);
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 992px) {
+    .container-alumni {
+        padding: 0 20px;
+        padding-top: 80px;
+        margin-top: 0;
+    }
+}

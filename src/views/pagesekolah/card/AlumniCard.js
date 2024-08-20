@@ -19,7 +19,7 @@ const AlumniCard = ({ image, title, description }) => {
 
   const imageWrapperStyle = {
     overflow: "hidden",
-    width: "200px",
+    // width: "200px",
     height: "250px",
     marginRight: "20px",
     borderRadius: "10px",
@@ -42,8 +42,6 @@ const AlumniCard = ({ image, title, description }) => {
   };
 
   const titleStyle = {
-    fontWeight: "bold",
-    color: "black",
     fontSize: "24px",
     marginBottom: "10px",
     marginTop: "0",
@@ -53,16 +51,16 @@ const AlumniCard = ({ image, title, description }) => {
     color: "#666",
     fontSize: "18px",
   };
-
+  
   return (
     <div style={cardContainerStyle}>
-      <div style={cardStyle}>
+      <div className="alumni-card">
         <div style={imageWrapperStyle}>
           <img src={image} alt={title} style={imageStyle} />
         </div>
         <div style={textStyle}>
-          <div style={titleStyle}>{title}</div>
-          <div style={descriptionStyle}>{description}</div>
+          <div style={titleStyle}><a href="/" style={{ textDecoration: "none", fontWeight: "bold", color: "#002147" }}>{title}</a></div>
+          <div style={descriptionStyle}><p className="isi-alumni">{description}</p></div>
         </div>
       </div>
     </div>

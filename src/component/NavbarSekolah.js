@@ -46,9 +46,20 @@ function NavbarSekolah() {
     };
   }, []);
 
+  // const handleScrollToSection = (id) => {
+  //   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  // };
+
   const handleScrollToSection = (id) => {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    const isHomePage = window.location.pathname === '/';
+    
+    if (isHomePage) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = `/#${id}`;
+    }
   };
+  
 
   return (
     // <!-- navbar start -->
@@ -252,8 +263,27 @@ function NavbarSekolah() {
                   </li>
                 </ul>
               </li>
-              <li>
-                <a onClick={() => handleScrollToSection('ekstra-kulikuler')} style={{ paddingLeft: "15px", cursor: "pointer" }}>Ekstrakulikuler</a>
+              <li className="menu-item-has-children">
+                <a
+                  href="#submenu8"
+                  data-bs-toggle="collapse"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                  onClick={toggleSubmenu}>
+                  Kesiswaan
+                </a>
+                <ul
+                  className={`${isMobile ? "collapse" : "sub-menu"}`}
+                  id="submenu8"
+                  data-bs-parent="#menu8">
+                  <li>
+                    <a href="/osis">OSIS</a>
+                  </li>
+                  <li>
+                    <a onClick={() => handleScrollToSection('ekstra-kulikuler')} style={{cursor: "pointer" }}>Ekstrakurikuler</a>
+                  </li>
+                </ul>
               </li>
               <li>
                 <a onClick={() => handleScrollToSection('prestasi-terbaru')} style={{ paddingLeft: "15px", cursor: "pointer" }}>Prestasi</a>
