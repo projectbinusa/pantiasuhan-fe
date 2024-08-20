@@ -141,6 +141,9 @@ import SejarahSekolah from "./views/pagesekolah/profilSekolah/sejarah/sejarahSek
 import TenagaKepndidkan from "./views/pagesekolah/profilSekolah/staf/tenagaKependidikan";
 import PrestasiSekolah from "./views/pagesekolah/profilSekolah/prestasi/prestasiSekolah";
 import DetailNews from "./views/pagesekolah/berita/tebaru/DetailNews";
+import DetailPrestasi from "./views/pagesekolah/profilSekolah/prestasi/DetailPrestasi";
+import DetailAlumni from "./views/pagesekolah/DetailAlumni";
+import Osis from "./views/pagesekolah/kesiswaan/Osis";
 
 // END ADMIN MENU REGULASI
 
@@ -673,6 +676,11 @@ function App() {
           <Route path="/detail-bos-:id" component={DetailBOS} exact />
           <Route path="/keuangan-komite" component={AllKomite} exact />
           <Route path="/detail-komite-:id" component={DetailKomite} exact />
+
+          {/* PRESTASI */}
+          <Route path="/detail-prestasi-:id" component={DetailPrestasi} exact />
+          <Route path="/detail-alumni-:id" component={DetailAlumni} exact />
+          <Route path="/osis" component={Osis} exact />
           
           {/* Berita */}
           <Route path="/news" component={beritaNews} exact />

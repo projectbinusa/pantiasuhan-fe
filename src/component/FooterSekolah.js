@@ -18,13 +18,12 @@ function FooterSekolah() {
                 <h4 className="widget-title">SMP Negeri 1 Bergas</h4>
                 <div className="details">
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae adipisci dolorum mollitia officiis praesentium repellendus distinctio modi quaerat. Dolore consequuntur temporibus omnis minima quia iure praesentium recusandae nam nesciunt ullam.
-                  </p>
+                    SMP Negeri 1 Bergas didirikan pada tahun 1985 di Kabupaten Semarang, Jawa Tengah. Sejak awal berdirinya, sekolah ini memiliki tujuan mulia untuk menyediakan pendidikan berkualitas bagi masyarakat setempat. Dengan komitmen yang kuat terhadap keunggulan akademik dan pengembangan karakter siswa, SMP Negeri 1 Bergas telah menjadi salah satu sekolah menengah pertama terkemuka di wilayahnya                  </p>
                   <ul className="social-media d-none d-md-none d-lg-flex gap-2">
                     <li>
                       <a
                         className="facebook"
-                        href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"                        target="_blank"
+                        href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295" target="_blank"
                         rel="noreferrer">
                         <i className="fab fa-facebook-f"></i>
                       </a>
@@ -56,7 +55,7 @@ function FooterSekolah() {
                 <h4 className="widget-title">Alamat</h4>
                 <div className="details">
                   <p style={{ color: "white" }}>
-                   Jl. Krakatau, Gembongan, Karangjati, Kec. Bergas, Kabupaten Semarang, Jawa Tengah 50552
+                    Jl. Krakatau, Gembongan, Karangjati, Kec. Bergas, Kabupaten Semarang, Jawa Tengah 50552
                   </p>
                   <p style={{ color: "white" }}>Telpon (+62) </p>
                   <p style={{ color: "white" }}>

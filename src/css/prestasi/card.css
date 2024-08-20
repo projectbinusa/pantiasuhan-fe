@@ -35,12 +35,12 @@
     margin-bottom: 40px;
 }
 
-.ekstrakulikuler-container-style {
+.ekstrakurikuler-container-style {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 }
-.ekstrakulikuler-container-style .icon-ekstrakulikuler {
+.ekstrakurikuler-container-style .icon-ekstrakurikuler {
     color: white;
     font-size: 3rem;
 }
@@ -65,7 +65,7 @@
         padding: 20px 40px;
     }
 
-    .ekstrakulikuler-container-style {
+    .ekstrakurikuler-container-style {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -84,7 +84,7 @@
         padding: 10px 20px;
     }
 
-    .ekstrakulikuler-container-style {
+    .ekstrakurikuler-container-style {
         grid-template-columns: repeat(1, 1fr);
     }
 }

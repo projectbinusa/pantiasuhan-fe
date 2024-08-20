@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardContent, Typography, Grid, Link } from "@mui/material";
+import kepsek from "../../../../aset/smpn1bergas/kepsek.jpg";
 
 const announcements = [
   {
@@ -52,7 +53,7 @@ const SingleCardMenu = () => {
               <Typography
                 variant="h5"
                 component="div"
-                style={{ fontWeight: "bold" }}
+                style={{ fontWeight: "bold", fontFamily: "'Poppins', sans-serif" }}
               >
                 Pengumuman
               </Typography>
@@ -70,6 +71,7 @@ const SingleCardMenu = () => {
                         marginBottom: "8px",
                         fontWeight: "bold",
                         fontSize: "1rem",
+                        fontFamily: "'Poppins', sans-serif" 
                       }}
                     >
                       {announcement.text}
@@ -94,7 +96,7 @@ const SingleCardMenu = () => {
       <Grid item xs={12} sm={6} md={6}>
         <div style={{ maxWidth: 600, padding: "16px", borderRadius: "8px" }}>
           <img
-            src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png"
+            src={kepsek}
             alt="Kepala Sekolah"
             style={{
               width: "40%",
@@ -105,10 +107,10 @@ const SingleCardMenu = () => {
             }}
           />
           <div style={{ padding: "16px" }}>
-            <Typography variant="h6" component="div" style={{ fontWeight: "bold" }}>
+            <Typography variant="h6" component="div" style={{ fontWeight: "bold", fontFamily: "'Poppins', sans-serif"  }}>
               Sambutan Kepala Sekolah
             </Typography>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant="body2" color="textSecondary" style={{fontFamily: "'Poppins', sans-serif" }}>
               Assalamu'alaikum Warahmatullahi Wabarakatuh,
               Puji syukur kita panjatkan kehadirat Allah SWT yang telah memberikan rahmat dan karunia-Nya sehingga kita dapat melaksanakan tugas dan aktivitas kita sehari-hari dengan baik.
               <Link href="/sambutan"> ...Baca selengkapnya</Link>

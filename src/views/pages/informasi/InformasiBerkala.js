@@ -5,7 +5,7 @@ import Navbar from "../../../component/Navbar";
 import "../../../css/berkala.css";
 
 import html2canvas from "html2canvas";
-import gambar from "../../../asset/img/bawaslu(berita).jpeg";
+// import gambar from "../../../asset/img/bawaslu(berita).jpeg";
 import axios from "axios";
 import { API_DUMMY } from "../../../utils/base_URL";
 import PutusanPelanggaran from "./tabs/SertaMerta/PutusanPelanggaran";
