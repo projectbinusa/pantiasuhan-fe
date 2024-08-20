@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../../component/NavbarSekolah";
 import Footer from "../../component/FooterSekolah";
-import SingleCardMenu from "./sambutan/SingleCardMenu";
+import SingleCardMenu from "./profilSekolah/sambutan/SingleCardMenu";
 import NewsCard from "./card/NewsCard";
 import EkstraKulikulerCard from "./card/EkstraKulikulerCard";
 import PrestasiCard from "./card/PrestasiCard";

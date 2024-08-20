@@ -1,7 +1,7 @@
 import React from "react";
-import NavbarSekolah from "../../../component/NavbarSekolah";
-import FooterSekolah from "../../../component/FooterSekolah";
-import user from "../../../aset/User.jpg";
+import NavbarSekolah from "../../../../component/NavbarSekolah";
+import FooterSekolah from "../../../../component/FooterSekolah";
+import user from "../../../../aset/User.jpg";
 
 function Sambutan() {
   return (
