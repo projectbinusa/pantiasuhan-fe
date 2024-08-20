@@ -217,7 +217,7 @@ function NavbarSekolah() {
                     <a href="/news">Berita Terbaru</a>
                   </li>
                   <li>
-                    <a href="/info-sekolah">Info Sekolah</a>
+                    <a href="/info">Info Sekolah</a>
                   </li>
                   <li>
                     <a href="/agenda">Agenda</a>
@@ -242,13 +242,13 @@ function NavbarSekolah() {
                   id="submenu3"
                   data-bs-parent="#menu">
                   <li>
-                    <a href="/bos">BOS</a>
+                    <a href="/keuangan-bos">BOS</a>
                   </li>
                   <li>
-                    <a href="/apbd">APBD</a>
+                    <a href="/keuangan-apbd">APBD</a>
                   </li>
                   <li>
-                    <a href="/komite">Komite</a>
+                    <a href="/keuangan-komite">Komite</a>
                   </li>
                 </ul>
               </li>

@@ -106,8 +106,8 @@ import AddLibrary from "./views/pages/admin/eLibrary/AddLibrary";
 import PutLibrary from "./views/pages/admin/eLibrary/PutLibrary";
 
 // pageSekolah
-import sambutan from "./views/pagesekolah/sambutan/SambutanKepala";
-import beritaNews from "./views/pagesekolah/berita/beritaNews";
+import sambutan from "./views/pagesekolah/profilSekolah/sambutan/SambutanKepala";
+import beritaNews from "./views/pagesekolah/berita/tebaru/News";
 import Guru from "./views/pages/admin/smpn1bergas/menu/guru/Guru";
 import Alumni from "./views/pages/admin/smpn1bergas/menu/alumni/Alumni";
 import Kontak from "./views/pages/admin/smpn1bergas/menu/kontak/Kontak";
@@ -136,6 +136,11 @@ import DetailBOS from "./views/pagesekolah/keuangan/bos/DetailBOS";
 import DetailKomite from "./views/pagesekolah/keuangan/komite/DetailKomite";
 import AllBOS from "./views/pagesekolah/keuangan/bos/AllBos";
 import AllKomite from "./views/pagesekolah/keuangan/komite/AllKomite";
+import VisiMisiSekolah from "./views/pagesekolah/profilSekolah/visi-misi/visiMisiSekolah";
+import SejarahSekolah from "./views/pagesekolah/profilSekolah/sejarah/sejarahSekolah";
+import TenagaKepndidkan from "./views/pagesekolah/profilSekolah/staf/tenagaKependidikan";
+import PrestasiSekolah from "./views/pagesekolah/profilSekolah/prestasi/prestasiSekolah";
+import DetailNews from "./views/pagesekolah/berita/tebaru/DetailNews";
 
 // END ADMIN MENU REGULASI
 
@@ -150,7 +155,10 @@ function App() {
           {/* page */}
           <Route path="/" component={Dashbaord} exact />
           <Route path="/sambutan" component={sambutan} exact />
-          <Route path="/news" component={beritaNews} exact />
+          <Route path="/visi-misi" component={VisiMisiSekolah} exact />
+          <Route path="/sejarah" component={SejarahSekolah} exact />
+          <Route path="/staff" component={TenagaKepndidkan} exact />
+          <Route path="/all-prestasi" component={PrestasiSekolah} exact />
 
           <Route path="/profil" component={Profil} exact />
           <Route path="/pengumuman" component={Pengumuman} exact />
@@ -665,6 +673,12 @@ function App() {
           <Route path="/detail-bos-:id" component={DetailBOS} exact />
           <Route path="/keuangan-komite" component={AllKomite} exact />
           <Route path="/detail-komite-:id" component={DetailKomite} exact />
+          
+          {/* Berita */}
+          <Route path="/news" component={beritaNews} exact />
+          <Route path="/detail-news-:id" component={DetailNews} exact />
+          <Route path="/info" component={beritaNews} exact />
+          <Route path="/news" component={beritaNews} exact />
         </Switch>
       </main>
     </BrowserRouter>
