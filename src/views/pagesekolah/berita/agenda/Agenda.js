@@ -8,17 +8,15 @@ import "../../../../css/berita/news.css";
 const newsData = [
     { id: 1, title: 'Local School Wins Award', content: 'The local school has been recognized for its outstanding achievements in academics and sports.', image: 'https://via.placeholder.com/300x200?text=Award', category: 'Berita Sekolah', date: '2024-08-10' },
     { id: 2, title: 'Community Garden Project Launched', content: 'A new community garden has been established to promote local agriculture and sustainability.', image: 'https://via.placeholder.com/300x200?text=Garden', category: 'Info Sekolah', date: '2024-08-12' },
-    { id: 3, title: 'New Library Opens Downtown', content: 'The new library offers a wide range of books and community programs for all ages.', image: 'https://via.placeholder.com/300x200?text=Library', category: 'Berita Sekolah', date: '2024-08-14' },
-    { id: 4, title: 'Tech Startup Announces Innovative App', content: 'A local tech startup has announced the release of a new app designed to improve productivity.', image: 'https://via.placeholder.com/300x200?text=Tech', category: 'Agenda', date: '2024-08-16' },
-    { id: 5, title: 'Annual Art Fair Returns This Weekend', content: 'The annual art fair will showcase works from local artists and provide interactive workshops.', image: 'https://via.placeholder.com/300x200?text=Art', category: 'Berita Sekolah', date: '2024-08-18' }
+    { id: 3, title: 'New Library Opens Downtown', content: 'The new library offers a wide range of books and community programs for all ages.', image: 'https://via.placeholder.com/300x200?text=Library', category: 'Berita Sekolah', date: '2024-08-14' }
   ];
 
-  const Info = () => {
+  const Agenda = () => {
     return (
       <section>
           <NavbarSekolah />
           <main className="container-berita">
-              <HeaderBerita title={"Info Sekolah"}/>
+              <HeaderBerita title={"Agenda"}/>
               <div className="container-apbd">
                   <div>
                       <div>
@@ -65,7 +63,7 @@ const newsData = [
                               image={newsItem.image}
                               id={newsItem.id}
                               title={newsItem.title}
-                              link={"info"}
+                              link={"agenda"}
                               content={newsItem.content}
                           />
                       ))}
@@ -77,4 +75,4 @@ const newsData = [
   )
 }
   
-  export default Info;
+  export default Agenda;

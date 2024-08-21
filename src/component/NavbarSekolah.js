@@ -46,10 +46,6 @@ function NavbarSekolah() {
     };
   }, []);
 
-  // const handleScrollToSection = (id) => {
-  //   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-  // };
-
   const handleScrollToSection = (id) => {
     const isHomePage = window.location.pathname === '/';
     
@@ -62,7 +58,6 @@ function NavbarSekolah() {
   
 
   return (
-    // <!-- navbar start -->
     <>
       <div className="navbar-top style-2">
         <div className="container">

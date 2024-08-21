@@ -18,7 +18,7 @@ const newsData = [
     { id: 10, title: 'New Restaurant Opens Downtown', content: 'A new restaurant specializing in international cuisine has opened its doors.', image: 'https://via.placeholder.com/300x200?text=Restaurant', category: 'Agenda', date: '2024-08-28' }
   ];
 
-  const BeritaNews = () => {
+  const News = () => {
     return (
       <section>
           <NavbarSekolah />
@@ -82,4 +82,4 @@ const newsData = [
   )
 }
   
-  export default BeritaNews;
+  export default News;
