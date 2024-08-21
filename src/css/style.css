@@ -2133,7 +2133,8 @@ ul {
 }
 
 .navbar-top.style-2 {
-  background: #fff;
+  background: var(--main-color);
+  color: #fff;
 }
 
 .navbar-top.style-3 {
@@ -2531,7 +2532,7 @@ ul {
 }
 
 .navbar-area-2 {
-  background: var(--main-color);
+  background: #fff;
 }
 
 .navbar-area-2 .nav-container .navbar-collapse .navbar-nav > li {
@@ -2549,7 +2550,7 @@ ul {
   .navbar-collapse
   .navbar-nav
   > li.menu-item-has-children:after {
-  background: #fff;
+  background: #000;
   right: 15px;
 }
 
@@ -2562,7 +2563,7 @@ ul {
 }
 
 .navbar-area-2 .nav-container .navbar-collapse .navbar-nav > li a {
-  color: #fff;
+  color: #000;
 }
 
 .navbar-area-2 .nav-container .navbar-collapse .navbar-nav > li:hover {
@@ -2657,7 +2658,7 @@ ul {
 
 
 .sticky-active.navbar-area-2 {
-  background: var(--main-color);
+  background: #fff;
 }
 
 .sticky-active.navbar-area-3 {
@@ -9195,7 +9196,7 @@ ul {
 ---------------------------------------------------*/
 .media .media-body a {
   text-decoration: none;
-  color: black;
+  color: #fff;
   width: 20px;
 }
 /*--------------------------------------------------

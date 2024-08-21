@@ -149,6 +149,7 @@ import DetailInfo from "./views/pagesekolah/berita/info/DetailInfo";
 import agenda from "./views/pagesekolah/berita/agenda/Agenda";
 import DetailAgenda from "./views/pagesekolah/berita/agenda/DetailAgenda";
 import Galery from "./views/pagesekolah/berita/gambar/GalerySekolah";
+import Sarpras from "./views/pagesekolah/profilSekolah/sarpras/Sarpras"
 
 // END ADMIN MENU REGULASI
 
@@ -167,6 +168,7 @@ function App() {
           <Route path="/sejarah" component={SejarahSekolah} exact />
           <Route path="/staff" component={TenagaKepndidkan} exact />
           <Route path="/all-prestasi" component={PrestasiSekolah} exact />
+          <Route path="/sarpras" component={Sarpras} exact />
 
           <Route path="/profil" component={Profil} exact />
           <Route path="/pengumuman" component={Pengumuman} exact />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../css/gabung.css";
 import "../css/style.css";
+import Logo from "../aset/smpn1bergas/logo.png";
 
 function NavbarSekolah() {
   const [isSticky, setIsSticky] = useState(false);
@@ -47,35 +48,37 @@ function NavbarSekolah() {
   }, []);
 
   const handleScrollToSection = (id) => {
-    const isHomePage = window.location.pathname === '/';
-    
+    const isHomePage = window.location.pathname === "/";
+
     if (isHomePage) {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
     } else {
       window.location.href = `/#${id}`;
     }
   };
-  
 
   return (
     <>
       <div className="navbar-top style-2">
         <div className="container">
           <div className="row">
-            <div className="col-lg-3 d-lg-inline-block d-none">
+            {/* <div className="col-lg-3 d-lg-inline-block d-none">
               <div className="logo1">
                 <a href="/">
-                  <img style={{ width: "55px", height: "50px" }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd1W6Zktkl7wn7ar4kZHzbHhrugJNTkJMKjg&s" />
+                  <img
+                    style={{ width: "55px", height: "50px" }}
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd1W6Zktkl7wn7ar4kZHzbHhrugJNTkJMKjg&s"
+                  />
                 </a>
               </div>
-            </div>
+            </div> */}
             <div className="col-lg-3 col-md-5 align-self-center">
               <div className="media">
                 <div className="media-left">
                   <i className="fa-solid fa-phone"></i>
                 </div>
                 <div className="media-body">
-                  <h6>Telephone</h6>
+                  <h6>TELEPHONE</h6>
                   {/* <p>(0276) 320420</p> */}
                 </div>
               </div>
@@ -86,7 +89,7 @@ function NavbarSekolah() {
                   <i className="far fa-envelope"></i>
                 </div>
                 <div className="media-body">
-                  <h6>Email</h6>
+                  <h6>EMAIL</h6>
                   <p>
                     <a href="mailto:smpn1_bergas@yahoo.co.id">
                       smpn1_bergas@yahoo.co.id
@@ -103,7 +106,8 @@ function NavbarSekolah() {
                       className="facebook"
                       href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
                       target="_blank"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       <i className="fab fa-facebook-f"></i>
                     </a>
                   </li>
@@ -112,7 +116,8 @@ function NavbarSekolah() {
                       className="instagram"
                       href="https://www.instagram.com/osisspensagas"
                       target="_blank"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       <i className="fab fa-instagram"></i>
                     </a>
                   </li>
@@ -121,7 +126,8 @@ function NavbarSekolah() {
                       className="youtube"
                       href="https://www.youtube.com/@OSIS-SMPN1Bergas"
                       target="_blank"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       <i className="fab fa-youtube"></i>
                     </a>
                   </li>
@@ -133,160 +139,203 @@ function NavbarSekolah() {
       </div>
 
       <nav
-        className={`navbar-area navbar-area-2 navbar-expand-lg ${isSticky ? "sticky-active" : ""
-          }`}>
+        className={`navbar-area navbar-area-2 navbar-expand-lg ${
+          isSticky ? "sticky-active" : ""
+        }`}
+      >
         <div className="nav-container m-0">
-          <div className="responsive-mobile-menu">
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="logo-container d-lg-inline-block d-none">
+              <a href="/">
+                <img
+                  style={{ width: "55px", height: "50px" }}
+                  src={Logo}
+                  alt="Logo"
+                />
+              </a>
+            </div>
+            <div className="d-inline-block d-lg-none">
+              <a href="/">
+                <img
+                  style={{ width: "45px", height: "40px" }}
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd1W6Zktkl7wn7ar4kZHzbHhrugJNTkJMKjg&s"
+                  alt="Logo"
+                />
+              </a>
+            </div>
             <button
-              className={`d-lg-none menu toggle-btn ${menuOpen ? "is-active" : ""
-                }`}
+              className={`d-lg-none menu toggle-btn ${
+                menuOpen ? "is-active" : ""
+              }`}
               onClick={toggleMenu}
               data-target="#Iitechie_main_menu"
               aria-expanded="false"
-              aria-label="Toggle navigation">
+              aria-label="Toggle navigation"
+            >
               <span className="icon-left"></span>
               <span className="icon-right"></span>
             </button>
-          </div>
-
-          <div className="d-inline-block d-lg-none">
-            <a href="/">
-              <img style={{ width: "45px", height: "40px" }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd1W6Zktkl7wn7ar4kZHzbHhrugJNTkJMKjg&s" />
-            </a>
-          </div>
-          <div
-            style={{
-              width: windowWidth > 992 ? "max-content" : "",
-              textAlign: "center",
-            }}
-            className={`collapse navbar-collapse ${menuOpen ? "sopen" : ""}`}
-            id="Iitechie_main_menu text-navbar-rspnv">
-            <ul
-              className="navbar-reponsive navbar-nav menu-open text-lg-start"
+            <div
               style={{
-                marginLeft: "auto",
-                marginRight: "auto",
-                display: "flex",
-              }}>
-              <li className="">
-                <a href="/" style={{ paddingLeft: "15px" }}>Beranda</a>
-              </li>
-              <li className="menu-item-has-children">
-                <a
-                  href="#submenu"
-                  data-bs-toggle="collapse"
-                  aria-controls="navbarSupportedContent"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                  onClick={toggleSubmenu}>
-                  Profil Sekolah
-                </a>
-                <ul
-                  className={`${isMobile ? "collapse" : "sub-menu"}`}
-                  id="submenu"
-                  data-bs-parent="#menu">
-                  <li>
-                    <a href="/sambutan">Sambutan Kepala Sekolah</a>
-                  </li>
-                  <li>
-                    <a href="/sejarah">Sejarah</a>
-                  </li>
-                  <li>
-                    <a href="/visi-misi">Visi & Misi</a>
-                  </li>
-                  <li>
-                    <a href="/sarana-prasarana">Sarana Prasarana</a>
-                  </li>
-                  <li>
-                    <a href="/stuktur-organisasi">Struktur Organisasi</a>
-                  </li>
-                  <li>
-                    <a href="/staff">Staff</a>
-                  </li>
-                </ul>
-              </li>
-              <li className="menu-item-has-children">
-                <a
-                  href="#submenu2"
-                  data-bs-toggle="collapse"
-                  aria-controls="navbarSupportedContent"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                  onClick={toggleSubmenu}>
-                  Berita
-                </a>
-                <ul
-                  className={`${isMobile ? "collapse" : "sub-menu"}`}
-                  id="submenu2"
-                  data-bs-parent="#menu2">
-                  <li>
-                    <a href="/news">Berita Terbaru</a>
-                  </li>
-                  <li>
-                    <a href="/info">Info Sekolah</a>
-                  </li>
-                  <li>
-                    <a href="/agenda">Agenda</a>
-                  </li>
-                  <li>
-                    <a href="/galery">Galery</a>
-                  </li>
-                </ul>
-              </li>
-              <li className="menu-item-has-children">
-                <a
-                  href="#submenu3"
-                  data-bs-toggle="collapse"
-                  aria-controls="navbarSupportedContent"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                  onClick={toggleSubmenu}>
-                  Keuangan
-                </a>
-                <ul
-                  className={`${isMobile ? "collapse" : "sub-menu"}`}
-                  id="submenu3"
-                  data-bs-parent="#menu">
-                  <li>
-                    <a href="/keuangan-bos">BOS</a>
-                  </li>
-                  <li>
-                    <a href="/keuangan-apbd">APBD</a>
-                  </li>
-                  <li>
-                    <a href="/keuangan-komite">Komite</a>
-                  </li>
-                </ul>
-              </li>
-              <li className="menu-item-has-children">
-                <a
-                  href="#submenu8"
-                  data-bs-toggle="collapse"
-                  aria-controls="navbarSupportedContent"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                  onClick={toggleSubmenu}>
-                  Kesiswaan
-                </a>
-                <ul
-                  className={`${isMobile ? "collapse" : "sub-menu"}`}
-                  id="submenu8"
-                  data-bs-parent="#menu8">
-                  <li>
-                    <a href="/osis">OSIS</a>
-                  </li>
-                  <li>
-                    <a onClick={() => handleScrollToSection('ekstra-kulikuler')} style={{cursor: "pointer" }}>Ekstrakurikuler</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a onClick={() => handleScrollToSection('prestasi-terbaru')} style={{ paddingLeft: "15px", cursor: "pointer" }}>Prestasi</a>
-              </li>
-              <li>
-                <a onClick={() => handleScrollToSection('hubungi-kami')} style={{ paddingLeft: "15px", cursor: "pointer" }}>Kontak</a>
-              </li>
-            </ul>
+                width: windowWidth > 992 ? "max-content" : "",
+                textAlign: "center",
+              }}
+              className={`collapse navbar-collapse ${menuOpen ? "sopen" : ""}`}
+              id="Iitechie_main_menu"
+            >
+              <ul
+                className="navbar-reponsive navbar-nav menu-open text-lg-start"
+                style={{
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                  display: "flex",
+                }}
+              >
+                <li className="menu-item-has-children">
+                  <a
+                    href="#submenu"
+                    data-bs-toggle="collapse"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    onClick={toggleSubmenu}
+                  >
+                    PROFIL SEKOLAH
+                  </a>
+                  <ul
+                    className={`${isMobile ? "collapse" : "sub-menu"}`}
+                    id="submenu"
+                    data-bs-parent="#menu"
+                  >
+                    <li>
+                      <a href="/sambutan">SAMBUTAN KEPALA SEKOLAH</a>
+                    </li>
+                    <li>
+                      <a href="/sejarah">SEJARAH</a>
+                    </li>
+                    <li>
+                      <a href="/visi-misi">VISI & MISI</a>
+                    </li>
+                    <li>
+                      <a href="/sarpras">SARANA PRASARANA</a>
+                    </li>
+                    <li>
+                      <a href="/stuktur-organisasi">STRUKTUR ORGANISASI</a>
+                    </li>
+                    <li>
+                      <a href="/kondisi-sekolah">KONDISI SEKOLAH</a>
+                    </li>
+                    <li>
+                      <a href="/staff">STAFF</a>
+                    </li>
+                  </ul>
+                </li>
+                <li className="menu-item-has-children">
+                  <a
+                    href="#submenu2"
+                    data-bs-toggle="collapse"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    onClick={toggleSubmenu}
+                  >
+                    BERITA
+                  </a>
+                  <ul
+                    className={`${isMobile ? "collapse" : "sub-menu"}`}
+                    id="submenu2"
+                    data-bs-parent="#menu2"
+                  >
+                    <li>
+                      <a href="/news">BERITA TERBARU</a>
+                    </li>
+                    <li>
+                      <a href="/info">INFO SEKOLAH</a>
+                    </li>
+                    <li>
+                      <a href="/agenda">Agenda</a>
+                    </li>
+                    <li>
+                      <a href="/galery">GALERI</a>
+                    </li>
+                  </ul>
+                </li>
+                <li className="menu-item-has-children">
+                  <a
+                    href="#submenu3"
+                    data-bs-toggle="collapse"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    onClick={toggleSubmenu}
+                  >
+                    KEUANGAN
+                  </a>
+                  <ul
+                    className={`${isMobile ? "collapse" : "sub-menu"}`}
+                    id="submenu3"
+                    data-bs-parent="#menu"
+                  >
+                    <li>
+                      <a href="/keuangan-bos">BOS</a>
+                    </li>
+                    <li>
+                      <a href="/keuangan-apbd">APBD</a>
+                    </li>
+                    <li>
+                      <a href="/keuangan-komite">KOMITE</a>
+                    </li>
+                  </ul>
+                </li>
+                <li className="menu-item-has-children">
+                  <a
+                    href="#submenu8"
+                    data-bs-toggle="collapse"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    onClick={toggleSubmenu}
+                  >
+                    KESISWAAN
+                  </a>
+                  <ul
+                    className={`${isMobile ? "collapse" : "sub-menu"}`}
+                    id="submenu8"
+                    data-bs-parent="#menu8"
+                  >
+                    <li>
+                      <a href="/osis">OSIS</a>
+                    </li>
+                    <li>
+                      <a
+                        onClick={() =>
+                          handleScrollToSection("ekstra-kulikuler")
+                        }
+                        style={{ cursor: "pointer" }}
+                      >
+                        EKSURAKULIKULER
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a
+                    onClick={() => handleScrollToSection("prestasi-terbaru")}
+                    style={{ paddingLeft: "15px", cursor: "pointer" }}
+                  >
+                    PRESTASI
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={() => handleScrollToSection("hubungi-kami")}
+                    style={{ paddingLeft: "15px", cursor: "pointer" }}
+                  >
+                    KONTAK
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </nav>
