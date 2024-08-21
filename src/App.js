@@ -144,6 +144,11 @@ import DetailNews from "./views/pagesekolah/berita/tebaru/DetailNews";
 import DetailPrestasi from "./views/pagesekolah/profilSekolah/prestasi/DetailPrestasi";
 import DetailAlumni from "./views/pagesekolah/DetailAlumni";
 import Osis from "./views/pagesekolah/kesiswaan/Osis";
+import Info from "./views/pagesekolah/berita/info/info"
+import DetailInfo from "./views/pagesekolah/berita/info/DetailInfo";
+import agenda from "./views/pagesekolah/berita/agenda/Agenda";
+import DetailAgenda from "./views/pagesekolah/berita/agenda/DetailAgenda";
+import Galery from "./views/pagesekolah/berita/gambar/GalerySekolah";
 
 // END ADMIN MENU REGULASI
 
@@ -683,10 +688,13 @@ function App() {
           <Route path="/osis" component={Osis} exact />
           
           {/* Berita */}
+          <Route path="/galery" component={Galery} exact />
           <Route path="/news" component={beritaNews} exact />
           <Route path="/detail-news-:id" component={DetailNews} exact />
-          <Route path="/info" component={beritaNews} exact />
-          <Route path="/news" component={beritaNews} exact />
+          <Route path="/info" component={Info} exact />
+          <Route path="/detail-info-:id" component={DetailInfo} exact />
+          <Route path="/agenda" component={agenda} exact />
+          <Route path="/detail-agenda-:id" component={DetailAgenda} exact />
         </Switch>
       </main>
     </BrowserRouter>

@@ -33,29 +33,11 @@
 
 }
 
-/* .d-lg-none {
-    display: none !important;
-  }
-  .d-md-none {
-    display: none !important;
-  } */
-/* AdminSertaMerta.css */
-
-/* Sembunyikan dropdown mobile pada layar laptop */
 @media (min-width: 992px) {
-  /* .d-lg-none { */
-  /* display: none !important;
-    } */
 }
 
-/* Sembunyikan dropdown laptop pada layar mobile */
 @media (max-width: 992px) {
-  /* .d-md-none {
-      display: none !important;
-    } */
 }
-
-
 
 @media screen and (max-width:768px) {
   .navbar-reponsive {
@@ -117,14 +99,6 @@
   #icon-waktu4 {
     padding-right: 5px;
   }
-
-  /* .d-lg-none {
-        display: none !important;
-      }
-      .d-md-none {
-        display: none !important;
-      } */
-
 }
 
 @media screen and (max-width: 320px) {
@@ -139,37 +113,23 @@
     align-items: center;
     text-align: center;
   }
-
-  /* .d-lg-none {
-        display: none !important;
-      }
-      .d-md-none {
-        display: none !important;
-      } */
+  
   #text1-gabung {
     font-size: 15px;
     text-align: center;
-    /* display: flex;
-        align-items:center ;
-        justify-content: center; */
 
   }
 
   #text2-gabung {
     font-size: 20px;
-    /* padding-right: 100px; */
     text-align: center;
   }
 
   .div-gabung {
-    /* padding-left: 90px; */
     text-align: center;
 
   }
-
-  /* #div-gabung-akhir{
-        padding: 20px;
-    } */
+  
   .pembungkus-gabung {
     padding-right: 50px;
   }
@@ -185,7 +145,6 @@
     align-items: center;
     justify-content: center;
   }
-
 
 }
 
@@ -206,20 +165,12 @@
     align-items: center;
     text-align: center;
   }
-
-  /* .d-lg-none {
-        display: none !important;
-      }
-      .d-md-none {
-        display: none !important;
-      } */
+  
   .form-control.widget-content-right {
     width: 100%;
     margin: 10px 0;
-    /* Add padding/margin as needed */
   }
 
-  /* Optional: Center the input horizontally */
   .form-control.widget-content-right.w-75 {
     margin-left: auto;
     margin-right: auto;

@@ -8,8 +8,8 @@ function DetailNews() {
     return (
         <section>
             <NavbarSekolah />
-            <main className="container-detail-keuangan">
-                <HeaderDetailBerita title={"Berita"} header={"TEST"} />
+            <main className="container-detail-berita">
+                <HeaderDetailBerita title={"Berita Terbaru"} header={"TEST"} />
                 <img src="https://via.placeholder.com/300x200?text=Award" />
                 <h4 style={{ fontWeight: "700", color: "#002147", marginTop: "2rem", marginBottom: "1rem" }}>TEST</h4>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

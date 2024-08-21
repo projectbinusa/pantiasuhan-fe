@@ -4,12 +4,12 @@ import FooterSekolah from "../../../../component/FooterSekolah";
 import "../../../../css/berita/news.css";
 import HeaderDetailBerita from "../HeaderDetailBerita"
 
-function DetailInfo() {
+function DetailAgenda() {
     return (
         <section>
             <NavbarSekolah />
             <main className="container-detail-berita">
-                <HeaderDetailBerita title={"Info Sekolah"} header={"TEST"} />
+                <HeaderDetailBerita title={"Agenda"} header={"TEST"} />
                 <img src="https://via.placeholder.com/300x200?text=Award" />
                 <h4 style={{ fontWeight: "700", color: "#002147", marginTop: "2rem", marginBottom: "1rem" }}>TEST</h4>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -25,4 +25,4 @@ function DetailInfo() {
     )
 }
 
-export default DetailInfo;
+export default DetailAgenda;
