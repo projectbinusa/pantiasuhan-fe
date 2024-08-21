@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../../../css/keuangan/apbd.css";
 import NavbarSekolah from "../../../../component/NavbarSekolah";
 import CardKeuangan from "../CardKeuangan";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import HeaderKeuangan from "../HeaderKeuangan";
+import { Pagination } from "@mui/material";
 
 function AllAPBD() {
     const newsData = [
@@ -12,20 +13,38 @@ function AllAPBD() {
         { id: 3, title: 'New Library Opens Downtown', content: 'The new library offers a wide range of books and community programs for all ages.', image: 'https://via.placeholder.com/300x200?text=Library', category: 'Berita Sekolah', date: '2024-08-14' },
         { id: 4, title: 'Tech Startup Announces Innovative App', content: 'A local tech startup has announced the release of a new app designed to improve productivity.', image: 'https://via.placeholder.com/300x200?text=Tech', category: 'Agenda', date: '2024-08-16' },
         { id: 5, title: 'Annual Art Fair Returns This Weekend', content: 'The annual art fair will showcase works from local artists and provide interactive workshops.', image: 'https://via.placeholder.com/300x200?text=Art', category: 'Berita Sekolah', date: '2024-08-18' },
+        { id: 6, title: 'Annual Art Fair Returns This Weekend', content: 'The annual art fair will showcase works from local artists and provide interactive workshops.', image: 'https://via.placeholder.com/300x200?text=Art', category: 'Berita Sekolah', date: '2024-08-18' },
+        { id: 7, title: 'Annual Art Fair Returns This Weekend', content: 'The annual art fair will showcase works from local artists and provide interactive workshops.', image: 'https://via.placeholder.com/300x200?text=Art', category: 'Berita Sekolah', date: '2024-08-18' },
+        { id: 8, title: 'Annual Art Fair Returns This Weekend', content: 'The annual art fair will showcase works from local artists and provide interactive workshops.', image: 'https://via.placeholder.com/300x200?text=Art', category: 'Berita Sekolah', date: '2024-08-18' },
+        { id: 9, title: 'Annual Art Fair Returns This Weekend', content: 'The annual art fair will showcase works from local artists and provide interactive workshops.', image: 'https://via.placeholder.com/300x200?text=Art', category: 'Berita Sekolah', date: '2024-08-18' },
+        { id: 10, title: 'Annual Art Fair Returns This Weekend', content: 'The annual art fair will showcase works from local artists and provide interactive workshops.', image: 'https://via.placeholder.com/300x200?text=Art', category: 'Berita Sekolah', date: '2024-08-18' },
+        { id: 11, title: 'Annual Art Fair Returns This Weekend', content: 'The annual art fair will showcase works from local artists and provide interactive workshops.', image: 'https://via.placeholder.com/300x200?text=Art', category: 'Berita Sekolah', date: '2024-08-18' },
+        { id: 12, title: 'Annual Art Fair Returns This Weekend', content: 'The annual art fair will showcase works from local artists and provide interactive workshops.', image: 'https://via.placeholder.com/300x200?text=Art', category: 'Berita Sekolah', date: '2024-08-18' },
     ];
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const totalPages = Math.ceil(newsData.length / 5);
+
+    const currentData = newsData.slice(
+        (currentPage - 1) * 5,
+        currentPage * 5
+    );
+
+    const handlePageChange = (event, pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <section>
             <NavbarSekolah />
             <main className="container-keuangan">
-                <HeaderKeuangan title={"APBD"}/>
+                <HeaderKeuangan title={"APBD"} />
                 <div className="container-apbd">
                     <div>
                         <div>
                             <h5 style={{ fontWeight: "600", color: "#002147" }}>PENCARIAN</h5>
                             <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
                             <div className="search-box">
-                                <input />
+                                <input placeholder="Pencarian APBD ..." />
                                 <button><i class="fas fa-search"></i></button>
                             </div>
                         </div>
@@ -59,7 +78,7 @@ function AllAPBD() {
                         </div>
                     </div>
                     <div className="container-all">
-                        {newsData.map(newsItem => (
+                        {currentData.map(newsItem => (
                             <CardKeuangan
                                 key={newsItem.id}
                                 image={newsItem.image}
@@ -69,6 +88,18 @@ function AllAPBD() {
                                 link={"apbd"}
                             />
                         ))}
+                        <div className="d-flex justify-content-center align-items-center mt-3">
+                            <Pagination
+                                count={totalPages}
+                                page={currentPage}
+                                onChange={handlePageChange}
+                                color="primary"
+                                shape="rounded"
+                                style={{ marginBottom: "30px" }}
+                                showFirstButton
+                                showLastButton
+                            />
+                        </div>
                     </div>
                 </div>
             </main>

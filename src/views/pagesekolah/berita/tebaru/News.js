@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import HeaderBerita from "../HeaderBerita";
 import CardBerita from "../CardBerita";
 import "../../../../css/berita/news.css";
+import { Pagination } from '@mui/material';
 
 const newsData = [
     { id: 1, title: 'Local School Wins Award', content: 'The local school has been recognized for its outstanding achievements in academics and sports.', image: 'https://via.placeholder.com/300x200?text=Award', category: 'Berita Sekolah', date: '2024-08-10' },
@@ -16,70 +17,93 @@ const newsData = [
     { id: 8, title: 'School Science Fair Winners Announced', content: 'Students from various schools presented innovative science projects and won awards.', image: 'https://via.placeholder.com/300x200?text=Science', category: 'Berita Sekolah', date: '2024-08-24' },
     { id: 9, title: 'Local Theatre Group Performs Shakespeare', content: 'The local theatre group is performing Shakespeare’s plays this weekend.', image: 'https://via.placeholder.com/300x200?text=Theatre', category: 'Info Sekolah', date: '2024-08-26' },
     { id: 10, title: 'New Restaurant Opens Downtown', content: 'A new restaurant specializing in international cuisine has opened its doors.', image: 'https://via.placeholder.com/300x200?text=Restaurant', category: 'Agenda', date: '2024-08-28' }
-  ];
+];
 
-  const News = () => {
+const News = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const totalPages = Math.ceil(newsData.length / 5);
+
+    const currentData = newsData.slice(
+        (currentPage - 1) * 5,
+        currentPage * 5
+    );
+
+    const handlePageChange = (event, pageNumber) => setCurrentPage(pageNumber);
+
     return (
-      <section>
-          <NavbarSekolah />
-          <main className="container-berita">
-              <HeaderBerita title={"Berita Terbaru"}/>
-              <div className="container-apbd">
-                  <div>
-                      <div>
-                          <h5 style={{ fontWeight: "600", color: "#002147" }}>PENCARIAN</h5>
-                          <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
-                          <div className="search-box">
-                              <input />
-                              <button><i class="fas fa-search"></i></button>
-                          </div>
-                      </div>
-                      <br />
-                      <div>
-                          <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
-                          <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
-                          <ul className="category-berita">
-                              <li><a href="/news">Berita Terbaru</a></li>
-                              <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
-                              <li><a href="/info">INfo Sekolah</a></li>
-                              <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
-                              <li><a href="/agenda">Agenda</a></li>
-                          </ul>
-                      </div>
-                      <br />
-                      <div>
-                          <h5 style={{ fontWeight: "600", color: "#002147" }}>IKUTI KAMI</h5>
-                          <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
-                          <ul className="medsos-list">
-                              <li><a href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
-                                  target="_blank"
-                              ><i class="fab fa-facebook-f"></i></a></li>
-                              <li><a href="https://www.instagram.com/osisspensagas"
-                                  target="_blank"
-                              ><i class="fab fa-instagram"></i></a></li>
-                              <li><a href="https://www.youtube.com/@OSIS-SMPN1Bergas"
-                                  target="_blank"
-                              ><i class="fab fa-youtube"></i></a></li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div className="container-all">
-                      {newsData.map(newsItem => (
-                          <CardBerita
-                              key={newsItem.id}
-                              image={newsItem.image}
-                              id={newsItem.id}
-                              title={newsItem.title}
-                              link={"news"}
-                              content={newsItem.content}
-                          />
-                      ))}
-                  </div>
-              </div>
-          </main>
-          <FooterSekolah />
-      </section>
-  )
+        <section>
+            <NavbarSekolah />
+            <main className="container-berita">
+                <HeaderBerita title={"Berita Terbaru"} />
+                <div className="container-apbd">
+                    <div>
+                        <div>
+                            <h5 style={{ fontWeight: "600", color: "#002147" }}>PENCARIAN</h5>
+                            <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
+                            <div className="search-box">
+                                <input placeholder="Pencarian berita ..." />
+                                <button><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                        <br />
+                        <div>
+                            <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
+                            <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
+                            <ul className="category-berita">
+                                <li><a href="/news">Berita Terbaru</a></li>
+                                <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
+                                <li><a href="/info">Info Sekolah</a></li>
+                                <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
+                                <li><a href="/agenda">Agenda</a></li>
+                            </ul>
+                        </div>
+                        <br />
+                        <div>
+                            <h5 style={{ fontWeight: "600", color: "#002147" }}>IKUTI KAMI</h5>
+                            <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
+                            <ul className="medsos-list">
+                                <li><a href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
+                                    target="_blank"
+                                ><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="https://www.instagram.com/osisspensagas"
+                                    target="_blank"
+                                ><i class="fab fa-instagram"></i></a></li>
+                                <li><a href="https://www.youtube.com/@OSIS-SMPN1Bergas"
+                                    target="_blank"
+                                ><i class="fab fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="container-all">
+                        {currentData.map(newsItem => (
+                            <CardBerita
+                                key={newsItem.id}
+                                image={newsItem.image}
+                                id={newsItem.id}
+                                title={newsItem.title}
+                                link={"news"}
+                                content={newsItem.content}
+                            />
+                        ))}
+                        <div className="d-flex justify-content-center align-items-center mt-3">
+                            <Pagination
+                                count={totalPages}
+                                page={currentPage}
+                                onChange={handlePageChange}
+                                color="primary"
+                                shape="rounded"
+                                style={{ marginBottom: "30px" }}
+                                showFirstButton
+                                showLastButton
+                            />
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <FooterSekolah />
+        </section>
+    )
 }
-  
-  export default News;
+
+export default News;
