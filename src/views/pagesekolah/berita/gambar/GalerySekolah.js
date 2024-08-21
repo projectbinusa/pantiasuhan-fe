@@ -1,7 +1,9 @@
 import React from 'react';
 import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
-import ImageCard from './ImageCard'; // Assuming ImageCard is in the same directory
+import ImageCard from './ImageCard';
+import "../../../../css/galery/gallery.css"
+import HeaderGaleri from './HeaderGaleri';
 
 const galleryData = [
   { id: 1, image: 'https://via.placeholder.com/300x200?text=Image+1', title: 'Sunrise Over Mountains', content: 'A beautiful sunrise over the mountain range, casting a warm glow across the landscape.' },
@@ -30,16 +32,19 @@ function GalerySekolah() {
   return (
     <>
       <NavbarSekolah />
-      <div className="gallery-container">
-        {galleryData.map(item => (
-          <ImageCard 
-            key={item.id} 
-            image={item.image} 
-            title={item.title} 
-            content={item.content} 
-          />
-        ))}
-      </div>
+      <main className='galeri-container'>
+        <HeaderGaleri />
+        <div className="gallery-container">
+          {galleryData.map(item => (
+            <ImageCard
+              key={item.id}
+              image={item.image}
+              title={item.title}
+              content={item.content}
+            />
+          ))}
+        </div>
+      </main>
       <FooterSekolah />
     </>
   );

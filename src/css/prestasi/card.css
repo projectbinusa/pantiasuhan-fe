@@ -45,6 +45,30 @@
     font-size: 3rem;
 }
 
+.banner-beranda {
+    transform: translateY(scrollY * 0.5px);
+    position: relative;
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+  };
+
+
+.banner-beranda::after{
+    background: #000000 none repeat scroll 0 0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    content: "";
+    height: 30%;
+    left: 0;
+    opacity: 0.6;
+    position: absolute;
+    top:4rem;
+    width: 100%;
+    z-index: -1;
+}
+
 @media screen and (max-width: 992px) {
     .card-style {
         display: grid;

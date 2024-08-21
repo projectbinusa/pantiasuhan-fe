@@ -38,7 +38,8 @@ const announcements = [
 const SingleCardMenu = () => {
   return (
     <Grid container spacing={3} style={{ padding: "0 16px" }} direction="row">
-      <Grid item xs={12} sm={6} md={6}>
+      <Grid item xs={12} sm={6} md={6} data-aos="fade-right"
+            data-aos-anchor-placement="bottom-bottom">
         <Card style={{ maxWidth: 600 }}>
           <CardContent style={{ padding: "0" }}>
             <div
@@ -93,7 +94,8 @@ const SingleCardMenu = () => {
         </Card>
       </Grid>
 
-      <Grid item xs={12} sm={6} md={6}>
+      <Grid item xs={12} sm={6} md={6} data-aos="fade-left"
+            data-aos-anchor-placement="bottom-bottom">
         <div style={{ maxWidth: 600, padding: "16px", borderRadius: "8px" }}>
           <img
             src={kepsek}

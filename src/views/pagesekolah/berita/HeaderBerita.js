@@ -6,7 +6,7 @@ const HeaderBerita = ({ title }) => {
         <div className='header-berita'>
             <ul>
                 <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>
-                <li><i class="fas fa-angle-right"></i> {title} </li>
+                <li><i class="fas fa-angle-right"></i> <span style={{fontWeight: "normal"}}>{title}</span> </li>
             </ul>
         </div>
     );
