@@ -1,0 +1,31 @@
+.perpustakaan-container {
+    padding: 20px 100px;
+    margin-top: 70px;
+    margin-bottom: 2rem;
+}
+
+.perpus-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 992px) {    
+    .perpus-container {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  
+    .perpustakaan-container {
+      padding: 0 20px;
+      padding-top: 80px;
+      margin-top: 0;
+      gap: 0;
+    }
+  }
+  
+  @media all and (max-width: 575px) {
+    .perpus-container {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  }

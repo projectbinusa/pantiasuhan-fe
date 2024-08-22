@@ -5,8 +5,8 @@ const CardKeuangan = ({ image, title, content, id, link }) => {
     return (
         <div className='card-keuangan'>
             <img src={image} alt={title} />
-            <h2>{title}</h2>
-            <p className="content-keuangan">{content}</p>
+            <h4 style={{textTransform: "uppercase"}}>{title}</h4>
+            <p className="content-keuangan" style={{fontSize: "14px"}}>{content}</p>
             <a href={`/detail-${link}-${id}`}>Selengkapnya</a>
         </div>
     );

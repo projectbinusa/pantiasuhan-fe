@@ -2,18 +2,20 @@ import React from "react";
 import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import kepsek from "../../../../aset/smpn1bergas/kepsek.jpg";
+import "../../../../css/sambutan/sambutan.css";
 
 function Sambutan() {
   return (
-      <div>
-        <NavbarSekolah />
-        <div style={{ padding: "40px", maxWidth: "900px", margin: "100px auto 50px auto", backgroundColor: "#f9f9f9", borderRadius: "15px", boxShadow: "0 0 20px rgba(0, 0, 0, 0.1)", paddingTop: "3rem" }}>
+    <div>
+      <NavbarSekolah />
+      <div className="sambutan-container">
+        <div className="parent-sambutan">
           <h2 style={{ textAlign: "center", marginBottom: "30px", color: "#333", fontFamily: "'Poppins', sans-serif", fontWeight: "bold" }}>Sambutan Kepala Sekolah</h2>
           <div style={{ textAlign: "center", marginBottom: "30px" }}>
             <img
               src={kepsek}
               alt="Kepala Sekolah"
-              style={{ width: "220px", height: "auto", borderRadius: "50%", border: "5px solid #ddd" }}
+              style={{ width: "220px", height: "auto"}}
             />
           </div>
           <p style={{ fontSize: "20px", lineHeight: "1.8", color: "#555", marginBottom: "20px", fontFamily: "'Poppins', sans-serif" }}>
@@ -41,8 +43,9 @@ function Sambutan() {
             <span style={{ fontSize: "16px", fontWeight: "normal", color: "#777" }}>NIP: [196504181986012001]</span>
           </p>
         </div>
-        <FooterSekolah />
       </div>
+      <FooterSekolah />
+    </div>
   );
 }
 

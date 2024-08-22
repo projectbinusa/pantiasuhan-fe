@@ -191,6 +191,8 @@ import EditFotoSarana from "./views/pages/admin/smpn1bergas/sarana/fotoSarana/Ed
 import KondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/KondisiSekolah";
 import AddKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/AddKondisiSekolah";
 import EditKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/EditKondisiSekolah";
+import GalerySekolah from "./views/pagesekolah/berita/gambar/GalerySekolah";
+import Perpustakaan from "./views/pagesekolah/perpus/Perpustakaan";
 
 // END ADMIN MENU REGULASI
 
@@ -515,7 +517,7 @@ function App() {
           />
           {/* end berita */}
           {/* galery */}
-          <PrivateRoute path="/admin-galery" component={Galery} exact />
+          <PrivateRoute path="/admin-galery" component={GalerySekolah} exact />
           <PrivateRoute path="/add-galery" component={AddGalery} exact />
           <PrivateRoute path="/edit-galery/:id" component={EditGalery} exact />
           {/* end galery */}
@@ -906,13 +908,16 @@ function App() {
           <Route path="/osis" component={Osis} exact />
 
           {/* Berita */}
-          <Route path="/galery" component={Galery} exact />
+          <Route path="/galery" component={GalerySekolah} exact />
           <Route path="/news" component={beritaNews} exact />
           <Route path="/detail-news-:id" component={DetailNews} exact />
           <Route path="/info" component={Info} exact />
           <Route path="/detail-info-:id" component={DetailInfo} exact />
           <Route path="/agenda" component={agenda} exact />
           <Route path="/detail-agenda-:id" component={DetailAgenda} exact />
+
+          <Route path="/perpustakaan" component={Perpustakaan} exact />
+          {/* <Route path="/detail-agenda-:id" component={DetailAgenda} exact /> */}
         </Switch>
       </main>
     </BrowserRouter>

@@ -19,9 +19,33 @@ body {
     margin-bottom: 16px;
 }
 
-.card-berita p a {
+.card-berita a {
     color: #0060ff;
     text-decoration: underline;
+}
+
+.card-berita a,
+.card-berita a:active,
+.card-berita a:focus,
+.card-berita a:hover {
+    outline: none;
+    text-decoration: none;
+    color: #002147;
+}
+
+.card-berita a:hover {
+    color: #0060ff;
+}
+
+.card-berita a {
+    transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -ms-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
 .header-berita {
@@ -34,7 +58,10 @@ body {
 .header-berita ul {
     padding: 10px 15px;
     list-style: none;
-    display: flex;
+}
+
+.header-berita ul>li{
+    display: inline-block;
 }
 
 .header-berita ul li,
@@ -48,6 +75,7 @@ body {
     margin-left: 0.75rem;
 }
 .header-berita ul li:nth-child(3) {
+    display: inline-block;
     margin-left: 0.75rem;
 }
 

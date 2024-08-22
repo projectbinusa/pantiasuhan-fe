@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import ImageCard from './ImageCard';
 import "../../../../css/galery/gallery.css"
 import HeaderGaleri from './HeaderGaleri';
+import axios from 'axios';
+import { API_DUMMY } from '../../../../utils/base_URL';
+import { Pagination } from '@mui/material';
 
 const galleryData = [
   { id: 1, image: 'https://via.placeholder.com/300x200?text=Image+1', title: 'Sunrise Over Mountains', content: 'A beautiful sunrise over the mountain range, casting a warm glow across the landscape.' },
@@ -29,21 +32,65 @@ const galleryData = [
 ];
 
 function GalerySekolah() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageChange = (event, pageNumber) => {
+    setCurrentPage(pageNumber);
+    getAllGalery(pageNumber);
+  };
+
+  // GET ALL GALERY
+  const [galery, setGalery] = useState([]);
+  const [totalPages, setTotalPage] = useState(1);
+
+  const getAllGalery = async (page = 1) => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/galeri/all/terbaru?page=${page - 1}&size=20`);
+      setGalery(response.data.data.content);
+      setTotalPage(response.data.data.totalPages);
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllGalery(currentPage);
+  }, [currentPage]);
+
   return (
     <>
       <NavbarSekolah />
       <main className='galeri-container'>
         <HeaderGaleri />
         <div className="gallery-container">
-          {galleryData.map(item => (
+          {galery.map(item => (
+            <ImageCard
+              key={item.id}
+              image={item.foto}
+              title={item.judul}
+              content={item.deskripsi}
+            />
+          ))}
+          {/* {galleryData.map(item => (
             <ImageCard
               key={item.id}
               image={item.image}
               title={item.title}
               content={item.content}
             />
-          ))}
+          ))} */}
         </div>
+          <div className="d-flex justify-content-center align-items-center mt-3 mb-5">
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+              color="primary"
+              shape="rounded"
+              style={{ marginBottom: "30px" }}
+              showFirstButton
+              showLastButton
+            />
+          </div>
       </main>
       <FooterSekolah />
     </>

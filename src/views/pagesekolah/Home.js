@@ -10,6 +10,8 @@ import Slider from "react-slick";
 import { Link, Typography, TextField, Button, Grid } from "@mui/material";
 import "../../css/prestasi/card.css";
 import AOS from 'aos'
+import axios from "axios";
+import { API_DUMMY } from "../../utils/base_URL";
 
 const contentStyles = {
   marginTop: "10px",
@@ -276,18 +278,24 @@ function Home() {
     { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "3", title: "Berita 3", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
     { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "4", title: "Berita 4", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
     { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "5", title: "Berita 5", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
-    { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "6", title: "Berita 6", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." },
+    { image: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png", id: "6", title: "Berita 6", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. por incididunt ut labore et dolore magna aliqua." },
   ]
 
-  const darkColors = [
-    "#2c3e50",
-    "#34495e",
-    "#2c2c54",
-    "#1e272e",
-    "#3d3d3d",
-    "#4b4b4b",
-    "#2f3640",
-    "#3b3b98",
+  const lightColors = [
+    "#f39c12", // Bright Orange
+    "#f1c40f", // Yellow
+    "#e74c3c", // Bright Red
+    "#e67e22", // Bright Orange
+    "#9b59b6", // Light Purple
+    "#1abc9c", // Light Turquoise
+    "#2ecc71", // Light Green
+    "#3498db", // Light Blue
+    "#ecf0f1", // Light Gray
+    "#e84393", // Bright Pink
+    "#fdcb6e", // Soft Yellow
+    "#74b9ff", // Soft Blue
+    "#a29bfe", // Soft Purple
+    "#81ecec", // Soft Cyan
   ];
 
   const alumniItems = [
@@ -384,6 +392,108 @@ function Home() {
     AOS.init();
   }, [])
 
+  // GET ALL BERITA TERBARU
+  const [berita, setBerita] = useState([]);
+
+  const getAll = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=5&sort=createdDate`);
+      setBerita(response.data.data.content);
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
+
+  useEffect(() => {
+    getAll();
+  }, []);
+
+  // GET ALL EKSTRAKURIKULER
+  const [ekstrakurikuler, setEkstrakurikuler] = useState([]);
+
+  const getAllEkskul = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all?direction=asc&page=0&size=8&sort=createdDate`);
+      setEkstrakurikuler(response.data.data.content);
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllEkskul();
+  }, []);
+
+  // GET ALL GURU
+  const [gurus, setGurus] = useState([]);
+
+  const getAllGuru = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/guru/all?page=0&size=20`);
+      setGurus(response.data.data.content);
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllGuru();
+  }, []);
+
+  // GET ALL ALUMNI
+  const [alumnus, setAlumnus] = useState([]);
+
+  const getAllAlumni = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/alumni/all/terbaru?page=0&size=20`);
+      setAlumnus(response.data.data.content);
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllAlumni();
+  }, []);
+
+  // GET ALL PRESTASI
+  const [prestasi, setPrestasi] = useState([]);
+
+  const getAllPrestasi = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/prestasi/all/terbaru?page=0&size=6`);
+      setPrestasi(response.data.data.content);
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllPrestasi();
+  }, []);
+
+  // GET ALL KONTAK
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [fax, setFax] = useState("");
+
+  const getAllKontak = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/kontak/all?page=0&size=1`);
+      setEmail(response.data.data.content.email);
+      setPhone(response.data.data.content.phone);
+      setFax(response.data.data.content.fax);
+      setAddress(response.data.data.content.address);
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllKontak();
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -433,8 +543,21 @@ function Home() {
             Berita Terbaru
           </Typography>
           <div style={newsCardsContainerStyle}>
-            {newsItems.map((item, index) => (
-              <div style={{ width: "100%", maxWidth: "400px" }} key={index}>
+            {berita.length > 0 ? (
+              berita.map((news, idx) => (
+                <div style={{ width: "100%", maxWidth: "400px" }} key={idx}>
+                  <NewsCard
+                    image={news.image}
+                    id={news.id}
+                    title={news.judulBerita}
+                    content={news.isiBerita}
+                    date={news.updatedDate}
+                  />
+                </div>
+              ))
+            ) : (<></>)}
+            {/* 
+            <div style={{ width: "100%", maxWidth: "400px" }} key={index}>
                 <NewsCard
                   image={item.image}
                   id={item.id}
@@ -444,6 +567,7 @@ function Home() {
                 />
               </div>
             ))}
+            */}
           </div>
           <Link
             href="/news"
@@ -474,14 +598,24 @@ function Home() {
             Ekstrakurikuler
           </Typography>
           <div className="ekstrakurikuler-container-style">
-            {ekstraKulikulerItems.map((item, index) => (
+            {ekstrakurikuler.length > 0 ? (
+              ekstrakurikuler.map((ekskul, idx) => (
+                <div key={idx}>
+                  <EkstraKulikulerCard
+                    title={ekskul.name}
+                    backgroundColor={lightColors[idx % lightColors.length]}
+                  />
+                </div>
+              ))
+            ) : (<></>)}
+            {/* {ekstraKulikulerItems.map((item, index) => (
               <div key={index}>
                 <EkstraKulikulerCard
                   title={item.title}
-                  backgroundColor={darkColors[index % darkColors.length]}
+                  backgroundColor={lightColors[index % lightColors.length]}
                 />
               </div>
-            ))}
+            ))} */}
           </div>
         </section>
       </div>
@@ -504,7 +638,21 @@ function Home() {
             Prestasi Terbaru
           </Typography>
           <div>
-            {prestasiItems.map((item, index) => (
+            {prestasi.length > 0 ? (
+              prestasi.map((row, idx) => (
+                <PrestasiCard
+                  key={idx}
+                  id={row.id}
+                  image={row.foto}
+                  title={row.judul}
+                  content={row.skala}
+                  date={row.creadtedDate}
+                  participant={row.nama_peserta}
+                  description={row.penyelenggara}
+                />
+              ))
+            ) : (<></>)}
+            {/* {prestasiItems.map((item, index) => (
               <PrestasiCard
                 key={index}
                 id={item.id}
@@ -515,7 +663,7 @@ function Home() {
                 participant={item.participant}
                 description={item.description}
               />
-            ))}
+            ))} */}
           </div>
           <Link
             href="/all-prestasi"
@@ -552,7 +700,30 @@ function Home() {
           </Typography>
           <div style={{ position: "relative" }}>
             <Slider ref={sliderRef} {...sliderSettings}>
-              {teacherItems.map((teacher, index) => (
+              {gurus.length > 0 ? (
+                gurus.map((guru, idx) => (
+                  <div key={idx} style={teacherCardStyle}>
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "300px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img
+                        src={guru.foto}
+                        alt={guru.nama_guru}
+                        style={teacherImageStyle}
+                      />
+                    </div>
+                    <Typography style={{ fontFamily: "'Poppins', sans-serif" }} variant="h6">{guru.nama_guru}</Typography>
+                    <Typography style={{ fontFamily: "'Poppins', sans-serif" }} variant="body2">{guru.mapel}</Typography>
+                  </div>
+                ))
+              ) : (<></>)}
+              {/* {teacherItems.map((teacher, index) => (
                 <div key={index} style={teacherCardStyle}>
                   <div
                     style={{
@@ -572,7 +743,8 @@ function Home() {
                   <Typography style={{ fontFamily: "'Poppins', sans-serif" }} variant="h6">{teacher.name}</Typography>
                   <Typography style={{ fontFamily: "'Poppins', sans-serif" }} variant="body2">{teacher.position}</Typography>
                 </div>
-              ))}
+              ))} */}
+
             </Slider>
             <div
               style={{
@@ -644,7 +816,18 @@ function Home() {
           </Typography>
           <div style={{ position: "relative" }}>
             <Slider {...sliderSettingsAlumni}>
-              {alumniItems.map((item, index) => (
+              {alumnus.length > 0 ? (
+                alumnus.map((alumni, idx) => (
+                  <div key={idx} style={{ padding: "0 10px" }}>
+                    <AlumniCard
+                      image={alumni.foto}
+                      title={alumni.nama}
+                      description={alumni.biografi}
+                    />
+                  </div>
+                ))
+              ) : (<></>)}
+              {/* {alumniItems.map((item, index) => (
                 <div key={index} style={{ padding: "0 10px" }}>
                   <AlumniCard
                     image={item.image}
@@ -652,7 +835,7 @@ function Home() {
                     description={item.description}
                   />
                 </div>
-              ))}
+              ))} */}
             </Slider>
           </div>
         </section>
@@ -700,26 +883,36 @@ function Home() {
                     <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
                   </svg>
                   <strong style={{ marginLeft: '8px' }}>:</strong>
-                  <span style={{ marginLeft: '8px' }}>smpn1_bergas@yahoo.co.id</span>
+                  {/* <span style={{ marginLeft: '8px' }}>smpn1_bergas@yahoo.co.id</span> */}
+                  <span style={{ marginLeft: '8px' }}>{email}</span>
                 </Typography>
                 <Typography variant="body1" gutterBottom style={{ display: 'flex', fontFamily: "'Poppins', sans-serif" }}>
                   <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z" />
                   </svg>
                   <strong style={{ marginLeft: '8px' }}>:</strong>
-                  <span style={{ marginLeft: '8px' }}>+62 </span>
+                  <span style={{ marginLeft: '8px' }}>+62 {phone}</span>
+                </Typography>
+                <Typography variant="body1" gutterBottom style={{ display: 'flex', fontFamily: "'Poppins', sans-serif" }}>
+                  <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M11 4a1 1 0 0 0-1 1v10h10.459l.522-3H16a1 1 0 1 1 0-2h5.33l.174-1H16a1 1 0 1 1 0-2h5.852l.117-.67v-.003A1.983 1.983 0 0 0 20.06 4H11ZM9 18c0-.35.06-.687.17-1h11.66c.11.313.17.65.17 1v1a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-1Zm-6.991-7a17.8 17.8 0 0 0 .953 6.1c.198.54 1.61.9 2.237.9h1.34c.17 0 .339-.032.495-.095a1.24 1.24 0 0 0 .41-.27c.114-.114.2-.25.254-.396a1.01 1.01 0 0 0 .055-.456l-.242-2.185a1.073 1.073 0 0 0-.395-.71 1.292 1.292 0 0 0-.819-.286H5.291c-.12-.863-.17-1.732-.145-2.602-.024-.87.024-1.74.145-2.602H6.54c.302 0 .594-.102.818-.286a1.07 1.07 0 0 0 .396-.71l.24-2.185a1.01 1.01 0 0 0-.054-.456 1.088 1.088 0 0 0-.254-.397 1.223 1.223 0 0 0-.41-.269A1.328 1.328 0 0 0 6.78 4H4.307c-.3-.001-.592.082-.838.238a1.335 1.335 0 0 0-.531.634A17.127 17.127 0 0 0 2.008 11Z" clip-rule="evenodd" />
+                  </svg>
+                  <strong style={{ marginLeft: '8px' }}>:</strong>
+                  <span style={{ marginLeft: '8px' }}>{fax}</span>
                 </Typography>
                 <Typography variant="body1" gutterBottom style={{ display: 'flex', fontFamily: "'Poppins', sans-serif" }}>
                   <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z" clipRule="evenodd" />
                   </svg>
                   <strong style={{ marginLeft: '12px' }}>:</strong>
-                  <span style={{ marginLeft: '8px', textAlign: 'left' }}>RCCG+P83, Jl. Krakatau, Gembongan, Karangjati, Kec. Bergas, Kabupaten Semarang, Jawa Tengah 50552</span>
+                  {/* <span style={{ marginLeft: '8px', textAlign: 'left' }}>RCCG+P83, Jl. Krakatau, Gembongan, Karangjati, Kec. Bergas, Kabupaten Semarang, Jawa Tengah 50552</span> */}
+                  <span style={{ marginLeft: '8px', textAlign: 'left' }}>{address}</span>
                 </Typography>
               </div>
             </Grid>
           </Grid>
 
+          {/* SARAN BELUM */}
           <br /> <br />
           <form style={formStyle} onSubmit={(e) => e.preventDefault()}>
             <Typography variant="h5" gutterBottom style={{ fontWeight: 'bold', textAlign: 'left', margin: '20px 0px', fontFamily: "'Poppins', sans-serif" }}>

@@ -10,7 +10,6 @@ function VisiMisiSekolah() {
     height: "400px",
     transition: "transform 0.3s ease-in-out",
     transform: isHovered ? "scale(1.1)" : "scale(1)",
-    borderRadius: '10px',
   };
 
   return (
@@ -18,26 +17,36 @@ function VisiMisiSekolah() {
       <NavbarSekolah />
       <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', lineHeight: '1.8' }}>
         <div style={{ maxWidth: '1000px', margin: '50px auto 0', padding: '20px' }}>
-          <div 
+          <div
             style={{ textAlign: 'center', marginBottom: '40px', position: 'relative', overflow: 'hidden' }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            <img 
-              src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no" 
-              alt="Visi dan Misi SMP Negeri 1 Bergas" 
+            <img
+              src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
+              alt="Visi dan Misi SMP Negeri 1 Bergas"
               style={mediaStyle}
+            />
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0, 0, 0, 0.4)"
+              }}
             />
           </div>
           <hr style={{ marginTop: '60px 0', borderColor: '#ccc' }} />
-          
+
           <h2 style={{ fontSize: '2em', marginBottom: '20px', fontWeight: 'bold', textAlign: "center" }}>
             Visi & Sekolah
           </h2>
           <p style={{ fontSize: '1.2em', marginBottom: '20px', textAlign: "center" }}>
             “UNGGUL DALAM PRESTASI, SANTUN DALAM BERBUDI PEKERTI“
           </p>
-          
+
           <h2 style={{ fontSize: '2em', marginBottom: '20px', fontWeight: 'bold', textAlign: "center" }}>
             Misi Sekolah
           </h2>
