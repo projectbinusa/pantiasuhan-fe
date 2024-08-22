@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import HeaderBerita from "../HeaderBerita";
 import CardBerita from "../CardBerita";
 import "../../../../css/berita/news.css";
 import { Pagination } from '@mui/material';
+import axios from 'axios';
+import { API_DUMMY } from '../../../../utils/base_URL';
 
 const newsData = [
     { id: 1, title: 'Local School Wins Award', content: 'The local school has been recognized for its outstanding achievements in academics and sports.', image: 'https://via.placeholder.com/300x200?text=Award', category: 'Berita Sekolah', date: '2024-08-10' },
@@ -20,16 +22,38 @@ const newsData = [
 ];
 
 const Info = () => {
+
+    // const totalPages = Math.ceil(newsData.length / 5);
+
+    // const currentData = newsData.slice(
+    //     (currentPage - 1) * 5,
+    //     currentPage * 5
+    // );
+    // const handlePageChange = (event, pageNumber) => setCurrentPage(pageNumber);
+
     const [currentPage, setCurrentPage] = useState(1);
+    const handlePageChange = (event, pageNumber) => {
+        setCurrentPage(pageNumber);
+        getAllInfo(pageNumber);
+    };
 
-    const totalPages = Math.ceil(newsData.length / 5);
+    // GET ALL INFO
+    const [info, setInfo] = useState([]);
+    const [totalPages, setTotalPage] = useState(1);
 
-    const currentData = newsData.slice(
-        (currentPage - 1) * 5,
-        currentPage * 5
-    );
+    const getAllInfo = async (page = 1) => {
+        try {
+            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Info%20Sekolah&order=asc&page=${page - 1}&size=5&sort=created_date`);
+            setInfo(response.data.data.content);
+            setTotalPage(response.data.data.totalPages);
+        } catch (error) {
+            console.log("get all", error);
+        }
+    };
 
-    const handlePageChange = (event, pageNumber) => setCurrentPage(pageNumber);
+    useEffect(() => {
+        getAllInfo(currentPage);
+    }, [currentPage]);
 
     return (
         <section>
@@ -38,15 +62,6 @@ const Info = () => {
                 <HeaderBerita title={"Info Sekolah"} />
                 <div className="container-apbd">
                     <div>
-                        <div>
-                            <h5 style={{ fontWeight: "600", color: "#002147" }}>PENCARIAN</h5>
-                            <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
-                            <div className="search-box">
-                                <input placeholder='Pencarian info sekolah ...' />
-                                <button><i class="fas fa-search"></i></button>
-                            </div>
-                        </div>
-                        <br />
                         <div>
                             <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
                             <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
@@ -76,7 +91,7 @@ const Info = () => {
                         </div>
                     </div>
                     <div className="container-all">
-                        {currentData.map(newsItem => (
+                        {/* {currentData.map(newsItem => (
                             <CardBerita
                                 key={newsItem.id}
                                 image={newsItem.image}
@@ -85,8 +100,28 @@ const Info = () => {
                                 link={"info"}
                                 content={newsItem.content}
                             />
+                        ))} */}
+                        {info.map(newsItem => (
+                            <CardBerita
+                                key={newsItem.id}
+                                image={newsItem.image}
+                                id={newsItem.id}
+                                title={newsItem.judulBerita}
+                                link={"info"}
+                                content={newsItem.isiBerita}
+                            />
                         ))}
                         <div className="d-flex justify-content-center align-items-center mt-3">
+                            {/* <Pagination
+                                count={totalPages}
+                                page={currentPage}
+                                onChange={handlePageChange}
+                                color="primary"
+                                shape="rounded"
+                                style={{ marginBottom: "30px" }}
+                                showFirstButton
+                                showLastButton
+                            /> */}
                             <Pagination
                                 count={totalPages}
                                 page={currentPage}

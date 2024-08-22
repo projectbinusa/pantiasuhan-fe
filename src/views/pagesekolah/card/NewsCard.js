@@ -61,7 +61,6 @@ const dateTextStyle = {
 const NewsCard = ({ image, title, content, date, id }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isHovereds, setIsHovereds] = useState(false);
-  const [day, month, year] = date.split(" ");
 
   const titleStyle = {
     textAlign: "center",
@@ -70,6 +69,21 @@ const NewsCard = ({ image, title, content, date, id }) => {
     color: isHovereds ? "#FFCC00" : "#000000",
     fontFamily: "'Poppins', sans-serif" 
   };
+
+  const formatDate = (value) => {
+    const date = new Date(value);
+  
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'long' });
+    const year = date.getFullYear();
+  
+    const formattedDate = `${day} ${month} ${year}`;
+  
+    return formattedDate;
+  };  
+
+  const [day, month, year] = formatDate(date).split(" ");
+
 
   return (
     <Card
@@ -98,14 +112,14 @@ const NewsCard = ({ image, title, content, date, id }) => {
         <a
           onMouseEnter={() => setIsHovereds(true)}
           onMouseLeave={() => setIsHovereds(false)}
-          href={`/detail-berita/${id}`}
+          href={`/detail-news-${id}`}
           style={{ textDecoration: "none" }}
         >
           <Typography variant="h6" component="div" style={titleStyle}>
             {title}
           </Typography>
         </a>
-        <Typography variant="body2" color="textSecondary" style={contentStyle}>
+        <Typography variant="body2" color="textSecondary" style={contentStyle} className="isiBerita">
           {content}
         </Typography>
       </CardContent>

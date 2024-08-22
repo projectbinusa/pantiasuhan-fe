@@ -41,15 +41,6 @@ function AllAPBD() {
                 <div className="container-apbd">
                     <div>
                         <div>
-                            <h5 style={{ fontWeight: "600", color: "#002147" }}>PENCARIAN</h5>
-                            <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
-                            <div className="search-box">
-                                <input placeholder="Pencarian APBD ..." />
-                                <button><i class="fas fa-search"></i></button>
-                            </div>
-                        </div>
-                        <br />
-                        <div>
                             <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
                             <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
                             <ul className="category-keuangan">

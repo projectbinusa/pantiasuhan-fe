@@ -1,0 +1,64 @@
+* {
+    font-size: 100%;
+}
+
+.sambutan-container {
+    padding: 20px 100px;
+    margin-top: 70px;
+    margin-bottom: 2rem;
+}
+
+.parent-sambutan {
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 3rem 2rem;
+}
+
+.content-pengumuman {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1 !important;
+    -webkit-box-orient: vertical;
+}
+
+.content-sambutan {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 4 !important;
+    -webkit-box-orient: vertical;
+}
+
+
+@media screen and (max-width: 992px) {
+    .sambutan-container {
+        padding: 0 40px;
+        padding-top: 80px;
+        margin-top: 0;
+        gap: 0;
+    }
+
+    .parent-sambutan {
+        padding: 2rem;
+    }
+}
+
+@media all and (max-width: 767px) {
+    .sambutan-container {
+        padding: 0 30px;
+        padding-top: 80px;
+        margin-top: 0;
+    }
+}
+
+@media all and (max-width: 575px) {
+    .sambutan-container {
+        padding: 0 20px;
+        padding-top: 80px;
+        margin-top: 0;
+    }
+
+    .parent-sambutan {
+        padding: 2rem 1rem;
+    }
+}

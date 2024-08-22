@@ -84,6 +84,18 @@ const PrestasiCard = ({
     transition: "color 0.3s ease",
   };
 
+  const formatDate = (value) => {
+    const date = new Date(value);
+  
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'long' });
+    const year = date.getFullYear();
+  
+    const formattedDate = `${day} ${month} ${year}`;
+  
+    return formattedDate;
+  };  
+
   return (
     <div className="card-style">
       <img src={image} alt={title} style={imageStyle} />

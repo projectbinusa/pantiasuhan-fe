@@ -3,6 +3,7 @@ import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Pagination } from "@mui/material";
+// import "../../../../css/staff.css";
 
 const generateData = (num) => {
   return Array.from({ length: num }, (_, index) => ({
@@ -88,7 +89,7 @@ const TenagaKepndidkan = () => {
           />
         </div>
       </div>
-      <div className="container mt-4">
+      <div className="staff-container mt-4">
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
           <input
             type="search"

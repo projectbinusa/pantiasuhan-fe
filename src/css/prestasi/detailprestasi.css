@@ -39,12 +39,12 @@
 
 .header-prestasi ul {
     list-style: none;
-    display: flex;
 }
 
 .header-prestasi ul li {
     font-size: 1.2rem;
     text-transform: uppercase;
+    display: inline-block;
 }
 
 .header-prestasi ul li i {
