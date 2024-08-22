@@ -22,7 +22,7 @@
   width: 100px;
 }
 
-.card {
+.details .card-container .card {
   display: flex;
   background: #fff;
   border-radius: 8px;
@@ -171,7 +171,7 @@
     align-items: center;
     text-align: center;
   }
-  
+
   #text1-gabung {
     font-size: 15px;
     text-align: center;
@@ -187,7 +187,7 @@
     text-align: center;
 
   }
-  
+
   .pembungkus-gabung {
     padding-right: 50px;
   }
@@ -223,7 +223,7 @@
     align-items: center;
     text-align: center;
   }
-  
+
   .form-control.widget-content-right {
     width: 100%;
     margin: 10px 0;

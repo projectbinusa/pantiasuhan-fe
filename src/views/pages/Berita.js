@@ -19,7 +19,6 @@ import idLocale from "date-fns/locale/id";
 import "../../css/berita.css";
 import logoBawaslu from "../../aset/ikon-web.png";
 import { Helmet } from "react-helmet";
-import EditBeritaAdmin from "./admin/berita/EditBeritaAdmin";
 function Berita() {
   const [scroll, setScroll] = useState(false);
   const [list, setList] = useState([]);

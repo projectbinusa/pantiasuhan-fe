@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import Ikon from "../../../aset/ikon-web.png";
 import Swal from "sweetalert2";
 import axios from "axios";
+import logo from "../../../aset/smpn1bergas.png"
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -49,7 +50,7 @@ function Login() {
   };
 
   return (
-    <div className="containeriimg d-flex justify-content-center align-items-center min-vh-100">
+    <div className="container iimg d-flex justify-content-center align-items-center min-vh-100">
       <div
         style={{
           background: " rgb(241, 246, 249)",
@@ -75,7 +76,7 @@ function Login() {
               className="header-text mb-4 text-center "
               style={{ marginTop: "20px" }}>
               <h2>
-                <img style={{ width: "40px" }} src={Ikon} /> Login
+                <img style={{ width: "40px" }} src={logo} /> Login
               </h2>
               <p>Selamat Datang Kembali</p>
             </div>

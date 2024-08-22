@@ -1,16 +1,15 @@
 import React from "react";
-import Header from "../../../../../component/Header";
-import Sidebar from "../../../../../component/Sidebar";
-import Footer from "../../../../../component/Footer";
-import { API_DUMMY } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
+import { API_DUMMY } from "../../../../../../../utils/base_URL";
+import Header from "../../../../../../../component/Header";
+import Sidebar from "../../../../../../../component/Sidebar";
 
-function AddCategory() {
+function AddCategoryKeuangan() {
   const [category, setCategory] = useState("");
   const [idCategory, setidCategory] = useState([]);
   const [show, setShow] = useState(false);
@@ -21,13 +20,18 @@ function AddCategory() {
     e.persist();
 
     try {
-      await axios.post(`${API_DUMMY}/bawaslu/api/category-berita/add`, {
-        category: category
-      }, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const newCategory = {
+        category: category,
+      };
+      await axios.post(
+        `${API_DUMMY}/smpn1bergas/api/category_keuangan/add`,
+        newCategory,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       // //console.log(unique_id);
       setShow(false);
       Swal.fire({
@@ -37,17 +41,17 @@ function AddCategory() {
         timer: 1500,
       });
       // //console.log(data);
-      history.push("/admin-berita");
+      history.push("/admin-keuangan");
       setTimeout(() => {
         window.location.reload();
       }, 1500);
     } catch (error) {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          console.log(error);
-        }
+      if (error.ressponse && error.response.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      } else {
+        console.log(error);
+      }
     }
   };
 
@@ -65,7 +69,9 @@ function AddCategory() {
                 <div className="row">
                   <div className="mb-3 col-6">
                     {/*  */}
-                    <label for="exampleInputEmail1" className="form-label font-weight-bold">
+                    <label
+                      for="exampleInputEmail1"
+                      className="form-label font-weight-bold">
                       Category
                     </label>
                     <input
@@ -77,9 +83,12 @@ function AddCategory() {
                   </div>
                 </div>
                 <button type="button" className="btn-danger mt-3 mr-3">
-                      <a style={{color:"white", textDecoration:"none"}} href="/admin-berita">Batal</a>
-                      </button>
-                      {" "}
+                  <a
+                    style={{ color: "white", textDecoration: "none" }}
+                    href="/admin-keuangan">
+                    Batal
+                  </a>
+                </button>{" "}
                 <button type="submit" className="btn-primary mt-3">
                   Submit
                 </button>
@@ -92,4 +101,4 @@ function AddCategory() {
   );
 }
 
-export default AddCategory;
+export default AddCategoryKeuangan;

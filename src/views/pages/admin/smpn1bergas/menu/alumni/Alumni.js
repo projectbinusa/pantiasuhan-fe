@@ -43,8 +43,8 @@ function Alumni() {
           },
         }
       );
-      setList(response.data);
-      console.log("data alumni: ", response);
+      setList(response.data.data.content);
+      console.log("data alumni: ", response.data.data.content);
       setPaginationInfo1({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,

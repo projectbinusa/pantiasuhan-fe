@@ -1,34 +1,48 @@
 import React, { useEffect, useState } from "react";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
+import Header from "../../../../../../component/Header";
+import Sidebar from "../../../../../../component/Sidebar";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 
-import { Pagination } from "@mui/material";
-import Header from "../../../../../../component/Header";
-import Sidebar from "../../../../../../component/Sidebar";
-import { API_DUMMY } from "../../../../../../utils/base_URL";
+import {
+  IconButton,
+  InputAdornment,
+  Pagination,
+  TextField,
+} from "@mui/material";
 
-function Sejarah() {
+function Keuangan() {
   const [list, setList] = useState([]);
+  const [list1, setList1] = useState([]);
   const [page, setPage] = useState(0);
+  const [page1, setPage1] = useState(0);
+  const [category, setCategory] = useState([""]);
+  const [modalAdd, setModalAdd] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+  const [id, setId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
     totalPages: 1,
     totalElements: 0,
   });
-  const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage1, setCurrentPage1] = useState(1);
+  const [rowsPerPage1, setRowsPerPage1] = useState(5);
   const [paginationInfo1, setPaginationInfo1] = useState({
     totalPages1: 1,
     totalElements1: 0,
   });
+  const [searchTerm1, setSearchTerm1] = useState("");
+  const history = useHistory();
 
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sejarah/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/keuangan/all?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {
@@ -38,8 +52,8 @@ function Sejarah() {
         }
       );
       setList(response.data.data.content);
-      console.log("data sejarah: ", response);
-      setPaginationInfo1({
+      console.log(response.data.data.content);
+      setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
       });
@@ -61,7 +75,7 @@ function Sejarah() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/sejarah/` + id, {
+          .delete(`${API_DUMMY}/smpn1bergas/api/keuangan/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -75,7 +89,6 @@ function Sejarah() {
             });
 
             setTimeout(() => {
-              // history.push("/admin-berita");
               window.location.reload();
             }, 1500);
           });
@@ -149,7 +162,7 @@ function Sejarah() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Data Sejarah</p>
+              <p className="mt-3">Keuangan</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   {/* a */}
@@ -179,8 +192,8 @@ function Sejarah() {
                     <button className="active btn-focus p-2 rounded">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add-sejarah">
-                        Tambah Sejarah
+                        href="/add-keuangan">
+                        Tambah Keuangan
                       </a>
                     </button>
                   </div>
@@ -202,8 +215,12 @@ function Sejarah() {
                       scope="col"
                       className="text-left"
                       style={{ minWidth: "150px" }}>
-                      Isi Sejarah
+                      Isi
                     </th>
+                    <th scope="col" className="text-left">
+                      Kategori Keuangan
+                    </th>
+                    <th className="text-left">Image</th>
                     <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
@@ -218,8 +235,17 @@ function Sejarah() {
                           {berita.judul}
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}
-                        <td data-label="Isi Sejarah" className="">
+                        <td data-label="Isi" className="">
                           {berita.isi}
+                        </td>
+                        <td data-label="Kategori Keuangan" className="">
+                          {berita.categoryKeuangan}
+                        </td>
+                        <td data-label="Image" className="">
+                          <img
+                            src={berita.fotoJudul}
+                            style={{ height: "4.5rem", width: "4.5rem" }}
+                          />
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
@@ -231,7 +257,7 @@ function Sejarah() {
                                   color: "white",
                                   textDecoration: "none",
                                 }}
-                                href={`/edit-sejarah/${berita.id}`}>
+                                href={`/edit-keuangan/${berita.id}`}>
                                 {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
@@ -267,4 +293,4 @@ function Sejarah() {
   );
 }
 
-export default Sejarah;
+export default Keuangan;

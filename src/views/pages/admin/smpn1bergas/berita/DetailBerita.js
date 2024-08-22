@@ -6,9 +6,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
-import Header from "../../../../component/Header";
-import Sidebar from "../../../../component/Sidebar";
-import { API_DUMMY } from "../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
+import Header from "../../../../../component/Header";
+import Sidebar from "../../../../../component/Sidebar";
 
 function DetailBerita() {
   const [judulBerita, setJudulBerita] = useState("");
@@ -23,7 +23,7 @@ function DetailBerita() {
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/berita/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/berita/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
