@@ -22,47 +22,57 @@
   width: 100px;
 }
 
-.details .card-container .card {
-  display: flex;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  flex-direction: row-reverse;
+.details.card-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
-.card-img {
-  width: 150px;
-  height: auto;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.card-body {
-  padding: 15px;
-  flex: 1;
+.details.card-container .card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  background: none;
+  box-shadow: none;
+  margin: 0;
 }
 
-.card-title {
-  font-size: 1.25rem;
-  margin: 0 0 10px;
+.details.card-container .card-body {
+  padding: 0;
+  text-align: left;
 }
 
-.card-date {
-  font-size: 0.875rem;
-  color: #888;
-  margin: 0 0 10px;
-}
-
-.card-content {
+.details.card-container .card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Limit to one line */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal; /* Ensure text wraps within the container */
   font-size: 1rem;
-  color: #333;
+  margin: 0 0 8px;
+  color: #ff0;
+  text-decoration: none;
+}
+
+.details.card-container .card-title:hover {
+  text-decoration: none;
+}
+
+.details.card-container .card-date {
+  font-size: 0.75rem;
+  color: #fff;
+  margin: 0 0 8px;
+}
+
+.details.card-container .card-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Adjust as needed for more lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  font-size: 0.875rem;
+  color: #fff;
 }
 
 @media (min-width: 992px) {
@@ -80,15 +90,7 @@
   }
 }
 
-#width-navbar-content {
-  width: max-content;
-}
-
 @media screen and (max-width:1440) {
-  #width-navbar-content {
-    width: max-content;
-  }
-
 }
 
 @media (min-width: 992px) {
@@ -98,11 +100,6 @@
 }
 
 @media screen and (max-width:768px) {
-  .navbar-reponsive {
-    min-height: 100vh;
-    overflow-y: hidden;
-    overflow-x: hidden;
-  }
 
   #strukturOrganisasi {
     justify-content: center;
@@ -160,11 +157,6 @@
 }
 
 @media screen and (max-width: 320px) {
-  .navbar-reponsive {
-    min-height: 100vh;
-    overflow-y: hidden;
-    overflow-x: hidden;
-  }
 
   #strukturOrganisasi {
     justify-content: center;
@@ -210,12 +202,6 @@
   .posisi {
     position: relative;
 
-  }
-
-  .navbar-reponsive {
-    overflow-y: hidden;
-    overflow-x: hidden;
-    min-height: 100vh;
   }
 
   #strukturOrganisasi {
