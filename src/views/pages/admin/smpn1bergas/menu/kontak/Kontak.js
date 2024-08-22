@@ -33,7 +33,7 @@ function Kontak() {
           },
         }
       );
-      setList(response.data);
+      setList(response.data.data.content);
       console.log("data kontak: ", response);
       setPaginationInfo1({
         totalPages: response.data.data.totalPages,

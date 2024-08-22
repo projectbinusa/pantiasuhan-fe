@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
 #gambar{
 	 background: #103cbe;
 }
+
 body {
 	font-family: "Poppins", sans-serif;
 	background: #ececec;
@@ -49,7 +51,7 @@ body {
 	}
 	.right-box {
 		padding: 20px;
-		
+
 	}
 	.img-login-register{
 	}
@@ -79,7 +81,7 @@ body {
 	.img-login-register{
 		display: none;
 	}
-	
+
 }
 @media screen and (max-width:768px) {
 	#responsive-register{
@@ -92,8 +94,8 @@ body {
 		width: 700px;
 		height: 550px;
 	}
-	
+
 	/* .img-login{
-		
+
 	} */
 }

@@ -8,7 +8,39 @@ import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 function Sidebar() {
   const location = useLocation();
-  
+  const [list, setList] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [paginationInfo1, setPaginationInfo1] = useState({
+    totalPages1: 1,
+    totalElements1: 0,
+  });
+
+  const getAllCategoryKeuangan = async (page1) => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/category_keuangan/all?page=${page}&size=${rowsPerPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setList(response.data.data.content);
+      console.log(response.data.data.content);
+      setPaginationInfo1({
+        totalPages: response.data.data.totalPages,
+        totalElements: response.data.data.totalElements,
+      });
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllCategoryKeuangan();
+  }, []);
+
   return (
     <div className="app-theme-white body-tabs-shadow fixed-sidebar fixed-header overflow-auto">
       <div
@@ -56,17 +88,6 @@ function Sidebar() {
           <div className="app-sidebar__inner">
             <ul className="vertical-nav-menu">
               <li class="app-sidebar__heading">Menu</li>{" "}
-              <li>
-                <a
-                  style={{ textDecoration: "none" }}
-                  href="/admin-guru"
-                  className={
-                    location.pathname === "/admin-guru" ? "active" : ""
-                  }>
-                  <i class="metismenu-icon fa-solid fa-chalkboard-user"></i>{" "}
-                  Guru
-                </a>
-              </li>
               <li>
                 <a
                   style={{ textDecoration: "none" }}
@@ -121,9 +142,11 @@ function Sidebar() {
               <li>
                 <a
                   style={{ textDecoration: "none" }}
-                  href="/admin-berita"
+                  href="/admin-kondisi-sekolah"
                   className={
-                    location.pathname === "/admin-berita" ? "active" : ""
+                    location.pathname === "/admin-kondisi-sekolah"
+                      ? "active"
+                      : ""
                   }>
                   <i class="fa-solid fa-school metismenu-icon"></i> Kondisi
                   Sekolah
@@ -171,22 +194,10 @@ function Sidebar() {
                 <ul
                   className={
                     location.pathname === "/admin-tenaga-kependidikan" &&
-                    "/admin-tenaga-pendidikan"
+                    "/admin-guru"
                       ? "active mm-show"
                       : ""
                   }>
-                  <li>
-                    <a
-                      style={{ textDecoration: "none" }}
-                      href="/admin-tenaga-pendidikan"
-                      className={
-                        location.pathname === "/admin-tenaga-pendidikan"
-                          ? "active"
-                          : ""
-                      }>
-                      <i className="metismenu-icon"></i>Tenaga Pendidikan
-                    </a>
-                  </li>
                   <li>
                     <a
                       style={{ textDecoration: "none" }}
@@ -196,9 +207,20 @@ function Sidebar() {
                           ? "active"
                           : ""
                       }>
-                      <i className="metismenu-icon"></i>Tenaga Kependidikan
+                      <i className="metismenu-icon"></i>Kependidikan
                     </a>
                   </li>
+                <li>
+                  <a
+                    style={{ textDecoration: "none" }}
+                    href="/admin-guru"
+                    className={
+                      location.pathname === "/admin-guru" ? "active" : ""
+                    }>
+                    <i class="metismenu-icon fa-solid fa-chalkboard-user"></i>{" "}
+                    Guru
+                  </a>
+                </li>
                   {/* <li>
                     <a
                       style={{ textDecoration: "none" }}
@@ -254,83 +276,117 @@ function Sidebar() {
               {/* MENU REGULASI */}
               <li class="app-sidebar__heading">Berita</li>
               <li>
-                <a style={{ textDecoration: "none" }} href="/regulasi-admin">
+                <a style={{ textDecoration: "none" }} href="/admin-berita">
                   <i className="fa-regular fa-rectangle-list  metismenu-icon"></i>{" "}
                   Berita Terbaru
                 </a>
               </li>
               <li>
-                <a style={{ textDecoration: "none" }} href="/dip-admin">
-                  <i class="fa-solid fa-file-lines metismenu-icon"></i>
-                  Info Sekolah
-                </a>
-              </li>
-              <li>
-                <a style={{ textDecoration: "none" }} href="/sop-admin">
-                  <i class="fa-solid fa-calendar metismenu-icon"></i> Agenda
-                </a>
-              </li>
-              <li>
-                <a style={{ textDecoration: "none" }} href="/sop-admin">
+                <a style={{ textDecoration: "none" }} href="/admin-galery">
                   <i class="fa-solid fa-images metismenu-icon"></i> Galery
                 </a>
               </li>
               {/* END MENU REGULASI */}
               <li class="app-sidebar__heading">Keuangan</li>
+              {/* {list.map((data, index) => (
+                <li key={index}>
+                  {/*  */}
+              {/* <a
+                    style={{ textDecoration: "none" }}
+                    href={"/adminn/" + data.category + "/" + data.id}>
+                    <i class="fa-solid fa-file-invoice-dollar metismenu-icon"></i>{" "}
+                    {data.category}
+                  </a>
+                </li>
+              ))} */}
               <li>
-                {/*  */}
-                <a
-                  style={{ textDecoration: "none" }}
-                  href="/adminn-permohonan-informasi">
-                  <i class="fa-solid fa-file-invoice-dollar metismenu-icon"></i>{" "}
-                  BOS
-                </a>
-              </li>
-              <li>
-                <a
-                  style={{ textDecoration: "none" }}
-                  href="/admin-permohonan-keberatan">
+                <a style={{ textDecoration: "none" }} href="/admin-Keuangan">
                   <i class="fa-solid fa-circle-dollar-to-slot metismenu-icon "></i>{" "}
-                  APDB
+                  Keuangan
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a
                   style={{ textDecoration: "none" }}
                   href="/admin-permohonan-keberatan">
                   <i class="fa-solid fa-user-group metismenu-icon"></i> Komite
                 </a>
-              </li>
+              </li> */}
               <li class="app-sidebar__heading">Lainya</li>
               <li>
-                {/*  */}
                 <a
                   style={{ textDecoration: "none" }}
-                  href="/adminn-permohonan-informasi">
+                  href="/admin-ekstrakulikuler">
                   <i class="fa-solid fa-people-robbery metismenu-icon"></i>{" "}
                   Ekstrakurikuler
                 </a>
               </li>
               <li>
-                {/*  */}
-                <a
-                  style={{ textDecoration: "none" }}
-                  href="/adminn-permohonan-informasi">
+                <a style={{ textDecoration: "none" }} href="/admin-prestasi">
                   <i class="fa-solid fa-medal metismenu-icon"></i> Prestasi
                 </a>
               </li>
+              <li class="app-sidebar__heading">Sarana Prasana</li>
               <li>
-                {/*  */}
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-sarana"
+                  className={
+                    location.pathname === "/admin-sarana" ? "active" : ""
+                  }>
+                  <i class="metismenu-icon fas fa-tools"></i> Sarana
+                </a>
+              </li>
+              <li>
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-kegiatan"
+                  className={
+                    location.pathname === "/admin-kegiatan" ? "active" : ""
+                  }>
+                  <i class="metismenu-icon fas fa-calendar-alt"></i> Kegiatan
+                </a>
+              </li>
+              <li>
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-struktur"
+                  className={
+                    location.pathname === "/admin-struktur" ? "active" : ""
+                  }>
+                  <i class="metismenu-icon fas fa-sitemap"></i> Struktur
+                </a>
+              </li>
+              <li>
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-program"
+                  className={
+                    location.pathname === "/admin-program" ? "active" : ""
+                  }>
+                  <i class="metismenu-icon fas fa-tasks"></i> Program
+                </a>
+              </li>
+              {/* <li>
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-struktur"
+                  className={
+                    location.pathname === "/admin-struktur" ? "active" : ""
+                  }>
+                  <i class="metismenu-icon fa-solid fa-building"></i> Struktur
+                </a>
+              </li> */}
+              {/* <li>
                 <a
                   style={{ textDecoration: "none" }}
                   href="/admin-permohonan-informasi">
                   <i class="fa-solid fa-circle-user metismenu-icon"></i> Profile
                   Alumni
                 </a>
-              </li>
-              <li class="app-sidebar__heading">Sarana</li>
+              </li> */}
+              {/* <li class="app-sidebar__heading">Sarana</li>
               <li>
-                {/*  */}
                 <a
                   style={{ textDecoration: "none" }}
                   href="/admin-permohonan-informasi">
@@ -339,7 +395,6 @@ function Sidebar() {
                 </a>
               </li>
               <li>
-                {/*  */}
                 <a
                   style={{ textDecoration: "none" }}
                   href="/adminn-permohonan-informasi">
@@ -348,61 +403,60 @@ function Sidebar() {
                 </a>
               </li>
               <li>
-                {/*  */}
                 <a
                   style={{ textDecoration: "none" }}
-                  href="/adminn-permohonan-informasi"><i class="fa-solid fa-person-shelter metismenu-icon"></i>{" "}
+                  href="/adminn-permohonan-informasi">
+                  <i class="fa-solid fa-person-shelter metismenu-icon"></i>{" "}
                   Ruang Kelas
                 </a>
               </li>
               <li>
-                {/*  */}
                 <a
                   style={{ textDecoration: "none" }}
-                  href="/adminn-permohonan-informasi"><i class="fa-solid fa-flask-vial metismenu-icon"></i>{" "}
-                  Ruang Laboratorium
+                  href="/adminn-permohonan-informasi">
+                  <i class="fa-solid fa-flask-vial metismenu-icon"></i> Ruang
+                  Laboratorium
                 </a>
               </li>
               <li>
-                {/*  */}
                 <a
                   style={{ textDecoration: "none" }}
-                  href="/adminn-permohonan-informasi"><i class="fa-solid fa-baseball metismenu-icon"></i>{" "}
-                  Sarana Olahraga
+                  href="/adminn-permohonan-informasi">
+                  <i class="fa-solid fa-baseball metismenu-icon"></i> Sarana
+                  Olahraga
                 </a>
               </li>
               <li>
-                {/*  */}
                 <a
                   style={{ textDecoration: "none" }}
-                  href="/adminn-permohonan-informasi"><i class="fa-solid fa-mosque metismenu-icon"></i>{" "}
-                  Sarana Ibadah
+                  href="/adminn-permohonan-informasi">
+                  <i class="fa-solid fa-mosque metismenu-icon"></i> Sarana
+                  Ibadah
                 </a>
               </li>
               <li>
-                {/*  */}
                 <a
                   style={{ textDecoration: "none" }}
-                  href="/adminn-permohonan-informasi"><i class="fa-solid fa-notes-medical metismenu-icon"></i>{" "}
+                  href="/adminn-permohonan-informasi">
+                  <i class="fa-solid fa-notes-medical metismenu-icon"></i>{" "}
                   Sarana Kesehatan
                 </a>
               </li>
               <li>
-                {/*  */}
                 <a
                   style={{ textDecoration: "none" }}
-                  href="/adminn-permohonan-informasi"><i class="fa-solid fa-book metismenu-icon"></i>{" "}
-                  Perpustakaan
+                  href="/adminn-permohonan-informasi">
+                  <i class="fa-solid fa-book metismenu-icon"></i> Perpustakaan
                 </a>
               </li>
               <li>
-                {/*  */}
                 <a
                   style={{ textDecoration: "none" }}
-                  href="/adminn-permohonan-informasi"><i class="fa-solid fa-book-medical metismenu-icon"></i>{" "}
-                  Sarana Protokol Kesehatan
+                  href="/adminn-permohonan-informasi">
+                  <i class="fa-solid fa-book-medical metismenu-icon"></i> Sarana
+                  Protokol Kesehatan
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../../../../component/Header";
-import Sidebar from "../../../../../component/Sidebar";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
+import Header from "../../../../../../component/Header";
+import Sidebar from "../../../../../../component/Sidebar";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -16,7 +16,7 @@ function EditCategory() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/category-berita/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/category-berita/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -35,7 +35,7 @@ function EditCategory() {
 
     await axios
       .put(
-        `${API_DUMMY}/bawaslu/api/category-berita/put/` + param.id,
+        `${API_DUMMY}/smpn1bergas/api/category-berita/put/` + param.id,
         {
           category,
           category,
@@ -76,7 +76,7 @@ function EditCategory() {
         <div className="container mt-3 app-main__outer">
           <div className="card shadow">
             <div className="card-body">
-              <h1 className="fs-4">Form Tambah Data</h1>
+              <h1 className="fs-4">Form Edit Data</h1>
               <hr />
               <form onSubmit={update}>
                 <div className="row">

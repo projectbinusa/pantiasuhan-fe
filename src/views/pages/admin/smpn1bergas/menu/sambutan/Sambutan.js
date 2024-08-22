@@ -3,9 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 
-import {
-  Pagination,
-} from "@mui/material";
+import { Pagination } from "@mui/material";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
@@ -26,17 +24,19 @@ function AdminSambutan() {
     totalElements1: 0,
   });
 
-  const getAll = async () => {
+  const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sambutan/all`,
+        `${API_DUMMY}/smpn1bergas/api/sambutan/all?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      setList(response.data);
+      setList(response.data.data.content);
       console.log("data sambutan: ", response);
       setPaginationInfo1({
         totalPages: response.data.data.totalPages,

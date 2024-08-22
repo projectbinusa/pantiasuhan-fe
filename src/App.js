@@ -16,11 +16,11 @@ import FormPermohonanInformasi from "./views/pages/form/FormPermohonanInformasi"
 import FormPermohonanKeberatan from "./views/pages/form/FormPermohonanKeberatan";
 
 import AdminFormInformasi from "./views/pages/admin/adminForm/AdminFormInformasi";
-import AddCategory from "./views/pages/admin/berita/categoryBerita/AddCategory";
-import EditCategory from "./views/pages/admin/berita/categoryBerita/EditCategory";
-import AddBeritaAdmin from "./views/pages/admin/berita/AddBeritaAdmin";
-import AdminBerita from "./views/pages/admin/berita/AdminBerita";
-import EditBeritaAdmin from "./views/pages/admin/berita/EditBeritaAdmin";
+// import AddCategory from "./views/pages/admin/berita/categoryBerita/AddCategory";
+// import EditCategory from "./views/pages/admin/berita/categoryBerita/EditCategory";
+// import AddBeritaAdmin from "./views/pages/admin/berita/AddBeritaAdmin";
+// import AdminBerita from "./views/pages/admin/berita/AdminBerita";
+// import EditBeritaAdmin from "./views/pages/admin/berita/EditBeritaAdmin";
 import AdminPermohonanInformasi from "./views/pages/admin/permohonan/AdminPermohonanInformasi";
 import AdminPermohonanKeberatan from "./views/pages/admin/permohonan/AdminPermohonanKeberatan";
 import DetailPermohonanInformasi from "./views/pages/admin/permohonan/detail/DetailPermohonanInformasi";
@@ -63,11 +63,11 @@ import AddJenisRegulasi from "./views/pages/admin/daftarRegulasi/JenisRegulasi/A
 import JenisRegulasi from "./views/pages/admin/daftarRegulasi/JenisRegulasi/JenisRegulasi";
 import EditJenisRegulasi from "./views/pages/admin/daftarRegulasi/JenisRegulasi/EditJenisRegulasi";
 import DetailPengumuman from "./views/pages/admin/pengumuman/DetailPengumuman";
-import CategoryBerita from "./views/pages/CategoryBerita";
+// import CategoryBerita from "./views/pages/CategoryBerita";
 import AddRegulasi from "./views/pages/admin/daftarRegulasi/Regulasi/AddRegulasi";
 import MenuEditRegulasi from "./views/pages/admin/daftarRegulasi/MenuRegulasi/MenuEditRegulasi";
 import IsiDaftarRegulasi from "./views/pages/daftarRegulasi/IsiDaftarRegulasi";
-import DetailBerita from "./views/pages/admin/berita/DetailBerita";
+// import DetailBerita from "./views/pages/admin/berita/DetailBerita";
 import PutIsiInformasi from "./views/pages/admin/PutIsiInformasi";
 import InformasiBerkalaKelembagaan from "./views/pages/informasi/InformasiBerkalaKelembagaan";
 import InformasiBerkalaKepemiluan from "./views/pages/informasi/InformasiBerkalaKepemiluan";
@@ -148,8 +148,49 @@ import Info from "./views/pagesekolah/berita/info/info"
 import DetailInfo from "./views/pagesekolah/berita/info/DetailInfo";
 import agenda from "./views/pagesekolah/berita/agenda/Agenda";
 import DetailAgenda from "./views/pagesekolah/berita/agenda/DetailAgenda";
-import Galery from "./views/pagesekolah/berita/gambar/GalerySekolah";
+// import Galery from "./views/pagesekolah/berita/gambar/GalerySekolah";
 import Sarpras from "./views/pagesekolah/profilSekolah/sarpras/Sarpras"
+import AddCategory from "./views/pages/admin/smpn1bergas/berita/categoryBerita/AddCategory";
+import EditCategory from "./views/pages/admin/smpn1bergas/berita/categoryBerita/EditCategory";
+import AddBeritaAdmin from "./views/pages/admin/smpn1bergas/berita/AddBeritaAdmin";
+import AdminBerita from "./views/pages/admin/smpn1bergas/berita/AdminBerita";
+import EditBeritaAdmin from "./views/pages/admin/smpn1bergas/berita/EditBeritaAdmin";
+import DetailBerita from "./views/pages/admin/smpn1bergas/berita/DetailBerita";
+import Galery from "./views/pages/admin/smpn1bergas/galery/Galery";
+import AddGalery from "./views/pages/admin/smpn1bergas/galery/AddGalery";
+import EditGalery from "./views/pages/admin/smpn1bergas/galery/EditGalery";
+import Keuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/Keuangan";
+import EditKeuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/EditKeuangan";
+import AddKeuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/AddKeuangan";
+import AddCategoryKeuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/categorykeuangan/AddCategoryKeuangan";
+import EditCategoryKeuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/categorykeuangan/EditCategoryKeuangan";
+import Ekskul from "./views/pages/admin/smpn1bergas/ekskul/Ekskul";
+import AddEkskul from "./views/pages/admin/smpn1bergas/ekskul/AddEkskul";
+import EditEkskul from "./views/pages/admin/smpn1bergas/ekskul/EditEkskul";
+import Sarana from "./views/pages/admin/smpn1bergas/sarana/Sarana";
+import AddSarana from "./views/pages/admin/smpn1bergas/sarana/AddSarana";
+import EditSarana from "./views/pages/admin/smpn1bergas/sarana/EditSarana";
+import Kegiatan from "./views/pages/admin/smpn1bergas/kegiatan/Kegiatan";
+import AddKegiatan from "./views/pages/admin/smpn1bergas/kegiatan/AddKegiatan";
+import EditKegiatan from "./views/pages/admin/smpn1bergas/kegiatan/EditKegiatan";
+import Program from "./views/pages/admin/smpn1bergas/program/Program";
+import AddProgram from "./views/pages/admin/smpn1bergas/program/AddProgram";
+import EditProgram from "./views/pages/admin/smpn1bergas/program/EditProgram";
+import Prestasi from "./views/pages/admin/smpn1bergas/prestasi/Prestasi";
+import AddPrestasi from "./views/pages/admin/smpn1bergas/prestasi/AddPrestasi";
+import EditPrestasi from "./views/pages/admin/smpn1bergas/prestasi/EditPrestasi";
+import FotoKegiatan from "./views/pages/admin/smpn1bergas/kegiatan/fotoKegiatan/FotoKegiatan";
+import AddFotoKegiatan from "./views/pages/admin/smpn1bergas/kegiatan/fotoKegiatan/AddFotoKegiatan";
+import EditFotoKegiatan from "./views/pages/admin/smpn1bergas/kegiatan/fotoKegiatan/EditFotoKegiatan";
+import Struktur from "./views/pages/admin/smpn1bergas/struktur/Struktur";
+import AddStructur from "./views/pages/admin/smpn1bergas/struktur/AddStructur";
+import EditStruktur from "./views/pages/admin/smpn1bergas/struktur/EditStruktur";
+import FotoSarana from "./views/pages/admin/smpn1bergas/sarana/fotoSarana/FotoSarana";
+import AddFotoSarana from "./views/pages/admin/smpn1bergas/sarana/fotoSarana/AddFotoSarana";
+import EditFotoSarana from "./views/pages/admin/smpn1bergas/sarana/fotoSarana/EditFotoSarana";
+import KondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/KondisiSekolah";
+import AddKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/AddKondisiSekolah";
+import EditKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/EditKondisiSekolah";
 
 // END ADMIN MENU REGULASI
 
@@ -179,7 +220,7 @@ function App() {
           />
           <Route path="/library" component={ELibrary} exact />
           <Route path="/berita" component={Berita} exact />
-          <Route
+          {/* <Route
             path="/edit-category-berita/:id"
             component={EditCategory}
             exact
@@ -188,7 +229,7 @@ function App() {
             path="/detail/berita/:id"
             component={DetailBerita}
             exact
-          />
+          /> */}
           {/* daftar informasi */}
           <Route path="/informasi-serta-merta" component={SertaMerta} exact />
           <Route path="/informasi-setiap-saat" component={SetiapSaat} exact />
@@ -358,6 +399,181 @@ function App() {
             component={TenagaPendidikan}
             exact
           />
+          {/* sarana */}
+          <PrivateRoute path="/admin-sarana" component={Sarana} exact />
+          <PrivateRoute path="/add-sarana" component={AddSarana} exact />
+          <PrivateRoute path="/edit-sarana/:id" component={EditSarana} exact />
+          {/* end sarana */}
+          {/* kegiatan */}
+          <PrivateRoute path="/admin-kegiatan" component={Kegiatan} exact />
+          <PrivateRoute path="/add-kegiatan" component={AddKegiatan} exact />
+          <PrivateRoute
+            path="/edit-kegiatan/:id"
+            component={EditKegiatan}
+            exact
+          />
+          {/* end kegiatan */}
+          {/* program */}
+          <PrivateRoute path="/admin-program" component={Program} exact />
+          <PrivateRoute path="/add-program" component={AddProgram} exact />
+          <PrivateRoute
+            path="/edit-program/:id"
+            component={EditProgram}
+            exact
+          />
+          {/* end program */}
+          {/* prestasi */}
+          <PrivateRoute path="/admin-prestasi" component={Prestasi} exact />
+          <PrivateRoute path="/add-prestasi" component={AddPrestasi} exact />
+          <PrivateRoute
+            path="/edit-prestasi/:id"
+            component={EditPrestasi}
+            exact
+          />
+          {/* end prestasi */}
+          {/* struktur */}
+          <PrivateRoute path="/admin-struktur" component={Struktur} exact />
+          <PrivateRoute path="/add-struktur" component={AddStructur} exact />
+          <PrivateRoute
+            path="/edit-struktur/:id"
+            component={EditStruktur}
+            exact
+          />
+          {/* end prestasi */}
+          {/* foto-kegiatan */}
+          <PrivateRoute
+            path="/admin-foto-kegiatan"
+            component={FotoKegiatan}
+            exact
+          />
+          <PrivateRoute
+            path="/add-foto-kegiatan"
+            component={AddFotoKegiatan}
+            exact
+          />
+          <PrivateRoute
+            path="/edit-foto-kegiatan/:id"
+            component={EditFotoKegiatan}
+            exact
+          />
+          {/* end foto sarana */}
+          {/* foto-sarana */}
+          <PrivateRoute
+            path="/admin-foto-sarana"
+            component={FotoSarana}
+            exact
+          />
+          <PrivateRoute
+            path="/add-foto-sarana"
+            component={AddFotoSarana}
+            exact
+          />
+          <PrivateRoute
+            path="/edit-foto-sarana/:id"
+            component={EditFotoSarana}
+            exact
+          />
+          {/* end foto kegiatan */}
+  {/* catedory berita */}
+          <PrivateRoute
+            path="/tambah-category-berita"
+            component={AddCategory}
+            exact
+          />
+          {/* <PrivateRoute
+            path="/category-berita/:category/:id"
+            component={CategoryBerita}
+            exact
+          /> */}
+          <PrivateRoute
+            path="/edit-category-berita/:id"
+            component={EditCategory}
+            exact
+          />
+          <Route
+            path="/edit-category-berita/:id"
+            component={EditCategory}
+            exact
+          />
+          {/* end category berita */}
+          {/* berita */}
+          <PrivateRoute
+            path="/add-berita-admin"
+            component={AddBeritaAdmin}
+            exact
+          />
+          <PrivateRoute
+            path="/edit-berita-admin/:id"
+            component={EditBeritaAdmin}
+            exact
+          />
+          <PrivateRoute path="/admin-berita" component={AdminBerita} exact />
+          <PrivateRoute
+            path="/detail/berita/:id"
+            component={DetailBerita}
+            exact
+          />
+          {/* end berita */}
+          {/* galery */}
+          <PrivateRoute path="/admin-galery" component={Galery} exact />
+          <PrivateRoute path="/add-galery" component={AddGalery} exact />
+          <PrivateRoute path="/edit-galery/:id" component={EditGalery} exact />
+          {/* end galery */}
+          {/* keuangan */}
+          <PrivateRoute path="/admin-keuangan" component={Keuangan} exact />
+          <PrivateRoute path="/add-keuangan" component={AddKeuangan} exact />
+          <PrivateRoute
+            path="/edit-keuangan/:id"
+            component={EditKeuangan}
+            exact
+          />
+          {/* end keuangan */}
+          {/* category keuangan */}
+          <PrivateRoute
+            path="/add-category-keuangan"
+            component={AddCategoryKeuangan}
+            exact
+          />
+          <PrivateRoute
+            path="/edit-category-keuangan/:id"
+            component={EditCategoryKeuangan}
+            exact
+          />
+          {/* end category keuangan */}
+          {/* ekskul */}
+          <PrivateRoute
+            path="/admin-ekstrakulikuler"
+            component={Ekskul}
+            exact
+          />
+          <PrivateRoute
+            path="/add-ekstrakulikuler"
+            component={AddEkskul}
+            exact
+          />
+          <PrivateRoute
+            path="/edit-ekstrakulikuler/:id"
+            component={EditEkskul}
+            exact
+          />
+          {/* end ekskul */}
+ {/* kondisi sekolah */}
+          <PrivateRoute
+            path="/admin-kondisi-sekolah"
+            component={KondisiSekolah}
+            exact
+          />
+          <PrivateRoute
+            path="/add-kondisi-sekolah"
+            component={AddKondisiSekolah}
+            exact
+          />
+          <PrivateRoute
+            path="/edit-kondisi-sekolah/:id"
+            component={EditKondisiSekolah}
+            exact
+          />
+          {/* end kondisi sekolah */}
           {/* end admin smpn1bergas */}
           {/* eLibrary */}
           <PrivateRoute path="/admin-library" component={AdminLibrary} exact />
@@ -491,7 +707,7 @@ function App() {
             component={EditBeritaAdmin}
             exact
           />
-          <PrivateRoute path="/admin-berita" component={AdminBerita} exact />
+          {/* <PrivateRoute path="/admin-berita" component={AdminBerita} exact /> */}
           <PrivateRoute
             path="/admin-pengumuman"
             component={AdminPengumuman}
@@ -565,12 +781,12 @@ function App() {
             component={DetailPermohonanKeberatan}
             exact
           />
-          <PrivateRoute
+          {/* <PrivateRoute
             path="/tambah-category-berita"
             component={AddCategory}
             exact
-          />
-          <PrivateRoute
+          /> */}
+          {/* <PrivateRoute
             path="/category-berita/:category/:id"
             component={CategoryBerita}
             exact
@@ -579,7 +795,7 @@ function App() {
             path="/edit-category-berita/:id"
             component={EditCategory}
             exact
-          />
+          /> */}
           {/* admin informasi */}
           {/* <PrivateRoute path="/admin-serta-merta" component={AdminSertaMerta} exact /> */}
 
@@ -688,7 +904,7 @@ function App() {
           <Route path="/detail-prestasi-:id" component={DetailPrestasi} exact />
           <Route path="/detail-alumni-:id" component={DetailAlumni} exact />
           <Route path="/osis" component={Osis} exact />
-          
+
           {/* Berita */}
           <Route path="/galery" component={Galery} exact />
           <Route path="/news" component={beritaNews} exact />
