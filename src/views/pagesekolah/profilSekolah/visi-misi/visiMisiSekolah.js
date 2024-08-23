@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { API_DUMMY } from '../../../../utils/base_URL';
 import NavbarSekolah from '../../../../component/NavbarSekolah';
 import FooterSekolah from '../../../../component/FooterSekolah';
 
 function VisiMisiSekolah() {
+  const [visiMisiData, setVisiMisiData] = useState({
+    visi: '',
+    misi: [],
+    tujuan: []
+  });
   const [isHovered, setIsHovered] = useState(false);
 
   const mediaStyle = {
@@ -11,6 +18,24 @@ function VisiMisiSekolah() {
     transition: "transform 0.3s ease-in-out",
     transform: isHovered ? "scale(1.1)" : "scale(1)",
   };
+
+  useEffect(() => {
+    const fetchVisiMisiData = async () => {
+      try {
+        const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/visiMisi/all`);
+        const data = response.data.data || {}; // Ensure data is not undefined
+        setVisiMisiData({
+          visi: data.visi || '', // Default to empty string
+          misi: data.misi || [], // Default to empty array
+          tujuan: data.tujuan || [] // Default to empty array
+        });
+      } catch (error) {
+        console.log("Error fetching visi misi data:", error);
+      }
+    };
+
+    fetchVisiMisiData();
+  }, []);
 
   return (
     <div>
@@ -40,40 +65,42 @@ function VisiMisiSekolah() {
           </div>
           <hr style={{ marginTop: '60px 0', borderColor: '#ccc' }} />
 
-          <h2 style={{ fontSize: '2em', marginBottom: '20px', fontWeight: 'bold', textAlign: "center" }}>
-            Visi & Sekolah
-          </h2>
-          <p style={{ fontSize: '1.2em', marginBottom: '20px', textAlign: "center" }}>
-            “UNGGUL DALAM PRESTASI, SANTUN DALAM BERBUDI PEKERTI“
-          </p>
+          {visiMisiData.visi && (
+            <>
+              <h2 style={{ fontSize: '2em', marginBottom: '20px', fontWeight: 'bold', textAlign: "center" }}>
+                Visi Sekolah
+              </h2>
+              <p style={{ fontSize: '1.2em', marginBottom: '20px', textAlign: "center" }}>
+                {visiMisiData.visi}
+              </p>
+            </>
+          )}
 
-          <h2 style={{ fontSize: '2em', marginBottom: '20px', fontWeight: 'bold', textAlign: "center" }}>
-            Misi Sekolah
-          </h2>
-          <ol style={{ fontSize: '1.2em', marginBottom: '20px' }}>
-            <li>Melaksanakan kegiatan-kegiatan secara efektif guna mencapai peningkatan/pengembangan isi (kurikulum).</li>
-            <li>Melaksanakan pelatihan dan kegiatan yang bertujuan untuk menunjang peningkatan kinerja guru dan karyawan.</li>
-            <li>Mengadakan pelatihan dan bimbingan agar proses pembelajaran berkualitas.</li>
-            <li>Mengupayakan pengadaan, pemanfataan, dan pemeliharaan fasilitas pendidikan secara optimal.</li>
-            <li>Mengupayakan kegiatan yang berhubungan dengan kompetisi kelulusan siswa.</li>
-            <li>Melaksanakan manajemen berbasis sekolah secara efektif.</li>
-            <li>Mengupayakan pengembangan pembiayaan pendidikan untuk mendukung kegiatan sekolah.</li>
-            <li>Melaksanakan penelitian secara menyeluruh dan berkesinambungan.</li>
-          </ol>
+          {visiMisiData.misi.length > 0 && (
+            <>
+              <h2 style={{ fontSize: '2em', marginBottom: '20px', fontWeight: 'bold', textAlign: "center" }}>
+                Misi Sekolah
+              </h2>
+              <ol style={{ fontSize: '1.2em', marginBottom: '20px' }}>
+                {visiMisiData.misi.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ol>
+            </>
+          )}
 
-          <h2 style={{ fontSize: '2em', marginBottom: '20px', fontWeight: 'bold', textAlign: "center" }}>
-            Tujuan Sekolah
-          </h2>
-          <ol style={{ fontSize: '1.2em', marginBottom: '20px' }}>
-            <li>Meningkatkan/mengembangkan kurikulum.</li>
-            <li>Meningkatkan/mengembangkan tenaga pendidik.</li>
-            <li>Meningkatkan/mengembangkan proses.</li>
-            <li>Meningkatkan/mengembangkan fasilitas pendidikan.</li>
-            <li>Meningkatkan/mengembangkan kelulusan.</li>
-            <li>Meningkatkan/mengembangkan manajemen dan kelembagaan.</li>
-            <li>Meningkatkan/mengembangkan pembiayaan.</li>
-            <li>Meningkatkan/mengembangkan penilaian.</li>
-          </ol>
+          {visiMisiData.tujuan.length > 0 && (
+            <>
+              <h2 style={{ fontSize: '2em', marginBottom: '20px', fontWeight: 'bold', textAlign: "center" }}>
+                Tujuan Sekolah
+              </h2>
+              <ol style={{ fontSize: '1.2em', marginBottom: '20px' }}>
+                {visiMisiData.tujuan.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ol>
+            </>
+          )}
         </div>
       </div>
       <FooterSekolah />

@@ -6,6 +6,12 @@
     overflow: hidden;
 }
 
+.image-style img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ensures the image covers the container */
+}
+
 .text-overlay-style {
     position: absolute;
     top: 50%;
@@ -33,7 +39,7 @@
     left: 0;
     opacity: 0.6;
     position: absolute;
-    top: 4rem;
+    top: 5.5rem;
     width: 100%;
     z-index: -1;
 }
@@ -41,7 +47,6 @@
 .header-prestasi ul {
     list-style: none;
     padding: 10px 15px;
-    background-color: #f5f5f5;
 }
 
 .header-prestasi ul li {
@@ -74,7 +79,7 @@
 
 .container-prestasi {
     padding: 20px 200px;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
 .container-prestasi img {
@@ -97,6 +102,21 @@
 
     .header-prestasi ul li:nth-child(3) {
         margin-left: 0.5rem;
+    }
+
+    .header-prestasi::after {
+        background: #000000 none repeat scroll 0 0;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        content: "";
+        height: 50%;
+        left: 0;
+        opacity: 0.6;
+        position: absolute;
+        top: 9rem;
+        width: 100%;
+        z-index: -1;
     }
 
     .container-prestasi {
