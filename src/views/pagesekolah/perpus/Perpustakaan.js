@@ -21,7 +21,7 @@ function Perpustakaan() {
 
     const getAllPerpus = async (page = 1) => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/perpustakaan/all/terbaru?page=${page - 1}&size=15`);
+            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/perpustakaan/all?page=${page - 1}&size=15`);
             setBuku(response.data.data.content);
             setTotalPage(response.data.data.totalPages);
         } catch (error) {
