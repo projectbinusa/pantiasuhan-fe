@@ -50,7 +50,7 @@ function AddIsiKeteranganInformasi() {
   useEffect(() => {
     axios
       .get(
-        `${API_DUMMY}/bawaslu/api/isi-keterangan-informasi/getBy/` + param.id
+        `${API_DUMMY}/bawaslu/api/isi-keterangan-informasi/getBy/get/` + param.id
       )
       .then((ress) => {
         const response = ress.data.data;
@@ -164,7 +164,7 @@ function AddIsiKeteranganInformasi() {
                       type="file"
                       className="form-control"
                     />
-                  </div> 
+                  </div>
                 </div>
                 <button type="button" className="btn-danger mt-3 mr-3">
                   <a href="" style={{ color: "white", textDecoration: "none" }}>

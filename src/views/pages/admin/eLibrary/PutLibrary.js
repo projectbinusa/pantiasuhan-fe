@@ -15,7 +15,7 @@ function PutLibrary() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/library/ById/` + param.id, {
+      .get(`${API_DUMMY}/bawaslu/api/library/ById/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -40,7 +40,7 @@ function PutLibrary() {
 
     await axios
       .put(
-        `${API_DUMMY}/bawaslu/api/library/` + param.id,
+        `${API_DUMMY}/bawaslu/api/library/get/` + param.id,
         {
           name,
           photoUrl,

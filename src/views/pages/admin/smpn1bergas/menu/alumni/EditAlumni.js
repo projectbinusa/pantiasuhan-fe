@@ -19,7 +19,7 @@ function EditAlumni() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/alumni/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/alumni/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

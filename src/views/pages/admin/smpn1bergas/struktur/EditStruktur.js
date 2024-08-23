@@ -26,7 +26,7 @@ function EditStruktur() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/kegiatan/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/kegiatan/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

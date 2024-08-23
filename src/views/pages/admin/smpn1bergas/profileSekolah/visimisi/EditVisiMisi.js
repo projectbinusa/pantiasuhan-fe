@@ -21,7 +21,7 @@ function EditVisiMisi() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/visiMisi/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/visiMisi/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

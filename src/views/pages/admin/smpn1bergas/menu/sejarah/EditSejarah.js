@@ -21,7 +21,7 @@ function EditSejarah() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/sejarah/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/sejarah/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

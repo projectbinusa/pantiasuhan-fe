@@ -19,7 +19,7 @@ function EditSarana() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/sarana/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/sarana/get/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

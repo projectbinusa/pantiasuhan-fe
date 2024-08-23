@@ -24,7 +24,7 @@ function EditProgram() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/program/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/program/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

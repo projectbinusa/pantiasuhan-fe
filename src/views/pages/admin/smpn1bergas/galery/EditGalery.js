@@ -23,7 +23,7 @@ function EditGalery() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/galeri/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/galeri/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

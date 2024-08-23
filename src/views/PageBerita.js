@@ -51,7 +51,7 @@ function PageBerita() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/berita/get/` + param.id)
+      .get(`${API_DUMMY}/bawaslu/api/berita/get/get/` + param.id)
       .then((ress) => {
         const response = ress.data.data;
         setAuthor(response.author);

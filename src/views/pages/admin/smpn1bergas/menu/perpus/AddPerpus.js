@@ -2,52 +2,50 @@ import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
-import Header from "../../../../../component/Header";
-import Sidebar from "../../../../../component/Sidebar";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
+import Header from "../../../../../../component/Header";
+import Sidebar from "../../../../../../component/Sidebar";
 
-function EditPrestasi() {
-  const [penyelenggara, setPenyelenggara] = useState("");
-  const [namaPeserta, setNamaPeserta] = useState("");
+function AddPerpus() {
+  const [namaBuku, setNamaBuku] = useState("");
+  const [pengarang, setPengarang] = useState("");
+  const [sinopsis, setSinopsis] = useState("");
   const [image, setImage] = useState(null);
-  const [skala, setSkala] = useState("");
-  const [tanggal, setTanggal] = useState("");
-  const [judul, setJudul] = useState("");
+  const [tahun, setTahun] = useState("");
+  const [no, setNo] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
-  const param = useParams();
 
-  //add
-  const update = async (e) => {
+  const add = async (e) => {
     e.preventDefault();
     e.persist();
 
     const formData = new FormData();
-    formData.append("peyelenggara", penyelenggara);
-    formData.append("nama_peserta", namaPeserta);
-    formData.append("tanggal", tanggal);
-    formData.append("skala", skala);
-    formData.append("judul", judul);
+    formData.append("nama_buku", namaBuku);
+    formData.append("pengarang", pengarang);
+    formData.append("sinopsis", sinopsis);
+    formData.append("tahun", tahun);
+    formData.append("no", no);
     formData.append("file", image);
 
     try {
-      await axios.put(`${API_DUMMY}/smpn1bergas/api/prestasi/add`, formData, {
+      await axios.post(`${API_DUMMY}/smpn1bergas/api/perpustakaan/add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          penyelenggaraization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       setShow(false);
       Swal.fire({
         icon: "success",
-        title: "Berhasil Mengedit Data Prestasi",
+        title: "Data Berhasil DiTambahkan",
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-prestasi");
+      history.push("/admin-perpustakaan");
       setTimeout(() => {
         window.location.reload();
       }, 1500);
@@ -60,26 +58,6 @@ function EditPrestasi() {
       }
     }
   };
-
-  useEffect(() => {
-    axios
-      .get(`${API_DUMMY}/smpn1bergas/api/prestasi/get/get/` + param.id, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((ress) => {
-        const response = ress.data.data;
-        setPenyelenggara(response.peyelenggara);
-        setJudul(response.judil);
-        setSkala(response.skala);
-        setTanggal(response.tanggal);
-        setNamaPeserta(response.nama);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   useEffect(() => {
     AOS.init();
@@ -98,21 +76,21 @@ function EditPrestasi() {
                   <div className="card-body">
                     <h1 className="fs-4">Form Tambah Data</h1>
                     <hr />
-                    <form onSubmit={update}>
+                    <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-6">
                           {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
-                            Nama Prestasi
+                            Pengarang Buku
                           </label>
                           <input
-                            value={judul}
-                            onChange={(e) => setJudul(e.target.value)}
+                            value={pengarang}
+                            onChange={(e) => setPengarang(e.target.value)}
                             type="text"
                             className="form-control"
-                            placeholder="Masukkan Nama Prestasi"
+                            placeholder="Masukkan Pengarang Buku"
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
@@ -120,14 +98,59 @@ function EditPrestasi() {
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
-                            Penyelenggara
+                            Nama/Judul Buku
                           </label>
                           <input
-                            value={penyelenggara}
-                            onChange={(e) => setPenyelenggara(e.target.value)}
+                            value={namaBuku}
+                            onChange={(e) => setNamaBuku(e.target.value)}
                             type="text"
                             className="form-control"
-                            placeholder="Masukkan Penyelenggara"
+                            placeholder="Masukkan Nama/Judul Buku"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          {/* a */}
+                          <label
+                            for="exampleInputEmail1"
+                            className="form-label  font-weight-bold ">
+                            Sinopsis
+                          </label>
+                          <input
+                            value={sinopsis}
+                            onChange={(e) => setSinopsis(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukkan Sinopsis"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          {/* a */}
+                          <label
+                            for="exampleInputEmail1"
+                            className="form-label  font-weight-bold ">
+                            Tahun
+                          </label>
+                          <input
+                            value={tahun}
+                            onChange={(e) => setTahun(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukkan Tahun Buku"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          {/* a */}
+                          <label
+                            for="exampleInputEmail1"
+                            className="form-label  font-weight-bold ">
+                            Nomor Buku
+                          </label>
+                          <input
+                            value={no}
+                            onChange={(e) => setNo(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukkan Nomor Buku"
                           />
                         </div>
                         <div className="mb-3 co-lg-6">
@@ -136,45 +159,20 @@ function EditPrestasi() {
                             Gambar
                           </label>
                           <input
-                            onChange={(e) => setImage(e.target.files[0])}
+                            onChange={(e) =>
+                              setImage(
+                                e.target.files ? e.target.files[0] : null
+                              )
+                            }
                             type="file"
                             className="form-control"
                           />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          {/* a */}
-                          <label className="form-label font-weight-bold">
-                            Nama Peserta
-                          </label>
-                          <input
-                            value={namaPeserta}
-                            onChange={(e) => setNamaPeserta(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan judul berita"
-                          />
-                        </div>
-                        <div className="col-lg-12">
-                          {/* a */}
-                          <label className="form-label font-weight-bold">
-                            Tanggal Dilaksanakan
-                          </label>
-                          <div className="">
-                            <input
-                              type="date"
-                              value={tanggal}
-                              onChange={(e) => setTanggal(e.target.value)}
-                              className="form-control"
-                              placeholder="Masukkan Tanggal"
-                              id="floatingTextarea2"
-                            />
-                          </div>
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-prestasi">
+                          href="/admin-perpustakaan">
                           Batal
                         </a>
                       </button>{" "}
@@ -193,4 +191,4 @@ function EditPrestasi() {
   );
 }
 
-export default EditPrestasi;
+export default AddPerpus;

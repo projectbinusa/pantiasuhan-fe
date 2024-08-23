@@ -37,7 +37,7 @@ function EditRegulasi() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/regulasi/get/` + param.id)
+      .get(`${API_DUMMY}/bawaslu/api/regulasi/get/get/` + param.id)
       .then((ress) => {
         const response = ress.data.data;
         console.log(ress.data.data);

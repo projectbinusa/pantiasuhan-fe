@@ -31,7 +31,7 @@ function IsiPengumuman() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/pengumuman/get/` + params.id)
+      .get(`${API_DUMMY}/bawaslu/api/pengumuman/get/get/` + params.id)
       .then((ress) => {
         const response = ress.data.data;
         setCreatedDate(response.createdDate);

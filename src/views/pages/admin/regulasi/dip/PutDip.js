@@ -75,7 +75,7 @@ function PutDip() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/berita/get/` + param.id, {
+      .get(`${API_DUMMY}/bawaslu/api/berita/get/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -180,7 +180,7 @@ function PutDip() {
             </div>
           </div>
           </div>
-        
+
   );
 }
 

@@ -16,7 +16,7 @@ function EditCategoryKeuangan() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/category_keuangan/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/category_keuangan/get/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

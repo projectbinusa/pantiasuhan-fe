@@ -13,7 +13,7 @@ function EditJenisInf() {
 
     useEffect(() => {
         axios
-          .get(`${API_DUMMY}/bawaslu/api/jenis-informasi/getBy/` + param.id, {
+          .get(`${API_DUMMY}/bawaslu/api/jenis-informasi/getBy/get/` + param.id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -31,7 +31,7 @@ function EditJenisInf() {
       const update = async (e) => {
         e.preventDefault();
         await axios
-          .put(`${API_DUMMY}/bawaslu/api/jenis-informasi/` + param.id, {
+          .put(`${API_DUMMY}/bawaslu/api/jenis-informasi/get/` + param.id, {
             namaInformasi, namaInformasi
           }, {
             headers: {

@@ -20,7 +20,7 @@ function EditTenagaKependidikan() {
 
   useEffect(() => {
     axios
-.get(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/` + param.id, {
+.get(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

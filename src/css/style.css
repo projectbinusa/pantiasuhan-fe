@@ -2532,7 +2532,7 @@ ul {
 }
 
 .navbar-area-2 {
-  background: #fff;
+  background: #3e3e90;
 }
 
 .navbar-area-2 .nav-container .navbar-collapse .navbar-nav > li {
@@ -3136,14 +3136,21 @@ ul {
 .sopen {
   display: block !important;
 }
-
-.toggle-btn {
-  left: auto;
-  right: 0;
-  position: absolute;
+.logo-nav {
+  left: 40px;
+  right: auto;
   top: 8px;
+  position: absolute;
   width: 40px;
   height: 40px;
+}
+.toggle-btn {
+  left: 0;
+  right: auto;
+  top: 8px;
+  position: absolute;
+  width: 40px;
+  height: 47px;
   -webkit-transition-duration: 0.5s;
   transition-duration: 0.5s;
   border: 0;
@@ -9572,7 +9579,7 @@ ul {
 }
 @media all and (max-width: 991px) {
   .toggle-btn {
-    top: 2px;
+    top: 6px;
   }
   .image-hover-animate img {
     width: 100%;
@@ -9587,7 +9594,8 @@ ul {
     display: none;
   }
   .navbar-area-2 .nav-container {
-    padding: 10px;
+    padding: 30px;
+    /* height: 60px; */
   }
   .navbar-area-2 .nav-container .navbar-collapse .navbar-nav > li:hover,
   .sticky-active.navbar-area-2 {

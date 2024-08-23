@@ -193,6 +193,10 @@ import AddKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/ko
 import EditKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/EditKondisiSekolah";
 import GalerySekolah from "./views/pagesekolah/berita/gambar/GalerySekolah";
 import Perpustakaan from "./views/pagesekolah/perpus/Perpustakaan";
+import KonsidisiSekolahView from "./views/pagesekolah/kondisisekolah/KondisiSekolahView";
+import AddPerpus from "./views/pages/admin/smpn1bergas/menu/perpus/AddPerpus";
+import EditPerpus from "./views/pages/admin/smpn1bergas/menu/perpus/EditPerpus";
+import AdminPerpus from "./views/pages/admin/smpn1bergas/menu/perpus/Perpustakaan";
 
 // END ADMIN MENU REGULASI
 
@@ -576,6 +580,23 @@ function App() {
             exact
           />
           {/* end kondisi sekolah */}
+ {/* perpus*/}
+          <PrivateRoute
+            path="/admin-perpustakaan"
+            component={AdminPerpus}
+            exact
+          />
+          <PrivateRoute
+            path="/add-perpustakaan"
+            component={AddPerpus}
+            exact
+          />
+          <PrivateRoute
+            path="/edit-perpustakaan/:id"
+            component={EditPerpus}
+            exact
+          />
+          {/* end perpus*/}
           {/* end admin smpn1bergas */}
           {/* eLibrary */}
           <PrivateRoute path="/admin-library" component={AdminLibrary} exact />
@@ -917,6 +938,9 @@ function App() {
           <Route path="/detail-agenda-:id" component={DetailAgenda} exact />
 
           <Route path="/perpustakaan" component={Perpustakaan} exact />
+
+           {/* Kondisi Sekolah */}
+           <Route path="/kondisi-sekolah-view" component={KonsidisiSekolahView} exact />
           {/* <Route path="/detail-agenda-:id" component={DetailAgenda} exact /> */}
         </Switch>
       </main>
