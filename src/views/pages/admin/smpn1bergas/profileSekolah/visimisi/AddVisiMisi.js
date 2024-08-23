@@ -27,7 +27,6 @@ function AddVisiMisi() {
       };
       await axios.post(`${API_DUMMY}/smpn1bergas/api/visiMisi/add`, data, {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });

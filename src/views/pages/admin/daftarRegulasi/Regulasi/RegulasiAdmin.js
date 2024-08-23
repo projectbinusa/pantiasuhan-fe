@@ -15,7 +15,7 @@ import { Pagination } from "@mui/material";
 function MenuRegulasi() {
   const [regulasi, setRegulasi] = useState ([]);
   const [menuRegulasi, setMenuRegulasi] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [paginationInfo, setPaginationInfo] = useState({

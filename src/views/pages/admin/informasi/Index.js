@@ -15,7 +15,7 @@ import "../../../../css/indexadmin.css";
 
 function Index() {
   const [jenisInformasi, setJenisInformasi] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [paginationInfo, setPaginationInfo] = useState({

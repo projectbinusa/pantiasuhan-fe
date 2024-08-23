@@ -17,7 +17,7 @@ import Pagination from "@mui/material/Pagination";
 function IsiKeterangan() {
   const [jenisKeteranganIsiInformasi, setJenisKeteranganIsiInformasi] =
     useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const param = useParams();
   const history = useHistory();
   const [rowsPerPage, setRowsPerPage] = useState(5);

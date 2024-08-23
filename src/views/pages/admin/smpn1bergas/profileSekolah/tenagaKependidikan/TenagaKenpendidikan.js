@@ -10,7 +10,7 @@ import Sidebar from "../../../../../../component/Sidebar";
 
 function TenagaKenpendidikan() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -27,7 +27,7 @@ function TenagaKenpendidikan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all?page=${page}&size=${rowsPerPage}`,
+        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all?page=${page - 1}&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -36,7 +36,7 @@ function TenagaKenpendidikan() {
       );
       setList(response.data.data.content);
       console.log("data sambutan: ", response.data.data.content);
-      setPaginationInfo1({
+      setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
       });
@@ -256,7 +256,11 @@ function TenagaKenpendidikan() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
+
                 showFirstButton
                 showLastButton
                 color="primary"

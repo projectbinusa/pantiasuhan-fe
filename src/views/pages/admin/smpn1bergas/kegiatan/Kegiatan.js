@@ -17,7 +17,7 @@ import FotoKegiatan from "./fotoKegiatan/FotoKegiatan";
 
 function Kegiatan() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -28,7 +28,7 @@ function Kegiatan() {
   const [searchResults1, setSearchResults1] = useState([]);
   const history = useHistory();
 
-  const getAll = async (page) => {
+  const getAll = async () => {
     try {
       const response = await axios.get(
         `${API_DUMMY}/smpn1bergas/api/kegiatan/all?page=${
@@ -356,7 +356,10 @@ function Kegiatan() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
                 showFirstButton
                 showLastButton
                 color="primary"

@@ -19,7 +19,7 @@ import Sidebar from "../../../../../component/Sidebar";
 
 function Galery() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -27,15 +27,11 @@ function Galery() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
-  const [paginationInfo1, setPaginationInfo1] = useState({
-    totalPages1: 1,
-    totalElements1: 0,
-  });
 
-  const getAll = async (page1) => {
+  const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/galeri/all?page=${page}&size=${rowsPerPage}`,
+        `${API_DUMMY}/smpn1bergas/api/galeri/all?page=${page - 1}&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -44,7 +40,7 @@ function Galery() {
       );
       setList(response.data.data.content);
       console.log(response.data.data.content);
-      setPaginationInfo1({
+      setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
       });
@@ -52,6 +48,8 @@ function Galery() {
       console.error("Terjadi Kesalahan", error);
     }
   };
+
+
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -266,7 +264,10 @@ function Galery() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
                 showFirstButton
                 showLastButton
                 color="primary"

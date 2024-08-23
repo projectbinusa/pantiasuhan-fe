@@ -14,6 +14,11 @@ import { API_DUMMY } from "../../../../../../utils/base_URL";
 
 function AddAlumni() {
   const [namaAlumni, setNamaAlumni] = useState("");
+  const [kontak, setKontak] = useState("");
+  const [profesi, setProfesi] = useState("");
+  const [tahunLulus, setTahunLulus] = useState("");
+  const [riwayat, setRiwayat] = useState("");
+  const [nip, setNip] = useState("");
   const [image, setImage] = useState(null);
   const [biografi, setBiografi] = useState("");
   const [show, setShow] = useState(false);
@@ -28,6 +33,11 @@ function AddAlumni() {
     // formData.append("author", author);
     formData.append("nama", namaAlumni);
     formData.append("biografi", biografi);
+    formData.append("kontak", kontak);
+    formData.append("profesi", profesi);
+    formData.append("tahunLulus", tahunLulus);
+    formData.append("riwayat", riwayat);
+    formData.append("nip", nip);
     formData.append("file", image);
 
     try {
@@ -89,6 +99,81 @@ function AddAlumni() {
                             className="form-control"
                             required
                             placeholder="Masukkan Nama Alumni"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label
+                            for="exampleInputPassword1"
+                            className="form-label font-weight-bold">
+                            No Handphone
+                          </label>
+                          <input
+                            value={kontak}
+                            onChange={(e) => setKontak(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            required
+                            id="exampleInputPassword1"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label
+                            for="exampleInputPassword1"
+                            className="form-label font-weight-bold">
+                            Sekolah / Pekerjaan Saat Ini
+                          </label>
+                          <input
+                            value={profesi}
+                            onChange={(e) => setProfesi(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            required
+                            id="exampleInputPassword1"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label
+                            for="exampleInputPassword1"
+                            className="form-label font-weight-bold">
+                            Riwayat
+                          </label>
+                          <input
+                            value={riwayat}
+                            onChange={(e) => setRiwayat(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            required
+                            id="exampleInputPassword1"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label
+                            for="exampleInputPassword1"
+                            className="form-label font-weight-bold">
+                            Tahun Lulus
+                          </label>
+                          <input
+                            value={tahunLulus}
+                            onChange={(e) => setTahunLulus(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            required
+                            id="exampleInputPassword1"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label
+                            for="exampleInputPassword1"
+                            className="form-label font-weight-bold">
+                            NIP
+                          </label>
+                          <input
+                            value={nip}
+                            onChange={(e) => setNip(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            required
+                            id="exampleInputPassword1"
                           />
                         </div>
                         <div className="mb-3 co-lg-6">

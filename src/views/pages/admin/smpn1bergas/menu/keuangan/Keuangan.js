@@ -17,7 +17,7 @@ import {
 function Keuangan() {
   const [list, setList] = useState([]);
   const [list1, setList1] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [page1, setPage1] = useState(0);
   const [category, setCategory] = useState([""]);
   const [modalAdd, setModalAdd] = useState(false);
@@ -39,7 +39,7 @@ function Keuangan() {
   const [searchTerm1, setSearchTerm1] = useState("");
   const history = useHistory();
 
-  const getAll = async (page) => {
+  const getAll = async () => {
     try {
       const response = await axios.get(
         `${API_DUMMY}/smpn1bergas/api/keuangan/all?page=${
@@ -280,7 +280,11 @@ function Keuangan() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
+
                 showFirstButton
                 showLastButton
                 color="primary"
