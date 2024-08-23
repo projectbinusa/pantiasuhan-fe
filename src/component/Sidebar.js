@@ -138,6 +138,16 @@ function Sidebar() {
                   <i class="metismenu-icon fa-solid fa-list"></i> Visi Misi
                 </a>
               </li>
+              <li>
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-perpustakaan"
+                  className={
+                    location.pathname === "/admin-perpustakaan" ? "active" : ""
+                  }>
+                  <i class="fa-solid fa-book metismenu-icon"></i> Perpustakaan
+                </a>
+              </li>
               <li className="app-sidebar__heading">Profile Sekolah</li>
               <li>
                 <a
@@ -210,17 +220,17 @@ function Sidebar() {
                       <i className="metismenu-icon"></i>Kependidikan
                     </a>
                   </li>
-                <li>
-                  <a
-                    style={{ textDecoration: "none" }}
-                    href="/admin-guru"
-                    className={
-                      location.pathname === "/admin-guru" ? "active" : ""
-                    }>
-                    <i class="metismenu-icon fa-solid fa-chalkboard-user"></i>{" "}
-                    Guru
-                  </a>
-                </li>
+                  <li>
+                    <a
+                      style={{ textDecoration: "none" }}
+                      href="/admin-guru"
+                      className={
+                        location.pathname === "/admin-guru" ? "active" : ""
+                      }>
+                      <i class="metismenu-icon fa-solid fa-chalkboard-user"></i>{" "}
+                      Guru
+                    </a>
+                  </li>
                   {/* <li>
                     <a
                       style={{ textDecoration: "none" }}

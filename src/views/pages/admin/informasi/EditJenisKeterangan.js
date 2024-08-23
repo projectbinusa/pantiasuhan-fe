@@ -19,7 +19,7 @@ function EditJenisKeterangan() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/jenis-keterangan/getBy/` + param.id)
+      .get(`${API_DUMMY}/bawaslu/api/jenis-keterangan/getBy/get/` + param.id)
       .then((ress) => {
         const response = ress.data.data;
         setKeterangan(response.keterangan);
@@ -52,7 +52,7 @@ function EditJenisKeterangan() {
 
     try {
       await axios.put(
-        `${API_DUMMY}/bawaslu/api/jenis-keterangan/` + param.id,
+        `${API_DUMMY}/bawaslu/api/jenis-keterangan/get/` + param.id,
         data,
         {
           headers: {

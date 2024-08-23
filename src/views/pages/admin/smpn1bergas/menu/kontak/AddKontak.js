@@ -140,7 +140,7 @@ function AddKontak() {
                             type="number"
                             className="form-control"
                             required
-                            placeholder="Masukkan NOmor Handphone / Telephone"
+                            placeholder="Masukkan Nomor Handphone / Telephone"
                           />
                         </div>
                       </div>

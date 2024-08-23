@@ -61,7 +61,7 @@ function NavbarSekolah() {
               <a href="/stuktur-organisasi">STRUKTUR ORGANISASI</a>
             </li>
             <li>
-              <a href="/kondisi-sekolah">KONDISI SEKOLAH</a>
+              <a href="/kondisi-sekolah-view">KONDISI SEKOLAH</a>
             </li>
             <li>
               <a href="/staff">STAFF</a>

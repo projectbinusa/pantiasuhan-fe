@@ -13,8 +13,7 @@ function AddBeritaAdmin() {
   const [author, setAuthor] = useState("");
   const [judulBerita, setJudulBerita] = useState("");
   const [image, setImage] = useState(null);
-  const [categoryId, setCategoryId] = useState(0);
-  const [category, setCategory] = useState([]);
+  const [categoryBerita, setCategoryBerita] = useState(0);
   const [isiBerita, setIsiBerita] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
@@ -28,7 +27,7 @@ function AddBeritaAdmin() {
     formData.append("author", author);
     formData.append("judulBerita", judulBerita);
     formData.append("isiBerita", isiBerita);
-    formData.append("categoryId", categoryId);
+    formData.append("category", categoryBerita);
     formData.append("file", image);
 
     try {
@@ -59,26 +58,6 @@ function AddBeritaAdmin() {
     }
   };
 
-  const getAllCategoryId = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/category-berita/all`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setCategory(response.data.data.content);
-      console.log(response.data.data.content);
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
-  };
-
-  useEffect(() => {
-    getAllCategoryId();
-  }, []);
 
   useEffect(() => {
     AOS.init();
@@ -100,22 +79,21 @@ function AddBeritaAdmin() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
-                          <label className="form-label  font-weight-bold ">
-                            Category
-                          </label>
-                          <select
-                            className="form-control"
-                            aria-label="Small select example"
-                            onChange={(e) => setCategoryId(e.target.value)}>
-                            <option selected>PIlih Category</option>
-                            {category.map((down) => {
-                              return (
-                                <option value={down.id}>{down.category}</option>
-                              );
-                            })}
-                          </select>
-                        </div>
+                    {/*  */}
+                    <label className="form-label font-weight-bold">
+                      Katagori Berita
+                    </label>
+                    <select
+                      value={categoryBerita}
+                      className="form-control"
+                      aria-label="Small select example"
+                      onChange={(e) => setCategoryBerita(e.target.value)}>
+                      <option selected>Pilih Category</option>
+                      <option value="Berita Sekolah">Berita Sekolah</option>
+                      <option value="Info Sekolah">Info Sekolah</option>
+                      <option value="Agenda Sekolah">Agenda Sekolah</option>
+                    </select>
+                  </div>
                         <div className="mb-3 col-lg-6">
                           {/* a */}
                           <label

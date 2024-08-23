@@ -32,7 +32,7 @@ function AddMenuRegulasi() {
   // get by id jenis regulasi
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/jenis-regulasi/get-by-id/` + param.id, {
+      .get(`${API_DUMMY}/bawaslu/api/jenis-regulasi/get-by-id/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

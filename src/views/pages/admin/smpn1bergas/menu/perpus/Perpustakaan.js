@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
-import Header from "../../../../../component/Header";
-import Sidebar from "../../../../../component/Sidebar";
+// import Header from "../../../../component/Header";
+// import Sidebar from "../../../../component/Sidebar";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+// import { API_DUMMY } from "../../../../utils/base_URL";
 import Swal from "sweetalert2";
 import AOS from "aos";
 
@@ -13,9 +13,11 @@ import {
   Pagination,
   TextField,
 } from "@mui/material";
-import FotoKegiatan from "./fotoKegiatan/FotoKegiatan";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
+import Header from "../../../../../../component/Header";
+import Sidebar from "../../../../../../component/Sidebar";
 
-function Kegiatan() {
+function Perpustakaan() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,15 +27,15 @@ function Kegiatan() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults1, setSearchResults1] = useState([]);
-  const history = useHistory();
+  const [paginationInfo1, setPaginationInfo1] = useState({
+    totalPages1: 1,
+    totalElements1: 0,
+  });
 
-  const getAll = async (page) => {
+  const getAll = async (page1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kegiatan/all?page=${
-          page - 1
-        }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
+        `${API_DUMMY}/smpn1bergas/api/perpustakaan/all?page=${page}&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -42,7 +44,7 @@ function Kegiatan() {
       );
       setList(response.data.data.content);
       console.log(response.data.data.content);
-      setPaginationInfo({
+      setPaginationInfo1({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
       });
@@ -50,29 +52,6 @@ function Kegiatan() {
       console.error("Terjadi Kesalahan", error);
     }
   };
-
-  // const getAll1 = async (page1) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${API_DUMMY}/smpn1bergas/api/category-berita/all?direction=desc&page=${
-  //         page1 - 1
-  //       }&size=${rowsPerPage1}&sort=id`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       }
-  //     );
-  //     setList1(response.data.data.content);
-  //     console.log(response.data.data.content);
-  //     setPaginationInfo1({
-  //       totalPages1: response.data.data.totalPages,
-  //       totalElements1: response.data.data.totalElements,
-  //     });
-  //   } catch (error) {
-  //     console.error("Terjadi Kesalahan", error);
-  //   }
-  // };
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -87,7 +66,7 @@ function Kegiatan() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/kegiatan/delete/` + id, {
+          .delete(`${API_DUMMY}/smpn1bergas/api/perpustakaan/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -101,6 +80,7 @@ function Kegiatan() {
             });
 
             setTimeout(() => {
+              // history.push("/admin-berita");
               window.location.reload();
             }, 1500);
           });
@@ -108,49 +88,9 @@ function Kegiatan() {
     });
   };
 
-  //delete category
-  // const deleteData1 = async (id) => {
-  //   Swal.fire({
-  //     title: "Apakah Anda Ingin Menghapus Kategori Berita?",
-  //     text: "Seluruh berita dalam kategori ini akan ikut terhapus dan data tidak bisa dikembalikan!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Hapus",
-  //     cancelButtonText: "Batal",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       axios
-  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/delete/` + id, {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //           },
-  //         })
-  //         .then(() => {
-  //           Swal.fire({
-  //             icon: "success",
-  //             title: "Dihapus!",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-
-  //           setTimeout(() => {
-  //             history.push("/admin-berita");
-  //             window.location.reload();
-  //           }, 1500);
-  //         });
-  //     }
-  //   });
-  // };
-
   useEffect(() => {
     getAll(currentPage);
   }, [currentPage, rowsPerPage]);
-
-  // useEffect(() => {
-  //   getAll1(currentPage1);
-  // }, [currentPage1, rowsPerPage1]);
 
   useEffect(() => {
     AOS.init();
@@ -174,24 +114,6 @@ function Kegiatan() {
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-  // const handleRowsPerPageChange1 = (event) => {
-  //   setRowsPerPage1(parseInt(event.target.value, 10));
-  //   setPage1(0);
-  // };
-
-  // const handleSearchChange1 = (event) => {
-  //   setSearchTerm1(event.target.value);
-  //   setPage1(0);
-  //   setCurrentPage1(1);
-  // };
-
-  // const filteredList1 = list1.filter((item) =>
-  //   Object.values(item).some(
-  //     (value) =>
-  //       typeof value === "string" &&
-  //       value.toLowerCase().includes(searchTerm1.toLowerCase())
-  //   )
-  // );
 
   console.log(filteredList);
 
@@ -232,7 +154,7 @@ function Kegiatan() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Kegiatan</p>
+              <p className="mt-3">Data Perpustakaan</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   {/* a */}
@@ -262,8 +184,8 @@ function Kegiatan() {
                     <button className="active btn-focus p-2 rounded">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add-kegiatan">
-                        Tambah kegiatan
+                        href="/add-perpustakaan">
+                        Tambah Perpustakaan
                       </a>
                     </button>
                   </div>
@@ -277,20 +199,23 @@ function Kegiatan() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th className="text-long">Kegiatan</th>
+                    <th className="text-long">Nama Buku</th>
                     {/* <th className="text-center">
                       Isi Berita
                     </th> */}
                     <th
                       scope="col"
-                      className="text-left"
-                      style={{ minWidth: "150px" }}>
-                      Penulis Kegiatan
+                      className="text-left">
+                      Nomor Buku
                     </th>
-                    <th className="text-long">Isi</th>
-                    <th className="">Gambar</th>
-                    <th className="">Tanggal Dibuat</th>
-                    <th className="">Tanggal Update</th>
+                    <th
+                      scope="col"
+                      className="text-left">
+                      Pengarang
+                    </th>
+                    <th className="text-left">Sinopsis</th>
+                    <th className="text-left">Tahun</th>
+                    <th className="text-left">Sampul</th>
                     <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
@@ -301,27 +226,27 @@ function Kegiatan() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Kegiatan" className="text-long">
-                          {berita.judul}
+                        <td data-label="Nama Buku" className="text-long">
+                          {berita.nama_buku}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}{" "}
-                        <td data-label="Penulis Kegiatan" className="text-long">
-                          {berita.penulis}
+                        <td data-label="Nomor Buku" className="text-long">
+                          {berita.no}
                         </td>
-                        <td data-label="Isi" className="">
-                          {berita.isi}
-                        </td>{" "}
-                        <td data-label="Image" className="">
+                        {/* <td data-label="">{berita.isiBerita}</td> */}
+                        <td data-label="Pengarang" className="">
+                          {berita.pengarang}
+                        </td>
+                        <td data-label="Sinopsis" className="">
+                          {berita.sinopsis}
+                        </td>
+                        <td data-label="Tahun" className="">
+                          {berita.tahun}
+                        </td>
+                        <td data-label="Sampul" className="">
                           <img
                             src={berita.foto}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
-                        </td>
-                        <td data-label="Tanggal Dibuat" className="">
-                          {berita.createdDate}
-                        </td>
-                        <td data-label="Tanggal Update" className="">
-                          {berita.updatedDate}
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
@@ -333,7 +258,7 @@ function Kegiatan() {
                                   color: "white",
                                   textDecoration: "none",
                                 }}
-                                href={`/edit-kegiatan/${berita.id}`}>
+                                href={`/edit-perpustakaan/${berita.id}`}>
                                 {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
@@ -363,11 +288,10 @@ function Kegiatan() {
               />
             </div>
           </div>
-          <FotoKegiatan></FotoKegiatan>
         </div>
       </div>
     </div>
   );
 }
 
-export default Kegiatan;
+export default Perpustakaan;

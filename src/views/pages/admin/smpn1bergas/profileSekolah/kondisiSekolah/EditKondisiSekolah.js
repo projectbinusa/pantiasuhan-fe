@@ -23,7 +23,7 @@ function EditKondisiSekolah() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -31,7 +31,7 @@ function EditKondisiSekolah() {
       .then((ress) => {
         const response = ress.data.data;
         // setGalery(response.galery);
-        setDeskripsi(response.diskripsi);
+        setDeskripsi(response.deskripsi);
         setFile(response.foto);
         console.log("galery : ", ress.data.data);
       })
@@ -61,7 +61,7 @@ function EditKondisiSekolah() {
           showConfirmButton: false,
           timer: 1500,
         });
-        history.push("/admin-konidisi-sekolah");
+        history.push("/admin-kondisi-sekolah");
         setTimeout(() => {
           window.location.reload();
         }, 1500);

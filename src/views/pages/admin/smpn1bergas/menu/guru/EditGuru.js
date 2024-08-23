@@ -25,7 +25,7 @@ function EditGuru() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/guru/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/guru/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

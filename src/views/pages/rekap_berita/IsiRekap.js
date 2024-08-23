@@ -39,7 +39,7 @@ function IsiRekap() {
   //berita get
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/berita/get/` + param.id)
+      .get(`${API_DUMMY}/bawaslu/api/berita/get/get/` + param.id)
       .then((res) => {
         const list_data = res.data.data;
         setJudulBerita(list_data.judulBerita);

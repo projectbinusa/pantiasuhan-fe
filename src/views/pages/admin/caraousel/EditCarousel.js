@@ -20,7 +20,7 @@ function EditCarousel() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/carousel/ById/` + param.id, {
+      .get(`${API_DUMMY}/bawaslu/api/carousel/ById/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -51,7 +51,7 @@ function EditCarousel() {
     formData.append("file", file);
 
     await axios
-      .put(`${API_DUMMY}/bawaslu/api/carousel/` + param.id, formData, {
+      .put(`${API_DUMMY}/bawaslu/api/carousel/get/` + param.id, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -35,7 +35,7 @@ function DetailPermohonanInformasi() {
   //permohonan informasi
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/permohonan-informasi/get/` + param.id, {
+      .get(`${API_DUMMY}/bawaslu/api/permohonan-informasi/get/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

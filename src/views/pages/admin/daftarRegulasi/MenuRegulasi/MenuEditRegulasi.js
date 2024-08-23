@@ -32,7 +32,7 @@ function MenuEditRegulasi() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/menu-regulasi/get/` + param.id)
+      .get(`${API_DUMMY}/bawaslu/api/menu-regulasi/get/get/` + param.id)
       .then((ress) => {
         const response = ress.data.data;
         setMenuRegulasi(response.menuRegulasi);

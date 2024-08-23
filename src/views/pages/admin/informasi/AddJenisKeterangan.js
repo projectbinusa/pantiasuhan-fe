@@ -35,7 +35,7 @@ function AddJenisKeterangan() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/jenis-informasi/getBy/` + param.id, {
+      .get(`${API_DUMMY}/bawaslu/api/jenis-informasi/getBy/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

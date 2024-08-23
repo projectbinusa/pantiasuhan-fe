@@ -27,7 +27,7 @@ function EditEkskul() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

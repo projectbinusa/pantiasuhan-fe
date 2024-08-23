@@ -22,7 +22,7 @@ function EditPengumuman() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/pengumuman/get/` + param.id, {
+      .get(`${API_DUMMY}/bawaslu/api/pengumuman/get/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -53,7 +53,7 @@ function EditPengumuman() {
     formData.append("tags", tags);
 
     await axios
-      .put(`${API_DUMMY}/bawaslu/api/pengumuman/` + param.id, formData, {
+      .put(`${API_DUMMY}/bawaslu/api/pengumuman/get/` + param.id, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

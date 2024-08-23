@@ -35,7 +35,7 @@ function DetailPermohonanKeberatan() {
   //by if permohonan keberatan
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/bawaslu/api/permohonan-keberatan/get/` + param.id, {
+      .get(`${API_DUMMY}/bawaslu/api/permohonan-keberatan/get/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -23,7 +23,7 @@ function EditIsiKeterangan() {
   useEffect(() => {
     axios
       .get(
-        `${API_DUMMY}/bawaslu/api/isi-keterangan-informasi/getBy/` + param.id
+        `${API_DUMMY}/bawaslu/api/isi-keterangan-informasi/getBy/get/` + param.id
       )
       .then((ress) => {
         const response = ress.data.data;
@@ -45,7 +45,7 @@ function EditIsiKeterangan() {
 
     await axios
       .put(
-        `${API_DUMMY}/bawaslu/api/isi-keterangan-informasi/` + param.id , {
+        `${API_DUMMY}/bawaslu/api/isi-keterangan-informasi/get/` + param.id , {
           dokumen: dokumen,
           pdfDokumen: pdfDokumen,
           jenisKeteranganId: jenisKeteranganId,

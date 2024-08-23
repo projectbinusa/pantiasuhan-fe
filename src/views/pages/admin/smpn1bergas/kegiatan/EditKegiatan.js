@@ -61,7 +61,7 @@ function EditKegiatan() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/kegiatan/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/kegiatan/get/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

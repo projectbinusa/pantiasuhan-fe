@@ -21,7 +21,7 @@ function EditKontak() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/kontak/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/kontak/get/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

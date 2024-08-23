@@ -21,7 +21,7 @@ function EditSambutan() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/sambutan/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/sambutan/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
