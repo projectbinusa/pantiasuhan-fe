@@ -9,7 +9,7 @@ import Sidebar from "../../../../../component/Sidebar";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 function Ekskul() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -23,7 +23,7 @@ function Ekskul() {
     totalElements1: 0,
   });
 
-  const getAll = async (page) => {
+  const getAll = async () => {
     try {
       const response = await axios.get(
         `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all?direction=asc&page=${page - 1}&size=${rowsPerPage}&sort=createdDate`,
@@ -35,7 +35,7 @@ function Ekskul() {
       );
       setList(response.data.data.content);
       console.log("data kontak: ", response.data.data.content);
-      setPaginationInfo1({
+      setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
       });
@@ -244,7 +244,10 @@ function Ekskul() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
                 showFirstButton
                 showLastButton
                 color="primary"

@@ -11,7 +11,7 @@ import { API_DUMMY } from "../../../../../../utils/base_URL";
 
 function Sejarah() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -25,10 +25,10 @@ function Sejarah() {
     totalElements1: 0,
   });
 
-  const getAll = async (page) => {
+  const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sejarah/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/sejarah/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {
@@ -39,7 +39,7 @@ function Sejarah() {
       );
       setList(response.data.data.content);
       console.log("data sejarah: ", response);
-      setPaginationInfo1({
+      setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
       });
@@ -254,7 +254,10 @@ function Sejarah() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
                 showFirstButton
                 showLastButton
                 color="primary"

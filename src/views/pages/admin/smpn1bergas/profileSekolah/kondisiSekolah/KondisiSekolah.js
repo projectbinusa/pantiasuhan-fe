@@ -19,7 +19,7 @@ import Sidebar from "../../../../../../component/Sidebar";
 
 function KondisiSekolah() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -32,10 +32,10 @@ function KondisiSekolah() {
     totalElements1: 0,
   });
 
-  const getAll = async (page1) => {
+  const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/all?page=${page}&size=${rowsPerPage}`,
+      `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/all?page=${page}&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -44,7 +44,7 @@ function KondisiSekolah() {
       );
       setList(response.data.data.content);
       console.log(response.data.data.content);
-      setPaginationInfo1({
+      setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
       });
@@ -263,7 +263,11 @@ function KondisiSekolah() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
+
                 showFirstButton
                 showLastButton
                 color="primary"

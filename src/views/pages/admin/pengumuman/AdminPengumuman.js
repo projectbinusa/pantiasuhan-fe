@@ -11,7 +11,7 @@ import AOS from "aos";
 
 function AdminPengumuman() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const history = useHistory();
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);

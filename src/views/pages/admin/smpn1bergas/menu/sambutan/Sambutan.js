@@ -10,7 +10,7 @@ import Sidebar from "../../../../../../component/Sidebar";
 
 function AdminSambutan() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -24,10 +24,10 @@ function AdminSambutan() {
     totalElements1: 0,
   });
 
-  const getAll = async (page) => {
+  const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sambutan/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/sambutan/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {
@@ -38,7 +38,7 @@ function AdminSambutan() {
       );
       setList(response.data.data.content);
       console.log("data sambutan: ", response);
-      setPaginationInfo1({
+      setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
       });
@@ -270,7 +270,10 @@ function AdminSambutan() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
                 showFirstButton
                 showLastButton
                 color="primary"

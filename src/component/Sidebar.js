@@ -9,14 +9,14 @@ import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 function Sidebar() {
   const location = useLocation();
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo1, setPaginationInfo1] = useState({
     totalPages1: 1,
     totalElements1: 0,
   });
 
-  const getAllCategoryKeuangan = async (page1) => {
+  const getAllCategoryKeuangan = async () => {
     try {
       const response = await axios.get(
         `${API_DUMMY}/smpn1bergas/api/category_keuangan/all?page=${page}&size=${rowsPerPage}`,
@@ -296,13 +296,17 @@ function Sidebar() {
               {/* MENU REGULASI */}
               <li class="app-sidebar__heading">Berita</li>
               <li>
-                <a style={{ textDecoration: "none" }} href="/admin-berita">
+                <a style={{ textDecoration: "none" }} href="/admin-berita" className={
+                    location.pathname === "/admin-berita" ? "active" : ""
+                  }>
                   <i className="fa-regular fa-rectangle-list  metismenu-icon"></i>{" "}
                   Berita Terbaru
                 </a>
               </li>
               <li>
-                <a style={{ textDecoration: "none" }} href="/admin-galery">
+                <a style={{ textDecoration: "none" }} href="/admin-galery" className={
+                    location.pathname === "/admin-galery" ? "active" : ""
+                  }>
                   <i class="fa-solid fa-images metismenu-icon"></i> Galery
                 </a>
               </li>
@@ -320,7 +324,9 @@ function Sidebar() {
                 </li>
               ))} */}
               <li>
-                <a style={{ textDecoration: "none" }} href="/admin-Keuangan">
+                <a style={{ textDecoration: "none" }} href="/admin-Keuangan" className={
+                    location.pathname === "/admin-Keuangan" ? "active" : ""
+                  }>
                   <i class="fa-solid fa-circle-dollar-to-slot metismenu-icon "></i>{" "}
                   Keuangan
                 </a>
@@ -342,7 +348,9 @@ function Sidebar() {
                 </a>
               </li>
               <li>
-                <a style={{ textDecoration: "none" }} href="/admin-prestasi">
+                <a style={{ textDecoration: "none" }} href="/admin-prestasi" className={
+                    location.pathname === "/admin-prestasi" ? "active" : ""
+                  }>
                   <i class="fa-solid fa-medal metismenu-icon"></i> Prestasi
                 </a>
               </li>

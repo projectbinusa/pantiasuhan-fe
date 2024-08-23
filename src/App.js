@@ -156,7 +156,7 @@ import AddBeritaAdmin from "./views/pages/admin/smpn1bergas/berita/AddBeritaAdmi
 import AdminBerita from "./views/pages/admin/smpn1bergas/berita/AdminBerita";
 import EditBeritaAdmin from "./views/pages/admin/smpn1bergas/berita/EditBeritaAdmin";
 import DetailBerita from "./views/pages/admin/smpn1bergas/berita/DetailBerita";
-import Galery from "./views/pages/admin/smpn1bergas/galery/Galery";
+import AdminGalery from "./views/pages/admin/smpn1bergas/galery/Galery";
 import AddGalery from "./views/pages/admin/smpn1bergas/galery/AddGalery";
 import EditGalery from "./views/pages/admin/smpn1bergas/galery/EditGalery";
 import Keuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/Keuangan";
@@ -200,6 +200,7 @@ import AdminPerpus from "./views/pages/admin/smpn1bergas/menu/perpus/Perpustakaa
 import DetailPerpus from "./views/pagesekolah/perpus/DetailPerpus";
 import StrukturOrganisasi from "./views/pagesekolah/profilSekolah/StrukturOrganisasi";
 import KotakMasuk from "./views/pages/admin/smpn1bergas/kotakmasuk/KotakMasuk";
+import DetailAlumniAdmin from "./views/pages/admin/smpn1bergas/menu/alumni/DetailAlumni";
 
 // END ADMIN MENU REGULASI
 
@@ -342,6 +343,7 @@ function App() {
           <PrivateRoute path="/admin-alumni" component={Alumni} exact />
           <PrivateRoute path="/add-alumni" component={AddAlumni} exact />
           <PrivateRoute path="/edit-alumni/:id" component={EditAlumni} exact />
+          <PrivateRoute path="/detail-alumni/:id" component={DetailAlumniAdmin} exact />
           {/* edit alumni */}
           {/* kontak */}
           <PrivateRoute path="/admin-kontak" component={Kontak} exact />
@@ -517,7 +519,7 @@ function App() {
           />
           {/* end berita */}
           {/* galery */}
-          <PrivateRoute path="/admin-galery" component={GalerySekolah} exact />
+          <PrivateRoute path="/admin-galery" component={AdminGalery} exact />
           <PrivateRoute path="/add-galery" component={AddGalery} exact />
           <PrivateRoute path="/edit-galery/:id" component={EditGalery} exact />
           {/* end galery */}

@@ -20,7 +20,7 @@ import Sidebar from "../../../../../../component/Sidebar";
 function Berita() {
   const [list, setList] = useState([]);
   const [list1, setList1] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [modalAdd, setModalAdd] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [id, setId] = useState(0);
@@ -45,7 +45,7 @@ function Berita() {
   const getAll = async (page1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/guru/all?page=${page}&size=${rowsPerPage}`,
+        `${API_DUMMY}/smpn1bergas/api/guru/all?page=${page - 1}&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -54,7 +54,7 @@ function Berita() {
       );
       setList(response.data.data.content);
       console.log(response.data.data.content);
-      setPaginationInfo1({
+      setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
       });

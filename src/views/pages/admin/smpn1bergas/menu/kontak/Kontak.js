@@ -9,7 +9,7 @@ import Sidebar from "../../../../../../component/Sidebar";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 function Kontak() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -26,7 +26,9 @@ function Kontak() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kontak/all?page=${page}&size=${rowsPerPage}`,
+        `${API_DUMMY}/smpn1bergas/api/kontak/all?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -35,7 +37,7 @@ function Kontak() {
       );
       setList(response.data.data.content);
       console.log("data kontak: ", response);
-      setPaginationInfo1({
+      setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
       });
@@ -258,7 +260,10 @@ function Kontak() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
                 showFirstButton
                 showLastButton
                 color="primary"

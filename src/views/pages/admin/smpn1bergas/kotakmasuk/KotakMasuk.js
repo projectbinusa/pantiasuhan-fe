@@ -7,13 +7,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 
-import {
-  Pagination,
-} from "@mui/material";
+import { Pagination } from "@mui/material";
 
 function KotakMasuk() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -24,12 +22,12 @@ function KotakMasuk() {
   const [searchResults1, setSearchResults1] = useState([]);
   const history = useHistory();
 
-  const getAll = async (page) => {
+  const getAll = async () => {
     try {
       const response = await axios.get(
         `${API_DUMMY}/smpn1bergas/api/kotak_saran/all?page=${
           page - 1
-        }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
+        }&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -314,7 +312,10 @@ function KotakMasuk() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
                 showFirstButton
                 showLastButton
                 color="primary"

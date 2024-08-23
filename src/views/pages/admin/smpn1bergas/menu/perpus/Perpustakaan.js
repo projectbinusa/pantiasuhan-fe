@@ -19,7 +19,7 @@ import Sidebar from "../../../../../../component/Sidebar";
 
 function Perpustakaan() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -32,10 +32,12 @@ function Perpustakaan() {
     totalElements1: 0,
   });
 
-  const getAll = async (page1) => {
+  const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/perpustakaan/all?page=${page}&size=${rowsPerPage}`,
+        `${API_DUMMY}/smpn1bergas/api/perpustakaan/all?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -44,7 +46,7 @@ function Perpustakaan() {
       );
       setList(response.data.data.content);
       console.log(response.data.data.content);
-      setPaginationInfo1({
+      setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
       });
@@ -203,14 +205,10 @@ function Perpustakaan() {
                     {/* <th className="text-center">
                       Isi Berita
                     </th> */}
-                    <th
-                      scope="col"
-                      className="text-left">
+                    <th scope="col" className="text-left">
                       Nomor Buku
                     </th>
-                    <th
-                      scope="col"
-                      className="text-left">
+                    <th scope="col" className="text-left">
                       Pengarang
                     </th>
                     <th className="text-left">Sinopsis</th>
@@ -281,7 +279,10 @@ function Perpustakaan() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
                 showFirstButton
                 showLastButton
                 color="primary"

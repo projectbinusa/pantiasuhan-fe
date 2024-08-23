@@ -7,9 +7,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 
-import {
-  Pagination,
-} from "@mui/material";
+import { Pagination } from "@mui/material";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
@@ -19,19 +17,14 @@ import Sidebar from "../../../../../../component/Sidebar";
 
 function Alumni() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
     totalPages: 1,
     totalElements: 0,
   });
-  const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [paginationInfo1, setPaginationInfo1] = useState({
-    totalPages1: 1,
-    totalElements1: 0,
-  });
 
   const getAll = async () => {
     try {
@@ -45,7 +38,7 @@ function Alumni() {
       );
       setList(response.data.data.content);
       console.log("data alumni: ", response.data.data.content);
-      setPaginationInfo1({
+      setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
       });
@@ -204,13 +197,17 @@ function Alumni() {
                     {/* <th className="text-center">
                       Isi Berita
                     </th> */}
-                    <th
+                    {/* <th
                       scope="col"
-                      className="text-left"
-                      style={{ minWidth: "150px" }}>
+                      className="text-left">
                       Biografi
+                    </th> */}
+                    <th scope="col" className="text-left">
+                      No Handphone
                     </th>
-                    <th className="text-left">Image</th>
+                    <th scope="col" className="text-left">
+                      Sekolah / Pekerjaan Saat Ini
+                    </th>
                     <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
@@ -225,14 +222,16 @@ function Alumni() {
                           {berita.nama}
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}
-                        <td data-label="Biografi" className="">
+                        {/* <td data-label="Biografi" className="">
                           {berita.biografi}
+                        </td> */}
+                        <td data-label="No Handphone" className="">
+                          {berita.kontak}
                         </td>
-                        <td data-label="Image" className="">
-                          <img
-                            src={berita.foto}
-                            style={{ height: "4.5rem", width: "4.5rem" }}
-                          />
+                        <td
+                          data-label="Sekolah/Pekerjaan Saat Ini"
+                          className="">
+                          {berita.profesi}
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
@@ -247,6 +246,15 @@ function Alumni() {
                                 href={`/edit-alumni/${berita.id}`}>
                                 {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm">
+                              <a
+                                className="text-light"
+                                href={"/detail-alumni/" + berita.id}>
+                                <i class="fas fa-info-circle"></i>
                               </a>
                             </button>
                             <button

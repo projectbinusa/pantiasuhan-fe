@@ -25,7 +25,7 @@ function AddKeuangan() {
     const formData = new FormData();
     formData.append("judul", judul);
     formData.append("isi", isi);
-    formData.append("categoryKeuangan", categoryKeuangan);
+    formData.append("category", categoryKeuangan);
     formData.append("file", image);
 
     try {
