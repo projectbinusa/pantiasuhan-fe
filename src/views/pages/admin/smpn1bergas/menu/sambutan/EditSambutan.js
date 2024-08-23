@@ -15,6 +15,7 @@ function EditSambutan() {
   //   const [image, setImage] = useState(null);
   const [isiSambutan, setIsiSambutan] = useState("");
   const [nip, setNip] = useState("");
+  const [file, setFile] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
   const param = useParams();
@@ -41,14 +42,14 @@ function EditSambutan() {
   const update = async (e) => {
     e.preventDefault();
 
-    const data = {
-      isi: isiSambutan,
-      nama: judulSambutan,
-      nip: nip,
-    };
+    const formData = new FormData();
+    formData.append("isi", isiSambutan);
+    formData.append("nama", judulSambutan);
+    formData.append("nip", nip);
+    formData.append("file", file);
 
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/sambutan/put/` + param.id, data, {
+      .put(`${API_DUMMY}/smpn1bergas/api/sambutan/put/` + param.id, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -149,6 +150,19 @@ function EditSambutan() {
                             className="form-control"
                             required
                             placeholder="Masukkan NIP"
+                          />
+                        </div>
+                        <div className="mb-3 co-lg-6">
+                          {/* a */}
+                          <label className="form-label font-weight-bold">
+                            Gambar
+                          </label>
+                          <input
+                            onChange={(e) =>
+                              setFile(e.target.files ? e.target.files[0] : null)
+                            }
+                            type="file"
+                            className="form-control"
                           />
                         </div>
                       </div>

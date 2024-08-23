@@ -15,7 +15,7 @@ import Sidebar from "../../../../../../component/Sidebar";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 
 function EditKondisiSekolah() {
-//   const [galery, setGalery] = useState("");
+  //   const [galery, setGalery] = useState("");
   const [image, setFile] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const param = useParams();
@@ -49,11 +49,16 @@ function EditKondisiSekolah() {
     formData.append("file", image);
 
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/put/` + param.id, formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .put(
+        `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/put/` + param.id,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then(() => {
         Swal.fire({
           icon: "success",

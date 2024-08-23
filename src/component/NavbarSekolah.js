@@ -34,17 +34,25 @@ function NavbarSekolah() {
 
   return (
     <nav className="navbars">
-      <ul className="navbars-menu" style={{textTransform: "uppercase", fontWeight: "500", fontFamily: "'Poppins', sans-serif"}}>
+      <ul
+        className="navbars-menu"
+        style={{
+          textTransform: "uppercase",
+          fontWeight: "500",
+          fontFamily: "'Poppins', sans-serif",
+        }}>
         <img src={logo} alt="Logo" className="navbars-logo" />
-        <li className={`navbars-item ${activeMenu === "profil-sekolah" ? "active" : ""}`}>
+        <li
+          className={`navbars-item ${
+            activeMenu === "profil-sekolah" ? "active" : ""
+          }`}>
           <a
             href="#profil-sekolah"
             className="has-submenu"
-            onClick={(e) => handleMenuClick(e, "profil-sekolah")}
-          >
+            onClick={(e) => handleMenuClick(e, "profil-sekolah")}>
             Profil Sekolah
           </a>
-          <ul className="submenu" >
+          <ul className="submenu">
             <li>
               <a href="/sambutan">SAMBUTAN KEPALA SEKOLAH</a>
             </li>
@@ -68,12 +76,12 @@ function NavbarSekolah() {
             </li>
           </ul>
         </li>
-        <li className={`navbars-item ${activeMenu === "berita" ? "active" : ""}`}>
+        <li
+          className={`navbars-item ${activeMenu === "berita" ? "active" : ""}`}>
           <a
             href="#berita"
             className="has-submenu"
-            onClick={(e) => handleMenuClick(e, "berita")}
-          >
+            onClick={(e) => handleMenuClick(e, "berita")}>
             Berita
           </a>
           <ul className="submenu">
@@ -91,13 +99,15 @@ function NavbarSekolah() {
             </li>
           </ul>
         </li>
-        <li className={`navbars-item ${activeMenu === "keuangan" ? "active" : ""}`}>
+        <li
+          className={`navbars-item ${
+            activeMenu === "keuangan" ? "active" : ""
+          }`}>
           <a
             href="#keuangan"
             className="has-submenu"
-            onClick={(e) => handleMenuClick(e, "keuangan")}
-          >
-            Keuangan
+            onClick={(e) => handleMenuClick(e, "keuangan")}>
+            KEUANGAN
           </a>
           <ul className="submenu">
             <li>
@@ -111,13 +121,15 @@ function NavbarSekolah() {
             </li>
           </ul>
         </li>
-        <li className={`navbars-item ${activeMenu === "kesiswaan" ? "active" : ""}`}>
+        <li
+          className={`navbars-item ${
+            activeMenu === "kesiswaan" ? "active" : ""
+          }`}>
           <a
             href="#kesiswaan"
             className="has-submenu"
-            onClick={(e) => handleMenuClick(e, "kesiswaan")}
-          >
-            Kesiswaan
+            onClick={(e) => handleMenuClick(e, "kesiswaan")}>
+            KESISWAAN
           </a>
           <ul className="submenu">
             <li>
@@ -126,32 +138,41 @@ function NavbarSekolah() {
             <li>
               <button
                 onClick={() => handleScrollToSection("ekstra-kulikuler")}
-                className="navbars-buttons"
-              >
-                EKSURAKULIKULER
+                className="navbars-buttons">
+                EKSRAKURIKULER
               </button>
             </li>
           </ul>
         </li>
-        <li className="navbars-item" style={{textTransform: "uppercase", fontWeight: "500", fontFamily: "'Poppins', sans-serif"}}>
-          <a href="/perpustakaan">Perpustakaan</a>
+        <li
+          className="navbars-item"
+          style={{
+            textTransform: "uppercase",
+            fontWeight: "500",
+            fontFamily: "'Poppins', sans-serif",
+          }}>
+          <a href="/perpustakaan">PERPUSTAKAAN</a>
         </li>
-        <li className="navbars-item" >
+        <li className="navbars-item">
           <button
             onClick={() => handleScrollToSection("prestasi-terbaru")}
             className="navbars-buttons"
-            style={{textTransform: "uppercase", fontFamily: "'Poppins', sans-serif"}}
-          >
-            Prestasi
+            style={{
+              textTransform: "uppercase",
+              fontFamily: "'Poppins', sans-serif",
+            }}>
+            PRESTASI
           </button>
         </li>
         <li className="navbars-item">
           <button
             onClick={() => handleScrollToSection("hubungi-kami")}
             className="navbars-buttons"
-            style={{textTransform: "uppercase", fontFamily: "'Poppins', sans-serif"}}
-          >
-            Kontak
+            style={{
+              textTransform: "uppercase",
+              fontFamily: "'Poppins', sans-serif",
+            }}>
+            KONTAK
           </button>
         </li>
       </ul>
