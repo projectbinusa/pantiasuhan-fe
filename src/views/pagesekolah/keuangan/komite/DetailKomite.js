@@ -3,11 +3,12 @@ import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import "../../../../css/keuangan/apbd.css";
 import HeaderDetailKeuangan from "../HeaderDetailKeuangan";
+import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 
 function DetailKomite() {
     return (
         <section>
-            <NavbarSekolah />
+            <NavbarSekolah2 />
             <main className="container-detail-keuangan">
                 <HeaderDetailKeuangan title={"Komite"} header={"TEST"} />
                 <img src="https://via.placeholder.com/300x200?text=Award" />

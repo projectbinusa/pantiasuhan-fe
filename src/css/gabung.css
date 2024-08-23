@@ -24,8 +24,8 @@
 
 .details.card-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
 }
 
 .details.card-container .card {
@@ -33,7 +33,9 @@
   flex-direction: column;
   background: none;
   box-shadow: none;
+  border: none;
   margin: 0;
+  padding: 0;
 }
 
 .details.card-container .card-body {

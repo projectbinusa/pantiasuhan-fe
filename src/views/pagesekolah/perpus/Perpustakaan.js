@@ -7,6 +7,7 @@ import FooterSekolah from "../../../component/FooterSekolah";
 import axios from "axios";
 import { API_DUMMY } from "../../../utils/base_URL";
 import { Pagination } from "@mui/material";
+import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 
 function Perpustakaan() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -35,7 +36,7 @@ function Perpustakaan() {
 
     return (
         <>
-            <NavbarSekolah />
+            <NavbarSekolah2 />
             <main className="perpustakaan-container">
                 <HeaderPerpus />
                 <main className="perpus-container">

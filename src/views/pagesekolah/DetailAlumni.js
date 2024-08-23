@@ -5,6 +5,7 @@ import FooterSekolah from "../../component/FooterSekolah";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 import { API_DUMMY } from "../../utils/base_URL";
+import NavbarSekolah2 from "../../component/NavbarSekolah2";
 
 function DetailAlumni() {
     const [nama, setNama] = useState("");
@@ -32,7 +33,7 @@ function DetailAlumni() {
 
     return (
         <section>
-            <NavbarSekolah />
+            <NavbarSekolah2 />
             <main className="container-alumni">
                 <div className='header-alumni'>
                     <ul>

@@ -1,12 +1,12 @@
 import React from 'react';
-import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import "../../../../css/alumni/sapras.css"
+import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
 
 function Sarpras() {
   return (
     <section>
-      <NavbarSekolah />
+      <NavbarSekolah2 />
       <main className="container-sapras">
         <div className='header-sapras'>
           <ul>

@@ -3213,6 +3213,12 @@ ul {
     text-decoration: none;
   }
 
+  .footer-area .container {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 10rem;
+  }
+
   .navbar-area .nav-container .navbar-collapse .navbar-nav li.menu-item-has-children .sub-menu {
     padding: 0 0 0 20px;
   }
@@ -8980,6 +8986,12 @@ ul {
   padding-top: 115px;
 }
 
+.footer-area .container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+
 .footer-area:after {
   content: "";
   position: absolute;
@@ -9844,8 +9856,8 @@ ul {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  padding: 30px;
-  height: auto;
+  padding: 15px 30px;
+  max-height: 300px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -9892,6 +9904,7 @@ ul li a.active {
     margin-top: 4rem;
     padding-left: 0;
   }
+
   #berita-terbaru .berita-card {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

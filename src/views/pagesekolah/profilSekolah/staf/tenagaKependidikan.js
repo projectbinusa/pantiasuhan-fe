@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Pagination } from "@mui/material";
+import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 // import "../../../../css/staff.css";
 
 const generateData = (num) => {
@@ -75,7 +75,7 @@ const TenagaKepndidkan = () => {
 
   return (
     <div>
-      <NavbarSekolah />
+      <NavbarSekolah2 />
       <div style={containerStyle}>
         <div
           style={imageContainerStyle}

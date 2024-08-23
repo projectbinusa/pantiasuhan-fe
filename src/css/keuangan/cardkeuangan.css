@@ -51,7 +51,8 @@
 }
 
 .header-keuangan ul {
-    padding: 10px 15px;
+    margin: 0;
+    padding: 10px 25px;
     list-style: none;
 }
 

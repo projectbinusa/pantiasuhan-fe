@@ -5,6 +5,7 @@ import CardKeuangan from "../CardKeuangan";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import HeaderKeuangan from "../HeaderKeuangan";
 import { Pagination } from "@mui/material";
+import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 
 function AllAPBD() {
     const newsData = [
@@ -35,8 +36,8 @@ function AllAPBD() {
 
     return (
         <section>
-            <NavbarSekolah />
-            <main className="container-keuangan">
+            <NavbarSekolah2 />
+            <main className="container-keuangan container">
                 <HeaderKeuangan title={"APBD"} />
                 <div className="container-apbd">
                     <div>

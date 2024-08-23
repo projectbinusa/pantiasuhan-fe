@@ -1,3 +1,4 @@
+import "../css/style.css";
 import "../css/gabung.css";
 import React from "react";
 
@@ -11,119 +12,117 @@ function FooterSekolah() {
         }}
       >
         <div className="container">
-          <div className="row gap-5">
-            <div className="col-lg-3 col-md-6">
-              <div className="widget widget_about">
-                <h4 className="widget-title">SMP Negeri 1 Bergas</h4>
-                <div className="details">
-                  <p>
-                    SMP Negeri 1 Bergas didirikan pada tahun 1985 di Kabupaten
-                    Semarang, Jawa Tengah. Sejak awal berdirinya, sekolah ini
-                    memiliki tujuan mulia untuk menyediakan pendidikan
-                    berkualitas bagi masyarakat setempat. Dengan komitmen yang
-                    kuat terhadap keunggulan akademik dan pengembangan karakter
-                    siswa, SMP Negeri 1 Bergas telah menjadi salah satu sekolah
-                    menengah pertama terkemuka di wilayahnya.
-                  </p>
-                  <ul className="social-media d-none d-md-none d-lg-flex gap-2">
-                    <li>
-                      <a
-                        className="facebook"
-                        href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <i className="fab fa-facebook-f"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="instagram"
-                        href="https://www.instagram.com/osisspensagas"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <i className="fab fa-instagram"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="youtube"
-                        href="https://www.youtube.com/@OSIS-SMPN1Bergas"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <i className="fab fa-youtube"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+          <div className="">
+            <div className="widget widget_about">
+              <h4 className="widget-title">SMP Negeri 1 Bergas</h4>
+              <div className="details">
+                <p>
+                  SMP Negeri 1 Bergas didirikan pada tahun 1985 di Kabupaten
+                  Semarang, Jawa Tengah. Sejak awal berdirinya, sekolah ini
+                  memiliki tujuan mulia untuk menyediakan pendidikan
+                  berkualitas bagi masyarakat setempat. Dengan komitmen yang
+                  kuat terhadap keunggulan akademik dan pengembangan karakter
+                  siswa, SMP Negeri 1 Bergas telah menjadi salah satu sekolah
+                  menengah pertama terkemuka di wilayahnya.
+                </p>
+                <ul className="social-media d-none d-md-none d-lg-flex gap-2">
+                  <li>
+                    <a
+                      className="facebook"
+                      href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <i className="fab fa-facebook-f"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="instagram"
+                      href="https://www.instagram.com/osisspensagas"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <i className="fab fa-instagram"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="youtube"
+                      href="https://www.youtube.com/@OSIS-SMPN1Bergas"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <i className="fab fa-youtube"></i>
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
+          </div>
 
-            <div className="col-lg-3 col-md-6">
-              <div className="widget widget_subscribe">
-                <h4 className="widget-title">Alamat</h4>
-                <div className="details">
-                  <p style={{ color: "white" }}>
-                    Jl. Krakatau, Gembongan, Karangjati, Kec. Bergas, Kabupaten
-                    Semarang, Jawa Tengah 50552
-                  </p>
-                  <p style={{ color: "white" }}>Telpon (+62) </p>
-                  <p style={{ color: "white" }}>
-                    E-mail smpn1_bergas@yahoo.co.id
-                  </p>
-                </div>
+          <div className="">
+            <div className="widget widget_subscribe">
+              <h4 className="widget-title">Alamat</h4>
+              <div className="details">
+                <p style={{ color: "white" }}>
+                  Jl. Krakatau, Gembongan, Karangjati, Kec. Bergas, Kabupaten
+                  Semarang, Jawa Tengah 50552
+                </p>
+                <p style={{ color: "white" }}>Telpon (+62) </p>
+                <p style={{ color: "white" }}>
+                  E-mail smpn1_bergas@yahoo.co.id
+                </p>
               </div>
             </div>
+          </div>
 
-            <div className="col-lg-4 col-md-12">
-              <div className="widget widget_news">
-                <h4 className="widget-title">Berita Terbaru</h4>
-                <div className="details card-container">
-                  <div className="card">
-                    <div className="card-body">
-                      <a href="" className="card-title">
-                        Title 1 a b c d e f g h i j k l m n o p q r s t u v w x y z
-                      </a>
-                      <p className="card-date">August 21, 2024</p>
-                      <p className="card-content">
-                        Content for the first news item goes here. a b c d e f g h i j k l m n o p q r s t u v w x y z
-                      </p>
-                    </div>
+          <div className="">
+            <div className="widget widget_news">
+              <h4 className="widget-title">Berita Terbaru</h4>
+              <div className="details card-container">
+                <div className="card">
+                  <div className="card-body">
+                    <a href="" className="card-title">
+                      Title 1 a b c d e f g h i j k l m n o p q r s t u v w x y z
+                    </a>
+                    <p className="card-date">August 21, 2024</p>
+                    <p className="card-content">
+                      Content for the first news item goes here. a b c d e f g h i j k l m n o p q r s t u v w x y z
+                    </p>
                   </div>
-                  <div className="card">
-                    <div className="card-body">
-                      <a href="" className="card-title">
-                        Title 2 a b c d e f g h i j k l m n o p q r s t u v w x y z
-                      </a>
-                      <p className="card-date">August 20, 2024</p>
-                      <p className="card-content">
-                        Content for the second news item goes here. a b c d e f g h i j k l m n o p q r s t u v w x y z
-                      </p>
-                    </div>
+                </div>
+                <div className="card">
+                  <div className="card-body">
+                    <a href="" className="card-title">
+                      Title 2 a b c d e f g h i j k l m n o p q r s t u v w x y z
+                    </a>
+                    <p className="card-date">August 20, 2024</p>
+                    <p className="card-content">
+                      Content for the second news item goes here. a b c d e f g h i j k l m n o p q r s t u v w x y z
+                    </p>
                   </div>
-                  <div className="card">
-                    <div className="card-body">
-                      <a href="" className="card-title">
-                        Title 3 a b c d e f g h i j k l m n o p q r s t u v w x y z
-                      </a>
-                      <p className="card-date">August 19, 2024</p>
-                      <p className="card-content">
-                        Content for the third news item goes here. a b c d e f g h i j k l m n o p q r s t u v w x y z
-                      </p>
-                    </div>
+                </div>
+                <div className="card">
+                  <div className="card-body">
+                    <a href="" className="card-title">
+                      Title 3 a b c d e f g h i j k l m n o p q r s t u v w x y z
+                    </a>
+                    <p className="card-date">August 19, 2024</p>
+                    <p className="card-content">
+                      Content for the third news item goes here. a b c d e f g h i j k l m n o p q r s t u v w x y z
+                    </p>
                   </div>
-                  <div className="card">
-                    <div className="card-body">
-                      <a href="" className="card-title">
-                        Title 4 a b c d e f g h i j k l m n o p q r s t u v w x y z
-                      </a>
-                      <p className="card-date">August 18, 2024</p>
-                      <p className="card-content">
-                        Content for the fourth news item goes here. a b c d e f g h i j k l m n o p q r s t u v w x y z
-                      </p>
-                    </div>
+                </div>
+                <div className="card">
+                  <div className="card-body">
+                    <a href="" className="card-title">
+                      Title 4 a b c d e f g h i j k l m n o p q r s t u v w x y z
+                    </a>
+                    <p className="card-date">August 18, 2024</p>
+                    <p className="card-content">
+                      Content for the fourth news item goes here. a b c d e f g h i j k l m n o p q r s t u v w x y z
+                    </p>
                   </div>
                 </div>
               </div>
