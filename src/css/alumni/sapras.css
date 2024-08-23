@@ -1,0 +1,54 @@
+.container-sapras {
+    padding: 20px 120px;
+    margin-top: 100px;
+}
+
+.container-sapras2 {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+}
+
+.container-all {
+    grid-column: span 2 / span 2;
+}
+
+
+.header-sapras {
+    width: 100%;
+    background-color: #f5f5f5;
+    margin-bottom: 2rem;
+}
+
+.header-sapras ul {
+    padding: 10px 15px;
+    list-style: none;
+}
+
+.header-sapras ul>li {
+    display: inline-block;
+}
+
+.header-sapras ul li,
+.header-sapras ul li a {
+    font-weight: 500;
+    color: #002147;
+    text-decoration: none;
+}
+
+.header-sapras ul li:nth-child(2) {
+    margin-left: 1rem;
+}
+
+.header-sapras ul li:nth-child(3) {
+    margin-left: 1rem;
+}
+
+@media screen and (max-width: 992px) {
+    .container-sapras {
+        padding: 0 20px;
+        padding-top: 80px;
+        margin-top: 0;
+    }
+}

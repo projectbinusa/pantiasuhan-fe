@@ -197,6 +197,8 @@ import KonsidisiSekolahView from "./views/pagesekolah/kondisisekolah/KondisiSeko
 import AddPerpus from "./views/pages/admin/smpn1bergas/menu/perpus/AddPerpus";
 import EditPerpus from "./views/pages/admin/smpn1bergas/menu/perpus/EditPerpus";
 import AdminPerpus from "./views/pages/admin/smpn1bergas/menu/perpus/Perpustakaan";
+import DetailPerpus from "./views/pagesekolah/perpus/DetailPerpus";
+import StrukturOrganisasi from "./views/pagesekolah/profilSekolah/StrukturOrganisasi";
 
 // END ADMIN MENU REGULASI
 
@@ -215,7 +217,7 @@ function App() {
           <Route path="/sejarah" component={SejarahSekolah} exact />
           <Route path="/staff" component={TenagaKepndidkan} exact />
           <Route path="/all-prestasi" component={PrestasiSekolah} exact />
-          <Route path="/sarpras" component={Sarpras} exact />
+          <Route path="/sarana-prasarana" component={Sarpras} exact />
 
           <Route path="/profil" component={Profil} exact />
           <Route path="/pengumuman" component={Pengumuman} exact />
@@ -480,7 +482,7 @@ function App() {
             exact
           />
           {/* end foto kegiatan */}
-  {/* catedory berita */}
+          {/* catedory berita */}
           <PrivateRoute
             path="/tambah-category-berita"
             component={AddCategory}
@@ -563,7 +565,7 @@ function App() {
             exact
           />
           {/* end ekskul */}
- {/* kondisi sekolah */}
+          {/* kondisi sekolah */}
           <PrivateRoute
             path="/admin-kondisi-sekolah"
             component={KondisiSekolah}
@@ -580,7 +582,7 @@ function App() {
             exact
           />
           {/* end kondisi sekolah */}
- {/* perpus*/}
+          {/* perpus*/}
           <PrivateRoute
             path="/admin-perpustakaan"
             component={AdminPerpus}
@@ -938,10 +940,11 @@ function App() {
           <Route path="/detail-agenda-:id" component={DetailAgenda} exact />
 
           <Route path="/perpustakaan" component={Perpustakaan} exact />
+          <Route path="/detail-buku-:id" component={DetailPerpus} exact />
 
-           {/* Kondisi Sekolah */}
-           <Route path="/kondisi-sekolah-view" component={KonsidisiSekolahView} exact />
-          {/* <Route path="/detail-agenda-:id" component={DetailAgenda} exact /> */}
+          {/* Kondisi Sekolah */}
+          <Route path="/kondisi-sekolah-view" component={KonsidisiSekolahView} exact />
+          <Route path="/struktur-organisasi" component={StrukturOrganisasi} exact />
         </Switch>
       </main>
     </BrowserRouter>

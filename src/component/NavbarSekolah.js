@@ -34,7 +34,7 @@ function NavbarSekolah() {
 
   return (
     <nav className="navbars">
-      <ul className="navbars-menu">
+      <ul className="navbars-menu" style={{textTransform: "uppercase", fontWeight: "500", fontFamily: "'Poppins', sans-serif"}}>
         <img src={logo} alt="Logo" className="navbars-logo" />
         <li className={`navbars-item ${activeMenu === "profil-sekolah" ? "active" : ""}`}>
           <a
@@ -44,7 +44,7 @@ function NavbarSekolah() {
           >
             Profil Sekolah
           </a>
-          <ul className="submenu">
+          <ul className="submenu" >
             <li>
               <a href="/sambutan">SAMBUTAN KEPALA SEKOLAH</a>
             </li>
@@ -55,10 +55,10 @@ function NavbarSekolah() {
               <a href="/visi-misi">VISI & MISI</a>
             </li>
             <li>
-              <a href="/sarpras">SARANA PRASARANA</a>
+              <a href="/sarana-prasarana">SARANA PRASARANA</a>
             </li>
             <li>
-              <a href="/stuktur-organisasi">STRUKTUR ORGANISASI</a>
+              <a href="/struktur-organisasi">STRUKTUR ORGANISASI</a>
             </li>
             <li>
               <a href="/kondisi-sekolah-view">KONDISI SEKOLAH</a>
@@ -133,13 +133,14 @@ function NavbarSekolah() {
             </li>
           </ul>
         </li>
-        <li className="navbars-item">
+        <li className="navbars-item" style={{textTransform: "uppercase", fontWeight: "500", fontFamily: "'Poppins', sans-serif"}}>
           <a href="/perpustakaan">Perpustakaan</a>
         </li>
-        <li className="navbars-item">
+        <li className="navbars-item" >
           <button
             onClick={() => handleScrollToSection("prestasi-terbaru")}
             className="navbars-buttons"
+            style={{textTransform: "uppercase", fontFamily: "'Poppins', sans-serif"}}
           >
             Prestasi
           </button>
@@ -148,6 +149,7 @@ function NavbarSekolah() {
           <button
             onClick={() => handleScrollToSection("hubungi-kami")}
             className="navbars-buttons"
+            style={{textTransform: "uppercase", fontFamily: "'Poppins', sans-serif"}}
           >
             Kontak
           </button>
