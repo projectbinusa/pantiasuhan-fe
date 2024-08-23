@@ -219,6 +219,7 @@ function App() {
           <Route path="/sejarah" component={SejarahSekolah} exact />
           <Route path="/staff" component={TenagaKepndidkan} exact />
           <Route path="/all-prestasi" component={PrestasiSekolah} exact />
+          <Route path="/prestasi/:id" component={DetailPrestasi} exact />
           <Route path="/sarana-prasarana" component={Sarpras} exact />
           <Route path="/profil" component={Profil} exact />
           <Route path="/pengumuman" component={Pengumuman} exact />
