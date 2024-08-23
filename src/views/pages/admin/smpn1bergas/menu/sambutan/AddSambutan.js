@@ -12,6 +12,7 @@ import Sidebar from "../../../../../../component/Sidebar";
 function AddSambutan() {
   const [judulSambutan, setJudulSambutan] = useState("");
   const [isiSambutan, setIsiSambutan] = useState("");
+  const [file, setFile] = useState(null);
   const [nip, setNip] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
@@ -22,21 +23,22 @@ function AddSambutan() {
     e.persist();
 
     try {
-      const data = {
-        isi: isiSambutan,
-        nama: judulSambutan,
-        nip: nip,
-      };
-      await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/sambutan/add`,
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const formData = new FormData();
+      formData.append("isi", isiSambutan);
+      formData.append("nama", judulSambutan);
+      formData.append("nip", nip);
+      formData.append("file", file);
+      // const data = {
+      //   isi: isiSambutan,
+      //   nama: judulSambutan,
+      //   nip: nip,
+      // };
+      await axios.post(`${API_DUMMY}/smpn1bergas/api/sambutan/add`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       setShow(false);
       Swal.fire({
         icon: "success",
@@ -132,6 +134,19 @@ function AddSambutan() {
                             className="form-control"
                             required
                             placeholder="Masukkan NIP"
+                          />
+                        </div>
+                        <div className="mb-3 co-lg-6">
+                          {/* a */}
+                          <label className="form-label font-weight-bold">
+                            Gambar
+                          </label>
+                          <input
+                            onChange={(e) =>
+                              setFile(e.target.files ? e.target.files[0] : null)
+                            }
+                            type="file"
+                            className="form-control"
                           />
                         </div>
                       </div>

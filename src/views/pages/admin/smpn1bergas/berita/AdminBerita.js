@@ -303,13 +303,13 @@ function AdminBerita() {
                           {berita.judulBerita}
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}
-
                         <td data-label="Image" className="">
                           <img
                             src={berita.image}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
-                        </td> <td data-label="Katagori Berita" className="">
+                        </td>{" "}
+                        <td data-label="Katagori Berita" className="">
                           {berita.catagoryBerita}
                         </td>
                         <td data-label="Aksi">

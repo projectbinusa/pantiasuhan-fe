@@ -148,6 +148,16 @@ function Sidebar() {
                   <i class="fa-solid fa-book metismenu-icon"></i> Perpustakaan
                 </a>
               </li>
+              <li>
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-kotak-saran"
+                  className={
+                    location.pathname === "/admin-kotak-saran" ? "active" : ""
+                  }>
+                  <i class="fas fa-comment-dots metismenu-icon"></i> Kotak Saran
+                </a>
+              </li>
               <li className="app-sidebar__heading">Profile Sekolah</li>
               <li>
                 <a

@@ -144,12 +144,12 @@ import DetailNews from "./views/pagesekolah/berita/tebaru/DetailNews";
 import DetailPrestasi from "./views/pagesekolah/profilSekolah/prestasi/DetailPrestasi";
 import DetailAlumni from "./views/pagesekolah/DetailAlumni";
 import Osis from "./views/pagesekolah/kesiswaan/Osis";
-import Info from "./views/pagesekolah/berita/info/info"
+import Info from "./views/pagesekolah/berita/info/info";
 import DetailInfo from "./views/pagesekolah/berita/info/DetailInfo";
 import agenda from "./views/pagesekolah/berita/agenda/Agenda";
 import DetailAgenda from "./views/pagesekolah/berita/agenda/DetailAgenda";
 // import Galery from "./views/pagesekolah/berita/gambar/GalerySekolah";
-import Sarpras from "./views/pagesekolah/profilSekolah/sarpras/Sarpras"
+import Sarpras from "./views/pagesekolah/profilSekolah/sarpras/Sarpras";
 import AddCategory from "./views/pages/admin/smpn1bergas/berita/categoryBerita/AddCategory";
 import EditCategory from "./views/pages/admin/smpn1bergas/berita/categoryBerita/EditCategory";
 import AddBeritaAdmin from "./views/pages/admin/smpn1bergas/berita/AddBeritaAdmin";
@@ -199,6 +199,7 @@ import EditPerpus from "./views/pages/admin/smpn1bergas/menu/perpus/EditPerpus";
 import AdminPerpus from "./views/pages/admin/smpn1bergas/menu/perpus/Perpustakaan";
 import DetailPerpus from "./views/pagesekolah/perpus/DetailPerpus";
 import StrukturOrganisasi from "./views/pagesekolah/profilSekolah/StrukturOrganisasi";
+import KotakMasuk from "./views/pages/admin/smpn1bergas/kotakmasuk/KotakMasuk";
 
 // END ADMIN MENU REGULASI
 
@@ -218,7 +219,6 @@ function App() {
           <Route path="/staff" component={TenagaKepndidkan} exact />
           <Route path="/all-prestasi" component={PrestasiSekolah} exact />
           <Route path="/sarana-prasarana" component={Sarpras} exact />
-
           <Route path="/profil" component={Profil} exact />
           <Route path="/pengumuman" component={Pengumuman} exact />
           <Route
@@ -247,7 +247,6 @@ function App() {
             exact
           />
           <Route path="/informasi-berkala" component={InformasiBerkala} exact />
-
           <Route
             path="/informasi-berkala-Kepemiluan"
             component={InformasiBerkalaKepemiluan}
@@ -255,7 +254,6 @@ function App() {
           />
           <Route path="/informasi-dikecuali" component={Dikecualikan} exact />
           <Route path="/informasi-kanal" component={Kanal} exact />
-
           {/* tambah dan ubah data informasi */}
           <PrivateRoute
             path="/tambah-informasi-serta-merta"
@@ -287,7 +285,6 @@ function App() {
             component={PutIsiInformasi}
             exact
           />
-
           {/* form online */}
           <Route
             path="/form-permohonan-keberatan"
@@ -299,7 +296,6 @@ function App() {
             component={FormPermohonanInformasi}
             exact
           />
-
           {/* prosedur */}
           <Route path="/waktu-layanan" component={WaktuLayanan} exact />
           <Route
@@ -329,14 +325,12 @@ function App() {
             exact
           />
           {/* daftar regulasi */}
-
           <Route path="/maklumat-pelayanan" component={Maklumat} exact />
           <Route
             path="/daftar-regulasi/:jenisRegulasi/:id"
             component={IsiDaftarRegulasi}
             exact
           />
-
           {/* admin */}
           {/* admin smpn1bergas */}
           {/* guru */}
@@ -588,17 +582,19 @@ function App() {
             component={AdminPerpus}
             exact
           />
-          <PrivateRoute
-            path="/add-perpustakaan"
-            component={AddPerpus}
-            exact
-          />
+          <PrivateRoute path="/add-perpustakaan" component={AddPerpus} exact />
           <PrivateRoute
             path="/edit-perpustakaan/:id"
             component={EditPerpus}
             exact
           />
-          {/* end perpus*/}
+          {/* end perpus*/}{" "}
+          <Route
+            path="/kondisi-sekolah-view"
+            component={KonsidisiSekolahView}
+            exact
+          />
+          <Route path="/admin-kotak-saran" component={KotakMasuk} exact />
           {/* end admin smpn1bergas */}
           {/* eLibrary */}
           <PrivateRoute path="/admin-library" component={AdminLibrary} exact />
@@ -654,7 +650,6 @@ function App() {
             exact
           />
           <PrivateRoute path="/admin-kanal" component={AdminKanal} exact />
-
           {/* tambah dan ubah data informasi */}
           <PrivateRoute
             path="/tambah-informasi-serta-merta"
@@ -823,7 +818,6 @@ function App() {
           /> */}
           {/* admin informasi */}
           {/* <PrivateRoute path="/admin-serta-merta" component={AdminSertaMerta} exact /> */}
-
           <PrivateRoute
             path="/admin-informasi/:namaInformasi/:id"
             component={Indexx}
@@ -886,13 +880,11 @@ function App() {
             exact
           />
           <Route path="/informasi-serta-merta" component={SertaMerta} exact />
-
           {/* ADMIN MENU REGULASI */}
           {/* dip */}
           <Route path="/dip-admin" component={AdminDip} exact />
           <Route path="/add-dip-admin" component={AddDip} exact />
           <Route path="/put-admin/dip/:id" component={PutDip} exact />
-
           {/* sop */}
           <Route path="/sop-admin" component={AdminSop} exact />
           <Route path="/add-sop-admin" component={AddSop} exact />
@@ -910,13 +902,11 @@ function App() {
             exact
           />
           {/* END ADMIN MENU REGULASI */}
-
           {/* PUBLIC MENU REGULASI */}
           <Route path="/regulasi-public" component={RegulasiPublic} exact />
           <Route path="/dip-public" component={DipPublic} exact />
           <Route path="/sop-public" component={SopPublic} exact />
           {/* END PUBLIC MENU REGULASI */}
-
           {/* KEUANGAN */}
           <Route path="/keuangan-apbd" component={AllAPBD} exact />
           <Route path="/detail-apbd-:id" component={DetailAPBD} exact />
@@ -924,12 +914,10 @@ function App() {
           <Route path="/detail-bos-:id" component={DetailBOS} exact />
           <Route path="/keuangan-komite" component={AllKomite} exact />
           <Route path="/detail-komite-:id" component={DetailKomite} exact />
-
           {/* PRESTASI */}
           <Route path="/detail-prestasi-:id" component={DetailPrestasi} exact />
           <Route path="/detail-alumni-:id" component={DetailAlumni} exact />
           <Route path="/osis" component={Osis} exact />
-
           {/* Berita */}
           <Route path="/galery" component={GalerySekolah} exact />
           <Route path="/news" component={beritaNews} exact />
@@ -938,13 +926,19 @@ function App() {
           <Route path="/detail-info-:id" component={DetailInfo} exact />
           <Route path="/agenda" component={agenda} exact />
           <Route path="/detail-agenda-:id" component={DetailAgenda} exact />
-
           <Route path="/perpustakaan" component={Perpustakaan} exact />
           <Route path="/detail-buku-:id" component={DetailPerpus} exact />
-
           {/* Kondisi Sekolah */}
-          <Route path="/kondisi-sekolah-view" component={KonsidisiSekolahView} exact />
-          <Route path="/struktur-organisasi" component={StrukturOrganisasi} exact />
+          <Route
+            path="/kondisi-sekolah-view"
+            component={KonsidisiSekolahView}
+            exact
+          />
+          <Route
+            path="/struktur-organisasi"
+            component={StrukturOrganisasi}
+            exact
+          />
         </Switch>
       </main>
     </BrowserRouter>
