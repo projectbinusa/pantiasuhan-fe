@@ -15,6 +15,7 @@ import { API_DUMMY } from "../../utils/base_URL";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Captcha from "./Captcha";
+import NavbarSekolah from "../../component/NavbarSekolah";
 
 const contentStyles = {
   marginTop: "10px",
@@ -36,12 +37,12 @@ const sectionStyless = {
   padding: "50px 50px 100px 50px",
 };
 
-const newsCardsContainerStyle = {
-  display: "flex",
-  flexWrap: "wrap",
-  gap: "20px",
-  justifyContent: "center",
-};
+// const newsCardsContainerStyle = {
+//   display: "flex",
+//   flexWrap: "wrap",
+//   gap: "20px",
+//   justifyContent: "center",
+// };
 
 const teacherCardStyle = {
   borderRadius: "10px",
@@ -67,22 +68,14 @@ const sliderSettings = {
   draggable: true,
   responsive: [
     {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        infinite: true,
-      },
-    },
-    {
-      breakpoint: 600,
+      breakpoint: 992,
       settings: {
         slidesToShow: 2,
         slidesToScroll: 1,
       },
     },
     {
-      breakpoint: 480,
+      breakpoint: 768,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -178,7 +171,7 @@ function Home() {
     transform: `translateY(${scrollY * 0.5}px)`,
     position: "relative",
     width: "100%",
-    height: "600px",
+    height: "100vh",
     overflow: "hidden",
   };
 
@@ -735,9 +728,9 @@ function Home() {
 
   return (
     <div>
-      <Navbar />
+      <NavbarSekolah />
       <div
-        style={{ position: "relative", height: "600px", overflow: "hidden" }}>
+        style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
         <img
           src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
           style={imageStyle}
@@ -750,7 +743,7 @@ function Home() {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.5)", // Warna hitam dengan opacity 0.5
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
           }}
         />
         <div style={textOverlayStyle}>
@@ -759,7 +752,7 @@ function Home() {
       </div>
 
       {/* PENGUMUMAN */}
-      <div className="content-style">
+      <div className="mt-5 container">
         <section id="pengumuman">
           <div style={{ marginBottom: "30px" }}>
             <SingleCardMenu />
@@ -768,7 +761,7 @@ function Home() {
       </div>
 
       {/* BERITA */}
-      <div style={contentStyles}>
+      <div style={contentStyles} >
         <section id="berita-terbaru" style={sectionStyles} data-aos="fade-up">
           <Typography
             style={{
@@ -783,34 +776,35 @@ function Home() {
             gutterBottom>
             Berita Terbaru
           </Typography>
-          <div style={newsCardsContainerStyle}>
-            {berita.length > 0 ? (
-              berita.map((news, idx) => (
-                <div style={{ width: "100%", maxWidth: "400px" }} key={idx}>
+          <div className="container">
+            <div className="berita-card">
+              {berita.length > 0 ? (
+                berita.map((news, idx) => (
+                  <div className="berita-card" key={idx}>
+                    <NewsCard
+                      image={news.image}
+                      id={news.id}
+                      title={news.judulBerita}
+                      content={news.isiBerita}
+                      date={news.updatedDate}
+                    />
+                  </div>
+                ))
+              ) : (
+                <></>
+              )}
+              {/* {newsItems.map(item => (
+                <div key={item.id}>
                   <NewsCard
-                    image={news.image}
-                    id={news.id}
-                    title={news.judulBerita}
-                    content={news.isiBerita}
-                    date={news.updatedDate}
+                    image={item.image}
+                    id={item.id}
+                    title={item.title}
+                    content={item.content}
+                    date="12 August 2024"
                   />
                 </div>
-              ))
-            ) : (
-              <></>
-            )}
-            {/*
-            <div style={{ width: "100%", maxWidth: "400px" }} key={index}>
-                <NewsCard
-                  image={item.image}
-                  id={item.id}
-                  title={item.title}
-                  content={item.content}
-                  date="12 August 2024"
-                />
-              </div>
-            ))}
-            */}
+              ))} */}
+            </div>
           </div>
           <Link
             href="/news"
@@ -838,7 +832,7 @@ function Home() {
             gutterBottom>
             Ekstrakurikuler
           </Typography>
-          <div className="ekstrakurikuler-container-style">
+          <div className="ekstrakurikuler-container-style container">
             {ekstrakurikuler.length > 0 ? (
               ekstrakurikuler.map((ekskul, idx) => (
                 <div key={idx}>
@@ -879,7 +873,7 @@ function Home() {
             gutterBottom>
             Prestasi Terbaru
           </Typography>
-          <div>
+          <div className="container">
             {prestasi.length > 0 ? (
               prestasi.map((row, idx) => (
                 <PrestasiCard
@@ -926,7 +920,8 @@ function Home() {
           width: "100%",
           height: "100px",
           backgroundColor: "#003366",
-        }}>
+        }}
+        className="container">
         <h3 style={{ color: "white" }}>
           Pendidikan: Kunci Menuju Dunia Kemungkinan
         </h3>
