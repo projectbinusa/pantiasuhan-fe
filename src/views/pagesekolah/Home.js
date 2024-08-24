@@ -37,13 +37,6 @@ const sectionStyless = {
   padding: "50px 50px 100px 50px",
 };
 
-// const newsCardsContainerStyle = {
-//   display: "flex",
-//   flexWrap: "wrap",
-//   gap: "20px",
-//   justifyContent: "center",
-// };
-
 const teacherCardStyle = {
   borderRadius: "10px",
   textAlign: "center",
@@ -54,7 +47,8 @@ const teacherCardStyle = {
 const teacherImageStyle = {
   borderRadius: "10px",
   objectFit: "cover",
-  width: "220px",
+  width: "100%",
+  maxWidth: "250px",
   height: "300px",
 };
 
@@ -62,7 +56,7 @@ const sliderSettings = {
   dots: false,
   infinite: true,
   speed: 500,
-  slidesToShow: 4,
+  slidesToShow: 3,
   slidesToScroll: 1,
   arrows: false,
   draggable: true,
@@ -494,42 +488,42 @@ function Home() {
       name: "Ibu Siti Fatimah",
       position: "Guru Bahasa Indonesia",
     },
-    {
-      image:
-        "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-      name: "Bapak Ahmad Fauzi",
-      position: "Guru IPA",
-    },
-    {
-      image:
-        "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-      name: "Ibu Nani Suryani",
-      position: "Guru Sejarah",
-    },
-    {
-      image:
-        "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-      name: "Bapak Rizki Pratama",
-      position: "Guru PPKn",
-    },
-    {
-      image:
-        "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-      name: "Ibu Yulia Arini",
-      position: "Guru Seni Budaya",
-    },
-    {
-      image:
-        "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-      name: "Bapak Dedi Kurniawan",
-      position: "Guru Olahraga",
-    },
-    {
-      image:
-        "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-      name: "Ibu Mira Sari",
-      position: "Guru Bahasa Inggris",
-    },
+    // {
+    //   image:
+    //     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
+    //   name: "Bapak Ahmad Fauzi",
+    //   position: "Guru IPA",
+    // },
+    // {
+    //   image:
+    //     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
+    //   name: "Ibu Nani Suryani",
+    //   position: "Guru Sejarah",
+    // },
+    // {
+    //   image:
+    //     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
+    //   name: "Bapak Rizki Pratama",
+    //   position: "Guru PPKn",
+    // },
+    // {
+    //   image:
+    //     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
+    //   name: "Ibu Yulia Arini",
+    //   position: "Guru Seni Budaya",
+    // },
+    // {
+    //   image:
+    //     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
+    //   name: "Bapak Dedi Kurniawan",
+    //   position: "Guru Olahraga",
+    // },
+    // {
+    //   image:
+    //     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
+    //   name: "Ibu Mira Sari",
+    //   position: "Guru Bahasa Inggris",
+    // },
   ];
 
   useEffect(() => {
@@ -637,10 +631,11 @@ function Home() {
       const response = await axios.get(
         `${API_DUMMY}/smpn1bergas/api/kontak/all?page=0&size=1`
       );
-      setEmail(response.data.data.content.email);
-      setPhone(response.data.data.content.phone);
-      setFax(response.data.data.content.fax);
-      setAddress(response.data.data.content.address);
+      setEmail(response.data.data.content[0].email);
+      setPhone(response.data.data.content[0].phone);
+      setFax(response.data.data.content[0].fax);
+      setAddress(response.data.data.content[0].address);
+      console.log(response.data.data.content[0]);
     } catch (error) {
       console.log("get all", error);
     }
@@ -920,9 +915,8 @@ function Home() {
           width: "100%",
           height: "100px",
           backgroundColor: "#003366",
-        }}
-        className="container">
-        <h3 style={{ color: "white" }}>
+        }}>
+        <h3 style={{ color: "white", textAlign:"center" }} className="container">
           Pendidikan: Kunci Menuju Dunia Kemungkinan
         </h3>
       </div>
@@ -945,7 +939,7 @@ function Home() {
           </Typography>
           <div style={{ position: "relative" }}>
             <Slider ref={sliderRef} {...sliderSettings}>
-              {gurus.length > 0 ? (
+              {gurus.length > 4 ? (
                 gurus.map((guru, idx) => (
                   <div key={idx} style={teacherCardStyle}>
                     <div
@@ -964,14 +958,10 @@ function Home() {
                     </div>
                     <Typography
                       style={{ fontFamily: "'Poppins', sans-serif" }}
-                      variant="h6">
-                      {guru.nama_guru}
-                    </Typography>
+                      variant="h6">{guru.nama_guru}</Typography>
                     <Typography
                       style={{ fontFamily: "'Poppins', sans-serif" }}
-                      variant="body2">
-                      {guru.mapel}
-                    </Typography>
+                      variant="body2">{guru.mapel}</Typography>
                   </div>
                 ))
               ) : (
@@ -1061,7 +1051,7 @@ function Home() {
             gutterBottom>
             Profil Alumni
           </Typography>
-          <div style={{ position: "relative" }}>
+          <div style={{ position: "relative" }} className="container">
             <Slider {...sliderSettingsAlumni}>
               {alumnus.length > 0 ? (
                 alumnus.map((alumni, idx) => (
@@ -1105,7 +1095,7 @@ function Home() {
             gutterBottom>
             Hubungi Kami
           </Typography>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} className="container">
             <Grid item xs={12} md={6}>
               <Typography
                 variant="h5"
@@ -1288,8 +1278,8 @@ function Home() {
               required
             />
             <TextField
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={email1}
+              onChange={(e) => setEmail1(e.target.value)}
               style={inputStyle}
               label="Email"
               type="email"

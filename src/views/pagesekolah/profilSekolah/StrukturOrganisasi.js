@@ -4,6 +4,7 @@ import FooterSekolah from "../../../component/FooterSekolah";
 import "../../../css/alumni/struktur.css";
 import { API_DUMMY } from "../../../utils/base_URL";
 import axios from "axios";
+import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 
 function StrukturOrganisasi() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -32,7 +33,7 @@ function StrukturOrganisasi() {
 
     return (
         <section>
-            <NavbarSekolah />
+            <NavbarSekolah2 />
             <main className="container-struktur">
                 <div className='header-struktur'>
                     <ul>

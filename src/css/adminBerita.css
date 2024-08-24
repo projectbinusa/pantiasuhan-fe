@@ -1,5 +1,5 @@
-.btn-sop{
-  width:250px;
+.btn-sop {
+  width: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,39 +13,40 @@
     width: 550px;
 
   }
-  .rows-rspnv{
+
+  .rows-rspnv {
     padding-left: 210px;
   }
 }
+
 @media only screen and (max-width: 390px) {
-  .search{
+  .search {
     padding-left: 17px;
   }
-  .rows-rspnv{
+
+  .rows-rspnv {
     padding-left: 5px;
   }
-    .container {
-        padding-left: 15px; /* Adjust the left padding as needed */
-        padding-right: 15px; /* Adjust the right padding as needed */
-        margin-left: 15px;
-        margin-right: 100px;
-      }
-      #container-admin{
-        margin-right: 20px;
-        padding-left: 100px;
-      }
-      #btn-sop{
-        width: 550px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+
+  #container-admin {
+    margin-right: 20px;
+    padding-left: 100px;
+  }
+
+  #btn-sop {
+    width: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
+
 /* Media query untuk layar dengan lebar 390px */
 @media screen and (max-width: 390px) {
-  .rows-rspnv{
+  .rows-rspnv {
     padding-left: 60px;
   }
+
   .button {
     /* Gaya responsif untuk lebar 390px di sini */
   }

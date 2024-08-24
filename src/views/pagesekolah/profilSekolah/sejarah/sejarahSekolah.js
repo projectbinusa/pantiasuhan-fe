@@ -3,6 +3,7 @@ import NavbarSekolah from '../../../../component/NavbarSekolah';
 import FooterSekolah from '../../../../component/FooterSekolah';
 import { API_DUMMY } from '../../../../utils/base_URL';
 import axios from 'axios';
+import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
 
 function SejarahSekolah() {
   const [isHovered, setIsHovered] = useState(false);
@@ -41,7 +42,7 @@ function SejarahSekolah() {
 
   return (
     <div>
-      <NavbarSekolah />
+      <NavbarSekolah2 />
       <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', lineHeight: '1.8' }}>
         <div style={{ maxWidth: '1000px', margin: '50px auto 0', padding: '20px' }}>
           <div

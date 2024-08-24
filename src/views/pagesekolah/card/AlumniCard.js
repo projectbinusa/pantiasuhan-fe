@@ -14,7 +14,7 @@ const AlumniCard = ({ image, title, description }) => {
     display: "flex",
     alignItems: "flex-start",
     padding: "30px",
-    height: "auto",
+    height: "300px",
   };
 
   const imageWrapperStyle = {
@@ -51,7 +51,7 @@ const AlumniCard = ({ image, title, description }) => {
     color: "#666",
     fontSize: "18px",
   };
-  
+
   return (
     <div style={cardContainerStyle}>
       <div className="alumni-card">
@@ -59,8 +59,8 @@ const AlumniCard = ({ image, title, description }) => {
           <img src={image} alt={title} style={imageStyle} />
         </div>
         <div style={textStyle}>
-          <div style={titleStyle}><a href="/" style={{ textDecoration: "none", fontWeight: "bold", color: "#002147" }}>{title}</a></div>
-          <div style={descriptionStyle}><p className="isi-alumni">{description}</p></div>
+          <div style={titleStyle}><a href="/" style={{ textDecoration: "none", fontWeight: "600", color: "#002147" }}>{title}</a></div>
+          <div style={descriptionStyle}><p className="isi-alumni" style={{ fontSize: "14px" }}>{description}</p></div>
         </div>
       </div>
     </div>

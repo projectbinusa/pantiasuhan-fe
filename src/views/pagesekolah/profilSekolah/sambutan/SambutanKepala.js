@@ -4,6 +4,7 @@ import { API_DUMMY } from "../../../../utils/base_URL";
 import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import "../../../../css/sambutan/sambutan.css";
+import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 
 function SambutanKepala() {
   const [sambutanData, setSambutanData] = useState({
@@ -36,7 +37,7 @@ function SambutanKepala() {
 
   return (
     <div>
-      <NavbarSekolah />
+      <NavbarSekolah2 />
       <div className="sambutan-container">
         <div className="parent-sambutan">
           <h2 style={{ textAlign: "center", marginBottom: "30px", color: "#333", fontFamily: "'Poppins', sans-serif", fontWeight: "bold" }}>

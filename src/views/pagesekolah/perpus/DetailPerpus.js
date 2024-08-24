@@ -6,6 +6,7 @@ import HeaderDetailPerpus from "./HeaderDetailPerpus";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 import { API_DUMMY } from "../../../utils/base_URL";
+import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 
 function DetailPerpus() {
     const [nama, setNama] = useState("");
@@ -37,7 +38,7 @@ function DetailPerpus() {
 
     return (
         <section>
-            <NavbarSekolah />
+            <NavbarSekolah2 />
             <div className="container-alumni">
                 <HeaderDetailPerpus header={nama} />
                 {image !== 0 ? (<>

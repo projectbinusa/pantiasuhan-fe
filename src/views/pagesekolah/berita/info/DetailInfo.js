@@ -6,6 +6,7 @@ import HeaderDetailBerita from "../HeaderDetailBerita"
 import axios from "axios";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { API_DUMMY } from "../../../../utils/base_URL";
+import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 
 function DetailInfo() {
     const [judul, setJudul] = useState("");
@@ -48,7 +49,7 @@ function DetailInfo() {
 
     return (
         <section>
-            <NavbarSekolah />
+            <NavbarSekolah2 />
             <main className="container-detail-berita">
                 <HeaderDetailBerita title={"Info Sekolah"} header={judul} />
                 <img src="https://via.placeholder.com/300x200?text=Award" />

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import axios from "axios";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import "../../../../css/prestasi/detailprestasi.css";
+import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 
 function DetailPrestasi() {
     const [prestasi, setPrestasi] = useState(null);
@@ -37,7 +37,7 @@ function DetailPrestasi() {
 
     return (
         <section>
-            <NavbarSekolah />
+            <NavbarSekolah2 />
             <div style={{ position: "relative", height: "600px", overflow: "hidden" }}>
                 <img src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no" className="image-style" alt="banner" />
                 <div className="text-overlay-style">

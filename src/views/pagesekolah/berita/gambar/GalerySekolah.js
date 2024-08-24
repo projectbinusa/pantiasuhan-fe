@@ -7,6 +7,7 @@ import HeaderGaleri from './HeaderGaleri';
 import axios from 'axios';
 import { API_DUMMY } from '../../../../utils/base_URL';
 import { Pagination } from '@mui/material';
+import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
 
 const galleryData = [
   { id: 1, image: 'https://via.placeholder.com/300x200?text=Image+1', title: 'Sunrise Over Mountains', content: 'A beautiful sunrise over the mountain range, casting a warm glow across the landscape.' },
@@ -58,7 +59,7 @@ function GalerySekolah() {
 
   return (
     <>
-      <NavbarSekolah />
+      <NavbarSekolah2 />
       <main className='galeri-container'>
         <HeaderGaleri />
         <div className="gallery-container">

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import HeaderBerita from "../HeaderBerita";
 import CardBerita from "../CardBerita";
@@ -7,6 +6,7 @@ import "../../../../css/berita/news.css";
 import { Pagination } from '@mui/material';
 import axios from 'axios';
 import { API_DUMMY } from '../../../../utils/base_URL';
+import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
 
 const newsData = [
     { id: 1, title: 'Local School Wins Award', content: 'The local school has been recognized for its outstanding achievements in academics and sports.', image: 'https://via.placeholder.com/300x200?text=Award', category: 'Berita Sekolah', date: '2024-08-10' },
@@ -59,7 +59,7 @@ const News = () => {
 
     return (
         <section>
-            <NavbarSekolah />
+            <NavbarSekolah2 />
             <main className="container-berita">
                 <HeaderBerita title={"Berita Terbaru"} />
                 <div className="container-apbd">
