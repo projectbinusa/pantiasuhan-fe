@@ -38,6 +38,19 @@ function DetailPrestasi() {
     return (
         <section>
             <NavbarSekolah2 />
+            <div style={{ position: "relative", height: "600px", overflow: "hidden" }}>
+                <img src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no" className="image-style" alt="banner" />
+                <div className="text-overlay-style">
+                    <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
+                    <div className="header-prestasi">
+                        <ul>
+                            <li><a href="/"><i className="fas fa-home"></i> Beranda</a></li>
+                            <li><a href="/all-prestasi"><i className="fas fa-angle-right"></i> Prestasi</a></li>
+                            <li><i className="fas fa-angle-right"></i> Detail</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <div className="container-prestasi">
                 <img src={foto} alt={judul} />
                 <h4 style={{ fontWeight: "700", color: "#002147", marginTop: "2rem", marginBottom: "1rem" }}>{judul}</h4>
