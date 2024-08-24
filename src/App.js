@@ -101,6 +101,13 @@ import DetailPerpus from "./views/pagesekolah/perpus/DetailPerpus";
 import StrukturOrganisasi from "./views/pagesekolah/profilSekolah/StrukturOrganisasi";
 import KotakMasuk from "./views/pages/admin/smpn1bergas/kotakmasuk/KotakMasuk";
 import DetailAlumniAdmin from "./views/pages/admin/smpn1bergas/menu/alumni/DetailAlumni";
+import RuangKantor from "./views/pagesekolah/profilSekolah/sarpras/RuangKantor";
+import RuangKelas from "./views/pagesekolah/profilSekolah/sarpras/RuangKelas";
+import RuangLab from "./views/pagesekolah/profilSekolah/sarpras/RuangLab";
+import SaranaOlahraga from "./views/pagesekolah/profilSekolah/sarpras/SaranaOlahraga";
+import SaranaIbadah from "./views/pagesekolah/profilSekolah/sarpras/SaranaIbadah";
+import SaranaKesehatan from "./views/pagesekolah/profilSekolah/sarpras/SaranaKesehatan";
+import SaranaProtokolKesehatan from "./views/pagesekolah/profilSekolah/sarpras/SaranaProtokolKesehatan";
 
 // END ADMIN MENU REGULASI
 
@@ -120,7 +127,17 @@ function App() {
           <Route path="/staff" component={TenagaKepndidkan} exact />
           <Route path="/all-prestasi" component={PrestasiSekolah} exact />
           <Route path="/prestasi/:id" component={DetailPrestasi} exact />
+          {/* SAPRAS */}
           <Route path="/sarana-prasarana" component={Sarpras} exact />
+          <Route path="/ruang-kantor" component={RuangKantor} exact />
+          <Route path="/ruang-kelas" component={RuangKelas} exact />
+          <Route path="/ruang-lab" component={RuangLab} exact />
+          <Route path="/sarana-olahraga" component={SaranaOlahraga} exact />
+          <Route path="/sarana-ibadah" component={SaranaIbadah} exact />
+          <Route path="/sarana-kesehatan" component={SaranaKesehatan} exact />
+          <Route path="/sarana-protokol-kesehatan" component={SaranaProtokolKesehatan} exact />
+          {/* END SAPRAS */}
+
           {/* admin */}
           {/* admin smpn1bergas */}
           {/* guru */}

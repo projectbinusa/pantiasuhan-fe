@@ -1151,7 +1151,6 @@ function Home() {
                     <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
                   </svg>
                   <strong style={{ marginLeft: "8px" }}>:</strong>
-                  {/* <span style={{ marginLeft: '8px' }}>smpn1_bergas@yahoo.co.id</span> */}
                   <span style={{ marginLeft: "8px" }}>{email}</span>
                 </Typography>
                 <Typography
@@ -1220,7 +1219,6 @@ function Home() {
                     />
                   </svg>
                   <strong style={{ marginLeft: "12px" }}>:</strong>
-                  {/* <span style={{ marginLeft: '8px', textAlign: 'left' }}>RCCG+P83, Jl. Krakatau, Gembongan, Karangjati, Kec. Bergas, Kabupaten Semarang, Jawa Tengah 50552</span> */}
                   <span style={{ marginLeft: "8px", textAlign: "left" }}>
                     {address}
                   </span>
@@ -1228,9 +1226,9 @@ function Home() {
               </div>
             </Grid>
           </Grid>
-          {/* SARAN BELUM */}
+          {/* SARAN */}
           <br /> <br />
-          <form onSubmit={add} style={formStyle}>
+          <form onSubmit={add} style={formStyle} className="container">
             <Typography
               variant="h5"
               gutterBottom

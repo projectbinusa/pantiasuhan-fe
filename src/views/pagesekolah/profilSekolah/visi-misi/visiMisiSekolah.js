@@ -40,32 +40,32 @@ function VisiMisiSekolah() {
 
   return (
     <div>
-      <NavbarSekolah2 />
-      <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', lineHeight: '1.8' }}>
-        <div style={{ maxWidth: '1000px', margin: '50px auto 0', padding: '20px' }}>
-          <div
-            style={{ textAlign: 'center', marginBottom: '40px', position: 'relative', overflow: 'hidden' }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <img
-              src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
-              alt="Visi dan Misi SMP Negeri 1 Bergas"
-              style={mediaStyle}
-            />
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                backgroundColor: "rgba(0, 0, 0, 0.4)"
-              }}
-            />
+      <NavbarSekolah />
+      <div style={{ position: "relative", height: "100vh", overflow: "hidden", marginBottom: "3rem" }}>
+        <img src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no" className="image-style" alt="banner" />
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        />
+        <div className="text-overlay-style">
+          <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
+          <div className="header-prestasi">
+            <ul>
+              <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>
+              <li><i class="fas fa-angle-right"></i> visi misi</li>
+            </ul>
           </div>
-          <hr style={{ marginTop: '60px 0', borderColor: '#ccc' }} />
-
+        </div>
+      </div>
+      <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', lineHeight: '1.8' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto 0', padding: '20px' }}>
+          <hr style={{ borderColor: '#ccc' }} />
           {visiMisiData.visi && (
             <>
               <h2 style={{ fontSize: '2em', marginBottom: '20px', fontWeight: 'bold', textAlign: "center" }}>
