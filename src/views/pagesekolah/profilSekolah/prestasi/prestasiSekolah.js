@@ -27,18 +27,6 @@ function PrestasiSekolah() {
   return (
     <div>
       <NavbarSekolah2 />
-      <div style={{ position: "relative", height: "600px", overflow: "hidden" }}>
-        <img src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no" className="image-style" alt="banner" />
-        <div className="text-overlay-style">
-          <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
-          <div className="header-prestasi">
-            <ul>
-              <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>
-              <li><i class="fas fa-angle-right"></i> Prestasi</li>
-            </ul>
-          </div>
-        </div>
-      </div>
       <div className="container">
         <div className="row">
           {prestasi.map((item) => (

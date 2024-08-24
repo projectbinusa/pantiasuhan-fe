@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FooterSekolah from '../../../component/FooterSekolah';
 import NavbarSekolah2 from '../../../component/NavbarSekolah2';
+import axios from 'axios';
+import { API_DUMMY } from '../../../utils/base_URL';
 
 function KonsidisiSekolahView() {
+  const [data, setData] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    axios.get(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/all`)
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
   const mediaStyle = {
     width: "100%",
@@ -25,36 +38,17 @@ function KonsidisiSekolahView() {
             onMouseLeave={() => setIsHovered(false)}
           >
             <img
-              src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
+              src={data.foto || "https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"}
               alt="SMP Negeri 1 Bergas"
               style={mediaStyle}
             />
           </div>
           <hr style={{ marginTop: '60px', borderColor: '#ccc' }} />
-          <h1 style={{ fontWeight: "bold", marginBottom: '30px', fontSize: '2em' }}>Kondisi Sekolah</h1>
-          <p style={{ fontSize: '1.2em', marginBottom: '20px' }}>
-            <strong>SMP Negeri 1 Bergas</strong> didirikan pada tahun 1985 di Kabupaten Semarang, Jawa Tengah.
-            Sejak awal berdirinya, sekolah ini memiliki tujuan mulia untuk menyediakan pendidikan berkualitas
-            bagi masyarakat setempat. Dengan komitmen yang kuat terhadap keunggulan akademik dan pengembangan
-            karakter siswa, SMP Negeri 1 Bergas telah menjadi salah satu sekolah menengah pertama terkemuka di wilayahnya.
-          </p>
-          <p style={{ fontSize: '1.2em', marginBottom: '20px' }}>
-            Pada tahun 1990, SMP Negeri 1 Bergas mulai memperluas fasilitasnya dengan membangun gedung baru yang
-            dilengkapi dengan laboratorium sains, perpustakaan, dan ruang multimedia. Hal ini memungkinkan sekolah
-            untuk menawarkan kurikulum yang lebih komprehensif dan memberikan pengalaman belajar yang lebih interaktif
-            bagi para siswa.
-          </p>
-          <p style={{ fontSize: '1.2em', marginBottom: '20px' }}>
-            Tahun 2000 menjadi tonggak sejarah penting bagi SMP Negeri 1 Bergas dengan diresmikannya program
-            pendidikan berbasis teknologi. Dengan adanya fasilitas komputer dan koneksi internet, siswa dapat
-            mengakses informasi global dan mempersiapkan diri untuk tantangan dunia modern.
-          </p>
-          <p style={{ fontSize: '1.2em', marginBottom: '20px' }}>
-            Hingga saat ini, SMP Negeri 1 Bergas terus berkembang dengan mengedepankan inovasi dalam metode pengajaran
-            dan pembinaan karakter. Sekolah ini tidak hanya berfokus pada pencapaian akademik, tetapi juga pada
-            pengembangan nilai-nilai moral dan sosial, sehingga lulusan SMP Negeri 1 Bergas diharapkan menjadi individu
-            yang berintegritas dan siap berkontribusi bagi masyarakat.
-          </p>
+          {data.map((item, index) => (
+            <p key={index} style={{ fontSize: '1.2em', marginBottom: '20px' }}>
+              {item.isi}
+            </p>
+          ))}
         </div>
       </div>
       <FooterSekolah />
