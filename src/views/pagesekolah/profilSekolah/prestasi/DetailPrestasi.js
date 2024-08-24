@@ -55,7 +55,7 @@ function DetailPrestasi() {
                     <div className="header-prestasi">
                         <ul>
                             <li><a href="/"><i className="fas fa-home"></i> Beranda</a></li>
-                            <li><a href="/"><i className="fas fa-angle-right"></i> Prestasi</a></li>
+                            <li><a href="/all-prestasi"><i className="fas fa-angle-right"></i> Prestasi</a></li>
                             <li><i className="fas fa-angle-right"></i> Detail</li>
                         </ul>
                     </div>

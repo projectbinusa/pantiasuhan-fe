@@ -1,12 +1,12 @@
 import React from 'react';
 import "../../../css/keuangan/cardkeuangan.css"
 
-const CardKeuangan = ({ image, title, content, id, link }) => {
+const CardKeuangan = ({ fotoJudul, judul, isi, id, link }) => {
     return (
         <div className='card-keuangan'>
-            <img src={image} alt={title} />
-            <h4 style={{textTransform: "uppercase"}}>{title}</h4>
-            <p className="content-keuangan" style={{fontSize: "14px"}}>{content}</p>
+            <img src={fotoJudul} alt={judul} />
+            <h4 style={{textTransform: "uppercase"}}>{judul}</h4>
+            <p className="content-keuangan" style={{fontSize: "14px"}}>{isi}</p>
             <a href={`/detail-${link}-${id}`}>Selengkapnya</a>
         </div>
     );
