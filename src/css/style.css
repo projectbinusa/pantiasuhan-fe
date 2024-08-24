@@ -3213,12 +3213,6 @@ ul {
     text-decoration: none;
   }
 
-  .footer-area .container {
-    display: grid;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: 10rem;
-  }
-
   .navbar-area .nav-container .navbar-collapse .navbar-nav li.menu-item-has-children .sub-menu {
     padding: 0 0 0 20px;
   }
@@ -8983,13 +8977,32 @@ ul {
 ---------------------------------------------------*/
 .footer-area {
   position: relative;
-  padding-top: 115px;
+  padding-top: 80px;
+  padding-bottom: 70px;
 }
 
-.footer-area .container {
+.footer-area .footer-menu {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2rem;
+}
+
+.footer-area .footer-menu > div {
+  padding: 1rem;
+}
+
+@media only screen and (max-width: 991px) {
+  .footer-area .footer-menu {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .footer-area .footer-menu {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
 
 .footer-area:after {
@@ -9006,7 +9019,6 @@ ul {
 .footer-area .widget {
   position: relative;
   z-index: 2;
-  margin-bottom: 70px;
 }
 
 .footer-area .widget-title {

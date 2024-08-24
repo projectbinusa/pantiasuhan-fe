@@ -3,28 +3,28 @@ import FooterSekolah from "../../../../component/FooterSekolah";
 import axios from "axios";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import "../../../../css/prestasi/detailprestasi.css";
-import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
+import NavbarSekolah from "../../../../component/NavbarSekolah";
 
 function DetailPrestasi() {
     const [prestasi, setPrestasi] = useState(null);
     const [loading, setLoading] = useState(true);
-  
+
     const fetchPrestasiDetail = async () => {
-      const id = window.location.pathname.split('/').pop();
-      try {
-        const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/prestasi/get/${id}`);
-        setPrestasi(response.data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
+        const id = window.location.pathname.split('/').pop();
+        try {
+            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/prestasi/get/${id}`);
+            setPrestasi(response.data.data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        } finally {
+            setLoading(false);
+        }
     };
-  
+
     useEffect(() => {
-      fetchPrestasiDetail();
+        fetchPrestasiDetail();
     }, []);
-  
+
     if (loading) return <div>Loading...</div>;
 
     const { foto, judul, nama_peserta, peyelenggara, skala, tanggal } = prestasi;
@@ -37,9 +37,19 @@ function DetailPrestasi() {
 
     return (
         <section>
-            <NavbarSekolah2 />
-            <div style={{ position: "relative", height: "600px", overflow: "hidden" }}>
+            <NavbarSekolah />
+            <div style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
                 <img src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no" className="image-style" alt="banner" />
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    }}
+                />
                 <div className="text-overlay-style">
                     <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
                     <div className="header-prestasi">
@@ -52,7 +62,9 @@ function DetailPrestasi() {
                 </div>
             </div>
             <div className="container-prestasi">
-                <img src={foto} alt={judul} />
+                {foto && (
+                    <img src={foto} alt={judul} />
+                )}
                 <h4 style={{ fontWeight: "700", color: "#002147", marginTop: "2rem", marginBottom: "1rem" }}>{judul}</h4>
                 <hr />
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

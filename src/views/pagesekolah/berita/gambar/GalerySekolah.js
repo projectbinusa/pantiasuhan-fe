@@ -62,7 +62,7 @@ function GalerySekolah() {
       <NavbarSekolah2 />
       <main className='galeri-container'>
         <HeaderGaleri />
-        <div className="gallery-container">
+        <div className="gallery-container mb-5">
           {galery.map(item => (
             <ImageCard
               key={item.id}
@@ -80,18 +80,18 @@ function GalerySekolah() {
             />
           ))} */}
         </div>
-          <div className="d-flex justify-content-center align-items-center mt-3 mb-5">
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={handlePageChange}
-              color="primary"
-              shape="rounded"
-              style={{ marginBottom: "30px" }}
-              showFirstButton
-              showLastButton
-            />
-          </div>
+        <div className="d-flex justify-content-center align-items-center mt-5">
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+            shape="rounded"
+            style={{ marginBottom: "30px" }}
+            showFirstButton
+            showLastButton
+          />
+        </div>
       </main>
       <FooterSekolah />
     </>

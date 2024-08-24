@@ -1,9 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FooterSekolah from "../../../../component/FooterSekolah";
 import "../../../../css/alumni/sapras.css"
 import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
+import axios from 'axios';
+import { API_DUMMY } from '../../../../utils/base_URL';
+import { Pagination } from '@mui/material';
+import KategoriSapras from './KategoriSapras';
 
 function Sarpras() {
+  const [nama, setNamaSarana] = useState("");
+  const [deskripsi, setDeskripsi] = useState("");
+  const [id, setId] = useState(0);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageChange = (event, pageNumber) => {
+    setCurrentPage(pageNumber);
+    getAllSaprasFoto(pageNumber);
+  };
+
+  const [fotos, setFoto] = useState([]);
+  const [totalPages, setTotalPage] = useState(1);
+
+  const getAllSapras = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/sarana/all/category?category=Standar&page=0&size=1`);
+      setNamaSarana(response.data.data.content[0].nama_sarana);
+      setDeskripsi(response.data.data.content[0].deskripsi);
+      setId(response.data.data.content[0].id)
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllSapras();
+  }, []);
+
+  const getAllSaprasFoto = async (page = 1) => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/sarana/all/category?category=Standar&page=${page - 1}&size=1`);
+      setFoto(response.data.data.content);
+      setTotalPage(response.data.data.totalPages)
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllSaprasFoto();
+  }, []);
+
   return (
     <section>
       <NavbarSekolah2 />
@@ -16,53 +62,30 @@ function Sarpras() {
           </ul>
         </div>
         <div className='container-sapras2'>
-          <div>
-            <div>
-              <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
-              <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
-              <ul className="category-berita">
-                <li><a href="/sarana-prasarana">Standar</a></li>
-                <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
-                <li><a href="/">Ruang Kantor</a></li>
-                <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
-                <li><a href="/">Ruang Kelas</a></li>
-                <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
-                <li><a href="/">Ruang Laboratorium</a></li>
-                <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
-                <li><a href="/">Sarana Olahraga</a></li>
-                <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
-                <li><a href="/">Sarana Ibadah</a></li>
-                <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
-                <li><a href="/">Sarana Kesehatan</a></li>
-                <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
-                <li><a href="/">Sarana Protokol Kesehatan</a></li>
-              </ul>
-            </div>
-            <br />
-            <div>
-              <h5 style={{ fontWeight: "600", color: "#002147" }}>IKUTI KAMI</h5>
-              <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
-              <ul className="medsos-list">
-                <li><a href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
-                  target="_blank"
-                ><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="https://www.instagram.com/osisspensagas"
-                  target="_blank"
-                ><i class="fab fa-instagram"></i></a></li>
-                <li><a href="https://www.youtube.com/@OSIS-SMPN1Bergas"
-                  target="_blank"
-                ><i class="fab fa-youtube"></i></a></li>
-              </ul>
-            </div>
-          </div>
+          <KategoriSapras />
           <div className='container-all'>
-            <div style={{ textAlign: "center"}}>
-              <h4 style={{ textTransform: "uppercase" }}>Standar</h4>
-              <p>Sarana ruang kantor kepala sekolah, guru dan tata usaha</p>
+            <div style={{ textAlign: "center" }}>
+              <h4 style={{ textTransform: "uppercase" }}>{nama}</h4>
+              <p>{deskripsi}</p>
             </div>
             <div style={{ textAlign: "center" }}>
-              <img src='https://via.placeholder.com/300x200?text=Award' style={{ height: "400px", width: "100%", marginTop: "1.5rem" }} />
-              <img src='https://via.placeholder.com/300x200?text=Award' style={{ height: "400px", width: "100%", marginTop: "1.5rem" }} />
+              {fotos.length > 0 ? (
+                fotos.map(foto => (
+                  <img src={foto} style={{ height: "400px", width: "100%", marginTop: "1.5rem" }} />
+                ))
+              ) : (<></>)}
+              <div className="d-flex justify-content-center align-items-center mt-3">
+                <Pagination
+                  count={totalPages}
+                  page={currentPage}
+                  onChange={handlePageChange}
+                  color="primary"
+                  shape="rounded"
+                  style={{ marginBottom: "30px" }}
+                  showFirstButton
+                  showLastButton
+                />
+              </div>
             </div>
           </div>
         </div>

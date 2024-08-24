@@ -7,7 +7,7 @@ function Osis() {
     return (
         <section>
             <NavbarSekolah2 />
-            <div style={{ padding: "40px", maxWidth: "900px", margin: "100px auto 50px auto", backgroundColor: "#f9f9f9", borderRadius: "15px", boxShadow: "0 0 20px rgba(0, 0, 0, 0.1)" }}>
+            <div style={{ padding: "40px", maxWidth: "900px", margin: "120px auto 50px auto", backgroundColor: "#f9f9f9", borderRadius: "15px", boxShadow: "0 0 20px rgba(0, 0, 0, 0.1)" }}>
                 <h2 style={{ textAlign: "center", marginBottom: "30px", color: "#333", fontFamily: "'Poppins', sans-serif", fontWeight: "bold" }}>Tentang Osis</h2>
                 <p style={{ fontSize: "18px", lineHeight: "1.8", color: "#555", marginBottom: "20px", fontFamily: "'Poppins', sans-serif" }}>
                     OSIS atau Organisasi Siswa Intra Sekolah adalah suatu organisasi yang berada di tingkat sekolah di Indonesia, yang dimulai dari jenjang SMP dan SMA/SMK. OSIS dikelola oleh siswa yang terpilih untuk menjadi pengurus OSIS. </p>

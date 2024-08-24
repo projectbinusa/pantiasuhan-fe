@@ -19,7 +19,7 @@ const ImageCard = ({ image, title, content }) => {
             <img src={image} alt={title} className="modal-image" />
             <h4 style={{textTransform: "uppercase"}}>{title}</h4>
             <p style={{color: "#002147", fontSize: "14px"}}>{content}</p>
-              <button onClick={closeModal} className="close-button">Close</button>
+              <button onClick={closeModal} className="close-button">TUTUP</button>
           </div>
         </div>
       )}

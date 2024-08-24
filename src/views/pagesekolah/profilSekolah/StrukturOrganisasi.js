@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NavbarSekolah from "../../../component/NavbarSekolah";
 import FooterSekolah from "../../../component/FooterSekolah";
 import "../../../css/alumni/struktur.css";
 import { API_DUMMY } from "../../../utils/base_URL";
