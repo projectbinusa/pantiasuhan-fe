@@ -1,8 +1,38 @@
 import "../css/style.css";
 import "../css/gabung.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { API_DUMMY } from "../utils/base_URL";
 
 function FooterSekolah() {
+  const [berita, setBerita] = useState([]);
+  const [totalPages, setTotalPage] = useState(1);
+
+  const getAllBerita = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=4&sort=created_date`);
+      setBerita(response.data.data.content);
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllBerita();
+  }, []);
+
+  const formatDate = (value) => {
+    const date = new Date(value);
+
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'long' });
+    const year = date.getFullYear();
+
+    const formattedDate = `${day} ${month} ${year}`;
+
+    return formattedDate;
+  };
+
   return (
     <>
       <footer
@@ -11,12 +41,12 @@ function FooterSekolah() {
           backgroundImage: `url('https://www.solverwp.com/demo/html/itechie/assets/img/bg/2.webp')`,
         }}
       >
-        <div className="container">
-          <div className="">
+        <div className="footer-menu container">
+          <div style={{ width: "100%" }}>
             <div className="widget widget_about">
-              <h4 className="widget-title">SMP Negeri 1 Bergas</h4>
+              <h4 className="widget-title" style={{textTransform: "uppercase"}}>SMP Negeri 1 Bergas</h4>
               <div className="details">
-                <p>
+                <p style={{fontSize: "14px"}}>
                   SMP Negeri 1 Bergas didirikan pada tahun 1985 di Kabupaten
                   Semarang, Jawa Tengah. Sejak awal berdirinya, sekolah ini
                   memiliki tujuan mulia untuk menyediakan pendidikan
@@ -60,11 +90,10 @@ function FooterSekolah() {
               </div>
             </div>
           </div>
-
-          <div className="">
+          <div style={{ width: "100%" }}>
             <div className="widget widget_subscribe">
-              <h4 className="widget-title">Alamat</h4>
-              <div className="details">
+              <h4 className="widget-title" style={{textTransform: "uppercase"}}>Alamat</h4>
+              <div className="details" style={{fontSize: "14px"}}>
                 <p style={{ color: "white" }}>
                   Jl. Krakatau, Gembongan, Karangjati, Kec. Bergas, Kabupaten
                   Semarang, Jawa Tengah 50552
@@ -76,55 +105,21 @@ function FooterSekolah() {
               </div>
             </div>
           </div>
-
-          <div className="">
+          <div style={{ width: "100%" }}>
             <div className="widget widget_news">
-              <h4 className="widget-title">Berita Terbaru</h4>
+              <h4 className="widget-title" style={{textTransform:"uppercase"}}>Berita Terbaru</h4>
               <div className="details card-container">
-                <div className="card">
-                  <div className="card-body">
-                    <a href="" className="card-title">
-                      Title 1 a b c d e f g h i j k l m n o p q r s t u v w x y z
-                    </a>
-                    <p className="card-date">August 21, 2024</p>
-                    <p className="card-content">
-                      Content for the first news item goes here. a b c d e f g h i j k l m n o p q r s t u v w x y z
-                    </p>
-                  </div>
-                </div>
-                <div className="card">
-                  <div className="card-body">
-                    <a href="" className="card-title">
-                      Title 2 a b c d e f g h i j k l m n o p q r s t u v w x y z
-                    </a>
-                    <p className="card-date">August 20, 2024</p>
-                    <p className="card-content">
-                      Content for the second news item goes here. a b c d e f g h i j k l m n o p q r s t u v w x y z
-                    </p>
-                  </div>
-                </div>
-                <div className="card">
-                  <div className="card-body">
-                    <a href="" className="card-title">
-                      Title 3 a b c d e f g h i j k l m n o p q r s t u v w x y z
-                    </a>
-                    <p className="card-date">August 19, 2024</p>
-                    <p className="card-content">
-                      Content for the third news item goes here. a b c d e f g h i j k l m n o p q r s t u v w x y z
-                    </p>
-                  </div>
-                </div>
-                <div className="card">
-                  <div className="card-body">
-                    <a href="" className="card-title">
-                      Title 4 a b c d e f g h i j k l m n o p q r s t u v w x y z
-                    </a>
-                    <p className="card-date">August 18, 2024</p>
-                    <p className="card-content">
-                      Content for the fourth news item goes here. a b c d e f g h i j k l m n o p q r s t u v w x y z
-                    </p>
-                  </div>
-                </div>
+                {berita.length > 0 ? (
+                  berita.map(news => (
+                    <div className="card" key={news.id}>
+                      <div className="card-body">
+                        <a href={`/detail-news-${news.id}`} className="card-title">{news.judulBerita}</a>
+                        <p className="card-date">{formatDate(news.createdDate)}</p>
+                        <p className="card-content" style={{fontSize: "14px"}}>{news.isiBerita}</p>
+                      </div>
+                    </div>
+                  ))
+                ) : (<></>)}
               </div>
             </div>
           </div>

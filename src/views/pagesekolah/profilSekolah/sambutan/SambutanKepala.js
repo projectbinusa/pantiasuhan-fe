@@ -41,7 +41,7 @@ function SambutanKepala() {
       <div className="sambutan-container">
         <div className="parent-sambutan">
           <h2 style={{ textAlign: "center", marginBottom: "30px", color: "#333", fontFamily: "'Poppins', sans-serif", fontWeight: "bold" }}>
-            {sambutanData.judul}
+            Sambutan Kepala Sekolah
           </h2>
           <div style={{ textAlign: "center", marginBottom: "30px" }}>
             <img

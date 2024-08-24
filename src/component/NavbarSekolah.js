@@ -396,7 +396,7 @@ const NavbarSekolah = () => {
               <li><a href="/osis">OSIS</a></li>
               <li style={{ padding: '5px 10px' }}>
                 <button onClick={() => handleScrollToSection("ekstra-kulikuler")} className="navbars-buttons">
-                  EKSRAKURIKULER
+                  EKSTRAKURIKULER
                 </button>
               </li>
             </ul>
