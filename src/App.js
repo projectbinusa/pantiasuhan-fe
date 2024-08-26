@@ -108,6 +108,9 @@ import SaranaOlahraga from "./views/pagesekolah/profilSekolah/sarpras/SaranaOlah
 import SaranaIbadah from "./views/pagesekolah/profilSekolah/sarpras/SaranaIbadah";
 import SaranaKesehatan from "./views/pagesekolah/profilSekolah/sarpras/SaranaKesehatan";
 import SaranaProtokolKesehatan from "./views/pagesekolah/profilSekolah/sarpras/SaranaProtokolKesehatan";
+import MateriAjar from "./views/pages/admin/smpn1bergas/materiajar/MateriAjar";
+import EditMateriAjar from "./views/pages/admin/smpn1bergas/materiajar/EditMateriAjar";
+import AddMateriAjar from "./views/pages/admin/smpn1bergas/materiajar/AddMateriAjar";
 
 // END ADMIN MENU REGULASI
 
@@ -135,9 +138,12 @@ function App() {
           <Route path="/sarana-olahraga" component={SaranaOlahraga} exact />
           <Route path="/sarana-ibadah" component={SaranaIbadah} exact />
           <Route path="/sarana-kesehatan" component={SaranaKesehatan} exact />
-          <Route path="/sarana-protokol-kesehatan" component={SaranaProtokolKesehatan} exact />
+          <Route
+            path="/sarana-protokol-kesehatan"
+            component={SaranaProtokolKesehatan}
+            exact
+          />
           {/* END SAPRAS */}
-
           {/* admin */}
           {/* admin smpn1bergas */}
           {/* guru */}
@@ -149,7 +155,11 @@ function App() {
           <PrivateRoute path="/admin-alumni" component={Alumni} exact />
           <PrivateRoute path="/add-alumni" component={AddAlumni} exact />
           <PrivateRoute path="/edit-alumni/:id" component={EditAlumni} exact />
-          <PrivateRoute path="/detail-alumni/:id" component={DetailAlumniAdmin} exact />
+          <PrivateRoute
+            path="/detail-alumni/:id"
+            component={DetailAlumniAdmin}
+            exact
+          />
           {/* edit alumni */}
           {/* kontak */}
           <PrivateRoute path="/admin-kontak" component={Kontak} exact />
@@ -391,7 +401,23 @@ function App() {
             component={EditPerpus}
             exact
           />
-          {/* end perpus*/}{" "}
+          {/* end perpus*/} {/* materi ajar*/}
+          <PrivateRoute
+            path="/admin-materi-ajar"
+            component={MateriAjar}
+            exact
+          />
+          <PrivateRoute
+            path="/add-materi-ajar"
+            component={AddMateriAjar}
+            exact
+          />
+          <PrivateRoute
+            path="/edit-materi-ajar"
+            component={EditMateriAjar}
+            exact
+          />
+          {/* end materi ajar */}
           <Route
             path="/kondisi-sekolah-view"
             component={KonsidisiSekolahView}

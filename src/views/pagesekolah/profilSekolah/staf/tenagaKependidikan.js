@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FooterSekolah from "../../../../component/FooterSekolah";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Pagination } from "@mui/material";
+// import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Pagination,
+  TextField,
+  Typography,
+} from "@mui/material";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 // import "../../../../css/staff.css";
+import "../../../../views/pagesekolah/profilSekolah/staf/tenagaKependidikan.css";
+import NavbarSekolah from "../../../../component/NavbarSekolah";
+import axios from "axios";
+import { API_DUMMY } from "../../../../utils/base_URL";
 
 const generateData = (num) => {
   return Array.from({ length: num }, (_, index) => ({
@@ -16,145 +30,552 @@ const generateData = (num) => {
 const data = generateData(100);
 
 const TenagaKepndidkan = () => {
+  const [guru, setGuru] = useState([]);
+  const [page1, setPage1] = useState(1);
+  const [currentPage1, setCurrentPage1] = useState(1);
+  const [rowsPerPage1, setRowsPerPage1] = useState(5);
+  const [paginationInfo1, setPaginationInfo1] = useState({
+    totalPages: 1,
+    totalElements: 0,
+  });
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isHovered, setIsHovered] = useState(false);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [paginationInfo, setPaginationInfo] = useState({
+    totalPages: 1,
+    totalElements: 0,
+  });
+  const [searchTerm1, setSearchTerm1] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [kry, setKry] = useState([]);
+  const [namaGuru, setNamaGuru] = useState("");
+  const [mapel, setMapel] = useState("");
+  const [pendidikan, setPendidikan] = useState("");
+  const [img, setImg] = useState("");
+  const [nip, setNip] = useState("");
+  const [nama, setNama] = useState("");
+  const [status, setStatus] = useState("");
+  const [foto, setFoto] = useState("");
+  const [selectedDetail, setSelectedDetail] = useState(null);
+
+  // const [idGuru, setIdGuru] = useState(0)
+
+  const getAllKependidikan = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all?page=${
+          page1 - 1
+        }&size=${rowsPerPage1}`
+      );
+      setKry(response.data.data.content);
+      console.log("data kry: ", response.data.data.content);
+      setPaginationInfo1({
+        totalPages: response.data.data.totalPages,
+        totalElements: response.data.data.totalElements,
+      });
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+    }
+  };
+
+  const getById = async (id) => {
+    axios
+      .get(`${API_DUMMY}/smpn1bergas/api/guru/get/${id}`, {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzQWRtaW4iOnRydWUsImV4cCI6MTcyNDYxNzc4MiwiaWF0IjoxNzI0NTk5NzgyfQ.898BbyvNAGdmAdtpaQbgPaqbB-B0dvyRpMC-FQAmpjHm2rjZ0qmcLtz9_NK0KeqUc0cppevVaDXvWzavLLNQjw`,
+        },
+      })
+      .then((ress) => {
+        const data = ress.data.data;
+        console.log("guru", data, "id: ", id);
+        setNamaGuru(data.nama_guru);
+        setImg(data.foto);
+        setNip(data.nip);
+        setMapel(data.mapel);
+        setPendidikan(data.pendidikan_terakhir);
+        setSelectedDetail("guru");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getByIdKry = async (id) => {
+    axios
+      .get(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/get/${id}`, {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzQWRtaW4iOnRydWUsImV4cCI6MTcyNDYxNzc4MiwiaWF0IjoxNzI0NTk5NzgyfQ.898BbyvNAGdmAdtpaQbgPaqbB-B0dvyRpMC-FQAmpjHm2rjZ0qmcLtz9_NK0KeqUc0cppevVaDXvWzavLLNQjw`,
+        },
+      })
+      .then((ress) => {
+        const data = ress.data.data;
+        console.log("guru", data, "id: ", id);
+        setNama(data.nama);
+        setFoto(data.foto);
+        setStatus(data.status);
+        setSelectedDetail("karyawan");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleRowsPerPageChange1 = (event) => {
+    setRowsPerPage1(parseInt(event.target.value, 10));
+    setPage1(0);
+  };
+
+  const handleSearchChange1 = (event) => {
+    setSearchTerm1(event.target.value);
+    setPage1(0);
+    setCurrentPage1(1);
+  };
+
+  const filteredList1 = kry.filter((item) =>
+    Object.values(item).some(
+      (value) =>
+        typeof value === "string" &&
+        value.toLowerCase().includes(searchTerm1.toLowerCase())
+    )
+  );
+
+  const getAll = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=${
+          page - 1
+        }&size=${rowsPerPage}`
+      );
+      setGuru(response.data.data.content);
+      console.log(response.data.data.content);
+      setPaginationInfo({
+        totalPages: response.data.data.totalPages,
+        totalElements: response.data.data.totalElements,
+      });
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+    }
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
+    setSearchTerm(event.target.value);
+    setPage(0);
     setCurrentPage(1);
   };
 
-  const filteredData = data.filter(
-    (item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.status.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredList = guru.filter((item) =>
+    Object.values(item).some(
+      (value) =>
+        typeof value === "string" &&
+        value.toLowerCase().includes(searchTerm.toLowerCase())
+    )
   );
 
-  const totalPages = Math.ceil(filteredData.length / pageSize);
-
-  const currentData = filteredData.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
-
-  const handlePageChange = (event, pageNumber) => setCurrentPage(pageNumber);
-
-  const handlePageSizeChange = (event) => {
-    setPageSize(Number(event.target.value));
-    setCurrentPage(1);
+  const [scrollY, setScrollY] = useState(0);
+  const handleScroll = () => {
+    setScrollY(window.scrollY);
   };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    getAll();
+    getAllKependidikan();
+  }, [currentPage, currentPage1, searchTerm, searchTerm1]);
 
   const imageStyle = {
-    width: "100%",
-    maxHeight: "400px",
-    objectFit: "cover",
-    transition: "transform 0.3s ease-in-out",
-    transform: isHovered ? "scale(1.1)" : "scale(1)",
-    borderRadius: "10px",
-  };
-
-  const containerStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    maxWidth: "1000px",
-    margin: "0 auto",
-    padding: "20px",
-  };
-
-  const imageContainerStyle = {
-    textAlign: "center",
+    transform: `translateY(${scrollY * 0.5}px)`,
     position: "relative",
-    overflow: "hidden",
     width: "100%",
-    marginTop: "60px",
+    height: "100vh",
+    overflow: "hidden",
+  };
+
+  const textOverlayStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    color: "white",
+    fontSize: "55px",
+    fontWeight: "800",
+    textAlign: "center",
+    textTransform: "uppercase",
+  };
+
+  const staffContainer = {
+    // padding:
   };
 
   return (
     <div>
-      <NavbarSekolah2 />
-      <div style={containerStyle}>
+      <NavbarSekolah />
+      <div
+        style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
+        <img
+          src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
+          style={imageStyle}
+          alt=""
+        />
         <div
-          style={imageContainerStyle}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <img
-            src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
-            alt="SMP Negeri 1 Bergas"
-            style={imageStyle}
-          />
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        />
+        <div style={textOverlayStyle}>
+          <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
         </div>
       </div>
-      <div className="staff-container mt-4">
-        <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
-          <input
-            type="search"
-            className="form-control mb-3 mb-md-0"
-            placeholder="Search by name or status"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            style={{ flex: "1" }}
-          />
-          <select
-            className="form-select ms-0 ms-md-3"
-            style={{ width: "120px" }}
-            value={pageSize}
-            onChange={handlePageSizeChange}
-          >
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-          </select>
-        </div>
+      <Grid container spacing={2} className="container" style={{marginRight:"auto", marginLeft:"auto"}} >
+        <Grid
+          xs={11}
+          md={8}>
+          {/* <div className="row"> */}
+          <div className="mt-5">
+          <Typography gutterBottom variant="h5" component="div">
+            Tabel Guru
+          </Typography>
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+            <input
+              type="search"
+              className="form-control mb-3 mb-md-0"
+              placeholder="Search by name or status"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              style={{ flex: "1" }}
+            />
+            <select
+              className="form-select ms-0 ms-md-3"
+              style={{ width: "120px" }}
+              value={rowsPerPage}
+              onChange={handleRowsPerPageChange}>
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+            </select>
+          </div>
 
-        <div className="table-responsive">
-          <table className="table" style={{ width: "100%" }}>
-            <thead>
-              <tr>
-                <th style={{ width: "5%" }}>No</th>
-                <th>Name</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentData.length > 0 ? (
-                currentData.map((item, index) => (
-                  <tr key={item.id}>
-                    <td style={{ paddingRight: "0" }}>
-                      {(currentPage - 1) * pageSize + index + 1}
-                    </td>
-                    <td>{item.name}</td>
-                    <td>{item.status}</td>
-                  </tr>
-                ))
-              ) : (
+          <div className="table-responsive">
+            <table className="table" style={{ width: "100%" }}>
+              <thead style={{ background: "#003366", color: "white" }}>
                 <tr>
-                  <td colSpan="3" className="text-center">
-                    No data found
-                  </td>
+                  <th
+                    style={{
+                      background: "#003366",
+                      color: "white",
+                      width: "5%",
+                    }}>
+                    No
+                  </th>
+                  <th style={{ background: "#003366", color: "white" }}>
+                    Nama Guru
+                  </th>
+                  <th style={{ background: "#003366", color: "white" }}>
+                    Mapel{" "}
+                  </th>
+                  <th style={{ background: "#003366", color: "white" }}>
+                    Detail{" "}
+                  </th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {filteredList.length > 0 ? (
+                  filteredList.map((item, index) => (
+                    <tr key={item.id}>
+                      <td style={{ paddingRight: "0" }}>
+                        {index + 1 + (currentPage - 1) * rowsPerPage}
+                      </td>
+                      <td>{item.nama_guru}</td>
+                      <td>{item.mapel}</td>
+                      <td>
+                        <button
+                          onClick={() => getById(item.id)}
+                          type="button"
+                          class="btn-warning  mr-2 btn-sm text-light">
+                          <i class="fas fa-info-circle"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="3" className="text-center">
+                      No data found
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
 
-        <div className="d-flex justify-content-center align-items-center mt-3">
-          <Pagination
-            count={totalPages}
-            page={currentPage}
-            onChange={handlePageChange}
-            color="primary"
-            shape="rounded"
-            style={{ marginBottom: "30px"}}
-            showFirstButton
-            showLastButton
-          />
-        </div>
-      </div>
+          <div className="d-flex justify-content-center align-items-center mt-3">
+            <Pagination
+              count={paginationInfo.totalPages}
+              page={currentPage}
+              onChange={(event, value) => {
+                setCurrentPage(value);
+                setPage(value);
+              }}
+              color="primary"
+              shape="rounded"
+              style={{ marginBottom: "30px" }}
+              showFirstButton
+              showLastButton
+            />
+          </div>
+          {/* </div> */}
+          {/* </div> */}
+          {/* <div className=""> */}
+          <Typography
+            xs={{ marginTop: "30px" }}
+            gutterBottom
+            variant="h5"
+            component="div">
+            Tabel Karyawan
+          </Typography>
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+            <input
+              type="search"
+              className="form-control mb-3 mb-md-0"
+              placeholder="Search by name or status"
+              value={searchTerm1}
+              onChange={handleSearchChange1}
+              style={{ flex: "1" }}
+            />
+            <select
+              className="form-select ms-0 ms-md-3"
+              style={{ width: "120px" }}
+              value={rowsPerPage1}
+              onChange={handleRowsPerPageChange1}>
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+            </select>
+          </div>
+
+          <div className="table-responsive">
+            <table className="table" style={{ width: "100%" }}>
+              <thead>
+                <tr>
+                  <th
+                    style={{
+                      width: "5%",
+                      background: "#003366",
+                      color: "white",
+                    }}>
+                    No
+                  </th>
+                  <th style={{ background: "#003366", color: "white" }}>
+                    Name
+                  </th>
+                  <th style={{ background: "#003366", color: "white" }}>
+                    Status
+                  </th>
+                  <th style={{ background: "#003366", color: "white" }}>
+                    Aksi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredList1.length > 0 ? (
+                  filteredList1.map((item, index) => (
+                    <tr key={item.id}>
+                      <td style={{ paddingRight: "0" }}>
+                        {index + 1 + (currentPage - 1) * rowsPerPage}
+                      </td>
+                      <td>{item.nama}</td>
+                      <td>{item.status}</td>
+                      <td>
+                        {" "}
+                        <button
+                          onClick={() => getByIdKry(item.id)}
+                          type="button"
+                          class="btn-warning  mr-2 btn-sm text-light">
+                          <i class="fas fa-info-circle"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="3" className="text-center">
+                      No data found
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="d-flex justify-content-center align-items-center mt-3">
+            <Pagination
+              count={paginationInfo1.totalPages}
+              page={currentPage1}
+              onChange={(event, value) => {
+                setCurrentPage1(value);
+                setPage1(value);
+              }}
+              color="primary"
+              shape="rounded"
+              style={{ marginBottom: "30px" }}
+              showFirstButton
+              showLastButton
+            />
+          </div>
+          </div>
+        </Grid>
+        <Card style={{marginRight:"auto", marginLeft:"auto"}} xs={6} md={8} sx={{ maxWidth: 345 }}>
+          {selectedDetail === "guru" ? (
+            <Container style={{ marginTop: "19px" }}>
+              <Typography
+                className="font-weight-bold"
+                variant="h5"
+                color="text.secondary">
+                Detail
+              </Typography>
+              <img className="rounded-2 mt-3"
+                component="img"
+                src={
+                  img ||
+                  "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
+                }
+                alt="Profile"
+              />
+              <div className="mb-3">
+                <label className="form-label font-weight-bold">Nama Guru</label>
+                <input
+                  value={namaGuru}
+                  type="text"
+                  className="form-control"
+                  disabled
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label font-weight-bold">
+                  Mata Pelajaran
+                </label>
+                <input
+                  value={mapel}
+                  type="text"
+                  className="form-control"
+                  disabled
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label font-weight-bold">NIP</label>
+                <input
+                  value={nip}
+                  type="text"
+                  className="form-control"
+                  disabled
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label font-weight-bold">
+                  Pendidikan
+                </label>
+                <input
+                  value={pendidikan}
+                  type="text"
+                  className="form-control"
+                  disabled
+                />
+              </div>
+            </Container>
+          ) : selectedDetail === "karyawan" ? (
+            <Container style={{ marginTop: "19px" }}>
+              <Typography
+                className="font-weight-bold"
+                variant="h5"
+                color="text.secondary">
+                Detail
+              </Typography>
+              <img className="rounded-2 mt-3"
+                component="img"
+                src={
+                  foto ||
+                  "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
+                }
+                alt="Profile"
+              />
+              <div className="mb-3 mt-3">
+                <label className="form-label font-weight-bold">Nama</label>
+                <input
+                  value={nama}
+                  type="text"
+                  className="form-control"
+                  disabled
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label font-weight-bold">Status</label>
+                <input
+                  value={status}
+                  type="text"
+                  className="form-control"
+                  disabled
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label font-weight-bold">Sebagai</label>
+                <input
+                  value={nip}
+                  type="text"
+                  className="form-control"
+                  disabled
+                />
+              </div>
+            </Container>
+          ) : (
+            <>
+              {" "}
+              <Container style={{ marginTop: "19px" }}>
+                <Typography
+                  className="font-weight-bold"
+                  variant="h5"
+                  color="text.secondary">
+                  Detail
+                </Typography>
+                <img
+                  component="img"
+                  src={
+                    "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
+                  }
+                  alt="Profile"
+                />
+                <div className="mb-3">
+                  <input type="text" className="form-control" disabled />
+                </div>
+                <div className="mb-3">
+                  <input type="text" className="form-control" disabled />
+                </div>
+                <div className="mb-3">
+                  <input type="text" className="form-control" disabled />
+                </div>
+                <div className="mb-3">
+                  <input type="text" className="form-control" disabled />
+                </div>
+              </Container>
+            </>
+          )}
+        </Card>
+      </Grid>
       <FooterSekolah />
     </div>
   );
