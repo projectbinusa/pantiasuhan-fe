@@ -2,10 +2,10 @@
     width: 150px;
     text-align: left;
 }
-.container{
+/* .container{
     display: flex;
     flex-direction: column;
-}
+} */
 
 #display{
     display: flex;
@@ -92,11 +92,11 @@ margin: 0px;
     #h2{
         font-size: 200px;
     }
-    .container{
+    /* .container{
         display: flex;
         flex-direction: column;
         gap: 5px;
-    }
+    } */
     #button-dik{
         width: 200px;
     }

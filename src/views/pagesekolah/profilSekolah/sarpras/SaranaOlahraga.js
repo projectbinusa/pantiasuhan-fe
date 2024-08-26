@@ -5,6 +5,7 @@ import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import KategoriSapras from "./KategoriSapras";
 import { Pagination } from "@mui/material";
 import FooterSekolah from "../../../../component/FooterSekolah";
+import "../../../../css/alumni/sapras.css"
 
 function SaranaOlahraga() {
     const [nama, setNamaSarana] = useState("");
@@ -37,7 +38,7 @@ function SaranaOlahraga() {
 
     const getAllSaprasFoto = async (page = 1) => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/sarana/all/category?category=Sarana%20Olahraga&page=${page - 1}&size=1`);
+            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/foto_sarana/all/by_id_sarana?id_sarana=${id}&page=${page - 1}&size=5`);
             setFoto(response.data.data.content);
             setTotalPage(response.data.data.totalPages)
         } catch (error) {
