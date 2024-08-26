@@ -1,33 +1,16 @@
 import React, { useEffect, useState } from "react";
 import FooterSekolah from "../../../../component/FooterSekolah";
-// import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
   Container,
   Grid,
   Pagination,
-  TextField,
   Typography,
 } from "@mui/material";
-import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
-// import "../../../../css/staff.css";
 import "../../../../views/pagesekolah/profilSekolah/staf/tenagaKependidikan.css";
 import NavbarSekolah from "../../../../component/NavbarSekolah";
 import axios from "axios";
 import { API_DUMMY } from "../../../../utils/base_URL";
-
-const generateData = (num) => {
-  return Array.from({ length: num }, (_, index) => ({
-    id: index + 1,
-    name: `Name ${index + 1}`,
-    status: `Status ${index + 1}`,
-  }));
-};
-
-const data = generateData(100);
 
 const TenagaKepndidkan = () => {
   const [guru, setGuru] = useState([]);
@@ -58,13 +41,10 @@ const TenagaKepndidkan = () => {
   const [foto, setFoto] = useState("");
   const [selectedDetail, setSelectedDetail] = useState(null);
 
-  // const [idGuru, setIdGuru] = useState(0)
-
   const getAllKependidikan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all?page=${
-          page1 - 1
+        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all?page=${page1 - 1
         }&size=${rowsPerPage1}`
       );
       setKry(response.data.data.content);
@@ -80,11 +60,7 @@ const TenagaKepndidkan = () => {
 
   const getById = async (id) => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/guru/get/${id}`, {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzQWRtaW4iOnRydWUsImV4cCI6MTcyNDYxNzc4MiwiaWF0IjoxNzI0NTk5NzgyfQ.898BbyvNAGdmAdtpaQbgPaqbB-B0dvyRpMC-FQAmpjHm2rjZ0qmcLtz9_NK0KeqUc0cppevVaDXvWzavLLNQjw`,
-        },
-      })
+      .get(`${API_DUMMY}/smpn1bergas/api/guru/get/${id}`)
       .then((ress) => {
         const data = ress.data.data;
         console.log("guru", data, "id: ", id);
@@ -102,11 +78,7 @@ const TenagaKepndidkan = () => {
 
   const getByIdKry = async (id) => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/get/${id}`, {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzQWRtaW4iOnRydWUsImV4cCI6MTcyNDYxNzc4MiwiaWF0IjoxNzI0NTk5NzgyfQ.898BbyvNAGdmAdtpaQbgPaqbB-B0dvyRpMC-FQAmpjHm2rjZ0qmcLtz9_NK0KeqUc0cppevVaDXvWzavLLNQjw`,
-        },
-      })
+      .get(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/get/${id}`)
       .then((ress) => {
         const data = ress.data.data;
         console.log("guru", data, "id: ", id);
@@ -142,8 +114,7 @@ const TenagaKepndidkan = () => {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`
       );
       setGuru(response.data.data.content);
@@ -242,211 +213,210 @@ const TenagaKepndidkan = () => {
           <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
         </div>
       </div>
-      <Grid container spacing={2} className="container" style={{marginRight:"auto", marginLeft:"auto"}} >
+
+      <Grid container spacing={2} className="container" style={{ marginRight: "auto", marginLeft: "auto", padding: "3rem 0" }} >
         <Grid
           xs={11}
           md={8}>
-          {/* <div className="row"> */}
           <div className="mt-5">
-          <Typography gutterBottom variant="h5" component="div">
-            Tabel Guru
-          </Typography>
-          <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
-            <input
-              type="search"
-              className="form-control mb-3 mb-md-0"
-              placeholder="Search by name or status"
-              value={searchTerm}
-              onChange={handleSearchChange}
-              style={{ flex: "1" }}
-            />
-            <select
-              className="form-select ms-0 ms-md-3"
-              style={{ width: "120px" }}
-              value={rowsPerPage}
-              onChange={handleRowsPerPageChange}>
-              <option value={5}>5</option>
-              <option value={10}>10</option>
-              <option value={20}>20</option>
-            </select>
-          </div>
+            <Typography gutterBottom variant="h5" component="div" style={{ fontFamily: "'Poppins', sans-serif" }}>
+              Tabel Guru
+            </Typography>
+            <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+              <input
+                type="search"
+                className="form-control mb-3 mb-md-0"
+                placeholder="Pencarian berdasarkan nama atau mapel"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                style={{ flex: "1" }}
+              />
+              <select
+                className="form-select ms-0 ms-md-3"
+                style={{ width: "120px" }}
+                value={rowsPerPage}
+                onChange={handleRowsPerPageChange}>
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+              </select>
+            </div>
 
-          <div className="table-responsive">
-            <table className="table" style={{ width: "100%" }}>
-              <thead style={{ background: "#003366", color: "white" }}>
-                <tr>
-                  <th
-                    style={{
-                      background: "#003366",
-                      color: "white",
-                      width: "5%",
-                    }}>
-                    No
-                  </th>
-                  <th style={{ background: "#003366", color: "white" }}>
-                    Nama Guru
-                  </th>
-                  <th style={{ background: "#003366", color: "white" }}>
-                    Mapel{" "}
-                  </th>
-                  <th style={{ background: "#003366", color: "white" }}>
-                    Detail{" "}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredList.length > 0 ? (
-                  filteredList.map((item, index) => (
-                    <tr key={item.id}>
-                      <td style={{ paddingRight: "0" }}>
-                        {index + 1 + (currentPage - 1) * rowsPerPage}
-                      </td>
-                      <td>{item.nama_guru}</td>
-                      <td>{item.mapel}</td>
-                      <td>
-                        <button
-                          onClick={() => getById(item.id)}
-                          type="button"
-                          class="btn-warning  mr-2 btn-sm text-light">
-                          <i class="fas fa-info-circle"></i>
-                        </button>
+            <div className="table-responsive">
+              <table className="table" style={{ width: "100%" }}>
+                <thead style={{ background: "#003366", color: "white" }}>
+                  <tr>
+                    <th
+                      style={{
+                        background: "#003366",
+                        color: "white",
+                        width: "5%",
+                      }}>
+                      No
+                    </th>
+                    <th style={{ background: "#003366", color: "white" }}>
+                      Nama Guru
+                    </th>
+                    <th style={{ background: "#003366", color: "white" }}>
+                      Mapel{" "}
+                    </th>
+                    <th style={{ background: "#003366", color: "white" }}>
+                      Detail{" "}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredList.length > 0 ? (
+                    filteredList.map((item, index) => (
+                      <tr key={item.id}>
+                        <td style={{ paddingRight: "0" }}>
+                          {index + 1 + (currentPage - 1) * rowsPerPage}
+                        </td>
+                        <td>{item.nama_guru}</td>
+                        <td>{item.mapel}</td>
+                        <td>
+                          <button
+                            onClick={() => getById(item.id)}
+                            type="button"
+                            class="btn-warning  mr-2 btn-sm text-light">
+                            <i class="fas fa-info-circle"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="3" className="text-center">
+                        No data found
                       </td>
                     </tr>
-                  ))
-                ) : (
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="d-flex justify-content-center align-items-center mt-3">
+              <Pagination
+                count={paginationInfo.totalPages}
+                page={currentPage}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
+                color="primary"
+                shape="rounded"
+                style={{ marginBottom: "30px" }}
+                showFirstButton
+                showLastButton
+              />
+            </div>
+            <Typography
+              xs={{ marginTop: "30px" }}
+              gutterBottom
+              variant="h5"
+              component="div" style={{ fontFamily: "'Poppins', sans-serif", marginTop: "1rem" }}>
+              Tabel Karyawan
+            </Typography>
+            <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+              <input
+                type="search"
+                className="form-control mb-3 mb-md-0"
+                placeholder="Pencarian berdasarkan nama atau status"
+                value={searchTerm1}
+                onChange={handleSearchChange1}
+                style={{ flex: "1" }}
+              />
+              <select
+                className="form-select ms-0 ms-md-3"
+                style={{ width: "120px" }}
+                value={rowsPerPage1}
+                onChange={handleRowsPerPageChange1}>
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+              </select>
+            </div>
+
+            <div className="table-responsive">
+              <table className="table" style={{ width: "100%" }}>
+                <thead>
                   <tr>
-                    <td colSpan="3" className="text-center">
-                      No data found
-                    </td>
+                    <th
+                      style={{
+                        width: "5%",
+                        background: "#003366",
+                        color: "white",
+                      }}>
+                      No
+                    </th>
+                    <th style={{ background: "#003366", color: "white" }}>
+                      Name
+                    </th>
+                    <th style={{ background: "#003366", color: "white" }}>
+                      Status
+                    </th>
+                    <th style={{ background: "#003366", color: "white" }}>
+                      Aksi
+                    </th>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="d-flex justify-content-center align-items-center mt-3">
-            <Pagination
-              count={paginationInfo.totalPages}
-              page={currentPage}
-              onChange={(event, value) => {
-                setCurrentPage(value);
-                setPage(value);
-              }}
-              color="primary"
-              shape="rounded"
-              style={{ marginBottom: "30px" }}
-              showFirstButton
-              showLastButton
-            />
-          </div>
-          {/* </div> */}
-          {/* </div> */}
-          {/* <div className=""> */}
-          <Typography
-            xs={{ marginTop: "30px" }}
-            gutterBottom
-            variant="h5"
-            component="div">
-            Tabel Karyawan
-          </Typography>
-          <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
-            <input
-              type="search"
-              className="form-control mb-3 mb-md-0"
-              placeholder="Search by name or status"
-              value={searchTerm1}
-              onChange={handleSearchChange1}
-              style={{ flex: "1" }}
-            />
-            <select
-              className="form-select ms-0 ms-md-3"
-              style={{ width: "120px" }}
-              value={rowsPerPage1}
-              onChange={handleRowsPerPageChange1}>
-              <option value={5}>5</option>
-              <option value={10}>10</option>
-              <option value={20}>20</option>
-            </select>
-          </div>
-
-          <div className="table-responsive">
-            <table className="table" style={{ width: "100%" }}>
-              <thead>
-                <tr>
-                  <th
-                    style={{
-                      width: "5%",
-                      background: "#003366",
-                      color: "white",
-                    }}>
-                    No
-                  </th>
-                  <th style={{ background: "#003366", color: "white" }}>
-                    Name
-                  </th>
-                  <th style={{ background: "#003366", color: "white" }}>
-                    Status
-                  </th>
-                  <th style={{ background: "#003366", color: "white" }}>
-                    Aksi
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredList1.length > 0 ? (
-                  filteredList1.map((item, index) => (
-                    <tr key={item.id}>
-                      <td style={{ paddingRight: "0" }}>
-                        {index + 1 + (currentPage - 1) * rowsPerPage}
-                      </td>
-                      <td>{item.nama}</td>
-                      <td>{item.status}</td>
-                      <td>
-                        {" "}
-                        <button
-                          onClick={() => getByIdKry(item.id)}
-                          type="button"
-                          class="btn-warning  mr-2 btn-sm text-light">
-                          <i class="fas fa-info-circle"></i>
-                        </button>
+                </thead>
+                <tbody>
+                  {filteredList1.length > 0 ? (
+                    filteredList1.map((item, index) => (
+                      <tr key={item.id}>
+                        <td style={{ paddingRight: "0" }}>
+                          {index + 1 + (currentPage - 1) * rowsPerPage}
+                        </td>
+                        <td>{item.nama}</td>
+                        <td>{item.status}</td>
+                        <td>
+                          {" "}
+                          <button
+                            onClick={() => getByIdKry(item.id)}
+                            type="button"
+                            class="btn-warning  mr-2 btn-sm text-light">
+                            <i class="fas fa-info-circle"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="3" className="text-center">
+                        No data found
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="3" className="text-center">
-                      No data found
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                  )}
+                </tbody>
+              </table>
+            </div>
 
-          <div className="d-flex justify-content-center align-items-center mt-3">
-            <Pagination
-              count={paginationInfo1.totalPages}
-              page={currentPage1}
-              onChange={(event, value) => {
-                setCurrentPage1(value);
-                setPage1(value);
-              }}
-              color="primary"
-              shape="rounded"
-              style={{ marginBottom: "30px" }}
-              showFirstButton
-              showLastButton
-            />
-          </div>
+            <div className="d-flex justify-content-center align-items-center mt-3">
+              <Pagination
+                count={paginationInfo1.totalPages}
+                page={currentPage1}
+                onChange={(event, value) => {
+                  setCurrentPage1(value);
+                  setPage1(value);
+                }}
+                color="primary"
+                shape="rounded"
+                style={{ marginBottom: "30px" }}
+                showFirstButton
+                showLastButton
+              />
+            </div>
           </div>
         </Grid>
-        <Card style={{marginRight:"auto", marginLeft:"auto"}} xs={6} md={8} sx={{ maxWidth: 345 }}>
+
+        <Card style={{ marginRight: "auto", marginLeft: "auto" }} xs={6} md={8} sx={{ maxWidth: 345 }}>
           {selectedDetail === "guru" ? (
             <Container style={{ marginTop: "19px" }}>
               <Typography
                 className="font-weight-bold"
                 variant="h5"
-                color="text.secondary">
+                color="text.secondary"
+                style={{ fontFamily: "'Poppins', sans-serif" }}>
                 Detail
               </Typography>
               <img className="rounded-2 mt-3"
@@ -457,12 +427,12 @@ const TenagaKepndidkan = () => {
                 }
                 alt="Profile"
               />
-              <div className="mb-3">
+              <div className="mb-3 mt-3">
                 <label className="form-label font-weight-bold">Nama Guru</label>
                 <input
                   value={namaGuru}
                   type="text"
-                  className="form-control"
+                  className="form-control w-full"
                   disabled
                 />
               </div>
@@ -503,7 +473,8 @@ const TenagaKepndidkan = () => {
               <Typography
                 className="font-weight-bold"
                 variant="h5"
-                color="text.secondary">
+                color="text.secondary"
+                style={{ fontFamily: "'Poppins', sans-serif" }}>
                 Detail
               </Typography>
               <img className="rounded-2 mt-3"
@@ -549,7 +520,8 @@ const TenagaKepndidkan = () => {
                 <Typography
                   className="font-weight-bold"
                   variant="h5"
-                  color="text.secondary">
+                  color="text.secondary"
+                  style={{ fontFamily: "'Poppins', sans-serif" }}>
                   Detail
                 </Typography>
                 <img

@@ -48,7 +48,6 @@ const NavbarSekolah2 = () => {
               <li><a href="/sambutan">SAMBUTAN KEPALA SEKOLAH</a></li>
               <li><a href="/sejarah">SEJARAH</a></li>
               <li><a href="/visi-misi">VISI & MISI</a></li>
-              <li><a href="/sarana-prasarana">SARANA PRASARANA</a></li>
               <li><a href="/struktur-organisasi">STRUKTUR ORGANISASI</a></li>
               <li><a href="/kondisi-sekolah-view">KONDISI SEKOLAH</a></li>
               <li><a href="/staff">STAFF</a></li>
@@ -80,12 +79,23 @@ const NavbarSekolah2 = () => {
               KESISWAAN
             </a>
             <ul className="submenu">
+              <li><a href="/materi_ajar">MATERI AJAR</a></li>
               <li><a href="/osis">OSIS</a></li>
               <li style={{ padding: '5px 10px' }}>
                 <button onClick={() => handleScrollToSection("ekstra-kulikuler")} className="navbars-buttons">
                   EKSTRAKURIKULER
                 </button>
               </li>
+            </ul>
+          </li>
+          <li className={`navbars-item ${activeMenu === "berita" ? "active" : ""}`}>
+            <a href="#sapras" className="has-submenu" onClick={(e) => handleMenuClick(e, "berita")}>
+              Sarana prasarana
+            </a>
+            <ul className="submenu">
+              <li><a href="/sarana-prasarana">SARANA</a></li>
+              <li><a href="/program">PROGRAM</a></li>
+              <li><a href="/kegiatan">KEGIATAN</a></li>
             </ul>
           </li>
           <li className="navbars-item">

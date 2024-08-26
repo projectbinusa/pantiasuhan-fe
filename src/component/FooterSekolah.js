@@ -55,7 +55,7 @@ function FooterSekolah() {
                   siswa, SMP Negeri 1 Bergas telah menjadi salah satu sekolah
                   menengah pertama terkemuka di wilayahnya.
                 </p>
-                <ul className="social-media d-none d-md-none d-lg-flex gap-2">
+                <ul className="social-media d-none d-md-none d-lg-flex gap-2 mb-4">
                   <li>
                     <a
                       className="facebook"
@@ -131,7 +131,7 @@ function FooterSekolah() {
             <div className="row">
               <div className="col-md-12 align-self-center footer-media">
                 <ul
-                  className="social-media d-lg-none d-md-flex gap-2"
+                  className="social-media d-lg-none d-md-flex gap-2 mb-3"
                   style={{ alignItems: "center", justifyContent: "center" }}
                 >
                   <li>

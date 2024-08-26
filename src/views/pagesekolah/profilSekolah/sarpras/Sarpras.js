@@ -38,7 +38,7 @@ function Sarpras() {
 
   const getAllSaprasFoto = async (page = 1) => {
     try {
-      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/sarana/all/category?category=Standar&page=${page - 1}&size=1`);
+      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/foto_sarana/all/by_id_sarana?id_sarana=${id}&page=${page - 1}&size=5`);
       setFoto(response.data.data.content);
       setTotalPage(response.data.data.totalPages)
     } catch (error) {
@@ -53,7 +53,7 @@ function Sarpras() {
   return (
     <section>
       <NavbarSekolah2 />
-      <main className="container-sapras">
+      <main className="container-sapras container">
         <div className='header-sapras'>
           <ul>
             <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>

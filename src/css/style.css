@@ -8978,17 +8978,12 @@ ul {
 .footer-area {
   position: relative;
   padding-top: 80px;
-  padding-bottom: 70px;
 }
 
 .footer-area .footer-menu {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2rem;
-}
-
-.footer-area .footer-menu > div {
-  padding: 1rem;
+  gap: 3rem;
 }
 
 @media only screen and (max-width: 991px) {
