@@ -1,5 +1,4 @@
 import React from "react";
-import { Card, CardContent } from "@mui/material";
 
 const cardStyle = (backgroundColor) => ({
     backgroundColor,
@@ -13,34 +12,16 @@ const cardStyle = (backgroundColor) => ({
     position: "relative",
 });
 
-const iconStyle = {
-    fontSize: "60px",
-    color: "white",
-    marginRight: "20px",
-};
 
-const contentStyle = {
-    textAlign: "left",
-    color: "white",
-};
-
-const titleStyle = {
-    color: "white",
-    fontWeight: "bold",
-    marginBottom: "5px",
-};
-
-const contentTextStyle = {
-    color: "white",
-};
-
-
-const EkstraKulikulerCard = ({ title, backgroundColor }) => {
+const EkstraKulikulerCard = ({ title, id, backgroundColor }) => {
+    const href = `/detail-ekstrakurikuler/${id}`;
     return (
         <div style={cardStyle(backgroundColor)}>
             <div className="card-ekstrakurikuler">
                 <i class="fas fa-star icon-ekstrakurikuler"></i>
-                <h4 style={{color: "white", fontWeight: "600"}}>{title}</h4>
+                <h4>
+                    <a href={href} style={{ color: "white", fontWeight: "600",textDecoration: "none" }}>{title}</a>
+                </h4>
             </div>
         </div>
     );

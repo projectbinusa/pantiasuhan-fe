@@ -148,6 +148,19 @@ function Home() {
   const sliderRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isHovereds, setIsHovereds] = useState(false);
+  const [isHoveredss, setIsHoveredss] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleScroll = () => {
     setScrollY(window.scrollY);
@@ -184,12 +197,27 @@ function Home() {
     transition: "background-color 0.3s, color 0.3s, border 0.3s",
   };
 
+  const buttonStylesss = {
+    display: "inline-block",
+    padding: "10px 20px",
+    fontSize: "16px",
+    color: isHoveredss ? "#000" : "#fff",
+    backgroundColor: isHoveredss ? "#fff" : "#003366",
+    border: isHoveredss ? "2px solid #003366" : "2px solid #fff",
+    borderRadius: "5px",
+    textDecoration: "none",
+    textAlign: "center",
+    cursor: "pointer",
+    marginTop: "40px",
+    transition: "background-color 0.3s, color 0.3s, border 0.3s",
+  };
+
   const buttonStyless = {
     display: "inline-block",
     padding: "10px 20px",
     fontSize: "16px",
     fontWeight: "medium",
-    width: "20%",
+    width: isMobile ? "40%" : "15%",
     color: isHovered ? "#000" : "#fff",
     backgroundColor: isHovered ? "#fff" : "#003366",
     border: isHovered ? "2px solid #003366" : "2px solid #fff",
@@ -833,6 +861,7 @@ function Home() {
                 <div key={idx}>
                   <EkstraKulikulerCard
                     title={ekskul.name}
+                    id={ekskul.id}
                     backgroundColor={lightColors[idx % lightColors.length]}
                   />
                 </div>
@@ -849,6 +878,13 @@ function Home() {
               </div>
             ))} */}
           </div>
+          <Link
+            href="/ekstrakurikuler"
+            style={buttonStylesss}
+            onMouseEnter={() => setIsHoveredss(true)}
+            onMouseLeave={() => setIsHoveredss(false)}>
+            Tampilkan Semua Ekstrakurikuler
+          </Link>
         </section>
       </div>
 
