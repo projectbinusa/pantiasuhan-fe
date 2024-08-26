@@ -158,6 +158,16 @@ function Sidebar() {
                   <i class="fas fa-comment-dots metismenu-icon"></i> Kotak Saran
                 </a>
               </li>
+              <li>
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-materi-ajar"
+                  className={
+                    location.pathname === "/admin-materi-ajar" ? "active" : ""
+                  }>
+                  <i class="fas fa-comment-dots metismenu-icon"></i> Materi Ajar
+                </a>
+              </li>
               <li className="app-sidebar__heading">Profile Sekolah</li>
               <li>
                 <a

@@ -17,12 +17,7 @@ function TenagaKenpendidikan() {
     totalPages: 1,
     totalElements: 0,
   });
-  const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [paginationInfo1, setPaginationInfo1] = useState({
-    totalPages1: 1,
-    totalElements1: 0,
-  });
 
   const getAll = async () => {
     try {
@@ -70,7 +65,6 @@ function TenagaKenpendidikan() {
               showConfirmButton: false,
               timer: 1500,
             });
-
             setTimeout(() => {
               window.location.reload();
             }, 1500);
@@ -260,7 +254,6 @@ function TenagaKenpendidikan() {
                   setCurrentPage(value);
                   setPage(value);
                 }}
-
                 showFirstButton
                 showLastButton
                 color="primary"
