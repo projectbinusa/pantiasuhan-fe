@@ -111,6 +111,7 @@ import SaranaProtokolKesehatan from "./views/pagesekolah/profilSekolah/sarpras/S
 import MateriAjar from "./views/pages/admin/smpn1bergas/materiajar/MateriAjar";
 import EditMateriAjar from "./views/pages/admin/smpn1bergas/materiajar/EditMateriAjar";
 import AddMateriAjar from "./views/pages/admin/smpn1bergas/materiajar/AddMateriAjar";
+import Ekstrakurikuler from "./views/pagesekolah/profilSekolah/ekstrakurikuler/Ekstrakurikuler";
 import MateriAjarView from "./views/pagesekolah/kesiswaan/MateriAjar";
 
 // END ADMIN MENU REGULASI
@@ -132,6 +133,7 @@ function App() {
           <Route path="/materi_ajar" component={MateriAjarView} exact />
           <Route path="/all-prestasi" component={PrestasiSekolah} exact />
           <Route path="/prestasi/:id" component={DetailPrestasi} exact />
+          <Route path="/ekstrakurikuler" component={Ekstrakurikuler} exact />
           {/* SAPRAS */}
           <Route path="/sarana-prasarana" component={Sarpras} exact />
           <Route path="/ruang-kantor" component={RuangKantor} exact />
