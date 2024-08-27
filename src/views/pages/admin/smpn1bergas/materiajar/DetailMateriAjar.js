@@ -10,33 +10,35 @@ import { API_DUMMY } from "../../../../../utils/base_URL";
 import Header from "../../../../../component/Header";
 import Sidebar from "../../../../../component/Sidebar";
 
-function DetailBerita() {
-  const [judulBerita, setJudulBerita] = useState("");
+function DetailMateriAjar() {
+  const [tingkat, setTingkat] = useState("");
+  const [mapel, setMapel] = useState("");
+  const [file, setFile] = useState(null);
+  const [judul, setJudul] = useState("");
+  const [penyusun, setPenyusun] = useState("");
+  const [jenis, setJenis] = useState("");
   const [createdDate, setCreatedDate] = useState("");
-  const [updateDate, setUpdateDate] = useState("");
-  const [author, setAuthor] = useState("");
-  const [isiBerita, setIsiBerita] = useState("");
-  const [categoryBerita, setCategoryBerita] = useState("");
-  const [image, setImage] = useState("");
+  const [updatedDate, setUpdatedDate] = useState("");
   const param = useParams();
 
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/berita/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/materi_ajar/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
-        const list_data = res.data.data;
-        setCreatedDate(list_data.createdDate);
-        setUpdateDate(list_data.updatedDate);
-        setJudulBerita(list_data.judulBerita);
-        setAuthor(list_data.author);
-        setIsiBerita(list_data.isiBerita);
-        setImage(list_data.image);
-        setCategoryBerita(list_data.categoryBerita);
+        const response = res.data.data;
+        setTingkat(response.tingkat);
+        setMapel(response.mapel);
+        setPenyusun(response.penyusun);
+        setJudul(response.judul);
+        setJenis(response.jenis);
+        setPenyusun(response.penyusun);
+        setUpdatedDate(response.updatedDate);
+        setCreatedDate(response.createdDate);
       })
       .catch((error) => {
         alert("Terjadi Kesalahan " + error);
@@ -54,36 +56,51 @@ function DetailBerita() {
               <h1 className="title card-header fw-bold fs-3">Detail</h1>
               <br />
               <div className="card-body">
-                {image === null ? (
-                  <img
-                    className="rounded-circle w-75 mr-auto ml-auto d-block"
-                    src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
-                  />
-                ) : (
-                  <img
-                    style={{ maxWidth: "400px", maxHeight: "400px" }}
-                    className="w-75 d-block mr-auto ml-auto"
-                    src={image}
-                  />
-                )}
-                <br />
-                <br />
                 <div class="mb-3">
-                  <label class="form-label fw-bold">Judul Berita</label>
+                  <label class="form-label fw-bold">Judul</label>
                   <input
                     type="text"
                     class="form-control"
                     disabled
-                    value={judulBerita}
+                    value={judul}
                   />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label fw-bold">Author</label>
+                  <label class="form-label fw-bold">Jenis</label>
+                  <input
+                    disabled
+                    class="form-control"
+                    defaultValue={jenis}
+                    rows="5"
+                    readOnly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Penyusun</label>
+                  <input
+                    disabled
+                    class="form-control"
+                    defaultValue={penyusun}
+                    rows="5"
+                    readOnly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Tingkat</label>
                   <input
                     type="text"
                     class="form-control"
                     disabled
-                    value={author}
+                    value={tingkat}
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Mapel</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled
+                    value={mapel}
                   />
                 </div>
                 <div class="mb-3">
@@ -106,27 +123,10 @@ function DetailBerita() {
                     class="form-control"
                     disabled
                     value={format(
-                      new Date(updateDate || new Date()),
+                      new Date(updatedDate || new Date()),
                       "dd MMMM yyyy",
                       { locale: idLocale }
                     )}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Category Berita</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={categoryBerita}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Isi Berita</label>
-                  <div
-                    className="form-control"
-                    style={{ minHeight: "100px", background:"#e9ecef" }}
-                    dangerouslySetInnerHTML={{ __html: isiBerita }}
                   />
                 </div>
               </div>
@@ -134,7 +134,7 @@ function DetailBerita() {
                 type="submit"
                 className="btn-kembali btn-danger mt-3 mr-3">
                 <a
-                  href="/admin-berita"
+                  href="/admin-materi-ajar"
                   style={{ color: "white", textDecoration: "none" }}>
                   {" "}
                   Kembali
@@ -148,4 +148,4 @@ function DetailBerita() {
   );
 }
 
-export default DetailBerita;
+export default DetailMateriAjar;

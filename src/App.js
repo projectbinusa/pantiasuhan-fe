@@ -110,9 +110,13 @@ import SaranaKesehatan from "./views/pagesekolah/profilSekolah/sarpras/SaranaKes
 import SaranaProtokolKesehatan from "./views/pagesekolah/profilSekolah/sarpras/SaranaProtokolKesehatan";
 import MateriAjar from "./views/pages/admin/smpn1bergas/materiajar/MateriAjar";
 import EditMateriAjar from "./views/pages/admin/smpn1bergas/materiajar/EditMateriAjar";
+import DetailMateriAjar from "./views/pages/admin/smpn1bergas/materiajar/DetailMateriAjar";
 import AddMateriAjar from "./views/pages/admin/smpn1bergas/materiajar/AddMateriAjar";
 import Ekstrakurikuler from "./views/pagesekolah/profilSekolah/ekstrakurikuler/Ekstrakurikuler";
 import MateriAjarView from "./views/pagesekolah/kesiswaan/MateriAjar";
+import AdminOsis from "./views/pages/admin/smpn1bergas/menu/osis/Osis";
+import AddOsis from "./views/pages/admin/smpn1bergas/menu/osis/AddOsis";
+import EditOsis from "./views/pages/admin/smpn1bergas/menu/osis/EditOsis";
 
 // END ADMIN MENU REGULASI
 
@@ -416,12 +420,22 @@ function App() {
             component={AddMateriAjar}
             exact
           />
-          <PrivateRoute
-            path="/edit-materi-ajar"
+           <PrivateRoute
+            path="/edit-materi-ajar/:id"
             component={EditMateriAjar}
             exact
           />
+          <PrivateRoute
+            path="/detail-materi-ajar/:id"
+            component={DetailMateriAjar}
+            exact
+          />
           {/* end materi ajar */}
+          {/* osis*/}
+          <PrivateRoute path="/admin-osis" component={AdminOsis} exact />
+          <PrivateRoute path="/add-osis" component={AddOsis} exact />
+          <PrivateRoute path="/edit-osis/:id" component={EditOsis} exact />
+          {/* end osis */}
           <Route
             path="/kondisi-sekolah-view"
             component={KonsidisiSekolahView}

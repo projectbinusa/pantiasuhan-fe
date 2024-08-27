@@ -8,6 +8,24 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Header from "../../../../../component/Header";
 import Sidebar from "../../../../../component/Sidebar";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import {
+  ClassicEditor,
+  Bold,
+  Essentials,
+  Heading,
+  Indent,
+  IndentBlock,
+  Italic,
+  Link,
+  List,
+  MediaEmbed,
+  Paragraph,
+  Table,
+  Undo,
+} from "ckeditor5";
+
+import "ckeditor5/ckeditor5.css";
 
 function AddBeritaAdmin() {
   const [author, setAuthor] = useState("");
@@ -58,17 +76,16 @@ function AddBeritaAdmin() {
     }
   };
 
-
   useEffect(() => {
     AOS.init();
-  },[]);
+  }, []);
 
   return (
     <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer"  data-aos="fade-left">
+        <div className="app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -78,23 +95,27 @@ function AddBeritaAdmin() {
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
-                        <div className="mb-3 col-lg-6">
-                    {/*  */}
-                    <label className="form-label font-weight-bold">
-                      Katagori Berita
-                    </label>
-                    <select
-                      value={categoryBerita}
-                      className="form-control"
-                      aria-label="Small select example"
-                      onChange={(e) => setCategoryBerita(e.target.value)}>
-                      <option selected>Pilih Category</option>
-                      <option value="Berita Sekolah">Berita Sekolah</option>
-                      <option value="Info Sekolah">Info Sekolah</option>
-                      <option value="Agenda Sekolah">Agenda Sekolah</option>
-                    </select>
-                  </div>
-                        <div className="mb-3 col-lg-6">
+                        <div className="mb-3 col-lg-12">
+                          {/*  */}
+                          <label className="form-label font-weight-bold">
+                            Katagori Berita
+                          </label>
+                          <select
+                            value={categoryBerita}
+                            className="form-control"
+                            aria-label="Small select example"
+                            onChange={(e) => setCategoryBerita(e.target.value)}>
+                            <option selected>Pilih Category</option>
+                            <option value="Berita Sekolah">
+                              Berita Sekolah
+                            </option>
+                            <option value="Info Sekolah">Info Sekolah</option>
+                            <option value="Agenda Sekolah">
+                              Agenda Sekolah
+                            </option>
+                          </select>
+                        </div>
+                        <div className="mb-3 col-lg-12">
                           {/* a */}
                           <label
                             for="exampleInputEmail1"
@@ -137,8 +158,56 @@ function AddBeritaAdmin() {
                             placeholder="Masukkan judul berita"
                           />
                         </div>
-                        <div className="col-lg-12">
+                        <div className="mb-3 col-lg-12">
                           {/* a */}
+                          <label className="form-label font-weight-bold">
+                            Isi Berita
+                          </label>
+                          <CKEditor
+                            data={isiBerita}
+                            onChange={(event, editor) => {
+                              const data = editor.getData();
+                              setIsiBerita(data);
+                            }}
+                            editor={ClassicEditor}
+                            config={{
+                              toolbar: [
+                                "undo",
+                                "redo",
+                                "|",
+                                "heading",
+                                "|",
+                                "bold",
+                                "italic",
+                                "|",
+                                "link",
+                                "insertTable",
+                                "mediaEmbed",
+                                "|",
+                                "bulletedList",
+                                "numberedList",
+                                "indent",
+                                "outdent",
+                              ],
+                              plugins: [
+                                Bold,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                              ],
+                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
+                            }}
+                          />
+                        </div>
+                        {/* <div className="col-lg-12">
                           <label className="form-label font-weight-bold">
                             Isi Berita
                           </label>
@@ -151,7 +220,7 @@ function AddBeritaAdmin() {
                               id="floatingTextarea2"
                               rows="5"></textarea>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a

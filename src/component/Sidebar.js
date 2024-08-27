@@ -165,7 +165,17 @@ function Sidebar() {
                   className={
                     location.pathname === "/admin-materi-ajar" ? "active" : ""
                   }>
-                  <i class="fas fa-comment-dots metismenu-icon"></i> Materi Ajar
+                  <i class="fas fa-file-alt metismenu-icon"></i> Materi Ajar
+                </a>
+              </li>
+              <li>
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-osis"
+                  className={
+                    location.pathname === "/admin-osis" ? "active" : ""
+                  }>
+                  <i class="fa-user-friends metismenu-icon"></i> Osis
                 </a>
               </li>
               <li className="app-sidebar__heading">Profile Sekolah</li>
@@ -306,7 +316,10 @@ function Sidebar() {
               {/* MENU REGULASI */}
               <li class="app-sidebar__heading">Berita</li>
               <li>
-                <a style={{ textDecoration: "none" }} href="/admin-berita" className={
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-berita"
+                  className={
                     location.pathname === "/admin-berita" ? "active" : ""
                   }>
                   <i className="fa-regular fa-rectangle-list  metismenu-icon"></i>{" "}
@@ -314,7 +327,10 @@ function Sidebar() {
                 </a>
               </li>
               <li>
-                <a style={{ textDecoration: "none" }} href="/admin-galery" className={
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-galery"
+                  className={
                     location.pathname === "/admin-galery" ? "active" : ""
                   }>
                   <i class="fa-solid fa-images metismenu-icon"></i> Galery
@@ -334,7 +350,10 @@ function Sidebar() {
                 </li>
               ))} */}
               <li>
-                <a style={{ textDecoration: "none" }} href="/admin-Keuangan" className={
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-Keuangan"
+                  className={
                     location.pathname === "/admin-Keuangan" ? "active" : ""
                   }>
                   <i class="fa-solid fa-circle-dollar-to-slot metismenu-icon "></i>{" "}
@@ -358,7 +377,10 @@ function Sidebar() {
                 </a>
               </li>
               <li>
-                <a style={{ textDecoration: "none" }} href="/admin-prestasi" className={
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-prestasi"
+                  className={
                     location.pathname === "/admin-prestasi" ? "active" : ""
                   }>
                   <i class="fa-solid fa-medal metismenu-icon"></i> Prestasi
