@@ -9,6 +9,24 @@ import {
 import Swal from "sweetalert2";
 import AOS from "aos";
 import axios from "axios";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import {
+  ClassicEditor,
+  Bold,
+  Essentials,
+  Heading,
+  Indent,
+  IndentBlock,
+  Italic,
+  Link,
+  List,
+  MediaEmbed,
+  Paragraph,
+  Table,
+  Undo
+} from 'ckeditor5';
+
+import 'ckeditor5/ckeditor5.css';
 
 function EditBeritaAdmin() {
   const [author, setAuthor] = useState("");
@@ -28,7 +46,7 @@ function EditBeritaAdmin() {
     formData.append("author", author);
     formData.append("judulBerita", judulBerita);
     formData.append("isiBerita", isiBerita);
-    formData.append("categoryBerita", categoryBerita);
+    formData.append("category", categoryBerita);
     formData.append("file", image);
 
     await axios
@@ -71,7 +89,7 @@ function EditBeritaAdmin() {
         setAuthor(response.author);
         setJudulBerita(response.judulBerita);
         setIsiBerita(response.isiBerita);
-        setCategoryBerita(response.categoryBerita);
+        setCategoryBerita(response.category);
       })
       .catch((error) => {
         console.log(error);
@@ -94,7 +112,7 @@ function EditBeritaAdmin() {
               <hr />
               <form onSubmit={updateBerita}>
                 <div className="row">
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     {/*  */}
                     <label className="form-label font-weight-bold">
                       Katagori Berita
@@ -110,7 +128,7 @@ function EditBeritaAdmin() {
                       <option value="Agenda Sekolah">Agenda Sekolah</option>
                     </select>
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     {/*  */}
                     <label
                       for="exampleInputEmail1"
@@ -151,21 +169,55 @@ function EditBeritaAdmin() {
                       placeholder="Masukkan judul berita"
                     />
                   </div>
-                  <div className="col-lg-12">
-                    {/*  */}
-                    <label className="form-label font-weight-bold">
-                      Isi Berita
-                    </label>
-                    <div className="">
-                      <textarea
-                        value={isiBerita}
-                        onChange={(e) => setIsiBerita(e.target.value)}
-                        className="form-control"
-                        placeholder="Masukkan isi berita"
-                        id="floatingTextarea2"
-                        rows="5"></textarea>
-                    </div>
-                  </div>
+                  <div className="mb-3 col-lg-12">
+                          {/* a */}
+                          <label className="form-label font-weight-bold">
+                            Isi Berita
+                          </label>
+                          <CKEditor
+                            data={isiBerita}
+                            onChange={(event, editor) => {
+                              const data = editor.getData();
+                              setIsiBerita(data);
+                            }}
+                            editor={ClassicEditor}
+                            config={{
+                              toolbar: [
+                                "undo",
+                                "redo",
+                                "|",
+                                "heading",
+                                "|",
+                                "bold",
+                                "italic",
+                                "|",
+                                "link",
+                                "insertTable",
+                                "mediaEmbed",
+                                "|",
+                                "bulletedList",
+                                "numberedList",
+                                "indent",
+                                "outdent",
+                              ],
+                              plugins: [
+                                Bold,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                              ],
+                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
+                            }}
+                          />
+                        </div>
                 </div>
                 <button type="button" className="btn-danger mt-3">
                   <a

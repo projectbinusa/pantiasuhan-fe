@@ -6,17 +6,16 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
-import { API_DUMMY } from "../../../../../utils/base_URL";
-import Header from "../../../../../component/Header";
-import Sidebar from "../../../../../component/Sidebar";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
+import Header from "../../../../../../component/Header";
+import Sidebar from "../../../../../../component/Sidebar";
 
-function DetailBerita() {
-  const [judulBerita, setJudulBerita] = useState("");
+function DetailSAmbutan() {
+  const [judulSambutan, setJudulSambutan] = useState("");
   const [createdDate, setCreatedDate] = useState("");
   const [updateDate, setUpdateDate] = useState("");
-  const [author, setAuthor] = useState("");
-  const [isiBerita, setIsiBerita] = useState("");
-  const [categoryBerita, setCategoryBerita] = useState("");
+  const [isiSambutan, setIsiSambutan] = useState("");
+  const [nip, setNip] = useState("");
   const [image, setImage] = useState("");
   const param = useParams();
 
@@ -32,11 +31,10 @@ function DetailBerita() {
         const list_data = res.data.data;
         setCreatedDate(list_data.createdDate);
         setUpdateDate(list_data.updatedDate);
-        setJudulBerita(list_data.judulBerita);
-        setAuthor(list_data.author);
-        setIsiBerita(list_data.isiBerita);
-        setImage(list_data.image);
-        setCategoryBerita(list_data.categoryBerita);
+        setJudulSambutan(list_data.judul);
+        setIsiSambutan(list_data.isi);
+        setImage(list_data.foto);
+        setNip(list_data.nip);
       })
       .catch((error) => {
         alert("Terjadi Kesalahan " + error);
@@ -74,7 +72,7 @@ function DetailBerita() {
                     type="text"
                     class="form-control"
                     disabled
-                    value={judulBerita}
+                    value={judulSambutan}
                   />
                 </div>
                 <div class="mb-3">
@@ -118,7 +116,7 @@ function DetailBerita() {
                     type="text"
                     class="form-control"
                     disabled
-                    value={categoryBerita}
+                    value={nip}
                   />
                 </div>
                 <div class="mb-3">
@@ -126,7 +124,7 @@ function DetailBerita() {
                   <div
                     className="form-control"
                     style={{ minHeight: "100px", background:"#e9ecef" }}
-                    dangerouslySetInnerHTML={{ __html: isiBerita }}
+                    dangerouslySetInnerHTML={{ __html: isiSambutan }}
                   />
                 </div>
               </div>
@@ -148,4 +146,4 @@ function DetailBerita() {
   );
 }
 
-export default DetailBerita;
+export default DetailSAmbutan;

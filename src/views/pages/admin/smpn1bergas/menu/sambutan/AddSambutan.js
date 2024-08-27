@@ -8,6 +8,24 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import {
+  ClassicEditor,
+  Bold,
+  Essentials,
+  Heading,
+  Indent,
+  IndentBlock,
+  Italic,
+  Link,
+  List,
+  MediaEmbed,
+  Paragraph,
+  Table,
+  Undo
+} from 'ckeditor5';
+
+import 'ckeditor5/ckeditor5.css';
 
 function AddSambutan() {
   const [judulSambutan, setJudulSambutan] = useState("");
@@ -114,13 +132,49 @@ function AddSambutan() {
                           <label className="form-label font-weight-bold">
                             Isi Sambutan
                           </label>
-                          <textarea
-                            value={isiSambutan}
-                            onChange={(e) => setIsiSambutan(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            required
-                            placeholder="Masukkan Isi Sambutan"></textarea>
+                          <CKEditor
+                            data={isiSambutan}
+                            onChange={(event, editor) => {
+                              const data = editor.getData();
+                              setIsiSambutan(data);
+                            }}
+                            editor={ClassicEditor}
+                            config={{
+                              toolbar: [
+                                "undo",
+                                "redo",
+                                "|",
+                                "heading",
+                                "|",
+                                "bold",
+                                "italic",
+                                "|",
+                                "link",
+                                "insertTable",
+                                "mediaEmbed",
+                                "|",
+                                "bulletedList",
+                                "numberedList",
+                                "indent",
+                                "outdent",
+                              ],
+                              plugins: [
+                                Bold,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                              ],
+                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
+                            }}
+                          />
                         </div>
                         <div className="mb-3 col-lg-12">
                           {/* a */}

@@ -219,8 +219,18 @@ function AdminSambutan() {
                           {berita.nama}
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}
-                        <td data-label="Isi Sambutan" className="">
-                          {berita.isi}
+                        <td
+                          style={{
+                            maxWidth: "2150px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          data-label="Isi Sejarah"
+                          className="text-long">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: berita.isi }}
+                          />
                         </td>
                         <td data-label="NIP" className="">
                           {berita.nip}
@@ -250,6 +260,15 @@ function AdminSambutan() {
                                 href={`/edit-sambutan/${berita.id}`}>
                                 {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm">
+                              <a
+                                className="text-light"
+                                href={"/detail-sambutan/" + berita.id}>
+                                <i class="fas fa-info-circle"></i>
                               </a>
                             </button>
                             <button

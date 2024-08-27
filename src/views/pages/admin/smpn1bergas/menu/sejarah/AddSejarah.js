@@ -8,6 +8,24 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import {
+  ClassicEditor,
+  Bold,
+  Essentials,
+  Heading,
+  Indent,
+  IndentBlock,
+  Italic,
+  Link,
+  List,
+  MediaEmbed,
+  Paragraph,
+  Table,
+  Undo,
+} from "ckeditor5";
+
+import "ckeditor5/ckeditor5.css";
 
 function AddSejarah() {
   const [judulSejarah, setJudulSejarah] = useState("");
@@ -26,16 +44,11 @@ function AddSejarah() {
         isi: isiSejarah,
         judul: judulSejarah,
       };
-      await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/sejarah/add`,
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      await axios.post(`${API_DUMMY}/smpn1bergas/api/sejarah/add`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       setShow(false);
       Swal.fire({
         icon: "success",
@@ -111,13 +124,49 @@ function AddSejarah() {
                           <label className="form-label font-weight-bold">
                             Isi Sejarah
                           </label>
-                          <textarea
-                            value={isiSejarah}
-                            onChange={(e) => setIsiSejarah(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            required
-                            placeholder="Masukkan Isi Sejarah"></textarea>
+                          <CKEditor
+                            data={isiSejarah}
+                            onChange={(event, editor) => {
+                              const data = editor.getData();
+                              setIsiSejarah(data);
+                            }}
+                            editor={ClassicEditor}
+                            config={{
+                              toolbar: [
+                                "undo",
+                                "redo",
+                                "|",
+                                "heading",
+                                "|",
+                                "bold",
+                                "italic",
+                                "|",
+                                "link",
+                                "insertTable",
+                                "mediaEmbed",
+                                "|",
+                                "bulletedList",
+                                "numberedList",
+                                "indent",
+                                "outdent",
+                              ],
+                              plugins: [
+                                Bold,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                              ],
+                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
+                            }}
+                          />
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">

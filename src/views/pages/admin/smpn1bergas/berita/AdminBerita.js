@@ -41,7 +41,7 @@ function AdminBerita() {
         }
       );
       setList(response.data.data.content);
-      console.log(response.data.data.content);
+      console.log("list berita : ", response.data.data.content);
       setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
@@ -314,7 +314,7 @@ function AdminBerita() {
                           />
                         </td>{" "}
                         <td data-label="Katagori Berita" className="">
-                          {berita.catagoryBerita}
+                          {berita.categoryBerita}
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">

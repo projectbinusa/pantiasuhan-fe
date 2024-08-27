@@ -201,10 +201,10 @@ function Sejarah() {
                     <th
                       scope="col"
                       className="text-left"
-                      style={{ minWidth: "150px" }}>
+                      style={{ maxWidth: "120px" }}>
                       Isi Sejarah
                     </th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -218,8 +218,18 @@ function Sejarah() {
                           {berita.judul}
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}
-                        <td data-label="Isi Sejarah" className="">
-                          {berita.isi}
+                        <td
+                          style={{
+                            maxWidth: "250px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          data-label="Isi Sejarah"
+                          className="text-long">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: berita.isi }}
+                          />
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
@@ -234,6 +244,15 @@ function Sejarah() {
                                 href={`/edit-sejarah/${berita.id}`}>
                                 {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm">
+                              <a
+                                className="text-light"
+                                href={"/detail-sejarah/" + berita.id}>
+                                <i class="fas fa-info-circle"></i>
                               </a>
                             </button>
                             <button
