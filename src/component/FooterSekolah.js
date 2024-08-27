@@ -44,9 +44,9 @@ function FooterSekolah() {
         <div className="footer-menu container">
           <div style={{ width: "100%" }}>
             <div className="widget widget_about">
-              <h4 className="widget-title" style={{textTransform: "uppercase"}}>SMP Negeri 1 Bergas</h4>
+              <h4 className="widget-title" style={{ textTransform: "uppercase" }}>SMP Negeri 1 Bergas</h4>
               <div className="details">
-                <p style={{fontSize: "14px"}}>
+                <p style={{ fontSize: "14px", textAlign: "left" }}>
                   SMP Negeri 1 Bergas didirikan pada tahun 1985 di Kabupaten
                   Semarang, Jawa Tengah. Sejak awal berdirinya, sekolah ini
                   memiliki tujuan mulia untuk menyediakan pendidikan
@@ -92,14 +92,14 @@ function FooterSekolah() {
           </div>
           <div style={{ width: "100%" }}>
             <div className="widget widget_subscribe">
-              <h4 className="widget-title" style={{textTransform: "uppercase"}}>Alamat</h4>
-              <div className="details" style={{fontSize: "14px"}}>
-                <p style={{ color: "white" }}>
+              <h4 className="widget-title" style={{ textTransform: "uppercase" }}>Alamat</h4>
+              <div className="details" style={{ fontSize: "14px" }}>
+                <p style={{ color: "white", textAlign: "left" }}>
                   Jl. Krakatau, Gembongan, Karangjati, Kec. Bergas, Kabupaten
                   Semarang, Jawa Tengah 50552
                 </p>
-                <p style={{ color: "white" }}>Telpon (+62) </p>
-                <p style={{ color: "white" }}>
+                <p style={{ color: "white", textAlign: "left" }}>Telpon (+62) </p>
+                <p style={{ color: "white", textAlign: "left" }}>
                   E-mail smpn1_bergas@yahoo.co.id
                 </p>
               </div>
@@ -107,7 +107,7 @@ function FooterSekolah() {
           </div>
           <div style={{ width: "100%" }}>
             <div className="widget widget_news">
-              <h4 className="widget-title" style={{textTransform:"uppercase"}}>Berita Terbaru</h4>
+              <h4 className="widget-title" style={{ textTransform: "uppercase" }}>Berita Terbaru</h4>
               <div className="details card-container">
                 {berita.length > 0 ? (
                   berita.map(news => (
@@ -115,7 +115,7 @@ function FooterSekolah() {
                       <div className="card-body">
                         <a href={`/detail-news-${news.id}`} className="card-title">{news.judulBerita}</a>
                         <p className="card-date">{formatDate(news.createdDate)}</p>
-                        <p className="card-content" style={{fontSize: "14px"}}>{news.isiBerita}</p>
+                        <p className="card-content" style={{ fontSize: "14px" }}>{news.isiBerita}</p>
                       </div>
                     </div>
                   ))

@@ -22,13 +22,13 @@
   width: 100px;
 }
 
-.details.card-container {
+.widget_news .details.card-container {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
-.details.card-container .card {
+.widget_news .details.card-container .card {
   display: flex;
   flex-direction: column;
   background: none;
@@ -38,12 +38,12 @@
   padding: 0;
 }
 
-.details.card-container .card-body {
+.widget_news .details.card-container .card-body {
   padding: 0;
   text-align: left;
 }
 
-.details.card-container .card-title {
+.widget_news .details.card-container .card-title {
   display: -webkit-box;
   -webkit-line-clamp: 1; /* Limit to one line */
   -webkit-box-orient: vertical;
@@ -54,19 +54,21 @@
   margin: 0 0 8px;
   color: #ff0;
   text-decoration: none;
+  text-align: left;
 }
 
-.details.card-container .card-title:hover {
+.widget_news .details.card-container .card-title:hover {
   text-decoration: none;
 }
 
-.details.card-container .card-date {
+.widget_news .details.card-container .card-date {
   font-size: 0.75rem;
   color: #fff;
   margin: 0 0 8px;
+  text-align: left;
 }
 
-.details.card-container .card-content {
+.widget_news .details.card-container .card-content {
   display: -webkit-box;
   -webkit-line-clamp: 3; /* Adjust as needed for more lines */
   -webkit-box-orient: vertical;
@@ -75,6 +77,7 @@
   white-space: normal;
   font-size: 0.875rem;
   color: #fff;
+  text-align: left;
 }
 
 @media (min-width: 992px) {

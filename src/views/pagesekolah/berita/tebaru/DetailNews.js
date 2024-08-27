@@ -50,7 +50,7 @@ function DetailNews() {
     return (
         <section>
             <NavbarSekolah2 />
-            <main className="container-detail-berita">
+            <main className="container-detail-berita container">
                 <HeaderDetailBerita title={"Berita Terbaru"} header={judul} />
                 <img src="https://via.placeholder.com/300x200?text=Award" />
                 <h4 style={{ fontWeight: "700", color: "#002147", marginTop: "2rem", marginBottom: "1rem" }}>{judul}</h4>
