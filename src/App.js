@@ -380,7 +380,7 @@ function App() {
             path="/edit-category-keuangan/:id"
             component={EditCategoryKeuangan}
             exact
-          /> */} 
+          /> */}
           {/* end category keuangan */}
           {/* ekskul */}
           <PrivateRoute
