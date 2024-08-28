@@ -21,11 +21,7 @@ function MateriAjarView() {
         try {
             const response = await axios.get(
                 `${API_DUMMY}/smpn1bergas/api/materi_ajar/all/terbaru?page=${page - 1
-                }&size=${rowsPerPage}`, {
-                headers: {
-                    Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlzQWRtaW4iOnRydWUsImV4cCI6MTcyNDY2MjQyMywiaWF0IjoxNzI0NjQ0NDIzfQ.JAMwgx923qeIyTA_jwfTnpG8ZrbSMQxI_y4bNMY8Er-UvKfnK6koeGVTklJ7LZfUZ9qtTS1nqonFJUlVp97H3g`,
-                },
-            }
+                }&size=${rowsPerPage}`
             );
             setMateri(response.data.data.content);
             console.log(response.data.data.content);

@@ -117,6 +117,9 @@ import MateriAjarView from "./views/pagesekolah/kesiswaan/MateriAjar";
 import AdminOsis from "./views/pages/admin/smpn1bergas/menu/osis/Osis";
 import AddOsis from "./views/pages/admin/smpn1bergas/menu/osis/AddOsis";
 import EditOsis from "./views/pages/admin/smpn1bergas/menu/osis/EditOsis";
+import Pengembangan from "./views/pagesekolah/program/Pengembangan";
+import PerawatanRutin from "./views/pagesekolah/program/PerawatanRutin";
+import SewaLayanan from "./views/pagesekolah/program/SewaLayanan";
 
 // END ADMIN MENU REGULASI
 
@@ -138,6 +141,9 @@ function App() {
           <Route path="/all-prestasi" component={PrestasiSekolah} exact />
           <Route path="/prestasi/:id" component={DetailPrestasi} exact />
           <Route path="/ekstrakurikuler" component={Ekstrakurikuler} exact />
+          <Route path="/program" component={Pengembangan} exact />
+          <Route path="/perawatan-rutin" component={PerawatanRutin} exact />
+          <Route path="/sewa-layanan" component={SewaLayanan} exact />
           {/* SAPRAS */}
           <Route path="/sarana-prasarana" component={Sarpras} exact />
           <Route path="/ruang-kantor" component={RuangKantor} exact />

@@ -48,7 +48,7 @@ function DetailAPBD() {
     return (
         <section>
             <NavbarSekolah2 />
-            <main className="container-detail-keuangan">
+            <main className="container-detail-keuangan container">
                 <HeaderDetailKeuangan title={"APBD"} header={"TEST"} link="/keuangan-apbd" />
                 <img src={fotoJudul} />
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "2rem" }}>

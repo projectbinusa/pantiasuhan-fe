@@ -6,7 +6,7 @@ import axios from "axios";
 import { API_DUMMY } from "../../../utils/base_URL";
 import { Pagination } from "@mui/material";
 
-function Pengembangan() {
+function PerawatanRutin() {
     const [page, setPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -20,7 +20,7 @@ function Pengembangan() {
 
     const getAll = async () => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/program/get/judul?judul_program=Pengembangan&page=${page - 1}&size=${rowsPerPage}`);
+            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/program/get/judul?judul_program=Perawatan%20Rutin&page=${page - 1}&size=${rowsPerPage}`);
             setDatas(response.data.data.content);
             setPaginationInfo({
                 totalPages: response.data.data.totalPages,
@@ -62,7 +62,7 @@ function Pengembangan() {
                     <ul>
                         <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>
                         <li><a href="/"><i class="fas fa-angle-right"></i> Program </a></li>
-                        <li><i class="fas fa-angle-right"></i> Pengembangan </li>
+                        <li><i class="fas fa-angle-right"></i> Perawatan Rutin </li>
                     </ul>
                 </div>
                 <div className='container-sapras2'>
@@ -97,8 +97,8 @@ function Pengembangan() {
                     </div>
                     <div className='container-all'>
                         <div style={{ textAlign: "center" }}>
-                            <h4 style={{ textTransform: "uppercase" }}>Pengembangan</h4>
-                            <p>Program unggulan pengembangan sekolah antara lain sbb : </p>
+                            <h4 style={{ textTransform: "uppercase" }}>Perawatan Rutin</h4>
+                            <p>Data pemeliharaan / perawatan rutin sarana dan prasarana sekolah pendukung pembelajara : </p>
                         </div>
                         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
                             <input
@@ -128,7 +128,7 @@ function Pengembangan() {
                                             No
                                         </th>
                                         <th style={{ background: "#003366", color: "white" }}>
-                                            Program Pengembangan
+                                            Nama Perawatan
                                         </th>
                                         <th style={{ background: "#003366", color: "white" }}>
                                             Tujuan                                    </th>
@@ -179,4 +179,4 @@ function Pengembangan() {
     )
 }
 
-export default Pengembangan;
+export default PerawatanRutin;

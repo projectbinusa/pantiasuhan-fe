@@ -79,8 +79,8 @@ body {
 }
 
 .container-detail-berita {
-    padding: 20px 200px;
-    margin-top: 70px;
+    padding: 20px 0;
+    margin-top: 100px;
     margin-bottom: 2rem;
 }
 
@@ -100,6 +100,10 @@ body {
 
 .container-detail-berita a:hover {
     color: #0060ff;
+}
+
+.container-detail-berita p {
+    text-align: left;
 }
 
 @media screen and (max-width: 992px) {

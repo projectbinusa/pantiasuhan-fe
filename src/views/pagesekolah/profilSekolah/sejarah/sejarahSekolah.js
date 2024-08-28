@@ -59,7 +59,7 @@ function SejarahSekolah() {
         <div style={{ maxWidth: '1000px', margin: '0 auto 0', padding: '20px' }}>
           <hr style={{ borderColor: '#ccc' }} />
           <h1 style={{ fontWeight: "bold", marginBottom: '30px', fontSize: '2em' }}>{sejarah.judul}</h1>
-          <p style={{ fontSize: '1.2em', marginBottom: '20px' }}>
+          <p style={{ fontSize: '1.2em', marginBottom: '20px', textAlign: "left" }}>
             {sejarah.isi}
           </p>
         </div>
