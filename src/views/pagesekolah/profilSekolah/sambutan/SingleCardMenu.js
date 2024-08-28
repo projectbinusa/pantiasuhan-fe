@@ -127,10 +127,10 @@ const SingleCardMenu = () => {
             {sambutan.length > 0 ? (
               sambutan.map((sambutann) => (
                 <>
-                <Typography variant="h6" component="div" style={{ fontWeight: "bold", fontFamily: "'Poppins', sans-serif" }}>
-                  {sambutann.judul}
-                </Typography>
-                  <Typography variant="body2" color="textSecondary" style={{ fontFamily: "'Poppins', sans-serif" }} className="content-sambutan">
+                  <Typography variant="h6" component="div" style={{ fontWeight: "bold", fontFamily: "'Poppins', sans-serif" }}>
+                    {sambutann.judul}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" style={{ fontFamily: "'Poppins', sans-serif", textAlign: "left" }} className="content-sambutan">
                     {sambutann.isi}
                   </Typography>
                   <Link href="/sambutan" style={{ fontSize: "14px" }}>Baca selengkapnya</Link>

@@ -48,7 +48,7 @@ function DetailKomite() {
     return (
         <section>
             <NavbarSekolah2 />
-            <main className="container-detail-keuangan">
+            <main className="container-detail-keuangan container">
                 <HeaderDetailKeuangan title={"Komite"} header={judul} link="/keuangan-komite" />
                 <img src={fotoJudul} />
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "2rem" }}>

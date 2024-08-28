@@ -491,69 +491,6 @@ function Home() {
     },
   ];
 
-  const teacherItems = [
-    {
-      image:
-        "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-      name: "Dr. Asep Hidayat",
-      position: "Kepala Sekolah",
-    },
-    {
-      image:
-        "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-      name: "Ibu Rina Sari",
-      position: "Wakil Kepala Sekolah",
-    },
-    {
-      image:
-        "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-      name: "Bapak Joko Widodo",
-      position: "Guru Matematika",
-    },
-    {
-      image:
-        "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-      name: "Ibu Siti Fatimah",
-      position: "Guru Bahasa Indonesia",
-    },
-    // {
-    //   image:
-    //     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-    //   name: "Bapak Ahmad Fauzi",
-    //   position: "Guru IPA",
-    // },
-    // {
-    //   image:
-    //     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-    //   name: "Ibu Nani Suryani",
-    //   position: "Guru Sejarah",
-    // },
-    // {
-    //   image:
-    //     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-    //   name: "Bapak Rizki Pratama",
-    //   position: "Guru PPKn",
-    // },
-    // {
-    //   image:
-    //     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-    //   name: "Ibu Yulia Arini",
-    //   position: "Guru Seni Budaya",
-    // },
-    // {
-    //   image:
-    //     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-    //   name: "Bapak Dedi Kurniawan",
-    //   position: "Guru Olahraga",
-    // },
-    // {
-    //   image:
-    //     "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/corporate-user-icon.png",
-    //   name: "Ibu Mira Sari",
-    //   position: "Guru Bahasa Inggris",
-    // },
-  ];
-
   useEffect(() => {
     AOS.init();
   }, []);
@@ -709,27 +646,9 @@ function Home() {
       return;
     }
 
-    const data = {
-      email: email1,
-      pesan: pesan,
-      nama: namaPengirim,
-      telp: telp,
-    };
-    // const formData = new FormData();
-    // formData.append("email", email1);
-    // formData.append("nama", namaPengirim);
-    // formData.append("pesan", pesan);
-    // formData.append("telp", telp);
-
     try {
-      await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/kotak_saran/add?email=${email1}&nama=${namaPengirim}&pesan=${pesan}&telp=${telp}`
-        // {
-        //   headers: {
-        //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-        //   },
-        // }
-      );
+      await axios.post
+        `${API_DUMMY}/smpn1bergas/api/kotak_saran/add?email=${email1}&nama=${namaPengirim}&pesan=${pesan}&telp=${telp}`;
       Swal.fire({
         icon: "success",
         title: "Kotak Masuk Berhasil Terkirim",
@@ -748,6 +667,15 @@ function Home() {
       }
     }
   };
+
+  useEffect(() => {
+    const scrollToId = sessionStorage.getItem('scrollToId');
+    if (scrollToId) {
+      const element = document.getElementById(scrollToId);
+      element.scrollIntoView({ behavior: "smooth" });
+      sessionStorage.removeItem('scrollToId');
+    }
+  }, []);
 
   return (
     <div>
@@ -803,7 +731,7 @@ function Home() {
             <div className="berita-card">
               {berita.length > 0 ? (
                 berita.map((news, idx) => (
-                  <div className="berita-card" key={idx}>
+                  <div key={idx}>
                     <NewsCard
                       image={news.image}
                       id={news.id}
@@ -889,8 +817,8 @@ function Home() {
       </div>
 
       {/* PRESTASI */}
-      <div className="content-style">
-        <section id="prestasi-terbaru" className="section-style">
+      <div className="content-style" id="prestasi-terbaru">
+        <section className="section-style">
           <Typography
             style={{
               fontWeight: "bold",
@@ -952,7 +880,7 @@ function Home() {
           height: "100px",
           backgroundColor: "#003366",
         }}>
-        <h3 style={{ color: "white", textAlign:"center" }} className="container">
+        <h3 style={{ color: "white", textAlign: "center" }} className="container">
           Pendidikan: Kunci Menuju Dunia Kemungkinan
         </h3>
       </div>
@@ -1001,7 +929,7 @@ function Home() {
                   </div>
                 ))
               ) : (
-                <></>
+                <>Data minimal 4</>
               )}
               {/* {teacherItems.map((teacher, index) => (
                 <div key={index} style={teacherCardStyle}>

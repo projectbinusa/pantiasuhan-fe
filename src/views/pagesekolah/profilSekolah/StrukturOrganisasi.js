@@ -48,11 +48,11 @@ function StrukturOrganisasi() {
                                 {item.foto !== null ? (<>
                                     <img src={item.foto} />
                                 </>) : (<></>)}
-                                <p>{item.nama}</p>
+                                <p style={{ textAlign: "left" }}>{item.nama}</p>
                             </div>
                             <div>
                                 <h4>DESKRIPSI TUGAS</h4>
-                                <p>{item.tugas}</p>
+                                <p style={{ textAlign: "left" }}>{item.tugas}</p>
                             </div>
                         </div>
                     ))
