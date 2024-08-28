@@ -33,8 +33,7 @@ function AddStructur() {
     formData.append("jabatan", jabatan);
     formData.append("jenis", jenis);
 
-    await axios
-      .add(`${API_DUMMY}/smpn1bergas/api/struktur/add`, formData, {
+    await axios.post(`${API_DUMMY}/smpn1bergas/api/struktur/add`, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -46,7 +45,7 @@ function AddStructur() {
           showConfirmButton: false,
           timer: 1500,
         });
-        history.push("/admin-stuktur");
+        history.push("/admin-struktur");
         setTimeout(() => {
           window.location.reload();
         }, 1500);
@@ -157,7 +156,7 @@ function AddStructur() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-stuktur">
+                          href="/admin-struktur">
                           Batal
                         </a>
                       </button>{" "}
