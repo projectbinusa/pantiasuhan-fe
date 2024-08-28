@@ -93,7 +93,7 @@ import AddKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/ko
 import EditKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/EditKondisiSekolah";
 import GalerySekolah from "./views/pagesekolah/berita/gambar/GalerySekolah";
 import Perpustakaan from "./views/pagesekolah/perpus/Perpustakaan";
-import KonsidisiSekolahView from "./views/pagesekolah/kondisisekolah/KondisiSekolahView";
+import KonsidisiSekolahView from "./views/pagesekolah/profilSekolah/kondisisekolah/KondisiSekolahView";
 import AddPerpus from "./views/pages/admin/smpn1bergas/menu/perpus/AddPerpus";
 import EditPerpus from "./views/pages/admin/smpn1bergas/menu/perpus/EditPerpus";
 import AdminPerpus from "./views/pages/admin/smpn1bergas/menu/perpus/Perpustakaan";
@@ -123,7 +123,8 @@ import SewaLayanan from "./views/pagesekolah/program/SewaLayanan";
 import DetailSAmbutan from "./views/pages/admin/smpn1bergas/menu/sambutan/DetailSambutan";
 import DetailVisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/DetailVisiMisi";
 import DetailKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/DetailKondisiSekolah";
-import KegiatanSekolah from "./views/pagesekolah/profilSekolah/sarpras/kegiatan/KegiatanSekolah";
+import KegiatanSekolah from "./views/pagesekolah/kegiatan/KegiatanSekolah";
+import DetailKegiatan from "./views/pagesekolah/kegiatan/DetailKegiatan";
 
 // END ADMIN MENU REGULASI
 
@@ -148,6 +149,8 @@ function App() {
           <Route path="/program" component={Pengembangan} exact />
           <Route path="/perawatan-rutin" component={PerawatanRutin} exact />
           <Route path="/sewa-layanan" component={SewaLayanan} exact />
+          <Route path="/kegiatan" component={KegiatanSekolah} exact />  
+          <Route path="/detail-kegiatan/:id" component={DetailKegiatan} exact />  
           {/* SAPRAS */}
           <Route path="/sarana-prasarana" component={Sarpras} exact />
           <Route path="/ruang-kantor" component={RuangKantor} exact />
@@ -156,7 +159,6 @@ function App() {
           <Route path="/sarana-olahraga" component={SaranaOlahraga} exact />
           <Route path="/sarana-ibadah" component={SaranaIbadah} exact />
           <Route path="/sarana-kesehatan" component={SaranaKesehatan} exact />
-          <Route path="/kegiatan" component={KegiatanSekolah} exact />
           <Route
             path="/sarana-protokol-kesehatan"
             component={SaranaProtokolKesehatan}

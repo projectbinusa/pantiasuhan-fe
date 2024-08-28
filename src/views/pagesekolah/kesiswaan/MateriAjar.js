@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavbarSekolah from "../../../component/NavbarSekolah";
+import NavbarSekolah2 from '../../../component/NavbarSekolah2';
 import FooterSekolah from "../../../component/FooterSekolah";
 import { Pagination, Typography } from "@mui/material";
 import axios from "axios";
@@ -113,32 +114,24 @@ function MateriAjarView() {
 
     return (
         <main>
-            <NavbarSekolah />
-            <div
-                style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-                <img
-                    src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
-                    style={imageStyle}
-                    alt=""
-                />
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    }}
-                />
-                <div style={textOverlayStyle}>
-                    <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
+            <NavbarSekolah2 />
+            <main className="container-berita">
+                <div className="header-berita">
+                    <ul>
+                        <li>
+                        <a href="/">
+                            <i class="fas fa-home"></i> Beranda
+                        </a>
+                        </li>
+                        <li>
+                        <i class="fas fa-angle-right"></i>{" "}
+                        <span style={{ fontWeight: "normal" }}>Materi Ajar</span>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-            <div className="container">
-                <div className="mt-5">
+                <div className="container">
                     <Typography gutterBottom variant="h5" component="div" style={{ fontFamily: "'Poppins', sans-serif", textTransform: "uppercase" }}>
-                        materi AJAR
+                        Materi Ajar
                     </Typography>
                     <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
                         <input
@@ -171,15 +164,20 @@ function MateriAjarView() {
                                         Mapel
                                     </th>
                                     <th style={{ background: "#003366", color: "white" }}>
-                                        Judul                                    </th>
+                                        Judul                                    
+                                    </th>
                                     <th style={{ background: "#003366", color: "white" }}>
-                                        Tgl Upload                                    </th>
+                                        Tgl Upload                                    
+                                    </th>
                                     <th style={{ background: "#003366", color: "white" }}>
-                                        Jenis                                    </th>
+                                        Jenis                                    
+                                    </th>
                                     <th style={{ background: "#003366", color: "white" }}>
-                                        Penyusun                                   </th>
+                                        Penyusun                                   
+                                    </th>
                                     <th style={{ background: "#003366", color: "white" }}>
-                                        Download                                  </th>
+                                        Download                                  
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -231,9 +229,10 @@ function MateriAjarView() {
                         />
                     </div>
                 </div>
-            </div>
+            </main>
             <FooterSekolah />
-        </main>)
+        </main>
+    )
 }
 
 export default MateriAjarView;

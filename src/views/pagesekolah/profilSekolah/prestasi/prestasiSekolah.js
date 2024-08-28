@@ -2,16 +2,15 @@ import React, { useEffect, useState } from "react";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import axios from "axios";
 import { API_DUMMY } from "../../../../utils/base_URL";
-import "../../../../css/prestasi/prestasiCard.css";
-import "../../../../css/prestasi/detailprestasi.css";
-import NavbarSekolah from "../../../../component/NavbarSekolah";
+import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
 import { Pagination } from "@mui/material";
+import '../../../../css/prestasi/prestasiCard.css';
 
 function PrestasiSekolah() {
   const [prestasi, setPrestasi] = useState([]);
   const [totalPages, setTotalPage] = useState(1);
-
   const [currentPage, setCurrentPage] = useState(1);
+
   const handlePageChange = (event, pageNumber) => {
     setCurrentPage(pageNumber);
     getAllPrestasi(pageNumber);
@@ -20,10 +19,10 @@ function PrestasiSekolah() {
   const getAllPrestasi = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/prestasi/all/terbaru?page=${page - 1}&size=16`
+        `${API_DUMMY}/smpn1bergas/api/prestasi/all?page=${page - 1}&size=16`
       );
       setPrestasi(response.data.data.content);
-      setTotalPage(response.data.data.totalPages)
+      setTotalPage(response.data.data.totalPages);
     } catch (error) {
       console.log("get all", error);
     }
@@ -35,42 +34,29 @@ function PrestasiSekolah() {
 
   return (
     <div>
-      <NavbarSekolah />
-      <div style={{ position: "relative", height: "100vh", overflow: "hidden", marginBottom: "3rem" }}>
-        <img src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no" className="image-style" alt="banner" />
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          }}
-        />
-        <div className="text-overlay-style">
-          <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
-          <div className="header-prestasi">
-            <ul>
-              <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>
-              <li><i class="fas fa-angle-right"></i> Prestasi</li>
-            </ul>
-          </div>
+      <NavbarSekolah2 />
+      <main className="container-berita">
+        <div className="header-berita">
+          <ul>
+            <li><a href="/"><i className="fas fa-home"></i> Beranda</a></li>
+            <li><i className="fas fa-angle-right"></i><span style={{fontWeight: "normal"}}> Prestasi</span></li>
+          </ul>
         </div>
-      </div>
-      <div className="container">
-        <div className="row">
-          {prestasi.map((item) => (
-            <div className="col" key={item.id}>
-              <div className="card">
+        <div className="container">
+          <div className="container-grid">
+            {prestasi.map((item) => (
+              <div className="card" key={item.id}>
                 <div className="image-container">
-                  <img src={item.foto} className="image" alt={item.foto} />
+                  <img
+                    src={item.foto}
+                    alt={item.foto}
+                  />
                 </div>
                 <div className="card-body">
-                  <a href={`/prestasi/${item.id}`} className="card-link" style={{ textAlign: "center" }}>
+                  <a href={`/prestasi/${item.id}`} className="read-more-link">
                     <h5 className="card-title">{item.judul}</h5>
                   </a>
-                  <div style={{ textAlign: "center" }}>
+                  <div>
                     <a href={`/prestasi/${item.id}`} className="read-more-link">
                       Baca selengkapnya
                       <svg
@@ -92,22 +78,21 @@ function PrestasiSekolah() {
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-          <div className="d-flex justify-content-center align-items-center mt-3">
+            ))}
+          </div>
+          <div className="pagination-container">
             <Pagination
               count={totalPages}
               page={currentPage}
               onChange={handlePageChange}
               color="primary"
               shape="rounded"
-              style={{ marginBottom: "30px" }}
               showFirstButton
               showLastButton
             />
           </div>
         </div>
-      </div>
+      </main>
       <FooterSekolah />
     </div>
   );

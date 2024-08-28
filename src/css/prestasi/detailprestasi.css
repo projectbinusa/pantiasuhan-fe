@@ -77,11 +77,6 @@
     margin-left: 1rem;
 }
 
-.container-prestasi {
-    padding: 20px 200px;
-    margin: 20px 0;
-}
-
 .container-prestasi img {
     transform: translateY(scrollY * 0.5px);
     position: relative;
