@@ -14,21 +14,26 @@ function AddTenagaKependidikan() {
   const [status, setStatus] = useState("");
   //   const [image, setImage] = useState(null);
   const [nama, setNama] = useState("");
+  const [image, setImage] = useState(null);
   const [show, setShow] = useState(false);
   const history = useHistory();
 
-const add = async (e) => {
+  const add = async (e) => {
     e.preventDefault();
     e.persist();
 
     try {
-      const data = {
-        nama: nama,
-        status: status,
-      };
+      const formData = new FormData();
+      formData.append("nama", nama);
+      formData.append("status", status);
+      formData.append("file", image);
+      // const data = {
+      //   nama: nama,
+      //   status: status,
+      // };
       await axios.post(
         `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/add`,
-        data,
+        formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -87,7 +92,7 @@ const add = async (e) => {
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan Nama"
+                            placeholder="Masukan Nama"
                           />
                         </div>
                         {/* <div className="mb-3 co-lg-6">
@@ -111,13 +116,29 @@ const add = async (e) => {
                           <label className="form-label font-weight-bold">
                             Status
                           </label>
-                          <textarea
+                          <input
                             value={status}
                             onChange={(e) => setStatus(e.target.value)}
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan Status"></textarea>
+                            placeholder="Masukan Status"
+                          />
+                        </div>
+                        <div className="mb-3 co-lg-6">
+                          {/* a */}
+                          <label className="form-label font-weight-bold">
+                            Gambar
+                          </label>
+                          <input
+                            onChange={(e) =>
+                              setImage(
+                                e.target.files ? e.target.files[0] : null
+                              )
+                            }
+                            type="file"
+                            className="form-control"
+                          />
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">

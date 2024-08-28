@@ -11,10 +11,29 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import {
+  ClassicEditor,
+  Bold,
+  Essentials,
+  Heading,
+  Indent,
+  IndentBlock,
+  Italic,
+  Link,
+  List,
+  MediaEmbed,
+  Paragraph,
+  Table,
+  Undo,
+} from "ckeditor5";
+
+import "ckeditor5/ckeditor5.css";
 
 function EditVisiMisi() {
   const [visi, setVisi] = useState("");
   const [misi, setMisi] = useState("");
+  const [tujuan, setTujuan] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
   const param = useParams();
@@ -30,6 +49,7 @@ function EditVisiMisi() {
         const response = ress.data.data;
         setVisi(response.visi);
         setMisi(response.misi);
+        setTujuan(response.tujuan);
         console.log("misi : ", ress.data.data);
       })
       .catch((error) => {
@@ -43,6 +63,7 @@ function EditVisiMisi() {
     const data = {
       visi: visi,
       misi: misi,
+      tujuan: tujuan,
     };
 
     await axios
@@ -92,47 +113,152 @@ function EditVisiMisi() {
                     <hr />
                     <form onSubmit={update}>
                       <div className="row">
-                        <div className="mb-3 col-lg-12">
+                      <div className="mb-3 col-lg-12">
                           {/* a */}
                           <label className="form-label font-weight-bold">
                             Visi
                           </label>
-                          <textarea
-                            value={visi}
-                            onChange={(e) => setVisi(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            required
-                            placeholder="Masukkan Visi"></textarea>
+                          <CKEditor
+                            data={visi}
+                            onChange={(event, editor) => {
+                              const data = editor.getData();
+                              setVisi(data);
+                            }}
+                            editor={ClassicEditor}
+                            config={{
+                              toolbar: [
+                                "undo",
+                                "redo",
+                                "|",
+                                "heading",
+                                "|",
+                                "bold",
+                                "italic",
+                                "|",
+                                "link",
+                                "insertTable",
+                                "mediaEmbed",
+                                "|",
+                                "bulletedList",
+                                "numberedList",
+                                "indent",
+                                "outdent",
+                              ],
+                              plugins: [
+                                Bold,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                              ],
+                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
+                            }}
+                          />
                         </div>
-                        {/* <div className="mb-3 co-lg-6">
-                          {/* a */}
-                        {/* <label className="form-label font-weight-bold">
-                            Gambar
-                          </label>
-                          <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
-                            type="file"
-                            className="form-control"
-                            required
-                          /> */}
-                        {/* </div> */}
                         <div className="mb-3 col-lg-12">
                           {/* a */}
                           <label className="form-label font-weight-bold">
                             Misi
                           </label>
-                          <textarea
-                            value={misi}
-                            onChange={(e) => setMisi(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            required
-                            placeholder="Masukkan Misi"></textarea>
+                          <CKEditor
+                            data={misi}
+                            onChange={(event, editor) => {
+                              const data = editor.getData();
+                              setMisi(data);
+                            }}
+                            editor={ClassicEditor}
+                            config={{
+                              toolbar: [
+                                "undo",
+                                "redo",
+                                "|",
+                                "heading",
+                                "|",
+                                "bold",
+                                "italic",
+                                "|",
+                                "link",
+                                "insertTable",
+                                "mediaEmbed",
+                                "|",
+                                "bulletedList",
+                                "numberedList",
+                                "indent",
+                                "outdent",
+                              ],
+                              plugins: [
+                                Bold,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                              ],
+                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
+                            }}
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          {/* a */}
+                          <label className="form-label font-weight-bold">
+                            Tujuan
+                          </label>
+                          <CKEditor
+                            data={tujuan}
+                            onChange={(event, editor) => {
+                              const data = editor.getData();
+                              setTujuan(data);
+                            }}
+                            editor={ClassicEditor}
+                            config={{
+                              toolbar: [
+                                "undo",
+                                "redo",
+                                "|",
+                                "heading",
+                                "|",
+                                "bold",
+                                "italic",
+                                "|",
+                                "link",
+                                "insertTable",
+                                "mediaEmbed",
+                                "|",
+                                "bulletedList",
+                                "numberedList",
+                                "indent",
+                                "outdent",
+                              ],
+                              plugins: [
+                                Bold,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                              ],
+                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
+                            }}
+                          />
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">

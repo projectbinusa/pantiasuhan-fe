@@ -35,7 +35,9 @@ function KondisiSekolah() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-      `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/all?page=${page}&size=${rowsPerPage}`,
+        `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/all?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -181,13 +183,28 @@ function KondisiSekolah() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add-kondisi-sekolah">
-                        Tambah Kondisi Sekolah
-                      </a>
-                    </button>
+                  {list.length >= 0 ? (
+                      <>
+                        {" "}
+                        <button
+                          style={{ cursor: "not-allowed" }}
+                          disabled
+                          className="active btn-focus p-2 rounded">
+                          Tambah Data
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <button className="active btn-focus p-2 rounded">
+                          <a
+                            style={{ color: "white", textDecoration: "none" }}
+                            href="/add-kondisi-sekolah">
+                            Tambah Data
+                          </a>
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -207,7 +224,7 @@ function KondisiSekolah() {
                       Deskripsi
                     </th>
                     <th className="text-left">Image</th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -221,7 +238,15 @@ function KondisiSekolah() {
                           {berita.judul}
                         </td> */}
                         {/* <td data-label="">{berita.isiBerita}</td> */}
-                        <td data-label="Deskripsi" className="">
+                        <td
+                          data-label="Deskripsi"
+                          style={{
+                            maxWidth: "250px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          className="">
                           {berita.deskripsi}
                         </td>
                         <td data-label="Image" className="">
@@ -246,6 +271,15 @@ function KondisiSekolah() {
                               </a>
                             </button>
                             <button
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm">
+                              <a
+                                className="text-light"
+                                href={"/detail-kondisi-sekolah/" + berita.id}>
+                                <i class="fas fa-info-circle"></i>
+                              </a>
+                            </button>
+                            <button
                               onClick={() => deleteData(berita.id)}
                               type="button"
                               className="btn-danger btn-sm">
@@ -267,7 +301,6 @@ function KondisiSekolah() {
                   setCurrentPage(value);
                   setPage(value);
                 }}
-
                 showFirstButton
                 showLastButton
                 color="primary"

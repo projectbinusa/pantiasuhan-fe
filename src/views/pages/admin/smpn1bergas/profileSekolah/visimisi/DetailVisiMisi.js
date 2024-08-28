@@ -10,17 +10,18 @@ import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
 
-function DetailSejarah() {
-  const [judul, setJudul] = useState("");
+function DetailVisi() {
+  const [tujuan, settujuan] = useState("");
   const [createdDate, setCreatedDate] = useState("");
   const [updateDate, setUpdateDate] = useState("");
-  const [isi, setIsi] = useState("");
+  const [misi, setMisi] = useState("");
+  const [visi, setVisi] = useState("");
   const param = useParams();
 
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/sejarah/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/visiMisi/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -29,8 +30,9 @@ function DetailSejarah() {
         const list_data = res.data.data;
         setCreatedDate(list_data.createdDate);
         setUpdateDate(list_data.updatedDate);
-        setJudul(list_data.judul);
-        setIsi(list_data.isi);
+        settujuan(list_data.tujuan);
+        setMisi(list_data.misi);
+        setVisi(list_data.visi);
       })
       .catch((error) => {
         alert("Terjadi Kesalahan " + error);
@@ -49,20 +51,27 @@ function DetailSejarah() {
               <br />
               <div className="card-body">
                 <div class="mb-3">
-                  <label class="form-label fw-bold">Judul Sejarah</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={judul}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Isi Sejarah</label>
+                  <label class="form-label fw-bold">Visi</label>
                   <div
                     className="form-control"
                     style={{ height: "auto", background: "#e9ecef" }}
-                    dangerouslySetInnerHTML={{ __html: isi }}
+                    dangerouslySetInnerHTML={{ __html: visi }}
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Misi</label>
+                  <div
+                    className="form-control"
+                    style={{ height: "auto", background: "#e9ecef" }}
+                    dangerouslySetInnerHTML={{ __html: misi }}
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Tujuan</label>
+                  <div
+                    className="form-control"
+                    style={{ height: "auto", background: "#e9ecef" }}
+                    dangerouslySetInnerHTML={{ __html: tujuan }}
                   />
                 </div>
                 <div class="mb-3">
@@ -96,7 +105,7 @@ function DetailSejarah() {
                 type="submit"
                 className="btn-kembali btn-danger mt-3 mr-3">
                 <a
-                  href="/admin-sejarah"
+                  href="/admin-visimisi"
                   style={{ color: "white", textDecoration: "none" }}>
                   {" "}
                   Kembali
@@ -110,4 +119,4 @@ function DetailSejarah() {
   );
 }
 
-export default DetailSejarah;
+export default DetailVisi;

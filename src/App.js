@@ -62,8 +62,8 @@ import EditGalery from "./views/pages/admin/smpn1bergas/galery/EditGalery";
 import Keuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/Keuangan";
 import EditKeuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/EditKeuangan";
 import AddKeuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/AddKeuangan";
-import AddCategoryKeuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/categorykeuangan/AddCategoryKeuangan";
-import EditCategoryKeuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/categorykeuangan/EditCategoryKeuangan";
+// import AddCategoryKeuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/categorykeuangan/AddCategoryKeuangan";
+// import EditCategoryKeuangan from "./views/pages/admin/smpn1bergas/menu/keuangan/categorykeuangan/EditCategoryKeuangan";
 import Ekskul from "./views/pages/admin/smpn1bergas/ekskul/Ekskul";
 import AddEkskul from "./views/pages/admin/smpn1bergas/ekskul/AddEkskul";
 import EditEkskul from "./views/pages/admin/smpn1bergas/ekskul/EditEkskul";
@@ -117,7 +117,12 @@ import MateriAjarView from "./views/pagesekolah/kesiswaan/MateriAjar";
 import AdminOsis from "./views/pages/admin/smpn1bergas/menu/osis/Osis";
 import AddOsis from "./views/pages/admin/smpn1bergas/menu/osis/AddOsis";
 import EditOsis from "./views/pages/admin/smpn1bergas/menu/osis/EditOsis";
-import KegiatanSekolah from "./views/pagesekolah/profilSekolah/sarpras/kegiatan/KegiatanSekolah";
+import Pengembangan from "./views/pagesekolah/program/Pengembangan";
+import PerawatanRutin from "./views/pagesekolah/program/PerawatanRutin";
+import SewaLayanan from "./views/pagesekolah/program/SewaLayanan";
+import DetailSAmbutan from "./views/pages/admin/smpn1bergas/menu/sambutan/DetailSambutan";
+import DetailVisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/DetailVisiMisi";
+import DetailKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/DetailKondisiSekolah";
 
 // END ADMIN MENU REGULASI
 
@@ -139,6 +144,9 @@ function App() {
           <Route path="/all-prestasi" component={PrestasiSekolah} exact />
           <Route path="/prestasi/:id" component={DetailPrestasi} exact />
           <Route path="/ekstrakurikuler" component={Ekstrakurikuler} exact />
+          <Route path="/program" component={Pengembangan} exact />
+          <Route path="/perawatan-rutin" component={PerawatanRutin} exact />
+          <Route path="/sewa-layanan" component={SewaLayanan} exact />
           {/* SAPRAS */}
           <Route path="/sarana-prasarana" component={Sarpras} exact />
           <Route path="/ruang-kantor" component={RuangKantor} exact />
@@ -188,6 +196,11 @@ function App() {
             component={EditSambutan}
             exact
           />
+           <PrivateRoute
+            path="/detail-sambutan/:id"
+            component={DetailSAmbutan}
+            exact
+          />
           {/* end sambutan */}
           {/* sejarah */}
           <PrivateRoute path="/admin-sejarah" component={Sejarah} exact />
@@ -221,6 +234,11 @@ function App() {
           <PrivateRoute
             path="/edit-visimisi/:id"
             component={EditVisiMisi}
+            exact
+          />
+           <PrivateRoute
+            path="/detail-visimisi/:id"
+            component={DetailVisi}
             exact
           />
           {/* end visimisi */}
@@ -354,16 +372,16 @@ function App() {
           />
           {/* end keuangan */}
           {/* category keuangan */}
-          <PrivateRoute
-            path="/add-category-keuangan"
+          {/* <PrivateRoute
+            {/* path="/add-category-keuangan"
             component={AddCategoryKeuangan}
             exact
-          />
-          <PrivateRoute
+          /> */}
+          {/* <PrivateRoute
             path="/edit-category-keuangan/:id"
             component={EditCategoryKeuangan}
             exact
-          />
+          /> */}
           {/* end category keuangan */}
           {/* ekskul */}
           <PrivateRoute
@@ -396,6 +414,11 @@ function App() {
           <PrivateRoute
             path="/edit-kondisi-sekolah/:id"
             component={EditKondisiSekolah}
+            exact
+          />
+           <PrivateRoute
+            path="/detail-kondisi-sekolah/:id"
+            component={DetailKondisiSekolah}
             exact
           />
           {/* end kondisi sekolah */}

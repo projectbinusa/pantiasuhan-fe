@@ -6,7 +6,7 @@ const CardBerita = ({ image, title, content, id, link }) => {
         <div className='card-berita'>
             <img src={image} alt={title} />
             <h4 style={{textTransform: "uppercase"}}>{title}</h4>
-            <p className="content-berita" style={{fontSize: "14px"}}>{content}</p>
+            <p className="content-berita" style={{fontSize: "14px", textAlign: "left"}}>{content}</p>
             <a href={`/detail-${link}-${id}`}>Selengkapnya</a>
         </div>
     );

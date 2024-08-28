@@ -73,8 +73,8 @@
 }
 
 .container-detail-keuangan {
-    padding: 20px 200px;
-    margin-top: 70px;
+    padding: 20px 0;
+    margin-top: 100px;
     margin-bottom: 2rem;
 }
 
@@ -90,6 +90,10 @@
     text-decoration: none;
     color: #002147;
     font-weight: 600;
+}
+
+.container-detail-keuangan p {
+    text-align: left;
 }
 
 .container-detail-keuangan a:hover {

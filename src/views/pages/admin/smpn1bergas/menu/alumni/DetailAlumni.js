@@ -124,12 +124,10 @@ function DetailAlumni() {
                 </div>
                 <div class="mb-3">
                   <label class="form-label fw-bold">Biografi</label>
-                  <textarea
-                    disabled
-                    class="form-control"
-                    defaultValue={biografi}
-                    rows="5"
-                    readOnly
+                  <div
+                    className="form-control"
+                    style={{ height: "auto", background: "#e9ecef" }}
+                    dangerouslySetInnerHTML={{ __html: biografi }}
                   />
                 </div>
                 <div class="mb-3">

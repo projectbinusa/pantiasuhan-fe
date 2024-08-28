@@ -31,7 +31,9 @@ function Berita() {
   const getAll = async (page1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/guru/all?page=${page - 1}&size=${rowsPerPage}`,
+        `${API_DUMMY}/smpn1bergas/api/guru/all?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -199,14 +201,17 @@ function Berita() {
                     {/* <th className="text-center">
                       Isi Berita
                     </th> */}
-                    <th
-                      scope="col"
-                      className="text-left"
-                      style={{ minWidth: "150px" }}>
+                    <th scope="col" className="text-left">
                       Mapel
                     </th>
+                    <th scope="col" className="text-left">
+                      NIP
+                    </th>
+                    <th scope="col" className="text-left">
+                      RIwayat
+                    </th>
                     <th className="text-left">Image</th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -220,10 +225,16 @@ function Berita() {
                           {berita.nama_guru}
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}
-                        <td data-label="Mapel" className="">
+                        <td data-label="Mapel" className="text-left">
                           {berita.mapel}
                         </td>
-                        <td data-label="Image" className="">
+                        <td data-label="NIP" className="text-left">
+                          {berita.nip}
+                        </td>
+                        <td data-label="Riwayat" className="text-left">
+                          {berita.riwayat}
+                        </td>
+                        <td data-label="Image" className="text-left">
                           <img
                             src={berita.foto}
                             style={{ height: "4.5rem", width: "4.5rem" }}

@@ -25,7 +25,6 @@ import {
   Table,
   Undo
 } from 'ckeditor5';
-
 import 'ckeditor5/ckeditor5.css';
 
 function EditBeritaAdmin() {

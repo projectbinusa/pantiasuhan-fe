@@ -286,8 +286,8 @@ const TenagaKepndidkan = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="3" className="text-center">
-                        No data found
+                      <td colSpan="4" className="text-center">
+                        Tidak ada data
                       </td>
                     </tr>
                   )}
@@ -382,9 +382,7 @@ const TenagaKepndidkan = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="3" className="text-center">
-                        No data found
-                      </td>
+                      <td colSpan="4" className="text-center">Tidak ada data</td>
                     </tr>
                   )}
                 </tbody>

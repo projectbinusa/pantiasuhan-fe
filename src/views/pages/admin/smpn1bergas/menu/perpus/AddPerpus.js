@@ -115,7 +115,7 @@ function AddPerpus() {
                             className="form-label  font-weight-bold ">
                             Sinopsis
                           </label>
-                          <input
+                          <textarea
                             value={sinopsis}
                             onChange={(e) => setSinopsis(e.target.value)}
                             type="text"

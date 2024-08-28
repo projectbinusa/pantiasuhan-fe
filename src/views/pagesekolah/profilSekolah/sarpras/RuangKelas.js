@@ -53,7 +53,7 @@ function RuangKelas() {
     return (
         <section>
             <NavbarSekolah2 />
-            <main className="container-sapras">
+            <main className="container-sapras container">
                 <div className='header-sapras'>
                     <ul>
                         <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>
