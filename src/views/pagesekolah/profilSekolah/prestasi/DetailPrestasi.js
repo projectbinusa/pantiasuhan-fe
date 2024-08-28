@@ -4,6 +4,7 @@ import axios from "axios";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import "../../../../css/prestasi/detailprestasi.css";
 import NavbarSekolah from "../../../../component/NavbarSekolah";
+import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
 
 function DetailPrestasi() {
     const [prestasi, setPrestasi] = useState(null);
@@ -37,48 +38,34 @@ function DetailPrestasi() {
 
     return (
         <section>
-            <NavbarSekolah />
-            <div style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-                <img src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no" className="image-style" alt="banner" />
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    }}
-                />
-                <div className="text-overlay-style">
-                    <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
-                    <div className="header-prestasi">
-                        <ul>
-                            <li><a href="/"><i className="fas fa-home"></i> Beranda</a></li>
-                            <li><a href="/all-prestasi"><i className="fas fa-angle-right"></i> Prestasi</a></li>
-                            <li><i className="fas fa-angle-right"></i> Detail</li>
-                        </ul>
+            <NavbarSekolah2 />
+            <main className="container-berita">
+                <div className="header-berita">
+                    <ul>
+                        <li><a href="/"><i className="fas fa-home"></i> Beranda</a></li>
+                        <li><a href="/all-prestasi"><i className="fas fa-angle-right"></i> <span style={{fontWeight: "normal"}}>Prestasi</span></a></li>
+                        <li><i className="fas fa-angle-right"></i> <span style={{fontWeight: "normal"}}>{judul}</span></li>
+                    </ul>
+                </div>
+                <div className="container-prestasi">
+                    {foto && (
+                        <img src={foto} alt={judul} />
+                    )}
+                    <h4 style={{ fontWeight: "700", color: "#002147", marginTop: "2rem", marginBottom: "1rem" }}>{judul}</h4>
+                    <hr />
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <p style={{ color: "#002147" }}>
+                            <i className="fas fa-user"></i>
+                            <span style={{ fontWeight: "600", paddingLeft: "0.5rem" }}>{nama_peserta}</span>
+                        </p>
+                        <p style={{ color: "#002147" }}>{formatDate(tanggal)}</p>
                     </div>
+                    <p style={{ lineHeight: "1rem" }}>Skala: {skala}</p>
+                    {peyelenggara && peyelenggara.trim() !== "" && (
+                        <p style={{ lineHeight: "1rem" }}>Penyelenggara {peyelenggara}</p>
+                    )}
                 </div>
-            </div>
-            <div className="container-prestasi">
-                {foto && (
-                    <img src={foto} alt={judul} />
-                )}
-                <h4 style={{ fontWeight: "700", color: "#002147", marginTop: "2rem", marginBottom: "1rem" }}>{judul}</h4>
-                <hr />
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <p style={{ color: "#002147" }}>
-                        <i className="fas fa-user"></i>
-                        <span style={{ fontWeight: "600", paddingLeft: "0.5rem" }}>{nama_peserta}</span>
-                    </p>
-                    <p style={{ color: "#002147" }}>{formatDate(tanggal)}</p>
-                </div>
-                <p style={{ lineHeight: "1rem" }}>Skala: {skala}</p>
-                {peyelenggara && peyelenggara.trim() !== "" && (
-                    <p style={{ lineHeight: "1rem" }}>Penyelenggara {peyelenggara}</p>
-                )}
-            </div>
+            </main>
             <FooterSekolah />
         </section>
     );

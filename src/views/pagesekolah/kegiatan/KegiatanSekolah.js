@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import NavbarSekolah2 from "../../../../../component/NavbarSekolah2";
-import FooterSekolah from "../../../../../component/FooterSekolah";
+import NavbarSekolah2 from "../../../component/NavbarSekolah2";
+import FooterSekolah from "../../../component/FooterSekolah";
 import axios from "axios";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../utils/base_URL";
 import { Pagination } from "@mui/material";
-import "../../../../../css/alumni/KegiatanSekolah.css";
+import "../../../css/alumni/KegiatanSekolah.css";
 
 function KegiatanSekolah() {
   const [kegiatan, setKegiatan] = useState([]);
@@ -125,7 +125,7 @@ function KegiatanSekolah() {
               </a>
             </li>
             <li>
-              <i className="fas fa-angle-right"></i>Kegiatan
+              <i className="fas fa-angle-right"></i>{" "}Kegiatan
             </li>
           </ul>
         </div>
@@ -263,20 +263,15 @@ function KegiatanSekolah() {
                     currentPage * itemsPerPage
                   )
                   .map((item, index) => (
-                    <div key={index} className="cards">
+                    <div key={index} className="card-berita">
                       <img
                         src={item.foto}
                         alt={item.judul}
                         className="cardImage"
                       />
-                      <div className="cardContent">
-                        <div className="cardTitles">
-                            <a href={`/detail-kegiatan/${item.id}`} className="cardTitle">
-                            {item.judul}
-                            </a>
-                        </div>
+                        <h4 style={{textTransform: "uppercase"}}>{item.judul}</h4>
                         <p className="cardText">{item.isi}</p>
-                      </div>
+                        <a href={`/detail-kegiatan/${item.id}`}>Selengkapnya</a>
                     </div>
                   ))}
                 <Pagination
