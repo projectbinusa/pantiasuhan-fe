@@ -117,6 +117,7 @@ import MateriAjarView from "./views/pagesekolah/kesiswaan/MateriAjar";
 import AdminOsis from "./views/pages/admin/smpn1bergas/menu/osis/Osis";
 import AddOsis from "./views/pages/admin/smpn1bergas/menu/osis/AddOsis";
 import EditOsis from "./views/pages/admin/smpn1bergas/menu/osis/EditOsis";
+import KegiatanSekolah from "./views/pagesekolah/profilSekolah/sarpras/kegiatan/KegiatanSekolah";
 
 // END ADMIN MENU REGULASI
 
@@ -146,6 +147,7 @@ function App() {
           <Route path="/sarana-olahraga" component={SaranaOlahraga} exact />
           <Route path="/sarana-ibadah" component={SaranaIbadah} exact />
           <Route path="/sarana-kesehatan" component={SaranaKesehatan} exact />
+          <Route path="/kegiatan" component={KegiatanSekolah} exact />
           <Route
             path="/sarana-protokol-kesehatan"
             component={SaranaProtokolKesehatan}

@@ -564,7 +564,7 @@ function Home() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=5&sort=createdDate`
+        `${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=6&sort=created_date`
       );
       setBerita(response.data.data.content);
     } catch (error) {
