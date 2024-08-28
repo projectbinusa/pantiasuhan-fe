@@ -123,6 +123,7 @@ import SewaLayanan from "./views/pagesekolah/program/SewaLayanan";
 import DetailSAmbutan from "./views/pages/admin/smpn1bergas/menu/sambutan/DetailSambutan";
 import DetailVisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/DetailVisiMisi";
 import DetailKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/DetailKondisiSekolah";
+import KegiatanSekolah from "./views/pagesekolah/profilSekolah/sarpras/kegiatan/KegiatanSekolah";
 
 // END ADMIN MENU REGULASI
 
