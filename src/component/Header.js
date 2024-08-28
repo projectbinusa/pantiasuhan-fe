@@ -12,46 +12,46 @@ function Header() {
   const [submenuOpen, setSubmenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const [informasi, setInformasi] = useState([]);
-  const getInformasi = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/bawaslu/api/jenis-informasi/all`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setInformasi(response.data.data);
-      console.log(response.data.data);
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
-  };
+  // const [informasi, setInformasi] = useState([]);
+  // const getInformasi = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/bawaslu/api/jenis-informasi/all`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     );
+  //     setInformasi(response.data.data);
+  //     console.log(response.data.data);
+  //   } catch (error) {
+  //     console.error("Terjadi Kesalahan", error);
+  //   }
+  // };
 
-  const [regulasi, setRegulasi] = useState([]);
-  const getRegulasi = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/bawaslu/api/jenis-regulasi/all`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setRegulasi(response.data.data);
-      console.log(response.data.data);
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
-  };
+  // const [regulasi, setRegulasi] = useState([]);
+  // const getRegulasi = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/bawaslu/api/jenis-regulasi/all`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     );
+  //     setRegulasi(response.data.data);
+  //     console.log(response.data.data);
+  //   } catch (error) {
+  //     console.error("Terjadi Kesalahan", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getInformasi();
-    getRegulasi();
-  }, []);
+  // useEffect(() => {
+  //   getInformasi();
+  //   // getRegulasi();
+  // }, []);
 
   useEffect(() => {
     const handleScroll = () => {

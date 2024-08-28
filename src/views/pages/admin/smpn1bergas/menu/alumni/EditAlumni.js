@@ -9,6 +9,24 @@ import AOS from "aos";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import {
+  ClassicEditor,
+  Bold,
+  Essentials,
+  Heading,
+  Indent,
+  IndentBlock,
+  Italic,
+  Link,
+  List,
+  MediaEmbed,
+  Paragraph,
+  Table,
+  Undo,
+} from "ckeditor5";
+import "ckeditor5/ckeditor5.css";
+
 
 function EditAlumni() {
   const [namaAlumni, setNamaAlumni] = useState("");
@@ -22,6 +40,7 @@ function EditAlumni() {
   const [image, setImage] = useState(null);
   const param = useParams();
   const history = useHistory();
+
 
   useEffect(() => {
     axios
@@ -106,7 +125,7 @@ function EditAlumni() {
               <hr />
               <form onSubmit={update}>
                 <div className="row">
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold">
@@ -121,7 +140,7 @@ function EditAlumni() {
                       id="exampleInputPassword1"
                     />
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold">
@@ -136,7 +155,7 @@ function EditAlumni() {
                       id="exampleInputPassword1"
                     />
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold">
@@ -151,7 +170,7 @@ function EditAlumni() {
                       id="exampleInputPassword1"
                     />
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold">
@@ -166,7 +185,7 @@ function EditAlumni() {
                       id="exampleInputPassword1"
                     />
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold">
@@ -181,7 +200,7 @@ function EditAlumni() {
                       id="exampleInputPassword1"
                     />
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold">
@@ -196,7 +215,7 @@ function EditAlumni() {
                       id="exampleInputPassword1"
                     />
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold">
@@ -212,20 +231,55 @@ function EditAlumni() {
                       id="exampleInputPassword1"
                     />
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold">
                       Biografi
                     </label>
-                    <input
-                      value={biografi}
-                      onChange={(e) => setBiografi(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      required
-                      id="exampleInputPassword1"
-                    />
+                    <CKEditor
+                            data={biografi}
+                            onChange={(event, editor) => {
+                              const data = editor.getData();
+                              setBiografi(data);
+                            }}
+                            editor={ClassicEditor}
+                            config={{
+                              toolbar: [
+                                "undo",
+                                "redo",
+                                "|",
+                                "heading",
+                                "|",
+                                "bold",
+                                "italic",
+                                "|",
+                                "link",
+                                "insertTable",
+                                "mediaEmbed",
+                                "|",
+                                "bulletedList",
+                                "numberedList",
+                                "indent",
+                                "outdent",
+                              ],
+                              plugins: [
+                                Bold,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                              ],
+                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
+                            }}
+                          />
                   </div>
                 </div>
                 <button type="button" className="btn-danger mt-3 mr-3">

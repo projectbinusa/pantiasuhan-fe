@@ -260,11 +260,10 @@ function Osis() {
                       Kelas
                     </th>
                     <th className="text-left">Jabatan</th>
-                    <th className="text-left">Kelas</th>
                     <th className="text-left">Tahun Jabat</th>
                     <th className="text-left">Tahun Tuntas</th>
                     <th className="text-left">Gambar</th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -286,9 +285,6 @@ function Osis() {
                         </td>
                         <td data-label="Tahun Jabat" className="">
                           {berita.tahunJabat}
-                        </td>
-                        <td data-label="Tahun Tuntas" className="">
-                          {berita.tahunTuntas}
                         </td>
                         <td data-label="Tahun Tuntas" className="">
                           {berita.tahunTuntas}

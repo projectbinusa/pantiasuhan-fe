@@ -276,7 +276,7 @@
   text-transform: uppercase;
 }
 
-.hamburger {
+.navbars-container .hamburger {
   display: none;
   position: absolute;
   right: 20px;
@@ -338,7 +338,7 @@
     width: 100%;
   }
 
-  .hamburger {
+  .navbars-container .hamburger {
     display: block;
     position: absolute;
     top: 50%;
@@ -346,7 +346,7 @@
     right: 20px;
   }
 
-  .hamburger.active {
+  .navbars-container .hamburger.active {
     position: fixed;
     top: 2rem;
     right: 20px;

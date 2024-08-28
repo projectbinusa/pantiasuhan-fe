@@ -211,10 +211,10 @@ function Perpustakaan() {
                     <th scope="col" className="text-left">
                       Pengarang
                     </th>
-                    <th className="text-left">Sinopsis</th>
-                    <th className="text-left">Tahun</th>
+                    {/* <th className="text-left">Sinopsis</th>
+                    <th className="text-left">Tahun</th> */}
                     <th className="text-left">Sampul</th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -234,12 +234,12 @@ function Perpustakaan() {
                         <td data-label="Pengarang" className="">
                           {berita.pengarang}
                         </td>
-                        <td data-label="Sinopsis" className="">
+                        {/* <td data-label="Sinopsis" className="">
                           {berita.sinopsis}
                         </td>
                         <td data-label="Tahun" className="">
                           {berita.tahun}
-                        </td>
+                        </td> */}
                         <td data-label="Sampul" className="">
                           <img
                             src={berita.foto}

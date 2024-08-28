@@ -19,7 +19,8 @@ function EditGuru() {
   const [namaGuru, setNamaGuru] = useState("");
   const [image, setFile] = useState("");
   const [mapel, setMapel] = useState("");
-  const [tags, setTags] = useState("");
+  const [nip, setNip] = useState("");
+  const [riwayat, setRiwayat] = useState("");
   const param = useParams();
   const history = useHistory();
 
@@ -49,6 +50,8 @@ function EditGuru() {
     const formData = new FormData();
     formData.append("nama_guru", namaGuru);
     formData.append("mapel", mapel);
+    formData.append("riwayat", riwayat);
+    formData.append("nip", nip);
     formData.append("file", image);
 
     await axios

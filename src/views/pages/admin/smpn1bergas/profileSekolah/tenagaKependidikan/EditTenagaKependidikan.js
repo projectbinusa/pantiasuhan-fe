@@ -14,13 +14,14 @@ function EditTenagaKependidikan() {
   const [status, setStatus] = useState("");
   //   const [image, setImage] = useState(null);
   const [nama, setNama] = useState("");
+  const [image, setImage] = useState(null);
   const [show, setShow] = useState(false);
   const history = useHistory();
   const param = useParams();
 
   useEffect(() => {
     axios
-.get(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -39,17 +40,21 @@ function EditTenagaKependidikan() {
   const update = async (e) => {
     e.preventDefault();
 
-    const data = {
-      nama: nama,
-      status: status,
-    };
+    const formData = new FormData();
+    formData.append("nama", nama);
+    formData.append("status", status);
+    formData.append("file", image);
 
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/put/` + param.id, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .put(
+        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/put/` + param.id,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then(() => {
         Swal.fire({
           icon: "success",
@@ -133,6 +138,21 @@ function EditTenagaKependidikan() {
                             className="form-control"
                             required
                             placeholder="Masukkan Status"></textarea>
+                        </div>
+                        <div className="mb-3 co-lg-6">
+                          {/* a */}
+                          <label className="form-label font-weight-bold">
+                            Gambar
+                          </label>
+                          <input
+                            onChange={(e) =>
+                              setImage(
+                                e.target.files ? e.target.files[0] : null
+                              )
+                            }
+                            type="file"
+                            className="form-control"
+                          />
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">

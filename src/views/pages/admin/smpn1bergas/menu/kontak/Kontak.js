@@ -174,13 +174,28 @@ function Kontak() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add-kontak">
-                        Tambah kontak
-                      </a>
-                    </button>
+                    {list.length >= 0 ? (
+                      <>
+                        {" "}
+                        <button
+                          style={{ cursor: "not-allowed" }}
+                          disabled
+                          className="active btn-focus p-2 rounded">
+                          Tambah kontak
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <button className="active btn-focus p-2 rounded">
+                          <a
+                            style={{ color: "white", textDecoration: "none" }}
+                            href="/add-kontak">
+                            Tambah kontak
+                          </a>
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -202,9 +217,9 @@ function Kontak() {
                       style={{ minWidth: "150px" }}>
                       Address
                     </th>
-                    <th className="text-left">no Handphone / Telephone</th>
+                    <th className="text-left">No Telephone</th>
                     <th className="text-left">Fax</th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

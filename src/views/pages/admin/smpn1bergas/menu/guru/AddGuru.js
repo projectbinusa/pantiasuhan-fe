@@ -16,6 +16,8 @@ function AddGuru() {
   const [namaGuru, setNamaGuru] = useState("");
   const [image, setImage] = useState(null);
   const [mapel, setMapel] = useState("");
+  const [nip, setNip] = useState("");
+  const [riwayat, setRiwayat] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
 
@@ -25,10 +27,10 @@ function AddGuru() {
     e.persist();
 
     const formData = new FormData();
-    // formData.append("author", author);
     formData.append("nama_guru", namaGuru);
     formData.append("mapel", mapel);
-    // formData.append("categoryId", categoryId);
+    formData.append("riwayat", riwayat);
+    formData.append("nip", nip);
     formData.append("file", image);
 
     try {
@@ -78,7 +80,7 @@ function AddGuru() {
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
-                      <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-12">
                           {/* a */}
                           <label className="form-label font-weight-bold">
                             Nama Guru
@@ -89,6 +91,32 @@ function AddGuru() {
                             type="text"
                             className="form-control"
                             placeholder="Masukkan Nama Guru"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          {/* a */}
+                          <label className="form-label font-weight-bold">
+                            NIP
+                          </label>
+                          <input
+                            value={nip}
+                            onChange={(e) => setNip(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukkan NIP"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          {/* a */}
+                          <label className="form-label font-weight-bold">
+                            Riwayat
+                          </label>
+                          <input
+                            value={riwayat}
+                            onChange={(e) => setRiwayat(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukkan Riwayat"
                           />
                         </div>
                         <div className="mb-3 co-lg-6">

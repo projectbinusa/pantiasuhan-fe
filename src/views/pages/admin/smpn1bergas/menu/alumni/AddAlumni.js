@@ -11,6 +11,24 @@ import AOS from "aos";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import {
+  ClassicEditor,
+  Bold,
+  Essentials,
+  Heading,
+  Indent,
+  IndentBlock,
+  Italic,
+  Link,
+  List,
+  MediaEmbed,
+  Paragraph,
+  Table,
+  Undo,
+} from "ckeditor5";
+
+import "ckeditor5/ckeditor5.css";
 
 function AddAlumni() {
   const [namaAlumni, setNamaAlumni] = useState("");
@@ -197,13 +215,47 @@ function AddAlumni() {
                           <label className="form-label font-weight-bold">
                             Biografi
                           </label>
-                          <input
-                            value={biografi}
-                            onChange={(e) => setBiografi(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            required
-                            placeholder="Masukkan Biografi"
+                          <CKEditor
+                            data={biografi}
+                            onChange={(event, editor) => {
+                              const data = editor.getData();
+                              setBiografi(data);
+                            }}
+                            editor={ClassicEditor}
+                            config={{
+                              toolbar: [
+                                "undo",
+                                "redo",
+                                "|",
+                                "heading",
+                                "|",
+                                "bold",
+                                "italic",
+                                "|",
+                                "link",
+                                "insertTable",
+                                "mediaEmbed",
+                                "|",
+                                "bulletedList",
+                                "numberedList",
+                                "indent",
+                                "outdent",
+                              ],
+                              plugins: [
+                                Bold,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                              ],
+                            }}
                           />
                         </div>
                       </div>

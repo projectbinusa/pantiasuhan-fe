@@ -287,7 +287,7 @@ function Prestasi() {
                     <th className="text-left">Skala</th>
                     <th className="text-left">Tanggal</th>
                     <th className="text-left">Gambar</th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

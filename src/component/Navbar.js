@@ -48,35 +48,35 @@ function Navbar() {
     };
   }, []);
 
-  const [regulasi, setRegulasi] = useState([]);
-  const getRegulasi = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/bawaslu/api/jenis-regulasi/all?page=0&size=10&sortBy=id&sortOrder=desc
-        `
-      );
-      setRegulasi(response.data.data);
-      console.log(response.data.data);
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
-  };
-  const [informasi, setInformasi] = useState([]);
-  const getInformasi = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/bawaslu/api/jenis-informasi/all?page=0&size=10&sortBy=id&sortOrder=desc`
-      );
-      setInformasi(response.data.data);
-      console.log(response.data.data);
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
-  };
-  useEffect(() => {
-    getInformasi();
-    getRegulasi();
-  }, []);
+  // const [regulasi, setRegulasi] = useState([]);
+  // const getRegulasi = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/bawaslu/api/jenis-regulasi/all?page=0&size=10&sortBy=id&sortOrder=desc
+  //       `
+  //     );
+  //     setRegulasi(response.data.data);
+  //     console.log(response.data.data);
+  //   } catch (error) {
+  //     console.error("Terjadi Kesalahan", error);
+  //   }
+  // };
+  // const [informasi, setInformasi] = useState([]);
+  // const getInformasi = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/bawaslu/api/jenis-informasi/all?page=0&size=10&sortBy=id&sortOrder=desc`
+  //     );
+  //     setInformasi(response.data.data);
+  //     console.log(response.data.data);
+  //   } catch (error) {
+  //     console.error("Terjadi Kesalahan", error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getInformasi();
+  //   getRegulasi();
+  // }, []);
   return (
     // <!-- navbar start -->
     <>

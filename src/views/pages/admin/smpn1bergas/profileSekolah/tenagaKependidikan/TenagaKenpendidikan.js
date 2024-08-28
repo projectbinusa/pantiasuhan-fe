@@ -22,7 +22,9 @@ function TenagaKenpendidikan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all?page=${page - 1}&size=${rowsPerPage}`,
+        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -170,7 +172,7 @@ function TenagaKenpendidikan() {
                       <a
                         style={{ color: "white", textDecoration: "none" }}
                         href="/add-tenaga-kependidikan">
-                        Tambah Tenaga Kependidikan
+                        Tambah Data
                       </a>
                     </button>
                   </div>
@@ -188,13 +190,13 @@ function TenagaKenpendidikan() {
                     {/* <th className="text-center">
                       Isi Berita
                     </th> */}
-                    <th
-                      scope="col"
-                      className="text-left"
-                      style={{ minWidth: "150px" }}>
+                    <th scope="col" className="text-left">
                       Status
                     </th>
-                    <th className="text-center">Aksi</th>
+                    <th scope="col" className="text-left">
+                      Foto
+                    </th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -210,6 +212,12 @@ function TenagaKenpendidikan() {
                         {/* <td data-label="">{berita.isiBerita}</td> */}
                         <td data-label="Status" className="">
                           {berita.status}
+                        </td>
+                        <td data-label="Image" className="">
+                          <img
+                            src={berita.foto}
+                            style={{ height: "4.5rem", width: "4.5rem" }}
+                          />
                         </td>
                         {/* <td data-label="Image" className="">
                           <img

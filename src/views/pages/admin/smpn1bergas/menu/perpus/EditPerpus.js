@@ -16,7 +16,7 @@ function EditPerpus() {
   const [namaBuku, setNamaBuku] = useState("");
   const [pengarang, setPengarang] = useState("");
   const [sinopsis, setSinopsis] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [tahun, setTahun] = useState("");
   const [no, setNo] = useState("");
   const [show, setShow] = useState(false);
@@ -37,6 +37,7 @@ function EditPerpus() {
         setSinopsis(response.sinopsis);
         setTahun(response.tahun);
         setNo(response.no);
+        setImage(response.foto);
         // setImage(response.foto);
       })
       .catch((error) => {
@@ -44,8 +45,9 @@ function EditPerpus() {
       });
   }, []);
 
-  const update = async (e) => {
+  const updatePerpus = async (e) => {
     e.preventDefault();
+    e.persist();
 
     const formData = new FormData();
     formData.append("nama_buku", namaBuku);
@@ -56,20 +58,15 @@ function EditPerpus() {
     formData.append("file", image);
 
     await axios
-      .put(
-        `${API_DUMMY}/smpn1bergas/api/perpustakaan/put/` + param.id,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
+      .put(`${API_DUMMY}/smpn1bergas/api/perpustakaan/put/` + param.id, formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then(() => {
         Swal.fire({
           icon: "success",
-          title: "Berhasil Mengedit Data Perpustakaan",
+          title: "Berhasil Mengedit Perpustakaan",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -105,7 +102,7 @@ function EditPerpus() {
                   <div className="card-body">
                     <h1 className="fs-4">Form Update Data</h1>
                     <hr />
-                    <form onSubmit={update}>
+                    <form onSubmit={updatePerpus}>
                       <div className="row">
                         <div className="mb-3 col-lg-6">
                           {/* a */}
@@ -144,7 +141,7 @@ function EditPerpus() {
                             className="form-label  font-weight-bold ">
                             Sinopsis
                           </label>
-                          <input
+                          <textarea
                             value={sinopsis}
                             onChange={(e) => setSinopsis(e.target.value)}
                             type="text"
