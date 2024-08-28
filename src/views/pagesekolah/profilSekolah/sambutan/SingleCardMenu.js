@@ -124,12 +124,12 @@ const SingleCardMenu = () => {
               }}
             />)}
           < div style={{ padding: "16px" }}>
-            <Typography variant="h6" component="div" style={{ fontWeight: "bold", fontFamily: "'Poppins', sans-serif" }}>
-              Sambutan Kepala Sekolah
-            </Typography>
             {sambutan.length > 0 ? (
               sambutan.map((sambutann) => (
                 <>
+                <Typography variant="h6" component="div" style={{ fontWeight: "bold", fontFamily: "'Poppins', sans-serif" }}>
+                  {sambutann.judul}
+                </Typography>
                   <Typography variant="body2" color="textSecondary" style={{ fontFamily: "'Poppins', sans-serif" }} className="content-sambutan">
                     {sambutann.isi}
                   </Typography>

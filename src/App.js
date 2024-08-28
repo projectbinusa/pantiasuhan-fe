@@ -155,6 +155,7 @@ function App() {
           <Route path="/sarana-olahraga" component={SaranaOlahraga} exact />
           <Route path="/sarana-ibadah" component={SaranaIbadah} exact />
           <Route path="/sarana-kesehatan" component={SaranaKesehatan} exact />
+          <Route path="/kegiatan" component={KegiatanSekolah} exact />
           <Route
             path="/sarana-protokol-kesehatan"
             component={SaranaProtokolKesehatan}
