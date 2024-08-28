@@ -48,7 +48,7 @@ function DetailBOS() {
     return (
         <section>
             <NavbarSekolah2 />
-            <main className="container-detail-keuangan">
+            <main className="container-detail-keuangan container">
                 <HeaderDetailKeuangan title={"BOS"} header={"TEST"} link="/keuangan-bos" />
                 <img src={fotoJudul} alt="" />
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "2rem" }}>

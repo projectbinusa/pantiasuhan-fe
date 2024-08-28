@@ -10,11 +10,17 @@ const NavbarSekolah2 = () => {
     const isHomePage = window.location.pathname === "/";
 
     if (isHomePage) {
-      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+        }
     } else {
-      window.location.href = `/#${id}`;
+        // Simpan id ke sessionStorage dan navigasi ke halaman beranda
+        sessionStorage.setItem('scrollToId', id);
+        window.location.href = `/`;
     }
-  };
+};
+
 
   const handleMenuClick = (event, menu) => {
     event.preventDefault();
