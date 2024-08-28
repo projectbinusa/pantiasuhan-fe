@@ -17,6 +17,7 @@ function AddOsis() {
   const [jabatan, setJabatan] = useState("");
   const [tahunJabat, setTahunJabat] = useState("");
   const [tahunTuntas, setTahunTuntas] = useState("");
+  const [show, setShow] = useState(false);
 
   const param = useParams();
   const history = useHistory();
@@ -33,33 +34,32 @@ function AddOsis() {
     formData.append("tahunTuntas", tahunTuntas);
     formData.append("file", image);
 
-    await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/osis/add`, formData, {
+    try {
+      await axios.post(`${API_DUMMY}/smpn1bergas/api/osis/add`, formData, {
         headers: {
-            "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      })
-      .then(() => {
-        Swal.fire({
-          icon: "success",
-          title: "Data Berhasil DiTambahkan",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        history.push("/admin-osis");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          console.log(error);
-        }
       });
+      setShow(false);
+      Swal.fire({
+        icon: "success",
+        title: "Data Berhasil DiTambahkan",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      history.push("/admin-osis");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    } catch (error) {
+      if (error.ressponse && error.response.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      } else {
+        console.log(error);
+      }
+    }
   };
   useEffect(() => {
     AOS.init();

@@ -208,7 +208,7 @@ function Galery() {
                       Deskripsi
                     </th>
                     <th className="text-left">Image</th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

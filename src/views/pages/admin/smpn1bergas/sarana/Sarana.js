@@ -284,7 +284,7 @@ function Sarana() {
                     </th>
                     <th className="text-left">Tanggal Dibuat</th>
                     <th className="text-left">Tanggal Update</th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

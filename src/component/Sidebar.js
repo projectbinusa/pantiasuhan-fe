@@ -16,30 +16,6 @@ function Sidebar() {
     totalElements1: 0,
   });
 
-  const getAllCategoryKeuangan = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/category_keuangan/all?page=${page}&size=${rowsPerPage}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setList(response.data.data.content);
-      console.log(response.data.data.content);
-      setPaginationInfo1({
-        totalPages: response.data.data.totalPages,
-        totalElements: response.data.data.totalElements,
-      });
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
-  };
-
-  useEffect(() => {
-    getAllCategoryKeuangan();
-  }, []);
 
   return (
     <div className="app-theme-white body-tabs-shadow fixed-sidebar fixed-header overflow-auto">

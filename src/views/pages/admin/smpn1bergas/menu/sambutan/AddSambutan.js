@@ -32,6 +32,7 @@ function AddSambutan() {
   const [isiSambutan, setIsiSambutan] = useState("");
   const [file, setFile] = useState(null);
   const [nip, setNip] = useState("");
+  const [namaKepsek, setNamaKepsek] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
 
@@ -43,7 +44,8 @@ function AddSambutan() {
     try {
       const formData = new FormData();
       formData.append("isi", isiSambutan);
-      formData.append("nama", judulSambutan);
+      formData.append("nama", namaKepsek);
+      formData.append("judul", judulSambutan);
       formData.append("nip", nip);
       formData.append("file", file);
       // const data = {
@@ -109,6 +111,20 @@ function AddSambutan() {
                             className="form-control"
                             required
                             placeholder="Masukkan Judul Sambutan"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          {/* a */}
+                          <label className="form-label font-weight-bold">
+                            Nama Kepala Sekolah
+                          </label>
+                          <input
+                            value={namaKepsek}
+                            onChange={(e) => setNamaKepsek(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            required
+                            placeholder="Masukkan Nama Kepala Sekolah"
                           />
                         </div>
                         {/* <div className="mb-3 co-lg-6">

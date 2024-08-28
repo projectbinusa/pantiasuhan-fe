@@ -10,17 +10,17 @@ import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
 
-function DetailSejarah() {
-  const [judul, setJudul] = useState("");
+function DetailKondisiSekolah() {
+  const [img, setImg] = useState("");
   const [createdDate, setCreatedDate] = useState("");
   const [updateDate, setUpdateDate] = useState("");
-  const [isi, setIsi] = useState("");
+  const [deskripsi, setdeskripsi] = useState("");
   const param = useParams();
 
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/sejarah/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -29,8 +29,8 @@ function DetailSejarah() {
         const list_data = res.data.data;
         setCreatedDate(list_data.createdDate);
         setUpdateDate(list_data.updatedDate);
-        setJudul(list_data.judul);
-        setIsi(list_data.isi);
+        setImg(list_data.foto);
+        setdeskripsi(list_data.deskripsi);
       })
       .catch((error) => {
         alert("Terjadi Kesalahan " + error);
@@ -48,21 +48,26 @@ function DetailSejarah() {
               <h1 className="title card-header fw-bold fs-3">Detail</h1>
               <br />
               <div className="card-body">
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Judul Sejarah</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={judul}
+                {img === null ? (
+                  <img
+                    className="rounded-circle w-75 mr-auto ml-auto d-block"
+                    src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
                   />
-                </div>
+                ) : (
+                  <img
+                    style={{ maxWidth: "400px", maxHeight: "400px" }}
+                    className="w-75 d-block mr-auto ml-auto"
+                    src={img}
+                  />
+                )}
+                <br />
+                <br />
                 <div class="mb-3">
-                  <label class="form-label fw-bold">Isi Sejarah</label>
+                  <label class="form-label fw-bold">deskripsi Sejarah</label>
                   <div
                     className="form-control"
                     style={{ height: "auto", background: "#e9ecef" }}
-                    dangerouslySetInnerHTML={{ __html: isi }}
+                    dangerouslySetInnerHTML={{ __html: deskripsi }}
                   />
                 </div>
                 <div class="mb-3">
@@ -110,4 +115,4 @@ function DetailSejarah() {
   );
 }
 
-export default DetailSejarah;
+export default DetailKondisiSekolah;

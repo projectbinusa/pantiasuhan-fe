@@ -176,13 +176,28 @@ function Sejarah() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add-sejarah">
-                        Tambah Sejarah
-                      </a>
-                    </button>
+                  {list.length >= 0 ? (
+                      <>
+                        {" "}
+                        <button
+                          style={{ cursor: "not-allowed" }}
+                          disabled
+                          className="active btn-focus p-2 rounded">
+                          Tambah Data
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <button className="active btn-focus p-2 rounded">
+                          <a
+                            style={{ color: "white", textDecoration: "none" }}
+                            href="/add-sejarah">
+                            Tambah Data
+                          </a>
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -200,7 +215,7 @@ function Sejarah() {
                     </th> */}
                     <th
                       scope="col"
-                      className="text-left"
+                      className="text-center"
                       style={{ maxWidth: "120px" }}>
                       Isi Sejarah
                     </th>

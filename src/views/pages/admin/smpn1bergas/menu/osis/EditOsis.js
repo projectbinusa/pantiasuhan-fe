@@ -23,9 +23,8 @@ function EditOsis() {
   const param = useParams();
   const history = useHistory();
 
-  const updateBerita = async (e) => {
+  const update = async (e) => {
     e.preventDefault();
-    e.persist();
 
     const formData = new FormData();
     formData.append("nama", nama);
@@ -98,7 +97,7 @@ function EditOsis() {
             <div className="card-body">
               <h1 className="fs-4">Form Edit Data</h1>
               <hr />
-              <form onSubmit={updateBerita}>
+              <form onSubmit={update}>
                 <div className="row">
                   <div className="mb-3 col-lg-12">
                     {/*  */}

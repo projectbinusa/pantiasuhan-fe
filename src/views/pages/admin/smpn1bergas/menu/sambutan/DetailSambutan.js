@@ -22,13 +22,14 @@ function DetailSAmbutan() {
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/berita/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/sambutan/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
         const list_data = res.data.data;
+        console.log("sambutan: ", res.data.data);
         setCreatedDate(list_data.createdDate);
         setUpdateDate(list_data.updatedDate);
         setJudulSambutan(list_data.judul);
@@ -67,7 +68,7 @@ function DetailSAmbutan() {
                 <br />
                 <br />
                 <div class="mb-3">
-                  <label class="form-label fw-bold">Judul Berita</label>
+                  <label class="form-label fw-bold">Judul Sambutan</label>
                   <input
                     type="text"
                     class="form-control"
@@ -76,12 +77,20 @@ function DetailSAmbutan() {
                   />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label fw-bold">Author</label>
+                  <label class="form-label fw-bold">NIP</label>
                   <input
                     type="text"
                     class="form-control"
                     disabled
-                    value={author}
+                    value={nip}
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Isi Sambutan</label>
+                  <div
+                    className="form-control"
+                    style={{ height:"auto", background: "#e9ecef" }}
+                    dangerouslySetInnerHTML={{ __html: isiSambutan }}
                   />
                 </div>
                 <div class="mb-3">
@@ -110,29 +119,12 @@ function DetailSAmbutan() {
                     )}
                   />
                 </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Category Berita</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={nip}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Isi Berita</label>
-                  <div
-                    className="form-control"
-                    style={{ minHeight: "100px", background:"#e9ecef" }}
-                    dangerouslySetInnerHTML={{ __html: isiSambutan }}
-                  />
-                </div>
               </div>
               <button
                 type="submit"
                 className="btn-kembali btn-danger mt-3 mr-3">
                 <a
-                  href="/admin-berita"
+                  href="/admin-sambutan"
                   style={{ color: "white", textDecoration: "none" }}>
                   {" "}
                   Kembali

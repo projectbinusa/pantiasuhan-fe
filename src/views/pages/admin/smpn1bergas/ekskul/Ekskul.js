@@ -194,7 +194,7 @@ function Ekskul() {
                     {/* <th className="text-center">
                       Isi Berita
                     </th> */}
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

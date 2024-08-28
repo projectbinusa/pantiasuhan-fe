@@ -291,7 +291,7 @@ function Kegiatan() {
                     <th className="">Gambar</th>
                     <th className="">Tanggal Dibuat</th>
                     <th className="">Tanggal Update</th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

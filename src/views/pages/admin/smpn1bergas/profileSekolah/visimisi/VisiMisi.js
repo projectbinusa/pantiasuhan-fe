@@ -21,7 +21,9 @@ function VisiMisi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/visiMisi/all?page=${page - 1}&size=${rowsPerPage}`,
+        `${API_DUMMY}/smpn1bergas/api/visiMisi/all?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -167,13 +169,28 @@ function VisiMisi() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add-visimisi">
-                        Tambah Visi Misi
-                      </a>
-                    </button>
+                    {list.length >= 0 ? (
+                      <>
+                        {" "}
+                        <button
+                          style={{ cursor: "not-allowed" }}
+                          disabled
+                          className="active btn-focus p-2 rounded">
+                          Tambah Data
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <button className="active btn-focus p-2 rounded">
+                          <a
+                            style={{ color: "white", textDecoration: "none" }}
+                            href="/add-visimisi">
+                            Tambah Data
+                          </a>
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -185,17 +202,15 @@ function VisiMisi() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th className="text-long">Visi</th>
+                    <th className="text-center">Visi</th>
                     {/* <th className="text-center">
                       Isi Berita
                     </th> */}
-                    <th
-                      scope="col"
-                      className="text-left"
-                      style={{ minWidth: "150px" }}>
+                    <th scope="col" className="text-center">
                       Misi
                     </th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-center">Tujuan</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -205,12 +220,45 @@ function VisiMisi() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Visi" className="text-long">
-                          {berita.visi}
+                        <td
+                          style={{
+                            maxWidth: "150px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          data-label="Visi"
+                          className="text-left">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: berita.visi }}
+                          />
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}
-                        <td data-label="Misi" className="">
-                          {berita.misi}
+                        <td
+                          style={{
+                            maxWidth: "150px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          data-label="Misi"
+                          className="text-left">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: berita.misi }}
+                          />
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "150px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          data-label="Tujuan"
+                          className="text-left">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: berita.tujuan }}
+                          />
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
@@ -225,6 +273,15 @@ function VisiMisi() {
                                 href={`/edit-visimisi/${berita.id}`}>
                                 {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm">
+                              <a
+                                className="text-light"
+                                href={"/detail-visimisi/" + berita.id}>
+                                <i class="fas fa-info-circle"></i>
                               </a>
                             </button>
                             <button

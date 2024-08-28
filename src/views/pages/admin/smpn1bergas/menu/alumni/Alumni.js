@@ -208,7 +208,7 @@ function Alumni() {
                     <th scope="col" className="text-left">
                       Sekolah / Pekerjaan Saat Ini
                     </th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

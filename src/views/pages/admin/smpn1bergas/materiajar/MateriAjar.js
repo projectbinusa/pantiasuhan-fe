@@ -290,7 +290,7 @@ function MateriAjar() {
                     <th className="text-left">Penyusun</th>
                     {/* <th className="text-left">Isi</th> */}
                     {/* <th className="text-left">File</th> */}
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

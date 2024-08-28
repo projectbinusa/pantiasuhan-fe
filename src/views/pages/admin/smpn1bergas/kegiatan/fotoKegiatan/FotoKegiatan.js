@@ -281,7 +281,7 @@ function FotoKegiatan() {
                     <th className="text-long">Nama Kegiatan</th>
                     <th className="text-long">Tanggal Dibuat</th>
                     <th className="text-long">Tanggal Update</th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

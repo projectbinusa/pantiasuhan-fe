@@ -283,7 +283,7 @@ function Program() {
                     </th>
                     <th className="text-left">Tujuan</th>
                     <th className="text-left">Skala</th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

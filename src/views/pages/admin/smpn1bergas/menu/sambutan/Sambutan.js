@@ -175,13 +175,28 @@ function AdminSambutan() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add-sambutan">
-                        Tambah Sambutan
-                      </a>
-                    </button>
+                    {list.length >= 0 ? (
+                      <>
+                        {" "}
+                        <button
+                          style={{ cursor: "not-allowed" }}
+                          disabled
+                          className="active btn-focus p-2 rounded">
+                          Tambah Data
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <button className="active btn-focus p-2 rounded">
+                          <a
+                            style={{ color: "white", textDecoration: "none" }}
+                            href="/add-kontak">
+                            Tambah Data
+                          </a>
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -199,13 +214,13 @@ function AdminSambutan() {
                     </th> */}
                     <th
                       scope="col"
-                      className="text-left"
+                      className="text-center"
                       style={{ minWidth: "150px" }}>
                       Isi Sambutan
                     </th>
                     <th className="text-left">NIP</th>
                     <th className="text-left">Gambar</th>
-                    <th className="text-center">Aksi</th>
+                    <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -221,7 +236,7 @@ function AdminSambutan() {
                         {/* <td data-label="">{berita.isiBerita}</td> */}
                         <td
                           style={{
-                            maxWidth: "2150px",
+                            maxWidth: "150px",
                             whiteSpace: "nowrap",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
