@@ -280,6 +280,8 @@ function KegiatanSekolah() {
                   onChange={handlePageChange}
                   color="primary"
                   className="pagination"
+                  showFirstButton
+                  showLastButton
                 />
               </>
             )}

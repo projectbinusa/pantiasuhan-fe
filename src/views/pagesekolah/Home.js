@@ -648,12 +648,13 @@ function Home() {
 
     const data = {
       email: email1,
-      nama: nama,
+      nama: namaPengirim,
       pesan: pesan,
       telp: telp,
     };
+    
     try {
-      await axios.post`${API_DUMMY}/smpn1bergas/api/kotak_saran/add`, data;
+      await axios.post(`${API_DUMMY}/smpn1bergas/api/kotak_saran/add`, data);
       Swal.fire({
         icon: "success",
         title: "Kotak Masuk Berhasil Terkirim",
@@ -910,7 +911,7 @@ function Home() {
           </Typography>
           <div style={{ position: "relative" }}>
             <Slider ref={sliderRef} {...sliderSettings}>
-              {gurus.length > 4 ? (
+              {gurus.length > 2 ? (
                 gurus.map((guru, idx) => (
                   <div key={idx} style={teacherCardStyle}>
                     <div
