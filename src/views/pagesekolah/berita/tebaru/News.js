@@ -8,31 +8,7 @@ import axios from 'axios';
 import { API_DUMMY } from '../../../../utils/base_URL';
 import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
 
-const newsData = [
-    { id: 1, title: 'Local School Wins Award', content: 'The local school has been recognized for its outstanding achievements in academics and sports.', image: 'https://via.placeholder.com/300x200?text=Award', category: 'Berita Sekolah', date: '2024-08-10' },
-    { id: 2, title: 'Community Garden Project Launched', content: 'A new community garden has been established to promote local agriculture and sustainability.', image: 'https://via.placeholder.com/300x200?text=Garden', category: 'Info Sekolah', date: '2024-08-12' },
-    { id: 3, title: 'New Library Opens Downtown', content: 'The new library offers a wide range of books and community programs for all ages.', image: 'https://via.placeholder.com/300x200?text=Library', category: 'Berita Sekolah', date: '2024-08-14' },
-    { id: 4, title: 'Tech Startup Announces Innovative App', content: 'A local tech startup has announced the release of a new app designed to improve productivity.', image: 'https://via.placeholder.com/300x200?text=Tech', category: 'Agenda', date: '2024-08-16' },
-    { id: 5, title: 'Annual Art Fair Returns This Weekend', content: 'The annual art fair will showcase works from local artists and provide interactive workshops.', image: 'https://via.placeholder.com/300x200?text=Art', category: 'Berita Sekolah', date: '2024-08-18' },
-    { id: 6, title: 'City Marathon a Huge Success', content: 'The city marathon attracted thousands of participants and raised funds for charity.', image: 'https://via.placeholder.com/300x200?text=Marathon', category: 'Agenda', date: '2024-08-20' },
-    { id: 7, title: 'New Health Clinic Opens in Town', content: 'A new health clinic has opened to provide essential medical services to the community.', image: 'https://via.placeholder.com/300x200?text=Health', category: 'Info Sekolah', date: '2024-08-22' },
-    { id: 8, title: 'School Science Fair Winners Announced', content: 'Students from various schools presented innovative science projects and won awards.', image: 'https://via.placeholder.com/300x200?text=Science', category: 'Berita Sekolah', date: '2024-08-24' },
-    { id: 9, title: 'Local Theatre Group Performs Shakespeare', content: 'The local theatre group is performing Shakespeare’s plays this weekend.', image: 'https://via.placeholder.com/300x200?text=Theatre', category: 'Info Sekolah', date: '2024-08-26' },
-    { id: 10, title: 'New Restaurant Opens Downtown', content: 'A new restaurant specializing in international cuisine has opened its doors.', image: 'https://via.placeholder.com/300x200?text=Restaurant', category: 'Agenda', date: '2024-08-28' }
-];
-
 const News = () => {
-    // const [currentPage, setCurrentPage] = useState(1);
-
-    // const totalPages = Math.ceil(newsData.length / 5);
-
-    // const currentData = newsData.slice(
-    //     (currentPage - 1) * 5,
-    //     currentPage * 5
-    // );
-
-    // const handlePageChange = (event, pageNumber) => setCurrentPage(pageNumber);
-
     const [currentPage, setCurrentPage] = useState(1);
     const handlePageChange = (event, pageNumber) => {
         setCurrentPage(pageNumber);
@@ -60,7 +36,7 @@ const News = () => {
     return (
         <section>
             <NavbarSekolah2 />
-            <main className="container-berita">
+            <main className="container-berita container">
                 <HeaderBerita title={"Berita Terbaru"} />
                 <div className="container-apbd">
                     <div>

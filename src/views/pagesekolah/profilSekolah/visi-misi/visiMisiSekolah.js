@@ -33,7 +33,7 @@ function VisiMisiSekolah() {
   return (
     <div>
       <NavbarSekolah2 />
-      <main className="container-berita">
+      <main className="container-berita container">
         <div className="header-berita">
           <ul>
             <li>
@@ -47,35 +47,35 @@ function VisiMisiSekolah() {
             </li>
           </ul>
         </div>
-        <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', lineHeight: '1.8' }}>
-          <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '20px' }}>
+        <div style={{ padding: '0', fontFamily: 'Arial, sans-serif', lineHeight: '1.8' }}>
+          <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0' }}>
             {visiMisiData.visi === "Data tidak tersedia" || visiMisiData.misi === "Data tidak tersedia" || visiMisiData.tujuan === "Data tidak tersedia" ? (
               <p style={{ fontSize: "1.1em", textAlign: "center", color: "#666" }}>
                 Visi & Misi dan Tujuan Sekolah Tidak Tersedia.
               </p>
             ) : (
               <>
-                <h2 style={{ fontSize: '2em', marginBottom: '30px', fontWeight: 'bold', textAlign: "center" }}>
+                <h2 style={{ fontSize: '2em', marginBottom: '30px', fontWeight: 'bold', textAlign: "center", textTransform: "uppercase" }}>
                   Visi Sekolah
                 </h2>
                 <div
-                  style={{ fontSize: '1.1em', marginBottom: '20px', textAlign: 'center', textTransform: 'capitalize' }}
+                  style={{ fontSize: '1.1em', marginBottom: '60px', textAlign: 'center', textTransform: 'capitalize' }}
                   dangerouslySetInnerHTML={{ __html: visiMisiData.visi }}
                 />
                     
-                <h2 style={{ fontSize: '2em', marginBottom: '30px', fontWeight: 'bold', textAlign: "center" }}>
+                <h2 style={{ fontSize: '2em', marginBottom: '30px', fontWeight: 'bold', textAlign: "center", textTransform: "uppercase" }}>
                   Misi Sekolah
                 </h2>
                 <div
-                  style={{ fontSize: '1.1em', marginBottom: '20px', textAlign: 'left', textTransform: 'capitalize' }}
+                  style={{ fontSize: '1.1em', marginBottom: '60px', textAlign: 'left', textTransform: 'capitalize' }}
                   dangerouslySetInnerHTML={{ __html: visiMisiData.misi }}
                 />
                     
-                <h2 style={{ fontSize: '2em', marginBottom: '30px', fontWeight: 'bold', textAlign: "center" }}>
+                <h2 style={{ fontSize: '2em', marginBottom: '30px', fontWeight: 'bold', textAlign: "center", textTransform: "uppercase" }}>
                   Tujuan Sekolah
                 </h2>
                 <div
-                  style={{ fontSize: '1.1em', marginBottom: '20px', textAlign: 'left', textTransform: 'capitalize' }}
+                  style={{ fontSize: '1.1em', marginBottom: '60px', textAlign: 'left', textTransform: 'capitalize' }}
                   dangerouslySetInnerHTML={{ __html: visiMisiData.tujuan }}
                 />
               </>

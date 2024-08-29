@@ -22,7 +22,7 @@ function Perpustakaan() {
 
     const getAllPerpus = async (page = 1) => {
         try {
-            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/perpustakaan/all?page=${page - 1}&size=15`);
+            const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/perpustakaan/all?page=${page - 1}&size=18`);
             setBuku(response.data.data.content);
             setTotalPage(response.data.data.totalPages);
         } catch (error) {
@@ -51,17 +51,8 @@ function Perpustakaan() {
                             tahun={item.tahun}
                         />
                     ))}
-                    {/* <CardPerpustakaan
-                        key="1"
-                        image=""
-                        id="1"
-                        title="DI TANAH BERHALA"
-                        content="testst"
-                        pengarang="ECT"
-                        tahun="2024"
-                    /> */}
                 </main>
-                <div className="d-flex justify-content-center align-items-center mt-3">
+                <div className="d-flex justify-content-center align-items-center mt-5">
                     <Pagination
                         count={totalPages}
                         page={currentPage}

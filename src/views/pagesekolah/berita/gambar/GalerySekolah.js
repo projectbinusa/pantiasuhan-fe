@@ -60,7 +60,7 @@ function GalerySekolah() {
   return (
     <>
       <NavbarSekolah2 />
-      <main className='galeri-container'>
+      <main className='galeri-container container'>
         <HeaderGaleri />
         <div className="gallery-container mb-5">
           {galery.map(item => (

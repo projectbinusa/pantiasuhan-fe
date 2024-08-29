@@ -519,7 +519,7 @@ function Home() {
   const getAllEkskul = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all?direction=asc&page=0&size=8&sort=createdDate`
+        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all/terbaru?page=0&size=8`
       );
       setEkstrakurikuler(response.data.data.content);
     } catch (error) {
@@ -537,7 +537,7 @@ function Home() {
   const getAllGuru = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/guru/all?page=0&size=20`
+        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=0&size=20`
       );
       setGurus(response.data.data.content);
     } catch (error) {
@@ -652,7 +652,7 @@ function Home() {
       pesan: pesan,
       telp: telp,
     };
-    
+
     try {
       await axios.post(`${API_DUMMY}/smpn1bergas/api/kotak_saran/add`, data);
       Swal.fire({
@@ -941,7 +941,7 @@ function Home() {
                   </div>
                 ))
               ) : (
-                <>Data minimal 4</>
+                <>Data minimal 5</>
               )}
               {/* {teacherItems.map((teacher, index) => (
                 <div key={index} style={teacherCardStyle}>
@@ -1027,7 +1027,7 @@ function Home() {
             gutterBottom>
             Profil Alumni
           </Typography>
-          <div style={{ position: "relative" }} className="container">
+          <div style={{ position: "relative" }} className="container mb-5">
             <Slider {...sliderSettingsAlumni}>
               {alumnus.length > 0 ? (
                 alumnus.map((alumni, idx) => (
@@ -1036,6 +1036,7 @@ function Home() {
                       image={alumni.foto}
                       title={alumni.nama}
                       description={alumni.biografi}
+                      id={alumni.id}
                     />
                   </div>
                 ))
@@ -1053,6 +1054,13 @@ function Home() {
               ))} */}
             </Slider>
           </div>
+          <Link
+            href="/all-alumni"
+            style={buttonStyles}
+            onMouseEnter={() => setIsHovereds(true)}
+            onMouseLeave={() => setIsHovereds(false)}>
+            Tampilkan Semua Alumni
+          </Link>
         </section>
       </div>
 

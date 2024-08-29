@@ -33,7 +33,8 @@ function Osis() {
         backgroundColor: "#f4f4f4",
         borderRadius: "8px",
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-        fontFamily: "'Poppins', sans-serif"
+        fontFamily: "'Poppins', sans-serif",
+        marginBottom: "2rem"
     };
 
     const titleStyle = {
@@ -134,13 +135,13 @@ function Osis() {
     const paginationContainerStyle = {
         display: "flex",
         justifyContent: "center",
-        marginTop: "20px"
+        marginTop: "20px",
     };
 
     return (
         <>
             <NavbarSekolah2 />
-            <main className="container-berita">
+            <main className="container-berita container">
                 <div className="header-berita">
                     <ul>
                         <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>

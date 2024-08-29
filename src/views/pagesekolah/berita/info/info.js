@@ -59,7 +59,7 @@ const Info = () => {
     return (
         <section>
             <NavbarSekolah2 />
-            <main className="container-berita">
+            <main className="container-berita container">
                 <HeaderBerita title={"Info Sekolah"} />
                 <div className="container-apbd">
                     <div>

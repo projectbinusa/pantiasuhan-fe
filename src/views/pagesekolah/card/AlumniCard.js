@@ -1,25 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import "../../../css/alumni/alumni.css"
 
-const AlumniCard = ({ image, title, description }) => {
+const AlumniCard = ({ image, title, description, id }) => {
+  const [hover, setHover] = useState(false);
+
   const cardContainerStyle = {
     padding: "0 15px",
     boxSizing: "border-box",
   };
 
-  const cardStyle = {
-    backgroundColor: "#fff",
-    borderRadius: "10px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    overflow: "hidden",
-    display: "flex",
-    alignItems: "flex-start",
-    padding: "30px",
-    height: "300px",
-  };
-
   const imageWrapperStyle = {
     overflow: "hidden",
-    // width: "200px",
     height: "250px",
     marginRight: "20px",
     borderRadius: "10px",
@@ -42,10 +33,15 @@ const AlumniCard = ({ image, title, description }) => {
   };
 
   const titleStyle = {
-    fontSize: "24px",
+    textAlign: "center",
+    fontWeight: "bold",
     marginBottom: "10px",
-    marginTop: "0",
+    color: hover ? "#FFCC00" : "#000000",
+    fontFamily: "'Poppins', sans-serif",
+    textDecoration: "none",
+    fontSize: "1.3rem"
   };
+
 
   const descriptionStyle = {
     color: "#666",
@@ -59,7 +55,9 @@ const AlumniCard = ({ image, title, description }) => {
           <img src={image} alt={title} style={imageStyle} />
         </div>
         <div style={textStyle}>
-          <div style={titleStyle}><a href="/" style={{ textDecoration: "none", fontWeight: "600", color: "#002147" }}>{title}</a></div>
+          <div style={titleStyle}><a href={`/detail-alumni-${id}`} onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            style={titleStyle}>{title}</a></div>
           <div style={descriptionStyle}><p className="isi-alumni" style={{ fontSize: "14px" }}>{description}</p></div>
         </div>
       </div>
