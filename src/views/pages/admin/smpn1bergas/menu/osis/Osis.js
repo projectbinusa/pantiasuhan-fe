@@ -267,8 +267,14 @@ function Osis() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((berita, no) => {
-                    return (
+                  {filteredList.length === 0 ? (
+                    <tr>
+                      <td colSpan="8" className="text-center my-3">
+                        <div style={{ padding: "10px", color: "#555" }}>Tidak ada data yang tersedia.</div>
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredList.map((berita, no) => (
                       <tr key={no}>
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
@@ -276,7 +282,6 @@ function Osis() {
                         <td data-label="Nama" className="text-long">
                           {berita.nama}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}{" "}
                         <td data-label="Kelas" className="">
                           {berita.kelas}
                         </td>
@@ -289,10 +294,12 @@ function Osis() {
                         <td data-label="Tahun Tuntas" className="">
                           {berita.tahunTuntas}
                         </td>
-                        <img
-                          src={berita.foto}
-                          style={{ height: "4.5rem", width: "4.5rem" }}
-                        />
+                        <td>
+                          <img
+                            src={berita.foto}
+                            style={{ height: "4.5rem", width: "4.5rem" }}
+                          />
+                        </td>
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button
@@ -317,8 +324,8 @@ function Osis() {
                           </div>
                         </td>
                       </tr>
-                    );
-                  })}
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
