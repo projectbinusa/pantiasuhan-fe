@@ -30,7 +30,7 @@ function Osis() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/osis/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/osis/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {

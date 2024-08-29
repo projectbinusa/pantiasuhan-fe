@@ -26,7 +26,7 @@ function Kontak() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kontak/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/kontak/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {
@@ -174,7 +174,7 @@ function Kontak() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    {list.length >= 0 ? (
+                    {list.length > 0 ? (
                       <>
                         {" "}
                         <button

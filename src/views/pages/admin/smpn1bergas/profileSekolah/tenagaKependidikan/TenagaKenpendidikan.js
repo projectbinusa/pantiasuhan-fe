@@ -22,7 +22,7 @@ function TenagaKenpendidikan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {

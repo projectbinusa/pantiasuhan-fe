@@ -9,6 +9,10 @@ table tbody td .aksi {
   display: flex;
   justify-content: center;
 }
+table tbody td .aksi1 {
+  /* text-align: center; */
+  display: block;
+}
 #table-padding{
   margin-top: 520px;
 }
@@ -18,10 +22,10 @@ table tbody td .aksi {
   /* Center the search input */
   .form-control.widget-content-right {
     margin: 10px auto;
-    width: 80%; 
+    width: 80%;
     display: hidden;
-   
-  
+
+
   }
 
   /* Increase the width of the table */

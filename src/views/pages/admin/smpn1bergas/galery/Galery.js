@@ -31,7 +31,7 @@ function Galery() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/galeri/all?page=${page - 1}&size=${rowsPerPage}`,
+        `${API_DUMMY}/smpn1bergas/api/galeri/all/terbaru?page=${page - 1}&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

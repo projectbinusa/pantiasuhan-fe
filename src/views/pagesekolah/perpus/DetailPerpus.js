@@ -39,7 +39,7 @@ function DetailPerpus() {
     return (
         <section>
             <NavbarSekolah2 />
-            <div className="container-alumni">
+            <div className="container-alumni container">
                 <HeaderDetailPerpus header={nama} />
                 {image !== 0 ? (<>
                     <img src={image} />

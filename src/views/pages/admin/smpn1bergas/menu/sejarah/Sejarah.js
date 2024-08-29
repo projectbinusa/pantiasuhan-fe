@@ -176,7 +176,7 @@ function Sejarah() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                  {list.length >= 0 ? (
+                  {list.length > 0 ? (
                       <>
                         {" "}
                         <button

@@ -42,7 +42,7 @@ function Keuangan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/keuangan/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/keuangan/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {

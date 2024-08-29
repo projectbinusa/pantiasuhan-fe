@@ -31,7 +31,7 @@ function Kegiatan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kegiatan/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/kegiatan/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {

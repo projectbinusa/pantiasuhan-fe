@@ -646,9 +646,14 @@ function Home() {
       return;
     }
 
+    const data = {
+      email: email1,
+      nama: nama,
+      pesan: pesan,
+      telp: telp,
+    };
     try {
-      await axios.post
-        `${API_DUMMY}/smpn1bergas/api/kotak_saran/add?email=${email1}&nama=${namaPengirim}&pesan=${pesan}&telp=${telp}`;
+      await axios.post`${API_DUMMY}/smpn1bergas/api/kotak_saran/add`, data;
       Swal.fire({
         icon: "success",
         title: "Kotak Masuk Berhasil Terkirim",
@@ -669,11 +674,11 @@ function Home() {
   };
 
   useEffect(() => {
-    const scrollToId = sessionStorage.getItem('scrollToId');
+    const scrollToId = sessionStorage.getItem("scrollToId");
     if (scrollToId) {
       const element = document.getElementById(scrollToId);
       element.scrollIntoView({ behavior: "smooth" });
-      sessionStorage.removeItem('scrollToId');
+      sessionStorage.removeItem("scrollToId");
     }
   }, []);
 
@@ -712,7 +717,7 @@ function Home() {
       </div>
 
       {/* BERITA */}
-      <div style={contentStyles} >
+      <div style={contentStyles}>
         <section id="berita-terbaru" style={sectionStyles} data-aos="fade-up">
           <Typography
             style={{
@@ -880,7 +885,9 @@ function Home() {
           height: "100px",
           backgroundColor: "#003366",
         }}>
-        <h3 style={{ color: "white", textAlign: "center" }} className="container">
+        <h3
+          style={{ color: "white", textAlign: "center" }}
+          className="container">
           Pendidikan: Kunci Menuju Dunia Kemungkinan
         </h3>
       </div>
@@ -922,10 +929,14 @@ function Home() {
                     </div>
                     <Typography
                       style={{ fontFamily: "'Poppins', sans-serif" }}
-                      variant="h6">{guru.nama_guru}</Typography>
+                      variant="h6">
+                      {guru.nama_guru}
+                    </Typography>
                     <Typography
                       style={{ fontFamily: "'Poppins', sans-serif" }}
-                      variant="body2">{guru.mapel}</Typography>
+                      variant="body2">
+                      {guru.mapel}
+                    </Typography>
                   </div>
                 ))
               ) : (

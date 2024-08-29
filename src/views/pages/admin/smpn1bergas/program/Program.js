@@ -28,9 +28,9 @@ function Program() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/program/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/program/all/terbaru?page=${
           page - 1
-        }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
+        }&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
