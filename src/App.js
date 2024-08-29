@@ -126,6 +126,7 @@ import DetailKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah
 import KegiatanSekolah from "./views/pagesekolah/kegiatan/KegiatanSekolah";
 import DetailKegiatan from "./views/pagesekolah/kegiatan/DetailKegiatan";
 import DetailEkskul from "./views/pages/admin/smpn1bergas/ekskul/DetailEkskul";
+import AlumniAll from "./views/pagesekolah/AlumniAll";
 
 // END ADMIN MENU REGULASI
 
@@ -498,6 +499,7 @@ function App() {
           {/* PRESTASI */}
           <Route path="/detail-prestasi-:id" component={DetailPrestasi} exact />
           <Route path="/detail-alumni-:id" component={DetailAlumni} exact />
+          <Route path="/all-alumni" component={AlumniAll} exact />
           <Route path="/osis" component={Osis} exact />
           {/* Berita */}
           <Route path="/galery" component={GalerySekolah} exact />

@@ -22,7 +22,7 @@ function Ekstrakurikuler() {
       const response = await axios.get(
         `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all/?page=${
           page - 1
-        }&size=15`
+        }&size=18`
       );
       setEkstrakulikuler(response.data.data.content);
       setTotalPage(response.data.data.totalPages);

@@ -19,7 +19,7 @@ function PrestasiSekolah() {
   const getAllPrestasi = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/prestasi/all?page=${page - 1}&size=16`
+        `${API_DUMMY}/smpn1bergas/api/prestasi/all/terbaru?page=${page - 1}&size=18`
       );
       setPrestasi(response.data.data.content);
       setTotalPage(response.data.data.totalPages);
@@ -35,14 +35,14 @@ function PrestasiSekolah() {
   return (
     <div>
       <NavbarSekolah2 />
-      <main className="container-berita">
+      <main className="container-berita container">
         <div className="header-berita">
           <ul>
             <li><a href="/"><i className="fas fa-home"></i> Beranda</a></li>
             <li><i className="fas fa-angle-right"></i><span style={{fontWeight: "normal"}}> Prestasi</span></li>
           </ul>
         </div>
-        <div className="container">
+        <div className="">
           <div className="container-grid">
             {prestasi.map((item) => (
               <div className="card" key={item.id}>

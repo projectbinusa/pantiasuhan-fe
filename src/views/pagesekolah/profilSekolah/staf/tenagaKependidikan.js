@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import { Card, Container, Grid, Pagination, Typography } from "@mui/material";
 import "../../../../views/pagesekolah/profilSekolah/staf/tenagaKependidikan.css";
-import NavbarSekolah from "../../../../component/NavbarSekolah";
+import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import axios from "axios";
 import { API_DUMMY } from "../../../../utils/base_URL";
 
@@ -38,8 +38,7 @@ const TenagaKepndidkan = () => {
   const getAllKependidikan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all?page=${
-          page1 - 1
+        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all/terbaru?page=${page1 - 1
         }&size=${rowsPerPage1}`
       );
       setKry(response.data.data.content);
@@ -109,8 +108,7 @@ const TenagaKepndidkan = () => {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`
       );
       setGuru(response.data.data.content);
@@ -187,8 +185,8 @@ const TenagaKepndidkan = () => {
 
   return (
     <div>
-      <NavbarSekolah />
-      <div
+      <NavbarSekolah2 />
+      {/* <div
         style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
         <img
           src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
@@ -208,327 +206,229 @@ const TenagaKepndidkan = () => {
         <div style={textOverlayStyle}>
           <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
         </div>
-      </div>
+      </div> */}
+      <div className="container-berita container">
+        <div className="header-berita">
+          <ul>
+            <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>
+            <li>
+              <i class="fas fa-angle-right"></i>{" "}
+              <span style={{ fontWeight: "normal" }}>Staff Sekolah</span>
+            </li>
+          </ul>
+        </div>
 
-      <Grid
-        container
-        spacing={2}
-        className="container"
-        style={{ marginRight: "auto", marginLeft: "auto", padding: "3rem 0" }}>
-        <Grid xs={11} md={8}>
-          <div className="mt-5">
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="div"
-              style={{ fontFamily: "'Poppins', sans-serif" }}>
-              Tabel Guru
-            </Typography>
-            <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
-              <input
-                type="search"
-                className="form-control mb-3 mb-md-0"
-                placeholder="Pencarian berdasarkan nama atau mapel"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                style={{ flex: "1" }}
-              />
-              <select
-                className="form-select ms-0 ms-md-3"
-                style={{ width: "120px" }}
-                value={rowsPerPage}
-                onChange={handleRowsPerPageChange}>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-              </select>
-            </div>
+        <Grid
+          container
+          spacing={2}
+          className="container"
+          style={{ marginRight: "auto", marginLeft: "auto", padding: "0" }}>
+          <Grid xs={11} md={8}>
+            <div className="mt-5">
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                style={{ fontFamily: "'Poppins', sans-serif" }}>
+                Tabel Guru
+              </Typography>
+              <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+                <input
+                  type="search"
+                  className="form-control mb-3 mb-md-0"
+                  placeholder="Pencarian berdasarkan nama atau mapel"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  style={{ flex: "1" }}
+                />
+                <select
+                  className="form-select ms-0 ms-md-3"
+                  style={{ width: "120px" }}
+                  value={rowsPerPage}
+                  onChange={handleRowsPerPageChange}>
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={20}>20</option>
+                </select>
+              </div>
 
-            <div className="table-responsive">
-              <table className="table" style={{ width: "100%" }}>
-                <thead style={{ background: "#003366", color: "white" }}>
-                  <tr>
-                    <th
-                      style={{
-                        background: "#003366",
-                        color: "white",
-                        width: "5%",
-                      }}>
-                      No
-                    </th>
-                    <th style={{ background: "#003366", color: "white" }}>
-                      Nama Guru
-                    </th>
-                    <th style={{ background: "#003366", color: "white" }}>
-                      Mapel{" "}
-                    </th>
-                    <th style={{ background: "#003366", color: "white" }}>
-                      Detail{" "}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredList.length > 0 ? (
-                    filteredList.map((item, index) => (
-                      <tr key={item.id}>
-                        <td style={{ paddingRight: "0" }}>
-                          {index + 1 + (currentPage - 1) * rowsPerPage}
-                        </td>
-                        <td>{item.nama_guru}</td>
-                        <td>{item.mapel}</td>
-                        <td>
-                          <button
-                            onClick={() => getById(item.id)}
-                            type="button"
-                            class="btn-warning  mr-2 btn-sm text-light">
-                            <i class="fas fa-info-circle"></i>
-                          </button>
+              <div className="table-responsive">
+                <table className="table" style={{ width: "100%" }}>
+                  <thead style={{ background: "#003366", color: "white" }}>
+                    <tr>
+                      <th
+                        style={{
+                          background: "#003366",
+                          color: "white",
+                          width: "5%",
+                        }}>
+                        No
+                      </th>
+                      <th style={{ background: "#003366", color: "white" }}>
+                        Nama Guru
+                      </th>
+                      <th style={{ background: "#003366", color: "white" }}>
+                        Mapel{" "}
+                      </th>
+                      <th style={{ background: "#003366", color: "white" }}>
+                        Detail{" "}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredList.length > 0 ? (
+                      filteredList.map((item, index) => (
+                        <tr key={item.id}>
+                          <td style={{ paddingRight: "0" }}>
+                            {index + 1 + (currentPage - 1) * rowsPerPage}
+                          </td>
+                          <td>{item.nama_guru}</td>
+                          <td>{item.mapel}</td>
+                          <td>
+                            <button
+                              onClick={() => getById(item.id)}
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm text-light">
+                              <i class="fas fa-info-circle"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="4" className="text-center">
+                          Tidak ada data
                         </td>
                       </tr>
-                    ))
-                  ) : (
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="d-flex justify-content-center align-items-center mt-3">
+                <Pagination
+                  count={paginationInfo.totalPages}
+                  page={currentPage}
+                  onChange={(event, value) => {
+                    setCurrentPage(value);
+                    setPage(value);
+                  }}
+                  color="primary"
+                  shape="rounded"
+                  style={{ marginBottom: "30px" }}
+                  showFirstButton
+                  showLastButton
+                />
+              </div>
+              <Typography
+                xs={{ marginTop: "30px" }}
+                gutterBottom
+                variant="h5"
+                component="div"
+                style={{
+                  fontFamily: "'Poppins', sans-serif",
+                  marginTop: "1rem",
+                }}>
+                Tabel Karyawan
+              </Typography>
+              <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+                <input
+                  type="search"
+                  className="form-control mb-3 mb-md-0"
+                  placeholder="Pencarian berdasarkan nama atau status"
+                  value={searchTerm1}
+                  onChange={handleSearchChange1}
+                  style={{ flex: "1" }}
+                />
+                <select
+                  className="form-select ms-0 ms-md-3"
+                  style={{ width: "120px" }}
+                  value={rowsPerPage1}
+                  onChange={handleRowsPerPageChange1}>
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={20}>20</option>
+                </select>
+              </div>
+
+              <div className="table-responsive">
+                <table className="table" style={{ width: "100%" }}>
+                  <thead>
                     <tr>
-                      <td colSpan="4" className="text-center">
-                        Tidak ada data
-                      </td>
+                      <th
+                        style={{
+                          width: "5%",
+                          background: "#003366",
+                          color: "white",
+                        }}>
+                        No
+                      </th>
+                      <th style={{ background: "#003366", color: "white" }}>
+                        Name
+                      </th>
+                      <th style={{ background: "#003366", color: "white" }}>
+                        Status
+                      </th>
+                      <th style={{ background: "#003366", color: "white" }}>
+                        Aksi
+                      </th>
                     </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="d-flex justify-content-center align-items-center mt-3">
-              <Pagination
-                count={paginationInfo.totalPages}
-                page={currentPage}
-                onChange={(event, value) => {
-                  setCurrentPage(value);
-                  setPage(value);
-                }}
-                color="primary"
-                shape="rounded"
-                style={{ marginBottom: "30px" }}
-                showFirstButton
-                showLastButton
-              />
-            </div>
-            <Typography
-              xs={{ marginTop: "30px" }}
-              gutterBottom
-              variant="h5"
-              component="div"
-              style={{
-                fontFamily: "'Poppins', sans-serif",
-                marginTop: "1rem",
-              }}>
-              Tabel Karyawan
-            </Typography>
-            <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
-              <input
-                type="search"
-                className="form-control mb-3 mb-md-0"
-                placeholder="Pencarian berdasarkan nama atau status"
-                value={searchTerm1}
-                onChange={handleSearchChange1}
-                style={{ flex: "1" }}
-              />
-              <select
-                className="form-select ms-0 ms-md-3"
-                style={{ width: "120px" }}
-                value={rowsPerPage1}
-                onChange={handleRowsPerPageChange1}>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-              </select>
-            </div>
-
-            <div className="table-responsive">
-              <table className="table" style={{ width: "100%" }}>
-                <thead>
-                  <tr>
-                    <th
-                      style={{
-                        width: "5%",
-                        background: "#003366",
-                        color: "white",
-                      }}>
-                      No
-                    </th>
-                    <th style={{ background: "#003366", color: "white" }}>
-                      Name
-                    </th>
-                    <th style={{ background: "#003366", color: "white" }}>
-                      Status
-                    </th>
-                    <th style={{ background: "#003366", color: "white" }}>
-                      Aksi
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredList1.length > 0 ? (
-                    filteredList1.map((item, index) => (
-                      <tr key={item.id}>
-                        <td style={{ paddingRight: "0" }}>
-                          {index + 1 + (currentPage - 1) * rowsPerPage}
-                        </td>
-                        <td>{item.nama}</td>
-                        <td>{item.status}</td>
-                        <td>
-                          {" "}
-                          <button
-                            onClick={() => getByIdKry(item.id)}
-                            type="button"
-                            class="btn-warning  mr-2 btn-sm text-light">
-                            <i class="fas fa-info-circle"></i>
-                          </button>
+                  </thead>
+                  <tbody>
+                    {filteredList1.length > 0 ? (
+                      filteredList1.map((item, index) => (
+                        <tr key={item.id}>
+                          <td style={{ paddingRight: "0" }}>
+                            {index + 1 + (currentPage - 1) * rowsPerPage}
+                          </td>
+                          <td>{item.nama}</td>
+                          <td>{item.status}</td>
+                          <td>
+                            {" "}
+                            <button
+                              onClick={() => getByIdKry(item.id)}
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm text-light">
+                              <i class="fas fa-info-circle"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="4" className="text-center">
+                          Tidak ada data
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="4" className="text-center">
-                        Tidak ada data
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+                    )}
+                  </tbody>
+                </table>
+              </div>
 
-            <div className="d-flex justify-content-center align-items-center mt-3">
-              <Pagination
-                count={paginationInfo1.totalPages}
-                page={currentPage1}
-                onChange={(event, value) => {
-                  setCurrentPage1(value);
-                  setPage1(value);
-                }}
-                color="primary"
-                shape="rounded"
-                style={{ marginBottom: "30px" }}
-                showFirstButton
-                showLastButton
-              />
+              <div className="d-flex justify-content-center align-items-center mt-3">
+                <Pagination
+                  count={paginationInfo1.totalPages}
+                  page={currentPage1}
+                  onChange={(event, value) => {
+                    setCurrentPage1(value);
+                    setPage1(value);
+                  }}
+                  color="primary"
+                  shape="rounded"
+                  style={{ marginBottom: "30px" }}
+                  showFirstButton
+                  showLastButton
+                />
+              </div>
             </div>
-          </div>
-        </Grid>
+          </Grid>
 
-        <Card
-          style={{ marginRight: "auto", marginLeft: "auto" }}
-          xs={6}
-          md={8}
-          sx={{ maxWidth: 345 }}>
-          {selectedDetail === "guru" ? (
-            <Container style={{ marginTop: "19px" }}>
-              <Typography
-                className="font-weight-bold"
-                variant="h5"
-                color="text.secondary"
-                style={{ fontFamily: "'Poppins', sans-serif" }}>
-                Detail
-              </Typography>
-              <img
-                className="rounded-2 mt-3"
-                component="img"
-                style={{ width: "90%" }}
-                src={
-                  img ||
-                  "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
-                }
-                alt="Profile"
-              />
-              <div className="mb-3 mt-3">
-                <label className="form-label font-weight-bold">Nama Guru</label>
-                <input
-                  value={namaGuru}
-                  type="text"
-                  className="form-control w-full"
-                  disabled
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label font-weight-bold">
-                  Mata Pelajaran
-                </label>
-                <input
-                  value={mapel}
-                  type="text"
-                  className="form-control"
-                  disabled
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label font-weight-bold">NIP</label>
-                <input
-                  value={nip}
-                  type="text"
-                  className="form-control"
-                  disabled
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label font-weight-bold">
-                  Pendidikan
-                </label>
-                <input
-                  value={pendidikan}
-                  type="text"
-                  className="form-control"
-                  disabled
-                />
-              </div>
-            </Container>
-          ) : selectedDetail === "karyawan" ? (
-            <Container style={{ marginTop: "19px" }}>
-              <Typography
-                className="font-weight-bold"
-                variant="h5"
-                color="text.secondary"
-                style={{ fontFamily: "'Poppins', sans-serif" }}>
-                Detail
-              </Typography>
-              <img
-                className="rounded-2 mt-3"
-                component="img"
-                src={
-                  foto ||
-                  "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
-                }
-                alt="Profile"
-              />
-              <div className="mb-3 mt-3">
-                <label className="form-label font-weight-bold">Nama</label>
-                <input
-                  value={nama}
-                  type="text"
-                  className="form-control"
-                  disabled
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label font-weight-bold">Status</label>
-                <input
-                  value={status}
-                  type="text"
-                  className="form-control"
-                  disabled
-                />
-              </div>
-              <div className="mb-3">
-                <label className="form-label font-weight-bold">Sebagai</label>
-                <input
-                  value={nip}
-                  type="text"
-                  className="form-control"
-                  disabled
-                />
-              </div>
-            </Container>
-          ) : (
-            <>
-              {" "}
+          <Card
+            style={{ marginRight: "auto", marginLeft: "auto" }}
+            xs={6}
+            md={8}
+            sx={{ maxWidth: 345 }}>
+            {selectedDetail === "guru" ? (
               <Container style={{ marginTop: "19px" }}>
                 <Typography
                   className="font-weight-bold"
@@ -538,29 +438,139 @@ const TenagaKepndidkan = () => {
                   Detail
                 </Typography>
                 <img
+                  className="rounded-2 mt-3"
                   component="img"
+                  style={{ width: "100%" }}
                   src={
+                    img ||
                     "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
                   }
                   alt="Profile"
                 />
-                <div className="mb-3">
-                  <input type="text" className="form-control" disabled />
+                <div className="mb-3 mt-3">
+                  <label className="form-label font-weight-bold">Nama Guru</label>
+                  <input
+                    value={namaGuru}
+                    type="text"
+                    className="form-control w-full"
+                    disabled
+                  />
                 </div>
                 <div className="mb-3">
-                  <input type="text" className="form-control" disabled />
+                  <label className="form-label font-weight-bold">
+                    Mata Pelajaran
+                  </label>
+                  <input
+                    value={mapel}
+                    type="text"
+                    className="form-control"
+                    disabled
+                  />
                 </div>
                 <div className="mb-3">
-                  <input type="text" className="form-control" disabled />
+                  <label className="form-label font-weight-bold">NIP</label>
+                  <input
+                    value={nip}
+                    type="text"
+                    className="form-control"
+                    disabled
+                  />
                 </div>
                 <div className="mb-3">
-                  <input type="text" className="form-control" disabled />
+                  <label className="form-label font-weight-bold">
+                    Pendidikan
+                  </label>
+                  <input
+                    value={pendidikan}
+                    type="text"
+                    className="form-control"
+                    disabled
+                  />
                 </div>
               </Container>
-            </>
-          )}
-        </Card>
-      </Grid>
+            ) : selectedDetail === "karyawan" ? (
+              <Container style={{ marginTop: "19px" }}>
+                <Typography
+                  className="font-weight-bold"
+                  variant="h5"
+                  color="text.secondary"
+                  style={{ fontFamily: "'Poppins', sans-serif" }}>
+                  Detail
+                </Typography>
+                <img
+                  className="rounded-2 mt-3"
+                  component="img"
+                  style={{ width: "100%" }}
+                  src={
+                    foto ||
+                    "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
+                  }
+                  alt="Profile"
+                />
+                <div className="mb-3 mt-3">
+                  <label className="form-label font-weight-bold">Nama</label>
+                  <input
+                    value={nama}
+                    type="text"
+                    className="form-control"
+                    disabled
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label font-weight-bold">Status</label>
+                  <input
+                    value={status}
+                    type="text"
+                    className="form-control"
+                    disabled
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label font-weight-bold">Sebagai</label>
+                  <input
+                    value={nip}
+                    type="text"
+                    className="form-control"
+                    disabled
+                  />
+                </div>
+              </Container>
+            ) : (
+              <>
+                {" "}
+                <Container style={{ marginTop: "19px" }}>
+                  <Typography
+                    className="font-weight-bold"
+                    variant="h5"
+                    color="text.secondary"
+                    style={{ fontFamily: "'Poppins', sans-serif" }}>
+                    Detail
+                  </Typography>
+                  <img
+                    component="img"
+                    src={
+                      "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
+                    }
+                    alt="Profile"
+                  />
+                  <div className="mb-3">
+                    <input type="text" className="form-control" disabled />
+                  </div>
+                  <div className="mb-3">
+                    <input type="text" className="form-control" disabled />
+                  </div>
+                  <div className="mb-3">
+                    <input type="text" className="form-control" disabled />
+                  </div>
+                  <div className="mb-3">
+                    <input type="text" className="form-control" disabled />
+                  </div>
+                </Container>
+              </>
+            )}
+          </Card>
+        </Grid>
+      </div>
       <FooterSekolah />
     </div>
   );

@@ -43,7 +43,7 @@ function KonsidisiSekolahView() {
             </li>
             <li>
               <i class="fas fa-angle-right"></i>{" "}
-              <span style={{ fontWeight: "normal" }}>Sejarah Sekolah</span>
+              <span style={{ fontWeight: "normal" }}>Kondisi Sekolah</span>
             </li>
           </ul>
         </div>

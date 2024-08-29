@@ -699,14 +699,14 @@ ul {
 
 @media (min-width: 1400px) {
 
-  .container,
+  /* .container,
   .container-lg,
   .container-md,
   .container-sm,
   .container-xl,
   .container-xxl {
     max-width: 1170px;
-  }
+  } */
 }
 
 @media all and (min-width: 1200px) {

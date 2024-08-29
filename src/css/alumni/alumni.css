@@ -1,5 +1,5 @@
 .container-alumni {
-    padding: 20px 200px;
+    padding: 20px 0;
     margin-top: 100px;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .header-alumni ul>li {
-display: inline-block;
+    display: inline-block;
 }
 
 .header-alumni ul li,
@@ -28,6 +28,7 @@ display: inline-block;
 .header-alumni ul li:nth-child(2) {
     margin-left: 1rem;
 }
+
 .header-alumni ul li:nth-child(3) {
     margin-left: 1rem;
 }
@@ -39,10 +40,103 @@ display: inline-block;
     overflow: hidden;
 }
 
+.alumni-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 15px 30px;
+    max-height: 300px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.isi-alumni {
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 7 !important;
+    -webkit-box-orient: vertical;
+    text-align: left;
+}
+
+.alumni-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+    justify-content: center;
+}
+
+.detail-card-alumni {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    justify-content: center;
+}
+
+.card-alumni {
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.card-alumni img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    margin-bottom: 16px;
+}
+
+.card-alumni a {
+    color: #0060ff;
+    text-decoration: underline;
+}
+
+.card-alumni a,
+.card-alumni a:active,
+.card-alumni a:focus,
+.card-alumni a:hover {
+    outline: none;
+    text-decoration: none;
+    color: #002147;
+}
+
+.card-alumni a:hover {
+    color: #0060ff;
+}
+
+.card-alumni a {
+    transition: all 0.35s ease-in-out;
+    -webkit-transition: all 0.35s ease-in-out;
+    -moz-transition: all 0.35s ease-in-out;
+    -ms-transition: all 0.35s ease-in-out;
+    -o-transition: all 0.35s ease-in-out;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
 @media screen and (max-width: 992px) {
+    .alumni-card {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        max-height: 500px;
+    }
+
     .container-alumni {
         padding: 0 20px;
-        padding-top: 80px;
+        padding-top: 100px;
         margin-top: 0;
+    }
+
+    .alumni-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media all and (max-width: 575px) {
+    .alumni-container {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
     }
 }

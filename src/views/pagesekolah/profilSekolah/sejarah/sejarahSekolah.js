@@ -34,7 +34,7 @@ function SejarahSekolah() {
   return (
     <div>
       <NavbarSekolah2 />
-      <main className="container-berita">
+      <main className="container-berita container">
         <div className="header-berita">
           <ul>
             <li>
@@ -50,7 +50,7 @@ function SejarahSekolah() {
         </div>
         <div style={{ lineHeight: "1.8" }}>
           <div
-            style={{ margin: "0 auto 0", padding: "20px" }}
+            style={{ margin: "0 auto 0", padding: "0" }}
           >
             {sejarah.judul === "Data tidak tersedia" || sejarah.isi === "Data tidak tersedia" ? (
               <p style={{ fontSize: "1.1em", textAlign: "center", color: "#666" }}>
