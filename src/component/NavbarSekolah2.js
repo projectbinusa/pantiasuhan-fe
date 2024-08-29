@@ -45,10 +45,10 @@ const NavbarSekolah2 = () => {
         <a href="/">
           <img src={logo} alt="Logo" className="navbars-logo" />
         </a>
-        <ul className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
+        <ul className={`navbars-menu ${isMenuOpen ? "active" : ""}`} style={{fontSize: "13.8px"}}>
           <li className={`navbars-item ${activeMenu === "profil-sekolah" ? "active" : ""}`}>
             <a href="#profil-sekolah" className="has-submenu" onClick={(e) => handleMenuClick(e, "profil-sekolah")}>
-              Profil Sekolah
+              Profil Sekolah <i class="fa-solid fa-caret-down"></i>
             </a>
             <ul className="submenu">
               <li><a href="/sambutan">SAMBUTAN KEPALA SEKOLAH</a></li>
@@ -61,7 +61,7 @@ const NavbarSekolah2 = () => {
           </li>
           <li className={`navbars-item ${activeMenu === "berita" ? "active" : ""}`}>
             <a href="#berita" className="has-submenu" onClick={(e) => handleMenuClick(e, "berita")}>
-              Berita
+              Berita <i class="fa-solid fa-caret-down"></i>
             </a>
             <ul className="submenu">
               <li><a href="/news">BERITA TERBARU</a></li>
@@ -72,7 +72,7 @@ const NavbarSekolah2 = () => {
           </li>
           <li className={`navbars-item ${activeMenu === "keuangan" ? "active" : ""}`}>
             <a href="#keuangan" className="has-submenu" onClick={(e) => handleMenuClick(e, "keuangan")}>
-              KEUANGAN
+              KEUANGAN <i class="fa-solid fa-caret-down"></i>
             </a>
             <ul className="submenu">
               <li><a href="/keuangan-bos">BOS</a></li>
@@ -82,7 +82,7 @@ const NavbarSekolah2 = () => {
           </li>
           <li className={`navbars-item ${activeMenu === "kesiswaan" ? "active" : ""}`}>
             <a href="#kesiswaan" className="has-submenu" onClick={(e) => handleMenuClick(e, "kesiswaan")}>
-              KESISWAAN
+              KESISWAAN <i class="fa-solid fa-caret-down"></i>
             </a>
             <ul className="submenu">
               <li><a href="/materi_ajar">MATERI AJAR</a></li>
@@ -96,7 +96,7 @@ const NavbarSekolah2 = () => {
           </li>
           <li className={`navbars-item ${activeMenu === "berita" ? "active" : ""}`}>
             <a href="#sapras" className="has-submenu" onClick={(e) => handleMenuClick(e, "berita")}>
-              Sarana prasarana
+              Sarana prasarana <i class="fa-solid fa-caret-down"></i>
             </a>
             <ul className="submenu">
               <li><a href="/sarana-prasarana">SARANA</a></li>

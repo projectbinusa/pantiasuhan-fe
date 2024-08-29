@@ -30,7 +30,7 @@ function Struktur() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/struktur/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/struktur/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {

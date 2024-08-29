@@ -26,7 +26,9 @@ function Ekskul() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all?direction=asc&page=${page - 1}&size=${rowsPerPage}&sort=createdDate`,
+        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all/terbaru?page=${
+          page - 1
+        }&size=${rowsPerPage}&sort=createdDate`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -176,7 +178,7 @@ function Ekskul() {
                       <a
                         style={{ color: "white", textDecoration: "none" }}
                         href="/add-ekstrakulikuler">
-                        Tambah ekstrakulikuler
+                        Tambah Data
                       </a>
                     </button>
                   </div>
@@ -190,7 +192,9 @@ function Ekskul() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th className="text-long">Nama ekstrakulikuler</th>
+                    <th className="text-left">Ekstrakulikuler</th>
+                    <th className="text-left">Jadwal</th>
+                    <th className="text-left">Tempat</th>
                     {/* <th className="text-center">
                       Isi Berita
                     </th> */}
@@ -204,15 +208,18 @@ function Ekskul() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Ekstrakulikuler" className="text-long">
+                        <td data-label="Ekstrakulikuler" className="text-left">
                           {berita.name}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
-                        <td data-label="Misi" className="">
-                          {berita.misi}
+                        <td data-label="Jadwal" className="text-left">
+                          {berita.jadwal}
                         </td>
+                        <td data-label="Tempat" className="text-left">
+                          {berita.tempat}
+                        </td>
+                        {/* <td data-label="">{berita.isiBerita}</td> */}
                         <td data-label="Aksi">
-                          <div className="aksi">
+                          <div style={{minWidth:"150px"}} className="">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">
@@ -224,6 +231,15 @@ function Ekskul() {
                                 href={`/edit-ekstrakulikuler/${berita.id}`}>
                                 {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm">
+                              <a
+                                className="text-light"
+                                href={"/detail-ekstrakurikuler/" + berita.id}>
+                                <i class="fas fa-info-circle"></i>
                               </a>
                             </button>
                             <button

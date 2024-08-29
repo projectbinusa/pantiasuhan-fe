@@ -28,7 +28,7 @@ function FotoSarana() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/foto_sarana/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/foto_sarana/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {

@@ -125,6 +125,7 @@ import DetailVisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/
 import DetailKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/DetailKondisiSekolah";
 import KegiatanSekolah from "./views/pagesekolah/kegiatan/KegiatanSekolah";
 import DetailKegiatan from "./views/pagesekolah/kegiatan/DetailKegiatan";
+import DetailEkskul from "./views/pages/admin/smpn1bergas/ekskul/DetailEkskul";
 
 // END ADMIN MENU REGULASI
 
@@ -149,8 +150,8 @@ function App() {
           <Route path="/program" component={Pengembangan} exact />
           <Route path="/perawatan-rutin" component={PerawatanRutin} exact />
           <Route path="/sewa-layanan" component={SewaLayanan} exact />
-          <Route path="/kegiatan" component={KegiatanSekolah} exact />  
-          <Route path="/detail-kegiatan/:id" component={DetailKegiatan} exact />  
+          <Route path="/kegiatan" component={KegiatanSekolah} exact />
+          <Route path="/detail-kegiatan/:id" component={DetailKegiatan} exact />
           {/* SAPRAS */}
           <Route path="/sarana-prasarana" component={Sarpras} exact />
           <Route path="/ruang-kantor" component={RuangKantor} exact />
@@ -400,6 +401,11 @@ function App() {
           <PrivateRoute
             path="/edit-ekstrakulikuler/:id"
             component={EditEkskul}
+            exact
+          />
+          <PrivateRoute
+            path="/detail-ekstrakurikuler/:id"
+            component={DetailEkskul}
             exact
           />
           {/* end ekskul */}

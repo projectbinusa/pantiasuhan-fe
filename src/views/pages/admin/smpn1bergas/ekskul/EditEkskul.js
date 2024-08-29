@@ -79,8 +79,8 @@ function EditEkskul() {
           showConfirmButton: false,
           timer: 1500,
         });
-        history.push("/admin-ekstrakulikuler");
         setTimeout(() => {
+        history.push("/admin-ekstrakulikuler");
           window.location.reload();
         }, 1500);
       })

@@ -79,7 +79,11 @@ function AddOsis() {
                 <div className="row">
                   <div className="mb-3 col-lg-12">
                     {/*  */}
-                    <label className="form-label font-weight-bold">Nama</label>
+                    <label
+                      className="form-label font-weight-bold"
+                      style={{ alignContent: "left" }}>
+                      Nama
+                    </label>
                     <input
                       value={nama}
                       onChange={(e) => setNama(e.target.value)}

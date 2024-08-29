@@ -55,9 +55,9 @@ function AddEkskul() {
         showConfirmButton: false,
         timer: 1500,
       });
-      //   history.push("/admin-ekstrakulikuler");
       setTimeout(() => {
-        // window.location.reload();
+        history.push("/admin-ekstrakulikuler");
+        window.location.reload();
       }, 1500);
       console.log("name: ", name);
     } catch (error) {
@@ -91,7 +91,7 @@ function AddEkskul() {
                       <div className="row">
                         <div className="mb-3 col-lg-12">
                           {/* a */}
-                          <label className="form-label font-weight-bold">
+                          <label className="form-label font-weight-bold text-left">
                             Ekstrakulikuler
                           </label>
                           <input
@@ -105,7 +105,7 @@ function AddEkskul() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           {/* a */}
-                          <label className="form-label font-weight-bold">
+                          <label className="form-label font-weight-bold text-left">
                             Pembimbing
                           </label>
                           <input
@@ -119,7 +119,7 @@ function AddEkskul() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           {/* a */}
-                          <label className="form-label font-weight-bold">
+                          <label className="form-label font-weight-bold text-left">
                             Koordinator
                           </label>
                           <input
@@ -133,7 +133,7 @@ function AddEkskul() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           {/* a */}
-                          <label className="form-label font-weight-bold">
+                          <label className="form-label font-weight-bold text-left">
                             Jadwal
                           </label>
                           <input
@@ -147,7 +147,7 @@ function AddEkskul() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           {/* a */}
-                          <label className="form-label font-weight-bold">
+                          <label className="form-label font-weight-bold text-left">
                             Tempat
                           </label>
                           <input
@@ -161,7 +161,7 @@ function AddEkskul() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           {/* a */}
-                          <label className="form-label font-weight-bold">
+                          <label className="form-label font-weight-bold text-left">
                             Deskripsi
                           </label>
                           <textarea
@@ -174,7 +174,7 @@ function AddEkskul() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           {/* a */}
-                          <label className="form-label font-weight-bold">
+                          <label className="form-label font-weight-bold text-left">
                             Prestasi
                           </label>
                           <input
@@ -188,7 +188,7 @@ function AddEkskul() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           {/* a */}
-                          <label className="form-label font-weight-bold">
+                          <label className="form-label font-weight-bold text-left">
                             Gambar
                           </label>
                           <input
@@ -201,7 +201,7 @@ function AddEkskul() {
                         </div>
                         {/* <div className="mb-3 co-lg-6">
                           {/* a */}
-                        {/* <label className="form-label font-weight-bold">
+                        {/* <label className="form-label font-weight-bold text-left">
                             Gambar
                           </label>
                           <input

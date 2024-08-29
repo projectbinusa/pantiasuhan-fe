@@ -180,7 +180,6 @@ import logo from "../aset/smpn1bergas/logo.png";
 //   );
 // }
 
-
 // const NavbarSekolah = () => {
 //   const [activeMenu, setActiveMenu] = useState("");
 //   const [isScrolled, setIsScrolled] = useState(false);
@@ -299,7 +298,7 @@ import logo from "../aset/smpn1bergas/logo.png";
 //       </div>
 //     </nav>
 //   );
-// }; 
+// };
 
 const NavbarSekolah = () => {
   const [activeMenu, setActiveMenu] = useState("");
@@ -352,75 +351,151 @@ const NavbarSekolah = () => {
         <a href="/">
           <img src={logo} alt="Logo" className="navbars-logo" />
         </a>
-        <ul className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
-          <li className={`navbars-item ${activeMenu === "profil-sekolah" ? "active" : ""}`}>
-            <a href="#profil-sekolah" className="has-submenu" onClick={(e) => handleMenuClick(e, "profil-sekolah")}>
-              Profil Sekolah
+        <ul style={{fontSize:"13.8px"}} className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
+          <li
+            className={`navbars-item ${
+              activeMenu === "profil-sekolah" ? "active" : ""
+            }`}>
+            <a
+              href="#profil-sekolah"
+              className="has-submenu"
+              onClick={(e) => handleMenuClick(e, "profil-sekolah")}>
+              Profil Sekolah<i class="fa-solid fa-caret-down"></i>
             </a>
             <ul className="submenu">
-              <li><a href="/sambutan">SAMBUTAN KEPALA SEKOLAH</a></li>
-              <li><a href="/sejarah">SEJARAH</a></li>
-              <li><a href="/visi-misi">VISI & MISI</a></li>
-              <li><a href="/struktur-organisasi">STRUKTUR ORGANISASI</a></li>
-              <li><a href="/kondisi-sekolah-view">KONDISI SEKOLAH</a></li>
-              <li><a href="/staff">STAFF</a></li>
+              <li>
+                <a href="/sambutan">SAMBUTAN KEPALA SEKOLAH</a>
+              </li>
+              <li>
+                <a href="/sejarah">SEJARAH</a>
+              </li>
+              <li>
+                <a href="/visi-misi">VISI & MISI</a>
+              </li>
+              <li>
+                <a href="/struktur-organisasi">STRUKTUR ORGANISASI</a>
+              </li>
+              <li>
+                <a href="/kondisi-sekolah-view">KONDISI SEKOLAH</a>
+              </li>
+              <li>
+                <a href="/staff">STAFF</a>
+              </li>
             </ul>
           </li>
-          <li className={`navbars-item ${activeMenu === "berita" ? "active" : ""}`}>
-            <a href="#berita" className="has-submenu" onClick={(e) => handleMenuClick(e, "berita")}>
-              Berita
+          <li
+            className={`navbars-item ${
+              activeMenu === "berita" ? "active" : ""
+            }`}>
+            <a
+              href="#berita"
+              className="has-submenu"
+              onClick={(e) => handleMenuClick(e, "berita")}>
+              Berita<i class="fa-solid fa-caret-down"></i>
             </a>
             <ul className="submenu">
-              <li><a href="/news">BERITA TERBARU</a></li>
-              <li><a href="/info">INFO SEKOLAH</a></li>
-              <li><a href="/agenda">AGENDA</a></li>
-              <li><a href="/galery">GALERI</a></li>
+              <li>
+                <a href="/news">BERITA TERBARU</a>
+              </li>
+              <li>
+                <a href="/info">INFO SEKOLAH</a>
+              </li>
+              <li>
+                <a href="/agenda">AGENDA</a>
+              </li>
+              <li>
+                <a href="/galery">GALERI</a>
+              </li>
             </ul>
           </li>
-          <li className={`navbars-item ${activeMenu === "keuangan" ? "active" : ""}`}>
-            <a href="#keuangan" className="has-submenu" onClick={(e) => handleMenuClick(e, "keuangan")}>
-              KEUANGAN
+          <li
+            className={`navbars-item ${
+              activeMenu === "keuangan" ? "active" : ""
+            }`}>
+            <a
+              href="#keuangan"
+              className="has-submenu"
+              onClick={(e) => handleMenuClick(e, "keuangan")}>
+              KEUANGAN<i class="fa-solid fa-caret-down"></i>
             </a>
             <ul className="submenu">
-              <li><a href="/keuangan-bos">BOS</a></li>
-              <li><a href="/keuangan-apbd">APBD</a></li>
-              <li><a href="/keuangan-komite">KOMITE</a></li>
+              <li>
+                <a href="/keuangan-bos">BOS</a>
+              </li>
+              <li>
+                <a href="/keuangan-apbd">APBD</a>
+              </li>
+              <li>
+                <a href="/keuangan-komite">KOMITE</a>
+              </li>
             </ul>
           </li>
-          <li className={`navbars-item ${activeMenu === "kesiswaan" ? "active" : ""}`}>
-            <a href="#kesiswaan" className="has-submenu" onClick={(e) => handleMenuClick(e, "kesiswaan")}>
-              KESISWAAN
+          <li
+            className={`navbars-item ${
+              activeMenu === "kesiswaan" ? "active" : ""
+            }`}>
+            <a
+              href="#kesiswaan"
+              className="has-submenu"
+              onClick={(e) => handleMenuClick(e, "kesiswaan")}>
+              KESISWAAN<i class="fa-solid fa-caret-down"></i>
             </a>
             <ul className="submenu">
-              <li><a href="/materi_ajar">Materi AJAR</a></li>
-              <li><a href="/osis">OSIS</a></li>
-              <li style={{ padding: '5px 10px' }}>
-                <button onClick={() => handleScrollToSection("ekstra-kulikuler")} className="navbars-buttons">
+              <li>
+                <a href="/materi_ajar">Materi AJAR</a>
+              </li>
+              <li>
+                <a href="/osis">OSIS</a>
+              </li>
+              <li style={{ padding: "5px 10px" }}>
+                <button
+                  onClick={() => handleScrollToSection("ekstra-kulikuler")}
+                  className="navbars-buttons">
                   EKSTRAKURIKULER
                 </button>
               </li>
             </ul>
           </li>
-          <li className={`navbars-item ${activeMenu === "berita" ? "active" : ""}`}>
-            <a href="#sapras" className="has-submenu" onClick={(e) => handleMenuClick(e, "berita")}>
-              Sarana prasarana
+          <li
+            className={`navbars-item ${
+              activeMenu === "berita" ? "active" : ""
+            }`}>
+            <a
+              href="#sapras"
+              className="has-submenu"
+              onClick={(e) => handleMenuClick(e, "berita")}>
+              Sarana prasarana<i class="fa-solid fa-caret-down"></i>
             </a>
             <ul className="submenu">
-              <li><a href="/sarana-prasarana">SARANA</a></li>
-              <li><a href="/program">PROGRAM</a></li>
-              <li><a href="/kegiatan">KEGIATAN</a></li>
+              <li>
+                <a href="/sarana-prasarana">SARANA</a>
+              </li>
+              <li>
+                <a href="/program">PROGRAM</a>
+              </li>
+              <li>
+                <a href="/kegiatan">KEGIATAN</a>
+              </li>
             </ul>
           </li>
           <li className="navbars-item">
-            <a href="/perpustakaan" style={{ textTransform: "uppercase", fontWeight: "600" }}>PERPUSTAKAAN</a>
+            <a
+              href="/perpustakaan"
+              style={{ textTransform: "uppercase", fontWeight: "600" }}>
+              PERPUSTAKAAN
+            </a>
           </li>
           <li className="navbars-item">
-            <button onClick={() => handleScrollToSection("prestasi-terbaru")} className="navbars-buttons">
+            <button
+              onClick={() => handleScrollToSection("prestasi-terbaru")}
+              className="navbars-buttons">
               PRESTASI
             </button>
           </li>
           <li className="navbars-item">
-            <button onClick={() => handleScrollToSection("hubungi-kami")} className="navbars-buttons">
+            <button
+              onClick={() => handleScrollToSection("hubungi-kami")}
+              className="navbars-buttons">
               KONTAK
             </button>
           </li>
