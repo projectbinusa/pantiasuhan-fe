@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import axios from "axios";
@@ -21,6 +18,10 @@ function AddOsis() {
 
   const param = useParams();
   const history = useHistory();
+
+  const currentYear = new Date().getFullYear();
+  const minYear = currentYear - 3;
+  const maxYear = currentYear + 5;
 
   const add = async (e) => {
     e.preventDefault();
@@ -53,7 +54,7 @@ function AddOsis() {
         window.location.reload();
       }, 1500);
     } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         localStorage.clear();
         history.push("/login");
       } else {
@@ -61,9 +62,13 @@ function AddOsis() {
       }
     }
   };
+
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const maxTahunTuntas = tahunJabat ? parseInt(tahunJabat) + 5 : maxYear;
+  const minTahunTuntas = tahunJabat ? parseInt(tahunJabat) + 1 : minYear;
 
   return (
     <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -78,12 +83,7 @@ function AddOsis() {
               <form onSubmit={add}>
                 <div className="row">
                   <div className="mb-3 col-lg-12">
-                    {/*  */}
-                    <label
-                      className="form-label font-weight-bold"
-                      style={{ alignContent: "left" }}>
-                      Nama
-                    </label>
+                    <label className="form-label font-weight-bold">Nama</label>
                     <input
                       value={nama}
                       onChange={(e) => setNama(e.target.value)}
@@ -93,12 +93,7 @@ function AddOsis() {
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
-                    {/*  */}
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label font-weight-bold">
-                      Kelas
-                    </label>
+                    <label className="form-label font-weight-bold">Kelas</label>
                     <input
                       value={kelas}
                       onChange={(e) => setKelas(e.target.value)}
@@ -108,10 +103,7 @@ function AddOsis() {
                     />
                   </div>
                   <div className="mb-3 co-lg-6">
-                    {/*  */}
-                    <label className="form-label font-weight-bold">
-                      Gambar
-                    </label>
+                    <label className="form-label font-weight-bold">Gambar</label>
                     <input
                       onChange={(e) =>
                         setImage(e.target.files ? e.target.files[0] : null)
@@ -121,40 +113,31 @@ function AddOsis() {
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
-                    {/*  */}
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label font-weight-bold">
-                      Jabatan
-                    </label>
+                    <label className="form-label font-weight-bold">Jabatan</label>
                     <input
                       value={jabatan}
                       onChange={(e) => setJabatan(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan Kelas"
+                      placeholder="Masukkan Jabatan"
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
-                    {/*  */}
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label font-weight-bold">
+                    <label className="form-label font-weight-bold">
                       Tahun Jabat
                     </label>
                     <input
                       value={tahunJabat}
                       onChange={(e) => setTahunJabat(e.target.value)}
-                      type="text"
+                      type="number"
                       className="form-control"
                       placeholder="Masukkan Tahun Jabat"
+                      min={minYear}
+                      max={maxYear}
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
-                    {/*  */}
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label font-weight-bold">
+                    <label className="form-label font-weight-bold">
                       Tahun Tuntas
                     </label>
                     <input
@@ -163,16 +146,20 @@ function AddOsis() {
                       type="number"
                       className="form-control"
                       placeholder="Masukkan Tahun Tuntas"
+                      min={minTahunTuntas}
+                      max={maxTahunTuntas}
+                      disabled={!tahunJabat}
                     />
                   </div>
                 </div>
                 <button type="button" className="btn-danger mt-3">
                   <a
                     style={{ color: "white", textDecoration: "none" }}
-                    href="/admin-osis">
+                    href="/admin-osis"
+                  >
                     Batal
                   </a>
-                </button>{" "}
+                </button>
                 <button type="submit" className="btn-primary mt-3">
                   Submit
                 </button>
