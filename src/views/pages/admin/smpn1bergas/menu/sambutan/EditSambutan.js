@@ -33,6 +33,7 @@ function EditSambutan() {
   //   const [image, setImage] = useState(null);
   const [isiSambutan, setIsiSambutan] = useState("");
   const [nip, setNip] = useState("");
+  const [nama, setNama] = useState("");
   const [file, setFile] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
@@ -48,8 +49,9 @@ function EditSambutan() {
       .then((ress) => {
         const response = ress.data.data;
         setIsiSambutan(response.isi);
-        setJudulSambutan(response.nama);
+        setJudulSambutan(response.judul);
         setNip(response.nip);
+        setNama(response.nama);
         console.log("sambutan : ", ress.data.data);
       })
       .catch((error) => {
@@ -63,6 +65,7 @@ function EditSambutan() {
     const formData = new FormData();
     formData.append("isi", isiSambutan);
     formData.append("nama", judulSambutan);
+    formData.append("judul", judulSambutan);
     formData.append("nip", nip);
     formData.append("file", file);
 
@@ -125,6 +128,20 @@ function EditSambutan() {
                             className="form-control"
                             required
                             placeholder="Masukkan Judul Sambutan"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          {/* a */}
+                          <label className="form-label font-weight-bold">
+                            Nama Kepala Sekolah
+                          </label>
+                          <input
+                            value={nama}
+                            onChange={(e) => setNama(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            required
+                            placeholder="Masukkan Nama Kepala Sekolah"
                           />
                         </div>
                         {/* <div className="mb-3 co-lg-6">
