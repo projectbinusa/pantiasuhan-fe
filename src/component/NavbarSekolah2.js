@@ -10,16 +10,16 @@ const NavbarSekolah2 = () => {
     const isHomePage = window.location.pathname === "/";
 
     if (isHomePage) {
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-        }
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     } else {
-        // Simpan id ke sessionStorage dan navigasi ke halaman beranda
-        sessionStorage.setItem('scrollToId', id);
-        window.location.href = `/`;
+      // Simpan id ke sessionStorage dan navigasi ke halaman beranda
+      sessionStorage.setItem('scrollToId', id);
+      window.location.href = `/`;
     }
-};
+  };
 
 
   const handleMenuClick = (event, menu) => {
@@ -45,7 +45,7 @@ const NavbarSekolah2 = () => {
         <a href="/">
           <img src={logo} alt="Logo" className="navbars-logo" />
         </a>
-        <ul className={`navbars-menu ${isMenuOpen ? "active" : ""}`} style={{fontSize: "13.8px"}}>
+        <ul className={`navbars-menu ${isMenuOpen ? "active" : ""}`} style={{ fontSize: "13.8px" }}>
           <li className={`navbars-item ${activeMenu === "profil-sekolah" ? "active" : ""}`}>
             <a href="#profil-sekolah" className="has-submenu" onClick={(e) => handleMenuClick(e, "profil-sekolah")}>
               Profil Sekolah <i class="fa-solid fa-caret-down"></i>
@@ -87,10 +87,8 @@ const NavbarSekolah2 = () => {
             <ul className="submenu">
               <li><a href="/materi_ajar">MATERI AJAR</a></li>
               <li><a href="/osis">OSIS</a></li>
-              <li style={{ padding: '5px 10px' }}>
-                <button onClick={() => handleScrollToSection("ekstra-kulikuler")} className="navbars-buttons">
-                  EKSTRAKURIKULER
-                </button>
+              <li>
+                <a href="/ekstrakurikuler" style={{ textTransform: "uppercase", fontWeight: "600" }}>EKSTRAKURIKULER</a>
               </li>
             </ul>
           </li>
@@ -108,14 +106,7 @@ const NavbarSekolah2 = () => {
             <a href="/perpustakaan" style={{ textTransform: "uppercase", fontWeight: "600" }}>PERPUSTAKAAN</a>
           </li>
           <li className="navbars-item">
-            <button onClick={() => handleScrollToSection("prestasi-terbaru")} className="navbars-buttons">
-              PRESTASI
-            </button>
-          </li>
-          <li className="navbars-item">
-            <button onClick={() => handleScrollToSection("hubungi-kami")} className="navbars-buttons">
-              KONTAK
-            </button>
+            <a href="/all-prestasi" style={{ textTransform: "uppercase", fontWeight: "600" }}>PRESTASI</a>
           </li>
         </ul>
         <div

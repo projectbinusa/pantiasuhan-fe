@@ -1,23 +1,30 @@
 /* Main container for cards */
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust the min-width for your cards */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
+}
+
+@media (max-width: 992px) {
+  .card-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 }
 
 /* Card styling remains largely unchanged */
 .ekstra-card {
-  display: flex;
-  flex-direction: column;
   padding: 20px;
-  box-sizing: border-box;
   border: 1px solid #ddd;
   border-radius: 8px;
-  overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   background-color: #fff;
-  margin: 0 auto;
 }
 
 .card-body .card-content p {
@@ -37,30 +44,11 @@
 
 .card-image {
   width: 100%;
-  height: auto;
+  height: 200px;
   border-radius: 8px;
   margin-bottom: 10px;
 }
 
 .card-body p {
   margin: 5px 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-  .ekstra-card {
-    flex: 1 1 calc(50% - 20px);
-  }
-}
-
-@media (max-width: 992px) {
-  .ekstra-card {
-    flex: 1 1 calc(50% - 20px);
-  }
-}
-
-@media (max-width: 768px) {
-  .ekstra-card {
-    flex: 1 1 100%;
-  }
 }

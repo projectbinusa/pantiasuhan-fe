@@ -351,11 +351,10 @@ const NavbarSekolah = () => {
         <a href="/">
           <img src={logo} alt="Logo" className="navbars-logo" />
         </a>
-        <ul style={{fontSize:"13.8px"}} className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
+        <ul style={{ fontSize: "13.8px" }} className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
           <li
-            className={`navbars-item ${
-              activeMenu === "profil-sekolah" ? "active" : ""
-            }`}>
+            className={`navbars-item ${activeMenu === "profil-sekolah" ? "active" : ""
+              }`}>
             <a
               href="#profil-sekolah"
               className="has-submenu"
@@ -384,9 +383,8 @@ const NavbarSekolah = () => {
             </ul>
           </li>
           <li
-            className={`navbars-item ${
-              activeMenu === "berita" ? "active" : ""
-            }`}>
+            className={`navbars-item ${activeMenu === "berita" ? "active" : ""
+              }`}>
             <a
               href="#berita"
               className="has-submenu"
@@ -409,9 +407,8 @@ const NavbarSekolah = () => {
             </ul>
           </li>
           <li
-            className={`navbars-item ${
-              activeMenu === "keuangan" ? "active" : ""
-            }`}>
+            className={`navbars-item ${activeMenu === "keuangan" ? "active" : ""
+              }`}>
             <a
               href="#keuangan"
               className="has-submenu"
@@ -431,9 +428,8 @@ const NavbarSekolah = () => {
             </ul>
           </li>
           <li
-            className={`navbars-item ${
-              activeMenu === "kesiswaan" ? "active" : ""
-            }`}>
+            className={`navbars-item ${activeMenu === "kesiswaan" ? "active" : ""
+              }`}>
             <a
               href="#kesiswaan"
               className="has-submenu"
@@ -447,19 +443,14 @@ const NavbarSekolah = () => {
               <li>
                 <a href="/osis">OSIS</a>
               </li>
-              <li style={{ padding: "5px 10px" }}>
-                <button
-                  onClick={() => handleScrollToSection("ekstra-kulikuler")}
-                  className="navbars-buttons">
-                  EKSTRAKURIKULER
-                </button>
+              <li>
+                <a href="/ekstrakurikuler" style={{ textTransform: "uppercase", fontWeight: "600" }}>EKSTRAKURIKULER</a>
               </li>
             </ul>
           </li>
           <li
-            className={`navbars-item ${
-              activeMenu === "berita" ? "active" : ""
-            }`}>
+            className={`navbars-item ${activeMenu === "berita" ? "active" : ""
+              }`}>
             <a
               href="#sapras"
               className="has-submenu"
@@ -486,18 +477,7 @@ const NavbarSekolah = () => {
             </a>
           </li>
           <li className="navbars-item">
-            <button
-              onClick={() => handleScrollToSection("prestasi-terbaru")}
-              className="navbars-buttons">
-              PRESTASI
-            </button>
-          </li>
-          <li className="navbars-item">
-            <button
-              onClick={() => handleScrollToSection("hubungi-kami")}
-              className="navbars-buttons">
-              KONTAK
-            </button>
+            <a href="/all-prestasi" style={{ textTransform: "uppercase", fontWeight: "600" }}>PRESTASI</a>
           </li>
         </ul>
         <div
