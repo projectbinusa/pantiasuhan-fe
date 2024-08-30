@@ -37,7 +37,7 @@ function Perpustakaan() {
     return (
         <>
             <NavbarSekolah2 />
-            <main className="perpustakaan-container">
+            <main className="perpustakaan-container container">
                 <HeaderPerpus />
                 <main className="perpus-container">
                     {bukus.map(item => (

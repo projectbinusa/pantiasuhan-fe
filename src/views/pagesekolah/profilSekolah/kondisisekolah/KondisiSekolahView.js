@@ -33,7 +33,7 @@ function KonsidisiSekolahView() {
   return (
     <div>
       <NavbarSekolah2 />
-      <main className="container-berita">
+      <main className="container-berita container">
         <div className="header-berita">
           <ul>
             <li>

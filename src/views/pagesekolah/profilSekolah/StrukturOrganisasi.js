@@ -33,7 +33,7 @@ function StrukturOrganisasi() {
     return (
         <section>
             <NavbarSekolah2 />
-            <main className="container-struktur">
+            <main className="container-struktur container">
                 <div className='header-struktur'>
                     <ul>
                         <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>

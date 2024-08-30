@@ -53,7 +53,7 @@ function SejarahSekolah() {
         <div style={{ lineHeight: "1.8" }}>
           <div style={{ margin: "0 auto 0", padding: "0" }}>
             {sejarah.judul === "Data tidak tersedia" ||
-            sejarah.isi === "Data tidak tersedia" ? (
+              sejarah.isi === "Data tidak tersedia" ? (
               <p
                 style={{
                   fontSize: "1.1em",
@@ -77,7 +77,7 @@ function SejarahSekolah() {
                   style={{
                     fontSize: "1.1em",
                     marginBottom: "20px",
-                    textAlign: "left",
+                    textAlign: "justify",
                   }}>
                   {sejarah.isi}
                 </p>

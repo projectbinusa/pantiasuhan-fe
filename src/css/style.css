@@ -5097,7 +5097,7 @@ ul {
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 96, 255, 0.6);
+  background: rgb(0, 51, 102, 0.6);
   visibility: hidden;
   opacity: 0;
   -webkit-transition: 0.4s;
@@ -5178,7 +5178,7 @@ ul {
   left: 0;
   bottom: -30px;
   width: 100%;
-  background: rgba(0, 96, 255, 0.6);
+  background: rgb(0, 51, 102, 0.6);
   visibility: hidden;
   opacity: 0;
   -webkit-transition: 0.4s;
@@ -5190,9 +5190,9 @@ ul {
   margin-bottom: 2px;
 }
 
-.single-project-inner.style-two .details-wrap h3:hover {
+/* .single-project-inner.style-two .details-wrap h3:hover {
   color: var(--heading-color);
-}
+} */
 
 .single-project-inner.style-two .details-wrap p {
   color: #fff;

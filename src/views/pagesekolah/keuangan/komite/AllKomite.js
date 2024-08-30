@@ -51,7 +51,7 @@ function AllKomite() {
     return (
         <section>
             <NavbarSekolah2 />
-            <main className="container-keuangan">
+            <main className="container-keuangan container">
                 <HeaderKeuangan title={"Komite"} />
                 <div className="container-apbd">
                     <div>

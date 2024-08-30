@@ -51,7 +51,7 @@ function AllAPBD() {
     return (
         <section>
             <NavbarSekolah2 />
-            <main className="container-keuangan">
+            <main className="container-keuangan container">
                 <HeaderKeuangan title={"APBD"} />
                 <div className="container-apbd">
                     <div>

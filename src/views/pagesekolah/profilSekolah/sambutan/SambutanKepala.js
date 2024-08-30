@@ -108,6 +108,7 @@ function SambutanKepala() {
                 color: "#555",
                 marginBottom: "20px",
                 fontFamily: "'Poppins', sans-serif",
+                textAlign: "justify"
               }}>
               {sambutanData.isi}
             </p>

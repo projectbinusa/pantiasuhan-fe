@@ -3,7 +3,6 @@ import FooterSekolah from "../../../../component/FooterSekolah";
 import axios from "axios";
 import "../../../../css/ekstrakulikuler/ekstra.css";
 import { API_DUMMY } from "../../../../utils/base_URL";
-import NavbarSekolah from "../../../../component/NavbarSekolah";
 import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
 import { Pagination } from "@mui/material";
 
@@ -20,7 +19,7 @@ function Ekstrakurikuler() {
   const getAllEkstrakurikuler = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all/?page=${
+        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all/terbaru?page=${
           page - 1
         }&size=18`
       );
@@ -40,7 +39,7 @@ function Ekstrakurikuler() {
   return (
     <div className={isSingleCard ? "single-card" : ""}>
       <NavbarSekolah2 />
-      <main className="container-berita">
+      <main className="container-berita container">
         <div className="header-berita">
           <ul>
             <li>
@@ -50,11 +49,11 @@ function Ekstrakurikuler() {
             </li>
             <li>
               <i class="fas fa-angle-right"></i>{" "}
-              <span style={{ fontWeight: "normal" }}>Sejarah Sekolah</span>
+              <span style={{ fontWeight: "normal" }}>Ekstrakurikuler</span>
             </li>
           </ul>
         </div>
-        <div className="container">
+        <div className="">
           <div className="card-container">
             {ekstrakulikuler.map((item) => {
               return (
