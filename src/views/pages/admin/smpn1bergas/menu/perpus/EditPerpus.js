@@ -60,6 +60,7 @@ function EditPerpus() {
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/perpustakaan/put/` + param.id, formData, {
         headers: {
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })

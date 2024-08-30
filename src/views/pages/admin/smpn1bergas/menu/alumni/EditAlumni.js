@@ -35,8 +35,6 @@ function EditAlumni() {
   const [kontak, setKontak] = useState("");
   const [profesi, setProfesi] = useState("");
   const [tahunLulus, setTahunLulus] = useState("");
-  const [riwayat, setRiwayat] = useState("");
-  const [nip, setNip] = useState("");
   const [image, setImage] = useState(null);
   const param = useParams();
   const history = useHistory();
@@ -55,8 +53,6 @@ function EditAlumni() {
         setBiografi(response.biografi);
         setKontak(response.kontak);
         setProfesi(response.profesi);
-        setRiwayat(response.riwayat);
-        setNip(response.nip);
         setTahunLulus(response.tahunLulus);
         setFile(response.image);
         console.log("alumni : ", ress.data.data);
@@ -76,8 +72,6 @@ function EditAlumni() {
     formData.append("kontak", kontak);
     formData.append("profesi", profesi);
     formData.append("tahunLulus", tahunLulus);
-    formData.append("riwayat", riwayat);
-    formData.append("nip", nip);
     formData.append("file", file);
 
     await axios
@@ -174,42 +168,12 @@ function EditAlumni() {
                     <label
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold">
-                      Riwayat
-                    </label>
-                    <input
-                      value={riwayat}
-                      onChange={(e) => setRiwayat(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      required
-                      id="exampleInputPassword1"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-12">
-                    <label
-                      for="exampleInputPassword1"
-                      className="form-label font-weight-bold">
                       Tahun Lulus
                     </label>
                     <input
                       value={tahunLulus}
                       onChange={(e) => setTahunLulus(e.target.value)}
                       type="year"
-                      className="form-control"
-                      required
-                      id="exampleInputPassword1"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-12">
-                    <label
-                      for="exampleInputPassword1"
-                      className="form-label font-weight-bold">
-                      NIP
-                    </label>
-                    <input
-                      value={nip}
-                      onChange={(e) => setNip(e.target.value)}
-                      type="text"
                       className="form-control"
                       required
                       id="exampleInputPassword1"

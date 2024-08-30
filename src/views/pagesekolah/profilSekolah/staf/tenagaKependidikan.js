@@ -32,6 +32,7 @@ const TenagaKepndidkan = () => {
   const [nip, setNip] = useState("");
   const [nama, setNama] = useState("");
   const [status, setStatus] = useState("");
+  const [jabatan, setJabatan] = useState("");
   const [foto, setFoto] = useState("");
   const [selectedDetail, setSelectedDetail] = useState(null);
 
@@ -79,6 +80,7 @@ const TenagaKepndidkan = () => {
         setNama(data.nama);
         setFoto(data.foto);
         setStatus(data.status);
+        setJabatan(data.jabatan);
         setSelectedDetail("karyawan");
       })
       .catch((error) => {
@@ -517,18 +519,18 @@ const TenagaKepndidkan = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label font-weight-bold">Status</label>
+                  <label className="form-label font-weight-bold">Jabatan</label>
                   <input
-                    value={status}
+                    value={jabatan}
                     type="text"
                     className="form-control"
                     disabled
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label font-weight-bold">Sebagai</label>
+                  <label className="form-label font-weight-bold">Status</label>
                   <input
-                    value={nip}
+                    value={status}
                     type="text"
                     className="form-control"
                     disabled

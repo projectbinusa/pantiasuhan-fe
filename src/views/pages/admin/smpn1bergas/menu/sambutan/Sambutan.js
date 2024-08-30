@@ -208,13 +208,14 @@ function AdminSambutan() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th className="text-long">Judul Sambutan</th>
+                    <th className="text-left">Judul Sambutan</th>
+                    <th className="text-left">Nama Kepala Sekolah</th>
                     {/* <th className="text-center">
                       Isi Berita
                     </th> */}
                     <th
                       scope="col"
-                      className="text-center"
+                      className="text-left"
                       style={{ minWidth: "150px" }}>
                       Isi Sambutan
                     </th>
@@ -231,6 +232,9 @@ function AdminSambutan() {
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
                         <td data-label="Judul Sambutan" className="text-long">
+                          {berita.judul}
+                        </td>
+                        <td data-label="Nama Kepala Sekolah" className="text-long">
                           {berita.nama}
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}
