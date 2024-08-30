@@ -16,7 +16,6 @@ function Sidebar() {
     totalElements1: 0,
   });
 
-
   return (
     <div className="app-theme-white body-tabs-shadow fixed-sidebar fixed-header overflow-auto">
       <div
@@ -151,7 +150,7 @@ function Sidebar() {
                   className={
                     location.pathname === "/admin-osis" ? "active" : ""
                   }>
-                  <i class="fa-user-friends metismenu-icon"></i> Osis
+                  <i class="fa-solid fa-users metismenu-icon"></i> Osis
                 </a>
               </li>
               <li className="app-sidebar__heading">Profile Sekolah</li>
@@ -166,6 +165,30 @@ function Sidebar() {
                   }>
                   <i class="fa-solid fa-school metismenu-icon"></i> Kondisi
                   Sekolah
+                </a>
+              </li>
+              <li>
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-tenaga-kependidikan"
+                  className={
+                    location.pathname === "/admin-tenaga-kependidikan"
+                      ? "active"
+                      : ""
+                  }>
+                  <i class="fa-solid fa-users-viewfinder metismenu-icon"></i>{" "}
+                  Kependidikan
+                </a>
+              </li>
+              <li>
+                <a
+                  style={{ textDecoration: "none" }}
+                  href="/admin-guru"
+                  className={
+                    location.pathname === "/admin-guru" ? "active" : ""
+                  }>
+                  <i class="fa-solid fa-chalkboard-user metismenu-icon"></i>{" "}
+                  Guru
                 </a>
               </li>
               {/* <li>
@@ -193,7 +216,7 @@ function Sidebar() {
                   Jenis Informasi
                 </a>
               </li> */}
-              <li>
+              {/* <li>
                 <a
                   href="#"
                   style={{ textDecoration: "none" }}
@@ -244,7 +267,7 @@ function Sidebar() {
                       <i className="metismenu-icon"></i>Bekala Kepemiluan
                     </a>
                   </li> */}
-                  {/* <li>
+              {/* <li>
                     <a
                       style={{ textDecoration: "none" }}
                       href="/admin-berkala-kelembagaan"
@@ -265,8 +288,8 @@ function Sidebar() {
                       <i className="metismenu-icon"></i>Kanal
                     </a>
                   </li> */}
-                </ul>
-              </li>
+              {/* </ul>
+              </li> */}
               {/* <li>
                 <a style={{ textDecoration: "none" }} href="#">
                   <i class="fa-solid fa-bullhorn metismenu-icon "></i>

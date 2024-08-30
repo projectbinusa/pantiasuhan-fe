@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
+import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import axios from "axios";
@@ -11,11 +11,13 @@ function SejarahSekolah() {
 
   const getAllSejarah = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/sejarah/all/terbaru?page=0&size=1`);
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/sejarah/all/terbaru?page=0&size=1`
+      );
       const sejarahContent = response.data.data.content[0] || {};
       setSejarah({
         judul: sejarahContent.judul || "Data tidak tersedia",
-        isi: sejarahContent.isi || "Data tidak tersedia"
+        isi: sejarahContent.isi || "Data tidak tersedia",
       });
     } catch (error) {
       setError(error);
@@ -49,11 +51,15 @@ function SejarahSekolah() {
           </ul>
         </div>
         <div style={{ lineHeight: "1.8" }}>
-          <div
-            style={{ margin: "0 auto 0", padding: "0" }}
-          >
-            {sejarah.judul === "Data tidak tersedia" || sejarah.isi === "Data tidak tersedia" ? (
-              <p style={{ fontSize: "1.1em", textAlign: "center", color: "#666" }}>
+          <div style={{ margin: "0 auto 0", padding: "0" }}>
+            {sejarah.judul === "Data tidak tersedia" ||
+            sejarah.isi === "Data tidak tersedia" ? (
+              <p
+                style={{
+                  fontSize: "1.1em",
+                  textAlign: "center",
+                  color: "#666",
+                }}>
                 Sejarah Sekolah Tidak Tersedia.
               </p>
             ) : (
@@ -63,8 +69,7 @@ function SejarahSekolah() {
                     fontWeight: "bold",
                     marginBottom: "30px",
                     fontSize: "2em",
-                  }}
-                >
+                  }}>
                   {sejarah.judul}
                 </h1>
                 <hr style={{ borderColor: "#ccc" }} />
@@ -73,8 +78,7 @@ function SejarahSekolah() {
                     fontSize: "1.1em",
                     marginBottom: "20px",
                     textAlign: "left",
-                  }}
-                >
+                  }}>
                   {sejarah.isi}
                 </p>
               </>
@@ -82,6 +86,7 @@ function SejarahSekolah() {
           </div>
         </div>
       </main>
+      {/* <!-- counter area end --> */}
       <FooterSekolah />
     </div>
   );

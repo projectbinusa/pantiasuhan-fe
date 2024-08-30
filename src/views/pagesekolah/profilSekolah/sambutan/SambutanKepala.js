@@ -12,13 +12,15 @@ function SambutanKepala() {
     isi: "",
     nama: "",
     nip: "",
-    foto: ""
+    foto: "",
   });
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const getAllSambutan = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/sambutan/all/terbaru?page=0&size=1`);
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/sambutan/all/terbaru?page=0&size=1`
+      );
       const sambutanContent = response.data.data.content[0];
       if (sambutanContent) {
         setSambutanData({
@@ -26,7 +28,7 @@ function SambutanKepala() {
           isi: sambutanContent.isi,
           nama: sambutanContent.nama,
           nip: sambutanContent.nip,
-          foto: sambutanContent.foto
+          foto: sambutanContent.foto,
         });
       } else {
         setSambutanData({
@@ -34,10 +36,10 @@ function SambutanKepala() {
           isi: "Tidak ada informasi sambutan yang tersedia.",
           nama: "",
           nip: "",
-          foto: ""
+          foto: "",
         });
       }
-      setLoading(false);
+      // setLoading(false);
     } catch (error) {
       console.log("Error fetching sambutan data:", error);
       setSambutanData({
@@ -45,9 +47,9 @@ function SambutanKepala() {
         isi: "Tidak dapat mengambil data sambutan.",
         nama: "",
         nip: "",
-        foto: ""
+        foto: "",
       });
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -55,9 +57,9 @@ function SambutanKepala() {
     getAllSambutan();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div>
@@ -72,13 +74,22 @@ function SambutanKepala() {
             </li>
             <li>
               <i class="fas fa-angle-right"></i>{" "}
-              <span style={{ fontWeight: "normal" }}>Sambutan Kepala Sekolah</span>
+              <span style={{ fontWeight: "normal" }}>
+                Sambutan Kepala Sekolah
+              </span>
             </li>
           </ul>
         </div>
         <div className="sambutan-container">
           <div className="parent-sambutan">
-            <h2 style={{ textAlign: "center", marginBottom: "30px", color: "#333", fontFamily: "'Poppins', sans-serif", fontWeight: "bold" }}>
+            <h2
+              style={{
+                textAlign: "center",
+                marginBottom: "30px",
+                color: "#333",
+                fontFamily: "'Poppins', sans-serif",
+                fontWeight: "bold",
+              }}>
               {sambutanData.judul}
             </h2>
             {sambutanData.foto ? (
@@ -90,14 +101,38 @@ function SambutanKepala() {
                 />
               </div>
             ) : null}
-            <p style={{ fontSize: "15px", lineHeight: "1.8", color: "#555", marginBottom: "20px", fontFamily: "'Poppins', sans-serif" }}>
+            <p
+              style={{
+                fontSize: "15px",
+                lineHeight: "1.8",
+                color: "#555",
+                marginBottom: "20px",
+                fontFamily: "'Poppins', sans-serif",
+              }}>
               {sambutanData.isi}
             </p>
             {sambutanData.nama && sambutanData.nip ? (
-              <p style={{ textAlign: "right", marginTop: "40px", fontSize: "18px", color: "#333", fontFamily: "'Poppins', sans-serif", fontWeight: "bold" }}>
-                Kepala Sekolah,<br />
-                {sambutanData.nama}<br />
-                <span style={{ fontSize: "16px", fontWeight: "normal", color: "#777" }}>NIP: {sambutanData.nip}</span>
+              <p
+                style={{
+                  textAlign: "right",
+                  marginTop: "40px",
+                  fontSize: "18px",
+                  color: "#333",
+                  fontFamily: "'Poppins', sans-serif",
+                  fontWeight: "bold",
+                }}>
+                Kepala Sekolah,
+                <br />
+                {sambutanData.nama}
+                <br />
+                <span
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: "normal",
+                    color: "#777",
+                  }}>
+                  NIP: {sambutanData.nip}
+                </span>
               </p>
             ) : null}
           </div>
