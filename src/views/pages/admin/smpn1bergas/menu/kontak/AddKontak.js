@@ -43,7 +43,6 @@ function AddKontak() {
     try {
       await axios.post(`${API_DUMMY}/smpn1bergas/api/kontak/add`, data, {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });

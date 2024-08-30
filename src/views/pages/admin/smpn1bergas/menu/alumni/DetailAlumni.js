@@ -15,11 +15,9 @@ function DetailAlumni() {
   const [createdDate, setCreatedDate] = useState("");
   const [updateDate, setUpdateDate] = useState("");
   const [kontak, setKontak] = useState("");
-  const [riwayat, setRiwayat] = useState("");
   const [tahunLulus, setTahunLulus] = useState("");
   const [profesi, setProfesi] = useState("");
   const [biografi, setBiografi] = useState("");
-  const [nip, setNip] = useState("");
   const [image, setImage] = useState("");
   const param = useParams();
 
@@ -39,10 +37,8 @@ function DetailAlumni() {
         setBiografi(response.biografi);
         setKontak(response.kontak);
         setProfesi(response.profesi);
-        setRiwayat(response.riwayat);
-        setNip(response.nip);
         setTahunLulus(response.tahunLulus);
-        setImage(response.image);
+        setImage(response.foto);
         console.log("alumni : ", ress.data.data);
       })
       .catch((error) => {
@@ -102,24 +98,6 @@ function DetailAlumni() {
                     class="form-control"
                     disabled
                     value={profesi}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Riwayat</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={riwayat}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">NIP</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={nip}
                   />
                 </div>
                 <div class="mb-3">

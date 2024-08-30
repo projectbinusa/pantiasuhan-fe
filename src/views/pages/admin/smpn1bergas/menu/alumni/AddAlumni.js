@@ -54,8 +54,8 @@ function AddAlumni() {
     formData.append("kontak", kontak);
     formData.append("profesi", profesi);
     formData.append("tahunLulus", tahunLulus);
-    formData.append("riwayat", riwayat);
-    formData.append("nip", nip);
+    // formData.append("riwayat", riwayat);
+    // formData.append("nip", nip);
     formData.append("file", image);
 
     try {
@@ -149,7 +149,7 @@ function AddAlumni() {
                             id="exampleInputPassword1"
                           />
                         </div>
-                        <div className="mb-3 col-lg-6">
+                        {/* <div className="mb-3 col-lg-6">
                           <label
                             for="exampleInputPassword1"
                             className="form-label font-weight-bold">
@@ -163,7 +163,7 @@ function AddAlumni() {
                             required
                             id="exampleInputPassword1"
                           />
-                        </div>
+                        </div> */}
                         <div className="mb-3 col-lg-6">
                           <label
                             for="exampleInputPassword1"
@@ -179,7 +179,7 @@ function AddAlumni() {
                             id="exampleInputPassword1"
                           />
                         </div>
-                        <div className="mb-3 col-lg-6">
+                        {/* <div className="mb-3 col-lg-6">
                           <label
                             for="exampleInputPassword1"
                             className="form-label font-weight-bold">
@@ -193,7 +193,7 @@ function AddAlumni() {
                             required
                             id="exampleInputPassword1"
                           />
-                        </div>
+                        </div> */}
                         <div className="mb-3 co-lg-6">
                           {/* a */}
                           <label className="form-label font-weight-bold">

@@ -181,7 +181,7 @@ function Kontak() {
                           style={{ cursor: "not-allowed" }}
                           disabled
                           className="active btn-focus p-2 rounded">
-                          Tambah kontak
+                          Tambah Data
                         </button>
                       </>
                     ) : (
@@ -191,7 +191,7 @@ function Kontak() {
                           <a
                             style={{ color: "white", textDecoration: "none" }}
                             href="/add-kontak">
-                            Tambah kontak
+                            Tambah Data
                           </a>
                         </button>
                       </>

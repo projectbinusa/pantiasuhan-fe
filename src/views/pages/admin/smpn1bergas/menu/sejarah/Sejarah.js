@@ -215,7 +215,7 @@ function Sejarah() {
                     </th> */}
                     <th
                       scope="col"
-                      className="text-center"
+                      className="text-left"
                       style={{ maxWidth: "120px" }}>
                       Isi Sejarah
                     </th>

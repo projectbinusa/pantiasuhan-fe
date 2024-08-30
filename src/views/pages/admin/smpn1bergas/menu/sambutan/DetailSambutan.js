@@ -16,6 +16,7 @@ function DetailSAmbutan() {
   const [updateDate, setUpdateDate] = useState("");
   const [isiSambutan, setIsiSambutan] = useState("");
   const [nip, setNip] = useState("");
+  const [nama, setNama] = useState("");
   const [image, setImage] = useState("");
   const param = useParams();
 
@@ -34,6 +35,7 @@ function DetailSAmbutan() {
         setUpdateDate(list_data.updatedDate);
         setJudulSambutan(list_data.judul);
         setIsiSambutan(list_data.isi);
+        setNama(list_data.nama);
         setImage(list_data.foto);
         setNip(list_data.nip);
       })
@@ -74,6 +76,15 @@ function DetailSAmbutan() {
                     class="form-control"
                     disabled
                     value={judulSambutan}
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Nama Kepala Sekolah</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled
+                    value={nama}
                   />
                 </div>
                 <div class="mb-3">
