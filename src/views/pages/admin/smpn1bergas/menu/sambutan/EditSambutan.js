@@ -64,7 +64,7 @@ function EditSambutan() {
 
     const formData = new FormData();
     formData.append("isi", isiSambutan);
-    formData.append("nama", judulSambutan);
+    formData.append("nama", nama);
     formData.append("judul", judulSambutan);
     formData.append("nip", nip);
     formData.append("file", file);

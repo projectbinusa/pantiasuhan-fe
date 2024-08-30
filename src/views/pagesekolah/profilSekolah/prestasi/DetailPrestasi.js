@@ -17,16 +17,17 @@ function DetailPrestasi() {
             setPrestasi(response.data.data);
         } catch (error) {
             console.error("Error fetching data:", error);
-        } finally {
-            setLoading(false);
         }
+        // finally {
+        //     setLoading(false);
+        // }
     };
 
     useEffect(() => {
         fetchPrestasiDetail();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
+    // if (loading) return <div>Loading...</div>;
 
     const { foto, judul, nama_peserta, peyelenggara, skala, tanggal } = prestasi;
 

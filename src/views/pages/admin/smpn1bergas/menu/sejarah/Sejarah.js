@@ -299,6 +299,7 @@ function Sejarah() {
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   );

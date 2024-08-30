@@ -186,7 +186,7 @@ const TenagaKepndidkan = () => {
   };
 
   return (
-    <div>
+    <div style={{background:""}}>
       <NavbarSekolah2 />
       {/* <div
         style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
