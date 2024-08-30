@@ -29,7 +29,9 @@ function Alumni() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/alumni/all/terbaru?page=${page}&size=${rowsPerPage}`,
+        `${API_DUMMY}/smpn1bergas/api/alumni/all/terbaru?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -275,7 +277,10 @@ function Alumni() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
                 showFirstButton
                 showLastButton
                 color="primary"

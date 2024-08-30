@@ -53,7 +53,7 @@ function MateriAjar() {
   // const getAll1 = async (page1) => {
   //   try {
   //     const response = await axios.get(
-  //       `${API_DUMMY}/smpn1bergas/api/category-berita/all?direction=desc&page=${
+  //       `${API_DUMMY}/smpn1bergas/api/category-berita/all/terbaru?direction=desc&page=${
   //         page1 - 1
   //       }&size=${rowsPerPage1}&sort=id`,
   //       {

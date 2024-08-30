@@ -11,7 +11,7 @@ function KonsidisiSekolahView() {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    axios.get(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/all?page=0&size=1`)
+    axios.get(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/all/terbaru?page=0&size=1`)
       .then(response => {
         setFoto(response.data.data.content[0].foto);
         setIsi(response.data.data.content[0].deskripsi);

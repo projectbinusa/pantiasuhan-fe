@@ -149,7 +149,7 @@ function EditAlumni() {
                     <input
                       value={kontak}
                       onChange={(e) => setKontak(e.target.value)}
-                      type="number"
+                      type="text"
                       className="form-control"
                       required
                       id="exampleInputPassword1"
