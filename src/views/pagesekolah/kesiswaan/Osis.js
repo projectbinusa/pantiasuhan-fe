@@ -13,7 +13,7 @@ function Osis() {
     useEffect(() => {
         const fetchOsisData = async () => {
             try {
-                const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/osis/all?page=${currentPage - 1}&size=5`);
+                const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/osis/all/terbaru?page=${currentPage - 1}&size=5`);
                 setOsis(response.data.data.content);
                 setTotalPages(response.data.data.totalPages);
             } catch (error) {

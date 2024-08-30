@@ -21,7 +21,7 @@ function VisiMisi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/visiMisi/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/visiMisi/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {

@@ -30,7 +30,7 @@ function FotoKegiatan() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/foto_kegiatan/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/foto_kegiatan/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
@@ -53,7 +53,7 @@ function FotoKegiatan() {
   // const getAll1 = async (page1) => {
   //   try {
   //     const response = await axios.get(
-  //       `${API_DUMMY}/smpn1bergas/api/category-berita/all?direction=desc&page=${
+  //       `${API_DUMMY}/smpn1bergas/api/category-berita/all/terbaru?direction=desc&page=${
   //         page1 - 1
   //       }&size=${rowsPerPage1}&sort=id`,
   //       {

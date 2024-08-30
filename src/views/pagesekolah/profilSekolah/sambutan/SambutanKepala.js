@@ -18,7 +18,7 @@ function SambutanKepala() {
 
   const getAllSambutan = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/sambutan/all?page=0&size=1`);
+      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/sambutan/all/terbaru?page=0&size=1`);
       const sambutanContent = response.data.data.content[0];
       if (sambutanContent) {
         setSambutanData({

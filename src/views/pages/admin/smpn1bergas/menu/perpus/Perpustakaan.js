@@ -35,7 +35,7 @@ function Perpustakaan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/perpustakaan/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/perpustakaan/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {

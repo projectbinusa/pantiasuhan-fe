@@ -31,7 +31,7 @@ function Berita() {
   const getAll = async (page1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/guru/all?page=${
+        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {
