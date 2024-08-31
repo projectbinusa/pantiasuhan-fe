@@ -4,6 +4,8 @@ import "../../../css/alumni/struktur.css";
 import { API_DUMMY } from "../../../utils/base_URL";
 import axios from "axios";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
+import { Pagination } from "@mui/material";
+import excelstruktur from "../../../aset/smpn1bergas/STRUKTUR_ORG_SMP_NEGERI_1_BERGAS_2023.xlsx"
 
 function StrukturOrganisasi() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -30,6 +32,15 @@ function StrukturOrganisasi() {
         getAllStruktur(currentPage);
     }, [currentPage]);
 
+    const download = () => {
+        const link = document.createElement('a');
+        link.href = excelstruktur;
+        link.download = 'STRUKTUR_ORG_SMP_NEGERI_1_BERGAS_2023.xlsx';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     return (
         <section>
             <NavbarSekolah2 />
@@ -39,6 +50,9 @@ function StrukturOrganisasi() {
                         <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>
                         <li><a href="/"><i class="fas fa-angle-right"></i> Struktur Organisasi </a></li>
                     </ul>
+                </div>
+                <div className="mb-5">
+                    <button onClick={download} style={{border: "none", backgroundColor: "white", padding: 0, fontWeight: "600", color: "#003366"}}>Download lengkap struktur disini</button>
                 </div>
                 {struktur.length > 0 ? (
                     struktur.map(item => (
@@ -57,6 +71,18 @@ function StrukturOrganisasi() {
                         </div>
                     ))
                 ) : (<></>)}
+                <div className="d-flex justify-content-center align-items-center mt-3 mb-5">
+                    <Pagination
+                        count={totalPages}
+                        page={currentPage}
+                        onChange={handlePageChange}
+                        color="primary"
+                        shape="rounded"
+                        style={{ marginBottom: "30px" }}
+                        showFirstButton
+                        showLastButton
+                    />
+                </div>
             </main>
             <FooterSekolah />
         </section>
