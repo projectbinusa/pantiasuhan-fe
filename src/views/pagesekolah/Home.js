@@ -198,7 +198,11 @@ function Home() {
   };
 
   const buttonStylesss = {
-    display: "inline-block",
+    display: "flex",
+    width: "fit-content",
+    justifyContent: "center",
+    marginLeft: "auto",
+    marginRight: "auto",
     padding: "10px 20px",
     fontSize: "16px",
     color: isHoveredss ? "#000" : "#fff",
@@ -555,7 +559,7 @@ function Home() {
   const getAllAlumni = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/alumni/all/terbaru?page=0&size=20`
+        `${API_DUMMY}/smpn1bergas/api/alumni/all/terbaru?page=0&size=6`
       );
       setAlumnus(response.data.data.content);
     } catch (error) {
@@ -608,6 +612,22 @@ function Home() {
 
   useEffect(() => {
     getAllKontak();
+  }, []);
+
+  const [sambutan, setSambutan] = useState([]);
+  const getAllSambutan = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/sambutan/all/terbaru?page=0&size=1`
+      );
+      setSambutan(response.data.data.content);
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllSambutan();
   }, []);
 
   const [email1, setEmail1] = useState("");
@@ -684,7 +704,7 @@ function Home() {
   }, []);
 
   return (
-    <div>
+    <div style={{ background: "#FFF9F9" }}>
       <NavbarSekolah />
       <div
         style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
@@ -709,16 +729,134 @@ function Home() {
       </div>
 
       {/* PENGUMUMAN */}
-      <div className="mt-5 container">
+      {/* <div className="mt-5 container">
         <section id="pengumuman">
           <div style={{ marginBottom: "30px" }}>
             <SingleCardMenu />
           </div>
         </section>
+      </div> */}
+      <div class="about-area pd-top-90 pd-bottom-120">
+        <div class="container">
+          {sambutan.map((item) => (
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="mask-bg-wrap mask-bg-img-3">
+                  <img
+                    style={{ borderRadius: "15px", width: "60%" }}
+                    class="shape-image"
+                    src="https://is3.cloudhost.id/s3bpg/binus/absenMasuk/50541df5-e6c3-4e02-bff7-7c3ced88436fkepsek.a863911fe87c61c0db98.jpg"
+                    alt="img"
+                  />
+                  <div class="thumb">
+                    {/* <img src="assets/img/about/3.webp" alt="img" /> */}
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 align-self-center">
+                <div class="section-title px-lg-5 mb-0">
+                  <h5 class="sub-title left-border">Sambutan</h5>
+                  <h2 class="title">{item.nama}</h2>
+                  <p class="content mt-2">{item.isi}</p>
+                  <ul
+                    class="nav nav-tabs tab-button-style mt-4"
+                    id="myTab"
+                    role="tablist">
+                    {/* <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active"
+                    id="home-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#home"
+                    type="button"
+                    role="tab"
+                    aria-controls="home"
+                    aria-selected="true"
+                  >
+                    Our Misson
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="profile-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#profile"
+                    type="button"
+                    role="tab"
+                    aria-controls="profile"
+                    aria-selected="false"
+                  >
+                    Our Vision
+                  </button>
+                </li> */}
+                  </ul>
+                  {/* <div class="tab-content" id="myTabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="home"
+                  role="tabpanel"
+                  aria-labelledby="home-tab"
+                >
+                  <p class="content mt-4">
+                    Maecenas tempus, tellus eget condime honcus sem quam semper
+                    libero sit amet adipiscingem neque sed imquam nunullam quis
+                    ante. Etiam sit amet orci.
+                  </p>
+                  <div class="list-wrap mt-4">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <ul class="single-list-inner">
+                          <li>Client happiness</li>
+                          <li>World-class service</li>
+                        </ul>
+                      </div>
+                      <div class="col-lg-6">
+                        <ul class="single-list-inner">
+                          <li>Client happiness</li>
+                          <li>World-class service</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="profile"
+                  role="tabpanel"
+                  aria-labelledby="profile-tab"
+                >
+                  <p class="content mt-4">
+                    Maecenas tempus, tellus eget condime honcus sem quam semper
+                    libero sit amet adipiscingem neque sed imquam nunullam quis
+                    ante. Etiam sit amet orci.
+                  </p>
+                  <div class="list-wrap mt-4">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <ul class="single-list-inner">
+                          <li>Client happiness</li>
+                          <li>World-class service</li>
+                        </ul>
+                      </div>
+                      <div class="col-lg-6">
+                        <ul class="single-list-inner">
+                          <li>Client happiness</li>
+                          <li>World-class service</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-
       {/* BERITA */}
-      <div style={contentStyles}>
+      {/* <div style={contentStyles}>
         <section id="berita-terbaru" style={sectionStyles} data-aos="fade-up">
           <Typography
             style={{
@@ -761,7 +899,7 @@ function Home() {
                   />
                 </div>
               ))} */}
-            </div>
+      {/* </div>
           </div>
           <Link
             href="/news"
@@ -771,59 +909,152 @@ function Home() {
             Tampilkan Semua Berita
           </Link>
         </section>
-      </div>
-
-      {/* EKSTRAKULIKULER */}
-      <div className="content-style">
-        <section id="ekstra-kulikuler" className="section-style">
-          <Typography
-            style={{
-              fontWeight: "bold",
-              borderBottom: "2px solid #FFCC00",
-              display: "inline-block",
-              marginBottom: "100px",
-              marginTop: "50px",
-              fontFamily: "'Poppins', sans-serif",
-            }}
-            variant="h4"
-            gutterBottom>
-            Ekstrakurikuler
-          </Typography>
-          <div className="ekstrakurikuler-container-style container">
-            {ekstrakurikuler.length > 0 ? (
-              ekstrakurikuler.map((ekskul, idx) => (
-                <div key={idx}>
-                  <EkstraKulikulerCard
-                    title={ekskul.name}
-                    id={ekskul.id}
-                    backgroundColor={lightColors[idx % lightColors.length]}
-                  />
-                </div>
-              ))
-            ) : (
-              <></>
-            )}
-            {/* {ekstraKulikulerItems.map((item, index) => (
-              <div key={index}>
-                <EkstraKulikulerCard
-                  title={item.title}
-                  backgroundColor={lightColors[index % lightColors.length]}
-                />
+      </div> */}
+      <div class="blog-area bg-blue pd-top-115 pd-bottom-60">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-7 col-md-10">
+              <div class="section-title text-center">
+                <Typography
+                  style={{
+                    fontWeight: "bold",
+                    borderBottom: "2px solid #FFCC00",
+                    display: "inline-block",
+                    color: "white",
+                    fontFamily: "'Poppins', sans-serif",
+                  }}
+                  variant="h4"
+                  gutterBottom>
+                  Berita Terbaru
+                </Typography>
+                {/* <h2 class="title">Read Our Latest Tips &Tricks</h2>
+                <p class="content">
+                  Dcidunt eget semper nec quam. Sed hendrerit. acfelis Nunc
+                  egestas augue atpellentesque laoreet
+                </p> */}
               </div>
-            ))} */}
+            </div>
           </div>
-          <Link
-            href="/ekstrakurikuler"
-            style={buttonStylesss}
-            onMouseEnter={() => setIsHoveredss(true)}
-            onMouseLeave={() => setIsHoveredss(false)}>
-            Tampilkan Semua Ekstrakurikuler
-          </Link>
-        </section>
+          <div class="row justify-content-center">
+            {berita.map((data) => (
+              <div class="col-lg-4 col-md-6">
+                <div class="single-blog-inner style-2">
+                  <div class="thumb">
+                    <img src={data.image} alt="img" />
+                  </div>
+                  <div class="details">
+                    <h4>
+                      <p>{data.judulBerita}</p>
+                    </h4>
+                    <ul class="blog-meta">
+                      <li>
+                        <i class="far fa-user"></i> By {data.author}
+                      </li>
+                      <li>
+                        <i class="far fa-calendar-alt"></i> {data.created_date}
+                      </li>
+                    </ul>
+                    <p
+                      style={{
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 3, // Menentukan jumlah baris yang ditampilkan
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}>
+                      {data.isiBerita}
+                    </p>
+                    {/* <a  class="read-more-text" href={""}>
+                      Detail <i class="fa fa-caret-right"></i>
+                    </a> */}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* PRESTASI */}
-      <div className="content-style" id="prestasi-terbaru">
+      <section class="project-area pd-top-115 pd-bottom-90">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="section-title style-white text-center">
+                <h5 class="sub-title double-line" style={{ color: "black" }}>
+                  Prestasi Unggulan
+                </h5>
+                <h2 class="title" style={{ color: "black" }}>
+                  Temui Para Juara Kami
+                </h2>
+                <p class="content" style={{ color: "black" }}>
+                  Kami terus mengukir prestasi di berbagai bidang, dengan
+                  dedikasi dan kerja keras, kami siap untuk terus berkembang dan
+                  mencapai yang terbaik.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="container-grid">
+            {prestasi.map((item) => (
+              // <div className="card" key={item.id}>
+              //   <div className="image-container">
+              //     <img
+              //       src={item.foto}
+              //       alt={item.foto}
+              //     />
+              //   </div>
+              //   <div className="card-body">
+              //     <a href={`/prestasi/${item.id}`} className="read-more-link">
+              //       <h5 className="card-title">{item.judul}</h5>
+              //     </a>
+              //     <div>
+              //       <a href={`/prestasi/${item.id}`} className="read-more-link">
+              //         Baca selengkapnya
+              //         <svg
+              //           className="arrow-icon"
+              //           aria-hidden="true"
+              //           xmlns="http://www.w3.org/2000/svg"
+              //           width="15"
+              //           height="15"
+              //           fill="currentColor"
+              //           viewBox="0 0 24 24"
+              //         >
+              //           <path
+              //             fillRule="evenodd"
+              //             d="M3 4a1 1 0 0 0-.822 1.57L6.632 12l-4.454 6.43A1 1 0 0 0 3 20h13.153a1 1 0 0 0 .822-.43l4.847-7a1 1 0 0 0 0-1.14l-4.847-7a1 1 0 0 0-.822-.43H3Z"
+              //             clipRule="evenodd"
+              //           />
+              //         </svg>
+              //       </a>
+              //     </div>
+              //   </div>
+              // </div>
+              <div class="card item" key={item.id}>
+                <div class="single-project-inner style-two">
+                  <div class="thumb">
+                    {item.foto !== null ? (
+                      <img src={item.foto} alt="img" />
+                    ) : (
+                      <img
+                        src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
+                        alt="img"
+                      />
+                    )}
+                  </div>
+                  <div class="details-wrap">
+                    <h3>{item.judul}</h3>
+                    <a href={`/prestasi/${item.id}`}>
+                      SELENGKAPNYA <i class="fas fa-arrow-right"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* <div className="content-style" id="prestasi-terbaru">
         <section className="section-style">
           <Typography
             style={{
@@ -867,7 +1098,7 @@ function Home() {
                 description={item.description}
               />
             ))} */}
-          </div>
+      {/* </div>
           <Link
             href="/all-prestasi"
             style={buttonStyle}
@@ -876,8 +1107,111 @@ function Home() {
             Tampilkan Semua Prestasi
           </Link>
         </section>
+      </div> */}
+      {/* EKSTRAKULIKULER */}
+      <div class="how-it-work-area bg-blue pd-top-110 pd-top-110">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="section-title style-white text-center">
+                <h5 class="sub-title double-line">Ekstrakurikuler</h5>
+                <h2 class="title">Cara Pelaksanaannya</h2>
+                <p class="content">
+                  Pelatihan dilakukan secara bertahap dan sistematis. Setiap
+                  sesi dirancang untuk mengembangkan keterampilan peserta.
+                  Kegiatan berlangsung dengan pendekatan yang interaktif dan
+                  kolaboratif, memastikan setiap peserta mendapatkan pengalaman
+                  belajar yang optimal.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            {ekstrakurikuler.map((data, index) => (
+              <div class="col-lg-3 col-md-6">
+                <div class="single-work-inner style-two text-center">
+                  <div class="count-wrap">
+                    <div class="count-inner">
+                      <h2>{index + 1}</h2>
+                    </div>
+                  </div>
+                  <div class="details-wrap">
+                    <div class="details-inner">
+                      <h4>{data.name}</h4>
+                      <p
+                        style={{
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 3, // Menentukan jumlah baris yang ditampilkan
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}>
+                        {data.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>{" "}
+          <Link
+            href="/ekstrakurikuler"
+            style={buttonStylesss}
+            onMouseEnter={() => setIsHoveredss(true)}
+            onMouseLeave={() => setIsHoveredss(false)}>
+            Tampilkan Semua Ekstrakurikuler
+          </Link>
+          <div class="client-slider pd-top-90 owl-carousel"></div>
+        </div>
       </div>
-      <div
+      {/* <div className="content-style">
+        <section id="ekstra-kulikuler" className="section-style">
+          <Typography
+            style={{
+              fontWeight: "bold",
+              borderBottom: "2px solid #FFCC00",
+              display: "inline-block",
+              marginBottom: "100px",
+              marginTop: "50px",
+              fontFamily: "'Poppins', sans-serif",
+            }}
+            variant="h4"
+            gutterBottom>
+            Ekstrakurikuler
+          </Typography>
+          <div className="ekstrakurikuler-container-style container">
+            {ekstrakurikuler.length > 0 ? (
+              ekstrakurikuler.map((ekskul, idx) => (
+                <div key={idx}>
+                  <EkstraKulikulerCard
+                    title={ekskul.name}
+                    id={ekskul.id}
+                    backgroundColor={lightColors[idx % lightColors.length]}
+                  />
+                </div>
+              ))
+            ) : (
+              <></>
+            )}
+            {/* {ekstraKulikulerItems.map((item, index) => (
+              <div key={index}>
+                <EkstraKulikulerCard
+                  title={item.title}
+                  backgroundColor={lightColors[index % lightColors.length]}
+                />
+              </div>
+            ))} */}
+      {/* </div>
+          <Link
+            href="/ekstrakurikuler"
+            style={buttonStylesss}
+            onMouseEnter={() => setIsHoveredss(true)}
+            onMouseLeave={() => setIsHoveredss(false)}>
+            Tampilkan Semua Ekstrakurikuler
+          </Link>
+        </section>
+      </div> */}
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "center",
@@ -891,10 +1225,174 @@ function Home() {
           className="container">
           Pendidikan: Kunci Menuju Dunia Kemungkinan
         </h3>
-      </div>
+      </div> */}
 
       {/* GURU */}
-      <div className="content-style">
+      <div class="team-area pd-top-115 pd-bottom-90">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="section-title text-center">
+                <h5 class="sub-title double-line">Guru</h5>
+                <h2 class="title">Bertemu dengan Guru Kami</h2>
+                <p class="content">
+                  Para guru kami adalah profesional yang berdedikasi. Dengan
+                  pengalaman dan keahlian yang luas, mereka siap membimbing
+                  setiap siswa menuju kesuksesan. Pembelajaran disampaikan
+                  dengan metode yang efektif dan inovatif, memastikan siswa
+                  memahami materi dengan baik.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            {gurus.map((data) => (
+              <div class="col-lg-3 col-md-6">
+                <div class="single-team-inner shadow-sm style-1 text-center">
+                  <div class="thumb">
+                    <img src={data.foto} alt="img" />
+                    {/* <ul class="social-media">
+                  <li>
+                    <a class="facebook" href="#">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="twitter" href="#">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="instagram" href="#">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="youtube" href="#">
+                      <i class="fab fa-youtube"></i>
+                    </a>
+                  </li>
+                </ul> */}
+                  </div>
+                  <div class="details-wrap">
+                    <div class="details-inner">
+                      <h4>{data.nama_guru}</h4>
+                      <p>{data.mapel}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* <div class="col-lg-3 col-md-6">
+            <div class="single-team-inner style-1 text-center">
+              <div class="thumb">
+                <img src="assets/img/team/2.webp" alt="img" />
+                <ul class="social-media">
+                  <li>
+                    <a class="facebook" href="#">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="twitter" href="#">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="instagram" href="#">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="youtube" href="#">
+                      <i class="fab fa-youtube"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="details-wrap">
+                <div class="details-inner">
+                  <h4><a href="team-details.html">Macal Jonsons</a></h4>
+                  <p>Director</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="single-team-inner style-1 text-center">
+              <div class="thumb">
+                <img src="assets/img/team/3.webp" alt="img" />
+                <ul class="social-media">
+                  <li>
+                    <a class="facebook" href="#">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="twitter" href="#">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="instagram" href="#">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="youtube" href="#">
+                      <i class="fab fa-youtube"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="details-wrap">
+                <div class="details-inner">
+                  <h4><a href="team-details.html">Estoner William</a></h4>
+                  <p>HR</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="single-team-inner style-1 text-center">
+              <div class="thumb">
+                <img src="assets/img/team/4.webp" alt="img" />
+                <ul class="social-media">
+                  <li>
+                    <a class="facebook" href="#">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="twitter" href="#">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="instagram" href="#">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="youtube" href="#">
+                      <i class="fab fa-youtube"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="details-wrap">
+                <div class="details-inner">
+                  <h4><a href="team-details.html">Casses Tomas</a></h4>
+                  <p>IT Maneger</p>
+                </div>
+              </div>
+            </div>
+          </div> */}
+          </div>
+        </div>
+      </div>
+      {/* <div className="content-style">
         <section id="guru-dan-tenaga-kependidikan" className="section-style">
           <Typography
             style={{
@@ -964,7 +1462,7 @@ function Home() {
                   <Typography style={{ fontFamily: "'Poppins', sans-serif" }} variant="body2">{teacher.position}</Typography>
                 </div>
               ))} */}
-            </Slider>
+      {/* </Slider>
             <div
               style={{
                 position: "absolute",
@@ -1009,10 +1507,87 @@ function Home() {
             </div>
           </div>
         </section>
-      </div>
+      </div>  */}
 
       {/* ALUMNI */}
-      <div style={contentStyles}>
+      <div class="team-area bg-blue pd-top-90 pd-bottom-90">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="section-title style-white text-center">
+                <h5 class="sub-title double-line">ALumni</h5>
+                <h2 class="title">Bertemu dengan Alumni Kami</h2>
+                <p class="content">
+                  Jalin koneksi dengan alumni berprestasi yang telah mengukir
+                  kesuksesan di berbagai bidang. Mereka siap berbagi pengalaman
+                  dan inspirasi untuk generasi berikutnya.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            {alumnus.map((data, index) => (
+              <div class="col-lg-4 col-md-6">
+                <div class="single-team-inner style-4 text-center">
+                  <div class="thumb">
+                    <img src={data.foto} alt="img" />
+                  </div>
+                  <div class="details-wrap">
+                    <div class="details-inner">
+                      <h4
+                        style={{
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          color: "white",
+                          width: "200px", // Sesuaikan dengan kebutuhan
+                        }}>
+                        <a>{data.nama}</a>
+                      </h4>
+                      {/* <p>Founder</p> */}
+                    </div>
+                  </div>
+                  <div class="hover-details-wrap">
+                    <div class="hover-details-inner">
+                      <h4>
+                        <a
+                          style={{
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            color: "white",
+                            width: "150px", // Sesuaikan dengan kebutuhan
+                          }}>
+                          {data.nama}
+                        </a>
+                      </h4>
+                      <p
+                        style={{
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 3, // Menentukan jumlah baris yang ditampilkan
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          color: "white",
+                        }}>
+                        {data.biografi}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <Link
+            href="/all-alumni"
+            style={buttonStylesss}
+            onMouseEnter={() => setIsHoveredss(true)}
+            onMouseLeave={() => setIsHoveredss(false)}>
+            Tampilkan Semua Alumni
+          </Link>
+        </div>
+      </div>
+      {/* <div style={contentStyles}>
         <section id="alumni" style={sectionStyless}>
           <Typography
             style={{
@@ -1052,7 +1627,7 @@ function Home() {
                   />
                 </div>
               ))} */}
-            </Slider>
+      {/* </Slider>
           </div>
           <Link
             href="/all-alumni"
@@ -1062,7 +1637,7 @@ function Home() {
             Tampilkan Semua Alumni
           </Link>
         </section>
-      </div>
+      </div>  */}
 
       <div className="contact-section-style">
         <section id="hubungi-kami" className="contact-section-style">
@@ -1296,6 +1871,16 @@ function Home() {
             </Button>
           </form>
         </section>
+      </div>
+      <div class="client-area-area bg-base pt-5 pb-2">
+        <div class="container">
+          <div class="section-title style-white text-center">
+            <h6 class="title">
+              ` Pendidikan adalah kunci untuk membuka pintu dunia, tempat impian
+              menjadi kenyataan dan pengetahuan menjadi kekuatan.`
+            </h6>
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

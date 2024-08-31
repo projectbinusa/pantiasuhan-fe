@@ -282,7 +282,7 @@ function Program() {
                       Judul Program
                     </th>
                     <th className="text-left">Tujuan</th>
-                    <th className="text-left">Skala</th>
+                    {/* <th className="text-left">Skala</th> */}
                     <th className="text-left">Aksi</th>
                   </tr>
                 </thead>

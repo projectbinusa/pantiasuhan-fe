@@ -13,6 +13,8 @@ const ImageCard = ({ image, title, content }) => {
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 3,
+    borderRadius:"10px",
+    backgroundColor:"#f5f5f5"
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);

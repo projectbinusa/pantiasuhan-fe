@@ -110,18 +110,23 @@ function EditProgram() {
                             placeholder="Masukkan Nama Program"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           {/* a */}
-                          <label className="form-label font-weight-bold">
-                            Judul Program
+                          <label className="form-label  font-weight-bold ">
+                            Kategori Keuangan
                           </label>
-                          <input
+                          <select
                             value={judul}
-                            onChange={(e) => setJudul(e.target.value)}
-                            type="text"
                             className="form-control"
-                            placeholder="Masukkan Judul Program"
-                          />
+                            aria-label="Small select example"
+                            onChange={(e) => setJudul(e.target.value)}>
+                            <option selected>Pilih Kategori Program</option>
+                            <option value="Pengembangan">Pengembangan</option>
+                            <option value="Perawatan Rutin">
+                              Perawatan Rutin
+                            </option>
+                            <option value="Sewa Layanan">Sewa Layanan</option>
+                          </select>
                         </div>
                         <div className="mb-3 col-lg-12">
                           {/* a */}
