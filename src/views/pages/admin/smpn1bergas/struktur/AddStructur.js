@@ -20,7 +20,7 @@ function AddStructur() {
   const [tugas, setTugas] = useState("");
   const [nama, setNama] = useState("");
   const [jabatan, setJabatan] = useState("");
-  const [jenis, setJenis] = useState("");
+  // const [jenis, setJenis] = useState("");
   const history = useHistory();
 
   const add = async (e) => {
@@ -31,7 +31,7 @@ function AddStructur() {
     formData.append("tugas", tugas);
     formData.append("nama", nama);
     formData.append("jabatan", jabatan);
-    formData.append("jenis", jenis);
+    // formData.append("jenis", jenis);
 
     await axios.post(`${API_DUMMY}/smpn1bergas/api/struktur/add`, formData, {
         headers: {
@@ -117,25 +117,6 @@ function AddStructur() {
                             className="form-control"
                             placeholder="Masukkan Jabatan"
                           />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          {/* a */}
-                          <label className="form-label font-weight-bold">
-                            Jenis Struktur
-                          </label>
-                          <select
-                            value={jenis}
-                            className="form-control"
-                            aria-label="Small select example"
-                            onChange={(e) => setJenis(e.target.value)}>
-                            <option selected>Pilih Jenis Struktur</option>
-                            <option value="WAKA SARANA PRASARANA">
-                              WAKA SARANA PRASARANA
-                            </option>
-                            <option value="SEKERTARIS WAKA">
-                              SEKERTARIS WAKA
-                            </option>
-                          </select>
                         </div>
                         <div className="mb-3 co-lg-6">
                           {/* a */}

@@ -4,7 +4,8 @@ import "../../../css/alumni/struktur.css";
 import { API_DUMMY } from "../../../utils/base_URL";
 import axios from "axios";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
-import bg from "../../../aset/bg-img.webp"
+import bg from "../../../aset/bg-img.webp";
+import excelstruktur from "../../../aset/smpn1bergas/STRUKTUR_ORG_SMP_NEGERI_1_BERGAS_2023.xlsx";
 
 function StrukturOrganisasi() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,8 +36,17 @@ function StrukturOrganisasi() {
     getAllStruktur(currentPage);
   }, [currentPage]);
 
+  const download = () => {
+    const link = document.createElement("a");
+    link.href = excelstruktur;
+    link.download = "STRUKTUR_ORG_SMP_NEGERI_1_BERGAS_2023.xlsx";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
-    <section style={{ backgroundImage:" url('../../../aset/bg-img.webp')" }}>
+    <section style={{ backgroundImage: " url('../../../aset/bg-img.webp')" }}>
       <NavbarSekolah2 />
       {/* <main className="container-struktur container">
         <div className="header-struktur">
@@ -100,6 +110,24 @@ function StrukturOrganisasi() {
                 <h2 class="title" style={{ color: "black" }}>
                   Struktur Dan Anggota Organisasi
                 </h2>
+              </div>
+              <div className="mb-5">
+                <button
+                  onClick={download}
+                  style={{
+                    border: "none",
+                    backgroundColor: "#003366",
+                    color: "white",
+                    display: "flex",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    padding: 10,
+                    borderRadius:"10px",
+                    fontWeight: "600",
+                  }}>
+                  <p></p> Download lengkap struktur
+                  disini
+                </button>
               </div>
             </div>
           </div>
