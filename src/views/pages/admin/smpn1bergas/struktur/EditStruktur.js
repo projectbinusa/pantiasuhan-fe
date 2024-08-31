@@ -20,7 +20,7 @@ function EditStruktur() {
   const [tugas, setTugas] = useState("");
   const [nama, setNama] = useState("");
   const [jabatan, setJabatan] = useState("");
-  const [jenis, setJenis] = useState("");
+  // const [jenis, setJenis] = useState("");
   const history = useHistory();
   const param = useParams();
 
@@ -36,7 +36,7 @@ function EditStruktur() {
         setImage(response.foto);
         setTugas(response.tugas);
         setNama(response.nama);
-        setJenis(response.jenis);
+        // setJenis(response.jenis);
         setJabatan(response.jabatan);
         console.log("stuktur : ", ress.data.data);
       })
@@ -54,7 +54,7 @@ function EditStruktur() {
     formData.append("tugas", tugas);
     formData.append("nama", nama);
     formData.append("jabatan", jabatan);
-    formData.append("jenis", jenis);
+    // formData.append("jenis", jenis);
 
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/struktur/put/` + param.id, formData, {
@@ -141,26 +141,6 @@ function EditStruktur() {
                             className="form-control"
                             placeholder="Masukkan Jabatan"
                           />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          {/* a */}
-                          <label className="form-label font-weight-bold">
-                            Jenis Struktur
-                          </label>
-                          <select
-                            value={jenis}
-                            className="form-control"
-                            aria-label="Small select example"
-                            onChange={(e) => setJenis(e.target.value)}>
-                            <option selected>Pilih Jenis Struktur</option>
-                            <option value="WAKA SARANA PRASARANA">
-                              WAKA SARANA PRASARANA
-                            </option>
-                            <option
-                              value="SEKERTARIS WAKA">
-                              SEKERTARIS WAKA
-                            </option>
-                          </select>
                         </div>
                         <div className="mb-3 co-lg-6">
                           {/* a */}

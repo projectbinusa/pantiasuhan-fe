@@ -740,12 +740,12 @@ function Home() {
         <div class="container">
           {sambutan.map((item) => (
             <div class="row">
-              <div class="col-lg-6">
+              <div data-aos="fade-right" class="col-lg-6">
                 <div class="mask-bg-wrap mask-bg-img-3">
                   <img
                     style={{ borderRadius: "15px", width: "60%" }}
                     class="shape-image"
-                    src="https://is3.cloudhost.id/s3bpg/binus/absenMasuk/50541df5-e6c3-4e02-bff7-7c3ced88436fkepsek.a863911fe87c61c0db98.jpg"
+                    src={sambutan.foto}
                     alt="img"
                   />
                   <div class="thumb">
@@ -753,7 +753,7 @@ function Home() {
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6 align-self-center">
+              <div data-aos="fade-left" class="col-lg-6 align-self-center">
                 <div class="section-title px-lg-5 mb-0">
                   <h5 class="sub-title left-border">Sambutan</h5>
                   <h2 class="title">{item.nama}</h2>
