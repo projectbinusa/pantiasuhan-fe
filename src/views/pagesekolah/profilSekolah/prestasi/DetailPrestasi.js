@@ -6,7 +6,12 @@ import "../../../../css/prestasi/detailprestasi.css";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 
 function DetailPrestasi() {
-  const [prestasi, setPrestasi] = useState(null);
+  const [foto, setFoto] = useState(null);
+  const [judul, setJudul] = useState("");
+  const [nama_peserta, setNama] = useState("");
+  const [skala, setSkala] = useState("");
+  const [penyelenggara, setPenyelenggara] = useState("");
+  const [tanggal, setTanggal] = useState("");
   const [loading, setLoading] = useState(true);
 
   const fetchPrestasiDetail = async () => {
@@ -15,7 +20,12 @@ function DetailPrestasi() {
       const response = await axios.get(
         `${API_DUMMY}/smpn1bergas/api/prestasi/get/${id}`
       );
-      setPrestasi(response.data.data);
+      setFoto(response.data.data.foto);
+      setJudul(response.data.data.judul);
+      setNama(response.data.data.nama_peserta);
+      setPenyelenggara(response.data.data.penyelenggara);
+      setTanggal(response.data.data.tanggal);
+      setSkala(response.data.data.skala);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -29,20 +39,18 @@ function DetailPrestasi() {
 
   // if (loading) return <div>Loading...</div>;
 
-//   if (!prestasi) return <div>Error: Data tidak ditemukan</div>;
-
-  const { foto, judul, nama_peserta, penyelenggara, skala, tanggal } = prestasi;
+  //   if (!prestasi) return <div>Error: Data tidak ditemukan</div>;
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { day: "numeric", month: "long", year: "numeric" };
     return new Intl.DateTimeFormat("id-ID", options).format(date);
   };
-
+  
   return (
     <section>
       <NavbarSekolah2 />
-      <main className="container-berita">
+      <main className="container-berita container">
         <div className="header-berita">
           <ul>
             <li>
@@ -63,7 +71,7 @@ function DetailPrestasi() {
           </ul>
         </div>
         <div className="container-prestasi">
-          {foto && <img src={foto} alt={judul} />}
+          {foto === null ? (<></>) : (<img src={foto} alt={judul} />)}
           <h4
             style={{
               fontWeight: "700",

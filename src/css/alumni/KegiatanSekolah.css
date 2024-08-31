@@ -256,20 +256,6 @@ body {
     margin-bottom: 16px;
 }
 
-.card-berita a {
-    color: #0060ff;
-    text-decoration: underline;
-}
-
-.card-berita a,
-.card-berita a:active,
-.card-berita a:focus,
-.card-berita a:hover {
-    outline: none;
-    text-decoration: none;
-    color: #002147;
-}
-
 .card-berita a:hover {
     color: #0060ff;
 }
@@ -283,6 +269,7 @@ body {
     text-decoration: none;
     text-transform: uppercase;
     font-weight: 600;
+    color: #002147;
 }
 
 .header-berita {
