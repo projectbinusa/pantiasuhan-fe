@@ -27,7 +27,6 @@ function AdminBerita() {
   const [searchResults1, setSearchResults1] = useState([]);
   const history = useHistory();
 
-
   const getAll = async (page) => {
     try {
       const response = await axios.get(
@@ -123,7 +122,7 @@ function AdminBerita() {
   //   }).then((result) => {
   //     if (result.isConfirmed) {
   //       axios
-  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/delete/` + id, {
+  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/` + id, {
   //           headers: {
   //             Authorization: `Bearer ${localStorage.getItem("token")}`,
   //           },
@@ -198,11 +197,16 @@ function AdminBerita() {
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
   return (
     <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
+      <Header toggleSidebar={toggleSidebar} />
       <div className="app-main">
-        <Sidebar />
+        <Sidebar isOpen={isSidebarOpen} />
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">

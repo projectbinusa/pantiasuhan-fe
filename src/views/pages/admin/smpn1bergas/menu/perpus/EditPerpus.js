@@ -11,6 +11,7 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
+import { Editor } from "@tinymce/tinymce-react";
 
 function EditPerpus() {
   const [namaBuku, setNamaBuku] = useState("");
@@ -58,12 +59,16 @@ function EditPerpus() {
     formData.append("file", image);
 
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/perpustakaan/put/` + param.id, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .put(
+        `${API_DUMMY}/smpn1bergas/api/perpustakaan/put/` + param.id,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then(() => {
         Swal.fire({
           icon: "success",
@@ -89,6 +94,10 @@ function EditPerpus() {
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const handleEditorChange = (sinopsis, editor) => {
+    setSinopsis(sinopsis);
+  };
 
   return (
     <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -140,21 +149,6 @@ function EditPerpus() {
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
-                            Sinopsis
-                          </label>
-                          <textarea
-                            value={sinopsis}
-                            onChange={(e) => setSinopsis(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Sinopsis"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-6">
-                          {/* a */}
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
                             Tahun
                           </label>
                           <input
@@ -186,10 +180,46 @@ function EditPerpus() {
                             Gambar
                           </label>
                           <input
-                           required
+                            required
                             type="file"
                             className="form-control"
-                           onChange={(e) => setImage(e.target.files[0])}
+                            onChange={(e) => setImage(e.target.files[0])}
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          {/* a */}
+                          <label
+                            for="exampleInputEmail1"
+                            className="form-label  font-weight-bold ">
+                            Sinopsis
+                          </label>
+                          <Editor
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf"
+                            value={sinopsis}
+                            init={{
+                              height: 500,
+                              menubar: false,
+                              plugins: [
+                                "advlist",
+                                "anchor",
+                                "autolink",
+                                "help",
+                                "image",
+                                "link",
+                                "lists",
+                                "searchreplace",
+                                "table",
+                                "wordcount",
+                              ],
+                              toolbar:
+                                "undo redo | blocks | " +
+                                "bold italic forecolor | alignleft aligncenter " +
+                                "alignright alignjustify | bullist numlist outdent indent | " +
+                                "removeformat | help | image",
+                              content_style:
+                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                            }}
+                            onEditorChange={handleEditorChange}
                           />
                         </div>
                       </div>

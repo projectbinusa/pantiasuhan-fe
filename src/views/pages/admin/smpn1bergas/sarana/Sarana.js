@@ -85,7 +85,7 @@ function Sarana() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/sarana/delete/` + id, {
+          .delete(`${API_DUMMY}/smpn1bergas/api/sarana/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -120,7 +120,7 @@ function Sarana() {
   //   }).then((result) => {
   //     if (result.isConfirmed) {
   //       axios
-  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/delete/` + id, {
+  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/` + id, {
   //           headers: {
   //             Authorization: `Bearer ${localStorage.getItem("token")}`,
   //           },

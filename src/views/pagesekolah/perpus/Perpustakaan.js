@@ -9,6 +9,7 @@ import { API_DUMMY } from "../../../utils/base_URL";
 import { Pagination } from "@mui/material";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 
+
 function Perpustakaan() {
     const [currentPage, setCurrentPage] = useState(1);
     const handlePageChange = (event, pageNumber) => {

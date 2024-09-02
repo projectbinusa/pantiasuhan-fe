@@ -3,9 +3,9 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Swal from "sweetalert2";
 import { API_DUMMY } from "../utils/base_URL";
 import axios from "axios";
-import logo from "../aset/smpn1bergas.png"
+import logo from "../aset/smpn1bergas.png";
 
-function Header() {
+function Header({ toggleSidebar }) {
   const [isSticky, setIsSticky] = useState(false);
   const history = useHistory();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -80,7 +80,6 @@ function Header() {
     };
   }, []);
 
-
   const logout = () => {
     Swal.fire({
       title: "Keluar Dari Akun Anda ?",
@@ -111,21 +110,17 @@ function Header() {
     <>
       <div className="app-header header-shadow">
         <div className="app-header__logo">
-          <img className="logosmpn1bergas"
-            src={logo}
-          />
+          <img className="logosmpn1bergas" src={logo} />
           <div className="header__pane ml-auto">
-            <div>
-
-            </div>
+            <div></div>
           </div>
         </div>
         <div className="app-header__mobile-menu">
           <div>
             <button
               type="button"
-              className="hamburger hamburger--elastic mobile-toggle-nav"
-            >
+              onClick={toggleSidebar}
+              className="hamburger hamburger--elastic mobile-toggle-nav">
               <span className="hamburger-box">
                 <span className="hamburger-inner"></span>
               </span>
@@ -138,7 +133,8 @@ function Header() {
               onClick={logout}
               type="button"
               className="btn-shadow p-1 btn-danger btn-sm">
-              <i className="fas fa-sign-out-alt d-none d-md-none d-lg-flex" ></i> Logout
+              <i className="fas fa-sign-out-alt d-none d-md-none d-lg-flex"></i>{" "}
+              Logout
             </button>
           </span>
         </div>{" "}
@@ -147,8 +143,7 @@ function Header() {
             <button
               onClick={logout}
               type="button"
-              className="btn-shadow p-1 btn-danger btn-sm"
-            >
+              className="btn-shadow p-1 btn-danger btn-sm">
               <i className="fas fa-sign-out-alt"></i> Logout
             </button>
             <div className="header-btn-lg pr-0">

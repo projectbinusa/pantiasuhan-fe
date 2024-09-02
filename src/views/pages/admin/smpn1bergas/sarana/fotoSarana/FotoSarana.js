@@ -84,7 +84,7 @@ function FotoSarana() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/foto_sarana/delete/` + id, {
+          .delete(`${API_DUMMY}/smpn1bergas/api/foto_sarana/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -119,7 +119,7 @@ function FotoSarana() {
   //   }).then((result) => {
   //     if (result.isConfirmed) {
   //       axios
-  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/delete/` + id, {
+  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/` + id, {
   //           headers: {
   //             Authorization: `Bearer ${localStorage.getItem("token")}`,
   //           },

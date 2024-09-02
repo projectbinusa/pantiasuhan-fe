@@ -1,21 +1,10 @@
-import axios from "axios";
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { API_DUMMY } from "../utils/base_URL";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import "../component/sidebar.css";
 // import { NavL, a, N } from "react-router-dom/cjs/react-router-dom.min";
 
-function Sidebar() {
+function Sidebar({ isOpen }) {
   const location = useLocation();
-  const [list, setList] = useState([]);
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [paginationInfo1, setPaginationInfo1] = useState({
-    totalPages1: 1,
-    totalElements1: 0,
-  });
-
   return (
     <div className="app-theme-white body-tabs-shadow fixed-sidebar fixed-header overflow-auto">
       <div
@@ -59,7 +48,10 @@ function Sidebar() {
             </button>
           </span>
         </div>{" "}
-        <div className="scrollbar-sidebar">
+        <div
+          className={`scrollbar-sidebar ${
+            isOpen ? "openSidebar" : "closedSidebar"
+          }`}>
           <div className="app-sidebar__inner">
             <ul className="vertical-nav-menu">
               <li class="app-sidebar__heading">Menu</li>{" "}
