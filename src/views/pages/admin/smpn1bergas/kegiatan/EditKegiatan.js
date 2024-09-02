@@ -9,6 +9,7 @@ import {
 import Swal from "sweetalert2";
 import AOS from "aos";
 import axios from "axios";
+import { Editor } from "@tinymce/tinymce-react";
 
 function EditKegiatan() {
   const [judul, setJudul] = useState("");
@@ -59,9 +60,14 @@ function EditKegiatan() {
       });
   };
 
+
+  const handleEditorChange = (isi, editor) => {
+    setIsi(isi);
+  };
+
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/kegiatan/get/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/kegiatan/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -123,13 +129,34 @@ function EditKegiatan() {
                     {/*  */}
                     <label className="form-label font-weight-bold">Isi Kegiatan</label>
                     <div className="">
-                      <textarea
-                        value={isi}
-                        onChange={(e) => setIsi(e.target.value)}
-                        className="form-control"
-                        placeholder="Masukkan Isi Kegiatan"
-                        id="floatingTextarea2"
-                        rows="5"></textarea>
+                    <Editor
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                            value={isi}
+                            init={{
+                              height: 500,
+                              menubar: false,
+                              plugins: [
+                                "advlist",
+                                "anchor",
+                                "autolink",
+                                "help",
+                                "image",
+                                "link",
+                                "lists",
+                                "searchreplace",
+                                "table",
+                                "wordcount",
+                              ],
+                              toolbar:
+                                "undo redo | blocks | " +
+                                "bold italic forecolor | alignleft aligncenter " +
+                                "alignright alignjustify | bullist numlist outdent indent | " +
+                                "removeformat | help | image",
+                              content_style:
+                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                            }}
+                            onEditorChange={handleEditorChange}
+                          />
                     </div>
                   </div>
                 </div>
