@@ -3,6 +3,7 @@ import FooterSekolah from "../../../../component/FooterSekolah";
 import axios from "axios";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import "../../../../css/prestasi/detailprestasi.css";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 
 function DetailPrestasi() {
@@ -14,12 +15,14 @@ function DetailPrestasi() {
   const [tanggal, setTanggal] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const param = useParams();
+
   const fetchPrestasiDetail = async () => {
-    const id = window.location.pathname.split("/").pop();
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/prestasi/get/${id}`
+        `${API_DUMMY}/smpn1bergas/api/prestasi/get/${param.id}`
       );
+      console.log(response);
       setFoto(response.data.data.foto);
       setJudul(response.data.data.judul);
       setNama(response.data.data.nama_peserta);
@@ -37,16 +40,22 @@ function DetailPrestasi() {
     fetchPrestasiDetail();
   }, []);
 
-  // if (loading) return <div>Loading...</div>;
+  const formatDate = (value) => {
+  const date = new Date(value);
 
-  //   if (!prestasi) return <div>Error: Data tidak ditemukan</div>;
+  const day = date.getDate();
+  const monthNames = [
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+  ];
+  const month = monthNames[date.getMonth()];
+  const year = date.getFullYear();
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const options = { day: "numeric", month: "long", year: "numeric" };
-    return new Intl.DateTimeFormat("id-ID", options).format(date);
-  };
-  
+  const formattedDate = `${day} ${month} ${year}`;
+
+  return formattedDate;
+};
+
   return (
     <section>
       <NavbarSekolah2 />

@@ -22,16 +22,20 @@ function FooterSekolah() {
   }, []);
 
   const formatDate = (value) => {
-    const date = new Date(value);
+  const date = new Date(value);
 
-    const day = date.getDate();
-    const month = date.toLocaleString('default', { month: 'long' });
-    const year = date.getFullYear();
+  const day = date.getDate();
+  const monthNames = [
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+  ];
+  const month = monthNames[date.getMonth()];
+  const year = date.getFullYear();
 
-    const formattedDate = `${day} ${month} ${year}`;
+  const formattedDate = `${day} ${month} ${year}`;
 
-    return formattedDate;
-  };
+  return formattedDate;
+};
 
   return (
     <>
