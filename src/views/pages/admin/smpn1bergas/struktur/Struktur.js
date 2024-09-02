@@ -86,7 +86,7 @@ function Struktur() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/struktur/delete/` + id, {
+          .delete(`${API_DUMMY}/smpn1bergas/api/struktur/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -121,7 +121,7 @@ function Struktur() {
   //   }).then((result) => {
   //     if (result.isConfirmed) {
   //       axios
-  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/delete/` + id, {
+  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/` + id, {
   //           headers: {
   //             Authorization: `Bearer ${localStorage.getItem("token")}`,
   //           },

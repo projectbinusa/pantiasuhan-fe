@@ -8,6 +8,7 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
+import { Editor } from "@tinymce/tinymce-react";
 
 function AddPerpus() {
   const [namaBuku, setNamaBuku] = useState("");
@@ -18,6 +19,10 @@ function AddPerpus() {
   const [no, setNo] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
+
+  const handleEditorChange = (sinopsis, editor) => {
+    setSinopsis(sinopsis);
+  };
 
   const add = async (e) => {
     e.preventDefault();
@@ -113,21 +118,6 @@ function AddPerpus() {
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
-                            Sinopsis
-                          </label>
-                          <textarea
-                            value={sinopsis}
-                            onChange={(e) => setSinopsis(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Sinopsis"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-6">
-                          {/* a */}
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
                             Tahun
                           </label>
                           <input
@@ -166,6 +156,42 @@ function AddPerpus() {
                             }
                             type="file"
                             className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          {/* a */}
+                          <label
+                            for="exampleInputEmail1"
+                            className="form-label  font-weight-bold ">
+                            Sinopsis
+                          </label>
+                          <Editor
+                            apiKey="gpl"
+                            value={sinopsis}
+                            init={{
+                              height: 500,
+                              menubar: false,
+                              plugins: [
+                                "advlist",
+                                "anchor",
+                                "autolink",
+                                "help",
+                                "image",
+                                "link",
+                                "lists",
+                                "searchreplace",
+                                "table",
+                                "wordcount",
+                              ],
+                              toolbar:
+                                "undo redo | blocks | " +
+                                "bold italic forecolor | alignleft aligncenter " +
+                                "alignright alignjustify | bullist numlist outdent indent | " +
+                                "removeformat | help | image",
+                              content_style:
+                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                            }}
+                            onEditorChange={handleEditorChange}
                           />
                         </div>
                       </div>

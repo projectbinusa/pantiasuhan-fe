@@ -2,7 +2,10 @@ import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
@@ -16,6 +19,8 @@ function EditPrestasi() {
   const [skala, setSkala] = useState("");
   const [tanggal, setTanggal] = useState("");
   const [judul, setJudul] = useState("");
+  // const [juara, setJuara] = useState("");
+  const [foto, setFoto] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
   const param = useParams();
@@ -32,14 +37,19 @@ function EditPrestasi() {
     formData.append("skala", skala);
     formData.append("judul", judul);
     formData.append("file", image);
+    // formData.append("juara", juara);
 
     try {
-      await axios.put(`${API_DUMMY}/smpn1bergas/api/prestasi/add`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          penyelenggaraization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      await axios.put(
+        `${API_DUMMY}/smpn1bergas/api/prestasi/add` + param.id,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            penyelenggaraization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       setShow(false);
       Swal.fire({
         icon: "success",
@@ -63,18 +73,21 @@ function EditPrestasi() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/prestasi/get/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/prestasi/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((ress) => {
         const response = ress.data.data;
+        console.log("data: ", ress.data.data.tanggal);
         setPenyelenggara(response.peyelenggara);
-        setJudul(response.judil);
+        setJudul(response.judul);
         setSkala(response.skala);
+        // setJuara(response.juara);
         setTanggal(response.tanggal);
-        setNamaPeserta(response.nama);
+        setNamaPeserta(response.nama_peserta);
+        // setFoto(response.foto);
       })
       .catch((error) => {
         console.log(error);
@@ -130,6 +143,20 @@ function EditPrestasi() {
                             placeholder="Masukkan Penyelenggara"
                           />
                         </div>
+                        {/* <div className="mb-3 col-lg-6">
+                          <label
+                            for="exampleInputEmail1"
+                            className="form-label  font-weight-bold ">
+                            Juara
+                          </label>
+                          <input
+                            value={juara}
+                            onChange={(e) => setJuara(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukkan Juara"
+                          />
+                        </div> */}
                         <div className="mb-3 co-lg-6">
                           {/* a */}
                           <label className="form-label font-weight-bold">
@@ -151,13 +178,13 @@ function EditPrestasi() {
                             onChange={(e) => setNamaPeserta(e.target.value)}
                             type="text"
                             className="form-control"
-                            placeholder="Masukkan judul berita"
+                            placeholder="Masukkan Nama Peserta"
                           />
                         </div>
                         <div className="col-lg-12">
                           {/* a */}
                           <label className="form-label font-weight-bold">
-                            Tanggal Dilaksanakan
+                            Tanggal Pelaksaan
                           </label>
                           <div className="">
                             <input

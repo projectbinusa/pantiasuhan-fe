@@ -86,7 +86,7 @@ function Prestasi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/prestasi/delete/` + id, {
+          .delete(`${API_DUMMY}/smpn1bergas/api/prestasi/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -121,7 +121,7 @@ function Prestasi() {
   //   }).then((result) => {
   //     if (result.isConfirmed) {
   //       axios
-  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/delete/` + id, {
+  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/` + id, {
   //           headers: {
   //             Authorization: `Bearer ${localStorage.getItem("token")}`,
   //           },
@@ -283,10 +283,6 @@ function Prestasi() {
                     <th scope="col" className="text-left">
                       Nama Perserta
                     </th>
-                    <th className="text-left">Penyelenggara</th>
-                    <th className="text-left">Skala</th>
-                    <th className="text-left">Tanggal</th>
-                    <th className="text-left">Gambar</th>
                     <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
@@ -304,21 +300,6 @@ function Prestasi() {
                         <td data-label="Nama Perserta" className="">
                           {berita.nama_peserta}
                         </td>
-                        <td data-label="Penyelenggara" className="">
-                          {berita.peyelenggara}
-                        </td>
-                        <td data-label="Skala" className="">
-                          {berita.skala}
-                        </td>
-                        <td data-label="Tanggal" className="">
-                          {berita.tanggal}
-                        </td>
-                        <td
-                          data-label="Gambar"
-                          className=""
-                          style={{ height: "4.5rem", width: "4.5rem" }}>
-                          {berita.foto}
-                        </td>
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button
@@ -329,9 +310,18 @@ function Prestasi() {
                                   color: "white",
                                   textDecoration: "none",
                                 }}
-                                href={`/edit-pengumuman/${berita.id}`}>
+                                href={`/edit-prestasi/${berita.id}`}>
                                 {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm">
+                              <a
+                                className="text-light"
+                                href={"/detail-prestasi/" + berita.id}>
+                                <i class="fas fa-info-circle"></i>
                               </a>
                             </button>
                             <button
@@ -356,7 +346,6 @@ function Prestasi() {
                   setCurrentPage(value);
                   setPage(value);
                 }}
-
                 showFirstButton
                 showLastButton
                 color="primary"

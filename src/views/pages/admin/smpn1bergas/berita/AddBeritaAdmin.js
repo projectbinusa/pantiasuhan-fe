@@ -152,7 +152,7 @@ function AddBeritaAdmin() {
                             Isi Berita
                           </label>
                           <Editor
-                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                            apiKey="gpl" // Optional, but recommended for production
                             value={isiBerita}
                             init={{
                               height: 500,
@@ -176,7 +176,7 @@ function AddBeritaAdmin() {
                                 "removeformat | help | image",
                               content_style:
                                 "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                            }} 
+                            }}
                             onEditorChange={handleEditorChange}
                           />
                         </div>

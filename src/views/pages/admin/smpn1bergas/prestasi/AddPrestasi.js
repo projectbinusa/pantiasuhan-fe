@@ -16,6 +16,7 @@ function AddPrestasi() {
   const [skala, setSkala] = useState("");
   const [tanggal, setTanggal] = useState("");
   const [judul, setJudul] = useState("");
+  // const [juara, setJuara] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
 
@@ -31,12 +32,13 @@ function AddPrestasi() {
     formData.append("skala", skala);
     formData.append("judul", judul);
     formData.append("file", image);
+    // formData.append("juara", juara);
 
     try {
       await axios.post(`${API_DUMMY}/smpn1bergas/api/prestasi/add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          penyelenggaraization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       setShow(false);
@@ -46,8 +48,8 @@ function AddPrestasi() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-prestasi");
       setTimeout(() => {
+        history.push("/admin-prestasi");
         window.location.reload();
       }, 1500);
     } catch (error) {
@@ -109,6 +111,35 @@ function AddPrestasi() {
                             placeholder="Masukkan Penyelenggara"
                           />
                         </div>
+                        <div className="mb-3 col-lg-6">
+                          {/* a */}
+                          <label
+                            for="exampleInputEmail1"
+                            className="form-label  font-weight-bold ">
+                            Skala
+                          </label>
+                          <input
+                            value={skala}
+                            onChange={(e) => setSkala(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukkan Skala Prestasi"
+                          />
+                        </div>
+                        {/* <div className="mb-3 col-lg-6">
+                          <label
+                            for="exampleInputEmail1"
+                            className="form-label  font-weight-bold ">
+                            Juara
+                          </label>
+                          <input
+                            value={juara}
+                            onChange={(e) => setJuara(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukkan Juara"
+                          />
+                        </div> */}
                         <div className="mb-3 co-lg-6">
                           {/* a */}
                           <label className="form-label font-weight-bold">

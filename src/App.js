@@ -322,6 +322,11 @@ function App() {
               component={EditPrestasi}
               exact
             />
+            <PrivateRoute
+              path="/detail-prestasi/:id"
+              component={DetailPrestasi}
+              exact
+            />
             {/* end prestasi */}
             {/* struktur */}
             <PrivateRoute path="/admin-struktur" component={Struktur} exact />
