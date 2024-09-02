@@ -19,11 +19,19 @@ function EditPrestasi() {
   const [skala, setSkala] = useState("");
   const [tanggal, setTanggal] = useState("");
   const [judul, setJudul] = useState("");
-  // const [juara, setJuara] = useState("");
-  const [foto, setFoto] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
   const param = useParams();
+
+  const formatDateToSlash = (value) => {
+    const date = new Date(value);
+  
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+  
+    return `${year}/${month}/${day}`;
+  };
 
   //add
   const update = async (e) => {
@@ -33,20 +41,19 @@ function EditPrestasi() {
     const formData = new FormData();
     formData.append("peyelenggara", penyelenggara);
     formData.append("nama_peserta", namaPeserta);
-    formData.append("tanggal", tanggal);
+    formData.append("tanggal", formatDateToSlash(tanggal));
     formData.append("skala", skala);
     formData.append("judul", judul);
     formData.append("file", image);
-    // formData.append("juara", juara);
 
     try {
       await axios.put(
-        `${API_DUMMY}/smpn1bergas/api/prestasi/add` + param.id,
+        `${API_DUMMY}/smpn1bergas/api/prestasi/put/` + param.id,
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            penyelenggaraization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -84,10 +91,8 @@ function EditPrestasi() {
         setPenyelenggara(response.peyelenggara);
         setJudul(response.judul);
         setSkala(response.skala);
-        // setJuara(response.juara);
         setTanggal(response.tanggal);
         setNamaPeserta(response.nama_peserta);
-        // setFoto(response.foto);
       })
       .catch((error) => {
         console.log(error);
@@ -114,7 +119,6 @@ function EditPrestasi() {
                     <form onSubmit={update}>
                       <div className="row">
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -129,7 +133,6 @@ function EditPrestasi() {
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -143,22 +146,7 @@ function EditPrestasi() {
                             placeholder="Masukkan Penyelenggara"
                           />
                         </div>
-                        {/* <div className="mb-3 col-lg-6">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Juara
-                          </label>
-                          <input
-                            value={juara}
-                            onChange={(e) => setJuara(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Juara"
-                          />
-                        </div> */}
                         <div className="mb-3 co-lg-6">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -169,7 +157,6 @@ function EditPrestasi() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Nama Peserta
                           </label>
@@ -182,7 +169,6 @@ function EditPrestasi() {
                           />
                         </div>
                         <div className="col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Tanggal Pelaksaan
                           </label>

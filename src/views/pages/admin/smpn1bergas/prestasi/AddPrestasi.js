@@ -16,9 +16,18 @@ function AddPrestasi() {
   const [skala, setSkala] = useState("");
   const [tanggal, setTanggal] = useState("");
   const [judul, setJudul] = useState("");
-  // const [juara, setJuara] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
+
+  const formatDateToSlash = (value) => {
+    const date = new Date(value);
+  
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+  
+    return `${year}/${month}/${day}`;
+  };
 
   //add
   const add = async (e) => {
@@ -28,11 +37,10 @@ function AddPrestasi() {
     const formData = new FormData();
     formData.append("peyelenggara", penyelenggara);
     formData.append("nama_peserta", namaPeserta);
-    formData.append("tanggal", tanggal);
+    formData.append("tanggal", formatDateToSlash(tanggal));
     formData.append("skala", skala);
     formData.append("judul", judul);
     formData.append("file", image);
-    // formData.append("juara", juara);
 
     try {
       await axios.post(`${API_DUMMY}/smpn1bergas/api/prestasi/add`, formData, {
@@ -126,22 +134,7 @@ function AddPrestasi() {
                             placeholder="Masukkan Skala Prestasi"
                           />
                         </div>
-                        {/* <div className="mb-3 col-lg-6">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Juara
-                          </label>
-                          <input
-                            value={juara}
-                            onChange={(e) => setJuara(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Juara"
-                          />
-                        </div> */}
                         <div className="mb-3 co-lg-6">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -152,7 +145,6 @@ function AddPrestasi() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Nama Peserta
                           </label>
@@ -161,11 +153,10 @@ function AddPrestasi() {
                             onChange={(e) => setNamaPeserta(e.target.value)}
                             type="text"
                             className="form-control"
-                            placeholder="Masukkan judul berita"
+                            placeholder="Masukkan Nama Peserta"
                           />
                         </div>
                         <div className="col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Tanggal Dilaksanakan
                           </label>

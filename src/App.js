@@ -136,6 +136,7 @@ import { Backdrop, CircularProgress } from "@mui/material";
 import Loading from "./component/Loading";
 import DetailSarana from "./views/pages/admin/smpn1bergas/sarana/DetailSarana";
 import KontakView from "./views/pagesekolah/Kontak";
+import DetailPrestasiAdmin from "./views/pages/admin/smpn1bergas/prestasi/DetailPrestasi";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -324,7 +325,7 @@ function App() {
             />
             <PrivateRoute
               path="/detail-prestasi/:id"
-              component={DetailPrestasi}
+              component={DetailPrestasiAdmin}
               exact
             />
             {/* end prestasi */}
