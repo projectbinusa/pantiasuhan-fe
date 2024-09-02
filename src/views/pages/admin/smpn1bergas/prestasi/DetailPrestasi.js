@@ -3,20 +3,17 @@ import { useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Header from "../../../../../component/Header";
 import Sidebar from "../../../../../component/Sidebar";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function DetailPrestasi() {
   const [penyelenggara, setPenyelenggara] = useState("");
   const [namaPeserta, setNamaPeserta] = useState("");
   const [image, setImage] = useState(null);
   const [skala, setSkala] = useState("");
-  const [tanggal, setTanggal] = useState("");
   const [createdDate, setCreatedDate] = useState("");
   const [updatedDate, setUpdatedDate] = useState("");
   const [judul, setJudul] = useState("");
@@ -39,8 +36,7 @@ function DetailPrestasi() {
         setPenyelenggara(list_data.peyelenggara);
         setJudul(list_data.judul);
         setSkala(list_data.skala);
-        // setTanggal(list_data.tanggal);
-        setNamaPeserta(list_data.nama_prestasi);
+        setNamaPeserta(list_data.nama_peserta);
         setImage(list_data.foto);
       })
       .catch((error) => {
@@ -135,31 +131,13 @@ function DetailPrestasi() {
                     )}
                   />
                 </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Category Berita</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={categoryBerita}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Isi Berita</label>
-                  <div
-                    className="form-control"
-                    style={{ height: "fit-content", background: "#e9ecef" }}
-                    dangerouslySetInnerHTML={{ __html: isiBerita }}
-                  />
-                </div>
               </div>
               <button
                 type="submit"
                 className="btn-kembali btn-danger mt-3 mr-3">
                 <a
-                  href="/admin-berita"
+                  href="/admin-prestasi"
                   style={{ color: "white", textDecoration: "none" }}>
-                  {" "}
                   Kembali
                 </a>
               </button>
