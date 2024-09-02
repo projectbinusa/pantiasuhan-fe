@@ -134,6 +134,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { Backdrop, CircularProgress } from "@mui/material";
 import Loading from "./component/Loading";
+import DetailSarana from "./views/pages/admin/smpn1bergas/sarana/DetailSarana";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -144,7 +145,7 @@ function App() {
 
   return loading ? (
    <Loading/>
-   
+
   ) : (
     <>
       {/* <LoadingBackdrop /> */}
@@ -286,6 +287,11 @@ function App() {
             <PrivateRoute
               path="/edit-sarana/:id"
               component={EditSarana}
+              exact
+            />
+            <PrivateRoute
+              path="/detail-sarana/:id"
+              component={DetailSarana}
               exact
             />
             {/* end sarana */}

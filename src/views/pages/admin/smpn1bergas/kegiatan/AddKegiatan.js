@@ -8,6 +8,7 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Header from "../../../../../component/Header";
 import Sidebar from "../../../../../component/Sidebar";
+import { Editor } from "@tinymce/tinymce-react";
 
 function AddKegiatan() {
   const [judul, setJudul] = useState("");
@@ -56,6 +57,10 @@ function AddKegiatan() {
         console.log(error);
       }
     }
+  };
+
+  const handleEditorChange = (isi, editor) => {
+    setIsi(isi);
   };
 
   useEffect(() => {
@@ -111,15 +116,37 @@ function AddKegiatan() {
                             Isi Kegiatan
                           </label>
                           <div className="">
-                            <textarea
+                            <Editor
+                              apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
                               value={isi}
-                              onChange={(e) => setIsi(e.target.value)}
-                              className="form-control"
-                              placeholder="Masukkan Isi Kegiatan"
-                              id="floatingTextarea2"
-                              rows="5"></textarea>
+                              init={{
+                                height: 500,
+                                menubar: false,
+                                plugins: [
+                                  "advlist",
+                                  "anchor",
+                                  "autolink",
+                                  "help",
+                                  "image",
+                                  "link",
+                                  "lists",
+                                  "searchreplace",
+                                  "table",
+                                  "wordcount",
+                                ],
+                                toolbar:
+                                  "undo redo | blocks | " +
+                                  "bold italic forecolor | alignleft aligncenter " +
+                                  "alignright alignjustify | bullist numlist outdent indent | " +
+                                  "removeformat | help | image",
+                                content_style:
+                                  "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                              }}
+                              onEditorChange={handleEditorChange}
+                            />
                           </div>
-                        </div> <div className="mb-3 col-lg-12">
+                        </div>{" "}
+                        <div className="mb-3 col-lg-12">
                           {/* a */}
                           <label className="form-label font-weight-bold">
                             Penulis Kegiatan
@@ -131,7 +158,8 @@ function AddKegiatan() {
                             className="form-control"
                             placeholder="Masukkan Nama Penulis Kegiatan"
                           />
-                        </div> <div className="mb-3 col-lg-12">
+                        </div>{" "}
+                        <div className="mb-3 col-lg-12">
                           {/* a */}
                           <label className="form-label font-weight-bold">
                             Tanggal Kegiatan

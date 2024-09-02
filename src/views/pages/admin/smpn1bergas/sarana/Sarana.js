@@ -282,8 +282,6 @@ function Sarana() {
                     <th scope="col" className="text-left">
                       Deskripsi
                     </th>
-                    <th className="text-left">Tanggal Dibuat</th>
-                    <th className="text-left">Tanggal Update</th>
                     <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
@@ -295,17 +293,19 @@ function Sarana() {
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
                         <td data-label="Nama Sarana" className="text-long">
-                          {berita.namasarana}
+                          {berita.nama_sarana}
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}{" "}
-                        <td data-label="Deskripsi" className="">
+                        <td
+                          data-label="Deskripsi"
+                          className=""
+                          style={{
+                            maxWidth: "250px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}>
                           {berita.deskripsi}
-                        </td>
-                        <td data-label="Tanggal Dibuat" className="">
-                          {berita.createdDate}
-                        </td>
-                        <td data-label="Tanggal Update" className="">
-                          {berita.updatedDate}
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
@@ -320,6 +320,15 @@ function Sarana() {
                                 href={`/edit-sarana/${berita.id}`}>
                                 {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm">
+                              <a
+                                className="text-light"
+                                href={"/detail-sarana/" + berita.id}>
+                                <i class="fas fa-info-circle"></i>
                               </a>
                             </button>
                             <button
@@ -344,14 +353,13 @@ function Sarana() {
                   setCurrentPage(value);
                   setPage(value);
                 }}
-
                 showFirstButton
                 showLastButton
                 color="primary"
               />
             </div>
           </div>
-        <FotoSarana></FotoSarana>
+          <FotoSarana></FotoSarana>
         </div>
       </div>
     </div>
