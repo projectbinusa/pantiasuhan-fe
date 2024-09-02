@@ -85,8 +85,7 @@ function MateriAjar() {
       cancelButtonText: "Batal",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/materi_ajar/delete/` + id, {
+        axios.delete(`${API_DUMMY}/smpn1bergas/api/materi_ajar/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

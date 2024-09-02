@@ -30,9 +30,9 @@ function EditGalery() {
       })
       .then((ress) => {
         const response = ress.data.data;
-        setGalery(response.galery);
-        setDeskripsi(response.diskripsi);
-        setFile(response.image);
+        setGalery(response.judul);
+        setDeskripsi(response.deskripsi);
+        setFile(response.foto);
         console.log("galery : ", ress.data.data);
       })
       .catch((error) => {

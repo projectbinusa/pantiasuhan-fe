@@ -133,7 +133,7 @@ function StrukturOrganisasi() {
           </div>
           <div class="row">
             {struktur.map((item) => (
-              <div class="col-lg-3 col-md-6">
+              <div class="col-lg-4 col-md-6">
                 <div class="single-team-inner style-2 text-center">
                   <div class="thumb">
                     <img src={item.foto} alt="img" />
@@ -141,7 +141,7 @@ function StrukturOrganisasi() {
                   <div class="details-wrap">
                     <div class="details-inner">
                       <h4>
-                        <a href="team-details.html">{item.nama}</a>
+                        <a>{item.nama}</a>
                       </h4>
                       <p>{item.jabatan}</p>
                       {/* <ul class="social-media mt-3 mb-2">

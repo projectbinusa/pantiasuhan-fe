@@ -36,6 +36,8 @@ function EditGuru() {
         setNamaGuru(response.nama_guru);
         setMapel(response.mapel);
         setFile(response.image);
+        setNip(response.nip);
+        setRiwayat(response.riwayat);
         console.log("guru : ", ress.data.data);
       })
       .catch((error) => {
@@ -140,6 +142,30 @@ function EditGuru() {
                       className="form-control"
                       required
                       id="exampleInputPassword1"
+                    />
+                  </div>
+                  <div className="mb-3 col-lg-12">
+                    {/* a */}
+                    <label className="form-label font-weight-bold">NIP</label>
+                    <input
+                      value={nip}
+                      onChange={(e) => setNip(e.target.value)}
+                      type="text"
+                      className="form-control"
+                      placeholder="Masukkan NIP"
+                    />
+                  </div>
+                  <div className="mb-3 col-lg-12">
+                    {/* a */}
+                    <label className="form-label font-weight-bold">
+                      Riwayat
+                    </label>
+                    <input
+                      value={riwayat}
+                      onChange={(e) => setRiwayat(e.target.value)}
+                      type="text"
+                      className="form-control"
+                      placeholder="Masukkan Riwayat"
                     />
                   </div>
                 </div>

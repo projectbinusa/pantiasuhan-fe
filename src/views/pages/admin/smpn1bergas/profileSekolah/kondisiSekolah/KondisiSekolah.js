@@ -183,7 +183,7 @@ function KondisiSekolah() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                  {list.length > 0 ? (
+                    {list.length > 0 ? (
                       <>
                         {" "}
                         <button
@@ -247,7 +247,11 @@ function KondisiSekolah() {
                             textOverflow: "ellipsis",
                           }}
                           className="">
-                          {berita.deskripsi}
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: berita.deskripsi,
+                            }}
+                          />
                         </td>
                         <td data-label="Image" className="">
                           <img

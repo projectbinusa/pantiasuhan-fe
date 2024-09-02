@@ -9,23 +9,7 @@ import {
 import Swal from "sweetalert2";
 import AOS from "aos";
 import axios from "axios";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import {
-  ClassicEditor,
-  Bold,
-  Essentials,
-  Heading,
-  Indent,
-  IndentBlock,
-  Italic,
-  Link,
-  List,
-  MediaEmbed,
-  Paragraph,
-  Table,
-  Undo
-} from 'ckeditor5';
-import 'ckeditor5/ckeditor5.css';
+import { Editor } from "@tinymce/tinymce-react";
 
 function EditBeritaAdmin() {
   const [author, setAuthor] = useState("");
@@ -88,7 +72,7 @@ function EditBeritaAdmin() {
         setAuthor(response.author);
         setJudulBerita(response.judulBerita);
         setIsiBerita(response.isiBerita);
-        setCategoryBerita(response.category);
+        setCategoryBerita(response.categoryBerita);
       })
       .catch((error) => {
         console.log(error);
@@ -98,6 +82,10 @@ function EditBeritaAdmin() {
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const handleEditorChange = (isiBerita, editor) => {
+    setIsiBerita(isiBerita);
+  };
 
   return (
     <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -173,48 +161,33 @@ function EditBeritaAdmin() {
                           <label className="form-label font-weight-bold">
                             Isi Berita
                           </label>
-                          <CKEditor
-                            data={isiBerita}
-                            onChange={(event, editor) => {
-                              const data = editor.getData();
-                              setIsiBerita(data);
-                            }}
-                            editor={ClassicEditor}
-                            config={{
-                              toolbar: [
-                                "undo",
-                                "redo",
-                                "|",
-                                "heading",
-                                "|",
-                                "bold",
-                                "italic",
-                                "|",
-                                "link",
-                                "insertTable",
-                                "mediaEmbed",
-                                "|",
-                                "bulletedList",
-                                "numberedList",
-                                "indent",
-                                "outdent",
-                              ],
+                          <Editor
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                            value={isiBerita}
+                            init={{
+                              height: 500,
+                              menubar: false,
                               plugins: [
-                                Bold,
-                                Essentials,
-                                Heading,
-                                Indent,
-                                IndentBlock,
-                                Italic,
-                                Link,
-                                List,
-                                MediaEmbed,
-                                Paragraph,
-                                Table,
-                                Undo,
+                                "advlist",
+                                "anchor",
+                                "autolink",
+                                "help",
+                                "image",
+                                "link",
+                                "lists",
+                                "searchreplace",
+                                "table",
+                                "wordcount",
                               ],
-                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
+                              toolbar:
+                                "undo redo | blocks | " +
+                                "bold italic forecolor | alignleft aligncenter " +
+                                "alignright alignjustify | bullist numlist outdent indent | " +
+                                "removeformat | help | image",
+                              content_style:
+                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                             }}
+                            onEditorChange={handleEditorChange}
                           />
                         </div>
                 </div>

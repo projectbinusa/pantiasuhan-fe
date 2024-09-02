@@ -8,6 +8,8 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
+import { Editor } from "@tinymce/tinymce-react";
+
 
 function AddKeuangan() {
   const [judul, setJudul] = useState("");
@@ -25,7 +27,7 @@ function AddKeuangan() {
     const formData = new FormData();
     formData.append("judul", judul);
     formData.append("isi", isi);
-    formData.append("category", categoryKeuangan);
+    formData.append("categoryKeuangan", categoryKeuangan);
     formData.append("file", image);
 
     try {
@@ -60,6 +62,10 @@ function AddKeuangan() {
     AOS.init();
   }, []);
 
+
+  const handleEditorChange = (isi, editor) => {
+    setIsi(isi);
+  };
   return (
     <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
       <Header />
@@ -75,7 +81,7 @@ function AddKeuangan() {
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
-                        <div className="mb-3 col-lg-6">
+                        <div className="mb-3 col-lg-12">
                           {/* a */}
                           <label className="form-label  font-weight-bold ">
                             Kategori Keuangan
@@ -127,13 +133,34 @@ function AddKeuangan() {
                             Isi
                           </label>
                           <div className="">
-                            <textarea
-                              value={isi}
-                              onChange={(e) => setIsi(e.target.value)}
-                              className="form-control"
-                              placeholder="Masukkan isi"
-                              id="floatingTextarea2"
-                              rows="5"></textarea>
+                          <Editor
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                            value={isi}
+                            init={{
+                              height: 500,
+                              menubar: false,
+                              plugins: [
+                                "advlist",
+                                "anchor",
+                                "autolink",
+                                "help",
+                                "image",
+                                "link",
+                                "lists",
+                                "searchreplace",
+                                "table",
+                                "wordcount",
+                              ],
+                              toolbar:
+                                "undo redo | blocks | " +
+                                "bold italic forecolor | alignleft aligncenter " +
+                                "alignright alignjustify | bullist numlist outdent indent | " +
+                                "removeformat | help | image",
+                              content_style:
+                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                            }}
+                            onEditorChange={handleEditorChange}
+                          />
                           </div>
                         </div>
                       </div>
