@@ -194,7 +194,7 @@ function EditPerpus() {
                             Sinopsis
                           </label>
                           <Editor
-                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf"
+                            apiKey="gpl"
                             value={sinopsis}
                             init={{
                               height: 500,

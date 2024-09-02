@@ -91,7 +91,7 @@ function AddVisiMisi() {
                             Visi
                           </label>
                           <Editor
-                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                            apiKey="gpl" // Optional, but recommended for production
                             value={visi}
                             init={{
                               height: 500,
@@ -126,7 +126,7 @@ function AddVisiMisi() {
                           Misi
                         </label>
                         <Editor
-                          apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                          apiKey="gpl" // Optional, but recommended for production
                           value={misi}
                           init={{
                             height: 500,
@@ -159,7 +159,7 @@ function AddVisiMisi() {
                             Tujuan
                           </label>
                           <Editor
-                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                            apiKey="gpl" // Optional, but recommended for production
                             value={tujuan}
                             init={{
                               height: 500,
