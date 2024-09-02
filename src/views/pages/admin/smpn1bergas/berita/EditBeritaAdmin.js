@@ -162,7 +162,7 @@ function EditBeritaAdmin() {
                             Isi Berita
                           </label>
                           <Editor
-                            apiKey="gpl" // Optional, but recommended for production
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
                             value={isiBerita}
                             init={{
                               height: 500,

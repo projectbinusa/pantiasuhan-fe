@@ -123,7 +123,7 @@ function AddKondisiSekolah() {
                             Deskripsi
                           </label>
                           <Editor
-                            apiKey="gpl" // Optional, but recommended for production
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
                             value={deskripsi}
                             init={{
                               height: 500,

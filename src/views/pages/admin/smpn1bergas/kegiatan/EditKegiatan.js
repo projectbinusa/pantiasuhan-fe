@@ -130,7 +130,7 @@ function EditKegiatan() {
                     <label className="form-label font-weight-bold">Isi Kegiatan</label>
                     <div className="">
                     <Editor
-                            apiKey="gpl" // Optional, but recommended for production
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
                             value={isi}
                             init={{
                               height: 500,
