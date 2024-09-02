@@ -9,24 +9,7 @@ import AOS from "aos";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import {
-  ClassicEditor,
-  Bold,
-  Essentials,
-  Heading,
-  Indent,
-  IndentBlock,
-  Italic,
-  Link,
-  List,
-  MediaEmbed,
-  Paragraph,
-  Table,
-  Undo,
-} from "ckeditor5";
-
-import "ckeditor5/ckeditor5.css";
+import { Editor } from "@tinymce/tinymce-react";
 
 function EditSambutan() {
   const [judulSambutan, setJudulSambutan] = useState("");
@@ -58,6 +41,10 @@ function EditSambutan() {
         console.log(error);
       });
   }, []);
+
+  const handleEditorChange = (isiSambutan, editor) => {
+    setIsiSambutan(isiSambutan);
+  };
 
   const update = async (e) => {
     e.preventDefault();
@@ -165,48 +152,33 @@ function EditSambutan() {
                           <label className="form-label font-weight-bold">
                             Isi Sambutan
                           </label>
-                          <CKEditor
-                            data={isiSambutan}
-                            onChange={(event, editor) => {
-                              const data = editor.getData();
-                              setIsiSambutan(data);
-                            }}
-                            editor={ClassicEditor}
-                            config={{
-                              toolbar: [
-                                "undo",
-                                "redo",
-                                "|",
-                                "heading",
-                                "|",
-                                "bold",
-                                "italic",
-                                "|",
-                                "link",
-                                "insertTable",
-                                "mediaEmbed",
-                                "|",
-                                "bulletedList",
-                                "numberedList",
-                                "indent",
-                                "outdent",
-                              ],
+                          <Editor
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                            value={isiSambutan}
+                            init={{
+                              height: 500,
+                              menubar: false,
                               plugins: [
-                                Bold,
-                                Essentials,
-                                Heading,
-                                Indent,
-                                IndentBlock,
-                                Italic,
-                                Link,
-                                List,
-                                MediaEmbed,
-                                Paragraph,
-                                Table,
-                                Undo,
+                                "advlist",
+                                "anchor",
+                                "autolink",
+                                "help",
+                                "image",
+                                "link",
+                                "lists",
+                                "searchreplace",
+                                "table",
+                                "wordcount",
                               ],
-                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
+                              toolbar:
+                                "undo redo | blocks | " +
+                                "bold italic forecolor | alignleft aligncenter " +
+                                "alignright alignjustify | bullist numlist outdent indent | " +
+                                "removeformat | help | image",
+                              content_style:
+                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                             }}
+                            onEditorChange={handleEditorChange}
                           />
                         </div>
                         <div className="mb-3 col-lg-12">

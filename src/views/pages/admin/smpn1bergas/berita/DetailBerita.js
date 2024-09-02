@@ -125,7 +125,7 @@ function DetailBerita() {
                   <label class="form-label fw-bold">Isi Berita</label>
                   <div
                     className="form-control"
-                    style={{ minHeight: "100px", background:"#e9ecef" }}
+                    style={{ height: "fit-content", background:"#e9ecef" }}
                     dangerouslySetInnerHTML={{ __html: isiBerita }}
                   />
                 </div>

@@ -62,7 +62,7 @@ function Osis() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/osis/delete/` + id, {
+          .delete(`${API_DUMMY}/smpn1bergas/api/osis/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

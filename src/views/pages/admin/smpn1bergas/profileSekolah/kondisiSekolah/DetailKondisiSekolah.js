@@ -101,7 +101,7 @@ function DetailKondisiSekolah() {
                 type="submit"
                 className="btn-kembali btn-danger mt-3 mr-3">
                 <a
-                  href="/admin-sejarah"
+                  href="/admin-kondisi-sekolah"
                   style={{ color: "white", textDecoration: "none" }}>
                   {" "}
                   Kembali

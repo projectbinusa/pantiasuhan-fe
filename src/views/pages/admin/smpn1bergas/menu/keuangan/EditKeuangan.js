@@ -9,6 +9,7 @@ import {
 import Swal from "sweetalert2";
 import AOS from "aos";
 import axios from "axios";
+import { Editor } from "@tinymce/tinymce-react";
 
 function EditKeuangan() {
   const [judul, setJudul] = useState("");
@@ -26,7 +27,7 @@ function EditKeuangan() {
     const formData = new FormData();
     formData.append("judul", judul);
     formData.append("isi", isi);
-    formData.append("category", categoryKeuangan);
+    formData.append("categoryKeuangan", categoryKeuangan);
     formData.append("file", image);
 
     await axios
@@ -43,7 +44,7 @@ function EditKeuangan() {
           timer: 1500,
         });
         setTimeout(() => {
-        history.push("/admin-keuangan");
+          history.push("/admin-keuangan");
           window.location.reload();
         }, 1500);
       })
@@ -55,6 +56,10 @@ function EditKeuangan() {
           console.log(error);
         }
       });
+  };
+
+  const handleEditorChange = (isi, editor) => {
+    setIsi(isi);
   };
 
   useEffect(() => {
@@ -91,23 +96,21 @@ function EditKeuangan() {
               <hr />
               <form onSubmit={updateBerita}>
                 <div className="row">
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     {/*  */}
                     <label className="form-label font-weight-bold">
                       Kategori Keuangan
                     </label>
                     <select
-                            value={categoryKeuangan}
-                            className="form-control"
-                            aria-label="Small select example"
-                            onChange={(e) =>
-                              setCategoryKeuangan(e.target.value)
-                            }>
-                            <option selected>Pilih Kategori Keuangan</option>
-                            <option value="BOS">BOS</option>
-                            <option value="APBD">APBD</option>
-                            <option value="Komite">Komite</option>
-                          </select>
+                      value={categoryKeuangan}
+                      className="form-control"
+                      aria-label="Small select example"
+                      onChange={(e) => setCategoryKeuangan(e.target.value)}>
+                      <option selected>Pilih Kategori Keuangan</option>
+                      <option value="BOS">BOS</option>
+                      <option value="APBD">APBD</option>
+                      <option value="Komite">Komite</option>
+                    </select>
                   </div>
                   <div className="mb-3 co-lg-6">
                     {/*  */}
@@ -137,13 +140,34 @@ function EditKeuangan() {
                     {/*  */}
                     <label className="form-label font-weight-bold">Isi</label>
                     <div className="">
-                      <textarea
+                      <Editor
+                        apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
                         value={isi}
-                        onChange={(e) => setIsi(e.target.value)}
-                        className="form-control"
-                        placeholder="Masukkan isi"
-                        id="floatingTextarea2"
-                        rows="5"></textarea>
+                        init={{
+                          height: 500,
+                          menubar: false,
+                          plugins: [
+                            "advlist",
+                            "anchor",
+                            "autolink",
+                            "help",
+                            "image",
+                            "link",
+                            "lists",
+                            "searchreplace",
+                            "table",
+                            "wordcount",
+                          ],
+                          toolbar:
+                            "undo redo | blocks | " +
+                            "bold italic forecolor | alignleft aligncenter " +
+                            "alignright alignjustify | bullist numlist outdent indent | " +
+                            "removeformat | help | image",
+                          content_style:
+                            "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                        }}
+                        onEditorChange={handleEditorChange}
+                      />
                     </div>
                   </div>
                 </div>

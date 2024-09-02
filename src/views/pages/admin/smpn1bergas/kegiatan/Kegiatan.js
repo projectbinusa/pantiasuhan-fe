@@ -87,7 +87,7 @@ function Kegiatan() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/kegiatan/delete/` + id, {
+          .delete(`${API_DUMMY}/smpn1bergas/api/kegiatan/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

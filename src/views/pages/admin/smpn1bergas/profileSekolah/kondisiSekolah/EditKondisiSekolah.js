@@ -13,10 +13,12 @@ import AOS from "aos";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
+import { Editor } from "@tinymce/tinymce-react";
+
 
 function EditKondisiSekolah() {
   //   const [galery, setGalery] = useState("");
-  const [image, setFile] = useState("");
+  const [foto, setFile] = useState(null);
   const [deskripsi, setDeskripsi] = useState("");
   const param = useParams();
   const history = useHistory();
@@ -46,7 +48,7 @@ function EditKondisiSekolah() {
 
     const formData = new FormData();
     formData.append("deskripsi", deskripsi);
-    formData.append("file", image);
+    formData.append("file", foto);
 
     await axios
       .put(
@@ -79,6 +81,10 @@ function EditKondisiSekolah() {
           console.log(error);
         }
       });
+  };
+
+  const handleEditorChange = (deskripsi, editor) => {
+    setDeskripsi(deskripsi);
   };
 
   useEffect(() => {
@@ -126,19 +132,40 @@ function EditKondisiSekolah() {
                       id="exampleInputPassword1"
                     />
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold">
                       deskripsi
                     </label>
-                    <textarea
-                      value={deskripsi}
-                      onChange={(e) => setDeskripsi(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      required
-                      id="exampleInputPassword1"></textarea>
+                    <Editor
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                            value={deskripsi}
+                            init={{
+                              height: 500,
+                              menubar: false,
+                              plugins: [
+                                "advlist",
+                                "anchor",
+                                "autolink",
+                                "help",
+                                "image",
+                                "link",
+                                "lists",
+                                "searchreplace",
+                                "table",
+                                "wordcount",
+                              ],
+                              toolbar:
+                                "undo redo | blocks | " +
+                                "bold italic forecolor | alignleft aligncenter " +
+                                "alignright alignjustify | bullist numlist outdent indent | " +
+                                "removeformat | help | image",
+                              content_style:
+                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                            }}
+                            onEditorChange={handleEditorChange}
+                          />
                   </div>
                 </div>
                 <button type="button" className="btn-danger mt-3 mr-3">

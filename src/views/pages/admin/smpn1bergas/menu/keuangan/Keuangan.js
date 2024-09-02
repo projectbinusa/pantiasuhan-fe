@@ -235,8 +235,18 @@ function Keuangan() {
                           {berita.judul}
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}
-                        <td data-label="Isi" className="">
-                          {berita.isi}
+                        <td
+                          style={{
+                            maxWidth: "250px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          data-label="Isi"
+                          className="">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: berita.isi }}
+                          />
                         </td>
                         <td data-label="Kategori Keuangan" className="">
                           {berita.categoryKeuangan}
@@ -284,7 +294,6 @@ function Keuangan() {
                   setCurrentPage(value);
                   setPage(value);
                 }}
-
                 showFirstButton
                 showLastButton
                 color="primary"

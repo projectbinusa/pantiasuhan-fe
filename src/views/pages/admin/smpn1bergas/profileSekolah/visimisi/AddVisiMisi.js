@@ -8,23 +8,7 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import {
-  ClassicEditor,
-  Bold,
-  Essentials,
-  Heading,
-  Indent,
-  IndentBlock,
-  Italic,
-  Link,
-  List,
-  MediaEmbed,
-  Paragraph,
-  Table,
-  Undo,
-} from "ckeditor5";
-import "ckeditor5/ckeditor5.css";
+import { Editor } from "@tinymce/tinymce-react";
 
 function AddVisiMisi() {
   const [visi, setVisi] = useState("");
@@ -74,6 +58,18 @@ function AddVisiMisi() {
     AOS.init();
   }, []);
 
+  const handleEditorChangeVisi = (visi, editor) => {
+    setVisi(visi);
+  };
+
+  const handleEditorChangeMisi = (misi, editor) => {
+    setMisi(misi);
+  };
+
+  const handleEditorChangeTujuan = (tujuan, editor) => {
+    setTujuan(tujuan);
+  };
+
   return (
     <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
       <Header />
@@ -94,146 +90,101 @@ function AddVisiMisi() {
                           <label className="form-label font-weight-bold">
                             Visi
                           </label>
-                          <CKEditor
-                            data={visi}
-                            onChange={(event, editor) => {
-                              const data = editor.getData();
-                              setVisi(data);
-                            }}
-                            editor={ClassicEditor}
-                            config={{
-                              toolbar: [
-                                "undo",
-                                "redo",
-                                "|",
-                                "heading",
-                                "|",
-                                "bold",
-                                "italic",
-                                "|",
-                                "link",
-                                "insertTable",
-                                "mediaEmbed",
-                                "|",
-                                "bulletedList",
-                                "numberedList",
-                                "indent",
-                                "outdent",
-                              ],
+                          <Editor
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                            value={visi}
+                            init={{
+                              height: 500,
+                              menubar: false,
                               plugins: [
-                                Bold,
-                                Essentials,
-                                Heading,
-                                Indent,
-                                IndentBlock,
-                                Italic,
-                                Link,
-                                List,
-                                MediaEmbed,
-                                Paragraph,
-                                Table,
-                                Undo,
+                                "advlist",
+                                "anchor",
+                                "autolink",
+                                "help",
+                                "image",
+                                "link",
+                                "lists",
+                                "searchreplace",
+                                "table",
+                                "wordcount",
                               ],
-                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
+                              toolbar:
+                                "undo redo | blocks | " +
+                                "bold italic forecolor | alignleft aligncenter " +
+                                "alignright alignjustify | bullist numlist outdent indent | " +
+                                "removeformat | help | image",
+                              content_style:
+                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                             }}
+                            onEditorChange={handleEditorChangeVisi}
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
-                          {/* a */}
-                          <label className="form-label font-weight-bold">
-                            Misi
-                          </label>
-                          <CKEditor
-                            data={misi}
-                            onChange={(event, editor) => {
-                              const data = editor.getData();
-                              setMisi(data);
-                            }}
-                            editor={ClassicEditor}
-                            config={{
-                              toolbar: [
-                                "undo",
-                                "redo",
-                                "|",
-                                "heading",
-                                "|",
-                                "bold",
-                                "italic",
-                                "|",
-                                "link",
-                                "insertTable",
-                                "mediaEmbed",
-                                "|",
-                                "bulletedList",
-                                "numberedList",
-                                "indent",
-                                "outdent",
-                              ],
-                              plugins: [
-                                Bold,
-                                Essentials,
-                                Heading,
-                                Indent,
-                                IndentBlock,
-                                Italic,
-                                Link,
-                                List,
-                                MediaEmbed,
-                                Paragraph,
-                                Table,
-                                Undo,
-                              ],
-                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
-                            }}
-                          />
-                        </div>
+                      </div>
+                      <div className="mb-3 col-lg-12">
+                        {/* a */}
+                        <label className="form-label font-weight-bold">
+                          Misi
+                        </label>
+                        <Editor
+                          apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                          value={misi}
+                          init={{
+                            height: 500,
+                            menubar: false,
+                            plugins: [
+                              "advlist",
+                              "anchor",
+                              "autolink",
+                              "help",
+                              "image",
+                              "link",
+                              "lists",
+                              "searchreplace",
+                              "table",
+                              "wordcount",
+                            ],
+                            toolbar:
+                              "undo redo | blocks | " +
+                              "bold italic forecolor | alignleft aligncenter " +
+                              "alignright alignjustify | bullist numlist outdent indent | " +
+                              "removeformat | help | image",
+                            content_style:
+                              "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                          }}
+                          onEditorChange={handleEditorChangeMisi}
+                        />
                         <div className="mb-3 col-lg-12">
                           {/* a */}
                           <label className="form-label font-weight-bold">
                             Tujuan
                           </label>
-                          <CKEditor
-                            data={tujuan}
-                            onChange={(event, editor) => {
-                              const data = editor.getData();
-                              setTujuan(data);
-                            }}
-                            editor={ClassicEditor}
-                            config={{
-                              toolbar: [
-                                "undo",
-                                "redo",
-                                "|",
-                                "heading",
-                                "|",
-                                "bold",
-                                "italic",
-                                "|",
-                                "link",
-                                "insertTable",
-                                "mediaEmbed",
-                                "|",
-                                "bulletedList",
-                                "numberedList",
-                                "indent",
-                                "outdent",
-                              ],
+                          <Editor
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                            value={tujuan}
+                            init={{
+                              height: 500,
+                              menubar: false,
                               plugins: [
-                                Bold,
-                                Essentials,
-                                Heading,
-                                Indent,
-                                IndentBlock,
-                                Italic,
-                                Link,
-                                List,
-                                MediaEmbed,
-                                Paragraph,
-                                Table,
-                                Undo,
+                                "advlist",
+                                "anchor",
+                                "autolink",
+                                "help",
+                                "image",
+                                "link",
+                                "lists",
+                                "searchreplace",
+                                "table",
+                                "wordcount",
                               ],
-                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
+                              toolbar:
+                                "undo redo | blocks | " +
+                                "bold italic forecolor | alignleft aligncenter " +
+                                "alignright alignjustify | bullist numlist outdent indent | " +
+                                "removeformat | help | image",
+                              content_style:
+                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                             }}
+                            onEditorChange={handleEditorChangeTujuan}
                           />
                         </div>
                       </div>

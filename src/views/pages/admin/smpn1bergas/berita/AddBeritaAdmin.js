@@ -8,24 +8,7 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Header from "../../../../../component/Header";
 import Sidebar from "../../../../../component/Sidebar";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import {
-  ClassicEditor,
-  Bold,
-  Essentials,
-  Heading,
-  Indent,
-  IndentBlock,
-  Italic,
-  Link,
-  List,
-  MediaEmbed,
-  Paragraph,
-  Table,
-  Undo,
-} from "ckeditor5";
-
-import "ckeditor5/ckeditor5.css";
+import { Editor } from "@tinymce/tinymce-react";
 
 function AddBeritaAdmin() {
   const [author, setAuthor] = useState("");
@@ -35,6 +18,11 @@ function AddBeritaAdmin() {
   const [isiBerita, setIsiBerita] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const [content, setContent] = useState("");
+
+  const handleEditorChange = (isiBerita, editor) => {
+    setIsiBerita(isiBerita);
+  };
 
   //add
   const add = async (e) => {
@@ -163,48 +151,33 @@ function AddBeritaAdmin() {
                           <label className="form-label font-weight-bold">
                             Isi Berita
                           </label>
-                          <CKEditor
-                            data={isiBerita}
-                            onChange={(event, editor) => {
-                              const data = editor.getData();
-                              setIsiBerita(data);
-                            }}
-                            editor={ClassicEditor}
-                            config={{
-                              toolbar: [
-                                "undo",
-                                "redo",
-                                "|",
-                                "heading",
-                                "|",
-                                "bold",
-                                "italic",
-                                "|",
-                                "link",
-                                "insertTable",
-                                "mediaEmbed",
-                                "|",
-                                "bulletedList",
-                                "numberedList",
-                                "indent",
-                                "outdent",
-                              ],
+                          <Editor
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
+                            value={isiBerita}
+                            init={{
+                              height: 500,
+                              menubar: false,
                               plugins: [
-                                Bold,
-                                Essentials,
-                                Heading,
-                                Indent,
-                                IndentBlock,
-                                Italic,
-                                Link,
-                                List,
-                                MediaEmbed,
-                                Paragraph,
-                                Table,
-                                Undo,
+                                "advlist",
+                                "anchor",
+                                "autolink",
+                                "help",
+                                "image",
+                                "link",
+                                "lists",
+                                "searchreplace",
+                                "table",
+                                "wordcount",
                               ],
-                              // initialData: "<h1>Hello from CKEditor 5!</h1>",
-                            }}
+                              toolbar:
+                                "undo redo | blocks | " +
+                                "bold italic forecolor | alignleft aligncenter " +
+                                "alignright alignjustify | bullist numlist outdent indent | " +
+                                "removeformat | help | image",
+                              content_style:
+                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                            }} 
+                            onEditorChange={handleEditorChange}
                           />
                         </div>
                         {/* <div className="col-lg-12">

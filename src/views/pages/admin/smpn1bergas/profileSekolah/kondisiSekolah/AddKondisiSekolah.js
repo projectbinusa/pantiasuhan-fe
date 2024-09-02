@@ -11,6 +11,9 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
+import KondisiSekolah from "./KondisiSekolah";
+import { Editor } from "@tinymce/tinymce-react";
+
 
 function AddKondisiSekolah() {
   //   const [judul, setJudul] = useState("");
@@ -67,6 +70,11 @@ function AddKondisiSekolah() {
     AOS.init();
   }, []);
 
+
+  const handleEditorChange = (deskripsi, editor) => {
+    setDeskripsi(deskripsi);
+  };
+
   return (
     <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
       <Header />
@@ -94,7 +102,7 @@ function AddKondisiSekolah() {
                             placeholder="Masukkan Judul"
                           />
                         </div> */}
-                        <div className="mb-3 co-lg-6">
+                        <div className="mb-3 co-lg-12">
                           {/* a */}
                           <label className="form-label font-weight-bold">
                             Gambar
@@ -114,12 +122,34 @@ function AddKondisiSekolah() {
                           <label className="form-label font-weight-bold">
                             Deskripsi
                           </label>
-                          <textarea
+                          <Editor
+                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
                             value={deskripsi}
-                            onChange={(e) => setDeskripsi(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Deskripsi"></textarea>
+                            init={{
+                              height: 500,
+                              menubar: false,
+                              plugins: [
+                                "advlist",
+                                "anchor",
+                                "autolink",
+                                "help",
+                                "image",
+                                "link",
+                                "lists",
+                                "searchreplace",
+                                "table",
+                                "wordcount",
+                              ],
+                              toolbar:
+                                "undo redo | blocks | " +
+                                "bold italic forecolor | alignleft aligncenter " +
+                                "alignright alignjustify | bullist numlist outdent indent | " +
+                                "removeformat | help | image",
+                              content_style:
+                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                            }}
+                            onEditorChange={handleEditorChange}
+                          />
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
