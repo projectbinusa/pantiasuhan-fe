@@ -5082,7 +5082,7 @@ ul {
   background: #f4f8ff;
   border-radius: 5px;
   overflow: hidden;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   position: relative;
 }
 
@@ -6688,6 +6688,10 @@ ul {
   width: 100%;
 }
 
+.single-blog-inner .thumb img.news {
+  height: 16rem;
+}
+
 .single-blog-inner .thumb .blog-meta {
   background: var(--main-color);
   position: absolute;
@@ -6743,6 +6747,15 @@ ul {
 }
 
 .single-blog-inner .details h2:hover a {
+  color: var(--main-color);
+}
+
+.single-blog-inner .details a {
+  text-decoration: none;
+  color: #002147;
+}
+
+.single-blog-inner .details a:hover {
   color: var(--main-color);
 }
 
@@ -9851,6 +9864,13 @@ ul {
   overflow: hidden !important;
   display: -webkit-box !important;
   -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical;
+}
+
+.isiBerita2 {
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 14 !important;
   -webkit-box-orient: vertical;
 }
 

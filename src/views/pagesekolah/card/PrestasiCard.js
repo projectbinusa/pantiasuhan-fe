@@ -103,7 +103,7 @@ const PrestasiCard = ({
         <a
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          href={`/prestasi/${id}`}
+          href={`/detail-prestasi-${id}`}
           style={{ textDecoration: "none" }}
         >
           <div style={titleStyle}>{title}</div>

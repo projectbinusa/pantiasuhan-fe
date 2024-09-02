@@ -59,8 +59,7 @@ function DetailAgenda() {
                     <p style={{color: "#002147"}}>{formatDate(date)}</p>
                 </div>
                 <hr />
-                <p>{isi}</p>
-                {/* <a href="/">Lihat di sini</a> */}
+                <p><div dangerouslySetInnerHTML={{ __html:isi }}/></p>
             </main>
             <FooterSekolah />
         </section>

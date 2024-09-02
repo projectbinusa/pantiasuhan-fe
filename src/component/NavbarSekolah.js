@@ -479,6 +479,9 @@ const NavbarSekolah = () => {
           <li className="navbars-item">
             <a href="/all-prestasi" style={{ textTransform: "uppercase", fontWeight: "600" }}>PRESTASI</a>
           </li>
+          <li className="navbars-item">
+            <a href="/kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>KONTAK</a>
+          </li>
         </ul>
         <div
           className={`hamburger ${isMenuOpen ? "active" : ""}`}

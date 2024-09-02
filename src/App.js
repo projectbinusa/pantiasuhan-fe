@@ -135,6 +135,7 @@ import {
 import { Backdrop, CircularProgress } from "@mui/material";
 import Loading from "./component/Loading";
 import DetailSarana from "./views/pages/admin/smpn1bergas/sarana/DetailSarana";
+import KontakView from "./views/pagesekolah/Kontak";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -163,12 +164,12 @@ function App() {
             <Route path="/staff" component={TenagaKepndidkan} exact />
             <Route path="/materi_ajar" component={MateriAjarView} exact />
             <Route path="/all-prestasi" component={PrestasiSekolah} exact />
-            <Route path="/prestasi/:id" component={DetailPrestasi} exact />
             <Route path="/ekstrakurikuler" component={Ekstrakurikuler} exact />
             <Route path="/program" component={Pengembangan} exact />
             <Route path="/perawatan-rutin" component={PerawatanRutin} exact />
             <Route path="/sewa-layanan" component={SewaLayanan} exact />
             <Route path="/kegiatan" component={KegiatanSekolah} exact />
+            <Route path="/kontak" component={KontakView} exact />
             <Route
               path="/detail-kegiatan/:id"
               component={DetailKegiatan}
