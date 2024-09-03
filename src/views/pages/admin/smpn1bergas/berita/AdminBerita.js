@@ -200,6 +200,7 @@ function AdminBerita() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
+    console.log("klik");
     setIsSidebarOpen(!isSidebarOpen);
   };
   return (
