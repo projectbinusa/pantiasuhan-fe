@@ -20,7 +20,7 @@ const EkstraKulikulerCard = ({ title, id, backgroundColor }) => {
             <div className="card-ekstrakurikuler">
                 <i class="fas fa-star icon-ekstrakurikuler"></i>
                 <h4>
-                    <a href={href} style={{ color: "white", fontWeight: "600",textDecoration: "none" }}>{title}</a>
+                    <p style={{ color: "white", fontWeight: "600",textDecoration: "none" }}>{title}</p>
                 </h4>
             </div>
         </div>

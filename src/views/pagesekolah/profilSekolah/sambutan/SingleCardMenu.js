@@ -113,7 +113,7 @@ const SingleCardMenu = () => {
                 }} />
             ))) : (
             <img
-              src={kepsek}
+              src="https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
               alt="Kepala Sekolah"
               style={{
                 width: "40%",

@@ -6,14 +6,61 @@ import { API_DUMMY } from "../utils/base_URL";
 
 function FooterSekolah() {
   const [berita, setBerita] = useState([]);
-  const [totalPages, setTotalPage] = useState(1);
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [fax, setFax] = useState("");
+  const [judul, setJudul] = useState("");
+  const [isi, setIsi] = useState("");
+  const [isContactAvailable, setIsContactAvailable] = useState(true);
+
+  const getAllSejarah = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/sejarah/all/terbaru?page=0&size=1`
+      );
+      const content = response.data.data.content[0]?.isi || "";
+      const truncatedContent = content.length > 375 ? `${content.substring(0, 375)}...` : content;
+      setJudul(response.data.data.content[0]?.judul || "Data tidak ditemukan");
+      setIsi(truncatedContent);
+    } catch (error) {
+      console.log("Error fetching sejarah data:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllSejarah();
+  }, []);
+
+  const getAllKontak = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/kontak/all/terbaru?page=0&size=1`
+      );
+      const data = response.data.data.content[0] || {};
+
+      const isDataAvailable = data.email || data.phone || data.fax || data.address;
+
+      setIsContactAvailable(!!isDataAvailable);
+      setEmail(data.email || "Email tidak tersedia");
+      setPhone(data.phone || "Telepon tidak tersedia");
+      setFax(data.fax || "Fax tidak tersedia");
+      setAddress(data.address || "Alamat tidak tersedia");
+    } catch (error) {
+      console.log("Error fetching contact data:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllKontak();
+  }, []);
 
   const getAllBerita = async () => {
     try {
       const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=4&sort=created_date`);
       setBerita(response.data.data.content);
     } catch (error) {
-      console.log("get all", error);
+      console.log("Error fetching berita data:", error);
     }
   };
 
@@ -22,20 +69,20 @@ function FooterSekolah() {
   }, []);
 
   const formatDate = (value) => {
-  const date = new Date(value);
+    const date = new Date(value);
 
-  const day = date.getDate();
-  const monthNames = [
-    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-  ];
-  const month = monthNames[date.getMonth()];
-  const year = date.getFullYear();
+    const day = date.getDate();
+    const monthNames = [
+      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    ];
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
 
-  const formattedDate = `${day} ${month} ${year}`;
+    const formattedDate = `${day} ${month} ${year}`;
 
-  return formattedDate;
-};
+    return formattedDate;
+  };
 
   return (
     <>
@@ -48,16 +95,10 @@ function FooterSekolah() {
         <div className="footer-menu container">
           <div style={{ width: "100%" }}>
             <div className="widget widget_about">
-              <h4 className="widget-title" style={{ textTransform: "uppercase" }}>SMP Negeri 1 Bergas</h4>
+              <h4 className="widget-title" style={{ textTransform: "uppercase" }}>{judul}</h4>
               <div className="details">
                 <p style={{ fontSize: "14px", textAlign: "left" }}>
-                  SMP Negeri 1 Bergas didirikan pada tahun 1985 di Kabupaten
-                  Semarang, Jawa Tengah. Sejak awal berdirinya, sekolah ini
-                  memiliki tujuan mulia untuk menyediakan pendidikan
-                  berkualitas bagi masyarakat setempat. Dengan komitmen yang
-                  kuat terhadap keunggulan akademik dan pengembangan karakter
-                  siswa, SMP Negeri 1 Bergas telah menjadi salah satu sekolah
-                  menengah pertama terkemuka di wilayahnya.
+                  {isi}
                 </p>
                 <ul className="social-media d-none d-md-none d-lg-flex gap-2 mb-4">
                   <li>
@@ -98,14 +139,16 @@ function FooterSekolah() {
             <div className="widget widget_subscribe">
               <h4 className="widget-title" style={{ textTransform: "uppercase" }}>Alamat</h4>
               <div className="details" style={{ fontSize: "14px" }}>
-                <p style={{ color: "white", textAlign: "left" }}>
-                  Jl. Krakatau, Gembongan, Karangjati, Kec. Bergas, Kabupaten
-                  Semarang, Jawa Tengah 50552
-                </p>
-                <p style={{ color: "white", textAlign: "left" }}>Telpon (+62) </p>
-                <p style={{ color: "white", textAlign: "left" }}>
-                  E-mail smpn1_bergas@yahoo.co.id
-                </p>
+                {isContactAvailable ? (
+                  <>
+                    <p style={{ color: "white", textAlign: "left" }}>{address}</p>
+                    <p style={{ color: "white", textAlign: "left" }}>Telepon (+62) {phone}</p>
+                    <p style={{ color: "white", textAlign: "left" }}>E-mail {email}</p>
+                    <p style={{ color: "white", textAlign: "left" }}>{fax}</p>
+                  </>
+                ) : (
+                  <p style={{ color: "white", textAlign: "left" }}>Informasi kontak tidak tersedia</p>
+                )}
               </div>
             </div>
           </div>

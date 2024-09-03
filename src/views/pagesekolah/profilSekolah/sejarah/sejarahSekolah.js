@@ -3,7 +3,6 @@ import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import axios from "axios";
-import "../../../../css/berita/cardBerita.css";
 
 function SejarahSekolah() {
   const [sejarah, setSejarah] = useState({ judul: "", isi: "" });
@@ -41,25 +40,26 @@ function SejarahSekolah() {
           <ul>
             <li>
               <a href="/">
-                <i class="fas fa-home"></i> Beranda
+                <i className="fas fa-home"></i> Beranda
               </a>
             </li>
             <li>
-              <i class="fas fa-angle-right"></i>{" "}
+              <i className="fas fa-angle-right"></i>{" "}
               <span style={{ fontWeight: "normal" }}>Sejarah Sekolah</span>
             </li>
           </ul>
         </div>
-        <div style={{ lineHeight: "1.8" }}>
+        <div style={{ lineHeight: "1.8", textAlign: "justify" }}>
           <div style={{ margin: "0 auto 0", padding: "0" }}>
             {sejarah.judul === "Data tidak tersedia" ||
-              sejarah.isi === "Data tidak tersedia" ? (
+            sejarah.isi === "Data tidak tersedia" ? (
               <p
                 style={{
                   fontSize: "1.1em",
                   textAlign: "center",
                   color: "#666",
-                }}>
+                }}
+              >
                 Sejarah Sekolah Tidak Tersedia.
               </p>
             ) : (
@@ -69,7 +69,8 @@ function SejarahSekolah() {
                     fontWeight: "bold",
                     marginBottom: "30px",
                     fontSize: "2em",
-                  }}>
+                  }}
+                >
                   {sejarah.judul}
                 </h1>
                 <hr style={{ borderColor: "#ccc" }} />
@@ -78,7 +79,8 @@ function SejarahSekolah() {
                     fontSize: "1.1em",
                     marginBottom: "20px",
                     textAlign: "justify",
-                  }}>
+                  }}
+                >
                   {sejarah.isi}
                 </p>
               </>
@@ -86,7 +88,6 @@ function SejarahSekolah() {
           </div>
         </div>
       </main>
-      {/* <!-- counter area end --> */}
       <FooterSekolah />
     </div>
   );

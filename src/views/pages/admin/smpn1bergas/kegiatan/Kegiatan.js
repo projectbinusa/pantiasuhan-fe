@@ -339,6 +339,15 @@ function Kegiatan() {
                               </a>
                             </button>
                             <button
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm">
+                              <a
+                                className="text-light"
+                                href={"/admin-detail-kegiatan/" + berita.id}>
+                                <i class="fas fa-info-circle"></i>
+                              </a>
+                            </button>
+                            <button
                               onClick={() => deleteData(berita.id)}
                               type="button"
                               className="btn-danger btn-sm">

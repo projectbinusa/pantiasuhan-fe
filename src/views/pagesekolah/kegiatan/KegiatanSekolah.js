@@ -11,7 +11,7 @@ function KegiatanSekolah() {
   const [categories, setCategories] = useState([]);
   const [months, setMonths] = useState([]);
   const [filteredKegiatan, setFilteredKegiatan] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("Semua");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -63,7 +63,7 @@ function KegiatanSekolah() {
 
   useEffect(() => {
     const filterByCategory = () => {
-      if (selectedCategory === "All") {
+      if (selectedCategory === "Semua") {
         setFilteredKegiatan(kegiatan);
       } else {
         const filtered = kegiatan.filter(item => item.category === selectedCategory);
@@ -100,7 +100,7 @@ function KegiatanSekolah() {
 
   const handleMonthClick = (month) => {
     setSelectedMonth(month);
-    setSelectedCategory("All");
+    setSelectedCategory("Semua");
     setCurrentPage(1);
   };
 
@@ -119,125 +119,84 @@ function KegiatanSekolah() {
       <main className="container-sapras container">
         <div className="header-sapras">
           <ul>
-            <li>
-              <a href="/">
-                <i className="fas fa-home"></i> Beranda
-              </a>
-            </li>
-            <li>
-              <i className="fas fa-angle-right"></i>{" "}Kegiatan
-            </li>
+            <li><a href="/"><i className="fas fa-home"></i> Beranda</a></li>
+            <li><a href=""><i className="fas fa-angle-right"></i> Kegiatan</a></li>
+            <li style={{ textTransform: "uppercase" }}><i className="fas fa-angle-right"></i> {selectedCategory}</li>
           </ul>
         </div>
-        <main className="containers">
-          <div className="categoryContainer">
-            <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
-            <hr
-              style={{
-                width: "30%",
-                color: "#0060ff",
-                border: "2px solid #0060ff",
-              }}
-            />
+        <div className='container-sapras2'>
+          <div>
             <div>
-              <div
-                onClick={() => handleCategoryClick("All")}
-                className={`categoryItem capitalize ${
-                  selectedCategory === "All"
-                    ? "selectedCategory"
-                    : "unselectedCategory"
-                }`}
-              >
-                All
-              </div>
-              {categories.map((category, index) => (
-                <div
-                  key={index}
-                  onClick={() => handleCategoryClick(category)}
-                  className={`categoryItem capitalize ${
-                    selectedCategory === category
-                      ? "selectedCategory"
-                      : "unselectedCategory"
-                  }`}
+              <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
+              <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
+              <ul className="category-berita">
+                <li>
+                <a
+                  onClick={() => handleCategoryClick("Semua")}
+                  style={{ cursor: "pointer" }}
                 >
-                  {category}
-                </div>
-              ))}
-            </div>
-            <div className="monthlyArchives">
-              <h5 style={{ fontWeight: "600", color: "#002147" }}>Arsip Bulanan</h5>
-              <hr
-                style={{
-                  width: "30%",
-                  color: "#0060ff",
-                  border: "2px solid #0060ff",
-                }}
-              />
-              <div>
-                {months.map((month, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleMonthClick(month)}
-                    className={`categoryItem ${
-                        selectedMonth === month
-                        ? "selectedCategory"
-                        : "unselectedCategory"
-                    }`}
-                  >
-                    {month}
-                  </div>
+                  Semua
+                  </a>
+                </li>
+                <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
+                {categories.map((category, index) => (
+                  <React.Fragment key={index}>
+                    <li>
+                      <a
+                        onClick={() => handleCategoryClick(category)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        {category}
+                      </a>
+                    </li>
+                    {index < categories.length - 1 && (
+                      <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
+                    )}
+                  </React.Fragment>
                 ))}
-              </div>
-            </div>
-            <div className="followUs">
-              <h5 style={{ fontWeight: "600", color: "#002147" }}>
-                IKUTI KAMI
-              </h5>
-              <hr
-                style={{
-                  width: "30%",
-                  color: "#0060ff",
-                  border: "2px solid #0060ff",
-                }}
-              />
-              <ul className="followUsLinks">
-                <li>
-                  <a
-                    href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="followUsLink facebook"
-                  >
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.instagram.com/osisspensagas"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="followUsLink instagram"
-                  >
-                    <i className="fab fa-instagram"></i>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.youtube.com/@OSIS-SMPN1Bergas"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="followUsLink youtube"
-                  >
-                    <i className="fab fa-youtube"></i>
-                  </a>
-                </li>
               </ul>
             </div>
+            <br />
+            <div>
+              <h5 style={{ fontWeight: "600", color: "#002147" }}>ARSIP</h5>
+              <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
+              <ul className="category-berita">
+                {months.map((month, index) => (
+                  <React.Fragment key={index}>
+                    <li 
+                      onClick={() => handleMonthClick(month)}
+                    >
+                      <a href="#">{month}</a>
+                    </li>
+                    {index < months.length - 1 && (
+                      <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
+                    )}
+                  </React.Fragment>
+                ))}
+              </ul>
+            </div>
+            <br />
+            <div>
+                <h5 style={{ fontWeight: "600", color: "#002147" }}>IKUTI KAMI</h5>
+                <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
+                <ul className="medsos-list">
+                    <li><a href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
+                        target="_blank"
+                    ><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="https://www.instagram.com/osisspensagas"
+                        target="_blank"
+                    ><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://www.youtube.com/@OSIS-SMPN1Bergas"
+                        target="_blank"
+                    ><i class="fab fa-youtube"></i></a></li>
+                </ul>
+            </div>
           </div>
-          <div className="cardContainer">
+
+          <div className='container-all'>
             <div className="header">
               <h4 style={{ textTransform: "uppercase", textAlign: "center" }}>
-                {selectedCategory === "All" ? "All Kegiatan" : selectedCategory}
+                {selectedCategory === "Semua" ? "Semua Kegiatan" : selectedCategory}
               </h4>
             </div>
             <div className="paginationControls">
@@ -254,7 +213,7 @@ function KegiatanSekolah() {
               </select>
             </div>
             {filteredKegiatan.length === 0 ? (
-              <p className="loadingText">No data available.</p>
+              <p className="loadingText">Tidak ada data.</p>
             ) : (
               <>
                 {filteredKegiatan
@@ -286,7 +245,7 @@ function KegiatanSekolah() {
               </>
             )}
           </div>
-        </main>
+        </div>
       </main>
       <FooterSekolah />
     </>
