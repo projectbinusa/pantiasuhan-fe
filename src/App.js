@@ -139,6 +139,7 @@ import KontakView from "./views/pagesekolah/Kontak";
 import DetailKegiatanAdmin from "./views/pages/admin/smpn1bergas/kegiatan/DetailKegiatan";
 import DetailPrestasiAdmin from "./views/pages/admin/smpn1bergas/prestasi/DetailPrestasi";
 import DetailProgram from "./views/pages/admin/smpn1bergas/program/DetailProgram";
+import Sidebar1 from "./component/Sidebar1";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -159,6 +160,7 @@ function App() {
             {/* auth */}
             <Route path="/login" component={Login} exact />
             <Route path="/register" component={Register} exact />
+            <Route path="/sidebar1" component={Sidebar1} exact />
             {/* page */}
             <Route path="/" component={Dashbaord} exact />
             <Route path="/sambutan" component={sambutan} exact />

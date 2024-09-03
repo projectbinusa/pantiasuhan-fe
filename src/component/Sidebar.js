@@ -4,6 +4,8 @@ import "../component/sidebar.css";
 // import { NavL, a, N } from "react-router-dom/cjs/react-router-dom.min";
 
 function Sidebar({ isOpen }) {
+  console.log("open: ", isOpen);
+
   const location = useLocation();
   return (
     <div className="app-theme-white body-tabs-shadow fixed-sidebar fixed-header overflow-auto">
@@ -49,8 +51,8 @@ function Sidebar({ isOpen }) {
           </span>
         </div>{" "}
         <div
-          className={`scrollbar-sidebar ${
-            isOpen ? "openSidebar" : "closedSidebar"
+          className={`scrollbar-sidebar scrollbar-sidebar1 ${
+            isOpen ? "active" : ""
           }`}>
           <div className="app-sidebar__inner">
             <ul className="vertical-nav-menu">

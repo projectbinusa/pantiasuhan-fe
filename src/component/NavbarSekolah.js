@@ -353,8 +353,7 @@ const NavbarSekolah = () => {
         </a>
         <ul style={{ fontSize: "13.8px" }} className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
           <li
-            className={`navbars-item ${activeMenu === "profil-sekolah" ? "active" : ""
-              }`}>
+            className={`navbars-item `}>
             <a
               href="#profil-sekolah"
               className="has-submenu"
