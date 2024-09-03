@@ -318,6 +318,16 @@ function Program() {
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>
+                            
+                            <button
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm">
+                              <a
+                                className="text-light"
+                                href={"/detail-program/" + berita.id}>
+                                <i class="fas fa-info-circle"></i>
+                              </a>
+                            </button>
                             <button
                               onClick={() => deleteData(berita.id)}
                               type="button"

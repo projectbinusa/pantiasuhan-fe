@@ -14,7 +14,6 @@ function SambutanKepala() {
     nip: "",
     foto: "",
   });
-  // const [loading, setLoading] = useState(true);
 
   const getAllSambutan = async () => {
     try {
@@ -39,7 +38,6 @@ function SambutanKepala() {
           foto: "",
         });
       }
-      // setLoading(false);
     } catch (error) {
       console.log("Error fetching sambutan data:", error);
       setSambutanData({
@@ -49,17 +47,12 @@ function SambutanKepala() {
         nip: "",
         foto: "",
       });
-      // setLoading(false);
     }
   };
 
   useEffect(() => {
     getAllSambutan();
   }, []);
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <div>
@@ -69,11 +62,11 @@ function SambutanKepala() {
           <ul>
             <li>
               <a href="/">
-                <i class="fas fa-home"></i> Beranda
+                <i className="fas fa-home"></i> Beranda
               </a>
             </li>
             <li>
-              <i class="fas fa-angle-right"></i>{" "}
+              <i className="fas fa-angle-right"></i>{" "}
               <span style={{ fontWeight: "normal" }}>
                 Sambutan Kepala Sekolah
               </span>
@@ -82,60 +75,29 @@ function SambutanKepala() {
         </div>
         <div className="sambutan-container">
           <div className="parent-sambutan">
-            <h2
-              style={{
-                textAlign: "center",
-                marginBottom: "30px",
-                color: "#333",
-                fontFamily: "'Poppins', sans-serif",
-                fontWeight: "bold",
-              }}>
-              {sambutanData.judul}
-            </h2>
-            {sambutanData.foto ? (
-              <div style={{ textAlign: "center", marginBottom: "30px" }}>
+            <h2 className="sambutan-title">{sambutanData.judul}</h2>
+            {sambutanData.foto && (
+              <div className="sambutan-image">
                 <img
                   src={sambutanData.foto}
                   alt="Kepala Sekolah"
-                  style={{ width: "220px", height: "auto" }}
                 />
               </div>
-            ) : null}
-            <p
-              style={{
-                fontSize: "15px",
-                lineHeight: "1.8",
-                color: "#555",
-                marginBottom: "20px",
-                fontFamily: "'Poppins', sans-serif",
-                textAlign: "justify"
-              }}>
+            )}
+            <p className="sambutan-text">
               {sambutanData.isi}
             </p>
-            {sambutanData.nama && sambutanData.nip ? (
-              <p
-                style={{
-                  textAlign: "right",
-                  marginTop: "40px",
-                  fontSize: "18px",
-                  color: "#333",
-                  fontFamily: "'Poppins', sans-serif",
-                  fontWeight: "bold",
-                }}>
+            {sambutanData.nama && sambutanData.nip && (
+              <p className="sambutan-footer">
                 Kepala Sekolah,
                 <br />
                 {sambutanData.nama}
                 <br />
-                <span
-                  style={{
-                    fontSize: "16px",
-                    fontWeight: "normal",
-                    color: "#777",
-                  }}>
+                <span className="nip-text">
                   NIP: {sambutanData.nip}
                 </span>
               </p>
-            ) : null}
+            )}
           </div>
         </div>
       </main>

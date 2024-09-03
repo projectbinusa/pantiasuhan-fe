@@ -12,6 +12,7 @@ import Sidebar from "../../../../../component/Sidebar";
 function DetailPrestasi() {
   const [penyelenggara, setPenyelenggara] = useState("");
   const [namaPeserta, setNamaPeserta] = useState("");
+  const [tanggal, setTanggal] = useState("");
   const [image, setImage] = useState(null);
   const [skala, setSkala] = useState("");
   const [createdDate, setCreatedDate] = useState("");
@@ -33,6 +34,8 @@ function DetailPrestasi() {
 
         setCreatedDate(list_data.createdDate);
         setUpdatedDate(list_data.updatedDate);
+        setTanggal(list_data.tanggal);
+        setTanggal(list_data.tanggal);
         setPenyelenggara(list_data.peyelenggara);
         setJudul(list_data.judul);
         setSkala(list_data.skala);
@@ -86,6 +89,10 @@ function DetailPrestasi() {
                     disabled
                     value={penyelenggara}
                   />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Tanggal</label>
+                  <input type="text" class="form-control" disabled value={format(new Date(tanggal || new Date()), "dd MMMM yyyy", { locale: idLocale })} />
                 </div>
                 <div class="mb-3">
                   <label class="form-label fw-bold">Nama Peserta</label>

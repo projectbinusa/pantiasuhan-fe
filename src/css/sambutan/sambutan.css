@@ -14,20 +14,46 @@
     padding: 3rem 2rem;
 }
 
-.content-pengumuman {
-    overflow: hidden !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 1 !important;
-    -webkit-box-orient: vertical;
+.sambutan-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
 }
 
-.content-sambutan {
-    overflow: hidden !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 4 !important;
-    -webkit-box-orient: vertical;
+.sambutan-image {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
+.sambutan-image img {
+    width: 220px;
+    height: auto;
+}
+
+.sambutan-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+    text-align: justify;
+}
+
+.sambutan-footer {
+    margin-top: 40px;
+    font-size: 18px;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+}
+
+.nip-text {
+    font-size: 16px;
+    font-weight: normal;
+    color: #777;
+}
 
 @media screen and (max-width: 992px) {
     .sambutan-container {

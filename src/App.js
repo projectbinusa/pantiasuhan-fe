@@ -136,7 +136,9 @@ import { Backdrop, CircularProgress } from "@mui/material";
 import Loading from "./component/Loading";
 import DetailSarana from "./views/pages/admin/smpn1bergas/sarana/DetailSarana";
 import KontakView from "./views/pagesekolah/Kontak";
+import DetailKegiatanAdmin from "./views/pages/admin/smpn1bergas/kegiatan/DetailKegiatan";
 import DetailPrestasiAdmin from "./views/pages/admin/smpn1bergas/prestasi/DetailPrestasi";
+import DetailProgram from "./views/pages/admin/smpn1bergas/program/DetailProgram";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -300,6 +302,7 @@ function App() {
             {/* kegiatan */}
             <PrivateRoute path="/admin-kegiatan" component={Kegiatan} exact />
             <PrivateRoute path="/add-kegiatan" component={AddKegiatan} exact />
+            <PrivateRoute path="/admin-detail-kegiatan/:id" component={DetailKegiatanAdmin} exact />
             <PrivateRoute
               path="/edit-kegiatan/:id"
               component={EditKegiatan}
@@ -309,6 +312,7 @@ function App() {
             {/* program */}
             <PrivateRoute path="/admin-program" component={Program} exact />
             <PrivateRoute path="/add-program" component={AddProgram} exact />
+            <PrivateRoute path="/detail-program/:id" component={DetailProgram} exact />
             <PrivateRoute
               path="/edit-program/:id"
               component={EditProgram}
@@ -318,6 +322,7 @@ function App() {
             {/* prestasi */}
             <PrivateRoute path="/admin-prestasi" component={Prestasi} exact />
             <PrivateRoute path="/add-prestasi" component={AddPrestasi} exact />
+            <PrivateRoute path="/admin-detail-prestasi/:id" component={DetailPrestasiAdmin} exact />
             <PrivateRoute
               path="/edit-prestasi/:id"
               component={EditPrestasi}

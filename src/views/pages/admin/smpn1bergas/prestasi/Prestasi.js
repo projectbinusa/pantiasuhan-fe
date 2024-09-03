@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Header from "../../../../../component/Header";
 import Sidebar from "../../../../../component/Sidebar";
+import { format } from "date-fns";
+import idLocale from "date-fns/locale/id";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -283,6 +285,10 @@ function Prestasi() {
                     <th scope="col" className="text-left">
                       Nama Perserta
                     </th>
+                    {/* <th className="text-left">Penyelenggara</th>
+                    <th className="text-left">Skala</th> */}
+                    <th className="text-left">Tanggal</th>
+                    {/* <th className="text-left">Gambar</th> */}
                     <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
@@ -300,6 +306,22 @@ function Prestasi() {
                         <td data-label="Nama Perserta" className="">
                           {berita.nama_peserta}
                         </td>
+                        {/* <td data-label="Penyelenggara" className="">
+                          {berita.peyelenggara}
+                        </td>
+                        <td data-label="Skala" className="">
+                          {berita.skala}
+                        </td> */}
+                        <td data-label="Tanggal" className="">
+                          {/* {berita.tanggal} */}
+                          {format(new Date(berita.tanggal || new Date()), "dd MM yyyy", { locale: idLocale })}
+                        </td>
+                        {/* <td
+                          data-label="Gambar"
+                          className=""
+                          style={{ height: "4.5rem", width: "4.5rem" }}>
+                          {berita.foto}
+                        </td> */}
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button
@@ -320,7 +342,7 @@ function Prestasi() {
                               class="btn-warning  mr-2 btn-sm">
                               <a
                                 className="text-light"
-                                href={"/detail-prestasi/" + berita.id}>
+                                href={"/admin-detail-prestasi/" + berita.id}>
                                 <i class="fas fa-info-circle"></i>
                               </a>
                             </button>
