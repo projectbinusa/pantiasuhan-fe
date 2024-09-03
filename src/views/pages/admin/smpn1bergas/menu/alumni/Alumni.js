@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import Swal from "sweetalert2";
 import AOS from "aos";
-
 import { Pagination } from "@mui/material";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
-// import { API_DUMMY } from "../../../../../../utils/base_URL";
-// import Header from "../../../../../../component/Header";
-// import Sidebar from "../../../../../../component/Sidebar";
 
 function Alumni() {
   const [list, setList] = useState([]);
@@ -76,10 +69,17 @@ function Alumni() {
             });
 
             setTimeout(() => {
-              // history.push("/admin-berita");
               window.location.reload();
             }, 1500);
-          });
+          }).catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err)
+          })
       }
     });
   };
@@ -125,7 +125,6 @@ function Alumni() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -153,7 +152,6 @@ function Alumni() {
               <p className="mt-3">Data Alumni</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">
@@ -196,14 +194,6 @@ function Alumni() {
                   <tr>
                     <th scope="col">No</th>
                     <th className="text-long">Nama Alumni</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
-                    {/* <th
-                      scope="col"
-                      className="text-left">
-                      Biografi
-                    </th> */}
                     <th scope="col" className="text-left">
                       No Handphone
                     </th>
@@ -223,10 +213,6 @@ function Alumni() {
                         <td data-label="Nama Alumni" className="text-long">
                           {berita.nama}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
-                        {/* <td data-label="Biografi" className="">
-                          {berita.biografi}
-                        </td> */}
                         <td data-label="No Handphone" className="">
                           {berita.kontak}
                         </td>
@@ -246,7 +232,6 @@ function Alumni() {
                                   textDecoration: "none",
                                 }}
                                 href={`/edit-alumni/${berita.id}`}>
-                                {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>

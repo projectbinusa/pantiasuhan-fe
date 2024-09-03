@@ -73,6 +73,12 @@ function EditPrestasi() {
         localStorage.clear();
         history.push("/login");
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(error);
       }
     }
@@ -108,7 +114,7 @@ function EditPrestasi() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -146,7 +152,7 @@ function EditPrestasi() {
                             placeholder="Masukkan Penyelenggara"
                           />
                         </div>
-                        <div className="mb-3 co-lg-6">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -156,7 +162,7 @@ function EditPrestasi() {
                             className="form-control"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Nama Peserta
                           </label>
@@ -168,7 +174,7 @@ function EditPrestasi() {
                             placeholder="Masukkan Nama Peserta"
                           />
                         </div>
-                        <div className="col-lg-12">
+                        <div className="col-lg-6">
                           <label className="form-label font-weight-bold">
                             Tanggal Pelaksaan
                           </label>
@@ -190,7 +196,7 @@ function EditPrestasi() {
                           href="/admin-prestasi">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

@@ -30,8 +30,7 @@ function MateriAjar() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/materi_ajar/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/materi_ajar/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -50,29 +49,6 @@ function MateriAjar() {
     }
   };
 
-  // const getAll1 = async (page1) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${API_DUMMY}/smpn1bergas/api/category-berita/all/terbaru?direction=desc&page=${
-  //         page1 - 1
-  //       }&size=${rowsPerPage1}&sort=id`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       }
-  //     );
-  //     setList1(response.data.data.content);
-  //     console.log(response.data.data.content);
-  //     setPaginationInfo1({
-  //       totalPages1: response.data.data.totalPages,
-  //       totalElements1: response.data.data.totalElements,
-  //     });
-  //   } catch (error) {
-  //     console.error("Terjadi Kesalahan", error);
-  //   }
-  // };
-
   const deleteData = async (id) => {
     Swal.fire({
       title: "Apakah Anda Ingin Menghapus?",
@@ -86,10 +62,10 @@ function MateriAjar() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios.delete(`${API_DUMMY}/smpn1bergas/api/materi_ajar/` + id, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
           .then(() => {
             Swal.fire({
               icon: "success",
@@ -102,54 +78,22 @@ function MateriAjar() {
               history.push("/admin-berita");
               window.location.reload();
             }, 1500);
-          });
+          }).catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err)
+          })
       }
     });
   };
 
-  //delete category
-  // const deleteData1 = async (id) => {
-  //   Swal.fire({
-  //     title: "Apakah Anda Ingin Menghapus Kategori Berita?",
-  //     text: "Seluruh berita dalam kategori ini akan ikut terhapus dan data tidak bisa dikembalikan!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Hapus",
-  //     cancelButtonText: "Batal",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       axios
-  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/` + id, {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //           },
-  //         })
-  //         .then(() => {
-  //           Swal.fire({
-  //             icon: "success",
-  //             title: "Dihapus!",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-
-  //           setTimeout(() => {
-  //             history.push("/admin-berita");
-  //             window.location.reload();
-  //           }, 1500);
-  //         });
-  //     }
-  //   });
-  // };
-
   useEffect(() => {
     getAll(currentPage);
   }, [currentPage, rowsPerPage]);
-
-  // useEffect(() => {
-  //   getAll1(currentPage1);
-  // }, [currentPage1, rowsPerPage1]);
 
   useEffect(() => {
     AOS.init();
@@ -173,26 +117,6 @@ function MateriAjar() {
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-  // const handleRowsPerPageChange1 = (event) => {
-  //   setRowsPerPage1(parseInt(event.target.value, 10));
-  //   setPage1(0);
-  // };
-
-  // const handleSearchChange1 = (event) => {
-  //   setSearchTerm1(event.target.value);
-  //   setPage1(0);
-  //   setCurrentPage1(1);
-  // };
-
-  // const filteredList1 = list1.filter((item) =>
-  //   Object.values(item).some(
-  //     (value) =>
-  //       typeof value === "string" &&
-  //       value.toLowerCase().includes(searchTerm1.toLowerCase())
-  //   )
-  // );
-
-  console.log(filteredList);
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
@@ -206,7 +130,6 @@ function MateriAjar() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -234,7 +157,6 @@ function MateriAjar() {
               <p className="mt-3">Materi Ajar</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">
@@ -277,9 +199,6 @@ function MateriAjar() {
                   <tr>
                     <th scope="col">No</th>
                     <th className="text-left">Tingkat</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
                     <th scope="col" className="text-left">
                       Mapel
                     </th>
@@ -287,8 +206,6 @@ function MateriAjar() {
                     <th className="text-left">Tanggal Upload</th>
                     <th className="text-left">Jenis</th>
                     <th className="text-left">Penyusun</th>
-                    {/* <th className="text-left">Isi</th> */}
-                    {/* <th className="text-left">File</th> */}
                     <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
@@ -305,13 +222,6 @@ function MateriAjar() {
                         <td data-label="Mapel" className="text-left">
                           {berita.mapel}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
-                        {/* <td data-label="Image" className="">
-                          <img
-                            src={berita.image}
-                            style={{ height: "4.5rem", width: "4.5rem" }}
-                          />
-                        </td>{" "} */}
                         <td data-label="Judul" className="text-left">
                           {berita.judul}
                         </td>
@@ -324,15 +234,6 @@ function MateriAjar() {
                         <td data-label="Jenis" className="text-left">
                           {berita.jenis}
                         </td>
-                        {/* <td
-                          data-label="Isi"
-                          className="text-long"
-                          style={{ maxWidth: "150px" }}>
-                          {berita.isi}
-                        </td> */}
-                        {/* <td data-label="File" className="text-left">
-                          {berita.judul}
-                        </td> */}
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button

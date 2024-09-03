@@ -73,7 +73,6 @@ function DetailEkskul() {
                 <br />
                 <br />
                 <div className="mb-3 col-lg-12">
-                  {/* a */}
                   <label className="form-label font-weight-bold">
                     Ekstrakulikuler
                   </label>
@@ -87,7 +86,6 @@ function DetailEkskul() {
                   />
                 </div>
                 <div className="mb-3 col-lg-12">
-                  {/* a */}
                   <label className="form-label font-weight-bold">
                     Pembimbing
                   </label>
@@ -101,7 +99,6 @@ function DetailEkskul() {
                   />
                 </div>
                 <div className="mb-3 col-lg-12">
-                  {/* a */}
                   <label className="form-label font-weight-bold">
                     Koordinator
                   </label>
@@ -115,7 +112,6 @@ function DetailEkskul() {
                   />
                 </div>
                 <div className="mb-3 col-lg-12">
-                  {/* a */}
                   <label className="form-label font-weight-bold">Jadwal</label>
                   <input
                     value={jadwal}
@@ -127,7 +123,6 @@ function DetailEkskul() {
                   />
                 </div>
                 <div className="mb-3 col-lg-12">
-                  {/* a */}
                   <label className="form-label font-weight-bold">Tempat</label>
                   <input
                     value={tempat}
@@ -139,7 +134,6 @@ function DetailEkskul() {
                   />
                 </div>
                 <div className="mb-3 col-lg-12">
-                  {/* a */}
                   <label className="form-label font-weight-bold">
                     Deskripsi
                   </label>
@@ -152,7 +146,6 @@ function DetailEkskul() {
                     placeholder="Masukkan Deskripsi"></textarea>
                 </div>
                 <div className="mb-3 col-lg-12">
-                  {/* a */}
                   <label className="form-label font-weight-bold">
                     Prestasi
                   </label>
@@ -172,7 +165,6 @@ function DetailEkskul() {
                 <a
                   href="/admin-ekstrakulikuler"
                   style={{ color: "white", textDecoration: "none" }}>
-                  {" "}
                   Kembali
                 </a>
               </button>

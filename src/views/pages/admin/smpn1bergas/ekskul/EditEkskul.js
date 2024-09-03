@@ -89,6 +89,12 @@ function EditEkskul() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -114,9 +120,8 @@ function EditEkskul() {
                     <form onSubmit={update}>
                     <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
-                            Ekstrakulikuler
+                            Ekstrakurikuler
                           </label>
                           <input
                             value={name}
@@ -124,11 +129,10 @@ function EditEkskul() {
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan Ekstrakulikuler"
+                            placeholder="Masukkan Ekstrakurikuler"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Pembimbing
                           </label>
@@ -142,7 +146,6 @@ function EditEkskul() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Koordinator
                           </label>
@@ -156,7 +159,6 @@ function EditEkskul() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Jadwal
                           </label>
@@ -170,7 +172,6 @@ function EditEkskul() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Tempat
                           </label>
@@ -184,7 +185,6 @@ function EditEkskul() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Deskripsi
                           </label>
@@ -197,7 +197,6 @@ function EditEkskul() {
                             placeholder="Masukkan Deskripsi"></textarea>
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Prestasi
                           </label>
@@ -211,7 +210,6 @@ function EditEkskul() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -224,7 +222,6 @@ function EditEkskul() {
                           />
                         </div>
                         {/* <div className="mb-3 co-lg-6">
-                          {/* a */}
                         {/* <label className="form-label font-weight-bold">
                             Gambar
                           </label>

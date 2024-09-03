@@ -1,7 +1,4 @@
 import React from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -25,14 +22,10 @@ function AddProgram() {
   const add = async (e) => {
     e.preventDefault();
 
-    // const formData = new FormData();
-    // formData.append("judulPrgram", judul);
-    // formData.append("namaProgram", nama);
-    // formData.append("tujuan", tujuan);
     const data = {
       judulProgram: judul,
       namaProgram: nama,
-      tujuan: tujuan  ,
+      tujuan: tujuan,
     };
 
     await axios
@@ -44,7 +37,7 @@ function AddProgram() {
       .then(() => {
         Swal.fire({
           icon: "success",
-          title: "Berhasil Mengedit Data Program",
+          title: "Berhasil Tambah Data Program",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -58,6 +51,12 @@ function AddProgram() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Tambah Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -72,7 +71,7 @@ function AddProgram() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -83,7 +82,6 @@ function AddProgram() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Nama Program
                           </label>
@@ -95,8 +93,7 @@ function AddProgram() {
                             placeholder="Masukkan Nama Program"
                           />
                         </div>
-                        <div className="mb-3 col-lg-6">
-                          {/* a */}
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Kategori Keuangan
                           </label>
@@ -114,7 +111,6 @@ function AddProgram() {
                           </select>
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Tujuan
                           </label>
@@ -133,7 +129,7 @@ function AddProgram() {
                           href="/admin-program">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

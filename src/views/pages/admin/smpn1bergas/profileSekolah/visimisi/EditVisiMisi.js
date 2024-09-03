@@ -61,7 +61,6 @@ import {
   GeneralHtmlSupport,
   Alignment,
 } from "ckeditor5";
-// import { SlashCommand } from "ckeditor5-premium-features";
 import "ckeditor5/ckeditor5.css";
 
 function EditVisiMisi() {
@@ -123,6 +122,12 @@ function EditVisiMisi() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -260,7 +265,7 @@ function EditVisiMisi() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -271,7 +276,6 @@ function EditVisiMisi() {
                     <form onSubmit={update}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Visi
                           </label>
@@ -507,7 +511,6 @@ function EditVisiMisi() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Misi
                           </label>
@@ -743,7 +746,6 @@ function EditVisiMisi() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Tujuan
                           </label>
@@ -985,7 +987,7 @@ function EditVisiMisi() {
                           href="/admin-visimisi">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
-// import Footer from "../../../../component/Footer";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -63,12 +59,10 @@ import {
   GeneralHtmlSupport,
   Alignment,
 } from "ckeditor5";
-// import { SlashCommand } from "ckeditor5-premium-features";
 import "ckeditor5/ckeditor5.css";
 
 
 function EditKondisiSekolah() {
-  //   const [galery, setGalery] = useState("");
   const [foto, setFile] = useState(null);
   const [deskripsi, setDeskripsi] = useState("");
   const param = useParams();
@@ -83,7 +77,6 @@ function EditKondisiSekolah() {
       })
       .then((ress) => {
         const response = ress.data.data;
-        // setGalery(response.galery);
         setDeskripsi(response.deskripsi);
         setFile(response.foto);
         console.log("galery : ", ress.data.data);
@@ -129,6 +122,12 @@ function EditKondisiSekolah() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -273,22 +272,7 @@ function EditKondisiSekolah() {
               <hr />
               <form onSubmit={update}>
                 <div className="row">
-                  {/* <div className="mb-3 col-lg-6">
-                    <label
-                      for="exampleInputPassword1"
-                      className="form-label font-weight-bold">
-                      Judul
-                    </label>
-                    <input
-                      value={galery}
-                      onChange={(e) => setGalery(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      required
-                      id="exampleInputPassword1"
-                    />
-                  </div> */}
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold">

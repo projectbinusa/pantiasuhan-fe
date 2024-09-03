@@ -59,7 +59,6 @@ import {
   GeneralHtmlSupport,
   Alignment,
 } from "ckeditor5";
-// import { SlashCommand } from "ckeditor5-premium-features";
 import "ckeditor5/ckeditor5.css";
 
 function EditAlumni() {
@@ -69,7 +68,6 @@ function EditAlumni() {
   const [kontak, setKontak] = useState("");
   const [profesi, setProfesi] = useState("");
   const [tahunLulus, setTahunLulus] = useState("");
-  const [image, setImage] = useState(null);
   const param = useParams();
   const history = useHistory();
 
@@ -135,6 +133,12 @@ function EditAlumni() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -272,7 +276,7 @@ function EditAlumni() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="container mt-3 app-main__outer" data-aos="fade-left">
+        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="card shadow">
             <div className="card-body">
               <h1 className="fs-4">Form Edit Data</h1>

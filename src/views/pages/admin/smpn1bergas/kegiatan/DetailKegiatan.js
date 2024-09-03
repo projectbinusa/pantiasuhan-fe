@@ -84,7 +84,6 @@ function DetailKegiatan() {
                 <a
                   href="/admin-kegiatan"
                   style={{ color: "white", textDecoration: "none" }}>
-                  {" "}
                   Kembali
                 </a>
               </button>

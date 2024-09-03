@@ -106,6 +106,12 @@ function EditKegiatan() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -276,7 +282,6 @@ function EditKegiatan() {
                 <div className="row">
 
                   <div className="mb-3 co-lg-6">
-                    {/*  */}
                     <label className="form-label font-weight-bold">
                       Gambar
                     </label>
@@ -289,7 +294,6 @@ function EditKegiatan() {
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
-                    {/*  */}
                     <label className="form-label font-weight-bold">Nama Kegiatan</label>
                     <input
                       value={judul}
@@ -300,7 +304,6 @@ function EditKegiatan() {
                     />
                   </div>
                   <div className="col-lg-12">
-                    {/*  */}
                     <label className="form-label font-weight-bold">Isi Kegiatan</label>
                     <div className="">
                     <CKEditor
@@ -539,7 +542,7 @@ function EditKegiatan() {
                 <button type="button" className="btn-danger mt-3">
                   <a
                     style={{ color: "white", textDecoration: "none" }}
-                    href="/admin-keuangan">
+                    href="/admin-kegiatan">
                     Batal
                   </a>
                 </button>{" "}

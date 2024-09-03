@@ -12,7 +12,6 @@ import { API_DUMMY } from "../../../../../../utils/base_URL";
 
 function AddTenagaKependidikan() {
   const [status, setStatus] = useState("");
-  //   const [image, setImage] = useState(null);
   const [nama, setNama] = useState("");
   const [image, setImage] = useState(null);
   const [show, setShow] = useState(false);
@@ -27,10 +26,7 @@ function AddTenagaKependidikan() {
       formData.append("nama", nama);
       formData.append("status", status);
       formData.append("file", image);
-      // const data = {
-      //   nama: nama,
-      //   status: status,
-      // };
+
       await axios.post(
         `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/add`,
         formData,
@@ -57,6 +53,12 @@ function AddTenagaKependidikan() {
         localStorage.clear();
         history.push("/login");
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(error);
       }
     }
@@ -82,7 +84,6 @@ function AddTenagaKependidikan() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Nama
                           </label>
@@ -95,24 +96,7 @@ function AddTenagaKependidikan() {
                             placeholder="Masukan Nama"
                           />
                         </div>
-                        {/* <div className="mb-3 co-lg-6">
-                        {/* a */}
-                        {/* <label className="form-label font-weight-bold">
-                          Gambar
-                        </label>
-                        <input
-                          onChange={(e) =>
-                            setImage(
-                              e.target.files ? e.target.files[0] : null
-                            )
-                          }
-                          type="file"
-                          className="form-control"
-                          required
-                        /> */}
-                        {/* </div> */}
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Status
                           </label>
@@ -126,7 +110,6 @@ function AddTenagaKependidikan() {
                           />
                         </div>
                         <div className="mb-3 co-lg-6">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -147,7 +130,7 @@ function AddTenagaKependidikan() {
                           href="/admin-tenaga-kependidikan">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

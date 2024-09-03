@@ -26,8 +26,7 @@ function Kontak() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kontak/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/kontak/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -36,7 +35,6 @@ function Kontak() {
         }
       );
       setList(response.data.data.content);
-      console.log("data kontak: ", response);
       setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
@@ -73,7 +71,6 @@ function Kontak() {
             });
 
             setTimeout(() => {
-              // history.push("/admin-berita");
               window.location.reload();
             }, 1500);
           });
@@ -122,7 +119,6 @@ function Kontak() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -147,10 +143,9 @@ function Kontak() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Data Alumni</p>
+              <p className="mt-3">Data Kontak</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">
@@ -176,7 +171,6 @@ function Kontak() {
                   <div role="group" className="btn-group-sm btn-group">
                     {list.length > 0 ? (
                       <>
-                        {" "}
                         <button
                           style={{ cursor: "not-allowed" }}
                           disabled
@@ -186,7 +180,6 @@ function Kontak() {
                       </>
                     ) : (
                       <>
-                        {" "}
                         <button className="active btn-focus p-2 rounded">
                           <a
                             style={{ color: "white", textDecoration: "none" }}
@@ -208,14 +201,11 @@ function Kontak() {
                   <tr>
                     <th scope="col">No</th>
                     <th className="text-long">Email</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
                     <th
                       scope="col"
                       className="text-left"
                       style={{ minWidth: "150px" }}>
-                      Address
+                      Alamat
                     </th>
                     <th className="text-left">No Telephone</th>
                     <th className="text-left">Fax</th>
@@ -223,24 +213,23 @@ function Kontak() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((berita, no) => {
+                  {filteredList.map((row, no) => {
                     return (
                       <tr key={no}>
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
                         <td data-label="Email" className="text-long">
-                          {berita.email}
+                          {row.email}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
                         <td data-label="Alamat" className="">
-                          {berita.address}
+                          {row.address}
                         </td>
                         <td data-label="No Handphone / Telephone" className="">
-                          {berita.phone}
+                          {row.phone}
                         </td>
                         <td data-label="Fax" className="">
-                          {berita.fax}
+                          {row.fax}
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
@@ -252,13 +241,12 @@ function Kontak() {
                                   color: "white",
                                   textDecoration: "none",
                                 }}
-                                href={`/edit-kontak/${berita.id}`}>
-                                {" "}
+                                href={`/edit-kontak/${row.id}`}>
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>
                             <button
-                              onClick={() => deleteData(berita.id)}
+                              onClick={() => deleteData(row.id)}
                               type="button"
                               className="btn-danger btn-sm">
                               <i className="fa-solid fa-trash"></i>

@@ -21,8 +21,7 @@ function VisiMisi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/visiMisi/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/visiMisi/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -68,10 +67,17 @@ function VisiMisi() {
             });
 
             setTimeout(() => {
-              // history.push("/admin-berita");
               window.location.reload();
             }, 1500);
-          });
+          }).catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err)
+          })
       }
     });
   };
@@ -117,7 +123,6 @@ function VisiMisi() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -142,10 +147,9 @@ function VisiMisi() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Data Alumni</p>
+              <p className="mt-3">Visi Misi</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">
@@ -171,7 +175,6 @@ function VisiMisi() {
                   <div role="group" className="btn-group-sm btn-group">
                     {list.length > 0 ? (
                       <>
-                        {" "}
                         <button
                           style={{ cursor: "not-allowed" }}
                           disabled
@@ -181,7 +184,6 @@ function VisiMisi() {
                       </>
                     ) : (
                       <>
-                        {" "}
                         <button className="active btn-focus p-2 rounded">
                           <a
                             style={{ color: "white", textDecoration: "none" }}
@@ -203,9 +205,6 @@ function VisiMisi() {
                   <tr>
                     <th scope="col">No</th>
                     <th className="text-center">Visi</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
                     <th scope="col" className="text-center">
                       Misi
                     </th>
@@ -233,7 +232,6 @@ function VisiMisi() {
                             dangerouslySetInnerHTML={{ __html: berita.visi }}
                           />
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
                         <td
                           style={{
                             maxWidth: "150px",
@@ -271,7 +269,6 @@ function VisiMisi() {
                                   textDecoration: "none",
                                 }}
                                 href={`/edit-visimisi/${berita.id}`}>
-                                {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>

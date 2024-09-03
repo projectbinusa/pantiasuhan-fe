@@ -58,7 +58,6 @@ import {
   GeneralHtmlSupport,
   Alignment,
 } from "ckeditor5";
-// import { SlashCommand } from "ckeditor5-premium-features";
 import "ckeditor5/ckeditor5.css";
 
 function AddPerpus() {
@@ -114,6 +113,12 @@ function AddPerpus() {
         localStorage.clear();
         history.push("/login");
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(error);
       }
     }
@@ -251,7 +256,7 @@ function AddPerpus() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mb-3 mt-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -262,7 +267,6 @@ function AddPerpus() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -277,7 +281,6 @@ function AddPerpus() {
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -292,7 +295,6 @@ function AddPerpus() {
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -307,7 +309,6 @@ function AddPerpus() {
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -321,8 +322,7 @@ function AddPerpus() {
                             placeholder="Masukkan Nomor Buku"
                           />
                         </div>
-                        <div className="mb-3 co-lg-6">
-                          {/* a */}
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -337,7 +337,6 @@ function AddPerpus() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -581,7 +580,7 @@ function AddPerpus() {
                           href="/admin-perpustakaan">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

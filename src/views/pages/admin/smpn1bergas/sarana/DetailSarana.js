@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
 import { API_DUMMY } from "../../../../../utils/base_URL";
@@ -98,7 +97,6 @@ function DetailSarana() {
                 <a
                   href="/admin-sarana"
                   style={{ color: "white", textDecoration: "none" }}>
-                  {" "}
                   Kembali
                 </a>
               </button>

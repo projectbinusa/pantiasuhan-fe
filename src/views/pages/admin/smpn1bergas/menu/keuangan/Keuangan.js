@@ -91,7 +91,15 @@ function Keuangan() {
             setTimeout(() => {
               window.location.reload();
             }, 1500);
-          });
+          }).catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err)
+          })
       }
     });
   };
@@ -137,7 +145,6 @@ function Keuangan() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -165,7 +172,6 @@ function Keuangan() {
               <p className="mt-3">Keuangan</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">
@@ -208,9 +214,6 @@ function Keuangan() {
                   <tr>
                     <th scope="col">No</th>
                     <th className="text-long">Judul</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
                     <th
                       scope="col"
                       className="text-left"
@@ -234,7 +237,6 @@ function Keuangan() {
                         <td data-label="Judul" className="text-long">
                           {berita.judul}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
                         <td
                           style={{
                             maxWidth: "250px",
@@ -268,7 +270,6 @@ function Keuangan() {
                                   textDecoration: "none",
                                 }}
                                 href={`/edit-keuangan/${berita.id}`}>
-                                {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>

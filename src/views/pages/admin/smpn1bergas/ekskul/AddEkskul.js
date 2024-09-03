@@ -36,9 +36,6 @@ function AddEkskul() {
       formData.append("deskripsi", deskripsi);
       formData.append("prestasi", prestasi);
       formData.append("file", file);
-      //   const data = {
-      //     name: name,
-      //   };
       await axios.post(
         `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/add`,
         formData,
@@ -65,6 +62,12 @@ function AddEkskul() {
         localStorage.clear();
         history.push("/login");
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(error);
       }
     }
@@ -90,9 +93,8 @@ function AddEkskul() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold text-left">
-                            Ekstrakulikuler
+                            Ekstrakurikuler
                           </label>
                           <input
                             value={name}
@@ -100,11 +102,10 @@ function AddEkskul() {
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan Ekstrakulikuler"
+                            placeholder="Masukkan Ekstrakurikuler"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold text-left">
                             Pembimbing
                           </label>
@@ -118,7 +119,6 @@ function AddEkskul() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold text-left">
                             Koordinator
                           </label>
@@ -132,7 +132,6 @@ function AddEkskul() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold text-left">
                             Jadwal
                           </label>
@@ -146,7 +145,6 @@ function AddEkskul() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold text-left">
                             Tempat
                           </label>
@@ -160,7 +158,6 @@ function AddEkskul() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold text-left">
                             Deskripsi
                           </label>
@@ -173,7 +170,6 @@ function AddEkskul() {
                             placeholder="Masukkan Deskripsi"></textarea>
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold text-left">
                             Prestasi
                           </label>
@@ -187,7 +183,6 @@ function AddEkskul() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold text-left">
                             Gambar
                           </label>
@@ -199,22 +194,6 @@ function AddEkskul() {
                             placeholder="Masukkan Gambar"
                           />
                         </div>
-                        {/* <div className="mb-3 co-lg-6">
-                          {/* a */}
-                        {/* <label className="form-label font-weight-bold text-left">
-                            Gambar
-                          </label>
-                          <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
-                            type="file"
-                            className="form-control"
-                            required
-                          /> */}
-                        {/* </div> */}
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
@@ -222,7 +201,7 @@ function AddEkskul() {
                           href="/admin-ekstrakulikuler">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

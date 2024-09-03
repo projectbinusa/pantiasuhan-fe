@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import Swal from "sweetalert2";
 import AOS from "aos";
 
@@ -83,10 +80,17 @@ function Perpustakaan() {
             });
 
             setTimeout(() => {
-              // history.push("/admin-berita");
               window.location.reload();
             }, 1500);
-          });
+          }).catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err)
+          })
       }
     });
   };
@@ -132,7 +136,6 @@ function Perpustakaan() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -160,7 +163,6 @@ function Perpustakaan() {
               <p className="mt-3">Data Perpustakaan</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">
@@ -203,17 +205,12 @@ function Perpustakaan() {
                   <tr>
                     <th scope="col">No</th>
                     <th className="text-long">Nama Buku</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
                     <th scope="col" className="text-left">
                       Nomor Buku
                     </th>
                     <th scope="col" className="text-left">
                       Pengarang
                     </th>
-                    {/* <th className="text-left">Sinopsis</th>
-                    <th className="text-left">Tahun</th> */}
                     <th className="text-left">Sampul</th>
                     <th className="text-left">Aksi</th>
                   </tr>
@@ -231,16 +228,9 @@ function Perpustakaan() {
                         <td data-label="Nomor Buku" className="text-long">
                           {berita.no}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
                         <td data-label="Pengarang" className="">
                           {berita.pengarang}
                         </td>
-                        {/* <td data-label="Sinopsis" className="">
-                          {berita.sinopsis}
-                        </td>
-                        <td data-label="Tahun" className="">
-                          {berita.tahun}
-                        </td> */}
                         <td data-label="Sampul" className="">
                           <img
                             src={berita.foto}

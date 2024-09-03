@@ -68,6 +68,12 @@ function EditSarana() {
         localStorage.clear();
         history.push("/login");
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(error);
       }
     }
@@ -82,7 +88,7 @@ function EditSarana() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -93,7 +99,6 @@ function EditSarana() {
                     <form onSubmit={put}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Nama Sarana
                           </label>
@@ -105,8 +110,7 @@ function EditSarana() {
                             placeholder="Masukkan Nama Sarana"
                           />
                         </div>
-                        <div className="col-lg-12">
-                          {/* a */}
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Deskripsi Sarana
                           </label>
@@ -120,8 +124,7 @@ function EditSarana() {
                               rows="5"></textarea>
                           </div>
                         </div>
-                        <div className="mb-3 col-lg-6">
-                          {/* a */}
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold ">
                             Kategori Sarana
                           </label>
@@ -151,7 +154,7 @@ function EditSarana() {
                           href="/admin-sarana">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

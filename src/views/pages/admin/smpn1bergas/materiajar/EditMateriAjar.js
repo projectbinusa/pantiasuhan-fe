@@ -60,6 +60,12 @@ function EditMateriAjar() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -103,7 +109,6 @@ function EditMateriAjar() {
               <form onSubmit={updateBerita}>
                 <div className="row">
                   <div className="mb-3 col-lg-6">
-                    {/*  */}
                     <label
                       for="exampleInputEmail1"
                       className="form-label font-weight-bold">
@@ -118,7 +123,6 @@ function EditMateriAjar() {
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
-                    {/*  */}
                     <label
                       for="exampleInputEmail1"
                       className="form-label font-weight-bold">
@@ -133,7 +137,6 @@ function EditMateriAjar() {
                     />
                   </div>
                   <div className="mb-3 co-lg-6">
-                    {/*  */}
                     <label className="form-label font-weight-bold">File</label>
                     <input
                       onChange={(e) =>
@@ -144,7 +147,6 @@ function EditMateriAjar() {
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
-                    {/*  */}
                     <label className="form-label font-weight-bold">Mapel</label>
                     <input
                       value={mapel}
@@ -155,7 +157,6 @@ function EditMateriAjar() {
                     />
                   </div>
                   <div className="col-lg-12">
-                    {/*  */}
                     <label className="form-label font-weight-bold">
                       Penyusun
                     </label>
@@ -171,7 +172,6 @@ function EditMateriAjar() {
                     </div>
                   </div>
                     <div className="col-lg-12">
-                      {/*  */}
                       <label className="form-label font-weight-bold">
                         Jenis
                       </label>
