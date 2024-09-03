@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import Swal from "sweetalert2";
 import AOS from "aos";
 
 import {
-  IconButton,
-  InputAdornment,
   Pagination,
-  TextField,
 } from "@mui/material";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Header from "../../../../../component/Header";
@@ -49,8 +43,6 @@ function Galery() {
     }
   };
 
-
-
   const deleteData = async (id) => {
     Swal.fire({
       title: "Apakah Anda Ingin Menghapus?",
@@ -78,10 +70,17 @@ function Galery() {
             });
 
             setTimeout(() => {
-              // history.push("/admin-berita");
               window.location.reload();
             }, 1500);
-          });
+          }).catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err)
+          })
       }
     });
   };
@@ -127,7 +126,6 @@ function Galery() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -152,10 +150,9 @@ function Galery() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Data Guru</p>
+              <p className="mt-3">Galery</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">

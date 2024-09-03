@@ -1,7 +1,4 @@
 import React from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -31,15 +28,6 @@ function AddKontak() {
         fax: fax,
         phone: phone
     }
-
-    // const formData = new FormData();
-    // // formData.append("author", author);
-    // formData.append("email", email);
-    // formData.append("fax", fax);
-    // // formData.append("categoryId", categoryId);
-    // formData.append("address", address);
-    // formData.append("phone", phone);
-
     try {
       await axios.post(`${API_DUMMY}/smpn1bergas/api/kontak/add`, data, {
         headers: {
@@ -62,6 +50,12 @@ function AddKontak() {
         localStorage.clear();
         history.push("/login");
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(error);
       }
     }
@@ -76,7 +70,7 @@ function AddKontak() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -87,7 +81,6 @@ function AddKontak() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Email
                           </label>
@@ -101,9 +94,8 @@ function AddKontak() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
-                            fax
+                            Fax
                           </label>
                           <input
                             value={fax}
@@ -115,7 +107,6 @@ function AddKontak() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Address
                           </label>
@@ -129,7 +120,6 @@ function AddKontak() {
                           ></textarea>
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             No HandPhone / Telephon
                           </label>

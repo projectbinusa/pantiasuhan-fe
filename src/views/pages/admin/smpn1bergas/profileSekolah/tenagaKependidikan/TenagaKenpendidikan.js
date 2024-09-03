@@ -22,8 +22,7 @@ function TenagaKenpendidikan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -70,7 +69,15 @@ function TenagaKenpendidikan() {
             setTimeout(() => {
               window.location.reload();
             }, 1500);
-          });
+          }).catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err)
+          })
       }
     });
   };
@@ -102,8 +109,6 @@ function TenagaKenpendidikan() {
     )
   );
 
-  console.log(filteredList);
-
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
@@ -116,7 +121,6 @@ function TenagaKenpendidikan() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -141,10 +145,9 @@ function TenagaKenpendidikan() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Data Sambutan</p>
+              <p className="mt-3">Tenaga Kependidikan</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">
@@ -187,9 +190,6 @@ function TenagaKenpendidikan() {
                   <tr>
                     <th scope="col">No</th>
                     <th className="text-long">Nama</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
                     <th scope="col" className="text-left">
                       Status
                     </th>
@@ -200,31 +200,24 @@ function TenagaKenpendidikan() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((berita, no) => {
+                  {filteredList.map((row, no) => {
                     return (
                       <tr key={no}>
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
                         <td data-label="Nama" className="text-long">
-                          {berita.nama}
+                          {row.nama}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
                         <td data-label="Status" className="">
-                          {berita.status}
+                          {row.status}
                         </td>
                         <td data-label="Image" className="">
                           <img
-                            src={berita.foto}
+                            src={row.foto}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
-                        {/* <td data-label="Image" className="">
-                          <img
-                            src={berita.foto}
-                            style={{ height: "4.5rem", width: "4.5rem" }}
-                          />
-                        </td> */}
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button
@@ -235,13 +228,13 @@ function TenagaKenpendidikan() {
                                   color: "white",
                                   textDecoration: "none",
                                 }}
-                                href={`/edit-tenaga-kependidikan/${berita.id}`}>
+                                href={`/edit-tenaga-kependidikan/${row.id}`}>
                                 {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>
                             <button
-                              onClick={() => deleteData(berita.id)}
+                              onClick={() => deleteData(row.id)}
                               type="button"
                               className="btn-danger btn-sm">
                               <i className="fa-solid fa-trash"></i>

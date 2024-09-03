@@ -73,7 +73,6 @@ function DetailProgram() {
                 <a
                   href="/admin-program"
                   style={{ color: "white", textDecoration: "none" }}>
-                  {" "}
                   Kembali
                 </a>
               </button>

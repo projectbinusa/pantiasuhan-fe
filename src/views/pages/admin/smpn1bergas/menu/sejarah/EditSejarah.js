@@ -61,7 +61,6 @@ import {
   GeneralHtmlSupport,
   Alignment,
 } from "ckeditor5";
-// import { SlashCommand } from "ckeditor5-premium-features";
 import "ckeditor5/ckeditor5.css";
 
 function EditSejarah() {
@@ -119,11 +118,17 @@ function EditSejarah() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
   };
-  
+
   const REDUCED_MATERIAL_COLORS = [
     { label: "Red 50", color: "#ffebee" },
     { label: "Purple 50", color: "#f3e5f5" },
@@ -256,7 +261,7 @@ function EditSejarah() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mb-3 mt-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -267,7 +272,6 @@ function EditSejarah() {
                     <form onSubmit={update}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Judul Sejarah
                           </label>
@@ -280,24 +284,7 @@ function EditSejarah() {
                             placeholder="Masukkan Judul Sejarah"
                           />
                         </div>
-                        {/* <div className="mb-3 co-lg-6">
-                          {/* a */}
-                        {/* <label className="form-label font-weight-bold">
-                            Gambar
-                          </label>
-                          <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
-                            type="file"
-                            className="form-control"
-                            required
-                          /> */}
-                        {/* </div> */}
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Isi Sejarah
                           </label>
@@ -539,7 +526,7 @@ function EditSejarah() {
                           href="/admin-sejarah">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

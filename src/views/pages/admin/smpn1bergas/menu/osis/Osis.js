@@ -24,8 +24,6 @@ function Osis() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults1, setSearchResults1] = useState([]);
-  const history = useHistory();
 
   const getAll = async () => {
     try {
@@ -78,54 +76,22 @@ function Osis() {
             setTimeout(() => {
               window.location.reload();
             }, 1500);
-          });
+          }).catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err)
+          })
       }
     });
   };
 
-  //delete category
-  // const deleteData1 = async (id) => {
-  //   Swal.fire({
-  //     title: "Apakah Anda Ingin Menghapus Kategori Berita?",
-  //     text: "Seluruh berita dalam kategori ini akan ikut terhapus dan data tidak bisa dikembalikan!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Hapus",
-  //     cancelButtonText: "Batal",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       axios
-  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/` + id, {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //           },
-  //         })
-  //         .then(() => {
-  //           Swal.fire({
-  //             icon: "success",
-  //             title: "Dihapus!",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-
-  //           setTimeout(() => {
-  //             history.push("/admin-berita");
-  //             window.location.reload();
-  //           }, 1500);
-  //         });
-  //     }
-  //   });
-  // };
-
   useEffect(() => {
     getAll(currentPage);
   }, [currentPage, rowsPerPage]);
-
-  // useEffect(() => {
-  //   getAll1(currentPage1);
-  // }, [currentPage1, rowsPerPage1]);
 
   useEffect(() => {
     AOS.init();
@@ -149,26 +115,6 @@ function Osis() {
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-  // const handleRowsPerPageChange1 = (event) => {
-  //   setRowsPerPage1(parseInt(event.target.value, 10));
-  //   setPage1(0);
-  // };
-
-  // const handleSearchChange1 = (event) => {
-  //   setSearchTerm1(event.target.value);
-  //   setPage1(0);
-  //   setCurrentPage1(1);
-  // };
-
-  // const filteredList1 = list1.filter((item) =>
-  //   Object.values(item).some(
-  //     (value) =>
-  //       typeof value === "string" &&
-  //       value.toLowerCase().includes(searchTerm1.toLowerCase())
-  //   )
-  // );
-
-  console.log(filteredList);
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
@@ -182,7 +128,6 @@ function Osis() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -207,10 +152,9 @@ function Osis() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Struktur</p>
+              <p className="mt-3">Struktur OSIS</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">
@@ -253,9 +197,6 @@ function Osis() {
                   <tr>
                     <th scope="col">No</th>
                     <th className="text-long">Nama</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
                     <th scope="col" className="text-long">
                       Kelas
                     </th>
@@ -311,7 +252,6 @@ function Osis() {
                                   textDecoration: "none",
                                 }}
                                 href={`/edit-osis/${berita.id}`}>
-                                {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>

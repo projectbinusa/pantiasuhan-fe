@@ -74,10 +74,17 @@ function AdminSambutan() {
             });
 
             setTimeout(() => {
-              // history.push("/admin-berita");
               window.location.reload();
             }, 1500);
-          });
+          }).catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err)
+          })
       }
     });
   };
@@ -123,7 +130,6 @@ function AdminSambutan() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -151,7 +157,6 @@ function AdminSambutan() {
               <p className="mt-3">Data Sambutan</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">
@@ -177,7 +182,6 @@ function AdminSambutan() {
                   <div role="group" className="btn-group-sm btn-group">
                     {list.length > 0 ? (
                       <>
-                        {" "}
                         <button
                           style={{ cursor: "not-allowed" }}
                           disabled
@@ -187,7 +191,6 @@ function AdminSambutan() {
                       </>
                     ) : (
                       <>
-                        {" "}
                         <button className="active btn-focus p-2 rounded">
                           <a
                             style={{ color: "white", textDecoration: "none" }}
@@ -210,9 +213,6 @@ function AdminSambutan() {
                     <th scope="col">No</th>
                     <th className="text-left">Judul Sambutan</th>
                     <th className="text-left">Nama Kepala Sekolah</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
                     <th
                       scope="col"
                       className="text-left"
@@ -237,7 +237,6 @@ function AdminSambutan() {
                         <td data-label="Nama Kepala Sekolah" className="text-long">
                           {berita.nama}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
                         <td
                           style={{
                             maxWidth: "150px",
@@ -259,13 +258,7 @@ function AdminSambutan() {
                             src={berita.foto}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
-                        </td>{" "}
-                        {/* <td data-label="Image" className="">
-                          <img
-                            src={berita.foto}
-                            style={{ height: "4.5rem", width: "4.5rem" }}
-                          />
-                        </td> */}
+                        </td>
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button
@@ -277,7 +270,6 @@ function AdminSambutan() {
                                   textDecoration: "none",
                                 }}
                                 href={`/edit-sambutan/${berita.id}`}>
-                                {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>

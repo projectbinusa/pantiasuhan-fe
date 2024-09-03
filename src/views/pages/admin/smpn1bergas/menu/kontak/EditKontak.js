@@ -15,7 +15,6 @@ function EditKontak() {
   const [address, setAddress] = useState(null);
   const [fax, setFax] = useState("");
   const [phone, setPhone] = useState("");
-  const [show, setShow] = useState(false);
   const history = useHistory();
   const param = useParams();
 
@@ -72,6 +71,12 @@ function EditKontak() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -97,7 +102,6 @@ function EditKontak() {
                     <form onSubmit={update}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Email
                           </label>
@@ -107,13 +111,12 @@ function EditKontak() {
                             type="email"
                             className="form-control"
                             required
-                            placeholder="Masukkan Kontak"
+                            placeholder="Masukkan Email"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
-                            fax
+                            Fax
                           </label>
                           <input
                             value={fax}
@@ -121,13 +124,12 @@ function EditKontak() {
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan fax"
+                            placeholder="Masukkan Fax"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
-                            Address
+                            Alamat
                           </label>
                           <textarea
                             value={address}
@@ -138,9 +140,8 @@ function EditKontak() {
                             placeholder="Masukkan Alamat Sekolah Lengkap"></textarea>
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
-                            No HandPhone / Telephon
+                            No Handphone / Telephone
                           </label>
                           <input
                             value={phone}
@@ -158,7 +159,7 @@ function EditKontak() {
                           href="/admin-kontak">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

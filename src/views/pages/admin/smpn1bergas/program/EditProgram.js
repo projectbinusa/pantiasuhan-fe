@@ -1,7 +1,4 @@
 import React from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -73,6 +70,12 @@ function EditProgram() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -87,7 +90,7 @@ function EditProgram() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -98,7 +101,6 @@ function EditProgram() {
                     <form onSubmit={update}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Nama Program
                           </label>
@@ -110,8 +112,7 @@ function EditProgram() {
                             placeholder="Masukkan Nama Program"
                           />
                         </div>
-                        <div className="mb-3 col-lg-6">
-                          {/* a */}
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Kategori Keuangan
                           </label>
@@ -129,7 +130,6 @@ function EditProgram() {
                           </select>
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Tujuan
                           </label>
@@ -148,7 +148,7 @@ function EditProgram() {
                           href="/admin-program">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

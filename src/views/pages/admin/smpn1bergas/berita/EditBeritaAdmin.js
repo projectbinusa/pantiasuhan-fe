@@ -44,7 +44,6 @@ import {
   PictureEditing,
   RemoveFormat,
   SpecialCharacters,
-  // SpecialCharactersEmoji,
   SpecialCharactersEssentials,
   Strikethrough,
   Style,
@@ -60,9 +59,7 @@ import {
   GeneralHtmlSupport,
   Alignment,
 } from "ckeditor5";
-// import { SlashCommand } from "ckeditor5-premium-features";
 import "ckeditor5/ckeditor5.css";
-// import "ckeditor5-premium-features/ckeditor5-premium-features.css";
 
 function EditBeritaAdmin() {
   const [author, setAuthor] = useState("");
@@ -108,6 +105,12 @@ function EditBeritaAdmin() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -267,15 +270,14 @@ function EditBeritaAdmin() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="container mt-3 app-main__outer" data-aos="fade-left">
+        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="card shadow">
             <div className="card-body">
               <h1 className="fs-4">Form Edit Data</h1>
               <hr />
               <form onSubmit={updateBerita}>
                 <div className="row">
-                  <div className="mb-3 col-lg-12">
-                    {/*  */}
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
                       Katagori Berita
                     </label>
@@ -290,8 +292,7 @@ function EditBeritaAdmin() {
                       <option value="Agenda Sekolah">Agenda Sekolah</option>
                     </select>
                   </div>
-                  <div className="mb-3 col-lg-12">
-                    {/*  */}
+                  <div className="mb-3 col-lg-6">
                     <label
                       for="exampleInputEmail1"
                       className="form-label font-weight-bold">
@@ -305,8 +306,19 @@ function EditBeritaAdmin() {
                       placeholder="Masukkan penulis berita"
                     />
                   </div>
-                  <div className="mb-3 co-lg-6">
-                    {/*  */}
+                  <div className="mb-3 col-lg-6">
+                    <label className="form-label font-weight-bold">
+                      Judul Berita
+                    </label>
+                    <input
+                      value={judulBerita}
+                      onChange={(e) => setJudulBerita(e.target.value)}
+                      type="text"
+                      className="form-control"
+                      placeholder="Masukkan judul berita"
+                    />
+                  </div>
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
                       Gambar
                     </label>
@@ -319,20 +331,6 @@ function EditBeritaAdmin() {
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
-                    {/*  */}
-                    <label className="form-label font-weight-bold">
-                      Judul Berita
-                    </label>
-                    <input
-                      value={judulBerita}
-                      onChange={(e) => setJudulBerita(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      placeholder="Masukkan judul berita"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-12">
-                    {/* a */}
                     <label className="form-label font-weight-bold">
                       Isi Berita
                     </label>

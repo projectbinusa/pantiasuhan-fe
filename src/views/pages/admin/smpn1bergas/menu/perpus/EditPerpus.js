@@ -61,7 +61,6 @@ import {
   GeneralHtmlSupport,
   Alignment,
 } from "ckeditor5";
-// import { SlashCommand } from "ckeditor5-premium-features";
 import "ckeditor5/ckeditor5.css";
 
 function EditPerpus() {
@@ -90,7 +89,6 @@ function EditPerpus() {
         setTahun(response.tahun);
         setNo(response.no);
         setImage(response.foto);
-        // setImage(response.foto);
       })
       .catch((error) => {
         console.log(error);
@@ -137,6 +135,12 @@ function EditPerpus() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -268,13 +272,13 @@ function EditPerpus() {
     { label: "Grey 900", color: "#212121" },
     { label: "Blue grey 900", color: "#263238" },
   ];
-  
+
   return (
     <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mb-3 mt-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -285,7 +289,6 @@ function EditPerpus() {
                     <form onSubmit={updatePerpus}>
                       <div className="row">
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -300,11 +303,10 @@ function EditPerpus() {
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
-                            Nama/Judul Buku
+                            Nama / Judul Buku
                           </label>
                           <input
                             value={namaBuku}
@@ -315,7 +317,6 @@ function EditPerpus() {
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -330,7 +331,6 @@ function EditPerpus() {
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -344,8 +344,7 @@ function EditPerpus() {
                             placeholder="Masukkan Nomor Buku"
                           />
                         </div>
-                        <div className="mb-3 co-lg-6">
-                          {/* a */}
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -357,7 +356,6 @@ function EditPerpus() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -601,7 +599,7 @@ function EditPerpus() {
                           href="/admin-perpustakaan">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

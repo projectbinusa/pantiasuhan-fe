@@ -1,7 +1,4 @@
 import React from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -20,7 +17,6 @@ function EditStruktur() {
   const [tugas, setTugas] = useState("");
   const [nama, setNama] = useState("");
   const [jabatan, setJabatan] = useState("");
-  // const [jenis, setJenis] = useState("");
   const history = useHistory();
   const param = useParams();
 
@@ -36,7 +32,6 @@ function EditStruktur() {
         setImage(response.foto);
         setTugas(response.tugas);
         setNama(response.nama);
-        // setJenis(response.jenis);
         setJabatan(response.jabatan);
         console.log("stuktur : ", ress.data.data);
       })
@@ -54,7 +49,6 @@ function EditStruktur() {
     formData.append("tugas", tugas);
     formData.append("nama", nama);
     formData.append("jabatan", jabatan);
-    // formData.append("jenis", jenis);
 
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/struktur/put/` + param.id, formData, {
@@ -79,6 +73,12 @@ function EditStruktur() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -93,7 +93,7 @@ function EditStruktur() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -104,7 +104,6 @@ function EditStruktur() {
                     <form onSubmit={update}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Tugas
                           </label>
@@ -117,7 +116,6 @@ function EditStruktur() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Nama Struktur
                           </label>
@@ -130,7 +128,6 @@ function EditStruktur() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Jabatan
                           </label>
@@ -142,8 +139,7 @@ function EditStruktur() {
                             placeholder="Masukkan Jabatan"
                           />
                         </div>
-                        <div className="mb-3 co-lg-6">
-                          {/* a */}
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -164,7 +160,7 @@ function EditStruktur() {
                           href="/admin-stuktur">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

@@ -65,6 +65,12 @@ function AddPrestasi() {
         localStorage.clear();
         history.push("/login");
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(error);
       }
     }
@@ -79,7 +85,7 @@ function AddPrestasi() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mb-3 mt-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -90,7 +96,6 @@ function AddPrestasi() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -105,7 +110,6 @@ function AddPrestasi() {
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -120,7 +124,6 @@ function AddPrestasi() {
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
-                          {/* a */}
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
@@ -134,7 +137,7 @@ function AddPrestasi() {
                             placeholder="Masukkan Skala Prestasi"
                           />
                         </div>
-                        <div className="mb-3 co-lg-6">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -144,7 +147,7 @@ function AddPrestasi() {
                             className="form-control"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Nama Peserta
                           </label>
@@ -156,7 +159,7 @@ function AddPrestasi() {
                             placeholder="Masukkan Nama Peserta"
                           />
                         </div>
-                        <div className="col-lg-12">
+                        <div className="col-lg-6">
                           <label className="form-label font-weight-bold">
                             Tanggal Dilaksanakan
                           </label>

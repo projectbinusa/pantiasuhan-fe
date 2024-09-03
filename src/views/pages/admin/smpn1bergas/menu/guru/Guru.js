@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import Swal from "sweetalert2";
 import AOS from "aos";
 
 import {
-  IconButton,
-  InputAdornment,
   Pagination,
-  TextField,
 } from "@mui/material";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
@@ -78,10 +72,17 @@ function Berita() {
             });
 
             setTimeout(() => {
-              // history.push("/admin-berita");
               window.location.reload();
             }, 1500);
-          });
+          }).catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err)
+          })
       }
     });
   };
@@ -113,8 +114,6 @@ function Berita() {
     )
   );
 
-  console.log(filteredList);
-
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
@@ -127,7 +126,6 @@ function Berita() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -155,7 +153,6 @@ function Berita() {
               <p className="mt-3">Data Guru</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">
@@ -198,9 +195,6 @@ function Berita() {
                   <tr>
                     <th scope="col">No</th>
                     <th className="text-long">Nama Guru</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
                     <th scope="col" className="text-left">
                       Mapel
                     </th>
@@ -215,28 +209,27 @@ function Berita() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((berita, no) => {
+                  {filteredList.map((row, no) => {
                     return (
                       <tr key={no}>
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
                         <td data-label="Nama Guru" className="text-long">
-                          {berita.nama_guru}
+                          {row.nama_guru}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
                         <td data-label="Mapel" className="text-left">
-                          {berita.mapel}
+                          {row.mapel}
                         </td>
                         <td data-label="NIP" className="text-left">
-                          {berita.nip}
+                          {row.nip}
                         </td>
                         <td data-label="Riwayat" className="text-left">
-                          {berita.riwayat}
+                          {row.riwayat}
                         </td>
                         <td data-label="Image" className="text-left">
                           <img
-                            src={berita.foto}
+                            src={row.foto}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
@@ -250,13 +243,12 @@ function Berita() {
                                   color: "white",
                                   textDecoration: "none",
                                 }}
-                                href={`/edit-guru/${berita.id}`}>
-                                {" "}
+                                href={`/edit-guru/${row.id}`}>
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>
                             <button
-                              onClick={() => deleteData(berita.id)}
+                              onClick={() => deleteData(row.id)}
                               type="button"
                               className="btn-danger btn-sm">
                               <i className="fa-solid fa-trash"></i>

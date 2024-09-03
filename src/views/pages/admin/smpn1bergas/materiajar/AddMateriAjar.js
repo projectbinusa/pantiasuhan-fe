@@ -46,15 +46,20 @@ function AddMateriAjar() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-materi-ajar");
       setTimeout(() => {
-        window.location.reload();
+        history.push("/admin-materi-ajar");
       }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
         history.push("/login");
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(error);
       }
     }
@@ -77,7 +82,6 @@ function AddMateriAjar() {
               <form onSubmit={add}>
                 <div className="row">
                   <div className="mb-3 col-lg-6">
-                    {/*  */}
                     <label
                       for="exampleInputEmail1"
                       className="form-label font-weight-bold">
@@ -92,7 +96,6 @@ function AddMateriAjar() {
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
-                    {/*  */}
                     <label
                       for="exampleInputEmail1"
                       className="form-label font-weight-bold">
@@ -107,7 +110,6 @@ function AddMateriAjar() {
                     />
                   </div>
                   <div className="mb-3 co-lg-6">
-                    {/*  */}
                     <label className="form-label font-weight-bold">File</label>
                     <input
                       onChange={(e) =>
@@ -118,7 +120,6 @@ function AddMateriAjar() {
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
-                    {/*  */}
                     <label className="form-label font-weight-bold">Mapel</label>
                     <input
                       value={mapel}
@@ -129,7 +130,6 @@ function AddMateriAjar() {
                     />
                   </div>
                   <div className="col-lg-12">
-                    {/*  */}
                     <label className="form-label font-weight-bold">
                       Penyusun
                     </label>
@@ -145,7 +145,6 @@ function AddMateriAjar() {
                     </div>
                   </div>
                   <div className="col-lg-12">
-                    {/*  */}
                     <label className="form-label font-weight-bold">Jenis</label>
                     <div className="">
                       <input
@@ -165,7 +164,7 @@ function AddMateriAjar() {
                     href="/admin-materi-ajar">
                     Batal
                   </a>
-                </button>{" "}
+                </button>
                 <button type="submit" className="btn-primary mt-3">
                   Submit
                 </button>

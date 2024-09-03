@@ -68,10 +68,17 @@ function Ekskul() {
             });
 
             setTimeout(() => {
-              // history.push("/admin-berita");
               window.location.reload();
             }, 1500);
-          });
+          }).catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err)
+          })
       }
     });
   };
@@ -117,7 +124,6 @@ function Ekskul() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -142,10 +148,9 @@ function Ekskul() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Data Ekstrakulikuler</p>
+              <p className="mt-3">Data Ekstrakurikuler</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">
@@ -212,7 +217,6 @@ function Ekskul() {
                         <td data-label="Tempat" className="text-left">
                           {berita.tempat}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
                         <td data-label="Aksi">
                           <div style={{minWidth:"150px"}} className="">
                             <button

@@ -49,6 +49,12 @@ function AddSarana() {
         localStorage.clear();
         history.push("/login");
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(error);
       }
     }
@@ -63,7 +69,7 @@ function AddSarana() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -74,7 +80,6 @@ function AddSarana() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Nama Sarana
                           </label>
@@ -86,8 +91,7 @@ function AddSarana() {
                             placeholder="Masukkan Nama Sarana"
                           />
                         </div>
-                        <div className="col-lg-12">
-                          {/* a */}
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Deskripsi Sarana
                           </label>
@@ -102,7 +106,6 @@ function AddSarana() {
                           </div>
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label  font-weight-bold ">
                             Kategori Sarana
                           </label>
@@ -132,7 +135,7 @@ function AddSarana() {
                           href="/admin-sarana">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

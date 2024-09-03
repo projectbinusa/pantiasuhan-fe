@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
-// import Footer from "../../../../component/Footer";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
@@ -79,6 +75,12 @@ function EditGuru() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -145,7 +147,6 @@ function EditGuru() {
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
-                    {/* a */}
                     <label className="form-label font-weight-bold">NIP</label>
                     <input
                       value={nip}
@@ -156,7 +157,6 @@ function EditGuru() {
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
-                    {/* a */}
                     <label className="form-label font-weight-bold">
                       Riwayat
                     </label>

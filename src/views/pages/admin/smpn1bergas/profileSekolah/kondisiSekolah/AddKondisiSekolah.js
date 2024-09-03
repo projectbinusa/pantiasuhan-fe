@@ -1,7 +1,4 @@
 import React from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -62,12 +59,10 @@ import {
   GeneralHtmlSupport,
   Alignment,
 } from "ckeditor5";
-// import { SlashCommand } from "ckeditor5-premium-features";
 import "ckeditor5/ckeditor5.css";
 
 
 function AddKondisiSekolah() {
-  //   const [judul, setJudul] = useState("");
   const [image, setImage] = useState(null);
   const [deskripsi, setDeskripsi] = useState("");
   const [show, setShow] = useState(false);
@@ -79,10 +74,7 @@ function AddKondisiSekolah() {
     e.persist();
 
     const formData = new FormData();
-    // formData.append("author", author);
-    // formData.append("judul", judul);
     formData.append("deskripsi", deskripsi);
-    // formData.append("categoryId", categoryId);
     formData.append("file", image);
 
     try {
@@ -112,6 +104,12 @@ function AddKondisiSekolah() {
         localStorage.clear();
         history.push("/login");
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(error);
       }
     }
@@ -249,7 +247,7 @@ function AddKondisiSekolah() {
       <Header />
       <div className="app-main">
         <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
+        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -259,20 +257,7 @@ function AddKondisiSekolah() {
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
-                        {/* <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Judul
-                          </label>
-                          <input
-                            value={judul}
-                            onChange={(e) => setJudul(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Judul"
-                          />
-                        </div> */}
-                        <div className="mb-3 co-lg-12">
-                          {/* a */}
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -287,240 +272,238 @@ function AddKondisiSekolah() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Deskripsi
                           </label>
                           <CKEditor
-                      editor={ClassicEditor}
-                      data={deskripsi} // Gunakan 'data' untuk set initial value
-                      onChange={(event, editor) => {
-                        const data = editor.getData(); // Ambil data dari editor
-                        setDeskripsi(data); // Set state dengan data dari editor
-                      }}
-                      config={{
-                        toolbar: [
-                          // --- Text alignment ---------------------------------------------------------------------------
-                          "alignment",
-                          "|",
-                          // --- Document-wide tools ----------------------------------------------------------------------
-                          "undo",
-                          "redo",
-                          // "|",
-                          // "alignment:left", // Tambahkan opsi align left
-                          // "alignment:center", // Tambahkan opsi align center
-                          // "alignment:right",
-                          "|",
-                          "importWord",
-                          "exportWord",
-                          "exportPdf",
-                          "|",
-                          "formatPainter",
-                          "caseChange",
-                          "findAndReplace",
-                          "selectAll",
-                          "wproofreader",
-                          "|",
-                          "insertTemplate",
-                          "tableOfContents",
-                          "|",
+                            editor={ClassicEditor}
+                            data={deskripsi} // Gunakan 'data' untuk set initial value
+                            onChange={(event, editor) => {
+                              const data = editor.getData(); // Ambil data dari editor
+                              setDeskripsi(data); // Set state dengan data dari editor
+                            }}
+                            config={{
+                              toolbar: [
+                                // --- Text alignment ---------------------------------------------------------------------------
+                                "alignment",
+                                "|",
+                                // --- Document-wide tools ----------------------------------------------------------------------
+                                "undo",
+                                "redo",
+                                // "|",
+                                // "alignment:left", // Tambahkan opsi align left
+                                // "alignment:center", // Tambahkan opsi align center
+                                // "alignment:right",
+                                "|",
+                                "importWord",
+                                "exportWord",
+                                "exportPdf",
+                                "|",
+                                "formatPainter",
+                                "caseChange",
+                                "findAndReplace",
+                                "selectAll",
+                                "wproofreader",
+                                "|",
+                                "insertTemplate",
+                                "tableOfContents",
+                                "|",
 
-                          // --- "Insertables" ----------------------------------------------------------------------------
+                                // --- "Insertables" ----------------------------------------------------------------------------
 
-                          "link",
-                          "insertImage",
-                          "ckbox",
-                          "insertTable",
-                          "blockQuote",
-                          "mediaEmbed",
-                          "codeBlock",
-                          "pageBreak",
-                          "horizontalLine",
-                          "specialCharacters",
-                          "-",
+                                "link",
+                                "insertImage",
+                                "ckbox",
+                                "insertTable",
+                                "blockQuote",
+                                "mediaEmbed",
+                                "codeBlock",
+                                "pageBreak",
+                                "horizontalLine",
+                                "specialCharacters",
+                                "-",
 
-                          // --- Block-level formatting -------------------------------------------------------------------
-                          "heading",
-                          "style",
-                          "|",
+                                // --- Block-level formatting -------------------------------------------------------------------
+                                "heading",
+                                "style",
+                                "|",
 
-                          // --- Basic styles, font and inline formatting -------------------------------------------------------
-                          "bold",
-                          "italic",
-                          "underline",
-                          "strikethrough",
-                          {
-                            label: "Basic styles",
-                            icon: "text",
-                            items: [
-                              "fontSize",
-                              "fontFamily",
-                              "fontColor",
-                              "fontBackgroundColor",
-                              "highlight",
-                              "superscript",
-                              "subscript",
-                              "code",
-                              "|",
-                              "textPartLanguage",
-                              "|",
-                            ],
-                          },
-                          "removeFormat",
-                          "|",
+                                // --- Basic styles, font and inline formatting -------------------------------------------------------
+                                "bold",
+                                "italic",
+                                "underline",
+                                "strikethrough",
+                                {
+                                  label: "Basic styles",
+                                  icon: "text",
+                                  items: [
+                                    "fontSize",
+                                    "fontFamily",
+                                    "fontColor",
+                                    "fontBackgroundColor",
+                                    "highlight",
+                                    "superscript",
+                                    "subscript",
+                                    "code",
+                                    "|",
+                                    "textPartLanguage",
+                                    "|",
+                                  ],
+                                },
+                                "removeFormat",
+                                "|",
 
-                          // --- Lists and indentation --------------------------------------------------------------------
-                          "bulletedList",
-                          "numberedList",
-                          "multilevelList",
-                          "todoList",
-                          "|",
-                          "outdent",
-                          "indent",
-                        ],
-                        styles: [
-                          // "full",    // Gambar mengambil lebar penuh konten
-                          // "side",    // Gambar sejajar dengan teks
-                          "alignLeft",
-                          "alignCenter",
-                          "alignRight",
-                        ],
-                        alignment: {
-                          options: ["left", "right", "center", "justify"],
-                        },
-                        plugins: [
-                          GeneralHtmlSupport,
-                          Bold,
-                          Alignment,
-                          Essentials,
-                          Heading,
-                          Indent,
-                          IndentBlock,
-                          Italic,
-                          Link,
-                          List,
-                          MediaEmbed,
-                          Paragraph,
-                          Table,
-                          Undo,
-                          Image,
-                          ImageCaption,
-                          ImageInsert,
-                          ImageResize,
-                          ImageStyle,
-                          ImageToolbar,
-                          ImageUpload,
-                          Base64UploadAdapter,
-                          Indent,
-                          IndentBlock,
-                          Italic,
-                          Link,
-                          LinkImage,
-                          List,
-                          ListProperties,
-                          MediaEmbed,
-                          Mention,
-                          PageBreak,
-                          Paragraph,
-                          PasteFromOffice,
-                          PictureEditing,
-                          RemoveFormat,
-                          SpecialCharacters,
-                          // SpecialCharactersEmoji,
-                          SpecialCharactersEssentials,
-                          Strikethrough,
-                          Style,
-                          Subscript,
-                          Superscript,
-                          Table,
-                          TableCaption,
-                          TableCellProperties,
-                          TableColumnResize,
-                          TableProperties,
-                          TableToolbar,
-                          TextPartLanguage,
-                          TextTransformation,
-                          TodoList,
-                          Underline,
-                          WordCount,
-                        ],
-                        image: {
-                          toolbar: [
-                            "imageTextAlternative",
-                            "toggleImageCaption",
-                            "|",
-                            "imageStyle:inline",
-                            "imageStyle:wrapText",
-                            "imageStyle:breakText",
-                            "|",
-                            "resizeImage",
-                            "|",
-                            "linkImage",
-                          ],
-                        },
-                        fontFamily: {
-                          supportAllValues: true,
-                        },
-                        fontSize: {
-                          options: [10, 12, 14, "default", 18, 20, 22],
-                          supportAllValues: true,
-                        },
-                        fontColor: {
-                          columns: 12,
-                          colors: REDUCED_MATERIAL_COLORS,
-                        },
-                        fontBackgroundColor: {
-                          columns: 12,
-                          colors: REDUCED_MATERIAL_COLORS,
-                        },
-                        heading: {
-                          options: [
-                            {
-                              model: "paragraph",
-                              title: "Paragraph",
-                              class: "ck-heading_paragraph",
-                            },
-                            {
-                              model: "heading1",
-                              view: "h1",
-                              title: "Heading 1",
-                              class: "ck-heading_heading1",
-                            },
-                            {
-                              model: "heading2",
-                              view: "h2",
-                              title: "Heading 2",
-                              class: "ck-heading_heading2",
-                            },
-                            {
-                              model: "heading3",
-                              view: "h3",
-                              title: "Heading 3",
-                              class: "ck-heading_heading3",
-                            },
-                            {
-                              model: "heading4",
-                              view: "h4",
-                              title: "Heading 4",
-                              class: "ck-heading_heading4",
-                            },
-                            {
-                              model: "heading5",
-                              view: "h5",
-                              title: "Heading 5",
-                              class: "ck-heading_heading5",
-                            },
-                            {
-                              model: "heading6",
-                              view: "h6",
-                              title: "Heading 6",
-                              class: "ck-heading_heading6",
-                            },
-                          ],
-                        },
-                        // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
-                      }}
-                    />
+                                // --- Lists and indentation --------------------------------------------------------------------
+                                "bulletedList",
+                                "numberedList",
+                                "multilevelList",
+                                "todoList",
+                                "|",
+                                "outdent",
+                                "indent",
+                              ],
+                              styles: [
+                                // "full",    // Gambar mengambil lebar penuh konten
+                                // "side",    // Gambar sejajar dengan teks
+                                "alignLeft",
+                                "alignCenter",
+                                "alignRight",
+                              ],
+                              alignment: {
+                                options: ["left", "right", "center", "justify"],
+                              },
+                              plugins: [
+                                GeneralHtmlSupport,
+                                Bold,
+                                Alignment,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                MediaEmbed,
+                                Paragraph,
+                                Table,
+                                Undo,
+                                Image,
+                                ImageCaption,
+                                ImageInsert,
+                                ImageResize,
+                                ImageStyle,
+                                ImageToolbar,
+                                ImageUpload,
+                                Base64UploadAdapter,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                LinkImage,
+                                List,
+                                ListProperties,
+                                MediaEmbed,
+                                Mention,
+                                PageBreak,
+                                Paragraph,
+                                PasteFromOffice,
+                                PictureEditing,
+                                RemoveFormat,
+                                SpecialCharacters,
+                                // SpecialCharactersEmoji,
+                                SpecialCharactersEssentials,
+                                Strikethrough,
+                                Style,
+                                Subscript,
+                                Superscript,
+                                Table,
+                                TableCaption,
+                                TableCellProperties,
+                                TableColumnResize,
+                                TableProperties,
+                                TableToolbar,
+                                TextPartLanguage,
+                                TextTransformation,
+                                TodoList,
+                                Underline,
+                                WordCount,
+                              ],
+                              image: {
+                                toolbar: [
+                                  "imageTextAlternative",
+                                  "toggleImageCaption",
+                                  "|",
+                                  "imageStyle:inline",
+                                  "imageStyle:wrapText",
+                                  "imageStyle:breakText",
+                                  "|",
+                                  "resizeImage",
+                                  "|",
+                                  "linkImage",
+                                ],
+                              },
+                              fontFamily: {
+                                supportAllValues: true,
+                              },
+                              fontSize: {
+                                options: [10, 12, 14, "default", 18, 20, 22],
+                                supportAllValues: true,
+                              },
+                              fontColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              fontBackgroundColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              heading: {
+                                options: [
+                                  {
+                                    model: "paragraph",
+                                    title: "Paragraph",
+                                    class: "ck-heading_paragraph",
+                                  },
+                                  {
+                                    model: "heading1",
+                                    view: "h1",
+                                    title: "Heading 1",
+                                    class: "ck-heading_heading1",
+                                  },
+                                  {
+                                    model: "heading2",
+                                    view: "h2",
+                                    title: "Heading 2",
+                                    class: "ck-heading_heading2",
+                                  },
+                                  {
+                                    model: "heading3",
+                                    view: "h3",
+                                    title: "Heading 3",
+                                    class: "ck-heading_heading3",
+                                  },
+                                  {
+                                    model: "heading4",
+                                    view: "h4",
+                                    title: "Heading 4",
+                                    class: "ck-heading_heading4",
+                                  },
+                                  {
+                                    model: "heading5",
+                                    view: "h5",
+                                    title: "Heading 5",
+                                    class: "ck-heading_heading5",
+                                  },
+                                  {
+                                    model: "heading6",
+                                    view: "h6",
+                                    title: "Heading 6",
+                                    class: "ck-heading_heading6",
+                                  },
+                                ],
+                              },
+                            }}
+                          />
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">

@@ -1,7 +1,4 @@
 import React from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -25,10 +22,8 @@ function AddGalery() {
     e.persist();
 
     const formData = new FormData();
-    // formData.append("author", author);
     formData.append("judul", judul);
     formData.append("deskripsi", deskripsi);
-    // formData.append("categoryId", categoryId);
     formData.append("file", image);
 
     try {
@@ -54,6 +49,12 @@ function AddGalery() {
         localStorage.clear();
         history.push("/login");
       } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         console.log(error);
       }
     }
@@ -79,7 +80,6 @@ function AddGalery() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Judul
                           </label>
@@ -92,7 +92,6 @@ function AddGalery() {
                           />
                         </div>
                         <div className="mb-3 co-lg-6">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -107,7 +106,6 @@ function AddGalery() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Deskripsi
                           </label>
@@ -125,7 +123,7 @@ function AddGalery() {
                           href="/admin-galery">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

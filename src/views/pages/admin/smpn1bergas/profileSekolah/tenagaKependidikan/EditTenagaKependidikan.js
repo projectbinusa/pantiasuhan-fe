@@ -12,7 +12,6 @@ import { API_DUMMY } from "../../../../../../utils/base_URL";
 
 function EditTenagaKependidikan() {
   const [status, setStatus] = useState("");
-  //   const [image, setImage] = useState(null);
   const [nama, setNama] = useState("");
   const [image, setImage] = useState(null);
   const [show, setShow] = useState(false);
@@ -72,6 +71,12 @@ function EditTenagaKependidikan() {
           localStorage.clear();
           history.push("/login");
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
           console.log(error);
         }
       });
@@ -97,7 +102,6 @@ function EditTenagaKependidikan() {
                     <form onSubmit={update}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Nama
                           </label>
@@ -110,24 +114,7 @@ function EditTenagaKependidikan() {
                             placeholder="Masukkan Nama"
                           />
                         </div>
-                        {/* <div className="mb-3 co-lg-6">
-                        {/* a */}
-                        {/* <label className="form-label font-weight-bold">
-                          Gambar
-                        </label>
-                        <input
-                          onChange={(e) =>
-                            setImage(
-                              e.target.files ? e.target.files[0] : null
-                            )
-                          }
-                          type="file"
-                          className="form-control"
-                          required
-                        /> */}
-                        {/* </div> */}
                         <div className="mb-3 col-lg-12">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Status
                           </label>
@@ -140,7 +127,6 @@ function EditTenagaKependidikan() {
                             placeholder="Masukkan Status"></textarea>
                         </div>
                         <div className="mb-3 co-lg-6">
-                          {/* a */}
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -161,7 +147,7 @@ function EditTenagaKependidikan() {
                           href="/admin-tenaga-kependidikan">
                           Batal
                         </a>
-                      </button>{" "}
+                      </button>
                       <button type="submit" className="btn-primary mt-3">
                         Submit
                       </button>

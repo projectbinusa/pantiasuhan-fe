@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
-// import Header from "../../../../component/Header";
-// import Sidebar from "../../../../component/Sidebar";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
-// import { API_DUMMY } from "../../../../utils/base_URL";
 import Swal from "sweetalert2";
 import AOS from "aos";
 
 import {
-  IconButton,
-  InputAdornment,
   Pagination,
-  TextField,
 } from "@mui/material";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
@@ -35,8 +28,7 @@ function KondisiSekolah() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -82,10 +74,17 @@ function KondisiSekolah() {
             });
 
             setTimeout(() => {
-              // history.push("/admin-berita");
               window.location.reload();
             }, 1500);
-          });
+          }).catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err)
+          })
       }
     });
   };
@@ -131,7 +130,6 @@ function KondisiSekolah() {
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -159,7 +157,6 @@ function KondisiSekolah() {
               <p className="mt-3">Data Guru</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
-                  {/* a */}
                   <label className="form-label mt-2">Rows per page:</label>
                 </div>
                 <div className="col-auto">
@@ -185,7 +182,6 @@ function KondisiSekolah() {
                   <div role="group" className="btn-group-sm btn-group">
                     {list.length > 0 ? (
                       <>
-                        {" "}
                         <button
                           style={{ cursor: "not-allowed" }}
                           disabled
@@ -195,7 +191,6 @@ function KondisiSekolah() {
                       </>
                     ) : (
                       <>
-                        {" "}
                         <button className="active btn-focus p-2 rounded">
                           <a
                             style={{ color: "white", textDecoration: "none" }}
@@ -216,7 +211,6 @@ function KondisiSekolah() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    {/* <th className="text-long">Judul</th> */}
                     <th
                       scope="col"
                       className="text-left"
@@ -234,10 +228,6 @@ function KondisiSekolah() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        {/* <td data-label="Judul" className="text-long">
-                          {berita.judul}
-                        </td> */}
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
                         <td
                           data-label="Deskripsi"
                           style={{
@@ -270,7 +260,6 @@ function KondisiSekolah() {
                                   textDecoration: "none",
                                 }}
                                 href={`/edit-kondisi-sekolah/${berita.id}`}>
-                                {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>

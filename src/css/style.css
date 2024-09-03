@@ -9867,6 +9867,14 @@ ul {
   -webkit-box-orient: vertical;
 }
 
+.content-isi {
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 5 !important;
+  -webkit-box-orient: vertical;
+  text-align: justify;
+}
+
 .isiBerita2 {
   overflow: hidden !important;
   display: -webkit-box !important;

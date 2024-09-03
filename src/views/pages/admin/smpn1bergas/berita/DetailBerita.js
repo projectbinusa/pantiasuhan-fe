@@ -113,7 +113,7 @@ function DetailBerita() {
                   />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label fw-bold">Category Berita</label>
+                  <label class="form-label fw-bold">Kategori Berita</label>
                   <input
                     type="text"
                     class="form-control"
@@ -125,7 +125,7 @@ function DetailBerita() {
                   <label class="form-label fw-bold">Isi Berita</label>
                   <div
                     className="form-control"
-                    style={{ height: "fit-content", background:"#e9ecef" }}
+                    style={{ height: "fit-content", background: "#e9ecef" }}
                     dangerouslySetInnerHTML={{ __html: isiBerita }}
                   />
                 </div>
@@ -136,7 +136,6 @@ function DetailBerita() {
                 <a
                   href="/admin-berita"
                   style={{ color: "white", textDecoration: "none" }}>
-                  {" "}
                   Kembali
                 </a>
               </button>
