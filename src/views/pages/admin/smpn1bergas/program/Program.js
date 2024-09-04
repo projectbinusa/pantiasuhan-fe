@@ -127,6 +127,18 @@ function Program() {
     setSidebarToggled(!sidebarToggled);
   };
 
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div
       className={`page-wrapper chiller-theme ${
@@ -223,7 +235,7 @@ function Program() {
                     <th scope="col" className="text-left">
                       Judul Program
                     </th>
-                    <th className="text-left">Tujuan</th>
+                    {/* <th className="text-left">Tujuan</th> */}
                     {/* <th className="text-left">Skala</th> */}
                     <th className="text-left">Aksi</th>
                   </tr>
@@ -239,10 +251,10 @@ function Program() {
                           {berita.namaProgram}
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}{" "}
-                        <td data-label="Judul Program" className="">
+                        <td data-label="Judul Program" className="text-long">
                           {berita.judulProgram}
                         </td>
-                        <td
+                        {/* <td
                           style={{
                             maxWidth: "250px",
                             whiteSpace: "nowrap",
@@ -254,7 +266,7 @@ function Program() {
                           <div
                             dangerouslySetInnerHTML={{ __html: berita.tujuan }}
                           />
-                        </td>
+                        </td> */}
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button

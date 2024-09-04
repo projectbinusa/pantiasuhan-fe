@@ -23,10 +23,23 @@ function VisiMisi() {
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
+
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/visiMisi/all/terbaru?page=${page - 1
+        `${API_DUMMY}/smpn1bergas/api/visiMisi/all/terbaru?page=${
+          page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -36,6 +49,10 @@ function VisiMisi() {
       );
       setList(response.data.data.content);
       console.log(response.data.data.content);
+      console.log(
+        "visi: ",
+        response.data.data.content.map((dt) => dt.visi)
+      );
       setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
@@ -74,15 +91,16 @@ function VisiMisi() {
             setTimeout(() => {
               window.location.reload();
             }, 1500);
-          }).catch((err) => {
+          })
+          .catch((err) => {
             Swal.fire({
               icon: "error",
               title: "Hapus Data Gagal!",
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     });
   };
@@ -119,20 +137,21 @@ function VisiMisi() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">
@@ -219,11 +238,11 @@ function VisiMisi() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th className="text-center">Visi</th>
-                    <th scope="col" className="text-center">
+                    <th className="text-left">Visi</th>
+                    {/* <th scope="col" className="text-left">
                       Misi
                     </th>
-                    <th className="text-center">Tujuan</th>
+                    <th className="text-left">Tujuan</th> */}
                     <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
@@ -242,12 +261,12 @@ function VisiMisi() {
                             textOverflow: "ellipsis",
                           }}
                           data-label="Visi"
-                          className="text-left">
+                          className="">
                           <div
                             dangerouslySetInnerHTML={{ __html: berita.visi }}
                           />
                         </td>
-                        <td
+                        {/* <td
                           style={{
                             maxWidth: "150px",
                             whiteSpace: "nowrap",
@@ -272,7 +291,7 @@ function VisiMisi() {
                           <div
                             dangerouslySetInnerHTML={{ __html: berita.tujuan }}
                           />
-                        </td>
+                        </td> */}
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button

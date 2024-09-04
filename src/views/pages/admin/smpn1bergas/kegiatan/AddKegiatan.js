@@ -76,6 +76,18 @@ function AddKegiatan() {
     setSidebarToggled(!sidebarToggled);
   };
 
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   //add
   const add = async (e) => {
     e.preventDefault();

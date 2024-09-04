@@ -125,6 +125,18 @@ function AddProgram() {
     setSidebarToggled(!sidebarToggled);
   };
 
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const REDUCED_MATERIAL_COLORS = [
     { label: "Red 50", color: "#ffebee" },
     { label: "Purple 50", color: "#f3e5f5" },

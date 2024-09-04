@@ -240,7 +240,7 @@ function EditKeuangan() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/keuangan/get/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/keuangan/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -265,7 +265,19 @@ function EditKeuangan() {
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
-  
+
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div  className={`page-wrapper chiller-theme ${
       sidebarToggled ? "toggled" : ""

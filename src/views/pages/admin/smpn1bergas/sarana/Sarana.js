@@ -127,6 +127,18 @@ function Sarana() {
     setSidebarToggled(!sidebarToggled);
   };
 
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className={`page-wrapper chiller-theme ${
       sidebarToggled ? "toggled" : ""
@@ -216,9 +228,9 @@ function Sarana() {
                   <tr>
                     <th scope="col">No</th>
                     <th className="text-long">Nama sarana</th>
-                    <th scope="col" className="text-left">
+                    {/* <th scope="col" className="text-left">
                       Deskripsi
-                    </th>
+                    </th> */}
                     <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
@@ -232,7 +244,7 @@ function Sarana() {
                         <td data-label="Nama Sarana" className="text-long">
                           {berita.nama_sarana}
                         </td>
-                        <td
+                        {/* <td
                           data-label="Deskripsi"
                           className=""
                           style={{
@@ -242,7 +254,7 @@ function Sarana() {
                             textOverflow: "ellipsis",
                           }}>
                           {berita.deskripsi}
-                        </td>
+                        </td> */}
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button

@@ -260,12 +260,24 @@ function EditVisiMisi() {
     { label: "Grey 900", color: "#212121" },
     { label: "Blue grey 900", color: "#263238" },
   ];
-  
+
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
+
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div className={`page-wrapper chiller-theme ${

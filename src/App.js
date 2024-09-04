@@ -4,6 +4,7 @@ import "./css/style.css";
 import Login from "./views/pages/auth/Login";
 import Register from "./views/pages/auth/Register";
 import PrivateRoute from "./utils/PrivateRoute";
+import "../src/css/table.css"
 
 // pageSekolah
 import sambutan from "./views/pagesekolah/profilSekolah/sambutan/SambutanKepala";
