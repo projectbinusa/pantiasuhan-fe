@@ -59,10 +59,8 @@
 .modal-image {
   width: auto;
   height: 52vh;
-  /* Adjust height to make the image larger */
   max-width: 100%;
   max-height: 60vh;
-  /* Ensures the image fits within the modal */
   border-radius: 8px;
   margin-bottom: 20px;
 }

@@ -43,27 +43,33 @@ function PrestasiSekolah() {
           </ul>
         </div>
         <div className="">
+        {prestasi.length > 0 ? (
           <div className="container-grid">
             {prestasi.map((item) => (
-              <div class="card item" key={item.id}>
-                <div class="single-project-inner style-two">
-                  <div class="thumb">
+              <div className="card item" key={item.id}>
+                <div className="single-project-inner style-two">
+                  <div className="thumb">
                     {item.foto !== null ? (
                       <img src={item.foto} alt="img" />
                     ) : (
                       <img src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no" alt="img" />
                     )}
                   </div>
-                  <div class="details-wrap">
+                  <div className="details-wrap">
                     <h3>{item.judul}</h3>
-                    <a href={`/detail-prestasi-${item.id}`}
-                    >SELENGKAPNYA <i class="fas fa-arrow-right"></i
-                    ></a>
+                    <a href={`/detail-prestasi-${item.id}`}>
+                      SELENGKAPNYA <i className="fas fa-arrow-right"></i>
+                    </a>
                   </div>
                 </div>
               </div>
             ))}
           </div>
+        ) : (
+          <p style={{ textAlign: 'center', fontSize: '1.2em', color: '#666', marginTop: '20px' }}>
+            Prestasi Tidak Tersedia.
+          </p>
+        )}
           <div className="pagination-container">
             <Pagination
               count={totalPages}

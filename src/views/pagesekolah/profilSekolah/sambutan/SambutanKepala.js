@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_DUMMY } from "../../../../utils/base_URL";
-import NavbarSekolah from "../../../../component/NavbarSekolah";
+import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import "../../../../css/sambutan/sambutan.css";
-import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 
 function SambutanKepala() {
   const [sambutanData, setSambutanData] = useState({
@@ -32,7 +31,7 @@ function SambutanKepala() {
       } else {
         setSambutanData({
           judul: "Data tidak tersedia",
-          isi: "Tidak ada informasi sambutan yang tersedia.",
+          isi: "",
           nama: "",
           nip: "",
           foto: "",
@@ -54,6 +53,8 @@ function SambutanKepala() {
     getAllSambutan();
   }, []);
 
+  const hasData = sambutanData.judul !== "Data tidak tersedia" && sambutanData.isi !== "";
+
   return (
     <div>
       <NavbarSekolah2 />
@@ -74,13 +75,25 @@ function SambutanKepala() {
           </ul>
         </div>
         <div className="sambutan-container">
-          <div className="parent-sambutan">
+          <div 
+            className="parent-sambutan"
+            style={{ 
+              boxShadow: hasData ? "0 0 20px rgba(0, 0, 0, 0.1)" : "none" 
+            }}
+          >
             <h2 className="sambutan-title">{sambutanData.judul}</h2>
-            {sambutanData.foto && (
+            {sambutanData.foto ? (
               <div className="sambutan-image">
                 <img
                   src={sambutanData.foto}
                   alt="Kepala Sekolah"
+                />
+              </div>
+            ) : (
+              <div className="sambutan-image">
+                <img
+                  src="https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
+                  alt="Default"
                 />
               </div>
             )}

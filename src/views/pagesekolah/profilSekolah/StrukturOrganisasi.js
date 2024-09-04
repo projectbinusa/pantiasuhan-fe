@@ -111,66 +111,74 @@ function StrukturOrganisasi() {
                   Struktur Dan Anggota Organisasi
                 </h2>
               </div>
-              <div className="mb-5">
-                <button
-                  onClick={download}
-                  style={{
-                    border: "none",
-                    backgroundColor: "#003366",
-                    color: "white",
-                    display: "flex",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    padding: 10,
-                    borderRadius:"10px",
-                    fontWeight: "600",
-                  }}>
-                  <p></p> Download lengkap struktur
-                  disini
-                </button>
-              </div>
+              {struktur.length > 0 && (
+                <div className="mb-5">
+                  <button
+                    onClick={download}
+                    style={{
+                      border: "none",
+                      backgroundColor: "#003366",
+                      color: "white",
+                      display: "flex",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      padding: 10,
+                      borderRadius: "10px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Download lengkap struktur disini
+                  </button>
+                </div>
+              )}
             </div>
           </div>
-          <div class="row">
-            {struktur.map((item) => (
-              <div class="col-lg-4 col-md-6">
-                <div class="single-team-inner style-2 text-center">
-                  <div class="thumb">
-                    <img src={item.foto} alt="img" />
-                  </div>
-                  <div class="details-wrap">
-                    <div class="details-inner">
-                      <h4>
-                        <a>{item.nama}</a>
-                      </h4>
-                      <p>{item.jabatan}</p>
-                      {/* <ul class="social-media mt-3 mb-2">
-                    <li>
-                      <a class="facebook" href="#">
-                        <i class="fab fa-facebook-f"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="twitter" href="#">
-                        <i class="fab fa-twitter"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="instagram" href="#">
-                        <i class="fab fa-instagram"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="youtube" href="#">
-                        <i class="fab fa-youtube"></i>
-                      </a>
-                    </li>
-                  </ul> */}
+          <div className="row">
+            {struktur.length > 0 ? (
+              struktur.map((item) => (
+                <div className="col-lg-4 col-md-6" key={item.id}>
+                  <div className="single-team-inner style-2 text-center">
+                    <div className="thumb">
+                      <img src={item.foto} alt={item.nama} />
+                    </div>
+                    <div className="details-wrap">
+                      <div className="details-inner">
+                        <h4>
+                          <a>{item.nama}</a>
+                        </h4>
+                        <p>{item.jabatan}</p>
+                        {/* <ul class="social-media mt-3 mb-2">
+                          <li>
+                            <a class="facebook" href="#">
+                              <i class="fab fa-facebook-f"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="twitter" href="#">
+                              <i class="fab fa-twitter"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="instagram" href="#">
+                              <i class="fab fa-instagram"></i>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="youtube" href="#">
+                              <i class="fab fa-youtube"></i>
+                            </a>
+                          </li>
+                        </ul> */}
+                      </div>
                     </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="col-12 text-center">
+                <p>Struktur Dan Anggota Organisasi Tidak Tersedia</p>
               </div>
-            ))}
+            )}
 
             {/* <div class="col-lg-3 col-md-6">
             <div class="single-team-inner style-2 text-center">
