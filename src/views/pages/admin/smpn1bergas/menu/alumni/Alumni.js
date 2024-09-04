@@ -5,8 +5,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
-import Header from "../../../../../../component/Header";
-import Sidebar from "../../../../../../component/Sidebar";
+
 import Sidebar1 from "../../../../../../component/Sidebar1";
 
 function Alumni() {

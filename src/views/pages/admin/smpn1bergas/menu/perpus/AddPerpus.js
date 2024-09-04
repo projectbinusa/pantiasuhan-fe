@@ -6,8 +6,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
-import Header from "../../../../../../component/Header";
-import Sidebar from "../../../../../../component/Sidebar";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -349,7 +348,7 @@ function AddPerpus() {
                             className="form-control"
                             placeholder="Masukkan Nomor Buku"
                           />
-                        </div> 
+                        </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Gambar
