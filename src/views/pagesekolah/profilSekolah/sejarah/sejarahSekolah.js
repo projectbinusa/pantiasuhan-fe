@@ -45,14 +45,14 @@ function SejarahSekolah() {
             </li>
             <li>
               <i className="fas fa-angle-right"></i>{" "}
-              <span style={{ fontWeight: "normal" }}>Sejarah Sekolah</span>
+              <span style={{ fontWeight: "normal" }}>Sejarah</span>
             </li>
           </ul>
         </div>
         <div style={{ lineHeight: "1.8", textAlign: "justify" }}>
           <div style={{ margin: "0 auto 0", padding: "0" }}>
             {sejarah.judul === "Data tidak tersedia" ||
-            sejarah.isi === "Data tidak tersedia" ? (
+              sejarah.isi === "Data tidak tersedia" ? (
               <p
                 style={{
                   fontSize: "1.1em",
@@ -60,7 +60,7 @@ function SejarahSekolah() {
                   color: "#666",
                 }}
               >
-                Sejarah Sekolah Tidak Tersedia.
+                Sejarah Tidak Tersedia.
               </p>
             ) : (
               <>

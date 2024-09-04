@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import NavbarSekolah from "../../../component/NavbarSekolah";
+import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 import HeaderPerpus from "./HeaderPerpus";
 import "../../../css/perpustakaan/perpustakaan.css";
 import CardPerpustakaan from "./CardPerpustakaan";
@@ -7,8 +7,6 @@ import FooterSekolah from "../../../component/FooterSekolah";
 import axios from "axios";
 import { API_DUMMY } from "../../../utils/base_URL";
 import { Pagination } from "@mui/material";
-import NavbarSekolah2 from "../../../component/NavbarSekolah2";
-
 
 function Perpustakaan() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -40,19 +38,25 @@ function Perpustakaan() {
             <NavbarSekolah2 />
             <main className="perpustakaan-container container">
                 <HeaderPerpus />
-                <main className="perpus-container">
-                    {bukus.map(item => (
-                        <CardPerpustakaan
-                            key={item.id}
-                            image={item.foto}
-                            id={item.id}
-                            title={item.nama_buku}
-                            content={item.sinopsis}
-                            pengarang={item.pengarang}
-                            tahun={item.tahun}
-                        />
-                    ))}
-                </main>
+                {bukus.length > 0 ? (
+                    <main className="perpus-container">
+                        {bukus.map(item => (
+                            <CardPerpustakaan
+                                key={item.id}
+                                image={item.foto}
+                                id={item.id}
+                                title={item.nama_buku}
+                                content={item.sinopsis}
+                                pengarang={item.pengarang}
+                                tahun={item.tahun}
+                            />
+                        ))}
+                    </main>
+                ) : (
+                    <p style={{ textAlign: 'center', fontSize: '1.2em', color: '#666' }}>
+                        Buku Tidak Tersedia.
+                    </p>
+                )}
                 <div className="d-flex justify-content-center align-items-center mt-5">
                     <Pagination
                         count={totalPages}

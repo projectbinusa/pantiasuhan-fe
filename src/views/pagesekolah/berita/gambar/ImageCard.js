@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import "../../../../css/galery/gallery.css"; // Add your custom CSS for styling
-import { Box, Modal, Typography } from '@mui/material';
+import "../../../../css/galery/gallery.css";
+import { Box, Modal } from '@mui/material';
 
 const ImageCard = ({ image, title, content }) => {
 

@@ -21,7 +21,7 @@ function Ekstrakurikuler() {
       const response = await axios.get(
         `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all/terbaru?page=${
           page - 1
-        }&size=18`
+        }&size=12`
       );
       setEkstrakulikuler(response.data.data.content);
       setTotalPage(response.data.data.totalPages);
@@ -34,67 +34,74 @@ function Ekstrakurikuler() {
     getAllEkstrakurikuler(currentPage);
   }, [currentPage]);
 
-  const isSingleCard = ekstrakulikuler.length === 1;
-
   return (
-    <div className={isSingleCard ? "single-card" : ""}>
+    <div>
       <NavbarSekolah2 />
       <main className="container-berita container">
         <div className="header-berita">
           <ul>
             <li>
               <a href="/">
-                <i class="fas fa-home"></i> Beranda
+                <i className="fas fa-home"></i> Beranda
               </a>
             </li>
             <li>
-              <i class="fas fa-angle-right"></i>{" "}
+              <i className="fas fa-angle-right"></i>{" "}
               <span style={{ fontWeight: "normal" }}>Ekstrakurikuler</span>
             </li>
           </ul>
         </div>
-        <div className="">
-          <div className="card-container">
-            {ekstrakulikuler.map((item) => {
-              return (
-                <div className="ekstra-card" key={item.id}>
-                  <div className="card-body">
-                    <img src={item.foto} alt={item.name} className="card-image" />
-                    <h5 className="card-title">{item.name}</h5>
-                    <p className="card-description">{item.deskripsi}</p>
-                    <hr />
-                    <div className="card-content">
-                      <p>{item.prestasi}</p>
-                      <p>
-                        <strong>Koordinator:</strong> {item.koordinator}
-                      </p>
-                      <p>
-                        <strong>Pembimbing:</strong> {item.pembimbing}
-                      </p>
-                      <p>
-                        <strong>Jadwal:</strong> {item.jadwal}
-                      </p>
-                      <p>
-                        <strong>Tempat:</strong> {item.tempat}
-                      </p>
-                    </div>
+        <div className="row">
+          {ekstrakulikuler.map((item) => (
+            <div className="col-lg-4 col-md-6" key={item.id}>
+              <div className="single-team-inner style-4 text-center">
+                <div className="thumb">
+                  <img src={item.foto} alt={item.name} className="team-image" />
+                </div>
+                <div className="details-wrap">
+                  <div className="details-inner">
+                    <h4 className="team-name">
+                      <p>{item.name}</p>
+                    </h4>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-          <div className="d-flex justify-content-center align-items-center mt-3">
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={handlePageChange}
-              color="primary"
-              shape="rounded"
-              style={{ marginBottom: "30px" }}
-              showFirstButton
-              showLastButton
-            />
-          </div>
+                <div className="hover-details-wrap">
+                  <div className="hover-details-inner">
+                    <h4 className="team-name-hover">
+                      <p>{item.name}</p>
+                    </h4>
+                    <p className="team-description">
+                      {item.deskripsi}
+                    </p>
+                    <p className="team-coordinator">
+                      <strong>Koordinator:</strong> {item.koordinator}
+                    </p>
+                    <p className="team-schedule">
+                      <strong>Jadwal:</strong> {item.jadwal}
+                    </p>
+                    <p className="team-location">
+                      <strong>Tempat:</strong> {item.tempat}
+                    </p>
+                    <p className="team-achievements">
+                      <strong>Prestasi:</strong> {item.prestasi}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="d-flex justify-content-center align-items-center mt-3">
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+            shape="rounded"
+            style={{ marginBottom: "30px" }}
+            showFirstButton
+            showLastButton
+          />
         </div>
       </main>
       <FooterSekolah />

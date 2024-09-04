@@ -3,21 +3,29 @@ import FooterSekolah from '../../../../component/FooterSekolah';
 import axios from 'axios';
 import { API_DUMMY } from '../../../../utils/base_URL';
 import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
-import NavbarSekolah from '../../../../component/NavbarSekolah';
 
 function KonsidisiSekolahView() {
   const [foto, setFoto] = useState("");
   const [isi, setIsi] = useState("");
   const [isHovered, setIsHovered] = useState(false);
+  const [dataAvailable, setDataAvailable] = useState(true);
 
   useEffect(() => {
     axios.get(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/all/terbaru?page=0&size=1`)
       .then(response => {
-        setFoto(response.data.data.content[0].foto);
-        setIsi(response.data.data.content[0].deskripsi);
+        if (response.data.data.content.length > 0) {
+          setFoto(response.data.data.content[0].foto);
+          setIsi(response.data.data.content[0].deskripsi);
+          setDataAvailable(true);
+        } else {
+          setFoto("");
+          setIsi("");
+          setDataAvailable(false);
+        }
       })
       .catch(error => {
         console.error('Error fetching data:', error);
+        setDataAvailable(false);
       });
   }, []);
 
@@ -38,22 +46,39 @@ function KonsidisiSekolahView() {
           <ul>
             <li>
               <a href="/">
-                <i class="fas fa-home"></i> Beranda
+                <i className="fas fa-home"></i> Beranda
               </a>
             </li>
             <li>
-              <i class="fas fa-angle-right"></i>{" "}
+              <i className="fas fa-angle-right"></i>{" "}
               <span style={{ fontWeight: "normal" }}>Kondisi Sekolah</span>
             </li>
           </ul>
         </div>
         <div style={{ lineHeight: '1.8' }}>
           <div className="container">
-            {foto !== "" ? (<img src={foto} style={mediaStyle} className='image-style'/>) : (<></>)}
-            <hr style={{ marginTop: '20px', borderColor: '#ccc' }} />
-            <p style={{ fontSize: '1.2em', textAlign: "left" }}>
-              {isi}
-            </p>
+            {dataAvailable ? (
+              <>
+                {foto && (
+                  <img 
+                    src={foto} 
+                    style={mediaStyle} 
+                    className='image-style'
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    alt="Kondisi Sekolah" 
+                  />
+                )}
+                <hr style={{ marginTop: '20px', borderColor: '#ccc' }} />
+                <p style={{ fontSize: '1.2em', textAlign: "left" }}>
+                  {isi}
+                </p>
+              </>
+            ) : (
+              <p style={{ textAlign: 'center', fontSize: '1.2em', color: '#666' }}>
+                Kondisi Sekolah Tidak Tersedia.
+              </p>
+            )}
           </div>
         </div>
       </main>

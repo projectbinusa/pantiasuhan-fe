@@ -147,7 +147,7 @@ function FooterSekolah() {
                     <p style={{ color: "white", textAlign: "left" }}>{fax}</p>
                   </>
                 ) : (
-                  <p style={{ color: "white", textAlign: "left" }}>Informasi kontak tidak tersedia</p>
+                  <p style={{ color: "white", textAlign: "left" }}>Informasi Kontak Tidak Tersedia</p>
                 )}
               </div>
             </div>
@@ -155,9 +155,9 @@ function FooterSekolah() {
           <div style={{ width: "100%" }}>
             <div className="widget widget_news">
               <h4 className="widget-title" style={{ textTransform: "uppercase" }}>Berita Terbaru</h4>
-              <div className="details card-container">
-                {berita.length > 0 ? (
-                  berita.map(news => (
+              {berita.length > 0 ? (
+                <div className="details card-container">
+                  {berita.map(news => (
                     <div className="card" key={news.id}>
                       <div className="card-body">
                         <a href={`/detail-news-${news.id}`} className="card-title">{news.judulBerita}</a>
@@ -165,11 +165,14 @@ function FooterSekolah() {
                         <p className="card-content" style={{ fontSize: "14px" }}>{news.isiBerita}</p>
                       </div>
                     </div>
-                  ))
-                ) : (<></>)}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <p style={{ fontStyle: "italic", color: "white", fontSize: "0.9rem"   }}>Berita Terbaru Tidak Tersedia</p>
+              )}
             </div>
           </div>
+
         </div>
 
         {/* Footer Bottom */}
