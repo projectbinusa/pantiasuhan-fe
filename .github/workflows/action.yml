@@ -1,4 +1,4 @@
-name: CI/CD for React js
+name: CI/CD for React App
 
 on:
   push:
@@ -22,8 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm install    # Untuk install semua dependensi
 
-      - name: Build React JS
-        run: npm run build     # Untuk build
+      - name: Build React App
+        run: npm run build     # Untuk build 
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@master
@@ -32,14 +32,53 @@ jobs:
           username: bootcampserver
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            sudo su -
-            ${{ secrets.SSH_PASSWORD }}
-            cd smpn1bergas/smpn1bergas-client/
-            echo "${{ secrets.SSH_PASSWORD }}" | sudo -S git pull origin main
+            cd smpn1bergas/smpn1bergas-client
+            echo "${{ secrets.SSH_PASSWORD }}" | sudo -S git pull origin develop
             echo "${{ secrets.SSH_PASSWORD }}" | sudo -S npm install
             echo ${{ secrets.SSH_PASSWORD }} | sudo -S npm run build
-            sudo rm -rf /var/www/*  # Hapus konten eksisting di direktori Apache
-            sudo cp -r build/* /var/www/  # Salin konten build ke direktori Apache
-            cd /etc/apache2/sites-enabled
-            sudo apachectl configtest
-            sudo service apache2 restart
+
+# name: CI/CD for React js
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build:
+#     name: Build and Deploy
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: '16'  # Pilih versi Node.js yang sesuai
+
+#       - name: Install dependencies
+#         run: npm install    # Untuk install semua dependensi
+
+#       - name: Build React JS
+#         run: npm run build     # Untuk build
+
+#       - name: Deploy to Server
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: 192.168.1.99 
+#           username: bootcampserver
+#           password: ${{ secrets.SSH_PASSWORD }}
+#           script: |
+#             sudo su -
+#             ${{ secrets.SSH_PASSWORD }}
+#             cd smpn1bergas/smpn1bergas-client/
+#             echo "${{ secrets.SSH_PASSWORD }}" | sudo -S git pull origin main
+#             echo "${{ secrets.SSH_PASSWORD }}" | sudo -S npm install
+#             echo ${{ secrets.SSH_PASSWORD }} | sudo npm run build
+#             sudo rm -rf /var/www/*  # Hapus konten eksisting di direktori Apache
+#             sudo cp -r build/* /var/www/  # Salin konten build ke direktori Apache
+#             cd /etc/apache2/sites-enabled
+#             sudo apachectl configtest
+#             sudo service apache2 restart
