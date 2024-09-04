@@ -9,6 +9,7 @@ import idLocale from "date-fns/locale/id";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Header from "../../../../../component/Header";
 import Sidebar from "../../../../../component/Sidebar";
+import Sidebar1 from "../../../../../component/Sidebar1";
 
 function DetailBerita() {
   const [judulBerita, setJudulBerita] = useState("");
@@ -43,13 +44,28 @@ function DetailBerita() {
       });
   }, [param.id]);
 
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
+
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
-        <div className="container mt-3 mb-3 app-main__outer">
-          <div className="box-tabel">
+    <div className={`page-wrapper chiller-theme ${
+      sidebarToggled ? "toggled" : ""
+    }`}>
+       <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background:"#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+        <div style={{marginTop:"10px"}} className="page-content1 mt-3 mb-3 app-main__outer">
+          <div className="container box-tabel">
             <form className="card shadow w-100">
               <h1 className="title card-header fw-bold fs-3">Detail</h1>
               <br />
@@ -142,7 +158,7 @@ function DetailBerita() {
             </form>
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 }

@@ -13,6 +13,7 @@ import {
   Pagination,
   TextField,
 } from "@mui/material";
+import Sidebar1 from "../../../../../component/Sidebar1";
 
 function Program() {
   const [list, setList] = useState([]);
@@ -77,15 +78,16 @@ function Program() {
             setTimeout(() => {
               window.location.reload();
             }, 1500);
-          }).catch((err) => {
+          })
+          .catch((err) => {
             Swal.fire({
               icon: "error",
               title: "Hapus Data Gagal!",
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     });
   };
@@ -93,7 +95,6 @@ function Program() {
   useEffect(() => {
     getAll(currentPage);
   }, [currentPage, rowsPerPage]);
-
 
   useEffect(() => {
     AOS.init();
@@ -117,14 +118,31 @@ function Program() {
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
- 
+
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
+
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">
@@ -224,8 +242,18 @@ function Program() {
                         <td data-label="Judul Program" className="">
                           {berita.judulProgram}
                         </td>
-                        <td data-label="Tujuan" className="">
-                          {berita.tujuan}
+                        <td
+                          style={{
+                            maxWidth: "250px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          data-label="Tujuan"
+                          className="text-long">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: berita.tujuan }}
+                          />
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
@@ -242,7 +270,7 @@ function Program() {
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>
-                            
+
                             <button
                               type="button"
                               class="btn-warning  mr-2 btn-sm">
@@ -274,7 +302,6 @@ function Program() {
                   setCurrentPage(value);
                   setPage(value);
                 }}
-
                 showFirstButton
                 showLastButton
                 color="primary"

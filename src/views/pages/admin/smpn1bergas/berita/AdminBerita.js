@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { API_DUMMY } from "../../../../../utils/base_URL";
-import Header from "../../../../../component/Header";
-import Sidebar from "../../../../../component/Sidebar";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 
 import {
-  IconButton,
-  InputAdornment,
   Pagination,
-  TextField,
 } from "@mui/material";
+import Sidebar1 from "../../../../../component/Sidebar1";
 
 function AdminBerita() {
   const [list, setList] = useState([]);
@@ -24,13 +20,13 @@ function AdminBerita() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults1, setSearchResults1] = useState([]);
   const history = useHistory();
 
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/berita/all?page=${page - 1
+        `${API_DUMMY}/smpn1bergas/api/berita/all?page=${
+          page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -79,15 +75,7 @@ function AdminBerita() {
               history.push("/admin-berita");
               window.location.reload();
             }, 1500);
-          }).catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Hapus Data Gagal!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            console.log(err)
-          })
+          });
       }
     });
   };
@@ -119,22 +107,33 @@ function AdminBerita() {
     )
   );
 
+
+  console.log(filteredList);
+
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
-    console.log("klik");
-    setIsSidebarOpen(!isSidebarOpen);
+    setSidebarToggled(!sidebarToggled);
   };
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header toggleSidebar={toggleSidebar} />
-      <div className="app-main">
-        <Sidebar isOpen={isSidebarOpen} />
-        <div
-          className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background:"#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <main className="page-content1" style={{marginTop:"20px"}}>
+        <div className="container" data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -213,7 +212,7 @@ function AdminBerita() {
                       Penulis Berita
                     </th>
                     <th className="text-left">Image</th>
-                    <th className="text-left">Kategori Berita</th>
+                    <th className="text-left">Katagori Berita</th>
                     <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
@@ -235,7 +234,7 @@ function AdminBerita() {
                             src={berita.image}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
-                        </td>
+                        </td>{" "}
                         <td data-label="Katagori Berita" className="">
                           {berita.categoryBerita}
                         </td>
@@ -250,6 +249,7 @@ function AdminBerita() {
                                   textDecoration: "none",
                                 }}
                                 href={`/edit-berita-admin/${berita.id}`}>
+                                {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>
@@ -291,7 +291,7 @@ function AdminBerita() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

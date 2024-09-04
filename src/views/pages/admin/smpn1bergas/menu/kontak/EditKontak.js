@@ -9,6 +9,7 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
+import Sidebar1 from "../../../../../../component/Sidebar1";
 
 function EditKontak() {
   const [email, setEmail] = useState("");
@@ -85,86 +86,100 @@ function EditKontak() {
   useEffect(() => {
     AOS.init();
   }, []);
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
 
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
-        <div className="app-main__outer" data-aos="fade-left">
-          <div className="app-main__inner">
-            <div className="row">
-              <div className="col-md-12">
-                <div className="card shadow">
-                  <div className="card-body">
-                    <h1 className="fs-4">Form Edit Data</h1>
-                    <hr />
-                    <form onSubmit={update}>
-                      <div className="row">
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Email
-                          </label>
-                          <input
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            type="email"
-                            className="form-control"
-                            required
-                            placeholder="Masukkan Email"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Fax
-                          </label>
-                          <input
-                            value={fax}
-                            onChange={(e) => setFax(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            required
-                            placeholder="Masukkan Fax"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Alamat
-                          </label>
-                          <textarea
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            required
-                            placeholder="Masukkan Alamat Sekolah Lengkap"></textarea>
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            No Handphone / Telephone
-                          </label>
-                          <input
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            type="number"
-                            className="form-control"
-                            required
-                            placeholder="Masukkan Nomor Handphone / Telephone"
-                          />
-                        </div>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card shadow">
+                <div className="card-body">
+                  <h1 className="fs-4">Form Edit Data</h1>
+                  <hr />
+                  <form onSubmit={update}>
+                    <div className="row">
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Email
+                        </label>
+                        <input
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          type="email"
+                          className="form-control"
+                          required
+                          placeholder="Masukkan Email"
+                        />
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-kontak">
-                          Batal
-                        </a>
-                      </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
-                      </button>
-                    </form>
-                  </div>
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Fax
+                        </label>
+                        <input
+                          value={fax}
+                          onChange={(e) => setFax(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          required
+                          placeholder="Masukkan Fax"
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Alamat
+                        </label>
+                        <textarea
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          required
+                          placeholder="Masukkan Alamat Sekolah Lengkap"></textarea>
+                      </div>
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          No Handphone / Telephone
+                        </label>
+                        <input
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          type="number"
+                          className="form-control"
+                          required
+                          placeholder="Masukkan Nomor Handphone / Telephone"
+                        />
+                      </div>
+                    </div>
+                    <button type="button" className="btn-danger mt-3 mr-3">
+                      <a
+                        style={{ color: "white", textDecoration: "none" }}
+                        href="/admin-kontak">
+                        Batal
+                      </a>
+                    </button>
+                    <button type="submit" className="btn-primary mt-3">
+                      Submit
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -172,6 +187,7 @@ function EditKontak() {
         </div>
       </div>
     </div>
+    // </div>
   );
 }
 

@@ -13,7 +13,7 @@ import {
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
-
+import Sidebar1 from "../../../../../../component/Sidebar1";
 
 function Perpustakaan() {
   const [list, setList] = useState([]);
@@ -29,6 +29,11 @@ function Perpustakaan() {
     totalPages1: 1,
     totalElements1: 0,
   });
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
 
   const getAll = async () => {
     try {
@@ -82,15 +87,16 @@ function Perpustakaan() {
             setTimeout(() => {
               window.location.reload();
             }, 1500);
-          }).catch((err) => {
+          })
+          .catch((err) => {
             Swal.fire({
               icon: "error",
               title: "Hapus Data Gagal!",
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     });
   };
@@ -127,10 +133,21 @@ function Perpustakaan() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">

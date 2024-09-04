@@ -11,6 +11,7 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Header from "../../../../../component/Header";
 import Sidebar from "../../../../../component/Sidebar";
+import Sidebar1 from "../../../../../component/Sidebar1";
 
 function AddStructur() {
   const [image, setImage] = useState(null);
@@ -18,6 +19,11 @@ function AddStructur() {
   const [nama, setNama] = useState("");
   const [jabatan, setJabatan] = useState("");
   const history = useHistory();
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
 
   const add = async (e) => {
     e.preventDefault();
@@ -66,10 +72,20 @@ function AddStructur() {
   }, []);
 
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
+    <div className={`page-wrapper chiller-theme ${
+      sidebarToggled ? "toggled" : ""
+    }`}>
+    <a
+      id="show-sidebar"
+      className="btn1 btn-lg"
+      onClick={toggleSidebar}
+      style={{ color: "white", background: "#3a3f48" }}>
+      <i className="fas fa-bars"></i>
+    </a>
+    {/* <Header toggleSidebar={toggleSidebar} /> */}
+    {/* <div className="app-main"> */}
+    <Sidebar1 toggleSidebar={toggleSidebar} />
+    <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
