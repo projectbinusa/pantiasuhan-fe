@@ -11,6 +11,7 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Header from "../../../../../component/Header";
 import Sidebar from "../../../../../component/Sidebar";
+import Sidebar1 from "../../../../../component/Sidebar1";
 
 function EditPrestasi() {
   const [penyelenggara, setPenyelenggara] = useState("");
@@ -22,14 +23,18 @@ function EditPrestasi() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const param = useParams();
+  const [sidebarToggled, setSidebarToggled] = useState(true);
 
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
   const formatDateToSlash = (value) => {
     const date = new Date(value);
-  
+
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
-  
+
     return `${year}/${month}/${day}`;
   };
 
@@ -110,10 +115,20 @@ function EditPrestasi() {
   }, []);
 
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
+    <div className={`page-wrapper chiller-theme ${
+      sidebarToggled ? "toggled" : ""
+    }`}>
+    <a
+      id="show-sidebar"
+      className="btn1 btn-lg"
+      onClick={toggleSidebar}
+      style={{ color: "white", background: "#3a3f48" }}>
+      <i className="fas fa-bars"></i>
+    </a>
+    {/* <Header toggleSidebar={toggleSidebar} /> */}
+    {/* <div className="app-main"> */}
+    <Sidebar1 toggleSidebar={toggleSidebar} />
+    <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">

@@ -60,6 +60,7 @@ import {
 } from "ckeditor5";
 // import { SlashCommand } from "ckeditor5-premium-features";
 import "ckeditor5/ckeditor5.css";
+import Sidebar1 from "../../../../../component/Sidebar1";
 
 function AddKegiatan() {
   const [judul, setJudul] = useState("");
@@ -69,6 +70,11 @@ function AddKegiatan() {
   const [tanggal, setTanggal] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
 
   //add
   const add = async (e) => {
@@ -244,10 +250,20 @@ function AddKegiatan() {
   }, []);
 
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
+    <div className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="app-main__outer container mb-3" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">

@@ -8,6 +8,7 @@ import idLocale from "date-fns/locale/id";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Header from "../../../../../component/Header";
 import Sidebar from "../../../../../component/Sidebar";
+import Sidebar1 from "../../../../../component/Sidebar1";
 
 function DetailSarana() {
   const [judul, setJudul] = useState("");
@@ -36,11 +37,27 @@ function DetailSarana() {
       });
   }, [param.id]);
 
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
+
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
+    <div className={`page-wrapper chiller-theme ${
+      sidebarToggled ? "toggled" : ""
+    }`}>
+    <a
+      id="show-sidebar"
+      className="btn1 btn-lg"
+      onClick={toggleSidebar}
+      style={{ color: "white", background: "#3a3f48" }}>
+      <i className="fas fa-bars"></i>
+    </a>
+    {/* <Header toggleSidebar={toggleSidebar} /> */}
+    {/* <div className="app-main"> */}
+    <Sidebar1 toggleSidebar={toggleSidebar} />
+    <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer">
           <div className="box-tabel">
             <form className="card shadow w-100">

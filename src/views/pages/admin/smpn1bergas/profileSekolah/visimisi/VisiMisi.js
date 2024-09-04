@@ -7,6 +7,7 @@ import { Pagination } from "@mui/material";
 import Header from "../../../../../../component/Header";
 import Sidebar from "../../../../../../component/Sidebar";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
+import Sidebar1 from "../../../../../../component/Sidebar1";
 function VisiMisi() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
@@ -17,7 +18,11 @@ function VisiMisi() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
+  const [sidebarToggled, setSidebarToggled] = useState(true);
 
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
   const getAll = async () => {
     try {
       const response = await axios.get(
@@ -114,10 +119,20 @@ function VisiMisi() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
+    <div className={`page-wrapper chiller-theme ${
+      sidebarToggled ? "toggled" : ""
+    }`}>
+    <a
+      id="show-sidebar"
+      className="btn1 btn-lg"
+      onClick={toggleSidebar}
+      style={{ color: "white", background: "#3a3f48" }}>
+      <i className="fas fa-bars"></i>
+    </a>
+    {/* <Header toggleSidebar={toggleSidebar} /> */}
+    {/* <div className="app-main"> */}
+    <Sidebar1 toggleSidebar={toggleSidebar} />
+    <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">

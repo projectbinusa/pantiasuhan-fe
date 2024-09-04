@@ -9,8 +9,7 @@ import {
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
-import Header from "../../../../../component/Header";
-import Sidebar from "../../../../../component/Sidebar";
+import Sidebar1 from "../../../../../component/Sidebar1";
 
 function EditStruktur() {
   const [image, setImage] = useState(null);
@@ -19,10 +18,15 @@ function EditStruktur() {
   const [jabatan, setJabatan] = useState("");
   const history = useHistory();
   const param = useParams();
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/kegiatan/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/struktur/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -89,10 +93,20 @@ function EditStruktur() {
   }, []);
 
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
+    <div className={`page-wrapper chiller-theme ${
+      sidebarToggled ? "toggled" : ""
+    }`}>
+    <a
+      id="show-sidebar"
+      className="btn1 btn-lg"
+      onClick={toggleSidebar}
+      style={{ color: "white", background: "#3a3f48" }}>
+      <i className="fas fa-bars"></i>
+    </a>
+    {/* <Header toggleSidebar={toggleSidebar} /> */}
+    {/* <div className="app-main"> */}
+    <Sidebar1 toggleSidebar={toggleSidebar} />
+    <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
@@ -157,7 +171,7 @@ function EditStruktur() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-stuktur">
+                          href="/admin-struktur">
                           Batal
                         </a>
                       </button>

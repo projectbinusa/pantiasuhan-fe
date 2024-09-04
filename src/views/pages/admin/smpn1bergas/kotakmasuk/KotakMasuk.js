@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 
 import { Pagination } from "@mui/material";
+import Sidebar1 from "../../../../../component/Sidebar1";
 
 function KotakMasuk() {
   const [list, setList] = useState([]);
@@ -21,6 +22,12 @@ function KotakMasuk() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults1, setSearchResults1] = useState([]);
   const history = useHistory();
+
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
 
   const getAll = async () => {
     try {
@@ -117,10 +124,20 @@ function KotakMasuk() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
+    <div  className={`page-wrapper chiller-theme ${
+      sidebarToggled ? "toggled" : ""
+    }`}>
+    <a
+      id="show-sidebar"
+      className="btn1 btn-lg"
+      onClick={toggleSidebar}
+      style={{ color: "white", background: "#3a3f48" }}>
+      <i className="fas fa-bars"></i>
+    </a>
+    {/* <Header toggleSidebar={toggleSidebar} /> */}
+    {/* <div className="app-main"> */}
+    <Sidebar1 toggleSidebar={toggleSidebar} />
+    <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">

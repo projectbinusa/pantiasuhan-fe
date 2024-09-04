@@ -13,6 +13,7 @@ import {
   Pagination,
   TextField,
 } from "@mui/material";
+import Sidebar1 from "../../../../../component/Sidebar1";
 
 function MateriAjar() {
   const [list, setList] = useState([]);
@@ -26,11 +27,17 @@ function MateriAjar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults1, setSearchResults1] = useState([]);
   const history = useHistory();
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
 
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/materi_ajar/all/terbaru?page=${page - 1
+        `${API_DUMMY}/smpn1bergas/api/materi_ajar/all/terbaru?page=${
+          page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -61,11 +68,12 @@ function MateriAjar() {
       cancelButtonText: "Batal",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`${API_DUMMY}/smpn1bergas/api/materi_ajar/` + id, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
+        axios
+          .delete(`${API_DUMMY}/smpn1bergas/api/materi_ajar/` + id, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
           .then(() => {
             Swal.fire({
               icon: "success",
@@ -78,15 +86,16 @@ function MateriAjar() {
               history.push("/admin-berita");
               window.location.reload();
             }, 1500);
-          }).catch((err) => {
+          })
+          .catch((err) => {
             Swal.fire({
               icon: "error",
               title: "Hapus Data Gagal!",
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     });
   };
@@ -121,10 +130,21 @@ function MateriAjar() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">
