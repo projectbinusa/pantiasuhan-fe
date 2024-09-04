@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import NavbarSekolah from "../../../../component/NavbarSekolah";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import "../../../../css/berita/news.css";
 import HeaderDetailBerita from "../HeaderDetailBerita"
@@ -52,14 +51,22 @@ function DetailNews() {
             <NavbarSekolah2 />
             <main className="container-detail-berita container">
                 <HeaderDetailBerita title={"Berita Terbaru"} header={judul} />
-                <img src="https://via.placeholder.com/300x200?text=Award" />
+                {image ? (
+                    <>
+                        <img src={image} />
+                    </>
+                ) : (
+                    <>
+                        <img src="https://via.placeholder.com/300x200?text=Award" />
+                    </>
+                )}
                 <h4 style={{ fontWeight: "700", color: "#002147", marginTop: "2rem", marginBottom: "1rem" }}>{judul}</h4>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <p style={{ color: "#002147" }}><i class="fas fa-user"></i> <span style={{ fontWeight: "600", paddingLeft: "0.5rem", textTransform: "uppercase" }}>{author}</span></p>
                     <p style={{ color: "#002147" }}>{formatDate(date)}</p>
                 </div>
                 <hr />
-                <p><div dangerouslySetInnerHTML={{ __html:isi }}/></p>
+                <p><div dangerouslySetInnerHTML={{ __html: isi }} /></p>
             </main>
             <FooterSekolah />
         </section>

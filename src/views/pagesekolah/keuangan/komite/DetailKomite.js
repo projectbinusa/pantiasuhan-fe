@@ -44,19 +44,29 @@ function DetailKomite() {
 
         return formattedDate;
     };
-    
+
     return (
         <section>
             <NavbarSekolah2 />
             <main className="container-detail-keuangan container">
                 <HeaderDetailKeuangan title={"Komite"} header={judul} link="/keuangan-komite" />
-                <img src={fotoJudul} />
+                {fotoJudul ? (
+                    <>
+                        <img src={fotoJudul} />
+                    </>
+                ) : (
+                    <>
+                        <img src="https://via.placeholder.com/300x200?text=Award" />
+                    </>
+                )}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "2rem" }}>
-                <h4 style={{ fontWeight: "700", color: "#002147", marginBottom: "1rem" }}>{judul}</h4>
+                    <h4 style={{ fontWeight: "700", color: "#002147", marginBottom: "1rem" }}>{judul}</h4>
                     <p style={{ color: "#002147" }}>{formatDate(date)}</p>
                 </div>
                 <hr />
-                <p>{isi}</p>
+                <p><div
+                    dangerouslySetInnerHTML={{ __html: isi }}
+                /></p>
             </main>
             <FooterSekolah />
         </section>

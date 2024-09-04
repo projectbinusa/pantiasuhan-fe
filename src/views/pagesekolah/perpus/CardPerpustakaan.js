@@ -8,7 +8,11 @@ const CardPerpustakaan = ({ image, title, content, id, pengarang, tahun }) => {
             <h4 style={{ textTransform: "uppercase" }}>{title}</h4>
             <h6>{pengarang}</h6>
             <h6>{tahun}</h6>
-            <p className="content-perpus" style={{ fontSize: "14px", marginTop: "1rem" }}>{content}</p>
+            <p className="content-perpus" style={{ fontSize: "14px", marginTop: "1rem" }}>
+                <div
+                    dangerouslySetInnerHTML={{ __html: content }}
+                />
+            </p>
             <a href={`/detail-buku-${id}`}>Selengkapnya</a>
         </div>
     );

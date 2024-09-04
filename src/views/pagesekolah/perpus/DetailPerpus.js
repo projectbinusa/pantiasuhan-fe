@@ -51,7 +51,11 @@ function DetailPerpus() {
                 <h5 style={{ color: "#002147", marginBottom: "1rem" }}>Terbit Tahun {tahun}</h5>
                 <h5>Sinopsis</h5>
                 <hr />
-                <p style={{ fontSize: "14px" }}>{sinopsis}</p>
+                <p style={{ fontSize: "14px" }}>
+                    <div
+                        dangerouslySetInnerHTML={{ __html: sinopsis }}
+                    />
+                </p>
             </div>
             <FooterSekolah />
         </section>

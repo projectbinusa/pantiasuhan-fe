@@ -46,8 +46,12 @@ function AlumniAll() {
                             <img src={row.foto} alt={row.foto} />
                             <h5 style={{ textTransform: "uppercase" }}>{row.nama}</h5>
                             <h6>Lulus Tahun {row.tahunLulus}</h6>
-                            <p className="isi-alumni" style={{ fontSize: "14px", marginTop: "1rem" }}>{row.biografi}</p>
-                             <a href={`/detail-alumni-${row.id}`}>Selengkapnya</a>
+                            <p className="isi-alumni" style={{ fontSize: "14px", marginTop: "1rem" }}>
+                                <div
+                                    dangerouslySetInnerHTML={{ __html: row.biografi }}
+                                />
+                            </p>
+                            <a href={`/detail-alumni-${row.id}`}>Selengkapnya</a>
                         </div>
                     ))}
                 </div>

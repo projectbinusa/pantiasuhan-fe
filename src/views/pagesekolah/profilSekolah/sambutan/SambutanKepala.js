@@ -75,10 +75,10 @@ function SambutanKepala() {
           </ul>
         </div>
         <div className="sambutan-container">
-          <div 
+          <div
             className="parent-sambutan"
-            style={{ 
-              boxShadow: hasData ? "0 0 20px rgba(0, 0, 0, 0.1)" : "none" 
+            style={{
+              boxShadow: hasData ? "0 0 20px rgba(0, 0, 0, 0.1)" : "none"
             }}
           >
             <h2 className="sambutan-title">{sambutanData.judul}</h2>
@@ -98,7 +98,9 @@ function SambutanKepala() {
               </div>
             )}
             <p className="sambutan-text">
-              {sambutanData.isi}
+              <div
+                dangerouslySetInnerHTML={{ __html: sambutanData.isi }}
+              />
             </p>
             {sambutanData.nama && sambutanData.nip && (
               <p className="sambutan-footer">

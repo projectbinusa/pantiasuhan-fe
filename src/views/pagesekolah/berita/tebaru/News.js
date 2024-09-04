@@ -69,16 +69,6 @@ const News = () => {
                         </div>
                     </div>
                     <div className="container-all">
-                        {/* {currentData.map(newsItem => (
-                            <CardBerita
-                                key={newsItem.id}
-                                image={newsItem.image}
-                                id={newsItem.id}
-                                title={newsItem.title}
-                                link={"news"}
-                                content={newsItem.content}
-                            />
-                        ))} */}
                         {berita.map(newsItem => (
                             <CardBerita
                                 key={newsItem.id}
@@ -90,16 +80,6 @@ const News = () => {
                             />
                         ))}
                         <div className="d-flex justify-content-center align-items-center mt-3">
-                            {/* <Pagination
-                                count={totalPages}
-                                page={currentPage}
-                                onChange={handlePageChange}
-                                color="primary"
-                                shape="rounded"
-                                style={{ marginBottom: "30px" }}
-                                showFirstButton
-                                showLastButton
-                            /> */}
                             <Pagination
                                 count={totalPages}
                                 page={currentPage}

@@ -60,7 +60,11 @@ function DetailAlumni() {
                         <h6 style={{ color: "#002147" }}>Sekolah / Pekerjaan Sekarang : {profesi}</h6>
                         <h6 style={{ color: "#002147" }}>Kontak : {kontak}</h6>
                         <hr />
-                        <p style={{ fontSize: "14px", textAlign: "left" }}>{biografi}</p>
+                        <p style={{ fontSize: "14px", textAlign: "left" }}>
+                            <div
+                                dangerouslySetInnerHTML={{ __html: biografi }}
+                            />
+                        </p>
                     </div>
                 </div>
             </main>

@@ -189,7 +189,7 @@ function MateriAjarView() {
                                             </td>
                                             <td>{item.mapel}</td>
                                             <td>{item.judul}</td>
-                                            <td>{formatDate(item.tglUpload)}</td>
+                                            <td>{formatDate(item.createdDate)}</td>
                                             <td>{item.jenis}</td>
                                             <td>{item.penyusun}</td>
                                             <td>
