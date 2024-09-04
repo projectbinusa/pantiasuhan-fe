@@ -31,6 +31,18 @@ function Kegiatan() {
     setSidebarToggled(!sidebarToggled);
   };
 
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const getAll = async () => {
     try {
       const response = await axios.get(
@@ -219,7 +231,7 @@ function Kegiatan() {
                       style={{ minWidth: "150px" }}>
                       Penulis Kegiatan
                     </th>
-                    <th className="text-long">Isi</th>
+                    {/* <th className="text-long">Isi</th> */}
                     <th className="">Gambar</th>
                     <th className="">Tanggal Dibuat</th>
                     <th className="">Tanggal Update</th>
@@ -239,9 +251,9 @@ function Kegiatan() {
                         <td data-label="Penulis Kegiatan" className="text-long">
                           {berita.penulis}
                         </td>
-                        <td data-label="Isi">
+                        {/* <td data-label="Isi">
                           <span className="content-isi">{berita.isi}</span>
-                        </td>
+                        </td> */}
                         <td data-label="Image" className="">
                           <img
                             src={berita.foto}

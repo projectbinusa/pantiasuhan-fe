@@ -21,6 +21,18 @@ function DetailProgram() {
     setSidebarToggled(!sidebarToggled);
   };
 
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
     useEffect(() => {
         axios
           .get(`${API_DUMMY}/smpn1bergas/api/program/get/` + param.id, {

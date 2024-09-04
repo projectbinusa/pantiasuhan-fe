@@ -253,6 +253,18 @@ function AddBeritaAdmin() {
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
+
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   return (
     <div
       className={`page-wrapper chiller-theme ${

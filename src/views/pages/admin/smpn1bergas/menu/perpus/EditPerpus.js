@@ -280,6 +280,18 @@ function EditPerpus() {
     setSidebarToggled(!sidebarToggled);
   };
 
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div  className={`page-wrapper chiller-theme ${
       sidebarToggled ? "toggled" : ""
@@ -360,7 +372,7 @@ function EditPerpus() {
                             placeholder="Masukkan Nomor Buku"
                           />
                         </div>
-                        <div className="mb-3 col-lg-6">
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>

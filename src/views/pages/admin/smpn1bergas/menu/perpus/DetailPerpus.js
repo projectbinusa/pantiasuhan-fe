@@ -6,46 +6,43 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
-import { API_DUMMY } from "../../../../../../utils/base_URL";
-import Header from "../../../../../../component/Header";
-import Sidebar from "../../../../../../component/Sidebar";
-import Sidebar1 from "../../../../../../component/Sidebar1";
+import { API_DUMMY } from "../../../../../utils/base_URL";
+import Header from "../../../../../component/Header";
+import Sidebar from "../../../../../component/Sidebar";
+import Sidebar1 from "../../../../../component/Sidebar1";
 
-function DetailAlumni() {
-  const [namaAlumni, setNamaAlumni] = useState("");
+function DetailPerpus() {
+  const [judulBerita, setJudulBerita] = useState("");
   const [createdDate, setCreatedDate] = useState("");
   const [updateDate, setUpdateDate] = useState("");
-  const [kontak, setKontak] = useState("");
-  const [tahunLulus, setTahunLulus] = useState("");
-  const [profesi, setProfesi] = useState("");
-  const [biografi, setBiografi] = useState("");
+  const [author, setAuthor] = useState("");
+  const [isiBerita, setIsiBerita] = useState("");
+  const [categoryBerita, setCategoryBerita] = useState("");
   const [image, setImage] = useState("");
   const param = useParams();
 
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/alumni/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/berita/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-      .then((ress) => {
-        const response = ress.data.data;
-        setCreatedDate(response.createdDate);
-        setUpdateDate(response.updatedDate);
-        setNamaAlumni(response.nama);
-        setBiografi(response.biografi);
-        setKontak(response.kontak);
-        setProfesi(response.profesi);
-        setTahunLulus(response.tahunLulus);
-        setImage(response.foto);
-        console.log("alumni : ", ress.data.data);
+      .then((res) => {
+        const list_data = res.data.data;
+        setCreatedDate(list_data.createdDate);
+        setUpdateDate(list_data.updatedDate);
+        setJudulBerita(list_data.judulBerita);
+        setAuthor(list_data.author);
+        setIsiBerita(list_data.isiBerita);
+        setImage(list_data.image);
+        setCategoryBerita(list_data.categoryBerita);
       })
       .catch((error) => {
-        console.log(error);
+        alert("Terjadi Kesalahan " + error);
       });
-  }, []);
+  }, [param.id]);
 
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -66,22 +63,21 @@ function DetailAlumni() {
   }, []);
 
   return (
-    <div  className={`page-wrapper chiller-theme ${
+    <div className={`page-wrapper chiller-theme ${
       sidebarToggled ? "toggled" : ""
     }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container mt-3 mb-3 app-main__outer">
-          <div className="box-tabel">
+       <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background:"#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+        <div style={{marginTop:"10px"}} className="page-content1 mt-3 mb-3 app-main__outer">
+          <div className="container box-tabel">
             <form className="card shadow w-100">
               <h1 className="title card-header fw-bold fs-3">Detail</h1>
               <br />
@@ -101,53 +97,25 @@ function DetailAlumni() {
                 <br />
                 <br />
                 <div class="mb-3">
-                  <label class="form-label fw-bold">Nama Alumni</label>
+                  <label class="form-label fw-bold">Judul Berita</label>
                   <input
                     type="text"
                     class="form-control"
                     disabled
-                    value={namaAlumni}
+                    value={judulBerita}
                   />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label fw-bold">kontak</label>
+                  <label class="form-label fw-bold">Author</label>
                   <input
                     type="text"
                     class="form-control"
                     disabled
-                    value={kontak}
+                    value={author}
                   />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label fw-bold">
-                    Sekolah/Pekerjaan Sekarang
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={profesi}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Biografi</label>
-                  <div
-                    className="form-control"
-                    style={{ height: "auto", background: "#e9ecef" }}
-                    dangerouslySetInnerHTML={{ __html: biografi }}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Tahun Lulus</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    value={tahunLulus}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Tanggal Lulus</label>
+                  <label class="form-label fw-bold">Tanggal Dibuat</label>
                   <input
                     type="text"
                     class="form-control"
@@ -172,23 +140,39 @@ function DetailAlumni() {
                     )}
                   />
                 </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Kategori Berita</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    disabled
+                    value={categoryBerita}
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Isi Berita</label>
+                  <div
+                    className="form-control"
+                    style={{ height: "fit-content", background: "#e9ecef" }}
+                    dangerouslySetInnerHTML={{ __html: isiBerita }}
+                  />
+                </div>
               </div>
               <button
                 type="submit"
                 className="btn-kembali btn-danger mt-3 mr-3">
                 <a
-                  href="/admin-alumni"
+                  href="/admin-berita"
                   style={{ color: "white", textDecoration: "none" }}>
-                  {" "}
                   Kembali
                 </a>
               </button>
             </form>
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 }
 
-export default DetailAlumni;
+export default DetailPerpus;

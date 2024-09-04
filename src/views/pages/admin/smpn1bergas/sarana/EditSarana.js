@@ -20,7 +20,7 @@ function EditSarana() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/sarana/get/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/sarana/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -29,7 +29,7 @@ function EditSarana() {
         const response = ress.data.data;
         setNamaSarana(response.nama_sarana);
         setDeskripsi(response.deskripsi);
-        setCategory(response.category);
+        setCategory(response.categoryKeuangan);
         console.log("sarana: ", ress.data.data);
       })
       .catch((error) => {
@@ -89,7 +89,19 @@ function EditSarana() {
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
-  
+
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className={`page-wrapper chiller-theme ${
       sidebarToggled ? "toggled" : ""

@@ -5,8 +5,6 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 
 import { Pagination } from "@mui/material";
-import Header from "../../../../../../component/Header";
-import Sidebar from "../../../../../../component/Sidebar";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
 
@@ -128,6 +126,18 @@ function Sejarah() {
     setSidebarToggled(!sidebarToggled);
   };
 
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div  className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
@@ -230,12 +240,6 @@ function Sejarah() {
                   <tr>
                     <th scope="col">No</th>
                     <th className="text-long">Judul</th>
-                    <th
-                      scope="col"
-                      className="text-left"
-                      style={{ maxWidth: "120px" }}>
-                      Isi Sejarah
-                    </th>
                     <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
@@ -248,19 +252,6 @@ function Sejarah() {
                         </td>
                         <td data-label="Judul" className="text-long">
                           {berita.judul}
-                        </td>
-                        <td
-                          style={{
-                            maxWidth: "250px",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                          data-label="Isi Sejarah"
-                          className="text-long">
-                          <div
-                            dangerouslySetInnerHTML={{ __html: berita.isi }}
-                          />
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">

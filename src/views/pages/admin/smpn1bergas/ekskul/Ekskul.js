@@ -120,7 +120,19 @@ function Ekskul() {
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
-  
+
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div  className={`page-wrapper chiller-theme ${
       sidebarToggled ? "toggled" : ""
@@ -225,13 +237,13 @@ function Ekskul() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Ekstrakulikuler" className="text-left">
+                        <td data-label="Ekstrakulikuler" className="">
                           {berita.name}
                         </td>
-                        <td data-label="Jadwal" className="text-left">
+                        <td data-label="Jadwal" className="">
                           {berita.jadwal}
                         </td>
-                        <td data-label="Tempat" className="text-left">
+                        <td data-label="Tempat" className="">
                           {berita.tempat}
                         </td>
                         <td data-label="Aksi">

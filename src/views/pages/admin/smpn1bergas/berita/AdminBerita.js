@@ -117,6 +117,19 @@ function AdminBerita() {
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
+
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div
       className={`page-wrapper chiller-theme ${
@@ -159,7 +172,7 @@ function AdminBerita() {
             />
           </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex" }}>
+            <div className="card-header" style={{ display: "flex", background:"#FFF7F7" }}>
               <p className="mt-3">Berita</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">

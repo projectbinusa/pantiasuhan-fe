@@ -30,6 +30,18 @@ function Osis() {
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
+
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const getAll = async () => {
     try {
       const response = await axios.get(
@@ -250,7 +262,7 @@ function Osis() {
                         <td data-label="Tahun Tuntas" className="">
                           {berita.tahunTuntas}
                         </td>
-                        <td>
+                        <td data-label="Foto">
                           <img
                             src={berita.foto}
                             style={{ height: "4.5rem", width: "4.5rem" }}

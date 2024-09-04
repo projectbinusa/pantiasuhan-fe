@@ -32,6 +32,8 @@ jobs:
           username: bootcampserver
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
+          sudo su -
+          ${{ secrets.SSH_PASSWORD }}
             cd Bawaslu-Client
             echo "${{ secrets.SSH_PASSWORD }}" | sudo -S git pull origin develop
             echo "${{ secrets.SSH_PASSWORD }}" | sudo -S npm install
