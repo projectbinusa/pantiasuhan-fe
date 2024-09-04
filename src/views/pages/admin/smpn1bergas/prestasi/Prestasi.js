@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { API_DUMMY } from "../../../../../utils/base_URL";
-import Header from "../../../../../component/Header";
-import Sidebar from "../../../../../component/Sidebar";
+
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
 import { useHistory } from "react-router-dom";

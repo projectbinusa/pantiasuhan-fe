@@ -12,8 +12,7 @@ import {
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
-import Header from "../../../../../../component/Header";
-import Sidebar from "../../../../../../component/Sidebar";
+
 
 function EditFotoKegiatan() {
   const [image, setImage] = useState(null);

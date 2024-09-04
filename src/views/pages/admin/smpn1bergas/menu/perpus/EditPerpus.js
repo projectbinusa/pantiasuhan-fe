@@ -9,8 +9,7 @@ import {
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
-import Header from "../../../../../../component/Header";
-import Sidebar from "../../../../../../component/Sidebar";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
-import Header from "../../../../../../component/Header";
-import Sidebar from "../../../../../../component/Sidebar";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -17,13 +15,7 @@ import Sidebar1 from "../../../../../../component/Sidebar1";
 
 function Keuangan() {
   const [list, setList] = useState([]);
-  const [list1, setList1] = useState([]);
   const [page, setPage] = useState(1);
-  const [page1, setPage1] = useState(0);
-  const [category, setCategory] = useState([""]);
-  const [modalAdd, setModalAdd] = useState(false);
-  const [modalEdit, setModalEdit] = useState(false);
-  const [id, setId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -31,15 +23,6 @@ function Keuangan() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage1, setCurrentPage1] = useState(1);
-  const [rowsPerPage1, setRowsPerPage1] = useState(5);
-  const [paginationInfo1, setPaginationInfo1] = useState({
-    totalPages1: 1,
-    totalElements1: 0,
-  });
-  const [searchTerm1, setSearchTerm1] = useState("");
-  const history = useHistory();
-
   const getAll = async () => {
     try {
       const response = await axios.get(

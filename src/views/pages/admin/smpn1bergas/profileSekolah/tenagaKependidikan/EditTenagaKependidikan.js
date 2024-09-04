@@ -6,8 +6,7 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
-import Header from "../../../../../../component/Header";
-import Sidebar from "../../../../../../component/Sidebar";
+
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 
 function EditTenagaKependidikan() {

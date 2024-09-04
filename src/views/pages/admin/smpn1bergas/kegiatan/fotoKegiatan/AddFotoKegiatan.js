@@ -9,8 +9,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
-import Header from "../../../../../../component/Header";
-import Sidebar from "../../../../../../component/Sidebar";
+
 
 function AddFotoKegiatan() {
   const [image, setImage] = useState(null);

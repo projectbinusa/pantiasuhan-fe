@@ -6,8 +6,7 @@ import axios from "axios";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
 import { API_DUMMY } from "../../../../../utils/base_URL";
-import Header from "../../../../../component/Header";
-import Sidebar from "../../../../../component/Sidebar";
+
 import Sidebar1 from "../../../../../component/Sidebar1";
 
 function DetailPrestasi() {
