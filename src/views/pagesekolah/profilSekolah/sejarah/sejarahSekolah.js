@@ -81,7 +81,9 @@ function SejarahSekolah() {
                     textAlign: "justify",
                   }}
                 >
-                  {sejarah.isi}
+                  <div
+                    dangerouslySetInnerHTML={{ __html: sejarah.isi }}
+                  />
                 </p>
               </>
             )}

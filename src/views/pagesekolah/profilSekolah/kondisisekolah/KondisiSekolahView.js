@@ -60,18 +60,20 @@ function KonsidisiSekolahView() {
             {dataAvailable ? (
               <>
                 {foto && (
-                  <img 
-                    src={foto} 
-                    style={mediaStyle} 
+                  <img
+                    src={foto}
+                    style={mediaStyle}
                     className='image-style'
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
-                    alt="Kondisi Sekolah" 
+                    alt="Kondisi Sekolah"
                   />
                 )}
                 <hr style={{ marginTop: '20px', borderColor: '#ccc' }} />
-                <p style={{ fontSize: '1.2em', textAlign: "left" }}>
-                  {isi}
+                <p style={{ fontSize: '1.2em', textAlign: "justify" }}>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: isi }}
+                  />
                 </p>
               </>
             ) : (
