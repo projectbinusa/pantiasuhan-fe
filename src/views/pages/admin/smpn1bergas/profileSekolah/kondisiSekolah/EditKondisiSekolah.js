@@ -59,6 +59,7 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
+import Sidebar1 from "../../../../../../component/Sidebar1";
 
 
 function EditKondisiSekolah() {
@@ -259,11 +260,42 @@ function EditKondisiSekolah() {
     AOS.init();
   }, []);
 
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
+
+   const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
+    <div
+    className={`page-wrapper chiller-theme ${
+      sidebarToggled ? "toggled" : ""
+    }`}>
+    <a
+      id="show-sidebar"
+      className="btn1 btn-lg"
+      onClick={toggleSidebar}
+      style={{ color: "white", background: "#3a3f48" }}>
+      <i className="fas fa-bars"></i>
+    </a>
+    {/* <Header toggleSidebar={toggleSidebar} /> */}
+    {/* <div className="app-main"> */}
+    <Sidebar1 toggleSidebar={toggleSidebar} />
+    <div style={{marginTop:"50px"}}
+      className="page-content1 mb-3 app-main__outer"
+      data-aos="fade-left">
         <div className="container mt-3 app-main__outer" data-aos="fade-left">
           <div className="card shadow">
             <div className="card-body">
