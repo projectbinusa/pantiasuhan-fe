@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
-
+import Sidebar1 from "../../../../../../component/Sidebar1";
 
 function AddGuru() {
   const [namaGuru, setNamaGuru] = useState("");
@@ -67,101 +67,130 @@ function AddGuru() {
     AOS.init();
   }, []);
 
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
+
+  const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header />
-      <div className="app-main">
-        <Sidebar />
-        <div className="app-main__outer mb-3" data-aos="fade-left">
-          <div className="app-main__inner">
-            <div className="row">
-              <div className="col-md-12">
-                <div className="card shadow">
-                  <div className="card-body">
-                    <h1 className="fs-4">Form Tambah Data</h1>
-                    <hr />
-                    <form onSubmit={add}>
-                      <div className="row">
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Nama Guru
-                          </label>
-                          <input
-                            value={namaGuru}
-                            onChange={(e) => setNamaGuru(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Nama Guru"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            NIP
-                          </label>
-                          <input
-                            value={nip}
-                            onChange={(e) => setNip(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan NIP"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Riwayat
-                          </label>
-                          <input
-                            value={riwayat}
-                            onChange={(e) => setRiwayat(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Riwayat"
-                          />
-                        </div>
-                        <div className="mb-3 co-lg-6">
-                          <label className="form-label font-weight-bold">
-                            Gambar
-                          </label>
-                          <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
-                            type="file"
-                            className="form-control"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Mapel
-                          </label>
-                          <input
-                            value={mapel}
-                            onChange={(e) => setMapel(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Mapel"
-                          />
-                        </div>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div
+        style={{ marginTop: "50px" }}
+        className="page-content1 mb-3 app-main__outer"
+        data-aos="fade-left">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card shadow">
+                <div className="card-body">
+                  <h1 className="fs-4">Form Tambah Data</h1>
+                  <hr />
+                  <form onSubmit={add}>
+                    <div className="row">
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Nama Guru
+                        </label>
+                        <input
+                          value={namaGuru}
+                          onChange={(e) => setNamaGuru(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          placeholder="Masukkan Nama Guru"
+                        />
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-guru">
-                          Batal
-                        </a>
-                      </button>{" "}
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
-                      </button>
-                    </form>
-                  </div>
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          NIP
+                        </label>
+                        <input
+                          value={nip}
+                          onChange={(e) => setNip(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          placeholder="Masukkan NIP"
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Riwayat
+                        </label>
+                        <input
+                          value={riwayat}
+                          onChange={(e) => setRiwayat(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          placeholder="Masukkan Riwayat"
+                        />
+                      </div>
+                      <div className="mb-3 co-lg-6">
+                        <label className="form-label font-weight-bold">
+                          Gambar
+                        </label>
+                        <input
+                          onChange={(e) =>
+                            setImage(e.target.files ? e.target.files[0] : null)
+                          }
+                          type="file"
+                          className="form-control"
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Mapel
+                        </label>
+                        <input
+                          value={mapel}
+                          onChange={(e) => setMapel(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          placeholder="Masukkan Mapel"
+                        />
+                      </div>
+                    </div>
+                    <button type="button" className="btn-danger mt-3 mr-3">
+                      <a
+                        style={{ color: "white", textDecoration: "none" }}
+                        href="/admin-guru">
+                        Batal
+                      </a>
+                    </button>{" "}
+                    <button type="submit" className="btn-primary mt-3">
+                      Submit
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        {/* </div> */}
       </div>
     </div>
   );
