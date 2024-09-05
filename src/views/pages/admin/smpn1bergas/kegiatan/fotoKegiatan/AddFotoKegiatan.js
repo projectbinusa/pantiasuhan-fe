@@ -46,10 +46,10 @@ function AddFotoKegiatan() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-foto-kegiatan");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
+      history.push("/admin-kegiatan");
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
@@ -166,7 +166,7 @@ function AddFotoKegiatan() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-foto-kegiatan">
+                          href="/admin-kegiatan">
                           Batal
                         </a>
                       </button>{" "}

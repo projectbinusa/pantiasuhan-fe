@@ -97,10 +97,10 @@ function FotoKegiatan() {
               showConfirmButton: false,
               timer: 1500,
             });
-
-            setTimeout(() => {
-              window.location.reload();
-            }, 1500);
+            getAll();
+            // setTimeout(() => {
+            //   window.location.reload();
+            // }, 1500);
           });
       }
     });
@@ -197,21 +197,49 @@ function FotoKegiatan() {
 
   return (
     <>
-    {/* <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+      {/* <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
       <Header /> */}
       {/* <div className="app-main">
         <Sidebar /> */}
-        {/* <div
+      {/* <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left"> */}
-          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
+      <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
+        <div className="col-auto">
+          {/* a */}
+          <label className="form-label mt-2">Rows per page:</label>
+        </div>
+        <div className="col-auto">
+          <select
+            className="form-select form-select-xl w-auto"
+            onChange={handleRowsPerPageChange}
+            value={rowsPerPage}>
+            <option value={5}>5</option>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+          </select>
+        </div>
+      </div>
+      <div className="search">
+        <input
+          type="search"
+          className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+      </div>
+      <div className="main-card box-tabel mb-3 card">
+        <div className="card-header" style={{ display: "flex" }}>
+          <p className="mt-3">Foto</p>
+          <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
             <div className="col-auto">
               {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
               <select
-                className="form-select form-select-xl w-auto"
+                className="form-select form-select-sm"
                 onChange={handleRowsPerPageChange}
                 value={rowsPerPage}>
                 <option value={5}>5</option>
@@ -220,135 +248,107 @@ function FotoKegiatan() {
               </select>
             </div>
           </div>
-          <div className="search">
+          <div className="d-flex ml-auto gap-3">
             <input
               type="search"
-              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
+              className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
               placeholder="Search..."
               value={searchTerm}
               onChange={handleSearchChange}
             />
-          </div>
-          <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Foto</p>
-              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-                <div className="col-auto">
-                  {/* a */}
-                  <label className="form-label mt-2">Rows per page:</label>
-                </div>
-                <div className="col-auto">
-                  <select
-                    className="form-select form-select-sm"
-                    onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                  </select>
-                </div>
-              </div>
-              <div className="d-flex ml-auto gap-3">
-                <input
-                  type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add-foto-kegiatan">
-                        Tambah Foto Kegiatan
-                      </a>
-                    </button>
-                  </div>
-                </div>
+            <div className="btn-actions-pane-right">
+              <div role="group" className="btn-group-sm btn-group">
+                <button className="active btn-focus p-2 rounded">
+                  <a
+                    style={{ color: "white", textDecoration: "none" }}
+                    href="/add-foto-kegiatan">
+                    Tambah Foto Kegiatan
+                  </a>
+                </button>
               </div>
             </div>
-            <div
-              className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
-              <table className="align-middle mb-0 table table-borderless table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Foto</th>
-                    <th className="text-long">Nama Kegiatan</th>
-                    <th className="text-long">Tanggal Dibuat</th>
-                    <th className="text-long">Tanggal Update</th>
-                    <th className="text-left">Aksi</th>
+          </div>
+        </div>
+        <div
+          className="table-responsive-3"
+          style={{ overflowX: "auto", maxWidth: "100%" }}>
+          <table className="align-middle mb-0 table table-borderless table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th className="text-long">Foto</th>
+                <th className="text-long">Nama Kegiatan</th>
+                <th className="text-long">Tanggal Dibuat</th>
+                <th className="text-long">Tanggal Update</th>
+                <th className="text-left">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredList.map((berita, no) => {
+                return (
+                  <tr key={no}>
+                    <td data-label="No" className="">
+                      {no + 1 + (currentPage - 1) * rowsPerPage}
+                    </td>
+                    <td data-label="Gambar" className="">
+                      <img
+                        src={berita.foto}
+                        style={{ height: "4.5rem", width: "4.5rem" }}
+                      />
+                    </td>
+                    {/* <td data-label="">{berita.isiBerita}</td> */}{" "}
+                    <td data-label="Nama Kegiatan" className="">
+                      {berita.kegiatan.judul}
+                    </td>
+                    <td data-label="Tanggal Dibuat" className="">
+                      {berita.createdDate}
+                    </td>
+                    <td data-label="Tanggal Update" className="">
+                      {berita.updatedDate}
+                    </td>
+                    <td data-label="Aksi">
+                      <div className="aksi">
+                        <button
+                          type="button"
+                          className="btn-primary btn-sm mr-2">
+                          <a
+                            style={{
+                              color: "white",
+                              textDecoration: "none",
+                            }}
+                            href={`/edit-foto-kegiatan/${berita.id}`}>
+                            {" "}
+                            <i className="fa-solid fa-pen-to-square"></i>
+                          </a>
+                        </button>
+                        <button
+                          onClick={() => deleteData(berita.id)}
+                          type="button"
+                          className="btn-danger btn-sm">
+                          <i className="fa-solid fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {filteredList.map((berita, no) => {
-                    return (
-                      <tr key={no}>
-                        <td data-label="No" className="">
-                          {no + 1 + (currentPage - 1) * rowsPerPage}
-                        </td>
-                        <td data-label="Gambar" className="">
-                          <img
-                            src={berita.foto}
-                            style={{ height: "4.5rem", width: "4.5rem" }}
-                          />
-                        </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}{" "}
-                        <td data-label="Nama Kegiatan" className="">
-                          {berita.kegiatan.judul}
-                        </td>
-                        <td data-label="Tanggal Dibuat" className="">
-                          {berita.createdDate}
-                        </td>
-                        <td data-label="Tanggal Update" className="">
-                          {berita.updatedDate}
-                        </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
-                            <button
-                              type="button"
-                              className="btn-primary btn-sm mr-2">
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit-foto-kegiatan/${berita.id}`}>
-                                {" "}
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              onClick={() => deleteData(berita.id)}
-                              type="button"
-                              className="btn-danger btn-sm">
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            <div className="card-header mt-3 d-flex justify-content-center">
-              <Pagination
-                count={paginationInfo.totalPages}
-                page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
-                showFirstButton
-                showLastButton
-                color="primary"
-              />
-            </div>
-          </div>
-        {/* </div> */}
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div className="card-header mt-3 d-flex justify-content-center">
+          <Pagination
+            count={paginationInfo.totalPages}
+            page={currentPage}
+            onChange={(event, value) => setCurrentPage(value)}
+            showFirstButton
+            showLastButton
+            color="primary"
+          />
+        </div>
+      </div>
       {/* </div> */}
-    {/* </div> */}
+      {/* </div> */}
+      {/* </div> */}
     </>
   );
 }

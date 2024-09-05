@@ -68,25 +68,26 @@ function Sarana() {
             },
           })
           .then(() => {
+            getAll();
             Swal.fire({
               icon: "success",
               title: "Dihapus!",
               showConfirmButton: false,
               timer: 1500,
             });
-
-            setTimeout(() => {
-              window.location.reload();
-            }, 1500);
-          }).catch((err) => {
+            // setTimeout(() => {
+            //   window.location.reload();
+            // }, 1500);
+          })
+          .catch((err) => {
             Swal.fire({
               icon: "error",
               title: "Hapus Data Gagal!",
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     });
   };
@@ -126,7 +127,7 @@ function Sarana() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -134,25 +135,26 @@ function Sarana() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">
@@ -227,9 +229,9 @@ function Sarana() {
                   <tr>
                     <th scope="col">No</th>
                     <th className="text-long">Nama sarana</th>
-                    {/* <th scope="col" className="text-left">
-                      Deskripsi
-                    </th> */}
+                    <th scope="col" className="text-left">
+                      Kategori
+                    </th>
                     <th className="text-left">Aksi</th>
                   </tr>
                 </thead>
@@ -242,6 +244,9 @@ function Sarana() {
                         </td>
                         <td data-label="Nama Sarana" className="text-long">
                           {berita.nama_sarana}
+                        </td>
+                        <td data-label="Nama Sarana" className="text-long">
+                          {berita.category}
                         </td>
                         {/* <td
                           data-label="Deskripsi"

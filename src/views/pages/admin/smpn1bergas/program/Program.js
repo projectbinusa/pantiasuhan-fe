@@ -73,10 +73,10 @@ function Program() {
               showConfirmButton: false,
               timer: 1500,
             });
-
-            setTimeout(() => {
-              window.location.reload();
-            }, 1500);
+            getAll();
+            // setTimeout(() => {
+            //   window.location.reload();
+            // }, 1500);
           })
           .catch((err) => {
             Swal.fire({
@@ -126,7 +126,7 @@ function Program() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -134,8 +134,8 @@ function Program() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
