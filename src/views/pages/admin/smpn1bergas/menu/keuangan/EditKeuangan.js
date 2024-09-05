@@ -247,7 +247,7 @@ function EditKeuangan() {
         const response = ress.data.data;
         setJudul(response.judul);
         setIsi(response.isi);
-        setCategoryKeuangan(response.category);
+        setCategoryKeuangan(response.categoryKeuangan);
       })
       .catch((error) => {
         console.log(error);
