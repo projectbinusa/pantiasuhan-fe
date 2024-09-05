@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import Footer from "../../component/FooterSekolah";
-import { Link, Typography, TextField, Button, Grid, IconButton } from "@mui/material";
+import {
+  Link,
+  Typography,
+  TextField,
+  Button,
+  Grid,
+  IconButton,
+} from "@mui/material";
 import "../../css/prestasi/card.css";
 import AOS from "aos";
 import axios from "axios";
@@ -120,12 +127,12 @@ function Home() {
 
   const inputFieldStyle = {
     flex: 1,
-    marginTop: "10px"
+    marginTop: "10px",
   };
 
   const inputFieldStyles = {
     flex: 1,
-    marginTop: isMobile ? "20px" : "10px"
+    marginTop: isMobile ? "20px" : "10px",
   };
 
   const messageContainerStyle = {
@@ -163,7 +170,6 @@ function Home() {
       );
       setBerita(response.data.data.content);
       console.log(response.data.data.content);
-
     } catch (error) {
       console.log("get all", error);
     }
@@ -310,7 +316,8 @@ function Home() {
   }, []);
 
   const generateCaptcha = () => {
-    const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const chars =
+      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let captcha = "";
     for (let i = 0; i < 6; i++) {
       captcha += chars[Math.floor(Math.random() * chars.length)];
@@ -419,31 +426,38 @@ function Home() {
                 <img
                   style={{ borderRadius: "15px", width: "70%" }}
                   className="shape-image"
-                  src={fotoKepsek || "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"}
+                  src={
+                    fotoKepsek ||
+                    "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
+                  }
                   alt="img"
                 />
               </div>
             </div>
             <div data-aos="fade-left" className="col-lg-6 align-self-center">
               <div className="section-title px-lg-5 mb-0">
-                <h5 className="sub-title left-border">Sambutan Kepala Sekolah</h5>
+                <h5 className="sub-title left-border">
+                  Sambutan Kepala Sekolah
+                </h5>
                 {namaKepsek ? (
                   <h2 className="title">{namaKepsek}</h2>
                 ) : (
                   <p
                     className="title"
-                    style={{ color: '#666', fontSize: '1rem', margin: 0 }}
-                  >Sambutan kepala sekolah tidak tersedia</p>
+                    style={{ color: "#666", fontSize: "1rem", margin: 0 }}>
+                    Sambutan kepala sekolah tidak tersedia
+                  </p>
                 )}
                 <p
                   className="content mt-2 mb-2 isiBerita2"
-                  style={{ color: hasData ? 'inherit' : 'gray' }}
-                >
-                  {sambutan || ""}
+                  style={{ color: hasData ? "inherit" : "gray" }}>
+                  <div dangerouslySetInnerHTML={{ __html: sambutan }} />
                 </p>
                 {hasData && (
                   <>
-                    <a href="/sambutan" style={{ fontWeight: "600" }}>SELENGKAPNYA</a>
+                    <a href="/sambutan" style={{ fontWeight: "600" }}>
+                      SELENGKAPNYA
+                    </a>
                     <hr />
                   </>
                 )}
@@ -459,16 +473,20 @@ function Home() {
           <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-7 col-md-10">
               <div class="section-title style-white text-center">
-                <h5 class="sub-title double-line">
-                  Berita Terbaru
-                </h5>
+                <h5 class="sub-title double-line">Berita Terbaru</h5>
               </div>
             </div>
           </div>
           <div class="row justify-content-center">
             {berita.length === 0 ? (
               <div className="col-12">
-                <p style={{ textAlign: "center", fontStyle: "italic", color: "white", fontSize: "1.2rem" }}>
+                <p
+                  style={{
+                    textAlign: "center",
+                    fontStyle: "italic",
+                    color: "white",
+                    fontSize: "1.2rem",
+                  }}>
                   Berita Tidak Tersedia.
                 </p>
               </div>
@@ -481,14 +499,17 @@ function Home() {
                     </div>
                     <div className="details">
                       <h4>
-                        <a href={`/detail-news-${data.id}`}>{data.judulBerita}</a>
+                        <a href={`/detail-news-${data.id}`}>
+                          {data.judulBerita}
+                        </a>
                       </h4>
                       <ul className="blog-meta">
                         <li>
                           <i className="far fa-user"></i> By {data.author}
                         </li>
                         <li>
-                          <i className="far fa-calendar-alt"></i> {data.created_date}
+                          <i className="far fa-calendar-alt"></i>{" "}
+                          {data.created_date}
                         </li>
                       </ul>
                       <p
@@ -499,7 +520,9 @@ function Home() {
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                         }}>
-                        <div dangerouslySetInnerHTML={{ __html: data.isiBerita }} />
+                        <div
+                          dangerouslySetInnerHTML={{ __html: data.isiBerita }}
+                        />
                       </p>
                     </div>
                   </div>
@@ -620,7 +643,9 @@ function Home() {
           <div class="row justify-content-center">
             <div class="col-lg-6">
               <div class="section-title text-center">
-                <h5 class="sub-title double-line" style={{ color: "black" }}>Guru</h5>
+                <h5 class="sub-title double-line" style={{ color: "black" }}>
+                  Guru
+                </h5>
                 <h2 class="title">Bertemu dengan Guru Kami</h2>
                 <p class="content">
                   Para guru kami adalah profesional yang berdedikasi. Dengan
@@ -690,7 +715,9 @@ function Home() {
                     </div>
                   </div>
                   <div class="hover-details-wrap">
-                    <div class="hover-details-inner" style={{ padding: "0 1.5rem" }}>
+                    <div
+                      class="hover-details-inner"
+                      style={{ padding: "0 1.5rem" }}>
                       <h4>
                         <a
                           style={{
@@ -711,7 +738,7 @@ function Home() {
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                           color: "white",
-                          textAlign: "justify"
+                          textAlign: "justify",
                         }}>
                         {data.biografi}
                       </p>
@@ -818,7 +845,9 @@ function Home() {
                       <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ color: "gray", marginLeft: "8px" }}>Email Tidak Tersedia</span>
+                    <span style={{ color: "gray", marginLeft: "8px" }}>
+                      Email Tidak Tersedia
+                    </span>
                   </Typography>
                 )}
 
@@ -862,7 +891,9 @@ function Home() {
                       <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z" />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ color: "gray", marginLeft: "8px" }}>No Telephone Tidak Tersedia</span>
+                    <span style={{ color: "gray", marginLeft: "8px" }}>
+                      No Telephone Tidak Tersedia
+                    </span>
                   </Typography>
                 )}
 
@@ -914,7 +945,9 @@ function Home() {
                       />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ color: "gray", marginLeft: "8px" }}>Fax Tidak Tersedia</span>
+                    <span style={{ color: "gray", marginLeft: "8px" }}>
+                      Fax Tidak Tersedia
+                    </span>
                   </Typography>
                 )}
 
@@ -966,7 +999,9 @@ function Home() {
                       />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ color: "gray", marginLeft: "8px" }}>Alamat Tidak Tersedia</span>
+                    <span style={{ color: "gray", marginLeft: "8px" }}>
+                      Alamat Tidak Tersedia
+                    </span>
                   </Typography>
                 )}
               </div>
@@ -979,19 +1014,32 @@ function Home() {
               Kotak Saran
             </Typography>
 
-            <div style={{ display: "flex", alignItems: "center", gap: "5px", marginBottom: "5px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+                marginBottom: "5px",
+              }}>
               <p style={{ margin: 0 }}>
                 Kode Captcha:{" "}
                 <span style={captchaTextStyle}>{generatedCaptcha}</span>
               </p>
-              <Button type="button" onClick={generateCaptcha} disabled={isLocked} style={{ width: "3%", fontSize: "18px" }}>
+              <Button
+                type="button"
+                onClick={generateCaptcha}
+                disabled={isLocked}
+                style={{ width: "3%", fontSize: "18px" }}>
                 <i className="fa-solid fa-arrows-rotate"></i>
               </Button>
               <Button
                 type="button"
                 onClick={() => setIsLocked(!isLocked)}
                 style={{ width: "3%", fontSize: "18px" }}>
-                <i className={`fa-solid ${isLocked ? 'fa-lock' : 'fa-unlock'}`}></i>
+                <i
+                  className={`fa-solid ${
+                    isLocked ? "fa-lock" : "fa-unlock"
+                  }`}></i>
               </Button>
             </div>
 
