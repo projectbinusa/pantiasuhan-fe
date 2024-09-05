@@ -92,17 +92,32 @@ function EditProgram() {
   const update = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("judulPrgram", judul);
-    formData.append("namaProgram", nama);
-    formData.append("tujuan", tujuan);
+    // const formData = new FormData();
+    // formData.append("judulPrgram", judul);
+    // formData.append("namaProgram", nama);
+    // formData.append("tujuan", tujuan);
+
+    const data = {
+      judulProgram: judul,
+      namaProgram: nama,
+      tujuan: tujuan,
+    };
 
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/program/put/` + param.id, formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .put(
+        `${API_DUMMY}/smpn1bergas/api/program/put/` + param.id,
+        data,
+        // {
+        //   judulProgram: judul,
+        //   namaProgram: nama,
+        //   tujuan: tujuan,
+        // },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then(() => {
         Swal.fire({
           icon: "success",
@@ -111,9 +126,9 @@ function EditProgram() {
           timer: 1500,
         });
         history.push("/admin-program");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 1500);
       })
       .catch((error) => {
         if (error.ressponse && error.response.status === 401) {
@@ -258,14 +273,13 @@ function EditProgram() {
     { label: "Blue grey 900", color: "#263238" },
   ];
 
-
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -273,25 +287,28 @@ function EditProgram() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
+        <div
+          className="container mt-3 mb-3 app-main__outer"
+          data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -334,9 +351,9 @@ function EditProgram() {
                           <label className="form-label font-weight-bold">
                             Tujuan
                           </label>
-                           <CKEditor
+                          <CKEditor
                             editor={ClassicEditor}
-                            data={tujuan} // Gunakan 'data' untuk set initial value
+                            data={tujuan || ""} // Gunakan 'data' untuk set initial value
                             onChange={(event, editor) => {
                               const data = editor.getData(); // Ambil data dari editor
                               setTujuan(data); // Set state dengan data dari editor
@@ -349,10 +366,6 @@ function EditProgram() {
                                 // --- Document-wide tools ----------------------------------------------------------------------
                                 "undo",
                                 "redo",
-                                // "|",
-                                // "alignment:left", // Tambahkan opsi align left
-                                // "alignment:center", // Tambahkan opsi align center
-                                // "alignment:right",
                                 "|",
                                 "importWord",
                                 "exportWord",
@@ -561,7 +574,6 @@ function EditProgram() {
                                   },
                                 ],
                               },
-                              // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
                             }}
                           />
                         </div>

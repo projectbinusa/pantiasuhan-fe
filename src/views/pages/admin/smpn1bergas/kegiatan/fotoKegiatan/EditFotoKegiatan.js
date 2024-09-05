@@ -23,22 +23,49 @@ function EditFotoKegiatan() {
   const param = useParams();
 
   useEffect(() => {
-    axios
-      .get(`${API_DUMMY}/smpn1bergas/api/kegiatan/get/` + param.id, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((ress) => {
+    const fetchKegiatan = async () => {
+      try {
+        const ress = await axios.get(
+          `${API_DUMMY}/smpn1bergas/api/kegiatan/get/` + param.id,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         const response = ress.data.data;
-        setIdKegiatan(response.kegiatan.id);
-        setImage(response.foto);
-        console.log("foto-kegiatan : ", ress.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+        if (response) {
+          setIdKegiatan(response.id);
+          setImage(response.foto || ""); // Menghindari error jika response.foto undefined
+          console.log("foto-kegiatan : ", response.id);
+        } else {
+          console.error("Data kegiatan tidak ditemukan");
+        }
+      } catch (error) {
+        console.log("Error fetching kegiatan:", error);
+      }
+    };
+
+    fetchKegiatan();
+    getKegiatan(); // Memanggil fungsi untuk mendapatkan semua kegiatan
+  }, [param.id]); // Tambahkan dependensi param.id
+
+  const getKegiatan = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/kegiatan/all`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setKegiatan(response.data.data.content);
+      console.log(response.data.data.content);
+    } catch (error) {
+      console.error("Terjadi Kesalahan saat mengambil semua kegiatan", error);
+    }
+  };
 
   //edit pengumuman
   const update = async (e) => {
@@ -65,10 +92,10 @@ function EditFotoKegiatan() {
           showConfirmButton: false,
           timer: 1500,
         });
-        history.push("/admin-foto-kegiatan");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
+        history.push("/admin-kegiatan");
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 1500);
       })
       .catch((error) => {
         if (error.ressponse && error.response.status === 401) {
@@ -80,22 +107,6 @@ function EditFotoKegiatan() {
       });
   };
 
-  const getKegiatan = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kegiatan/all`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setKegiatan(response.data.data.content);
-      console.log(response.data.data.content);
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
-  };
 
   useEffect(() => {
     getKegiatan();
@@ -146,7 +157,7 @@ function EditFotoKegiatan() {
               <div className="col-md-12">
                 <div className="card shadow">
                   <div className="card-body">
-                    <h1 className="fs-4">Form Tambah Data</h1>
+                    <h1 className="fs-4">Form Edit Data</h1>
                     <hr />
                     <form onSubmit={update}>
                       <div className="row">
@@ -187,7 +198,7 @@ function EditFotoKegiatan() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-foto-kegiatan">
+                          href="/admin-kegiatan">
                           Batal
                         </a>
                       </button>{" "}

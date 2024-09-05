@@ -69,13 +69,27 @@ function AddKegiatan() {
   const [tanggal, setTanggal] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const [kategori, setKategori] = useState("");
+  const [list, setList] = useState([]);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const formatDateToSlash = (value) => {
+    const date = new Date(value);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}/${month}/${day}`;
+  };
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -83,23 +97,68 @@ function AddKegiatan() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const getAll = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/kegiatan/all/terbaru?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setList(response.data.data.content);
+      console.log(response.data.data.content);
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+    }
+  };
 
   //add
   const add = async (e) => {
     e.preventDefault();
     e.persist();
 
-    const formData = new FormData();
-    formData.append("judul", judul);
-    formData.append("isi", isi);
-    formData.append("penulis", penulis);
-    formData.append("tanggal", tanggal);
-    formData.append("foto", image);
+    const categoryExists = list.some(
+      (kegiatan) => kegiatan.category === kategori
+    );
+
+    const kegiatanExists = list.some(
+      (kegiatan) => kegiatan.judul === judul
+    );
+
+    if (categoryExists) {
+      Swal.fire({
+        icon: "error",
+        title: "Tambah Data Gagal!",
+        text: "Kategori sudah ada. Silakan pilih kategori lain.",
+        showConfirmButton: true,
+      });
+      return;
+    } else if(kegiatanExists) {
+      Swal.fire({
+        icon: "error",
+        title: "Tambah Data Gagal!",
+        text: "Judul Kegiatan Sudah Ada.",
+        showConfirmButton: true,
+      });
+      return;
+    }
 
     try {
+      const formData = new FormData();
+      formData.append("judul", judul);
+      formData.append("isi", isi);
+      formData.append("penulis", penulis);
+      formData.append("tanggal", formatDateToSlash(tanggal));
+      formData.append("file", image);
+      formData.append("category", kategori);
       await axios.post(`${API_DUMMY}/smpn1bergas/api/kegiatan/add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -113,10 +172,10 @@ function AddKegiatan() {
         showConfirmButton: false,
         timer: 1500,
       });
-      setTimeout(() => {
-        history.push("/admin-kegiatan");
-        window.location.reload();
-      }, 1500);
+      history.push("/admin-kegiatan");
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
@@ -258,10 +317,12 @@ function AddKegiatan() {
 
   useEffect(() => {
     AOS.init();
+    getAll();
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
+    <div
+      className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
       }`}>
       <a
@@ -302,14 +363,28 @@ function AddKegiatan() {
                             Gambar
                           </label>
                           <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
+                            onChange={(e) => setImage(e.target.files[0])}
                             type="file"
                             className="form-control"
                           />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Kategori Kegiatan
+                          </label>
+                          <select
+                            value={kategori}
+                            className="form-control"
+                            aria-label="Small select example"
+                            onChange={(e) => setKategori(e.target.value)}>
+                            <option selected>Pilih Kategori Kegiatan</option>
+                            <option value="Kegiatan Khusus">
+                              Kegiatan Khusus
+                            </option>
+                            <option value="Kegiatan Umum">Kegiatan Umum</option>
+                            <option value="Pemeliharaan">Pemeliharaan</option>
+                            <option value="Pengembangan">Pengembangan</option>
+                          </select>
                         </div>
                         <div className="col-lg-12 mb-3">
                           <label className="form-label font-weight-bold">
@@ -318,7 +393,7 @@ function AddKegiatan() {
                           <div className="">
                             <CKEditor
                               editor={ClassicEditor}
-                              data={isi} // Gunakan 'data' untuk set initial value
+                              data={isi || ""} // Gunakan 'data' untuk set initial value
                               onChange={(event, editor) => {
                                 const data = editor.getData(); // Ambil data dari editor
                                 setIsi(data); // Set state dengan data dari editor

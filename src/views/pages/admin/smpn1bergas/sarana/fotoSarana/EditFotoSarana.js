@@ -62,10 +62,10 @@ function EditFotoSarana() {
           showConfirmButton: false,
           timer: 1500,
         });
-        history.push("/admin-foto-sarana");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
+        history.push("/admin-sarana");
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 1500);
       })
       .catch((error) => {
         if (error.ressponse && error.response.status === 401) {
@@ -125,7 +125,7 @@ function EditFotoSarana() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   return (
     <div
     className={`page-wrapper chiller-theme ${
@@ -189,7 +189,7 @@ function EditFotoSarana() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-foto-sarana">
+                          href="/admin-sarana">
                           Batal
                         </a>
                       </button>

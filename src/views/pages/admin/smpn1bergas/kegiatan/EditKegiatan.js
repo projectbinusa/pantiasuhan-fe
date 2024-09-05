@@ -67,14 +67,28 @@ function EditKegiatan() {
   const [image, setImage] = useState(null);
   const [isi, setIsi] = useState("");
   const [penulis, setPenulis] = useState("");
+  const [kategori, setKategori] = useState("");
   const [tanggal, setTanggal] = useState("");
+  const [list, setList] = useState([]);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const formatDateToSlash = (value) => {
+    const date = new Date(value);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}/${month}/${day}`;
+  };
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -82,23 +96,64 @@ function EditKegiatan() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const param = useParams();
   const history = useHistory();
 
+  const getAll = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/kegiatan/all/terbaru?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setList(response.data.data.content);
+      console.log(response.data.data.content);
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+    }
+  };
   const update = async (e) => {
     e.preventDefault();
     e.persist();
+    const categoryExists = list.some(
+      (kegiatan) => kegiatan.category === kategori
+    );
 
+    const kegiatanExists = list.some((kegiatan) => kegiatan.judul === judul);
+
+    if (categoryExists) {
+      Swal.fire({
+        icon: "error",
+        title: "Tambah Data Gagal!",
+        text: "Kategori sudah ada. Silakan pilih kategori lain.",
+        showConfirmButton: true,
+      });
+      return;
+    } else if (kegiatanExists) {
+      Swal.fire({
+        icon: "error",
+        title: "Tambah Data Gagal!",
+        text: "Judul Kegiatan Sudah Ada.",
+        showConfirmButton: true,
+      });
+      return;
+    }
     const formData = new FormData();
     formData.append("judul", judul);
     formData.append("isi", isi);
     formData.append("penulis", penulis);
-    formData.append("tanggal", tanggal);
-    formData.append("foto", image);
+    formData.append("tanggal", formatDateToSlash(tanggal));
+    formData.append("file", image);
+    formData.append("category", kategori);
 
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/kegiatan/put/` + param.id, formData, {
@@ -113,10 +168,10 @@ function EditKegiatan() {
           showConfirmButton: false,
           timer: 1500,
         });
-        setTimeout(() => {
+        // setTimeout(() => {
         history.push("/admin-kegiatan");
-          window.location.reload();
-        }, 1500);
+        //   window.location.reload();
+        // }, 1500);
       })
       .catch((error) => {
         if (error.ressponse && error.response.status === 401) {
@@ -133,7 +188,6 @@ function EditKegiatan() {
         }
       });
   };
-
 
   const handleEditorChange = (isi, editor) => {
     setIsi(isi);
@@ -152,6 +206,7 @@ function EditKegiatan() {
         setIsi(response.isi);
         setTanggal(response.tanggal);
         setPenulis(response.penulis);
+        setKategori(response.category);
       })
       .catch((error) => {
         console.log(error);
@@ -160,6 +215,7 @@ function EditKegiatan() {
 
   useEffect(() => {
     AOS.init();
+    getAll();
   }, []);
 
   const REDUCED_MATERIAL_COLORS = [
@@ -286,7 +342,8 @@ function EditKegiatan() {
   ];
 
   return (
-    <div className={`page-wrapper chiller-theme ${
+    <div
+      className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
       }`}>
       <a
@@ -307,7 +364,6 @@ function EditKegiatan() {
               <hr />
               <form onSubmit={update}>
                 <div className="row">
-
                   <div className="mb-3 co-lg-6">
                     <label className="form-label font-weight-bold">
                       Gambar
@@ -321,7 +377,9 @@ function EditKegiatan() {
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
-                    <label className="form-label font-weight-bold">Nama Kegiatan</label>
+                    <label className="form-label font-weight-bold">
+                      Nama Kegiatan
+                    </label>
                     <input
                       value={judul}
                       onChange={(e) => setJudul(e.target.value)}
@@ -330,239 +388,281 @@ function EditKegiatan() {
                       placeholder="Masukkan Nama Kegiatan"
                     />
                   </div>
+                  <div className="mb-3 col-lg-12">
+                    <label className="form-label  font-weight-bold ">
+                      Kategori Kegiatan
+                    </label>
+                    <select
+                      value={kategori}
+                      className="form-control"
+                      aria-label="Small select example"
+                      onChange={(e) => setKategori(e.target.value)}>
+                      <option selected>Pilih Kategori Kegiatan</option>
+                      <option value="Kegiatan Khusus">Kegiatan Khusus</option>
+                      <option value="Kegiatan Umum">Kegiatan Umum</option>
+                      <option value="Pemeliharaan">Pemeliharaan</option>
+                      <option value="Pengembangan">Pengembangan</option>
+                    </select>
+                  </div>
+                  <div className="mb-3 col-lg-12">
+                    <label className="form-label font-weight-bold">
+                      Penulis Kegiatan
+                    </label>
+                    <input
+                      value={penulis}
+                      onChange={(e) => setPenulis(e.target.value)}
+                      type="text"
+                      className="form-control"
+                      placeholder="Masukkan Nama Penulis Kegiatan"
+                    />
+                  </div>{" "}
+                  <div className="mb-3 col-lg-12">
+                    <label className="form-label font-weight-bold">
+                      Tanggal Kegiatan
+                    </label>
+                    <input
+                      value={tanggal}
+                      onChange={(e) => setTanggal(e.target.value)}
+                      type="date"
+                      className="form-control"
+                      placeholder="Masukkan Tanggal Kegiatan Dimulai"
+                    />
+                  </div>
                   <div className="col-lg-12">
-                    <label className="form-label font-weight-bold">Isi Kegiatan</label>
+                    <label className="form-label font-weight-bold">
+                      Isi Kegiatan
+                    </label>
                     <div className="">
-                    <CKEditor
-                      editor={ClassicEditor}
-                      data={isi} // Gunakan 'data' untuk set initial value
-                      onChange={(event, editor) => {
-                        const data = editor.getData(); // Ambil data dari editor
-                        setIsi(data); // Set state dengan data dari editor
-                      }}
-                      config={{
-                        toolbar: [
-                          // --- Text alignment ---------------------------------------------------------------------------
-                          "alignment",
-                          "|",
-                          // --- Document-wide tools ----------------------------------------------------------------------
-                          "undo",
-                          "redo",
-                          // "|",
-                          // "alignment:left", // Tambahkan opsi align left
-                          // "alignment:center", // Tambahkan opsi align center
-                          // "alignment:right",
-                          "|",
-                          "importWord",
-                          "exportWord",
-                          "exportPdf",
-                          "|",
-                          "formatPainter",
-                          "caseChange",
-                          "findAndReplace",
-                          "selectAll",
-                          "wproofreader",
-                          "|",
-                          "insertTemplate",
-                          "tableOfContents",
-                          "|",
+                      <CKEditor
+                        editor={ClassicEditor}
+                        data={isi || ""} // Gunakan 'data' untuk set initial value
+                        onChange={(event, editor) => {
+                          const data = editor.getData(); // Ambil data dari editor
+                          setIsi(data); // Set state dengan data dari editor
+                        }}
+                        config={{
+                          toolbar: [
+                            // --- Text alignment ---------------------------------------------------------------------------
+                            "alignment",
+                            "|",
+                            // --- Document-wide tools ----------------------------------------------------------------------
+                            "undo",
+                            "redo",
+                            // "|",
+                            // "alignment:left", // Tambahkan opsi align left
+                            // "alignment:center", // Tambahkan opsi align center
+                            // "alignment:right",
+                            "|",
+                            "importWord",
+                            "exportWord",
+                            "exportPdf",
+                            "|",
+                            "formatPainter",
+                            "caseChange",
+                            "findAndReplace",
+                            "selectAll",
+                            "wproofreader",
+                            "|",
+                            "insertTemplate",
+                            "tableOfContents",
+                            "|",
 
-                          // --- "Insertables" ----------------------------------------------------------------------------
+                            // --- "Insertables" ----------------------------------------------------------------------------
 
-                          "link",
-                          "insertImage",
-                          "ckbox",
-                          "insertTable",
-                          "blockQuote",
-                          "mediaEmbed",
-                          "codeBlock",
-                          "pageBreak",
-                          "horizontalLine",
-                          "specialCharacters",
-                          "-",
+                            "link",
+                            "insertImage",
+                            "ckbox",
+                            "insertTable",
+                            "blockQuote",
+                            "mediaEmbed",
+                            "codeBlock",
+                            "pageBreak",
+                            "horizontalLine",
+                            "specialCharacters",
+                            "-",
 
-                          // --- Block-level formatting -------------------------------------------------------------------
-                          "heading",
-                          "style",
-                          "|",
+                            // --- Block-level formatting -------------------------------------------------------------------
+                            "heading",
+                            "style",
+                            "|",
 
-                          // --- Basic styles, font and inline formatting -------------------------------------------------------
-                          "bold",
-                          "italic",
-                          "underline",
-                          "strikethrough",
-                          {
-                            label: "Basic styles",
-                            icon: "text",
-                            items: [
-                              "fontSize",
-                              "fontFamily",
-                              "fontColor",
-                              "fontBackgroundColor",
-                              "highlight",
-                              "superscript",
-                              "subscript",
-                              "code",
+                            // --- Basic styles, font and inline formatting -------------------------------------------------------
+                            "bold",
+                            "italic",
+                            "underline",
+                            "strikethrough",
+                            {
+                              label: "Basic styles",
+                              icon: "text",
+                              items: [
+                                "fontSize",
+                                "fontFamily",
+                                "fontColor",
+                                "fontBackgroundColor",
+                                "highlight",
+                                "superscript",
+                                "subscript",
+                                "code",
+                                "|",
+                                "textPartLanguage",
+                                "|",
+                              ],
+                            },
+                            "removeFormat",
+                            "|",
+
+                            // --- Lists and indentation --------------------------------------------------------------------
+                            "bulletedList",
+                            "numberedList",
+                            "multilevelList",
+                            "todoList",
+                            "|",
+                            "outdent",
+                            "indent",
+                          ],
+                          styles: [
+                            // "full",    // Gambar mengambil lebar penuh konten
+                            // "side",    // Gambar sejajar dengan teks
+                            "alignLeft",
+                            "alignCenter",
+                            "alignRight",
+                          ],
+                          alignment: {
+                            options: ["left", "right", "center", "justify"],
+                          },
+                          plugins: [
+                            GeneralHtmlSupport,
+                            Bold,
+                            Alignment,
+                            Essentials,
+                            Heading,
+                            Indent,
+                            IndentBlock,
+                            Italic,
+                            Link,
+                            List,
+                            MediaEmbed,
+                            Paragraph,
+                            Table,
+                            Undo,
+                            Image,
+                            ImageCaption,
+                            ImageInsert,
+                            ImageResize,
+                            ImageStyle,
+                            ImageToolbar,
+                            ImageUpload,
+                            Base64UploadAdapter,
+                            Indent,
+                            IndentBlock,
+                            Italic,
+                            Link,
+                            LinkImage,
+                            List,
+                            ListProperties,
+                            MediaEmbed,
+                            Mention,
+                            PageBreak,
+                            Paragraph,
+                            PasteFromOffice,
+                            PictureEditing,
+                            RemoveFormat,
+                            SpecialCharacters,
+                            // SpecialCharactersEmoji,
+                            SpecialCharactersEssentials,
+                            Strikethrough,
+                            Style,
+                            Subscript,
+                            Superscript,
+                            Table,
+                            TableCaption,
+                            TableCellProperties,
+                            TableColumnResize,
+                            TableProperties,
+                            TableToolbar,
+                            TextPartLanguage,
+                            TextTransformation,
+                            TodoList,
+                            Underline,
+                            WordCount,
+                          ],
+                          image: {
+                            toolbar: [
+                              "imageTextAlternative",
+                              "toggleImageCaption",
                               "|",
-                              "textPartLanguage",
+                              "imageStyle:inline",
+                              "imageStyle:wrapText",
+                              "imageStyle:breakText",
                               "|",
+                              "resizeImage",
+                              "|",
+                              "linkImage",
                             ],
                           },
-                          "removeFormat",
-                          "|",
-
-                          // --- Lists and indentation --------------------------------------------------------------------
-                          "bulletedList",
-                          "numberedList",
-                          "multilevelList",
-                          "todoList",
-                          "|",
-                          "outdent",
-                          "indent",
-                        ],
-                        styles: [
-                          // "full",    // Gambar mengambil lebar penuh konten
-                          // "side",    // Gambar sejajar dengan teks
-                          "alignLeft",
-                          "alignCenter",
-                          "alignRight",
-                        ],
-                        alignment: {
-                          options: ["left", "right", "center", "justify"],
-                        },
-                        plugins: [
-                          GeneralHtmlSupport,
-                          Bold,
-                          Alignment,
-                          Essentials,
-                          Heading,
-                          Indent,
-                          IndentBlock,
-                          Italic,
-                          Link,
-                          List,
-                          MediaEmbed,
-                          Paragraph,
-                          Table,
-                          Undo,
-                          Image,
-                          ImageCaption,
-                          ImageInsert,
-                          ImageResize,
-                          ImageStyle,
-                          ImageToolbar,
-                          ImageUpload,
-                          Base64UploadAdapter,
-                          Indent,
-                          IndentBlock,
-                          Italic,
-                          Link,
-                          LinkImage,
-                          List,
-                          ListProperties,
-                          MediaEmbed,
-                          Mention,
-                          PageBreak,
-                          Paragraph,
-                          PasteFromOffice,
-                          PictureEditing,
-                          RemoveFormat,
-                          SpecialCharacters,
-                          // SpecialCharactersEmoji,
-                          SpecialCharactersEssentials,
-                          Strikethrough,
-                          Style,
-                          Subscript,
-                          Superscript,
-                          Table,
-                          TableCaption,
-                          TableCellProperties,
-                          TableColumnResize,
-                          TableProperties,
-                          TableToolbar,
-                          TextPartLanguage,
-                          TextTransformation,
-                          TodoList,
-                          Underline,
-                          WordCount,
-                        ],
-                        image: {
-                          toolbar: [
-                            "imageTextAlternative",
-                            "toggleImageCaption",
-                            "|",
-                            "imageStyle:inline",
-                            "imageStyle:wrapText",
-                            "imageStyle:breakText",
-                            "|",
-                            "resizeImage",
-                            "|",
-                            "linkImage",
-                          ],
-                        },
-                        fontFamily: {
-                          supportAllValues: true,
-                        },
-                        fontSize: {
-                          options: [10, 12, 14, "default", 18, 20, 22],
-                          supportAllValues: true,
-                        },
-                        fontColor: {
-                          columns: 12,
-                          colors: REDUCED_MATERIAL_COLORS,
-                        },
-                        fontBackgroundColor: {
-                          columns: 12,
-                          colors: REDUCED_MATERIAL_COLORS,
-                        },
-                        heading: {
-                          options: [
-                            {
-                              model: "paragraph",
-                              title: "Paragraph",
-                              class: "ck-heading_paragraph",
-                            },
-                            {
-                              model: "heading1",
-                              view: "h1",
-                              title: "Heading 1",
-                              class: "ck-heading_heading1",
-                            },
-                            {
-                              model: "heading2",
-                              view: "h2",
-                              title: "Heading 2",
-                              class: "ck-heading_heading2",
-                            },
-                            {
-                              model: "heading3",
-                              view: "h3",
-                              title: "Heading 3",
-                              class: "ck-heading_heading3",
-                            },
-                            {
-                              model: "heading4",
-                              view: "h4",
-                              title: "Heading 4",
-                              class: "ck-heading_heading4",
-                            },
-                            {
-                              model: "heading5",
-                              view: "h5",
-                              title: "Heading 5",
-                              class: "ck-heading_heading5",
-                            },
-                            {
-                              model: "heading6",
-                              view: "h6",
-                              title: "Heading 6",
-                              class: "ck-heading_heading6",
-                            },
-                          ],
-                        },
-                        // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
-                      }}
-                    />
+                          fontFamily: {
+                            supportAllValues: true,
+                          },
+                          fontSize: {
+                            options: [10, 12, 14, "default", 18, 20, 22],
+                            supportAllValues: true,
+                          },
+                          fontColor: {
+                            columns: 12,
+                            colors: REDUCED_MATERIAL_COLORS,
+                          },
+                          fontBackgroundColor: {
+                            columns: 12,
+                            colors: REDUCED_MATERIAL_COLORS,
+                          },
+                          heading: {
+                            options: [
+                              {
+                                model: "paragraph",
+                                title: "Paragraph",
+                                class: "ck-heading_paragraph",
+                              },
+                              {
+                                model: "heading1",
+                                view: "h1",
+                                title: "Heading 1",
+                                class: "ck-heading_heading1",
+                              },
+                              {
+                                model: "heading2",
+                                view: "h2",
+                                title: "Heading 2",
+                                class: "ck-heading_heading2",
+                              },
+                              {
+                                model: "heading3",
+                                view: "h3",
+                                title: "Heading 3",
+                                class: "ck-heading_heading3",
+                              },
+                              {
+                                model: "heading4",
+                                view: "h4",
+                                title: "Heading 4",
+                                class: "ck-heading_heading4",
+                              },
+                              {
+                                model: "heading5",
+                                view: "h5",
+                                title: "Heading 5",
+                                class: "ck-heading_heading5",
+                              },
+                              {
+                                model: "heading6",
+                                view: "h6",
+                                title: "Heading 6",
+                                class: "ck-heading_heading6",
+                              },
+                            ],
+                          },
+                          // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
+                        }}
+                      />
                     </div>
                   </div>
                 </div>

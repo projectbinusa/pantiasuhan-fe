@@ -23,7 +23,7 @@ function VisiMisi() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -31,8 +31,8 @@ function VisiMisi() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   const getAll = async () => {
     try {
@@ -252,16 +252,14 @@ function VisiMisi() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td
-                          style={{
-                            maxWidth: "150px",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                          data-label="Visi"
-                          className="">
-                          <div
+                        <td data-label="Visi" className="">
+                          <div class="isi_data_tabel"
+                            style={{
+                              maxWidth: "150px",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
                             dangerouslySetInnerHTML={{ __html: berita.visi }}
                           />
                         </td>

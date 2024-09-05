@@ -8,7 +8,6 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
 
-
 function AddFotoSarana() {
   const [image, setImage] = useState(null);
   const [idSarana, setIdSarana] = useState("");
@@ -27,7 +26,7 @@ function AddFotoSarana() {
 
     try {
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/foto_kegiatan/add`,
+        `${API_DUMMY}/smpn1bergas/api/foto_sarana/add`,
         formData,
         {
           headers: {
@@ -43,10 +42,10 @@ function AddFotoSarana() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-foto-sarana");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
+      history.push("/admin-sarana");
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
@@ -94,7 +93,7 @@ function AddFotoSarana() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -102,8 +101,8 @@ function AddFotoSarana() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -121,10 +120,13 @@ function AddFotoSarana() {
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div style={{marginTop:"50px"}}
+      <div
+        style={{ marginTop: "50px" }}
         className="page-content1 mb-3 app-main__outer"
         data-aos="fade-left">
-        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
+        <div
+          className="container mt-3 mb-3 app-main__outer"
+          data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -139,11 +141,7 @@ function AddFotoSarana() {
                             Gambar
                           </label>
                           <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
+                            onChange={(e) => setImage(e.target.files[0])}
                             type="file"
                             className="form-control"
                           />
@@ -159,7 +157,9 @@ function AddFotoSarana() {
                             <option selected>Pilih Sarana</option>
                             {kegiatan.map((down) => {
                               return (
-                                <option value={down.id}>{down.nama_sarana}</option>
+                                <option value={down.id}>
+                                  {down.nama_sarana}
+                                </option>
                               );
                             })}
                           </select>
@@ -168,7 +168,7 @@ function AddFotoSarana() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-foto-sarana">
+                          href="/admin-sarana">
                           Batal
                         </a>
                       </button>
