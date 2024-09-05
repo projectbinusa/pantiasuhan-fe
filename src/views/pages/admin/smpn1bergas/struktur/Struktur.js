@@ -231,7 +231,7 @@ function Struktur() {
                       Tugas
                     </th>
                     <th className="text-left">Jabatan</th>
-                    <th className="text-left">Jenis Struktur</th>
+                    {/* <th className="text-left">Jenis Struktur</th> */}
                     <th className="text-left">Tanggal Dibuat</th>
                     <th className="text-left">Tanggal Update</th>
                     <th className="text-left">Aksi</th>
@@ -253,9 +253,9 @@ function Struktur() {
                         <td data-label="Jabatan" className="">
                           {berita.jabatan}
                         </td>
-                        <td data-label="Jenis Struktur" className="">
+                        {/* <td data-label="Jenis Struktur" className="">
                           {berita.jenisStruktur}
-                        </td>
+                        </td> */}
                         <td data-label="Tanggal Dibuat" className="">
                           {berita.createdDate}
                         </td>
