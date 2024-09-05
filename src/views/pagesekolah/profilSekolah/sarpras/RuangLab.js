@@ -36,10 +36,13 @@ function RuangLab() {
         getAllSapras();
     }, []);
 
+    console.log(id);
+    
     const getAllSaprasFoto = async (page = 1) => {
         try {
             const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/foto_sarana/all/by_id_sarana?id_sarana=${id}&page=${page - 1}&size=5`);
             setFoto(response.data.data.content);
+            console.log(response)
             setTotalPage(response.data.data.totalPages)
         } catch (error) {
             console.log("get all", error);
@@ -71,7 +74,7 @@ function RuangLab() {
                         <div style={{ textAlign: "center" }}>
                             {fotos.length > 0 ? (
                                 fotos.map(foto => (
-                                    <img src={foto} style={{ height: "400px", width: "100%", marginTop: "1.5rem" }} />
+                                    <img src={foto.foto} style={{ height: "400px", width: "100%", marginTop: "1.5rem" }} />
                                 ))
                             ) : (<></>)}
                             <div className="d-flex justify-content-center align-items-center mt-3">

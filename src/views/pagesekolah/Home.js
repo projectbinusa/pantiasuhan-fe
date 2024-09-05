@@ -353,7 +353,7 @@ function Home() {
       email: email1,
       nama: namaPengirim,
       pesan: pesan,
-      telp: telp,
+      tlp: telp,
     };
 
     try {
@@ -430,12 +430,12 @@ function Home() {
                 {namaKepsek ? (
                   <h2 className="title">{namaKepsek}</h2>
                 ) : (
-                  <p 
-                    className="title" 
+                  <p
+                    className="title"
                     style={{ color: '#666', fontSize: '1rem', margin: 0 }}
                   >Sambutan kepala sekolah tidak tersedia</p>
                 )}
-                <p 
+                <p
                   className="content mt-2 mb-2 isiBerita2"
                   style={{ color: hasData ? 'inherit' : 'gray' }}
                 >
@@ -468,7 +468,7 @@ function Home() {
           <div class="row justify-content-center">
             {berita.length === 0 ? (
               <div className="col-12">
-                <p style={{ textAlign: "center", fontStyle: "italic", color: "white",fontSize: "1.2rem" }}>
+                <p style={{ textAlign: "center", fontStyle: "italic", color: "white", fontSize: "1.2rem" }}>
                   Berita Tidak Tersedia.
                 </p>
               </div>
@@ -800,25 +800,25 @@ function Home() {
                   </Typography>
                 ) : (
                   <Typography
-                  variant="body1"
-                  gutterBottom
-                  style={{
-                    display: "flex",
-                    fontFamily: "'Poppins', sans-serif",
-                  }}>
-                  <svg
-                    className="w-6 h-6 text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="currentColor"
-                    viewBox="0 0 24 24">
-                    <path d="M2.038 5.61A2.01 2.01 0 0 0 2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-.12-.01-.238-.03-.352l-.866.65-7.89 6.032a2 2 0 0 1-2.429 0L2.884 6.288l-.846-.677Z" />
-                    <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
-                  </svg>
-                  <strong style={{ marginLeft: "8px" }}>:</strong>
-                  <span style={{ color: "gray", marginLeft: "8px" }}>Email Tidak Tersedia</span>
+                    variant="body1"
+                    gutterBottom
+                    style={{
+                      display: "flex",
+                      fontFamily: "'Poppins', sans-serif",
+                    }}>
+                    <svg
+                      className="w-6 h-6 text-gray-800 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                      viewBox="0 0 24 24">
+                      <path d="M2.038 5.61A2.01 2.01 0 0 0 2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-.12-.01-.238-.03-.352l-.866.65-7.89 6.032a2 2 0 0 1-2.429 0L2.884 6.288l-.846-.677Z" />
+                      <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
+                    </svg>
+                    <strong style={{ marginLeft: "8px" }}>:</strong>
+                    <span style={{ color: "gray", marginLeft: "8px" }}>Email Tidak Tersedia</span>
                   </Typography>
                 )}
 
@@ -966,7 +966,7 @@ function Home() {
                       />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                   <span style={{ color: "gray", marginLeft: "8px" }}>Alamat Tidak Tersedia</span>
+                    <span style={{ color: "gray", marginLeft: "8px" }}>Alamat Tidak Tersedia</span>
                   </Typography>
                 )}
               </div>
@@ -985,7 +985,7 @@ function Home() {
                 <span style={captchaTextStyle}>{generatedCaptcha}</span>
               </p>
               <Button type="button" onClick={generateCaptcha} disabled={isLocked} style={{ width: "3%", fontSize: "18px" }}>
-                  <i className="fa-solid fa-arrows-rotate"></i>
+                <i className="fa-solid fa-arrows-rotate"></i>
               </Button>
               <Button
                 type="button"

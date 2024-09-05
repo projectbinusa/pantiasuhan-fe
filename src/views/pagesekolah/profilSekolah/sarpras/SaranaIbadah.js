@@ -71,7 +71,7 @@ function SaranaIbadah() {
                         <div style={{ textAlign: "center" }}>
                             {fotos.length > 0 ? (
                                 fotos.map(foto => (
-                                    <img src={foto} style={{ height: "400px", width: "100%", marginTop: "1.5rem" }} />
+                                    <img src={foto.foto} style={{ height: "400px", width: "100%", marginTop: "1.5rem" }} />
                                 ))
                             ) : (<></>)}
                             <div className="d-flex justify-content-center align-items-center mt-3">
