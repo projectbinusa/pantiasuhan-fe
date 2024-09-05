@@ -142,7 +142,9 @@ function SewaLayanan() {
                                                     {index + 1 + (currentPage - 1) * rowsPerPage}
                                                 </td>
                                                 <td>{item.namaProgram}</td>
-                                                <td>{item.tujuan}</td>
+                                                <td> <div
+                            dangerouslySetInnerHTML={{ __html: item.tujuan }}
+                          /></td>
                                             </tr>
                                         ))
                                     ) : (

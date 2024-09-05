@@ -33,7 +33,7 @@ function KegiatanSekolah() {
         );
         const data = response.data.data.content;
         setKegiatan(data);
-        
+
         const uniqueCategories = [
           ...new Set(data.map((item) => item.category)),
         ];
@@ -157,13 +157,13 @@ function KegiatanSekolah() {
               </ul>
             </div>
             <br />
-            <div>
+            {/* <div>
               <h5 style={{ fontWeight: "600", color: "#002147" }}>ARSIP</h5>
               <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
               <ul className="category-berita">
                 {months.map((month, index) => (
                   <React.Fragment key={index}>
-                    <li 
+                    <li
                       onClick={() => handleMonthClick(month)}
                     >
                       <a href="#">{month}</a>
@@ -175,7 +175,7 @@ function KegiatanSekolah() {
                 ))}
               </ul>
             </div>
-            <br />
+            <br /> */} 
             <div>
                 <h5 style={{ fontWeight: "600", color: "#002147" }}>IKUTI KAMI</h5>
                 <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />

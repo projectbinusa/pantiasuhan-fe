@@ -247,7 +247,18 @@ function Program() {
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
                         <td data-label="Nama Prgram" className="text-long">
-                          {berita.namaProgram}
+                          <span
+                            style={{
+                              width: "250px",
+                              display: "-webkit-box",
+                              WebkitBoxOrient: "vertical",
+                              WebkitLineClamp: 2,
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}>
+                            {" "}
+                            {berita.namaProgram}
+                          </span>
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}{" "}
                         <td data-label="Judul Program" className="text-long">
