@@ -50,9 +50,9 @@ function EditSarana() {
       (sarana) => sarana.category === category
     );
 
-    const saranaExists = saranaList.some(
-      (sarana) => sarana.nama_sarana === namaSarana
-    );
+    // const saranaExists = saranaList.some(
+    //   (sarana) => sarana.nama_sarana === namaSarana
+    // );
 
     if (categoryExists) {
       Swal.fire({
@@ -62,15 +62,7 @@ function EditSarana() {
         showConfirmButton: true,
       });
       return;
-     } else if(saranaExists) {
-      Swal.fire({
-        icon: "error",
-        title: "Edit Data Gagal!",
-        text: "Nama Saran Sudah Ada.",
-        showConfirmButton: true,
-      });
-      return;
-    }
+     }
     try {
       await axios.put(
         `${API_DUMMY}/smpn1bergas/api/sarana/put/` + param.id,

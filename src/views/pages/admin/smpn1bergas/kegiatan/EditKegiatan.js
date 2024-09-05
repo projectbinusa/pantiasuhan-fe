@@ -128,25 +128,26 @@ function EditKegiatan() {
       (kegiatan) => kegiatan.category === kategori
     );
 
-    const kegiatanExists = list.some((kegiatan) => kegiatan.judul === judul);
+    // const kegiatanExists = list.some((kegiatan) => kegiatan.judul === judul);
 
     if (categoryExists) {
       Swal.fire({
         icon: "error",
-        title: "Tambah Data Gagal!",
+        title: "Edit Data Gagal!",
         text: "Kategori sudah ada. Silakan pilih kategori lain.",
         showConfirmButton: true,
       });
       return;
-    } else if (kegiatanExists) {
-      Swal.fire({
-        icon: "error",
-        title: "Tambah Data Gagal!",
-        text: "Judul Kegiatan Sudah Ada.",
-        showConfirmButton: true,
-      });
-      return;
     }
+    // else if (kegiatanExists) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Edit Data Gagal!",
+    //     text: "Judul Kegiatan Sudah Ada.",
+    //     showConfirmButton: true,
+    //   });
+    //   return;
+    // }
     const formData = new FormData();
     formData.append("judul", judul);
     formData.append("isi", isi);
