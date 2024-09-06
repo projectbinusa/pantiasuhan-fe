@@ -55,6 +55,12 @@ function Sidebar1({ toggleSidebar }) {
       action: ["/add-kontak", "/edit-kontak"],
     },
     {
+      title: "Sambutan",
+      icon: "fa-solid fa-book-open",
+      path: "/admin-sambutan",
+      action: ["/add-sambutan", "/edit-sambutan"],
+    },
+    {
       title: "Alumni",
       icon: "fa-solid fa-book-open",
       path: "/admin-alumni",
@@ -85,6 +91,12 @@ function Sidebar1({ toggleSidebar }) {
       action: ["/add-galery", "/edit-galery"],
     },
     {
+      title: "Kotak Saran",
+      icon: "fas fa-comment-dots ",
+      path: "/admin-kotak-saran",
+      action: ["/add-kotak-saran", "/edit-kotak-saran", "/detail-kotak-saran"],
+    },
+    {
       title: "Keuangan",
       icon: "fa-solid fa-circle-dollar-to-slot",
       path: "/admin-keuangan",
@@ -110,6 +122,32 @@ function Sidebar1({ toggleSidebar }) {
       icon: "fa-solid fa-medal metismenu-icon",
       path: "/admin-prestasi",
       action: ["/add-prestasi", "/edit-prestasi", "/detail-prestasi"],
+    },
+    {
+      title: "Guru",
+      icon: "fa-solid fa-chalkboard-user",
+      path: "/admin-guru",
+      action: ["/add-guru", "/edit-guru", "/detail-guru"],
+    },
+    {
+      title: "Tenaga Kependidikan",
+      icon: "fa-solid fa-users-viewfinder",
+      path: "/admin-tenaga-kependidikan",
+      action: [
+        "/add-tenaga-kependidikan",
+        "/edit-tenaga-kependidikan",
+        "/detail-tenaga-kependidikan",
+      ],
+    },
+    {
+      title: "Kondisi Sekolah",
+      icon: "fa-solid fa-school",
+      path: "/admin-kondisi-sekolah",
+      action: [
+        "/add-kondisi-sekolah",
+        "/edit-kondisi-sekolah",
+        "/detail-kondisi-sekolah",
+      ],
     },
   ];
 
