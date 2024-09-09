@@ -62,7 +62,7 @@ function Sidebar1({ toggleSidebar }) {
     },
     {
       title: "Alumni",
-      icon: "fa-solid fa-book-open",
+      icon: "fa-solid fa-users",
       path: "/admin-alumni",
       action: ["/add-alumni", "/edit-alumni", "/detail-alumni"],
     },
@@ -89,12 +89,6 @@ function Sidebar1({ toggleSidebar }) {
       icon: "fa-solid fa-images",
       path: "/admin-galery",
       action: ["/add-galery", "/edit-galery"],
-    },
-    {
-      title: "Kotak Saran",
-      icon: "fas fa-comment-dots ",
-      path: "/admin-kotak-saran",
-      action: ["/add-kotak-saran", "/edit-kotak-saran", "/detail-kotak-saran"],
     },
     {
       title: "Keuangan",

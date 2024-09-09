@@ -252,16 +252,14 @@ function VisiMisi() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Visi" className="">
-                          <div class="isi_data_tabel"
+                        <td data-label="Visi" className=""
                             style={{
                               maxWidth: "150px",
                               whiteSpace: "nowrap",
                               overflow: "hidden",
                               textOverflow: "ellipsis",
-                            }}
-                            dangerouslySetInnerHTML={{ __html: berita.visi }}
-                          />
+                            }}>
+                              {berita.visi}
                         </td>
                         {/* <td
                           style={{
