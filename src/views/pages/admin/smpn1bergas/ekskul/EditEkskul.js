@@ -53,27 +53,38 @@ function EditEkskul() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("koordinator", koordinator);
-    formData.append("pembimbing", pembimbing);
-    formData.append("jadwal", jadwal);
-    formData.append("tempat", tempat);
-    formData.append("name", name);
-    formData.append("deskripsi", deskripsi);
-    formData.append("prestasi", prestasi);
     formData.append("file", file);
+
+    const data = {
+      koordinator: koordinator,
+      pembimbing: pembimbing,
+      jadwal: jadwal,
+      tempat: tempat,
+      name: name,
+      deskripsi: deskripsi,
+      prestasi: prestasi,
+    };
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/put/` + param.id,
-        formData,
+        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/put/` + param.id, data,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       )
       .then(() => {
+        if (file) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/put/foto` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err)
+          })
+        }
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Data Ekstrakulikuler",
@@ -81,7 +92,7 @@ function EditEkskul() {
           timer: 1500,
         });
         setTimeout(() => {
-        history.push("/admin-ekstrakulikuler");
+          history.push("/admin-ekstrakulikuler");
           window.location.reload();
         }, 1500);
       })
@@ -111,7 +122,7 @@ function EditEkskul() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -124,20 +135,19 @@ function EditEkskul() {
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
@@ -147,7 +157,7 @@ function EditEkskul() {
                     <h1 className="fs-4">Form Edit Data</h1>
                     <hr />
                     <form onSubmit={update}>
-                    <div className="row">
+                      <div className="row">
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Ekstrakurikuler

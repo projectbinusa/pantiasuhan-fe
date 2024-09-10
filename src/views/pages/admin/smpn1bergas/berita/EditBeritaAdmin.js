@@ -77,24 +77,32 @@ function EditBeritaAdmin() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("author", author);
-    formData.append("judulBerita", judulBerita);
-    formData.append("isiBerita", isiBerita);
-    formData.append("category", categoryBerita);
-    // if (image) {
-    formData.append("file", imageUrl);
-    // } else if (!image) {
-    //   formData.append("file", imageUrl);
-    // }
+    formData.append("file", image);
+
+    const data = {
+      author: author,
+      category: categoryBerita,
+      judulBerita: judulBerita,
+      isiBerita: isiBerita
+    }
 
     axios
-      .put(`${API_DUMMY}/smpn1bergas/api/berita/put/` + param.id, formData, {
+      .put(`${API_DUMMY}/smpn1bergas/api/berita/put/` + param.id, data, {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((response) => {
+        if (image) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/berita/put/foto` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err);
+          })
+        }
         setShow(false);
         Swal.fire({
           icon: "success",
@@ -295,9 +303,8 @@ function EditBeritaAdmin() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"

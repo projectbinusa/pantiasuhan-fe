@@ -119,21 +119,33 @@ function EditAlumni() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("nama", namaAlumni);
-    formData.append("biografi", biografi);
-    formData.append("kontak", kontak);
-    formData.append("profesi", profesi);
-    formData.append("tahunLulus", tahunLulus);
     formData.append("file", file);
 
+    const data = {
+      nama: namaAlumni,
+      biografi: biografi,
+      kontak: kontak,
+      profesi: profesi,
+      tahunLulus: tahunLulus
+    }
+
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/alumni/put/` + param.id, formData, {
+      .put(`${API_DUMMY}/smpn1bergas/api/alumni/put/` + param.id, data, {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
+        if (file) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/alumni/put/foto` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err);
+          })
+        }
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Data Alumni",

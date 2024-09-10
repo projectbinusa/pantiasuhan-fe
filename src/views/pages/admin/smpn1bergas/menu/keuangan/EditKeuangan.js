@@ -74,18 +74,31 @@ function EditKeuangan() {
     e.persist();
 
     const formData = new FormData();
-    formData.append("judul", judul);
-    formData.append("isi", isi);
-    formData.append("categoryKeuangan", categoryKeuangan);
     formData.append("file", image);
 
+    const data = {
+      judul: judul,
+      isi: isi,
+      categoryKeuangan: categoryKeuangan
+    }
+
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/keuangan/put/` + param.id, formData, {
+      .put(`${API_DUMMY}/smpn1bergas/api/keuangan/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
+        if (image) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/keuangan/put/foto` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err);
+          })
+        }
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Berita",

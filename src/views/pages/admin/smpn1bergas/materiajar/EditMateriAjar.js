@@ -26,17 +26,19 @@ function EditMateriAjar() {
     e.persist();
 
     const formData = new FormData();
-    formData.append("tingkat", tingkat);
-    formData.append("mapel", mapel);
-    formData.append("penyusun", penyusun);
-    formData.append("judul", judul);
     formData.append("file", file);
-    formData.append("jenis", jenis);
+
+    const data = {
+      tingkat: tingkat,
+      mapel: mapel,
+      penyusun: penyusun,
+      judul: judul,
+      jenis: jenis
+    }
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/materi_ajar/put/` + param.id,
-        formData,
+        `${API_DUMMY}/smpn1bergas/api/materi_ajar/put/` + param.id, data,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -44,6 +46,16 @@ function EditMateriAjar() {
         }
       )
       .then(() => {
+        if (file) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/materi_ajar/put/foto` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err);
+          })
+        }
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Data Materi Ajar",

@@ -99,19 +99,32 @@ function EditSambutan() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("isi", isiSambutan);
-    formData.append("nama", nama);
-    formData.append("judul", judulSambutan);
-    formData.append("nip", nip);
     formData.append("file", file);
 
+    const data = {
+      isi: isiSambutan,
+      nama: nama,
+      judul: judulSambutan,
+      nip: nip
+    }
+
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/sambutan/put/` + param.id, formData, {
+      .put(`${API_DUMMY}/smpn1bergas/api/sambutan/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
+        if (file) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/sambutan/put/foto` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err);
+          })
+        }
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Data Sambutan",

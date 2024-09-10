@@ -100,25 +100,35 @@ function EditPerpus() {
     e.persist();
 
     const formData = new FormData();
-    formData.append("nama_buku", namaBuku);
-    formData.append("pengarang", pengarang);
-    formData.append("sinopsis", sinopsis);
-    formData.append("tahun", tahun);
-    formData.append("no", no);
     formData.append("file", image);
+
+    const data = {
+      nama_buku: namaBuku,
+      pengarang: pengarang,
+      sinopsis: sinopsis,
+      tahun: tahun,
+      no: no
+    }
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/perpustakaan/put/` + param.id,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+        `${API_DUMMY}/smpn1bergas/api/perpustakaan/put/` + param.id, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
       )
       .then(() => {
+        if (image) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/perpustakaan/put/foto` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err);
+          })
+        }
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Perpustakaan",
@@ -279,7 +289,7 @@ function EditPerpus() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -292,351 +302,350 @@ function EditPerpus() {
   }, []);
 
   return (
-    <div  className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <div className="card shadow">
-                  <div className="card-body">
-                    <h1 className="fs-4">Form Update Data</h1>
-                    <hr />
-                    <form onSubmit={updatePerpus}>
-                      <div className="row">
-                        <div className="mb-3 col-lg-6">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Pengarang Buku
-                          </label>
-                          <input
-                            value={pengarang}
-                            onChange={(e) => setPengarang(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Pengarang Buku"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-6">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Nama / Judul Buku
-                          </label>
-                          <input
-                            value={namaBuku}
-                            onChange={(e) => setNamaBuku(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Nama/Judul Buku"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-6">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Tahun
-                          </label>
-                          <input
-                            value={tahun}
-                            onChange={(e) => setTahun(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Tahun Buku"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-6">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Nomor Buku
-                          </label>
-                          <input
-                            value={no}
-                            onChange={(e) => setNo(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Nomor Buku"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Gambar
-                          </label>
-                          <input
-                            required
-                            type="file"
-                            className="form-control"
-                            onChange={(e) => setImage(e.target.files[0])}
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Sinopsis
-                          </label>
-                          <CKEditor
-                            editor={ClassicEditor}
-                            data={sinopsis} // Gunakan 'data' untuk set initial value
-                            onChange={(event, editor) => {
-                              const data = editor.getData(); // Ambil data dari editor
-                              setSinopsis(data); // Set state dengan data dari editor
-                            }}
-                            config={{
-                              toolbar: [
-                                // --- Text alignment ---------------------------------------------------------------------------
-                                "alignment",
-                                "|",
-                                // --- Document-wide tools ----------------------------------------------------------------------
-                                "undo",
-                                "redo",
-                                // "|",
-                                // "alignment:left", // Tambahkan opsi align left
-                                // "alignment:center", // Tambahkan opsi align center
-                                // "alignment:right",
-                                "|",
-                                "importWord",
-                                "exportWord",
-                                "exportPdf",
-                                "|",
-                                "formatPainter",
-                                "caseChange",
-                                "findAndReplace",
-                                "selectAll",
-                                "wproofreader",
-                                "|",
-                                "insertTemplate",
-                                "tableOfContents",
-                                "|",
-
-                                // --- "Insertables" ----------------------------------------------------------------------------
-
-                                "link",
-                                "insertImage",
-                                "ckbox",
-                                "insertTable",
-                                "blockQuote",
-                                "mediaEmbed",
-                                "codeBlock",
-                                "pageBreak",
-                                "horizontalLine",
-                                "specialCharacters",
-                                "-",
-
-                                // --- Block-level formatting -------------------------------------------------------------------
-                                "heading",
-                                "style",
-                                "|",
-
-                                // --- Basic styles, font and inline formatting -------------------------------------------------------
-                                "bold",
-                                "italic",
-                                "underline",
-                                "strikethrough",
-                                {
-                                  label: "Basic styles",
-                                  icon: "text",
-                                  items: [
-                                    "fontSize",
-                                    "fontFamily",
-                                    "fontColor",
-                                    "fontBackgroundColor",
-                                    "highlight",
-                                    "superscript",
-                                    "subscript",
-                                    "code",
-                                    "|",
-                                    "textPartLanguage",
-                                    "|",
-                                  ],
-                                },
-                                "removeFormat",
-                                "|",
-
-                                // --- Lists and indentation --------------------------------------------------------------------
-                                "bulletedList",
-                                "numberedList",
-                                "multilevelList",
-                                "todoList",
-                                "|",
-                                "outdent",
-                                "indent",
-                              ],
-                              styles: [
-                                // "full",    // Gambar mengambil lebar penuh konten
-                                // "side",    // Gambar sejajar dengan teks
-                                "alignLeft",
-                                "alignCenter",
-                                "alignRight",
-                              ],
-                              alignment: {
-                                options: ["left", "right", "center", "justify"],
-                              },
-                              plugins: [
-                                GeneralHtmlSupport,
-                                Bold,
-                                Alignment,
-                                Essentials,
-                                Heading,
-                                Indent,
-                                IndentBlock,
-                                Italic,
-                                Link,
-                                List,
-                                MediaEmbed,
-                                Paragraph,
-                                Table,
-                                Undo,
-                                Image,
-                                ImageCaption,
-                                ImageInsert,
-                                ImageResize,
-                                ImageStyle,
-                                ImageToolbar,
-                                ImageUpload,
-                                Base64UploadAdapter,
-                                Indent,
-                                IndentBlock,
-                                Italic,
-                                Link,
-                                LinkImage,
-                                List,
-                                ListProperties,
-                                MediaEmbed,
-                                Mention,
-                                PageBreak,
-                                Paragraph,
-                                PasteFromOffice,
-                                PictureEditing,
-                                RemoveFormat,
-                                SpecialCharacters,
-                                // SpecialCharactersEmoji,
-                                SpecialCharactersEssentials,
-                                Strikethrough,
-                                Style,
-                                Subscript,
-                                Superscript,
-                                Table,
-                                TableCaption,
-                                TableCellProperties,
-                                TableColumnResize,
-                                TableProperties,
-                                TableToolbar,
-                                TextPartLanguage,
-                                TextTransformation,
-                                TodoList,
-                                Underline,
-                                WordCount,
-                              ],
-                              image: {
-                                toolbar: [
-                                  "imageTextAlternative",
-                                  "toggleImageCaption",
-                                  "|",
-                                  "imageStyle:inline",
-                                  "imageStyle:wrapText",
-                                  "imageStyle:breakText",
-                                  "|",
-                                  "resizeImage",
-                                  "|",
-                                  "linkImage",
-                                ],
-                              },
-                              fontFamily: {
-                                supportAllValues: true,
-                              },
-                              fontSize: {
-                                options: [10, 12, 14, "default", 18, 20, 22],
-                                supportAllValues: true,
-                              },
-                              fontColor: {
-                                columns: 12,
-                                colors: REDUCED_MATERIAL_COLORS,
-                              },
-                              fontBackgroundColor: {
-                                columns: 12,
-                                colors: REDUCED_MATERIAL_COLORS,
-                              },
-                              heading: {
-                                options: [
-                                  {
-                                    model: "paragraph",
-                                    title: "Paragraph",
-                                    class: "ck-heading_paragraph",
-                                  },
-                                  {
-                                    model: "heading1",
-                                    view: "h1",
-                                    title: "Heading 1",
-                                    class: "ck-heading_heading1",
-                                  },
-                                  {
-                                    model: "heading2",
-                                    view: "h2",
-                                    title: "Heading 2",
-                                    class: "ck-heading_heading2",
-                                  },
-                                  {
-                                    model: "heading3",
-                                    view: "h3",
-                                    title: "Heading 3",
-                                    class: "ck-heading_heading3",
-                                  },
-                                  {
-                                    model: "heading4",
-                                    view: "h4",
-                                    title: "Heading 4",
-                                    class: "ck-heading_heading4",
-                                  },
-                                  {
-                                    model: "heading5",
-                                    view: "h5",
-                                    title: "Heading 5",
-                                    class: "ck-heading_heading5",
-                                  },
-                                  {
-                                    model: "heading6",
-                                    view: "h6",
-                                    title: "Heading 6",
-                                    class: "ck-heading_heading6",
-                                  },
-                                ],
-                              },
-                              // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
-                            }}
-                          />
-                        </div>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card shadow">
+                <div className="card-body">
+                  <h1 className="fs-4">Form Update Data</h1>
+                  <hr />
+                  <form onSubmit={updatePerpus}>
+                    <div className="row">
+                      <div className="mb-3 col-lg-6">
+                        <label
+                          for="exampleInputEmail1"
+                          className="form-label  font-weight-bold ">
+                          Pengarang Buku
+                        </label>
+                        <input
+                          value={pengarang}
+                          onChange={(e) => setPengarang(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          placeholder="Masukkan Pengarang Buku"
+                        />
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-perpustakaan">
-                          Batal
-                        </a>
-                      </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
-                      </button>
-                    </form>
-                  </div>
+                      <div className="mb-3 col-lg-6">
+                        <label
+                          for="exampleInputEmail1"
+                          className="form-label  font-weight-bold ">
+                          Nama / Judul Buku
+                        </label>
+                        <input
+                          value={namaBuku}
+                          onChange={(e) => setNamaBuku(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          placeholder="Masukkan Nama/Judul Buku"
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-6">
+                        <label
+                          for="exampleInputEmail1"
+                          className="form-label  font-weight-bold ">
+                          Tahun
+                        </label>
+                        <input
+                          value={tahun}
+                          onChange={(e) => setTahun(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          placeholder="Masukkan Tahun Buku"
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-6">
+                        <label
+                          for="exampleInputEmail1"
+                          className="form-label  font-weight-bold ">
+                          Nomor Buku
+                        </label>
+                        <input
+                          value={no}
+                          onChange={(e) => setNo(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          placeholder="Masukkan Nomor Buku"
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Gambar
+                        </label>
+                        <input
+                          required
+                          type="file"
+                          className="form-control"
+                          onChange={(e) => setImage(e.target.files[0])}
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-12">
+                        <label
+                          for="exampleInputEmail1"
+                          className="form-label  font-weight-bold ">
+                          Sinopsis
+                        </label>
+                        <CKEditor
+                          editor={ClassicEditor}
+                          data={sinopsis} // Gunakan 'data' untuk set initial value
+                          onChange={(event, editor) => {
+                            const data = editor.getData(); // Ambil data dari editor
+                            setSinopsis(data); // Set state dengan data dari editor
+                          }}
+                          config={{
+                            toolbar: [
+                              // --- Text alignment ---------------------------------------------------------------------------
+                              "alignment",
+                              "|",
+                              // --- Document-wide tools ----------------------------------------------------------------------
+                              "undo",
+                              "redo",
+                              // "|",
+                              // "alignment:left", // Tambahkan opsi align left
+                              // "alignment:center", // Tambahkan opsi align center
+                              // "alignment:right",
+                              "|",
+                              "importWord",
+                              "exportWord",
+                              "exportPdf",
+                              "|",
+                              "formatPainter",
+                              "caseChange",
+                              "findAndReplace",
+                              "selectAll",
+                              "wproofreader",
+                              "|",
+                              "insertTemplate",
+                              "tableOfContents",
+                              "|",
+
+                              // --- "Insertables" ----------------------------------------------------------------------------
+
+                              "link",
+                              "insertImage",
+                              "ckbox",
+                              "insertTable",
+                              "blockQuote",
+                              "mediaEmbed",
+                              "codeBlock",
+                              "pageBreak",
+                              "horizontalLine",
+                              "specialCharacters",
+                              "-",
+
+                              // --- Block-level formatting -------------------------------------------------------------------
+                              "heading",
+                              "style",
+                              "|",
+
+                              // --- Basic styles, font and inline formatting -------------------------------------------------------
+                              "bold",
+                              "italic",
+                              "underline",
+                              "strikethrough",
+                              {
+                                label: "Basic styles",
+                                icon: "text",
+                                items: [
+                                  "fontSize",
+                                  "fontFamily",
+                                  "fontColor",
+                                  "fontBackgroundColor",
+                                  "highlight",
+                                  "superscript",
+                                  "subscript",
+                                  "code",
+                                  "|",
+                                  "textPartLanguage",
+                                  "|",
+                                ],
+                              },
+                              "removeFormat",
+                              "|",
+
+                              // --- Lists and indentation --------------------------------------------------------------------
+                              "bulletedList",
+                              "numberedList",
+                              "multilevelList",
+                              "todoList",
+                              "|",
+                              "outdent",
+                              "indent",
+                            ],
+                            styles: [
+                              // "full",    // Gambar mengambil lebar penuh konten
+                              // "side",    // Gambar sejajar dengan teks
+                              "alignLeft",
+                              "alignCenter",
+                              "alignRight",
+                            ],
+                            alignment: {
+                              options: ["left", "right", "center", "justify"],
+                            },
+                            plugins: [
+                              GeneralHtmlSupport,
+                              Bold,
+                              Alignment,
+                              Essentials,
+                              Heading,
+                              Indent,
+                              IndentBlock,
+                              Italic,
+                              Link,
+                              List,
+                              MediaEmbed,
+                              Paragraph,
+                              Table,
+                              Undo,
+                              Image,
+                              ImageCaption,
+                              ImageInsert,
+                              ImageResize,
+                              ImageStyle,
+                              ImageToolbar,
+                              ImageUpload,
+                              Base64UploadAdapter,
+                              Indent,
+                              IndentBlock,
+                              Italic,
+                              Link,
+                              LinkImage,
+                              List,
+                              ListProperties,
+                              MediaEmbed,
+                              Mention,
+                              PageBreak,
+                              Paragraph,
+                              PasteFromOffice,
+                              PictureEditing,
+                              RemoveFormat,
+                              SpecialCharacters,
+                              // SpecialCharactersEmoji,
+                              SpecialCharactersEssentials,
+                              Strikethrough,
+                              Style,
+                              Subscript,
+                              Superscript,
+                              Table,
+                              TableCaption,
+                              TableCellProperties,
+                              TableColumnResize,
+                              TableProperties,
+                              TableToolbar,
+                              TextPartLanguage,
+                              TextTransformation,
+                              TodoList,
+                              Underline,
+                              WordCount,
+                            ],
+                            image: {
+                              toolbar: [
+                                "imageTextAlternative",
+                                "toggleImageCaption",
+                                "|",
+                                "imageStyle:inline",
+                                "imageStyle:wrapText",
+                                "imageStyle:breakText",
+                                "|",
+                                "resizeImage",
+                                "|",
+                                "linkImage",
+                              ],
+                            },
+                            fontFamily: {
+                              supportAllValues: true,
+                            },
+                            fontSize: {
+                              options: [10, 12, 14, "default", 18, 20, 22],
+                              supportAllValues: true,
+                            },
+                            fontColor: {
+                              columns: 12,
+                              colors: REDUCED_MATERIAL_COLORS,
+                            },
+                            fontBackgroundColor: {
+                              columns: 12,
+                              colors: REDUCED_MATERIAL_COLORS,
+                            },
+                            heading: {
+                              options: [
+                                {
+                                  model: "paragraph",
+                                  title: "Paragraph",
+                                  class: "ck-heading_paragraph",
+                                },
+                                {
+                                  model: "heading1",
+                                  view: "h1",
+                                  title: "Heading 1",
+                                  class: "ck-heading_heading1",
+                                },
+                                {
+                                  model: "heading2",
+                                  view: "h2",
+                                  title: "Heading 2",
+                                  class: "ck-heading_heading2",
+                                },
+                                {
+                                  model: "heading3",
+                                  view: "h3",
+                                  title: "Heading 3",
+                                  class: "ck-heading_heading3",
+                                },
+                                {
+                                  model: "heading4",
+                                  view: "h4",
+                                  title: "Heading 4",
+                                  class: "ck-heading_heading4",
+                                },
+                                {
+                                  model: "heading5",
+                                  view: "h5",
+                                  title: "Heading 5",
+                                  class: "ck-heading_heading5",
+                                },
+                                {
+                                  model: "heading6",
+                                  view: "h6",
+                                  title: "Heading 6",
+                                  class: "ck-heading_heading6",
+                                },
+                              ],
+                            },
+                            // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <button type="button" className="btn-danger mt-3 mr-3">
+                      <a
+                        style={{ color: "white", textDecoration: "none" }}
+                        href="/admin-perpustakaan">
+                        Batal
+                      </a>
+                    </button>
+                    <button type="submit" className="btn-primary mt-3">
+                      Submit
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
       {/* </div> */}
     </div>
   );

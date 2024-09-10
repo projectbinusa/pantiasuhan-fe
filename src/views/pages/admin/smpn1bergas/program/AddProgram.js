@@ -2,14 +2,10 @@ import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
-
 import Sidebar1 from "../../../../../component/Sidebar1";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -62,14 +58,38 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-// import Sidebar1 from "../../../../../../component/Sidebar1";
 
 function AddProgram() {
   const [judul, setJudul] = useState("");
   const [nama, setNama] = useState("");
   const [tujuan, setTujuan] = useState("");
+  const [kategoriId, setKategoriId] = useState(0);
+  const [kategori, setKategori] = useState([]);
   const history = useHistory();
-  const param = useParams();
+
+  // GET ALL KATEGORI PROGRAM
+  // const getAll = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/smpn1bergas/api/program/all/terbaru?page=${
+  //         page - 1
+  //       }&size=${rowsPerPage}`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     );
+  //     setList(response.data.data.content);
+  //     console.log(response.data.data.content);
+  //     setPaginationInfo({
+  //       totalPages: response.data.data.totalPages,
+  //       totalElements: response.data.data.totalElements,
+  //     });
+  //   } catch (error) {
+  //     console.error("Terjadi Kesalahan", error);
+  //   }
+  // };
 
   const add = async (e) => {
     e.preventDefault();
@@ -94,9 +114,6 @@ function AddProgram() {
           timer: 1500,
         });
         history.push("/admin-program");
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 1500);
       })
       .catch((error) => {
         if (error.ressponse && error.response.status === 401) {
@@ -124,7 +141,7 @@ function AddProgram() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -261,20 +278,16 @@ function AddProgram() {
 
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">

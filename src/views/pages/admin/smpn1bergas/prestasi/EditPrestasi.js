@@ -28,7 +28,7 @@ function EditPrestasi() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -55,24 +55,34 @@ function EditPrestasi() {
     e.persist();
 
     const formData = new FormData();
-    formData.append("peyelenggara", penyelenggara);
-    formData.append("nama_peserta", namaPeserta);
-    formData.append("tanggal", formatDateToSlash(tanggal));
-    formData.append("skala", skala);
-    formData.append("judul", judul);
     formData.append("file", image);
+
+    const data = {
+      peyelenggara: penyelenggara,
+      nama_peserta: namaPeserta,
+      tanggal: formatDateToSlash(tanggal),
+      skala: skala,
+      judul: judul
+    }
 
     try {
       await axios.put(
-        `${API_DUMMY}/smpn1bergas/api/prestasi/put/` + param.id,
-        formData,
-        {
+        `${API_DUMMY}/smpn1bergas/api/prestasi/put/` + param.id, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+      );
+      if (image) {
+        axios.put(`${API_DUMMY}/smpn1bergas/api/prestasi/put/foto` + param.id, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
-      );
+        }).catch((err) => {
+          console.log(err);
+        })
+      }
       setShow(false);
       Swal.fire({
         icon: "success",
@@ -126,20 +136,19 @@ function EditPrestasi() {
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
