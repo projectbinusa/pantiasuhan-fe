@@ -13,6 +13,7 @@ import {
   TextField,
 } from "@mui/material";
 import Sidebar1 from "../../../../../component/Sidebar1";
+import Aos from "aos";
 
 function MateriAjar() {
   const [list, setList] = useState([]);
@@ -32,7 +33,7 @@ function MateriAjar() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -40,8 +41,8 @@ function MateriAjar() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const getAll = async (page) => {

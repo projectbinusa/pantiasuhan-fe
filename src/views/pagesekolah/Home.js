@@ -472,12 +472,14 @@ function Home() {
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-7 col-md-10">
-              <div class="section-title style-white text-center">
+              <div
+                class="section-title style-white text-center"
+                data-aos="fade-down">
                 <h5 class="sub-title double-line">Berita Terbaru</h5>
               </div>
             </div>
           </div>
-          <div class="row justify-content-center">
+          <div data-aos="fade-up" class="row justify-content-center">
             {berita.length === 0 ? (
               <div className="col-12">
                 <p
@@ -538,7 +540,9 @@ function Home() {
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
-              <div class="section-title style-white text-center">
+              <div data-aos="fade-down"
+                class="section-title style-white text-center"
+               >
                 <h5 class="sub-title double-line" style={{ color: "black" }}>
                   Prestasi Unggulan
                 </h5>
@@ -553,7 +557,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className="container-grid">
+          <div className="container-grid" data-aos="fade-up">
             {prestasi.map((item) => (
               <div class="card item" key={item.id}>
                 <div class="single-project-inner style-two">
@@ -585,7 +589,9 @@ function Home() {
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
-              <div class="section-title style-white text-center">
+              <div
+                class="section-title style-white text-center"
+                data-aos="fade-down">
                 <h5 class="sub-title double-line">Ekstrakurikuler</h5>
                 <h2 class="title">Cara Pelaksanaannya</h2>
                 <p class="content">
@@ -598,7 +604,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row" data-aos="fade-up">
             {ekstrakurikuler.map((data, index) => (
               <div class="col-lg-3 col-md-6">
                 <div class="single-work-inner style-two text-center">
@@ -626,13 +632,15 @@ function Home() {
               </div>
             ))}
           </div>{" "}
-          <Link
-            href="/ekstrakurikuler"
-            style={buttonStylesss}
-            onMouseEnter={() => setIsHoveredss(true)}
-            onMouseLeave={() => setIsHoveredss(false)}>
-            Tampilkan Semua Ekstrakurikuler
-          </Link>
+          <div data-aos="fade-up">
+            <Link
+              href="/ekstrakurikuler"
+              style={buttonStylesss}
+              onMouseEnter={() => setIsHoveredss(true)}
+              onMouseLeave={() => setIsHoveredss(false)}>
+              Tampilkan Semua Ekstrakurikuler
+            </Link>
+          </div>
           <div class="client-slider pd-top-90 owl-carousel"></div>
         </div>
       </div>
@@ -642,7 +650,7 @@ function Home() {
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
-              <div class="section-title text-center">
+              <div class="section-title text-center" data-aos="fade-down">
                 <h5 class="sub-title double-line" style={{ color: "black" }}>
                   Guru
                 </h5>
@@ -657,7 +665,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row" data-aos="fade-up">
             {gurus.map((data) => (
               <div class="col-lg-3 col-md-6">
                 <div class="single-team-inner shadow-sm style-1 text-center">
@@ -682,7 +690,9 @@ function Home() {
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
-              <div class="section-title style-white text-center">
+              <div
+                class="section-title style-white text-center"
+                data-aos="fade-down">
                 <h5 class="sub-title double-line">ALumni</h5>
                 <h2 class="title">Bertemu dengan Alumni Kami</h2>
                 <p class="content">
@@ -693,7 +703,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row" data-aos="fade-up">
             {alumnus.map((data) => (
               <div class="col-lg-4 col-md-6">
                 <div class="single-team-inner style-4 text-center">
@@ -748,13 +758,15 @@ function Home() {
               </div>
             ))}
           </div>
-          <Link
-            href="/all-alumni"
-            style={buttonStylesss}
-            onMouseEnter={() => setIsHoveredss(true)}
-            onMouseLeave={() => setIsHoveredss(false)}>
-            Tampilkan Semua Alumni
-          </Link>
+          <div data-aos="fade-up">
+            <Link
+              href="/all-alumni"
+              style={buttonStylesss}
+              onMouseEnter={() => setIsHoveredss(true)}
+              onMouseLeave={() => setIsHoveredss(false)}>
+              Tampilkan Semua Alumni
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -762,12 +774,12 @@ function Home() {
       <div className="contact-section-style">
         <section id="hubungi-kami" className="contact-section-style">
           <div class="section-title style-white text-center">
-            <h5 class="sub-title double-line" style={{ color: "black" }}>
+            <h5 class="sub-title double-line" style={{ color: "black" }} data-aos="fade-down">
               Hubungi Kami
             </h5>
           </div>
           <Grid container spacing={3} className="container">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} data-aos="fade-right">
               <Typography
                 variant="h5"
                 gutterBottom
@@ -786,7 +798,7 @@ function Home() {
                 loading="lazy"></iframe>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} data-aos="fade-left">
               <Typography
                 variant="h5"
                 gutterBottom
@@ -1009,7 +1021,7 @@ function Home() {
           </Grid>
           {/* SARAN */}
           <br /> <br />
-          <form onSubmit={add} style={formStyle} className="container">
+          <form onSubmit={add} style={formStyle} className="container" data-aos="fade-up">
             <Typography variant="h5" gutterBottom style={titleStyle}>
               Kotak Saran
             </Typography>

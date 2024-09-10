@@ -6,6 +6,7 @@ import axios from "axios";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 import bg from "../../../aset/bg-img.webp";
 import excelstruktur from "../../../aset/smpn1bergas/STRUKTUR_ORG_SMP_NEGERI_1_BERGAS_2023.xlsx";
+import Aos from "aos";
 
 function StrukturOrganisasi() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,6 +35,7 @@ function StrukturOrganisasi() {
 
   useEffect(() => {
     getAllStruktur(currentPage);
+    Aos.init();
   }, [currentPage]);
 
   const download = () => {
@@ -89,7 +91,7 @@ function StrukturOrganisasi() {
       </main> */}
       <div class="team-area pd-top-115 pd-bottom-90">
         <div class="container">
-          <div className="header-struktur">
+          <div className="header-struktur" data-aos="fade-down">
             <ul>
               <li>
                 <a href="/">
@@ -104,7 +106,7 @@ function StrukturOrganisasi() {
             </ul>
           </div>
           <div class="row justify-content-center">
-            <div class="col-lg-6">
+            <div class="col-lg-6" data-aos="fade-up">
               <div class="section-title style-white text-center">
                 <h5 class="sub-title double-line">Organisasi</h5>
                 <h2 class="title" style={{ color: "black" }}>
@@ -133,7 +135,7 @@ function StrukturOrganisasi() {
               )}
             </div>
           </div>
-          <div className="row">
+          <div className="row" data-aos="fade-up">
             {struktur.length > 0 ? (
               struktur.map((item) => (
                 <div className="col-lg-4 col-md-6" key={item.id}>
