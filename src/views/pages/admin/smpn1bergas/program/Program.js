@@ -13,6 +13,7 @@ import {
   TextField,
 } from "@mui/material";
 import Sidebar1 from "../../../../../component/Sidebar1";
+import CategoryProgram from "./category/CategoryProgram";
 
 function Program() {
   const [list, setList] = useState([]);
@@ -330,6 +331,7 @@ function Program() {
               />
             </div>
           </div>
+        <CategoryProgram />
         </div>
       </div>
     </div>

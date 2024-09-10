@@ -143,6 +143,8 @@ import DetailProgram from "./views/pages/admin/smpn1bergas/program/DetailProgram
 import Sidebar1 from "./component/Sidebar1";
 import { logEvent } from "firebase/analytics";
 import { analytics } from "./firebase";
+import EditCategoryProgram from "./views/pages/admin/smpn1bergas/program/category/EditCategoryProgram";
+import AddCategoryProgram from "./views/pages/admin/smpn1bergas/program/category/AddCategoryProgram";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -333,6 +335,14 @@ function App() {
             <PrivateRoute
               path="/edit-program/:id"
               component={EditProgram}
+              exact
+            />
+            {/* end program */}
+            {/* kategori program */}
+            <PrivateRoute path="/add-category-program" component={AddCategoryProgram} exact />
+            <PrivateRoute
+              path="/edit-category-program/:id"
+              component={EditCategoryProgram}
               exact
             />
             {/* end program */}
