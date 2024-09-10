@@ -8,6 +8,7 @@ import { Pagination } from "@mui/material";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import axios from "axios";
 import { API_DUMMY } from '../../../../utils/base_URL';
+import Aos from "aos";
 
 // const newsData = [
 //     { id: 1, title: 'Local School Wins Award', content: 'The local school has been recognized for its outstanding achievements in academics and sports.', image: 'https://via.placeholder.com/300x200?text=Award', category: 'Berita Sekolah', date: '2024-08-10' },
@@ -28,7 +29,7 @@ function AllKomite() {
     const [currentPage, setCurrentPage] = useState(1);
     const [komite, setKomite] = useState([]);
     const [totalPages, setTotalPage] = useState(1);
-    
+
     const handlePageChange = (event, pageNumber) => {
         setCurrentPage(pageNumber);
         getAllKomite(pageNumber);
@@ -46,6 +47,7 @@ function AllKomite() {
 
     useEffect(() => {
         getAllKomite(currentPage);
+        Aos.init()
     }, [currentPage]);
 
     return (
@@ -54,7 +56,7 @@ function AllKomite() {
             <main className="container-keuangan container">
                 <HeaderKeuangan title={"Komite"} />
                 <div className="container-apbd">
-                    <div>
+                    <div data-aos="fade-right">
                         <div>
                             <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
                             <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
@@ -83,7 +85,7 @@ function AllKomite() {
                             </ul>
                         </div>
                     </div>
-                    <div className="container-all">
+                    <div className="container-all" data-aos="fade-left">
                         {komite.map(newsItem => (
                             <CardKeuangan
                                 key={newsItem.id}

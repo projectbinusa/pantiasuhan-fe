@@ -4,6 +4,7 @@ import { API_DUMMY } from "../../../../utils/base_URL";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import "../../../../css/sambutan/sambutan.css";
+import Aos from "aos";
 
 function SambutanKepala() {
   const [sambutanData, setSambutanData] = useState({
@@ -51,6 +52,7 @@ function SambutanKepala() {
 
   useEffect(() => {
     getAllSambutan();
+    Aos.init()
   }, []);
 
   const hasData = sambutanData.judul !== "Data tidak tersedia" && sambutanData.isi !== "";
@@ -59,7 +61,7 @@ function SambutanKepala() {
     <div>
       <NavbarSekolah2 />
       <main className="container-berita container">
-        <div className="header-berita">
+        <div className="header-berita" data-aos="fade-down">
           <ul>
             <li>
               <a href="/">
@@ -74,7 +76,7 @@ function SambutanKepala() {
             </li>
           </ul>
         </div>
-        <div className="sambutan-container">
+        <div className="sambutan-container" data-aos="fade-up">
           <div
             className="parent-sambutan"
             style={{

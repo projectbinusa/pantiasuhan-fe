@@ -233,7 +233,7 @@ function Program() {
                       Isi Berita
                     </th> */}
                     <th scope="col" className="text-left">
-                      Judul Program
+                      Kategori Program
                     </th>
                     {/* <th className="text-left">Tujuan</th> */}
                     {/* <th className="text-left">Skala</th> */}
@@ -247,7 +247,7 @@ function Program() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Prgram" className="text-long">
+                        <td data-label="Nama Program" className="">
                           <span
                             style={{
                               width: "250px",
@@ -263,7 +263,7 @@ function Program() {
                         </td>
                         {/* <td data-label="">{berita.isiBerita}</td> */}{" "}
                         <td data-label="Judul Program" className="text-long">
-                          {berita.judulProgram}
+                          {berita.categoryProgram.category}
                         </td>
                         {/* <td
                           style={{

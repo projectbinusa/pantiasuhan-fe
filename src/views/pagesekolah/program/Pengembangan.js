@@ -5,6 +5,7 @@ import FooterSekolah from "../../../component/FooterSekolah";
 import axios from "axios";
 import { API_DUMMY } from "../../../utils/base_URL";
 import { Pagination } from "@mui/material";
+import Aos from "aos";
 
 function Pengembangan() {
   const [page, setPage] = useState(1);
@@ -38,6 +39,7 @@ function Pengembangan() {
 
   useEffect(() => {
     getAll();
+    Aos.init();
   }, []);
 
   const handleRowsPerPageChange = (event) => {
@@ -63,7 +65,7 @@ function Pengembangan() {
     <main>
       <NavbarSekolah2 />
       <main className="container-sapras container">
-        <div className="header-sapras">
+        <div className="header-sapras" data-aos="fade-down">
           <ul>
             <li>
               <a href="/">
@@ -81,7 +83,7 @@ function Pengembangan() {
           </ul>
         </div>
         <div className="container-sapras2">
-          <div>
+          <div data-aos="fade-right">
             <div>
               <h5 style={{ fontWeight: "600", color: "#002147" }}>KATEGORI</h5>
               <hr
@@ -156,7 +158,7 @@ function Pengembangan() {
               </ul>
             </div>
           </div>
-          <div className="container-all">
+          <div className="container-all" data-aos="fade-left">
             <div style={{ textAlign: "center" }}>
               <h4 style={{ textTransform: "uppercase" }}>Pengembangan</h4>
               <p>Program unggulan pengembangan sekolah antara lain sbb : </p>

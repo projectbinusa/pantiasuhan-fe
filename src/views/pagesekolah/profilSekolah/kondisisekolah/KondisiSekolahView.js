@@ -3,6 +3,7 @@ import FooterSekolah from '../../../../component/FooterSekolah';
 import axios from 'axios';
 import { API_DUMMY } from '../../../../utils/base_URL';
 import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
+import Aos from 'aos';
 
 function KonsidisiSekolahView() {
   const [foto, setFoto] = useState("");
@@ -27,6 +28,7 @@ function KonsidisiSekolahView() {
         console.error('Error fetching data:', error);
         setDataAvailable(false);
       });
+      Aos.init()
   }, []);
 
   const mediaStyle = {
@@ -42,7 +44,7 @@ function KonsidisiSekolahView() {
     <div>
       <NavbarSekolah2 />
       <main className="container-berita container">
-        <div className="header-berita">
+        <div className="header-berita" data-aos="fade-down">
           <ul>
             <li>
               <a href="/">
@@ -55,7 +57,7 @@ function KonsidisiSekolahView() {
             </li>
           </ul>
         </div>
-        <div style={{ lineHeight: '1.8' }}>
+        <div style={{ lineHeight: '1.8' }} data-aos="fade-up">
           <div className="container">
             {dataAvailable ? (
               <>

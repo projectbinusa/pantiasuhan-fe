@@ -5,6 +5,7 @@ import "../../../../views/pagesekolah/profilSekolah/staf/tenagaKependidikan.css"
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import axios from "axios";
 import { API_DUMMY } from "../../../../utils/base_URL";
+import Aos from "aos";
 
 const TenagaKepndidkan = () => {
   const [guru, setGuru] = useState([]);
@@ -159,6 +160,7 @@ const TenagaKepndidkan = () => {
   useEffect(() => {
     getAll();
     getAllKependidikan();
+    Aos.init()
   }, [currentPage, currentPage1, searchTerm, searchTerm1]);
 
   const imageStyle = {
@@ -210,7 +212,7 @@ const TenagaKepndidkan = () => {
         </div>
       </div> */}
       <div className="container-berita container">
-        <div className="header-berita">
+        <div className="header-berita" data-aos="fade-down">
           <ul>
             <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>
             <li>
@@ -225,7 +227,7 @@ const TenagaKepndidkan = () => {
           spacing={2}
           className="container"
           style={{ marginRight: "auto", marginLeft: "auto", padding: "0" }}>
-          <Grid xs={11} md={8}>
+          <Grid xs={11} md={8} data-aos="fade-right">
             <div className="mt-5">
               <Typography
                 gutterBottom
@@ -425,7 +427,7 @@ const TenagaKepndidkan = () => {
             </div>
           </Grid>
 
-          <Card
+          <Card data-aos="fade-left"
             style={{ marginRight: "auto", marginLeft: "auto" }}
             xs={6}
             md={8}

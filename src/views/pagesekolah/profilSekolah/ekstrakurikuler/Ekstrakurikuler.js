@@ -3,8 +3,9 @@ import FooterSekolah from "../../../../component/FooterSekolah";
 import axios from "axios";
 import "../../../../css/ekstrakulikuler/ekstra.css";
 import { API_DUMMY } from "../../../../utils/base_URL";
-import NavbarSekolah2 from '../../../../component/NavbarSekolah2';
+import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import { Pagination } from "@mui/material";
+import Aos from "aos";
 
 function Ekstrakurikuler() {
   const [ekstrakulikuler, setEkstrakulikuler] = useState([]);
@@ -32,13 +33,14 @@ function Ekstrakurikuler() {
 
   useEffect(() => {
     getAllEkstrakurikuler(currentPage);
+    Aos.init();
   }, [currentPage]);
 
   return (
     <div>
       <NavbarSekolah2 />
       <main className="container-berita container">
-        <div className="header-berita">
+        <div className="header-berita" data-aos="fade-down">
           <ul>
             <li>
               <a href="/">
@@ -51,7 +53,7 @@ function Ekstrakurikuler() {
             </li>
           </ul>
         </div>
-        <div className="row">
+        <div className="row" data-aos="fade-up">
           {ekstrakulikuler.map((item) => (
             <div className="col-lg-4 col-md-6" key={item.id}>
               <div className="single-team-inner style-4 text-center">
@@ -70,9 +72,7 @@ function Ekstrakurikuler() {
                     <h4 className="team-name-hover">
                       <p>{item.name}</p>
                     </h4>
-                    <p className="team-description">
-                      {item.deskripsi}
-                    </p>
+                    <p className="team-description">{item.deskripsi}</p>
                     <p className="team-coordinator">
                       <strong>Koordinator:</strong> {item.koordinator}
                     </p>

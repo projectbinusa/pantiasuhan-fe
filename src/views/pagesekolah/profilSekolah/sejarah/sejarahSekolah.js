@@ -3,6 +3,7 @@ import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import axios from "axios";
+import Aos from "aos";
 
 function SejarahSekolah() {
   const [sejarah, setSejarah] = useState({ judul: "", isi: "" });
@@ -26,6 +27,7 @@ function SejarahSekolah() {
 
   useEffect(() => {
     getAllSejarah();
+    Aos.init();
   }, []);
 
   if (error) {
@@ -50,16 +52,15 @@ function SejarahSekolah() {
           </ul>
         </div>
         <div style={{ lineHeight: "1.8", textAlign: "justify" }}>
-          <div style={{ margin: "0 auto 0", padding: "0" }}>
+          <div style={{ margin: "0 auto 0", padding: "0" }} data-aos="fade-up">
             {sejarah.judul === "Data tidak tersedia" ||
-              sejarah.isi === "Data tidak tersedia" ? (
+            sejarah.isi === "Data tidak tersedia" ? (
               <p
                 style={{
                   fontSize: "1.1em",
                   textAlign: "center",
                   color: "#666",
-                }}
-              >
+                }}>
                 Sejarah Tidak Tersedia.
               </p>
             ) : (
@@ -69,8 +70,7 @@ function SejarahSekolah() {
                     fontWeight: "bold",
                     marginBottom: "30px",
                     fontSize: "2em",
-                  }}
-                >
+                  }}>
                   {sejarah.judul}
                 </h1>
                 <hr style={{ borderColor: "#ccc" }} />
@@ -79,11 +79,8 @@ function SejarahSekolah() {
                     fontSize: "1.1em",
                     marginBottom: "20px",
                     textAlign: "justify",
-                  }}
-                >
-                  <div
-                    dangerouslySetInnerHTML={{ __html: sejarah.isi }}
-                  />
+                  }}>
+                  <div dangerouslySetInnerHTML={{ __html: sejarah.isi }} />
                 </p>
               </>
             )}

@@ -11,7 +11,7 @@ import Sidebar1 from "../../../../../component/Sidebar1";
 
 function DetailProgram() {
     const [namaprogram, setNamaProgram] = useState("");
-    const [judulProgram, setJudulProgram] = useState("");
+    const [category, setCategory] = useState("");
     const [tujuan, setTujuan] = useState("");
     const param = useParams();
     const [sidebarToggled, setSidebarToggled] = useState(true);
@@ -42,7 +42,7 @@ function DetailProgram() {
           .then((res) => {
             const response = res.data.data;
             setNamaProgram(response.namaProgram);
-            setJudulProgram(response.judulProgram);
+            setCategory(response.categoryProgram.category);
             setTujuan(response.tujuan);
         })
         .catch((error) => {
@@ -86,7 +86,7 @@ function DetailProgram() {
                     type="text"
                     className="form-control"
                     disabled
-                    value={judulProgram}
+                    value={category}
                   />
                 </div>
                 <div className="mb-3">

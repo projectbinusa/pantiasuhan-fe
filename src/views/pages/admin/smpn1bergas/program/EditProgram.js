@@ -68,6 +68,34 @@ function EditProgram() {
   const [tujuan, setTujuan] = useState("");
   const history = useHistory();
   const param = useParams();
+  const [category, setCategory] = useState("");
+  const [kategori, setKategori] = useState([]);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  // GET ALL KATEGORI PROGRAM
+  const getAll = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/category_program/all/terbaru?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setKategori(response.data.data.content);
+      console.log(response.data.data.content);
+      // setPaginationInfo({
+      //   totalPages: response.data.data.totalPages,
+      //   totalElements: response.data.data.totalElements,
+      // });
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+    }
+  };
 
   useEffect(() => {
     axios
@@ -78,9 +106,10 @@ function EditProgram() {
       })
       .then((ress) => {
         const response = ress.data.data;
-        setJudul(response.judulProgram);
         setNama(response.namaProgram);
         setTujuan(response.tujuan);
+        setCategory(response.categoryProgram.id);
+        console.log("id categori: ", response.categoryProgram.id);
         console.log("program : ", ress.data.data);
       })
       .catch((error) => {
@@ -98,9 +127,9 @@ function EditProgram() {
     // formData.append("tujuan", tujuan);
 
     const data = {
-      judulProgram: judul,
-      namaProgram: nama,
+      nama: nama,
       tujuan: tujuan,
+      id_category: category,
     };
 
     await axios
@@ -148,6 +177,7 @@ function EditProgram() {
 
   useEffect(() => {
     AOS.init();
+    getAll();
   }, []);
 
   const REDUCED_MATERIAL_COLORS = [
@@ -332,19 +362,21 @@ function EditProgram() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
-                            Kategori Keuangan
+                            Kategori Proogram
                           </label>
                           <select
-                            value={judul}
+                            value={category}
                             className="form-control"
                             aria-label="Small select example"
-                            onChange={(e) => setJudul(e.target.value)}>
+                            onChange={(e) => setCategory(e.target.value)}>
                             <option selected>Pilih Kategori Program</option>
-                            <option value="Pengembangan">Pengembangan</option>
-                            <option value="Perawatan Rutin">
+                            {kategori.map((data, index) => (
+                              <option value={data.id}>{data.category}</option>
+                            ))}
+                            {/* <option value="Perawatan Rutin">
                               Perawatan Rutin
                             </option>
-                            <option value="Sewa Layanan">Sewa Layanan</option>
+                            <option value="Sewa Layanan">Sewa Layanan</option> */}
                           </select>
                         </div>
                         <div className="mb-3 col-lg-12">

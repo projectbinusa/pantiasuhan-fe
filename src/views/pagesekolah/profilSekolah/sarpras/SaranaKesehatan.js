@@ -6,6 +6,7 @@ import KategoriSapras from "./KategoriSapras";
 import { Pagination } from "@mui/material";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import "../../../../css/alumni/sapras.css"
+import Aos from "aos";
 
 function SaranaKesehatan() {
     const [nama, setNamaSarana] = useState("");
@@ -34,6 +35,8 @@ function SaranaKesehatan() {
 
     useEffect(() => {
         getAllSapras();
+        Aos.init();
+        getAllSaprasFoto();
     }, []);
 
     const getAllSaprasFoto = async (page = 1) => {
@@ -46,15 +49,11 @@ function SaranaKesehatan() {
         }
     };
 
-    useEffect(() => {
-        getAllSaprasFoto();
-    }, []);
-
     return (
         <section>
             <NavbarSekolah2 />
             <main className="container-sapras container">
-                <div className='header-sapras'>
+                <div className='header-sapras' data-aos="fade-up">
                     <ul>
                         <li><a href="/"><i class="fas fa-home"></i> Beranda</a></li>
                         <li><a href="/"><i class="fas fa-angle-right"></i> Sarana Prasarana </a></li>
@@ -63,7 +62,7 @@ function SaranaKesehatan() {
                 </div>
                 <div className='container-sapras2'>
                     <KategoriSapras />
-                    <div className='container-all'>
+                    <div className='container-all' data-aos="fade-left">
                         <div style={{ textAlign: "center" }}>
                             <h4 style={{ textTransform: "uppercase" }}>{nama}</h4>
                             <p>{deskripsi}</p>

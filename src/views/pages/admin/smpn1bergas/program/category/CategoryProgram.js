@@ -221,7 +221,7 @@ function CategoryProgram() {
                     <td data-label="No" className="">
                       {no + 1 + (currentPage - 1) * rowsPerPage}
                     </td>
-                    <td data-label="Nama Prgram" className="text-long">
+                    <td data-label="Kategori Program" className="">
                       <span
                         style={{
                           width: "250px",
