@@ -91,21 +91,32 @@ function EditKondisiSekolah() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("deskripsi", deskripsi);
     formData.append("file", foto);
+
+    const data = {
+      deskripsi: deskripsi
+    }
 
     await axios
       .put(
-        `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/put/` + param.id,
-        formData,
+        `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/put/` + param.id, data,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       )
       .then(() => {
+        if (foto) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/put/foto` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err);
+          })
+        }
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Data Kondisi Sekolah",
@@ -266,7 +277,7 @@ function EditKondisiSekolah() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -277,25 +288,24 @@ function EditKondisiSekolah() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   return (
     <div
-    className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div style={{marginTop:"50px"}}
-      className="page-content1 mb-3 app-main__outer"
-      data-aos="fade-left">
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div style={{ marginTop: "50px" }}
+        className="page-content1 mb-3 app-main__outer"
+        data-aos="fade-left">
         <div className="container mt-3 app-main__outer" data-aos="fade-left">
           <div className="card shadow">
             <div className="card-body">

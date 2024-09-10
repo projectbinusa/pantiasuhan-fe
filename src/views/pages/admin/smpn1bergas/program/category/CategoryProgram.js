@@ -161,7 +161,7 @@ function CategoryProgram() {
       </div>
       <div className="main-card box-tabel mb-3 card">
         <div className="card-header" style={{ display: "flex" }}>
-          <p className="mt-3">Program</p>
+          <p className="mt-3">Kategori Program</p>
           <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -191,7 +191,7 @@ function CategoryProgram() {
                   <a
                     style={{ color: "white", textDecoration: "none" }}
                     href="/add-category-program">
-                    Tambah Program
+                    Tambah Kategori
                   </a>
                 </button>
               </div>

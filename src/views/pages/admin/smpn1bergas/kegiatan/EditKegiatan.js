@@ -149,20 +149,32 @@ function EditKegiatan() {
     //   return;
     // }
     const formData = new FormData();
-    formData.append("judul", judul);
-    formData.append("isi", isi);
-    formData.append("penulis", penulis);
-    formData.append("tanggal", formatDateToSlash(tanggal));
-    formData.append("file", image);
     formData.append("category", kategori);
 
+    const data = { 
+      judul: judul,
+      isi: isi,
+      penulis: penulis,
+      tanggal: formatDateToSlash(tanggal),
+      category: kategori
+    }
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/kegiatan/put/` + param.id, formData, {
+      .put(`${API_DUMMY}/smpn1bergas/api/kegiatan/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
+        if (image) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/kegiatan/put/foto` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err);
+          })
+        }
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Kegiatan",

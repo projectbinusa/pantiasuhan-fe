@@ -62,17 +62,30 @@ function EditStruktur() {
 
     const formData = new FormData();
     formData.append("file", image);
-    formData.append("tugas", tugas);
-    formData.append("nama", nama);
-    formData.append("jabatan", jabatan);
+
+    const data = {
+      tugas: tugas,
+      nama: nama,
+      jabatan: jabatan
+    }
 
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/struktur/put/` + param.id, formData, {
+      .put(`${API_DUMMY}/smpn1bergas/api/struktur/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
+        if (image) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/struktur/put/foto` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err);
+          })
+        }
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Data Struktur",

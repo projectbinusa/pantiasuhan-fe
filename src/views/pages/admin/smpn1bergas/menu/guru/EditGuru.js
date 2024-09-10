@@ -45,19 +45,32 @@ function EditGuru() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("nama_guru", namaGuru);
-    formData.append("mapel", mapel);
-    formData.append("riwayat", riwayat);
-    formData.append("nip", nip);
     formData.append("file", image);
 
+    const data = {
+      nama_guru: namaGuru,
+      mapel: mapel,
+      riwayat: riwayat,
+      nip:nip
+    }
+
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/guru/put/` + param.id, formData, {
+      .put(`${API_DUMMY}/smpn1bergas/api/guru/put/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
+        if (image) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/guru/put/foto` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err);
+          })
+        }
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Data Guru",
