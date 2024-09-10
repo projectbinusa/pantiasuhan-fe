@@ -141,9 +141,23 @@ import DetailKegiatanAdmin from "./views/pages/admin/smpn1bergas/kegiatan/Detail
 import DetailPrestasiAdmin from "./views/pages/admin/smpn1bergas/prestasi/DetailPrestasi";
 import DetailProgram from "./views/pages/admin/smpn1bergas/program/DetailProgram";
 import Sidebar1 from "./component/Sidebar1";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "./firebase";
 
 function App() {
   const [loading, setLoading] = useState(true);
+
+  const LogPageView = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+      logEvent(analytics, "page_view", {
+        page_path: location.pathname + location.search,
+      });
+    }, [location]);
+
+    return null;
+  };
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
@@ -589,6 +603,7 @@ function App() {
             />
           </Switch>
         </main>
+        <LogPageView />
       </BrowserRouter>
     </>
   );
