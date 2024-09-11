@@ -36,9 +36,22 @@ function Pengembangan() {
       console.log("get all", error);
     }
   };
+  
+  const [kategori, setKategori] = useState([]);
+  const getAllKategori = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/category_program/all/no_page`
+      );
+      setKategori(response.data.data.content);
+    } catch (error) {
+      console.log("get all", error);
+    }
+  };
 
   useEffect(() => {
     getAll();
+    getAllKategori();
     Aos.init();
   }, []);
 

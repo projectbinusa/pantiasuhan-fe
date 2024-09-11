@@ -87,13 +87,13 @@ function Header({ toggleSidebar }) {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes",
-      cancelButtonText: "Cancel",
+      confirmButtonText: "Ya",
+      cancelButtonText: "Batal",
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           icon: "success",
-          title: "Success Logout",
+          title: "Berhasil Logout",
           showConfirmButton: false,
           timer: 1500,
         });

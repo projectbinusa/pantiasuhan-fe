@@ -227,13 +227,13 @@ function Prestasi() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Nama Prestasi</th>
-                    <th scope="col" className="text-left">
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Nama Prestasi</th>
+                    <th scope="col" className="text-center" className="text-left">
                       Nama Perserta
                     </th>
-                    <th className="text-left">Tanggal</th>
-                    <th className="text-left">Aksi</th>
+                    <th className="text-center">Tanggal</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

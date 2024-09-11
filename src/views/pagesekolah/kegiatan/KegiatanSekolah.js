@@ -157,25 +157,6 @@ function KegiatanSekolah() {
               </ul>
             </div>
             <br />
-            {/* <div>
-              <h5 style={{ fontWeight: "600", color: "#002147" }}>ARSIP</h5>
-              <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
-              <ul className="category-berita">
-                {months.map((month, index) => (
-                  <React.Fragment key={index}>
-                    <li
-                      onClick={() => handleMonthClick(month)}
-                    >
-                      <a href="#">{month}</a>
-                    </li>
-                    {index < months.length - 1 && (
-                      <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
-                    )}
-                  </React.Fragment>
-                ))}
-              </ul>
-            </div>
-            <br /> */} 
             <div>
                 <h5 style={{ fontWeight: "600", color: "#002147" }}>IKUTI KAMI</h5>
                 <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />

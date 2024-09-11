@@ -79,7 +79,7 @@ function Sidebar1({ toggleSidebar }) {
       action: ["/add-kotak-saran", "/edit-kotak-saran"],
     },
     {
-      title: "Meteri Ajar",
+      title: "Materi Ajar",
       icon: "fas fa-file-alt",
       path: "/admin-materi-ajar",
       action: ["/add-materi-ajar", "/edit-materi-ajar", "/detail-materi-ajar"],
@@ -206,15 +206,10 @@ function Sidebar1({ toggleSidebar }) {
 
   return (
     <>
-      {/* <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}> */}
-
       <nav id="sidebar" className="sidebar-wrapper">
         <div className="sidebar-content">
           <div className="sidebar-brand">
-            <a href="#">SMPN1 Bergas</a>
+            <a href="#" style={{textAlign: "center"}}>SMP N 1 Bergas</a>
             <div id="close-sidebar" onClick={toggleSidebar}>
               <i className="fas fa-times"></i>
             </div>

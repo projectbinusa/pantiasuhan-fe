@@ -153,8 +153,6 @@ function MateriAjar() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
@@ -229,16 +227,14 @@ function MateriAjar() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-left">Tingkat</th>
-                    <th scope="col" className="text-left">
-                      Mapel
-                    </th>
-                    <th className="text-left">Judul</th>
-                    <th className="text-left">Tanggal Upload</th>
-                    <th className="text-left">Jenis</th>
-                    <th className="text-left">Penyusun</th>
-                    <th className="text-left">Aksi</th>
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Tingkat</th>
+                    <th scope="col" className="text-center">Mapel</th>
+                    <th className="text-center">Judul</th>
+                    <th className="text-center">Tanggal Upload</th>
+                    <th className="text-center">Jenis</th>
+                    <th className="text-center">Penyusun</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

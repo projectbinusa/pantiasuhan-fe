@@ -542,7 +542,7 @@ function Home() {
             <div class="col-lg-6">
               <div data-aos="fade-down"
                 class="section-title style-white text-center"
-               >
+              >
                 <h5 class="sub-title double-line" style={{ color: "black" }}>
                   Prestasi Unggulan
                 </h5>
@@ -705,7 +705,7 @@ function Home() {
           </div>
           <div class="row" data-aos="fade-up">
             {alumnus.map((data) => (
-              <div class="col-lg-4 col-md-6">
+              <div class="col-lg-3 col-md-6">
                 <div class="single-team-inner style-4 text-center">
                   <div class="thumb">
                     <img src={data.foto} alt="img" />
@@ -731,12 +731,15 @@ function Home() {
                       <h4>
                         <a
                           style={{
-                            whiteSpace: "nowrap",
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 3,
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             color: "white",
-                            width: "150px",
-                          }}>
+                            textAlign: "justify"
+                          }}
+                          href={`/detail-alumni-${data.id}`}>
                           {data.nama}
                         </a>
                       </h4>
@@ -750,7 +753,7 @@ function Home() {
                           color: "white",
                           textAlign: "justify",
                         }}>
-                        {data.biografi}
+                        <div dangerouslySetInnerHTML={{ __html: data.biografi }} />
                       </p>
                     </div>
                   </div>
@@ -1049,9 +1052,8 @@ function Home() {
                 onClick={() => setIsLocked(!isLocked)}
                 style={{ width: "3%", fontSize: "18px" }}>
                 <i
-                  className={`fa-solid ${
-                    isLocked ? "fa-lock" : "fa-unlock"
-                  }`}></i>
+                  className={`fa-solid ${isLocked ? "fa-lock" : "fa-unlock"
+                    }`}></i>
               </Button>
             </div>
 

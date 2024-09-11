@@ -149,28 +149,11 @@ function Sejarah() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">
-          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
-            <div className="col-auto">
-              <label className="form-label mt-2">Rows per page:</label>
-            </div>
-            <div className="col-auto">
-              <select
-                className="form-select form-select-xl w-auto"
-                onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-              </select>
-            </div>
-          </div>
           <div className="search">
             <input
               type="search"
@@ -183,21 +166,6 @@ function Sejarah() {
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Data Sejarah</p>
-              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-                <div className="col-auto">
-                  <label className="form-label mt-2">Rows per page:</label>
-                </div>
-                <div className="col-auto">
-                  <select
-                    className="form-select form-select-sm"
-                    onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                  </select>
-                </div>
-              </div>
               <div className="d-flex ml-auto gap-3">
                 <input
                   type="search"
@@ -238,9 +206,9 @@ function Sejarah() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Judul</th>
-                    <th className="text-left">Aksi</th>
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Judul</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -289,19 +257,6 @@ function Sejarah() {
                   })}
                 </tbody>
               </table>
-            </div>
-            <div className="card-header mt-3 d-flex justify-content-center">
-              <Pagination
-                count={paginationInfo.totalPages}
-                page={currentPage}
-                onChange={(event, value) => {
-                  setCurrentPage(value);
-                  setPage(value);
-                }}
-                showFirstButton
-                showLastButton
-                color="primary"
-              />
             </div>
           </div>
         </div>

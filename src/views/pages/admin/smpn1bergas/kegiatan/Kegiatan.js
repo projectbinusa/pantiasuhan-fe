@@ -149,8 +149,6 @@ function Kegiatan() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
@@ -225,19 +223,18 @@ function Kegiatan() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Kegiatan</th>
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Kegiatan</th>
                     <th
                       scope="col"
-                      className="text-left"
+                      className="text-center"
                       style={{ minWidth: "150px" }}>
                       Penulis Kegiatan
                     </th>
-                    {/* <th className="text-long">Isi</th> */}
-                    <th className="">Gambar</th>
-                    <th className="">Tanggal Dibuat</th>
-                    <th className="">Tanggal Update</th>
-                    <th className="text-left">Aksi</th>
+                    <th className="text-center">Gambar</th>
+                    <th className="text-center">Tanggal Dibuat</th>
+                    <th className="text-center">Tanggal Update</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

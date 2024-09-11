@@ -225,16 +225,13 @@ function Struktur() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Nama</th>
-                    <th scope="col" className="text-long">
-                      Tugas
-                    </th>
-                    <th className="text-left">Jabatan</th>
-                    {/* <th className="text-left">Jenis Struktur</th> */}
-                    <th className="text-left">Tanggal Dibuat</th>
-                    <th className="text-left">Tanggal Update</th>
-                    <th className="text-left">Aksi</th>
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Nama</th>
+                    <th scope="col" className="text-center">Tugas</th>
+                    <th className="text-center">Jabatan</th>
+                    <th className="text-center">Tanggal Dibuat</th>
+                    <th className="text-center">Tanggal Update</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -253,9 +250,6 @@ function Struktur() {
                         <td data-label="Jabatan" className="">
                           {berita.jabatan}
                         </td>
-                        {/* <td data-label="Jenis Struktur" className="">
-                          {berita.jenisStruktur}
-                        </td> */}
                         <td data-label="Tanggal Dibuat" className="">
                           {berita.createdDate}
                         </td>

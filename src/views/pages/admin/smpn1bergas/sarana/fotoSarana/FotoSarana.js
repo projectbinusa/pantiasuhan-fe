@@ -183,12 +183,12 @@ function FotoSarana() {
           <table className="align-middle mb-0 table table-borderless table-striped table-hover">
             <thead>
               <tr>
-                <th scope="col">No</th>
-                <th className="text-long">Foto</th>
-                <th className="text-long">Nama Sarana</th>
-                <th className="text-long">Tanggal Dibuat</th>
-                <th className="text-long">Tanggal Update</th>
-                <th className="text-left">Aksi</th>
+                <th scope="col" className="text-center">No</th>
+                <th className="text-center">Foto</th>
+                <th className="text-center">Nama Sarana</th>
+                <th className="text-center">Tanggal Dibuat</th>
+                <th className="text-center">Tanggal Update</th>
+                <th className="text-center">Aksi</th>
               </tr>
             </thead>
             <tbody>

@@ -75,9 +75,6 @@ function Program() {
               timer: 1500,
             });
             getAll();
-            // setTimeout(() => {
-            //   window.location.reload();
-            // }, 1500);
           })
           .catch((err) => {
             Swal.fire({
@@ -151,8 +148,6 @@ function Program() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
@@ -227,17 +222,12 @@ function Program() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Nama Program</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
-                    <th scope="col" className="text-left">
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Nama Program</th>
+                    <th scope="col" className="text-center">
                       Kategori Program
                     </th>
-                    {/* <th className="text-left">Tujuan</th> */}
-                    {/* <th className="text-left">Skala</th> */}
-                    <th className="text-left">Aksi</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -257,27 +247,12 @@ function Program() {
                               overflow: "hidden",
                               textOverflow: "ellipsis",
                             }}>
-                            {" "}
                             {berita.namaProgram}
                           </span>
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}{" "}
                         <td data-label="Judul Program" className="text-long">
                           {berita.categoryProgram.category}
                         </td>
-                        {/* <td
-                          style={{
-                            maxWidth: "250px",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                          data-label="Tujuan"
-                          className="text-long">
-                          <div
-                            dangerouslySetInnerHTML={{ __html: berita.tujuan }}
-                          />
-                        </td> */}
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button
@@ -289,7 +264,6 @@ function Program() {
                                   textDecoration: "none",
                                 }}
                                 href={`/edit-program/${berita.id}`}>
-                                {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>

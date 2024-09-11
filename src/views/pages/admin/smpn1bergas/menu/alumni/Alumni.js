@@ -144,8 +144,6 @@ function Alumni() {
       style={{ color: "white", background: "#3a3f48" }}>
       <i className="fas fa-bars"></i>
     </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
     <Sidebar1 toggleSidebar={toggleSidebar} />
     <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
@@ -220,15 +218,15 @@ function Alumni() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Nama Alumni</th>
-                    <th scope="col" className="text-left">
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Nama Alumni</th>
+                    <th scope="col" className="text-center">
                       No Handphone
                     </th>
-                    <th scope="col" className="text-left">
+                    <th scope="col" className="text-center">
                       Sekolah / Pekerjaan Saat Ini
                     </th>
-                    <th className="text-left">Aksi</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

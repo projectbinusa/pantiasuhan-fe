@@ -34,11 +34,11 @@ function VisiMisi() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/visiMisi/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/visiMisi/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -137,9 +137,8 @@ function VisiMisi() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -236,13 +235,13 @@ function VisiMisi() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-left">Visi</th>
-                    {/* <th scope="col" className="text-left">
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Visi</th>
+                    {/* <th scope="col" className="text-center" className="text-left">
                       Misi
                     </th>
-                    <th className="text-left">Tujuan</th> */}
-                    <th className="text-left">Aksi</th>
+                    <th className="text-center">Tujuan</th> */}
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -253,13 +252,13 @@ function VisiMisi() {
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
                         <td data-label="Visi" className=""
-                            style={{
-                              maxWidth: "150px",
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}>
-                              {berita.visi}
+                          style={{
+                            maxWidth: "150px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}>
+                          <div dangerouslySetInnerHTML={{ __html: berita.visi }} />
                         </td>
                         {/* <td
                           style={{
@@ -323,19 +322,6 @@ function VisiMisi() {
                   })}
                 </tbody>
               </table>
-            </div>
-            <div className="card-header mt-3 d-flex justify-content-center">
-              <Pagination
-                count={paginationInfo.totalPages}
-                page={currentPage}
-                onChange={(event, value) => {
-                  setCurrentPage(value);
-                  setPage(value);
-                }}
-                showFirstButton
-                showLastButton
-                color="primary"
-              />
             </div>
           </div>
         </div>

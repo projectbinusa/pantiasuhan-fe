@@ -220,8 +220,8 @@ function Galery() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Judul</th>
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Judul</th>
                     {/* <th className="text-center">
                       Isi Berita
                     </th> */}
@@ -231,8 +231,8 @@ function Galery() {
                       style={{ minWidth: "150px" }}>
                       Deskripsi
                     </th>
-                    <th className="text-left">Image</th>
-                    <th className="text-left">Aksi</th>
+                    <th className="text-center">Image</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

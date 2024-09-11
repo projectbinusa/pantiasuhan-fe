@@ -97,8 +97,8 @@ function FooterSekolah() {
             <div className="widget widget_about">
               <h4 className="widget-title" style={{ textTransform: "uppercase" }}>{judul}</h4>
               <div className="details">
-                <p style={{ fontSize: "14px", textAlign: "left" }}>
-                  {isi}
+                <p style={{ fontSize: "14px", textAlign: "justify" }}>
+                  <div dangerouslySetInnerHTML={{ __html: isi }} />
                 </p>
                 <ul className="social-media d-none d-md-none d-lg-flex gap-2 mb-4">
                   <li>
@@ -159,16 +159,18 @@ function FooterSekolah() {
                 <div className="details card-container">
                   {berita.map(news => (
                     <div className="card" key={news.id}>
-                      <div className="card-body">
+                      <div className="card-body berita ">
                         <a href={`/detail-news-${news.id}`} className="card-title">{news.judulBerita}</a>
                         <p className="card-date">{formatDate(news.createdDate)}</p>
-                        <p className="card-content" style={{ fontSize: "14px" }}>{news.isiBerita}</p>
+                        <p className="card-content" style={{ fontSize: "14px" }}>
+                          <div dangerouslySetInnerHTML={{ __html: news.isiBerita }} />
+                        </p>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p style={{ fontStyle: "italic", color: "white", fontSize: "0.9rem"   }}>Berita Terbaru Tidak Tersedia</p>
+                <p style={{ fontStyle: "italic", color: "white", fontSize: "0.9rem" }}>Berita Terbaru Tidak Tersedia</p>
               )}
             </div>
           </div>
