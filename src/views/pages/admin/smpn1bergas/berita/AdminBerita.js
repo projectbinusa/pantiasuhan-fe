@@ -25,8 +25,7 @@ function AdminBerita() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/berita/all?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/berita/all?page=${page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -118,7 +117,7 @@ function AdminBerita() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -132,20 +131,17 @@ function AdminBerita() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background:"#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <main className="page-content1" style={{marginTop:"20px"}}>
+      <main className="page-content1" style={{ marginTop: "20px" }}>
         <div className="container" data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
@@ -172,7 +168,7 @@ function AdminBerita() {
             />
           </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex", background:"#FFF7F7" }}>
+            <div className="card-header" style={{ display: "flex", background: "#FFF7F7" }}>
               <p className="mt-3">Berita</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
@@ -216,17 +212,17 @@ function AdminBerita() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Judul Berita</th>
+                    <th scope="col" className="text-center" className="text-center">No</th>
+                    <th className="text-center">Judul Berita</th>
                     <th
                       scope="col"
-                      className="text-left"
+                      className="text-center"
                       style={{ minWidth: "150px" }}>
                       Penulis Berita
                     </th>
-                    <th className="text-left">Image</th>
-                    <th className="text-left">Katagori Berita</th>
-                    <th className="text-left">Aksi</th>
+                    <th className="text-center">Image</th>
+                    <th className="text-center">Kategori Berita</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -248,7 +244,7 @@ function AdminBerita() {
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>{" "}
-                        <td data-label="Katagori Berita" className="">
+                        <td data-label="Kategori Berita" className="">
                           {berita.categoryBerita}
                         </td>
                         <td data-label="Aksi">

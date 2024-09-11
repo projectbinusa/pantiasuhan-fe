@@ -121,7 +121,7 @@ import EditOsis from "./views/pages/admin/smpn1bergas/menu/osis/EditOsis";
 import Pengembangan from "./views/pagesekolah/program/Pengembangan";
 import PerawatanRutin from "./views/pagesekolah/program/PerawatanRutin";
 import SewaLayanan from "./views/pagesekolah/program/SewaLayanan";
-import DetailSAmbutan from "./views/pages/admin/smpn1bergas/menu/sambutan/DetailSambutan";
+import DetailSambutan from "./views/pages/admin/smpn1bergas/menu/sambutan/DetailSambutan";
 import DetailVisi from "./views/pages/admin/smpn1bergas/profileSekolah/visimisi/DetailVisiMisi";
 import DetailKondisiSekolah from "./views/pages/admin/smpn1bergas/profileSekolah/kondisiSekolah/DetailKondisiSekolah";
 import KegiatanSekolah from "./views/pagesekolah/kegiatan/KegiatanSekolah";
@@ -145,6 +145,7 @@ import { logEvent } from "firebase/analytics";
 import { analytics } from "./firebase";
 import EditCategoryProgram from "./views/pages/admin/smpn1bergas/program/category/EditCategoryProgram";
 import AddCategoryProgram from "./views/pages/admin/smpn1bergas/program/category/AddCategoryProgram";
+import DetailSejarah from "./views/pages/admin/smpn1bergas/menu/sejarah/DetailSejarah";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -244,7 +245,7 @@ function App() {
             {/* sambutan */}
             <PrivateRoute
               path="/admin-sambutan"
-              component={AdminSambutan}
+              component={DetailSambutan}
               exact
             />
             <PrivateRoute path="/add-sambutan" component={AddSambutan} exact />
@@ -255,12 +256,12 @@ function App() {
             />
             <PrivateRoute
               path="/detail-sambutan/:id"
-              component={DetailSAmbutan}
+              component={DetailSambutan}
               exact
             />
             {/* end sambutan */}
             {/* sejarah */}
-            <PrivateRoute path="/admin-sejarah" component={Sejarah} exact />
+            <PrivateRoute path="/admin-sejarah" component={DetailSejarah} exact />
             <PrivateRoute path="/add-sejarah" component={AddSejarah} exact />
             <PrivateRoute
               path="/edit-sejarah/:id"
@@ -286,7 +287,7 @@ function App() {
             />
             {/* end tenaga kependidikan */}
             {/* VisiMisi */}
-            <PrivateRoute path="/admin-visimisi" component={VisiMisi} exact />
+            <PrivateRoute path="/admin-visimisi" component={DetailVisi} exact />
             <PrivateRoute path="/add-visimisi" component={AddVisiMisi} exact />
             <PrivateRoute
               path="/edit-visimisi/:id"

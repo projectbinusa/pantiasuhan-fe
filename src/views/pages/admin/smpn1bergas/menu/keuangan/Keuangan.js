@@ -224,19 +224,19 @@ function Keuangan() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Judul</th>
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Judul</th>
                     <th
                       scope="col"
-                      className="text-left"
+                      className="text-center"
                       style={{ minWidth: "150px" }}>
                       Isi
                     </th>
-                    <th scope="col" className="text-left">
+                    <th scope="col" className="text-center">
                       Kategori Keuangan
                     </th>
-                    <th className="text-left">Image</th>
-                    <th className="text-left">Aksi</th>
+                    <th className="text-center">Image</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

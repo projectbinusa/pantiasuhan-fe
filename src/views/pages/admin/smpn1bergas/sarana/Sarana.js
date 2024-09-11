@@ -151,8 +151,6 @@ function Sarana() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
@@ -227,12 +225,10 @@ function Sarana() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Nama sarana</th>
-                    <th scope="col" className="text-left">
-                      Kategori
-                    </th>
-                    <th className="text-left">Aksi</th>
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Nama sarana</th>
+                    <th scope="col" className="text-center">Kategori</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -248,17 +244,6 @@ function Sarana() {
                         <td data-label="Nama Sarana" className="text-long">
                           {berita.category}
                         </td>
-                        {/* <td
-                          data-label="Deskripsi"
-                          className=""
-                          style={{
-                            maxWidth: "250px",
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}>
-                          {berita.deskripsi}
-                        </td> */}
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button

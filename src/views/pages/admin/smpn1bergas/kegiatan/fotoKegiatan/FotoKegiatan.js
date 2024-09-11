@@ -29,8 +29,7 @@ function FotoKegiatan() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/foto_kegiatan/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/foto_kegiatan/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -48,29 +47,6 @@ function FotoKegiatan() {
       console.error("Terjadi Kesalahan", error);
     }
   };
-
-  // const getAll1 = async (page1) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${API_DUMMY}/smpn1bergas/api/category-berita/all/terbaru?direction=desc&page=${
-  //         page1 - 1
-  //       }&size=${rowsPerPage1}&sort=id`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       }
-  //     );
-  //     setList1(response.data.data.content);
-  //     console.log(response.data.data.content);
-  //     setPaginationInfo1({
-  //       totalPages1: response.data.data.totalPages,
-  //       totalElements1: response.data.data.totalElements,
-  //     });
-  //   } catch (error) {
-  //     console.error("Terjadi Kesalahan", error);
-  //   }
-  // };
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -98,57 +74,14 @@ function FotoKegiatan() {
               timer: 1500,
             });
             getAll();
-            // setTimeout(() => {
-            //   window.location.reload();
-            // }, 1500);
           });
       }
     });
   };
 
-  //delete category
-  // const deleteData1 = async (id) => {
-  //   Swal.fire({
-  //     title: "Apakah Anda Ingin Menghapus Kategori Berita?",
-  //     text: "Seluruh berita dalam kategori ini akan ikut terhapus dan data tidak bisa dikembalikan!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Hapus",
-  //     cancelButtonText: "Batal",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       axios
-  //         .delete(`${API_DUMMY}/smpn1bergas/api/category-berita/` + id, {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //           },
-  //         })
-  //         .then(() => {
-  //           Swal.fire({
-  //             icon: "success",
-  //             title: "Dihapus!",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-
-  //           setTimeout(() => {
-  //             history.push("/admin-berita");
-  //             window.location.reload();
-  //           }, 1500);
-  //         });
-  //     }
-  //   });
-  // };
-
   useEffect(() => {
     getAll(currentPage);
   }, [currentPage, rowsPerPage]);
-
-  // useEffect(() => {
-  //   getAll1(currentPage1);
-  // }, [currentPage1, rowsPerPage1]);
 
   useEffect(() => {
     AOS.init();
@@ -172,24 +105,6 @@ function FotoKegiatan() {
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-  // const handleRowsPerPageChange1 = (event) => {
-  //   setRowsPerPage1(parseInt(event.target.value, 10));
-  //   setPage1(0);
-  // };
-
-  // const handleSearchChange1 = (event) => {
-  //   setSearchTerm1(event.target.value);
-  //   setPage1(0);
-  //   setCurrentPage1(1);
-  // };
-
-  // const filteredList1 = list1.filter((item) =>
-  //   Object.values(item).some(
-  //     (value) =>
-  //       typeof value === "string" &&
-  //       value.toLowerCase().includes(searchTerm1.toLowerCase())
-  //   )
-  // );
 
   console.log(filteredList);
 
@@ -197,16 +112,8 @@ function FotoKegiatan() {
 
   return (
     <>
-      {/* <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-      <Header /> */}
-      {/* <div className="app-main">
-        <Sidebar /> */}
-      {/* <div
-          className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left"> */}
       <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
         <div className="col-auto">
-          {/* a */}
           <label className="form-label mt-2">Rows per page:</label>
         </div>
         <div className="col-auto">
@@ -234,7 +141,6 @@ function FotoKegiatan() {
           <p className="mt-3">Foto</p>
           <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
             <div className="col-auto">
-              {/* a */}
               <label className="form-label mt-2">Rows per page:</label>
             </div>
             <div className="col-auto">
@@ -275,12 +181,12 @@ function FotoKegiatan() {
           <table className="align-middle mb-0 table table-borderless table-striped table-hover">
             <thead>
               <tr>
-                <th scope="col">No</th>
-                <th className="text-long">Foto</th>
-                <th className="text-long">Nama Kegiatan</th>
-                <th className="text-long">Tanggal Dibuat</th>
-                <th className="text-long">Tanggal Update</th>
-                <th className="text-left">Aksi</th>
+                <th scope="col" className="text-center">No</th>
+                <th className="text-center">Foto</th>
+                <th className="text-center">Nama Kegiatan</th>
+                <th className="text-center">Tanggal Dibuat</th>
+                <th className="text-center">Tanggal Update</th>
+                <th className="text-center">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -296,7 +202,6 @@ function FotoKegiatan() {
                         style={{ height: "4.5rem", width: "4.5rem" }}
                       />
                     </td>
-                    {/* <td data-label="">{berita.isiBerita}</td> */}{" "}
                     <td data-label="Nama Kegiatan" className="">
                       {berita.kegiatan.judul}
                     </td>
@@ -317,7 +222,6 @@ function FotoKegiatan() {
                               textDecoration: "none",
                             }}
                             href={`/edit-foto-kegiatan/${berita.id}`}>
-                            {" "}
                             <i className="fa-solid fa-pen-to-square"></i>
                           </a>
                         </button>

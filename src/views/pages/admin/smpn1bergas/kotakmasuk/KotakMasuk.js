@@ -145,8 +145,6 @@ function KotakMasuk() {
       style={{ color: "white", background: "#3a3f48" }}>
       <i className="fas fa-bars"></i>
     </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
     <Sidebar1 toggleSidebar={toggleSidebar} />
     <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
@@ -210,17 +208,12 @@ function KotakMasuk() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>{" "}
-                    <th className="text-left">Nama Pengirim</th>
-                    <th className="text-long">Pesan</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
-                    <th scope="col" className="text-left">
-                      Email
-                    </th>
-                    <th className="text-left">No Telephone</th>
-                    <th className="text-left">Aksi</th>
+                    <th scope="col" className="text-center">No</th>{" "}
+                    <th className="text-center">Nama Pengirim</th>
+                    <th className="text-center">Pesan</th>
+                    <th scope="col" className="text-center">Email</th>
+                    <th className="text-center">No Telephone</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -233,7 +226,6 @@ function KotakMasuk() {
                         <td data-label="Nama Pengirim" className="text-long">
                           {berita.nama}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}{" "}
                         <td data-label="Pesan" className="">
                           {berita.pesan}
                         </td>

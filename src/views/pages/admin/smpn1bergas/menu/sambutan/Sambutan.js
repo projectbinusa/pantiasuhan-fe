@@ -150,8 +150,6 @@ function AdminSambutan() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
       <div style={{marginTop:"50px"}}
         className="page-content1 mb-3 app-main__outer"
@@ -159,21 +157,6 @@ function AdminSambutan() {
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">
-          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
-            <div className="col-auto">
-              <label className="form-label mt-2">Rows per page:</label>
-            </div>
-            <div className="col-auto">
-              <select
-                className="form-select form-select-xl w-auto"
-                onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-              </select>
-            </div>
-          </div>
           <div className="search">
             <input
               type="search"
@@ -186,21 +169,6 @@ function AdminSambutan() {
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Data Sambutan</p>
-              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-                <div className="col-auto">
-                  <label className="form-label mt-2">Rows per page:</label>
-                </div>
-                <div className="col-auto">
-                  <select
-                    className="form-select form-select-sm"
-                    onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                  </select>
-                </div>
-              </div>
               <div className="d-flex ml-auto gap-3">
                 <input
                   type="search"
@@ -241,18 +209,18 @@ function AdminSambutan() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-left">Judul Sambutan</th>
-                    <th className="text-left">Nama Kepala Sekolah</th>
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Judul Sambutan</th>
+                    <th className="text-center">Nama Kepala Sekolah</th>
                     <th
                       scope="col"
-                      className="text-left"
+                      className="text-center"
                       style={{ minWidth: "150px" }}>
                       Isi Sambutan
                     </th>
-                    <th className="text-left">NIP</th>
-                    <th className="text-left">Gambar</th>
-                    <th className="text-left">Aksi</th>
+                    <th className="text-center">NIP</th>
+                    <th className="text-center">Gambar</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -326,19 +294,6 @@ function AdminSambutan() {
                   })}
                 </tbody>
               </table>
-            </div>
-            <div className="card-header mt-3 d-flex justify-content-center">
-              <Pagination
-                count={paginationInfo.totalPages}
-                page={currentPage}
-                onChange={(event, value) => {
-                  setCurrentPage(value);
-                  setPage(value);
-                }}
-                showFirstButton
-                showLastButton
-                color="primary"
-              />
             </div>
           </div>
         </div>

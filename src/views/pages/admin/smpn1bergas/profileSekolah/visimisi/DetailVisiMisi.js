@@ -16,28 +16,100 @@ function DetailVisi() {
   const [updateDate, setUpdateDate] = useState("");
   const [misi, setMisi] = useState("");
   const [visi, setVisi] = useState("");
+  const [id, setId] = useState(0);
+  const [datas, setDatas] = useState([]);
   const param = useParams();
 
-  // get by id berita
+  // // get by id berita
+  // useEffect(() => {
+  //   axios
+  //     .get(`${API_DUMMY}/smpn1bergas/api/visiMisi/get/` + param.id, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       const list_data = res.data.data;
+  //       setCreatedDate(list_data.createdDate);
+  //       setUpdateDate(list_data.updatedDate);
+  //       settujuan(list_data.tujuan);
+  //       setMisi(list_data.misi);
+  //       setVisi(list_data.visi);
+  //     })
+  //     .catch((error) => {
+  //       alert("Terjadi Kesalahan " + error);
+  //     });
+  // }, [param.id]);
+
+  const getAll = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/visiMisi/all/terbaru?page=0&size=1`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const res = response.data.data.content[0];
+      setDatas(response.data.data.content);
+      settujuan(res.tujuan);
+      setCreatedDate(res.createdDate);
+      setUpdateDate(res.updateDate);
+      setVisi(res.visi);
+      setMisi(res.misi);
+      setId(res.id)
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get(`${API_DUMMY}/smpn1bergas/api/visiMisi/get/` + param.id, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => {
-        const list_data = res.data.data;
-        setCreatedDate(list_data.createdDate);
-        setUpdateDate(list_data.updatedDate);
-        settujuan(list_data.tujuan);
-        setMisi(list_data.misi);
-        setVisi(list_data.visi);
-      })
-      .catch((error) => {
-        alert("Terjadi Kesalahan " + error);
-      });
-  }, [param.id]);
+    getAll()
+  })
+
+  const deleteData = async (id) => {
+    Swal.fire({
+      title: "Apakah Anda Ingin Menghapus?",
+      text: "Perubahan data tidak bisa dikembalikan!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Hapus",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${API_DUMMY}/smpn1bergas/api/visiMisi/` + id, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Dihapus!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err);
+          });
+      }
+    });
+  };
 
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -45,7 +117,7 @@ function DetailVisi() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -58,24 +130,53 @@ function DetailVisi() {
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer">
           <div className="box-tabel">
-            <form className="card shadow w-100">
-              <h1 className="title card-header fw-bold fs-3">Detail</h1>
+            <div className="card shadow w-100">
+              <div className="title card-header d-flex justify-content-between">
+                <h1 className="fw-bold fs-3">Visi Misi</h1>
+                {datas.length > 0 ? (<>
+                  <div>
+                    <button
+                      type="button"
+                      className="btn-primary btn-sm mr-2">
+                      <a
+                        style={{
+                          color: "white",
+                          textDecoration: "none",
+                        }}
+                        href={`/edit-visimisi/${id}`}>
+                        <i className="fa-solid fa-pen-to-square"></i>
+                      </a>
+                    </button>
+                    <button
+                      onClick={() => deleteData(id)}
+                      type="button"
+                      className="btn-danger btn-sm">
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </>) : (<>
+                  <button className="active btn-focus p-2 rounded">
+                    <a
+                      style={{ color: "white", textDecoration: "none" }}
+                      href="/add-visimisi">
+                      Tambah Data
+                    </a>
+                  </button>
+                </>)}
+              </div>
               <br />
               <div className="card-body">
                 <div class="mb-3">
@@ -129,17 +230,7 @@ function DetailVisi() {
                   />
                 </div>
               </div>
-              <button
-                type="submit"
-                className="btn-kembali btn-danger mt-3 mr-3">
-                <a
-                  href="/admin-visimisi"
-                  style={{ color: "white", textDecoration: "none" }}>
-                  {" "}
-                  Kembali
-                </a>
-              </button>
-            </form>
+            </div>
           </div>
         </div>
       </div>

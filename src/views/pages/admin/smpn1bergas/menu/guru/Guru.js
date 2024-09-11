@@ -145,8 +145,6 @@ function Berita() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
       <div style={{marginTop:"50px"}}
         className="page-content1 mb-3 app-main__outer"
@@ -223,19 +221,13 @@ function Berita() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Nama Guru</th>
-                    <th scope="col" className="text-left">
-                      Mapel
-                    </th>
-                    <th scope="col" className="text-left">
-                      NIP
-                    </th>
-                    <th scope="col" className="text-left">
-                      RIwayat
-                    </th>
-                    <th className="text-left">Image</th>
-                    <th className="text-left">Aksi</th>
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Nama Guru</th>
+                    <th scope="col" className="text-center">Mapel</th>
+                    <th scope="col" className="text-center">NIP</th>
+                    <th scope="col" className="text-center">RIwayat</th>
+                    <th className="text-center">Image</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

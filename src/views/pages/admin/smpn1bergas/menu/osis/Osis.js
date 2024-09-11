@@ -144,8 +144,6 @@ function Osis() {
       style={{ color: "white", background: "#3a3f48" }}>
       <i className="fas fa-bars"></i>
     </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
     <Sidebar1 toggleSidebar={toggleSidebar} />
     <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
@@ -220,16 +218,14 @@ function Osis() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Nama</th>
-                    <th scope="col" className="text-long">
-                      Kelas
-                    </th>
-                    <th className="text-left">Jabatan</th>
-                    <th className="text-left">Tahun Jabat</th>
-                    <th className="text-left">Tahun Tuntas</th>
-                    <th className="text-left">Gambar</th>
-                    <th className="text-left">Aksi</th>
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Nama</th>
+                    <th scope="col" className="text-center">Kelas</th>
+                    <th className="text-center">Jabatan</th>
+                    <th className="text-center">Tahun Jabat</th>
+                    <th className="text-center">Tahun Tuntas</th>
+                    <th className="text-center">Gambar</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

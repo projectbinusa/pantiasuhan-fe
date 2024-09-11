@@ -141,8 +141,6 @@ function TenagaKenpendidikan() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
       <div style={{marginTop:"50px"}}
         className="page-content1 mb-3 app-main__outer"
@@ -219,15 +217,11 @@ function TenagaKenpendidikan() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-long">Nama</th>
-                    <th scope="col" className="text-left">
-                      Status
-                    </th>
-                    <th scope="col" className="text-left">
-                      Foto
-                    </th>
-                    <th className="text-left">Aksi</th>
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Nama</th>
+                    <th scope="col" className="text-center">Status</th>
+                    <th scope="col" className="text-center">Foto</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

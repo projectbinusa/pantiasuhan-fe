@@ -122,7 +122,7 @@ function AddCategoryProgram() {
                             onChange={(e) => setCategory(e.target.value)}
                             type="text"
                             className="form-control"
-                            placeholder="Masukkan Katagori Program"
+                            placeholder="Masukkan Kategori Program"
                           />
                         </div>
                       </div>

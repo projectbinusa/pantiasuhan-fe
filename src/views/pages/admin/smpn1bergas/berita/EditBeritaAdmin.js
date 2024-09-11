@@ -327,7 +327,7 @@ function EditBeritaAdmin() {
                 <div className="row">
                   <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
-                      Katagori Berita
+                      Kategori Berita
                     </label>
                     <select
                       value={categoryBerita}

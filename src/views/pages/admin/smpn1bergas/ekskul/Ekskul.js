@@ -143,8 +143,6 @@ function Ekskul() {
       style={{ color: "white", background: "#3a3f48" }}>
       <i className="fas fa-bars"></i>
     </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
     <Sidebar1 toggleSidebar={toggleSidebar} />
     <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
@@ -219,14 +217,11 @@ function Ekskul() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th className="text-left">Ekstrakulikuler</th>
-                    <th className="text-left">Jadwal</th>
-                    <th className="text-left">Tempat</th>
-                    {/* <th className="text-center">
-                      Isi Berita
-                    </th> */}
-                    <th className="text-left">Aksi</th>
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Ekstrakulikuler</th>
+                    <th className="text-center">Jadwal</th>
+                    <th className="text-center">Tempat</th>
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
