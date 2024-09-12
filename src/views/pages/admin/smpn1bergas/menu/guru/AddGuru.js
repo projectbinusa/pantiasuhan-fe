@@ -30,9 +30,14 @@ function AddGuru() {
     formData.append("file", image);
 
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/guru/add`, formData, {
+      await axios.post(`${API_DUMMY}/smpn1bergas/api/guru/add`, {
+        nama_guru: namaGuru,
+        mapel: mapel,
+        riwayat: riwayat,
+        nip: nip,
+      }, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
@@ -113,7 +118,7 @@ function AddGuru() {
                   <hr />
                   <form onSubmit={add}>
                     <div className="row">
-                      <div className="mb-3 col-lg-12">
+                      <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
                           Nama Guru
                         </label>
@@ -125,7 +130,7 @@ function AddGuru() {
                           placeholder="Masukkan Nama Guru"
                         />
                       </div>
-                      <div className="mb-3 col-lg-12">
+                      <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
                           NIP
                         </label>
@@ -137,19 +142,19 @@ function AddGuru() {
                           placeholder="Masukkan NIP"
                         />
                       </div>
-                      <div className="mb-3 col-lg-12">
+                      <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
-                          Riwayat
+                          Riwayat Pendidikan
                         </label>
                         <input
                           value={riwayat}
                           onChange={(e) => setRiwayat(e.target.value)}
                           type="text"
                           className="form-control"
-                          placeholder="Masukkan Riwayat"
+                          placeholder="Masukkan Riwayat Pendidikan"
                         />
                       </div>
-                      <div className="mb-3 co-lg-6">
+                      {/* <div className="mb-3 co-lg-6">
                         <label className="form-label font-weight-bold">
                           Gambar
                         </label>
@@ -160,8 +165,8 @@ function AddGuru() {
                           type="file"
                           className="form-control"
                         />
-                      </div>
-                      <div className="mb-3 col-lg-12">
+                      </div> */}
+                      <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
                           Mapel
                         </label>

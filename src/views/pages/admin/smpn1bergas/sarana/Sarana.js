@@ -241,7 +241,7 @@ function Sarana() {
                         <td data-label="Nama Sarana" className="text-long">
                           {berita.nama_sarana}
                         </td>
-                        <td data-label="Nama Sarana" className="text-long">
+                        <td data-label="Kategori Sarana" className="text-long">
                           {berita.category}
                         </td>
                         <td data-label="Aksi">

@@ -136,17 +136,18 @@ function AddFotoSarana() {
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
                           <input
                             onChange={(e) => setImage(e.target.files[0])}
                             type="file"
+                            required
                             className="form-control"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label  font-weight-bold ">
                             Sarana
                           </label>

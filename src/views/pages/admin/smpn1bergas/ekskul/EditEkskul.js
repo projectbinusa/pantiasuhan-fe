@@ -76,7 +76,7 @@ function EditEkskul() {
       )
       .then(() => {
         if (file) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/put/foto` + param.id, formData, {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -158,7 +158,7 @@ function EditEkskul() {
                     <hr />
                     <form onSubmit={update}>
                       <div className="row">
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Ekstrakurikuler
                           </label>
@@ -171,7 +171,7 @@ function EditEkskul() {
                             placeholder="Masukkan Ekstrakurikuler"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Pembimbing
                           </label>
@@ -184,7 +184,7 @@ function EditEkskul() {
                             placeholder="Masukkan Pembimbing"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Koordinator
                           </label>
@@ -197,7 +197,7 @@ function EditEkskul() {
                             placeholder="Masukkan Koordinator"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Jadwal
                           </label>
@@ -210,7 +210,7 @@ function EditEkskul() {
                             placeholder="Masukkan Jadwal"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Tempat
                           </label>
@@ -223,7 +223,7 @@ function EditEkskul() {
                             placeholder="Masukkan Tempat"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Deskripsi
                           </label>
@@ -235,7 +235,7 @@ function EditEkskul() {
                             required
                             placeholder="Masukkan Deskripsi"></textarea>
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Prestasi
                           </label>
@@ -248,7 +248,7 @@ function EditEkskul() {
                             placeholder="Masukkan Prestasi"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -256,7 +256,6 @@ function EditEkskul() {
                             onChange={(e) => setFile(e.target.files[0])}
                             type="file"
                             className="form-control"
-                            required
                             placeholder="Masukkan Gambar"
                           />
                         </div>

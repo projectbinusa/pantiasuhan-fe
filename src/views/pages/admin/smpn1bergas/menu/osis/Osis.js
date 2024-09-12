@@ -29,7 +29,7 @@ function Osis() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -37,8 +37,8 @@ function Osis() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   const getAll = async () => {
     try {
@@ -91,15 +91,16 @@ function Osis() {
             setTimeout(() => {
               window.location.reload();
             }, 1500);
-          }).catch((err) => {
+          })
+          .catch((err) => {
             Swal.fire({
               icon: "error",
               title: "Hapus Data Gagal!",
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     });
   };
@@ -134,18 +135,19 @@ function Osis() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">
@@ -218,9 +220,13 @@ function Osis() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
+                    <th scope="col" className="text-center">
+                      No
+                    </th>
                     <th className="text-center">Nama</th>
-                    <th scope="col" className="text-center">Kelas</th>
+                    <th scope="col" className="text-center">
+                      Kelas
+                    </th>
                     <th className="text-center">Jabatan</th>
                     <th className="text-center">Tahun Jabat</th>
                     <th className="text-center">Tahun Tuntas</th>
@@ -232,7 +238,9 @@ function Osis() {
                   {filteredList.length === 0 ? (
                     <tr>
                       <td colSpan="8" className="text-center my-3">
-                        <div style={{ padding: "10px", color: "#555" }}>Tidak ada data yang tersedia.</div>
+                        <div style={{ padding: "10px", color: "#555" }}>
+                          Tidak ada data yang tersedia.
+                        </div>
                       </td>
                     </tr>
                   ) : (
@@ -258,7 +266,11 @@ function Osis() {
                         </td>
                         <td data-label="Foto">
                           <img
-                            src={berita.foto}
+                            src={
+                              berita.foto
+                                ? berita.foto
+                                : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
+                            }
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>

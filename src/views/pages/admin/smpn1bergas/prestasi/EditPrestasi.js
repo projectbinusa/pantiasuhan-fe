@@ -74,7 +74,7 @@ function EditPrestasi() {
       }
       );
       if (image) {
-        axios.put(`${API_DUMMY}/smpn1bergas/api/prestasi/put/foto` + param.id, formData, {
+        axios.put(`${API_DUMMY}/smpn1bergas/api/prestasi/put/foto/` + param.id, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,

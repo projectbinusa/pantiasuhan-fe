@@ -250,7 +250,7 @@ function Program() {
                             {berita.namaProgram}
                           </span>
                         </td>
-                        <td data-label="Judul Program" className="text-long">
+                        <td data-label="Judul Program" className="">
                           {berita.categoryProgram.category}
                         </td>
                         <td data-label="Aksi">

@@ -225,12 +225,15 @@ function Struktur() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
+                    <th scope="col" className="text-center">
+                      No
+                    </th>
                     <th className="text-center">Nama</th>
-                    <th scope="col" className="text-center">Tugas</th>
+                    <th scope="col" className="text-center">
+                      Tugas
+                    </th>
                     <th className="text-center">Jabatan</th>
-                    <th className="text-center">Tanggal Dibuat</th>
-                    <th className="text-center">Tanggal Update</th>
+                    <th className="text-center">Foto</th>
                     <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
@@ -250,11 +253,15 @@ function Struktur() {
                         <td data-label="Jabatan" className="">
                           {berita.jabatan}
                         </td>
-                        <td data-label="Tanggal Dibuat" className="">
-                          {berita.createdDate}
-                        </td>
-                        <td data-label="Tanggal Update" className="">
-                          {berita.updatedDate}
+                        <td data-label="Foto" className="">
+                          <img
+                            src={
+                              berita.foto
+                                ? berita.foto
+                                : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
+                            }
+                            style={{ height: "4.5rem", width: "4.5rem" }}
+                          />
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">

@@ -137,7 +137,7 @@ function EditAlumni() {
       })
       .then(() => {
         if (file) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/alumni/put/foto` + param.id, formData, {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/alumni/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

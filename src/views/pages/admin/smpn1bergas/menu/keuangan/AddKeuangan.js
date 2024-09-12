@@ -73,16 +73,20 @@ function AddKeuangan() {
     e.preventDefault();
     e.persist();
 
-    const formData = new FormData();
-    formData.append("judul", judul);
-    formData.append("isi", isi);
-    formData.append("categoryKeuangan", categoryKeuangan);
-    formData.append("file", image);
+    // const formData = new FormData();
+    // formData.append("judul", judul);
+    // formData.append("isi", isi);
+    // formData.append("categoryKeuangan", categoryKeuangan);
+    // formData.append("file", image);
 
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/keuangan/add`, formData, {
+      await axios.post(`${API_DUMMY}/smpn1bergas/api/keuangan/add`, {
+        judul: judul,
+        isi: isi,
+        category: categoryKeuangan
+      }, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
@@ -312,7 +316,7 @@ function AddKeuangan() {
                             placeholder="Masukkan judul"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        {/* <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -325,7 +329,7 @@ function AddKeuangan() {
                             type="file"
                             className="form-control"
                           />
-                        </div>
+                        </div> */}
                         <div className="col-lg-12">
                           <label className="form-label font-weight-bold">
                             Isi

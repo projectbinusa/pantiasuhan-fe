@@ -62,7 +62,7 @@ function EditGuru() {
       })
       .then(() => {
         if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/guru/put/foto` + param.id, formData, {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/guru/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -120,7 +120,7 @@ function EditGuru() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   return (
     <div
     className={`page-wrapper chiller-theme ${
@@ -190,7 +190,7 @@ function EditGuru() {
                       id="exampleInputPassword1"
                     />
                   </div>
-                  <div className="mb-3 col-lg-12">
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">NIP</label>
                     <input
                       value={nip}
@@ -200,16 +200,16 @@ function EditGuru() {
                       placeholder="Masukkan NIP"
                     />
                   </div>
-                  <div className="mb-3 col-lg-12">
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
-                      Riwayat
+                      Riwayat Pendidikan
                     </label>
                     <input
                       value={riwayat}
                       onChange={(e) => setRiwayat(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan Riwayat"
+                      placeholder="Masukkan Riwayat Pendidikan"
                     />
                   </div>
                 </div>

@@ -36,28 +36,38 @@ function EditTenagaKependidikan() {
       });
   }, []);
 
-  const update = async (e) => {
+  const update = (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("nama", nama);
-    formData.append("status", status);
     formData.append("file", image);
 
-    await axios
-      .put(
-        `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/put/` + param.id,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+    const data = {
+      nama: nama,
+      status: status,
+    }
+
+    axios
+      .put(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/put/` + param.id, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        if (image) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/put/foto/` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err);
+          })
         }
-      )
-      .then(() => {
+        setShow(false);
         Swal.fire({
           icon: "success",
-          title: "Berhasil Mengedit Data Tenaga Kependidikan",
+          title: "Data Berhasil Diperbarui",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -65,6 +75,7 @@ function EditTenagaKependidikan() {
         setTimeout(() => {
           window.location.reload();
         }, 1500);
+        console.log("Berhasil diperbarui", response.data);
       })
       .catch((error) => {
         if (error.ressponse && error.response.status === 401) {
@@ -86,14 +97,13 @@ function EditTenagaKependidikan() {
     AOS.init();
   }, []);
 
-
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -101,8 +111,8 @@ function EditTenagaKependidikan() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -120,75 +130,74 @@ function EditTenagaKependidikan() {
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div style={{marginTop:"50px"}}
+      <div
+        style={{ marginTop: "50px" }}
         className="page-content1 mb-3 app-main__outer"
         data-aos="fade-left">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <div className="card shadow">
-                  <div className="card-body">
-                    <h1 className="fs-4">Form Edit Data</h1>
-                    <hr />
-                    <form onSubmit={update}>
-                      <div className="row">
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Nama
-                          </label>
-                          <input
-                            value={nama}
-                            onChange={(e) => setNama(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            required
-                            placeholder="Masukkan Nama"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Status
-                          </label>
-                          <textarea
-                            value={status}
-                            onChange={(e) => setStatus(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            required
-                            placeholder="Masukkan Status"></textarea>
-                        </div>
-                        <div className="mb-3 co-lg-6">
-                          <label className="form-label font-weight-bold">
-                            Gambar
-                          </label>
-                          <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
-                            type="file"
-                            className="form-control"
-                          />
-                        </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card shadow">
+                <div className="card-body">
+                  <h1 className="fs-4">Form Edit Data</h1>
+                  <hr />
+                  <form onSubmit={update}>
+                    <div className="row">
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Nama
+                        </label>
+                        <input
+                          value={nama}
+                          onChange={(e) => setNama(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          required
+                          placeholder="Masukkan Nama"
+                        />
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-tenaga-kependidikan">
-                          Batal
-                        </a>
-                      </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
-                      </button>
-                    </form>
-                  </div>
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
+                          Status
+                        </label>
+                        <textarea
+                          value={status}
+                          onChange={(e) => setStatus(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          required
+                          placeholder="Masukkan Status"></textarea>
+                      </div>
+                      <div className="mb-3 co-lg-6">
+                        <label className="form-label font-weight-bold">
+                          Gambar
+                        </label>
+                        <input
+                          onChange={(e) =>
+                            setImage(e.target.files ? e.target.files[0] : null)
+                          }
+                          type="file"
+                          className="form-control"
+                        />
+                      </div>
+                    </div>
+                    <button type="button" className="btn-danger mt-3 mr-3">
+                      <a
+                        style={{ color: "white", textDecoration: "none" }}
+                        href="/admin-tenaga-kependidikan">
+                        Batal
+                      </a>
+                    </button>
+                    <button type="submit" className="btn-primary mt-3">
+                      Submit
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
       {/* </div> */}
     </div>
   );

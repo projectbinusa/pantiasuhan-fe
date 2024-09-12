@@ -94,7 +94,7 @@ function EditBeritaAdmin() {
       })
       .then((response) => {
         if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/berita/put/foto` + param.id, formData, {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/berita/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

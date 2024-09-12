@@ -11,17 +11,17 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import Sidebar1 from "../../../../../../component/Sidebar1";
 
-
 function EditFotoSarana() {
   const [image, setImage] = useState(null);
   const [idSarana, setIdSarana] = useState("");
   const [sarana, setSarana] = useState([]);
   const history = useHistory();
   const param = useParams();
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/sarana/get/` + param.id, {
+      .get(`${API_DUMMY}/smpn1bergas/api/foto_sarana/get/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -31,6 +31,7 @@ function EditFotoSarana() {
         setIdSarana(response.sarana.id);
         setImage(response.foto);
         console.log("foto-sarana : ", ress.data.data);
+        console.log("id sarana : ", ress.data.data.sarana.id);
       })
       .catch((error) => {
         console.log(error);
@@ -42,30 +43,45 @@ function EditFotoSarana() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("id_sarana", idSarana);
+    // formData.append("id_sarana", idSarana);
     formData.append("file", image);
 
     await axios
       .put(
         `${API_DUMMY}/smpn1bergas/api/foto_sarana/put/` + param.id,
-        formData,
+        {
+          id_sarana: idSarana
+        },
         {
           headers: {
+            // "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       )
       .then(() => {
+        if (image) {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/foto_sarana/put/foto/` + param.id, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).catch((err) => {
+            console.log(err);
+          })
+        }
+        setShow(false);
         Swal.fire({
           icon: "success",
-          title: "Berhasil Mengedit Data Foto Sarana",
+          title: "Data Berhasil Diperbarui",
           showConfirmButton: false,
           timer: 1500,
         });
         history.push("/admin-sarana");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 1500);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+        // console.log("Berhasil diperbarui", response.data);
       })
       .catch((error) => {
         if (error.ressponse && error.response.status === 401) {
@@ -114,7 +130,7 @@ function EditFotoSarana() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -122,29 +138,32 @@ function EditFotoSarana() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <div
-    className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div style={{marginTop:"50px"}}
-      className="page-content1 mb-3 app-main__outer"
-      data-aos="fade-left">
-        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div
+        style={{ marginTop: "50px" }}
+        className="page-content1 mb-3 app-main__outer"
+        data-aos="fade-left">
+        <div
+          className="container mt-3 mb-3 app-main__outer"
+          data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -154,7 +173,7 @@ function EditFotoSarana() {
                     <hr />
                     <form onSubmit={update}>
                       <div className="row">
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -168,7 +187,7 @@ function EditFotoSarana() {
                             className="form-control"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label  font-weight-bold ">
                             sarana
                           </label>
@@ -180,7 +199,9 @@ function EditFotoSarana() {
                             <option selected>Pilih sarana</option>
                             {sarana.map((down) => {
                               return (
-                                <option value={down.id}>{down.nama_sarana}</option>
+                                <option value={down.id}>
+                                  {down.nama_sarana}
+                                </option>
                               );
                             })}
                           </select>

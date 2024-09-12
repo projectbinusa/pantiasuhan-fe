@@ -129,9 +129,7 @@ function AddKegiatan() {
       (kegiatan) => kegiatan.category === kategori
     );
 
-    const kegiatanExists = list.some(
-      (kegiatan) => kegiatan.judul === judul
-    );
+    const kegiatanExists = list.some((kegiatan) => kegiatan.judul === judul);
 
     if (categoryExists) {
       Swal.fire({
@@ -141,7 +139,7 @@ function AddKegiatan() {
         showConfirmButton: true,
       });
       return;
-    } else if(kegiatanExists) {
+    } else if (kegiatanExists) {
       Swal.fire({
         icon: "error",
         title: "Tambah Data Gagal!",
@@ -152,19 +150,29 @@ function AddKegiatan() {
     }
 
     try {
-      const formData = new FormData();
-      formData.append("judul", judul);
-      formData.append("isi", isi);
-      formData.append("penulis", penulis);
-      formData.append("tanggal", formatDateToSlash(tanggal));
-      formData.append("file", image);
-      formData.append("category", kategori);
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/kegiatan/add`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      // const formData = new FormData();
+      // formData.append("judul", judul);
+      // formData.append("isi", isi);
+      // formData.append("penulis", penulis);
+      // formData.append("tanggal", formatDateToSlash(tanggal));
+      // // formData.append("file", image);
+      // formData.append("category", kategori);
+      await axios.post(
+        `${API_DUMMY}/smpn1bergas/api/kegiatan/add`,
+        {
+          judul: judul,
+          isi: isi,
+          penulis: penulis,
+          tanggal: tanggal,
+          category: kategori,
         },
-      });
+        {
+          headers: {
+            // "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       setShow(false);
       Swal.fire({
         icon: "success",
@@ -358,7 +366,7 @@ function AddKegiatan() {
                             placeholder="Masukkan Nama Kegiatan"
                           />
                         </div>
-                        <div className="mb-3 co-lg-6">
+                        {/* <div className="mb-3 co-lg-6">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -367,7 +375,7 @@ function AddKegiatan() {
                             type="file"
                             className="form-control"
                           />
-                        </div>
+                        </div> */}
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Kategori Kegiatan

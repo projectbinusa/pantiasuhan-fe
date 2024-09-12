@@ -124,21 +124,21 @@ function EditKegiatan() {
   const update = async (e) => {
     e.preventDefault();
     e.persist();
-    const categoryExists = list.some(
-      (kegiatan) => kegiatan.category === kategori
-    );
+    // const categoryExists = list.some(
+    //   (kegiatan) => kegiatan.category === kategori
+    // );
 
     // const kegiatanExists = list.some((kegiatan) => kegiatan.judul === judul);
 
-    if (categoryExists) {
-      Swal.fire({
-        icon: "error",
-        title: "Edit Data Gagal!",
-        text: "Kategori sudah ada. Silakan pilih kategori lain.",
-        showConfirmButton: true,
-      });
-      return;
-    }
+    // if (categoryExists) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Edit Data Gagal!",
+    //     text: "Kategori sudah ada. Silakan pilih kategori lain.",
+    //     showConfirmButton: true,
+    //   });
+    //   return;
+    // }
     // else if (kegiatanExists) {
     //   Swal.fire({
     //     icon: "error",
@@ -149,15 +149,15 @@ function EditKegiatan() {
     //   return;
     // }
     const formData = new FormData();
-    formData.append("category", kategori);
+    formData.append("file", image);
 
-    const data = { 
+    const data = {
       judul: judul,
       isi: isi,
       penulis: penulis,
-      tanggal: formatDateToSlash(tanggal),
-      category: kategori
-    }
+      tanggal: tanggal,
+      category: kategori,
+    };
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/kegiatan/put/` + param.id, data, {
         headers: {
@@ -166,14 +166,20 @@ function EditKegiatan() {
       })
       .then(() => {
         if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/kegiatan/put/foto` + param.id, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }).catch((err) => {
-            console.log(err);
-          })
+          axios
+            .put(
+              `${API_DUMMY}/smpn1bergas/api/kegiatan/put/foto/` + param.id,
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            )
+            .catch((err) => {
+              console.log(err);
+            });
         }
         Swal.fire({
           icon: "success",
@@ -181,10 +187,11 @@ function EditKegiatan() {
           showConfirmButton: false,
           timer: 1500,
         });
-        // setTimeout(() => {
+        setTimeout(() => {
         history.push("/admin-kegiatan");
-        //   window.location.reload();
-        // }, 1500);
+        // getAll();
+          window.location.reload();
+        }, 1500);
       })
       .catch((error) => {
         if (error.ressponse && error.response.status === 401) {

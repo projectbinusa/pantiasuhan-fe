@@ -89,9 +89,9 @@ function EditOsis() {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-      .then(() => {
+    .then(() => {
         if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/osis/put/foto` + param.id, formData, {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/osis/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -148,7 +148,7 @@ function EditOsis() {
               <hr />
               <form onSubmit={update}>
                 <div className="row">
-                  <div className="mb-3 col-lg-12">
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">Nama</label>
                     <input
                       value={nama}
@@ -158,7 +158,7 @@ function EditOsis() {
                       placeholder="Masukkan Nama"
                     />
                   </div>
-                  <div className="mb-3 col-lg-12">
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">Kelas</label>
                     <input
                       value={kelas}
@@ -178,7 +178,7 @@ function EditOsis() {
                       className="form-control"
                     />
                   </div>
-                  <div className="mb-3 col-lg-12">
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">Jabatan</label>
                     <input
                       value={jabatan}
@@ -188,7 +188,7 @@ function EditOsis() {
                       placeholder="Masukkan Jabatan"
                     />
                   </div>
-                  <div className="mb-3 col-lg-12">
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">Tahun Jabat</label>
                     <input
                       value={tahunJabat}
@@ -200,7 +200,7 @@ function EditOsis() {
                       max={maxYear}
                     />
                   </div>
-                  <div className="mb-3 col-lg-12">
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">Tahun Tuntas</label>
                     <input
                       value={tahunTuntas}

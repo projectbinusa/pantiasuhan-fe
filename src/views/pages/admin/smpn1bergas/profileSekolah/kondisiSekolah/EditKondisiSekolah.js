@@ -108,7 +108,7 @@ function EditKondisiSekolah() {
       )
       .then(() => {
         if (foto) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/put/foto` + param.id, formData, {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

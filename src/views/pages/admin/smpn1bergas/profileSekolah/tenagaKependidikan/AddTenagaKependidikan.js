@@ -25,14 +25,17 @@ function AddTenagaKependidikan() {
       const formData = new FormData();
       formData.append("nama", nama);
       formData.append("status", status);
-      formData.append("file", image);
+      // formData.append("file", image);
 
       await axios.post(
         `${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/add`,
-        formData,
+        {
+          nama: nama,
+          status: status,
+        },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            // "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
@@ -113,7 +116,7 @@ function AddTenagaKependidikan() {
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Nama
                           </label>
@@ -126,7 +129,7 @@ function AddTenagaKependidikan() {
                             placeholder="Masukan Nama"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Status
                           </label>
@@ -137,20 +140,6 @@ function AddTenagaKependidikan() {
                             className="form-control"
                             required
                             placeholder="Masukan Status"
-                          />
-                        </div>
-                        <div className="mb-3 co-lg-6">
-                          <label className="form-label font-weight-bold">
-                            Gambar
-                          </label>
-                          <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
-                            type="file"
-                            className="form-control"
                           />
                         </div>
                       </div>

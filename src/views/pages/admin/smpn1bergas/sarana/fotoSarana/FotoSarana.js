@@ -200,7 +200,7 @@ function FotoSarana() {
                     </td>
                     <td data-label="Gambar" className="">
                       <img
-                        src={berita.foto}
+                        src={berita.foto ? berita.foto : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"}
                         style={{ height: "4.5rem", width: "4.5rem" }}
                       />
                     </td>
