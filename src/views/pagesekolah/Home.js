@@ -540,9 +540,9 @@ function Home() {
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
-              <div data-aos="fade-down"
-                class="section-title style-white text-center"
-              >
+              <div
+                data-aos="fade-down"
+                class="section-title style-white text-center">
                 <h5 class="sub-title double-line" style={{ color: "black" }}>
                   Prestasi Unggulan
                 </h5>
@@ -737,7 +737,7 @@ function Home() {
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             color: "white",
-                            textAlign: "justify"
+                            textAlign: "justify",
                           }}
                           href={`/detail-alumni-${data.id}`}>
                           {data.nama}
@@ -753,7 +753,9 @@ function Home() {
                           color: "white",
                           textAlign: "justify",
                         }}>
-                        <div dangerouslySetInnerHTML={{ __html: data.biografi }} />
+                        <div
+                          dangerouslySetInnerHTML={{ __html: data.biografi }}
+                        />
                       </p>
                     </div>
                   </div>
@@ -777,7 +779,10 @@ function Home() {
       <div className="contact-section-style">
         <section id="hubungi-kami" className="contact-section-style">
           <div class="section-title style-white text-center">
-            <h5 class="sub-title double-line" style={{ color: "black" }} data-aos="fade-down">
+            <h5
+              class="sub-title double-line"
+              style={{ color: "black" }}
+              data-aos="fade-down">
               Hubungi Kami
             </h5>
           </div>
@@ -795,7 +800,7 @@ function Home() {
               </Typography>
               <iframe
                 title="Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.547254951904!2d110.4257833236675!3d-7.178215195671886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70867ffa968b85%3A0x8fd0fe0f24112880!2sSMP%20Negeri%201%20Bergas!5e0!3m2!1sid!2sid!4v1725417582480!5m2!1sid!2sid"
+                src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.547254951904!2d110.4257833236675!3d-7.178215195671886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70867ffa968b85%3A0x8fd0fe0f24112880!2s${address}!5e0!3m2!1sid!2sid!4v1725417582480!5m2!1sid!2sid`}
                 style={{ width: "100%", height: "400px", border: "0" }}
                 allowFullScreen=""
                 loading="lazy"></iframe>
@@ -989,7 +994,7 @@ function Home() {
                       />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px" }}>{address}</span>
+                    <span style={{ marginLeft: "8px", textAlign:"left" }}>{address}</span>
                   </Typography>
                 ) : (
                   <Typography
@@ -1024,7 +1029,11 @@ function Home() {
           </Grid>
           {/* SARAN */}
           <br /> <br />
-          <form onSubmit={add} style={formStyle} className="container" data-aos="fade-up">
+          <form
+            onSubmit={add}
+            style={formStyle}
+            className="container"
+            data-aos="fade-up">
             <Typography variant="h5" gutterBottom style={titleStyle}>
               Kotak Saran
             </Typography>
@@ -1052,8 +1061,9 @@ function Home() {
                 onClick={() => setIsLocked(!isLocked)}
                 style={{ width: "3%", fontSize: "18px" }}>
                 <i
-                  className={`fa-solid ${isLocked ? "fa-lock" : "fa-unlock"
-                    }`}></i>
+                  className={`fa-solid ${
+                    isLocked ? "fa-lock" : "fa-unlock"
+                  }`}></i>
               </Button>
             </div>
 
