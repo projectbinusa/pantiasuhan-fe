@@ -16,18 +16,19 @@ function Pengembangan() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [id_category, setIdCategory] = useState("");
+  const [category, setCategory] = useState("");
   const [datas, setDatas] = useState([]);
+  const [categoryProgram, setCategoryProgram] = useState([]);
 
-  const getAll = async () => {
+  const getAllCategory = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/program/get/judul?judul_program=Pengembangan&page=${
+        `${API_DUMMY}/smpn1bergas/api/category_program/all/terbaru?page=${
           page - 1
         }&size=${rowsPerPage}`
       );
-      setDatas(response.data.data.content);
-      console.log(response.data.data.content);
+      setCategoryProgram(response.data.data.content);
       setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
@@ -36,33 +37,57 @@ function Pengembangan() {
       console.log("get all", error);
     }
   };
-  
-  const [kategori, setKategori] = useState([]);
-  const getAllKategori = async () => {
+
+  const getAll = async () => {
+    if (!id_category) return; // Ensure a category is selected before fetching data
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/category_program/all/no_page`
+        `${API_DUMMY}/smpn1bergas/api/program/all/category?id_category=${id_category}&page=${
+          page - 1
+        }&size=${rowsPerPage}`
       );
-      setKategori(response.data.data.content);
+      setDatas(response.data.data.content);
+      setPaginationInfo({
+        totalPages: response.data.data.totalPages,
+        totalElements: response.data.data.totalElements,
+      });
     } catch (error) {
       console.log("get all", error);
     }
   };
 
+  const getByIdCategory = (id) => {
+    axios
+      .get(`${API_DUMMY}/smpn1bergas/api/category_program/get/` + id)
+      .then((ress) => {
+        const response = ress.data.data;
+        setCategory(response.category);
+        console.log("category : ", ress.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setIdCategory(id);
+  };
+
   useEffect(() => {
-    getAll();
-    getAllKategori();
+    getAllCategory();
     Aos.init();
   }, []);
 
+  useEffect(() => {
+    getAll();
+  }, [id_category, page, rowsPerPage]);
+
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setPage(1);
+    setCurrentPage(1);
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
+    setPage(1);
     setCurrentPage(1);
   };
 
@@ -82,16 +107,17 @@ function Pengembangan() {
           <ul>
             <li>
               <a href="/">
-                <i class="fas fa-home"></i> Beranda
+                <i className="fas fa-home"></i> Beranda
               </a>
             </li>
             <li>
               <a href="/">
-                <i class="fas fa-angle-right"></i> Program{" "}
+                <i className="fas fa-angle-right"></i> Program
               </a>
             </li>
             <li>
-              <i class="fas fa-angle-right"></i> Pengembangan{" "}
+              <i className="fas fa-angle-right"></i>
+              {category ? ` ${category}` : " Kategori"}
             </li>
           </ul>
         </div>
@@ -107,31 +133,23 @@ function Pengembangan() {
                 }}
               />
               <ul className="category-berita">
-                <li>
-                  <a href="/program">Pengembangan</a>
-                </li>
-                <hr
-                  style={{
-                    width: "100%",
-                    border: "0",
-                    borderTop: "2px dotted #002147",
-                    color: "#002147",
-                  }}
-                />
-                <li>
-                  <a href="/perawatan-rutin">Perawatan Rutin</a>
-                </li>
-                <hr
-                  style={{
-                    width: "100%",
-                    border: "0",
-                    borderTop: "2px dotted #002147",
-                    color: "#002147",
-                  }}
-                />
-                <li>
-                  <a href="/sewa-layanan">Sewa Layanan</a>
-                </li>
+                {categoryProgram.map((data, index) => (
+                  <li key={index}>
+                    <button
+                      onClick={() => getByIdCategory(data.id)}
+                      style={{ border: "none", background: "none" }}>
+                      <i className="fas fa-home"></i> {data.category}
+                    </button>
+                    <hr
+                      style={{
+                        width: "100%",
+                        border: "0",
+                        borderTop: "2px dotted #002147",
+                        color: "#002147",
+                      }}
+                    />
+                  </li>
+                ))}
               </ul>
             </div>
             <br />
@@ -151,21 +169,21 @@ function Pengembangan() {
                   <a
                     href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
                     target="_blank">
-                    <i class="fab fa-facebook-f"></i>
+                    <i className="fab fa-facebook-f"></i>
                   </a>
                 </li>
                 <li>
                   <a
                     href="https://www.instagram.com/osisspensagas"
                     target="_blank">
-                    <i class="fab fa-instagram"></i>
+                    <i className="fab fa-instagram"></i>
                   </a>
                 </li>
                 <li>
                   <a
                     href="https://www.youtube.com/@OSIS-SMPN1Bergas"
                     target="_blank">
-                    <i class="fab fa-youtube"></i>
+                    <i className="fab fa-youtube"></i>
                   </a>
                 </li>
               </ul>
@@ -173,8 +191,17 @@ function Pengembangan() {
           </div>
           <div className="container-all" data-aos="fade-left">
             <div style={{ textAlign: "center" }}>
-              <h4 style={{ textTransform: "uppercase" }}>Pengembangan</h4>
-              <p>Program unggulan pengembangan sekolah antara lain sbb : </p>
+              {category ? (
+                <>
+                  <h4 style={{ textTransform: "uppercase" }}>{category}</h4>
+                  <p>Program unggulan {category} sekolah antara lain sbb : </p>
+                </>
+              ) : (
+                <>
+                  <h4 style={{ textTransform: "uppercase" }}>PROGRAM</h4>
+                  <p>Program unggulan {category} sekolah antara lain sbb : </p>
+                </>
+              )}
             </div>
             <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
               <input
@@ -203,16 +230,27 @@ function Pengembangan() {
                     <th
                       style={{
                         background: "#003366",
+                        textAlign: "center",
                         color: "white",
                         width: "5%",
                       }}>
                       No
                     </th>
-                    <th style={{ background: "#003366", color: "white" }}>
-                      Program Pengembangan
+                    <th
+                      style={{
+                        background: "#003366",
+                        textAlign: "center",
+                        color: "white",
+                      }}>
+                      Nama Program
                     </th>
-                    <th style={{ background: "#003366", color: "white" }}>
-                      Tujuan{" "}
+                    <th
+                      style={{
+                        background: "#003366",
+                        textAlign: "center",
+                        color: "white",
+                      }}>
+                      Tujuan
                     </th>
                   </tr>
                 </thead>
@@ -223,8 +261,10 @@ function Pengembangan() {
                         <td style={{ paddingRight: "0" }}>
                           {index + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td>{item.namaProgram}</td>
-                        <td>
+                        <td style={{ textAlign: "center" }}>
+                          {item.namaProgram}
+                        </td>
+                        <td style={{ textAlign: "center" }}>
                           <div
                             dangerouslySetInnerHTML={{ __html: item.tujuan }}
                           />
@@ -250,9 +290,9 @@ function Pengembangan() {
                   setCurrentPage(value);
                   setPage(value);
                 }}
-                color="primary"
+                variant="outlined"
                 shape="rounded"
-                style={{ marginBottom: "30px" }}
+                size="large"
                 showFirstButton
                 showLastButton
               />

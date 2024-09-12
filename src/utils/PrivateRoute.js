@@ -12,7 +12,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         window.location.href = "/login";
       }, FIVE_HOURS);
 
-      return () => clearTimeout(timeout); // Bersihkan timeout jika komponen di-unmount
+      return () => clearTimeout(timeout); 
     }
   }, [token]);
 

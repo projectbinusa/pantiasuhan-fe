@@ -212,7 +212,7 @@ function AdminBerita() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center" className="text-center">No</th>
+                    <th scope="col" className="text-center">No</th>
                     <th className="text-center">Judul Berita</th>
                     <th
                       scope="col"

@@ -65,7 +65,7 @@ function Kontak() {
               </Typography>
               <iframe
                 title="Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15897.218736810618!2d110.527273!3d-7.174636!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708d5a1a2a2b1d%3A0x304431cd0522f0e1!2sJl.%20Krakatau%2C%20Gembongan%2C%20Karangjati%2C%20Kec.%20Bergas%2C%20Kabupaten%20Semarang%2C%20Jawa%20Tengah%2050552!5e0!3m2!1sen!2sid!4v1692797763880!5m2!1sen!2sid"
+                src={`https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15897.218736810618!2d110.527273!3d-7.174636!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708d5a1a2a2b1d%3A0x304431cd0522f0e1!2s${address}!5e0!3m2!1sen!2sid!4v1692797763880!5m2!1sen!2sid`}
                 style={{ width: "100%", height: "300px", border: "0" }}
                 allowFullScreen=""
                 loading="lazy"></iframe>
