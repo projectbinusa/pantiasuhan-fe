@@ -116,7 +116,7 @@ function EditSambutan() {
       })
       .then(() => {
         if (file) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/sambutan/put/foto` + param.id, formData, {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/sambutan/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -296,7 +296,7 @@ function EditSambutan() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   return (
     <div
     className={`page-wrapper chiller-theme ${

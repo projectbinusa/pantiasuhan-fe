@@ -120,7 +120,7 @@ function EditPerpus() {
       )
       .then(() => {
         if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/perpustakaan/put/foto` + param.id, formData, {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/perpustakaan/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,

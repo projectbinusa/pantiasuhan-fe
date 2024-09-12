@@ -77,7 +77,7 @@ function EditStruktur() {
       })
       .then(() => {
         if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/struktur/put/foto` + param.id, formData, {
+          axios.put(`${API_DUMMY}/smpn1bergas/api/struktur/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -93,9 +93,9 @@ function EditStruktur() {
           timer: 1500,
         });
         history.push("/admin-struktur");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 1500);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       })
       .catch((error) => {
         if (error.ressponse && error.response.status === 401) {
@@ -142,7 +142,7 @@ function EditStruktur() {
                     <hr />
                     <form onSubmit={update}>
                       <div className="row">
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Tugas
                           </label>
@@ -154,7 +154,7 @@ function EditStruktur() {
                             placeholder="Masukkan Tugas"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Nama Struktur
                           </label>
@@ -166,7 +166,7 @@ function EditStruktur() {
                             placeholder="Masukkan Nama Struktur"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Jabatan
                           </label>
@@ -178,7 +178,7 @@ function EditStruktur() {
                             placeholder="Masukkan Jabatan"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>

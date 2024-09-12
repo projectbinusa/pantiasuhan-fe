@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import FotoKegiatan from "./fotoKegiatan/FotoKegiatan";
 import Sidebar1 from "../../../../../component/Sidebar1";
+import kegiatan from "../../../../../aset/smpn1bergas/kegiatan.png";
 
 function Kegiatan() {
   const [list, setList] = useState([]);
@@ -223,7 +224,9 @@ function Kegiatan() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
+                    <th scope="col" className="text-center">
+                      No
+                    </th>
                     <th className="text-center">Kegiatan</th>
                     <th
                       scope="col"
@@ -255,7 +258,7 @@ function Kegiatan() {
                         </td> */}
                         <td data-label="Image" className="">
                           <img
-                            src={berita.foto}
+                            src={berita.foto ? berita.foto : kegiatan}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>

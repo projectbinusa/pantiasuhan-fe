@@ -79,20 +79,29 @@ function AddBeritaAdmin() {
     e.preventDefault();
     e.persist();
 
-    const formData = new FormData();
-    formData.append("author", author);
-    formData.append("judulBerita", judulBerita);
-    formData.append("isiBerita", isiBerita);
-    formData.append("category", categoryBerita);
-    formData.append("file", image);
+    // const formData = new FormData();
+    // formData.append("author", author);
+    // formData.append("judulBerita", judulBerita);
+    // formData.append("isiBerita", isiBerita);
+    // formData.append("category", categoryBerita);
+    // formData.append("file", image);
 
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/berita/add`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      await axios.post(
+        `${API_DUMMY}/smpn1bergas/api/berita/add?author=${author}&category=${categoryBerita}&isiBerita=${isiBerita}&judulBerita=${judulBerita}`,
+        {
+          author: author,
+          judulBerita: judulBerita,
+          isiBerita: isiBerita,
+          category: categoryBerita,
         },
-      });
+        {
+          headers: {
+            // "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       setShow(false);
       Swal.fire({
         icon: "success",
@@ -253,7 +262,7 @@ function AddBeritaAdmin() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -261,8 +270,8 @@ function AddBeritaAdmin() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
     <div
@@ -279,7 +288,8 @@ function AddBeritaAdmin() {
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div style={{marginTop:"50px"}}
+      <div
+        style={{ marginTop: "50px" }}
         className="page-content1 mb-3 app-main__outer"
         data-aos="fade-left">
         <div className="container">
@@ -293,6 +303,18 @@ function AddBeritaAdmin() {
                     <div className="row">
                       <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
+                          Judul Berita
+                        </label>
+                        <input
+                          value={judulBerita}
+                          onChange={(e) => setJudulBerita(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          placeholder="Masukkan judul berita"
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-6">
+                        <label className="form-label font-weight-bold">
                           Kategori Berita
                         </label>
                         <select
@@ -301,9 +323,9 @@ function AddBeritaAdmin() {
                           aria-label="Small select example"
                           onChange={(e) => setCategoryBerita(e.target.value)}>
                           <option selected>Pilih Category</option>
-                          <option value="Berita Sekolah">Berita Sekolah</option>
+                          <option value="Berita Sekolah">Berita Terbaru</option>
                           <option value="Info Sekolah">Info Sekolah</option>
-                          <option value="Agenda Sekolah">Agenda Sekolah</option>
+                          <option value="Agenda Sekolah">Agenda</option>
                         </select>
                       </div>
                       <div className="mb-3 col-lg-6">
@@ -320,19 +342,7 @@ function AddBeritaAdmin() {
                           placeholder="Masukkan penulis berita"
                         />
                       </div>
-                      <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">
-                          Judul Berita
-                        </label>
-                        <input
-                          value={judulBerita}
-                          onChange={(e) => setJudulBerita(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          placeholder="Masukkan judul berita"
-                        />
-                      </div>
-                      <div className="mb-3 col-lg-6">
+                      {/* <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
                           Gambar
                         </label>
@@ -343,7 +353,7 @@ function AddBeritaAdmin() {
                           type="file"
                           className="form-control"
                         />
-                      </div>
+                      </div> */}
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
                           Isi Berita

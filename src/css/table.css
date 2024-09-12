@@ -34,6 +34,7 @@ table {
         }
     }
 
+
     tbody {
         background: #fff;
 
@@ -43,6 +44,10 @@ table {
 
             td:first-child {
                 padding-left: 45px;
+            }
+
+            td {
+                text-align: center;
             }
 
             /* td{
@@ -92,7 +97,7 @@ table {
                     font-size: 14px;
                     padding: 0px 10px;
                     box-shadow: 0 1px 1px rgba(0, 0, 0, .3);
-/* 
+/*
                     div {
                     } */
                 }

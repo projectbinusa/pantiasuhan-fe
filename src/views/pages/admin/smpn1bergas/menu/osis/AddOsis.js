@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import axios from "axios";
@@ -20,7 +23,7 @@ function AddOsis() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -28,8 +31,8 @@ function AddOsis() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   const param = useParams();
   const history = useHistory();
@@ -48,15 +51,25 @@ function AddOsis() {
     formData.append("kelas", kelas);
     formData.append("tahunJabat", tahunJabat);
     formData.append("tahunTuntas", tahunTuntas);
-    formData.append("file", image);
+    // formData.append("file", image);
 
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/osis/add`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      await axios.post(
+        `${API_DUMMY}/smpn1bergas/api/osis/add`,
+        {
+          nama: nama,
+          kelas: kelas,
+          jabatan: jabatan,
+          tahunJabat: tahunJabat,
+          tahunTuntas: tahunTuntas,
+          kelas: kelas,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       setShow(false);
       Swal.fire({
         icon: "success",
@@ -92,20 +105,21 @@ function AddOsis() {
   const minTahunTuntas = tahunJabat ? parseInt(tahunJabat) + 1 : minYear;
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 app-main__outer" data-aos="fade-left">
           <div className="card shadow">
             <div className="card-body">
@@ -113,7 +127,7 @@ function AddOsis() {
               <hr />
               <form onSubmit={add}>
                 <div className="row">
-                  <div className="mb-3 col-lg-12">
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">Nama</label>
                     <input
                       value={nama}
@@ -123,7 +137,7 @@ function AddOsis() {
                       placeholder="Masukkan Nama"
                     />
                   </div>
-                  <div className="mb-3 col-lg-12">
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">Kelas</label>
                     <input
                       value={kelas}
@@ -133,18 +147,10 @@ function AddOsis() {
                       placeholder="Masukkan Kelas"
                     />
                   </div>
-                  <div className="mb-3 co-lg-6">
-                    <label className="form-label font-weight-bold">Gambar</label>
-                    <input
-                      onChange={(e) =>
-                        setImage(e.target.files ? e.target.files[0] : null)
-                      }
-                      type="file"
-                      className="form-control"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-12">
-                    <label className="form-label font-weight-bold">Jabatan</label>
+                  <div className="mb-3 col-lg-6">
+                    <label className="form-label font-weight-bold">
+                      Jabatan
+                    </label>
                     <input
                       value={jabatan}
                       onChange={(e) => setJabatan(e.target.value)}
@@ -153,7 +159,7 @@ function AddOsis() {
                       placeholder="Masukkan Jabatan"
                     />
                   </div>
-                  <div className="mb-3 col-lg-12">
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
                       Tahun Jabat
                     </label>
@@ -167,7 +173,7 @@ function AddOsis() {
                       max={maxYear}
                     />
                   </div>
-                  <div className="mb-3 col-lg-12">
+                  <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
                       Tahun Tuntas
                     </label>
@@ -186,8 +192,7 @@ function AddOsis() {
                 <button type="button" className="btn-danger mt-3">
                   <a
                     style={{ color: "white", textDecoration: "none" }}
-                    href="/admin-osis"
-                  >
+                    href="/admin-osis">
                     Batal
                   </a>
                 </button>

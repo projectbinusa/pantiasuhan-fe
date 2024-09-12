@@ -4,10 +4,9 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
+import news from "../../../../../aset/smpn1bergas/News-rafiki.png";
 
-import {
-  Pagination,
-} from "@mui/material";
+import { Pagination } from "@mui/material";
 import Sidebar1 from "../../../../../component/Sidebar1";
 
 function AdminBerita() {
@@ -25,7 +24,8 @@ function AdminBerita() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/berita/all?page=${page - 1
+        `${API_DUMMY}/smpn1bergas/api/berita/all?page=${
+          page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -106,7 +106,6 @@ function AdminBerita() {
     )
   );
 
-
   console.log(filteredList);
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
@@ -125,14 +124,15 @@ function AdminBerita() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -168,7 +168,9 @@ function AdminBerita() {
             />
           </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex", background: "#FFF7F7" }}>
+            <div
+              className="card-header"
+              style={{ display: "flex", background: "#FFF7F7" }}>
               <p className="mt-3">Berita</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
@@ -212,7 +214,9 @@ function AdminBerita() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
+                    <th scope="col" className="text-center">
+                      No
+                    </th>
                     <th className="text-center">Judul Berita</th>
                     <th
                       scope="col"
@@ -240,7 +244,7 @@ function AdminBerita() {
                         </td>
                         <td data-label="Image" className="">
                           <img
-                            src={berita.image}
+                            src={berita.image ? berita.image : news}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>{" "}

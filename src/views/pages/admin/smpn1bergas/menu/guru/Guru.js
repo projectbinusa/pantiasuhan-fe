@@ -225,7 +225,7 @@ function Berita() {
                     <th className="text-center">Nama Guru</th>
                     <th scope="col" className="text-center">Mapel</th>
                     <th scope="col" className="text-center">NIP</th>
-                    <th scope="col" className="text-center">RIwayat</th>
+                    <th scope="col" className="text-center">RIwayat Pendidikan</th>
                     <th className="text-center">Image</th>
                     <th className="text-center">Aksi</th>
                   </tr>
@@ -237,21 +237,21 @@ function Berita() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Guru" className="text-long">
+                        <td data-label="Nama Guru" className="">
                           {row.nama_guru}
                         </td>
-                        <td data-label="Mapel" className="text-left">
+                        <td data-label="Mapel" className="">
                           {row.mapel}
                         </td>
-                        <td data-label="NIP" className="text-left">
+                        <td data-label="NIP" className="">
                           {row.nip}
                         </td>
-                        <td data-label="Riwayat" className="text-left">
+                        <td data-label="Riwayat" className="">
                           {row.riwayat}
                         </td>
-                        <td data-label="Image" className="text-left">
+                        <td data-label="Image" className="">
                           <img
-                            src={row.foto}
+                            src={row.foto ? row.foto : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>

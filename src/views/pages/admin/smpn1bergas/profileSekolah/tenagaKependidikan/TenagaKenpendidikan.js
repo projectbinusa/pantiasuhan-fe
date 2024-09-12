@@ -128,7 +128,7 @@ function TenagaKenpendidikan() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   return (
     <div
       className={`page-wrapper chiller-theme ${
@@ -239,7 +239,7 @@ function TenagaKenpendidikan() {
                         </td>
                         <td data-label="Image" className="">
                           <img
-                            src={row.foto}
+                            src={row.foto ? row.foto : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.pngF"}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>

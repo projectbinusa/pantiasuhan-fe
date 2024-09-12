@@ -79,25 +79,37 @@ function EditKeuangan() {
     const data = {
       judul: judul,
       isi: isi,
-      categoryKeuangan: categoryKeuangan
-    }
+      categoryKeuangan: categoryKeuangan,
+    };
 
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/keuangan/put/` + param.id, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .put(
+        `${API_DUMMY}/smpn1bergas/api/keuangan/put/` +
+          param.id +
+          `?category=${categoryKeuangan}&isi=${isi}&judul=${judul}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then(() => {
         if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/keuangan/put/foto` + param.id, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }).catch((err) => {
-            console.log(err);
-          })
+          axios
+            .put(
+              `${API_DUMMY}/smpn1bergas/api/keuangan/put/foto/` + param.id,
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            )
+            .catch((err) => {
+              console.log(err);
+            });
         }
         Swal.fire({
           icon: "success",
@@ -277,7 +289,7 @@ function EditKeuangan() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -285,26 +297,29 @@ function EditKeuangan() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <div  className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
+        <div
+          className="container mt-3 mb-3 app-main__outer"
+          data-aos="fade-left">
           <div className="card shadow">
             <div className="card-body">
               <h1 className="fs-4">Form Edit Data</h1>
@@ -353,10 +368,17 @@ function EditKeuangan() {
                     <div className="">
                       <CKEditor
                         editor={ClassicEditor}
-                        data={isi} // Gunakan 'data' untuk set initial value
+                        data={isi || ""} // Gunakan 'data' untuk set initial value
                         onChange={(event, editor) => {
-                          const data = editor.getData(); // Ambil data dari editor
-                          setIsi(data); // Set state dengan data dari editor
+                          const data = editor.getData();
+
+                          // Check if the data is empty or contains only whitespace
+                          if (data.trim() === "") {
+                            // Handle the empty case here, e.g., set an empty string or display a warning
+                            setIsi(""); // or handle as you need, like showing a validation message
+                          } else {
+                            setIsi(data);
+                          }
                         }}
                         config={{
                           toolbar: [

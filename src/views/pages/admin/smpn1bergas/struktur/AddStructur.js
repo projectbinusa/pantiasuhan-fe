@@ -39,13 +39,17 @@ function AddStructur() {
   const add = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("tugas", tugas);
-    formData.append("nama", nama);
-    formData.append("jabatan", jabatan);
+    // const formData = new FormData();
+    // // formData.append("file", image);
+    // formData.append("tugas", tugas);
+    // formData.append("nama", nama);
+    // formData.append("jabatan", jabatan);
 
-    await axios.post(`${API_DUMMY}/smpn1bergas/api/struktur/add`, formData, {
+    await axios.post(`${API_DUMMY}/smpn1bergas/api/struktur/add`, {
+      tugas: tugas,
+      nama: nama,
+      jabatan: jabatan,
+    }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -100,14 +104,14 @@ function AddStructur() {
         <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
-              <div className="col-md-12">
+              <div className="col-md-6">
                 <div className="card shadow">
                   <div className="card-body">
                     <h1 className="fs-4">Form Update Data</h1>
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Nama
                           </label>
@@ -119,7 +123,7 @@ function AddStructur() {
                             placeholder="Masukkan Nama"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Tugas
                           </label>
@@ -131,7 +135,7 @@ function AddStructur() {
                             placeholder="Masukkan Tugas"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Jabatan
                           </label>
@@ -143,7 +147,7 @@ function AddStructur() {
                             placeholder="Masukkan Jabatan"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        {/* <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -156,7 +160,7 @@ function AddStructur() {
                             type="file"
                             className="form-control"
                           />
-                        </div>
+                        </div> */}
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a

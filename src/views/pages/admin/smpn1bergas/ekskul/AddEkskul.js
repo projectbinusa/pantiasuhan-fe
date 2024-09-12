@@ -28,17 +28,25 @@ function AddEkskul() {
 
     try {
       const formData = new FormData();
-      formData.append("koordinator", koordinator);
-      formData.append("pembimbing", pembimbing);
-      formData.append("jadwal", jadwal);
-      formData.append("tempat", tempat);
-      formData.append("name", name);
-      formData.append("deskripsi", deskripsi);
-      formData.append("prestasi", prestasi);
-      formData.append("file", file);
+      // formData.append("koordinator", koordinator);
+      // formData.append("pembimbing", pembimbing);
+      // formData.append("jadwal", jadwal);
+      // formData.append("tempat", tempat);
+      // formData.append("name", name);
+      // formData.append("deskripsi", deskripsi);
+      // formData.append("prestasi", prestasi);
+      // formData.append("file", file);
       await axios.post(
         `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/add`,
-        formData,
+        {
+          koordinator: koordinator,
+          pembimbing: pembimbing,
+          jadwal: jadwal,
+          tempat: tempat,
+          name: name,
+          deskripsi: deskripsi,
+          prestasi: prestasi,
+        },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -82,7 +90,7 @@ function AddEkskul() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -90,24 +98,25 @@ function AddEkskul() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
-    <div  className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
@@ -118,7 +127,7 @@ function AddEkskul() {
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold text-left">
                             Ekstrakurikuler
                           </label>
@@ -131,7 +140,7 @@ function AddEkskul() {
                             placeholder="Masukkan Ekstrakurikuler"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold text-left">
                             Pembimbing
                           </label>
@@ -144,7 +153,7 @@ function AddEkskul() {
                             placeholder="Masukkan Pembimbing"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold text-left">
                             Koordinator
                           </label>
@@ -157,7 +166,7 @@ function AddEkskul() {
                             placeholder="Masukkan Koordinator"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold text-left">
                             Jadwal
                           </label>
@@ -170,7 +179,7 @@ function AddEkskul() {
                             placeholder="Masukkan Jadwal"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold text-left">
                             Tempat
                           </label>
@@ -183,19 +192,7 @@ function AddEkskul() {
                             placeholder="Masukkan Tempat"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold text-left">
-                            Deskripsi
-                          </label>
-                          <textarea
-                            value={deskripsi}
-                            onChange={(e) => setDeskripsi(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            required
-                            placeholder="Masukkan Deskripsi"></textarea>
-                        </div>
-                        <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold text-left">
                             Prestasi
                           </label>
@@ -210,6 +207,18 @@ function AddEkskul() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold text-left">
+                            Deskripsi
+                          </label>
+                          <textarea
+                            value={deskripsi}
+                            onChange={(e) => setDeskripsi(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            required
+                            placeholder="Masukkan Deskripsi"></textarea>
+                        </div>
+                        {/* <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold text-left">
                             Gambar
                           </label>
                           <input
@@ -219,7 +228,7 @@ function AddEkskul() {
                             required
                             placeholder="Masukkan Gambar"
                           />
-                        </div>
+                        </div> */}
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
