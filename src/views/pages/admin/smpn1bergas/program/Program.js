@@ -39,7 +39,7 @@ function Program() {
         }
       );
       setList(response.data.data.content);
-      console.log(response.data.data.content);
+      console.log("program: ", response.data.data.content);
       setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
@@ -251,7 +251,7 @@ function Program() {
                           </span>
                         </td>
                         <td data-label="Judul Program" className="">
-                          {berita.categoryProgram.category}
+                          {berita.categoryProgram.category ? berita.categoryProgram.category : ""}
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
