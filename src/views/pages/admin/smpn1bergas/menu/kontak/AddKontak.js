@@ -133,12 +133,12 @@ function AddKontak() {
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan fax"
+                            placeholder="Masukkan Fax"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Address
+                            Alamat
                           </label>
                           <textarea
                             value={address}
@@ -150,7 +150,7 @@ function AddKontak() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            No HandPhone / Telephon
+                            No Handphone / Telephone
                           </label>
                           <input
                             value={phone}

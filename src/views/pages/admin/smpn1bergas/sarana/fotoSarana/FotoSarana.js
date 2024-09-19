@@ -204,13 +204,13 @@ function FotoSarana() {
                         style={{ height: "4.5rem", width: "4.5rem" }}
                       />
                     </td>
-                    <td data-label="Nama Sarana" className="">
+                    <td data-label="Nama Sarana" className="text-left">
                       {berita.sarana.nama_sarana}
                     </td>
-                    <td data-label="Tanggal Dibuat" className="">
+                    <td data-label="Tanggal Dibuat" className="text-left">
                       {berita.createdDate}
                     </td>
-                    <td data-label="Tanggal Update" className="">
+                    <td data-label="Tanggal Update" className="text-left">
                       {berita.updatedDate}
                     </td>
                     <td data-label="Aksi">

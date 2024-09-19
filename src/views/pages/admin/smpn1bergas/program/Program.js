@@ -29,8 +29,7 @@ function Program() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/program/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/program/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -138,9 +137,8 @@ function Program() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -237,20 +235,18 @@ function Program() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Program" className="">
-                          <span
-                            style={{
-                              width: "250px",
-                              display: "-webkit-box",
-                              WebkitBoxOrient: "vertical",
-                              WebkitLineClamp: 2,
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}>
+                        <td data-label="Nama Program" style={{ textAlign: "left", maxWidth: "250px" }}>
+                          <span style={{
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 3,
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}>
                             {berita.namaProgram}
                           </span>
                         </td>
-                        <td data-label="Judul Program" className="">
+                        <td data-label="Judul Program" style={{ textAlign: "left", maxWidth: "250px" }}>
                           {berita.categoryProgram.category ? berita.categoryProgram.category : ""}
                         </td>
                         <td data-label="Aksi">
@@ -305,7 +301,7 @@ function Program() {
               />
             </div>
           </div>
-        <CategoryProgram />
+          <CategoryProgram />
         </div>
       </div>
     </div>

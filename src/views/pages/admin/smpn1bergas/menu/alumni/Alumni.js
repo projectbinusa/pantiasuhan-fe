@@ -236,15 +236,15 @@ function Alumni() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Alumni" className="text-long">
+                        <td data-label="Nama Alumni" className="text-left">
                           {berita.nama}
                         </td>
-                        <td data-label="No Handphone" className="">
+                        <td data-label="No Handphone" className="text-left">
                           {berita.kontak}
                         </td>
                         <td
                           data-label="Sekolah/Pekerjaan Saat Ini"
-                          className="">
+                          className="text-left">
                           {berita.profesi}
                         </td>
                         <td data-label="Aksi">

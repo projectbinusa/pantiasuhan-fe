@@ -249,19 +249,19 @@ function Osis() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama" className="text-long">
+                        <td data-label="Nama" className="text-left">
                           {berita.nama}
                         </td>
-                        <td data-label="Kelas" className="">
+                        <td data-label="Kelas" className="text-left">
                           {berita.kelas}
                         </td>
-                        <td data-label="Jabatan" className="">
+                        <td data-label="Jabatan" className="text-left">
                           {berita.jabatan}
                         </td>
-                        <td data-label="Tahun Jabat" className="">
+                        <td data-label="Tahun Jabat" className="text-left">
                           {berita.tahunJabat}
                         </td>
-                        <td data-label="Tahun Tuntas" className="">
+                        <td data-label="Tahun Tuntas" className="text-left">
                           {berita.tahunTuntas}
                         </td>
                         <td data-label="Foto">

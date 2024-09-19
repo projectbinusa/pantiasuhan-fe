@@ -231,10 +231,10 @@ function TenagaKenpendidikan() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama" className="text-long">
+                        <td data-label="Nama" className="text-left">
                           {row.nama}
                         </td>
-                        <td data-label="Status" className="">
+                        <td data-label="Status" className="text-left">
                           {row.status}
                         </td>
                         <td data-label="Image" className="">

@@ -145,7 +145,7 @@ function AddFotoKegiatan() {
                             className="form-control"
                           />
                         </div>
-                        <div className="mb-3 col-lg-6">
+                        <div className="mb-3 col-lg-12">
                           {/* a */}
                           <label className="form-label  font-weight-bold ">
                             Kegiatan

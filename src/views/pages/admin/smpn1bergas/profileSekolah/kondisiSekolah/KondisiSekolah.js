@@ -126,7 +126,7 @@ function KondisiSekolah() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -140,9 +140,8 @@ function KondisiSekolah() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -153,7 +152,7 @@ function KondisiSekolah() {
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div style={{marginTop:"50px"}}
+      <div style={{ marginTop: "50px" }}
         className="page-content1 mb-3 app-main__outer"
         data-aos="fade-left">
         <div
@@ -185,7 +184,7 @@ function KondisiSekolah() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Data Guru</p>
+              <p className="mt-3">Kondisi Sekolah</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -263,12 +262,15 @@ function KondisiSekolah() {
                           data-label="Deskripsi"
                           style={{
                             maxWidth: "250px",
-                            whiteSpace: "nowrap",
+                            textAlign: "left"
+                          }}>
+                          <div style={{
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 3,
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                           }}
-                          className="">
-                          <div
                             dangerouslySetInnerHTML={{
                               __html: berita.deskripsi,
                             }}

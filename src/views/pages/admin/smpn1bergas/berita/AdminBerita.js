@@ -236,19 +236,19 @@ function AdminBerita() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Judul Berita" className="text-long">
+                        <td data-label="Judul Berita" className="text-left">
                           {berita.judulBerita}
                         </td>
-                        <td data-label="Penulis Berita" className="text-long">
+                        <td data-label="Penulis Berita" className="text-left">
                           {berita.author}
                         </td>
-                        <td data-label="Image" className="">
+                        <td data-label="Image" className="text-left">
                           <img
                             src={berita.image ? berita.image : news}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>{" "}
-                        <td data-label="Kategori Berita" className="">
+                        <td data-label="Kategori Berita" className="text-left">
                           {berita.categoryBerita}
                         </td>
                         <td data-label="Aksi">
@@ -262,7 +262,6 @@ function AdminBerita() {
                                   textDecoration: "none",
                                 }}
                                 href={`/edit-berita-admin/${berita.id}`}>
-                                {" "}
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>

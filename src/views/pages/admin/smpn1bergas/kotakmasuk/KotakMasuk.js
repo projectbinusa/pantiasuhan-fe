@@ -223,16 +223,16 @@ function KotakMasuk() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Pengirim" className="text-long">
+                        <td data-label="Nama Pengirim" className="text-left">
                           {berita.nama}
                         </td>
-                        <td data-label="Pesan" className="">
+                        <td data-label="Pesan" className="text-left">
                           {berita.pesan}
                         </td>
-                        <td data-label="Email" className="">
+                        <td data-label="Email" className="text-left">
                           {berita.email}
                         </td>
-                        <td data-label="No Telephone" className="">
+                        <td data-label="No Telephone" className="text-left">
                           {berita.telp}
                         </td>{" "}
                         <td data-label="Aksi">

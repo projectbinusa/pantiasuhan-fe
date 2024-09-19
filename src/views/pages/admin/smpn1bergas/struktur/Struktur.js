@@ -244,13 +244,13 @@ function Struktur() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama" className="text-long">
+                        <td data-label="Nama" className="text-left">
                           {berita.nama}
                         </td>
-                        <td data-label="Tugas" className="">
+                        <td data-label="Tugas" className="text-left">
                           {berita.tugas}
                         </td>
-                        <td data-label="Jabatan" className="">
+                        <td data-label="Jabatan" className="text-left">
                           {berita.jabatan}
                         </td>
                         <td data-label="Foto" className="">

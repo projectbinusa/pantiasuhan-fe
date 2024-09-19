@@ -231,13 +231,13 @@ function Ekskul() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Ekstrakulikuler" className="">
+                        <td data-label="Ekstrakulikuler" className="text-left">
                           {berita.name}
                         </td>
-                        <td data-label="Jadwal" className="">
+                        <td data-label="Jadwal" className="text-left">
                           {berita.jadwal}
                         </td>
-                        <td data-label="Tempat" className="">
+                        <td data-label="Tempat" className="text-left">
                           {berita.tempat}
                         </td>
                         <td data-label="Aksi">

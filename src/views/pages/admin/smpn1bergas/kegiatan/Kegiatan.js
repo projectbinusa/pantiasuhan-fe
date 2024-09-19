@@ -247,25 +247,22 @@ function Kegiatan() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Kegiatan" className="text-long">
+                        <td data-label="Kegiatan" className="text-left">
                           {berita.judul}
                         </td>
-                        <td data-label="Penulis Kegiatan" className="text-long">
+                        <td data-label="Penulis Kegiatan" className="text-left">
                           {berita.penulis}
                         </td>
-                        {/* <td data-label="Isi">
-                          <span className="content-isi">{berita.isi}</span>
-                        </td> */}
                         <td data-label="Image" className="">
                           <img
                             src={berita.foto ? berita.foto : kegiatan}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
-                        <td data-label="Tanggal Dibuat" className="">
+                        <td data-label="Tanggal Dibuat" className="text-left">
                           {berita.createdDate}
                         </td>
-                        <td data-label="Tanggal Update" className="">
+                        <td data-label="Tanggal Update" className="text-left">
                           {berita.updatedDate}
                         </td>
                         <td data-label="Aksi">

@@ -351,7 +351,7 @@ function EditBeritaAdmin() {
                       onChange={(e) => setAuthor(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan penulis berita"
+                      placeholder="Masukkan Penulis Berita"
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
@@ -363,7 +363,7 @@ function EditBeritaAdmin() {
                       onChange={(e) => setJudulBerita(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan judul berita"
+                      placeholder="Masukkan Judul Berita"
                     />
                   </div>
                   <div className="mb-3 col-lg-6">

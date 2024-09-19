@@ -243,13 +243,13 @@ function Prestasi() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Prestasi" className="text-long">
+                        <td data-label="Nama Prestasi" className="text-left">
                           {berita.judul}
                         </td>
-                        <td data-label="Nama Perserta" className="">
+                        <td data-label="Nama Perserta" className="text-left">
                           {berita.nama_peserta}
                         </td>
-                        <td data-label="Tanggal" className="">
+                        <td data-label="Tanggal" className="text-left">
                           {format(new Date(berita.tanggal || new Date()), "dd MM yyyy", { locale: idLocale })}
                         </td>
                         <td data-label="Aksi">

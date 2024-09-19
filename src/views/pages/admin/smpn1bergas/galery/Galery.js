@@ -242,14 +242,13 @@ function Galery() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Judul" className="text-long">
+                        <td data-label="Judul" className="text-left">
                           {berita.judul}
                         </td>
-                        {/* <td data-label="">{berita.isiBerita}</td> */}
-                        <td data-label="Deskripsi" className="">
+                        <td data-label="Deskripsi" className="text-left">
                           {berita.deskripsi}
                         </td>
-                        <td data-label="Image" className="">
+                        <td data-label="Image">
                           <img
                             src={berita.foto}
                             style={{ height: "4.5rem", width: "4.5rem" }}

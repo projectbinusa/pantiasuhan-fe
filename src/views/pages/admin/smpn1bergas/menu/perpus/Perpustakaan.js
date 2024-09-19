@@ -250,13 +250,13 @@ function Perpustakaan() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Buku" className="text-long">
+                        <td data-label="Nama Buku" className="text-left">
                           {berita.nama_buku}
                         </td>
-                        <td data-label="Nomor Buku" className="text-long">
+                        <td data-label="Nomor Buku" className="text-left">
                           {berita.no}
                         </td>
-                        <td data-label="Pengarang" className="">
+                        <td data-label="Pengarang" className="text-left">
                           {berita.pengarang}
                         </td>
                         <td data-label="Sampul" className="">

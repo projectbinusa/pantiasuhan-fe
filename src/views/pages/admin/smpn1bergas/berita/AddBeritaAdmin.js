@@ -79,13 +79,6 @@ function AddBeritaAdmin() {
     e.preventDefault();
     e.persist();
 
-    // const formData = new FormData();
-    // formData.append("author", author);
-    // formData.append("judulBerita", judulBerita);
-    // formData.append("isiBerita", isiBerita);
-    // formData.append("category", categoryBerita);
-    // formData.append("file", image);
-
     try {
       await axios.post(
         `${API_DUMMY}/smpn1bergas/api/berita/add?author=${author}&category=${categoryBerita}&isiBerita=${isiBerita}&judulBerita=${judulBerita}`,
@@ -97,7 +90,6 @@ function AddBeritaAdmin() {
         },
         {
           headers: {
-            // "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
@@ -310,7 +302,7 @@ function AddBeritaAdmin() {
                           onChange={(e) => setJudulBerita(e.target.value)}
                           type="text"
                           className="form-control"
-                          placeholder="Masukkan judul berita"
+                          placeholder="Masukkan Judul Berita"
                         />
                       </div>
                       <div className="mb-3 col-lg-6">
@@ -322,7 +314,7 @@ function AddBeritaAdmin() {
                           className="form-control"
                           aria-label="Small select example"
                           onChange={(e) => setCategoryBerita(e.target.value)}>
-                          <option selected>Pilih Category</option>
+                          <option selected>Pilih Kategori</option>
                           <option value="Berita Sekolah">Berita Terbaru</option>
                           <option value="Info Sekolah">Info Sekolah</option>
                           <option value="Agenda Sekolah">Agenda</option>
@@ -339,21 +331,9 @@ function AddBeritaAdmin() {
                           onChange={(e) => setAuthor(e.target.value)}
                           type="text"
                           className="form-control"
-                          placeholder="Masukkan penulis berita"
+                          placeholder="Masukkan Penulis Berita"
                         />
                       </div>
-                      {/* <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">
-                          Gambar
-                        </label>
-                        <input
-                          onChange={(e) =>
-                            setImage(e.target.files ? e.target.files[0] : null)
-                          }
-                          type="file"
-                          className="form-control"
-                        />
-                      </div> */}
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
                           Isi Berita

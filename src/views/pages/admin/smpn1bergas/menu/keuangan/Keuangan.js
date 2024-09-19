@@ -27,8 +27,7 @@ function Keuangan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/keuangan/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/keuangan/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -126,7 +125,7 @@ function Keuangan() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -139,20 +138,19 @@ function Keuangan() {
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">
@@ -247,23 +245,24 @@ function Keuangan() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Judul" className="text-long">
+                        <td data-label="Judul" className="text-left">
                           {berita.judul}
                         </td>
                         <td
-                          style={{
-                            maxWidth: "250px",
-                            whiteSpace: "nowrap",
+                          data-label="Isi"
+                          style={{maxWidth: "250px"}}
+                          className="text-left">
+                          <div style={{
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 3,
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                           }}
-                          data-label="Isi"
-                          className="">
-                          <div
                             dangerouslySetInnerHTML={{ __html: berita.isi }}
                           />
                         </td>
-                        <td data-label="Kategori Keuangan" className="">
+                        <td data-label="Kategori Keuangan" className="text-left">
                           {berita.categoryKeuangan}
                         </td>
                         <td data-label="Image" className="">

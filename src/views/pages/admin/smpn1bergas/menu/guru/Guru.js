@@ -237,16 +237,16 @@ function Berita() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Guru" className="">
+                        <td data-label="Nama Guru" className="text-left">
                           {row.nama_guru}
                         </td>
-                        <td data-label="Mapel" className="">
+                        <td data-label="Mapel" className="text-left">
                           {row.mapel}
                         </td>
-                        <td data-label="NIP" className="">
+                        <td data-label="NIP" className="text-left">
                           {row.nip}
                         </td>
-                        <td data-label="Riwayat" className="">
+                        <td data-label="Riwayat" className="text-left">
                           {row.riwayat}
                         </td>
                         <td data-label="Image" className="">

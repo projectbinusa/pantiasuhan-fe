@@ -238,10 +238,10 @@ function Sarana() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Sarana" className="text-long">
+                        <td data-label="Nama Sarana" className="text-left">
                           {berita.nama_sarana}
                         </td>
-                        <td data-label="Kategori Sarana" className="text-long">
+                        <td data-label="Kategori Sarana" className="text-left">
                           {berita.category}
                         </td>
                         <td data-label="Aksi">
