@@ -32,13 +32,12 @@ function Login() {
           showConfirmButton: false,
           timer: 1500,
         });
-        history.push("/admin-berita");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
         localStorage.setItem("id", response.data.userData.id);
         localStorage.setItem("role", response.data.userData.role);
         localStorage.setItem("token", response.data.token);
+        setTimeout(() => {
+          history.push("/admin-berita");
+        }, 1500);
       }
     } catch (error) {
       Swal.fire({
