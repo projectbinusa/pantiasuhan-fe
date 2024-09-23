@@ -1,16 +1,60 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../src/component/sidebar.css"; // Assuming you have the CSS in this file
 import Swal from "sweetalert2";
 import {
+  NavLink,
   useHistory,
   useLocation,
 } from "react-router-dom/cjs/react-router-dom.min";
 
 function Sidebar1({ toggleSidebar }) {
-  const [activeDropdown, setActiveDropdown] = useState(null);
-  const [sidebarToggled, setSidebarToggled] = useState(false);
+  // const [activeDropdown, setActiveDropdown] = useState(null);
+  // const [sidebarToggled, setSidebarToggled] = useState(false);
   const history = useHistory();
   const location = useLocation();
+  const menuRefs = useRef([]);
+  const ProfileRefs = useRef([]);
+  const SiswaRefs = useRef([]);
+  const saprasRefs = useRef([]);
+
+  useEffect(() => {
+    const activeIndex = menuItems.findIndex(
+      (item) => location.pathname === item.path
+    );
+    if (activeIndex !== -1 && menuRefs.current[activeIndex]) {
+      menuRefs.current[activeIndex].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+    const activeIndexProfile = profileItem.findIndex(
+      (item) => location.pathname === item.path
+    );
+    if (activeIndexProfile !== -1 && ProfileRefs.current[activeIndexProfile]) {
+      ProfileRefs.current[activeIndexProfile].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+    const activeIndexSiswa = siswaItem.findIndex(
+      (item) => location.pathname === item.path
+    );
+    if (activeIndexSiswa !== -1 && SiswaRefs.current[activeIndexSiswa]) {
+      SiswaRefs.current[activeIndexSiswa].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+    const activeIndexsapras = saprasItem.findIndex(
+      (item) => location.pathname === item.path
+    );
+    if (activeIndexsapras !== -1 && saprasRefs.current[activeIndexsapras]) {
+      saprasRefs.current[activeIndexsapras].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+  }, [location.pathname]);
 
   const logout = () => {
     Swal.fire({
@@ -29,7 +73,6 @@ function Sidebar1({ toggleSidebar }) {
           showConfirmButton: false,
           timer: 1500,
         });
-        //Untuk munuju page selanjutnya
         history.push("/login");
         setTimeout(() => {
           window.location.reload();
@@ -209,7 +252,9 @@ function Sidebar1({ toggleSidebar }) {
       <nav id="sidebar" className="sidebar-wrapper">
         <div className="sidebar-content">
           <div className="sidebar-brand">
-            <a href="#" style={{textAlign: "center"}}>SMP N 1 Bergas</a>
+            <a href="#" style={{ textAlign: "center" }}>
+              SMP N 1 Bergas
+            </a>
             <div id="close-sidebar" onClick={toggleSidebar}>
               <i className="fas fa-times"></i>
             </div>
@@ -220,8 +265,8 @@ function Sidebar1({ toggleSidebar }) {
                 <span>Menu</span>
               </li>{" "}
               {menuItems.map((data, index) => (
-                <li key={index}>
-                  <a href={data.path}>
+                <li key={index} ref={(el) => (menuRefs.current[index] = el)}>
+                  <NavLink to={data.path} style={{ background: "none" }}>
                     <i
                       className={`${data.icon} ${
                         location.pathname === data.path ||
@@ -232,15 +277,15 @@ function Sidebar1({ toggleSidebar }) {
 
                     <span>{data.title}</span>
                     {/* <span class="badge badge-pill badge-primary">Beta</span> */}
-                  </a>
+                  </NavLink>
                 </li>
               ))}
               <li className="header-menu1">
                 <span>Profile Sekolah</span>
               </li>
               {profileItem.map((data, index) => (
-                <li key={index}>
-                  <a href={data.path}>
+                <li key={index} ref={(el) => (ProfileRefs.current[index] = el)}>
+                  <NavLink to={data.path} style={{ background: "none" }}>
                     <i
                       class={`${data.icon} ${
                         location.pathname === data.path ||
@@ -250,15 +295,15 @@ function Sidebar1({ toggleSidebar }) {
                       }`}></i>
                     <span>{data.title}</span>
                     {/* <span class="badge badge-pill badge-primary">Beta</span> */}
-                  </a>
+                  </NavLink>
                 </li>
               ))}
               <li className="header-menu1">
                 <span>Kesiswaan</span>
               </li>
               {siswaItem.map((data, index) => (
-                <li key={index}>
-                  <a href={data.path}>
+                <li key={index} ref={(el) => (SiswaRefs.current[index] = el)}>
+                  <NavLink to={data.path} style={{ background: "none" }}>
                     <i
                       class={`${data.icon} ${
                         location.pathname === data.path ||
@@ -268,15 +313,15 @@ function Sidebar1({ toggleSidebar }) {
                       }`}></i>
                     <span>{data.title}</span>
                     {/* <span class="badge badge-pill badge-primary">Beta</span> */}
-                  </a>
+                  </NavLink>
                 </li>
               ))}
               <li className="header-menu1">
                 <span>Sarana Prasana</span>
               </li>
               {saprasItem.map((data, index) => (
-                <li key={index}>
-                  <a href={data.path}>
+                <li key={index} ref={(el) => (saprasRefs.current[index] = el)}>
+                  <NavLink to={data.path} style={{ background: "none" }}>
                     <i
                       class={`${data.icon} ${
                         location.pathname === data.path ||
@@ -286,7 +331,7 @@ function Sidebar1({ toggleSidebar }) {
                       }`}></i>
                     <span>{data.title}</span>
                     {/* <span class="badge badge-pill badge-primary">Beta</span> */}
-                  </a>
+                  </NavLink>
                 </li>
               ))}
               {/* <li>
