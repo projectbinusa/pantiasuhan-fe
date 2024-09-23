@@ -21,8 +21,7 @@ function CategoryProgram() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/category_program/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/category_program/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -204,9 +203,9 @@ function CategoryProgram() {
           <table className="align-middle mb-0 table table-borderless table-striped table-hover">
             <thead>
               <tr>
-                <th scope="col" className="text-center">No</th>
-                <th className="text-center">Kategori Program</th>
-                <th className="text-center">Aksi</th>
+                <th scope="col">No</th>
+                <th>Kategori Program</th>
+                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -216,7 +215,7 @@ function CategoryProgram() {
                     <td data-label="No" className="">
                       {no + 1 + (currentPage - 1) * rowsPerPage}
                     </td>
-                    <td data-label="Kategori Program" className="text-left">
+                    <td data-label="Kategori Program">
                       <span
                         style={{
                           width: "250px",
@@ -226,12 +225,11 @@ function CategoryProgram() {
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                         }}>
-                        {" "}
                         {berita.category}
                       </span>
                     </td>
-                    <td data-label="Aksi">
-                      <div className="aksi">
+                    <td data-label="Aksi" className="action">
+                      <div className="d-flex justify-content-center align-items-center">
                         <button
                           type="button"
                           className="btn-primary btn-sm mr-2">

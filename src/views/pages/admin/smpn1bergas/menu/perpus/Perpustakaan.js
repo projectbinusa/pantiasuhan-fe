@@ -231,16 +231,16 @@ function Perpustakaan() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
-                    <th className="text-center">Nama Buku</th>
-                    <th scope="col" className="text-center" className="text-left">
+                    <th scope="col">No</th>
+                    <th>Nama Buku</th>
+                    <th scope="col">
                       Nomor Buku
                     </th>
-                    <th scope="col" className="text-center" className="text-left">
+                    <th scope="col">
                       Pengarang
                     </th>
-                    <th className="text-center">Sampul</th>
-                    <th className="text-center">Aksi</th>
+                    <th>Sampul</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -250,13 +250,13 @@ function Perpustakaan() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Buku" className="text-left">
+                        <td data-label="Nama Buku">
                           {berita.nama_buku}
                         </td>
-                        <td data-label="Nomor Buku" className="text-left">
+                        <td data-label="Nomor Buku">
                           {berita.no}
                         </td>
-                        <td data-label="Pengarang" className="text-left">
+                        <td data-label="Pengarang">
                           {berita.pengarang}
                         </td>
                         <td data-label="Sampul" className="">
@@ -265,8 +265,8 @@ function Perpustakaan() {
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">

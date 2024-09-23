@@ -208,12 +208,12 @@ function KotakMasuk() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>{" "}
-                    <th className="text-center">Nama Pengirim</th>
-                    <th className="text-center">Pesan</th>
-                    <th scope="col" className="text-center">Email</th>
-                    <th className="text-center">No Telephone</th>
-                    <th className="text-center">Aksi</th>
+                    <th scope="col">No</th>
+                    <th>Nama Pengirim</th>
+                    <th>Pesan</th>
+                    <th scope="col">Email</th>
+                    <th>No Telephone</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -223,20 +223,20 @@ function KotakMasuk() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Pengirim" className="text-left">
+                        <td data-label="Nama Pengirim">
                           {berita.nama}
                         </td>
-                        <td data-label="Pesan" className="text-left">
+                        <td data-label="Pesan">
                           {berita.pesan}
                         </td>
-                        <td data-label="Email" className="text-left">
+                        <td data-label="Email">
                           {berita.email}
                         </td>
-                        <td data-label="No Telephone" className="text-left">
+                        <td data-label="No Telephone">
                           {berita.telp}
-                        </td>{" "}
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        </td>
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               onClick={() => deleteData(berita.id)}
                               type="button"

@@ -224,20 +224,19 @@ function Kegiatan() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">
+                    <th scope="col">
                       No
                     </th>
-                    <th className="text-center">Kegiatan</th>
+                    <th>Kegiatan</th>
                     <th
                       scope="col"
-                      className="text-center"
                       style={{ minWidth: "150px" }}>
                       Penulis Kegiatan
                     </th>
-                    <th className="text-center">Gambar</th>
-                    <th className="text-center">Tanggal Dibuat</th>
-                    <th className="text-center">Tanggal Update</th>
-                    <th className="text-center">Aksi</th>
+                    <th>Gambar</th>
+                    <th>Tanggal Dibuat</th>
+                    <th>Tanggal Update</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -247,10 +246,10 @@ function Kegiatan() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Kegiatan" className="text-left">
+                        <td data-label="Kegiatan">
                           {berita.judul}
                         </td>
-                        <td data-label="Penulis Kegiatan" className="text-left">
+                        <td data-label="Penulis Kegiatan">
                           {berita.penulis}
                         </td>
                         <td data-label="Image" className="">
@@ -259,14 +258,14 @@ function Kegiatan() {
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
-                        <td data-label="Tanggal Dibuat" className="text-left">
+                        <td data-label="Tanggal Dibuat">
                           {berita.createdDate}
                         </td>
-                        <td data-label="Tanggal Update" className="text-left">
+                        <td data-label="Tanggal Update">
                           {berita.updatedDate}
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">

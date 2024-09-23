@@ -225,10 +225,10 @@ function Sarana() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
-                    <th className="text-center">Nama sarana</th>
-                    <th scope="col" className="text-center">Kategori</th>
-                    <th className="text-center">Aksi</th>
+                    <th scope="col">No</th>
+                    <th>Nama sarana</th>
+                    <th scope="col">Kategori</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -238,14 +238,14 @@ function Sarana() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Sarana" className="text-left">
+                        <td data-label="Nama Sarana">
                           {berita.nama_sarana}
                         </td>
-                        <td data-label="Kategori Sarana" className="text-left">
+                        <td data-label="Kategori Sarana">
                           {berita.category}
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">

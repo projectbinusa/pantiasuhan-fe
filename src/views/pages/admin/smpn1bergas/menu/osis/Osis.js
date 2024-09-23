@@ -220,18 +220,18 @@ function Osis() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">
+                    <th scope="col">
                       No
                     </th>
-                    <th className="text-center">Nama</th>
-                    <th scope="col" className="text-center">
+                    <th>Nama</th>
+                    <th scope="col">
                       Kelas
                     </th>
-                    <th className="text-center">Jabatan</th>
-                    <th className="text-center">Tahun Jabat</th>
-                    <th className="text-center">Tahun Tuntas</th>
-                    <th className="text-center">Gambar</th>
-                    <th className="text-center">Aksi</th>
+                    <th>Jabatan</th>
+                    <th>Tahun Jabat</th>
+                    <th>Tahun Tuntas</th>
+                    <th>Gambar</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -249,19 +249,19 @@ function Osis() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama" className="text-left">
+                        <td data-label="Nama">
                           {berita.nama}
                         </td>
-                        <td data-label="Kelas" className="text-left">
+                        <td data-label="Kelas">
                           {berita.kelas}
                         </td>
-                        <td data-label="Jabatan" className="text-left">
+                        <td data-label="Jabatan">
                           {berita.jabatan}
                         </td>
-                        <td data-label="Tahun Jabat" className="text-left">
+                        <td data-label="Tahun Jabat">
                           {berita.tahunJabat}
                         </td>
-                        <td data-label="Tahun Tuntas" className="text-left">
+                        <td data-label="Tahun Tuntas">
                           {berita.tahunTuntas}
                         </td>
                         <td data-label="Foto">
@@ -274,8 +274,8 @@ function Osis() {
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">

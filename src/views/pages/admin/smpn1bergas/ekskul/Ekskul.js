@@ -217,11 +217,11 @@ function Ekskul() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
-                    <th className="text-center">Ekstrakulikuler</th>
-                    <th className="text-center">Jadwal</th>
-                    <th className="text-center">Tempat</th>
-                    <th className="text-center">Aksi</th>
+                    <th scope="col">No</th>
+                    <th>Ekstrakulikuler</th>
+                    <th>Jadwal</th>
+                    <th>Tempat</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -231,17 +231,17 @@ function Ekskul() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Ekstrakulikuler" className="text-left">
+                        <td data-label="Ekstrakulikuler">
                           {berita.name}
                         </td>
-                        <td data-label="Jadwal" className="text-left">
+                        <td data-label="Jadwal">
                           {berita.jadwal}
                         </td>
-                        <td data-label="Tempat" className="text-left">
+                        <td data-label="Tempat">
                           {berita.tempat}
                         </td>
-                        <td data-label="Aksi">
-                          <div style={{minWidth:"150px"}} className="">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">

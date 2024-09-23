@@ -24,8 +24,7 @@ function AdminBerita() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/berita/all?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/berita/all?page=${page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -130,9 +129,8 @@ function AdminBerita() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -214,19 +212,17 @@ function AdminBerita() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">
+                    <th>
                       No
                     </th>
-                    <th className="text-center">Judul Berita</th>
+                    <th>Judul Berita</th>
                     <th
-                      scope="col"
-                      className="text-center"
-                      style={{ minWidth: "150px" }}>
+                      scope="col" style={{ minWidth: "150px" }}>
                       Penulis Berita
                     </th>
-                    <th className="text-center">Image</th>
-                    <th className="text-center">Kategori Berita</th>
-                    <th className="text-center">Aksi</th>
+                    <th>Image</th>
+                    <th>Kategori Berita</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -236,26 +232,27 @@ function AdminBerita() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Judul Berita" className="text-left">
+                        <td data-label="Judul Berita">
                           {berita.judulBerita}
                         </td>
-                        <td data-label="Penulis Berita" className="text-left">
+                        <td data-label="Penulis Berita">
                           {berita.author}
                         </td>
-                        <td data-label="Image" className="text-left">
+                        <td data-label="Image">
                           <img
                             src={berita.image ? berita.image : news}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
-                        </td>{" "}
-                        <td data-label="Kategori Berita" className="text-left">
+                        </td>
+                        <td data-label="Kategori Berita">
                           {berita.categoryBerita}
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
-                              className="btn-primary btn-sm mr-2">
+                              className="btn-primary btn-sm mr-2"
+                              style={{ height: '100%' }}>
                               <a
                                 style={{
                                   color: "white",
@@ -267,11 +264,11 @@ function AdminBerita() {
                             </button>
                             <button
                               type="button"
-                              class="btn-warning  mr-2 btn-sm">
+                              className="btn-warning mr-2 btn-sm">
                               <a
                                 className="text-light"
                                 href={"/detail/berita/" + berita.id}>
-                                <i class="fas fa-info-circle"></i>
+                                <i className="fas fa-info-circle"></i>
                               </a>
                             </button>
                             <button

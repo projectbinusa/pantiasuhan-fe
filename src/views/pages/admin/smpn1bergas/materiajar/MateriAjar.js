@@ -227,14 +227,14 @@ function MateriAjar() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
-                    <th className="text-center">Tingkat</th>
-                    <th scope="col" className="text-center">Mapel</th>
-                    <th className="text-center">Judul</th>
-                    <th className="text-center">Tanggal Upload</th>
-                    <th className="text-center">Jenis</th>
-                    <th className="text-center">Penyusun</th>
-                    <th className="text-center">Aksi</th>
+                    <th scope="col">No</th>
+                    <th>Tingkat</th>
+                    <th scope="col">Mapel</th>
+                    <th>Judul</th>
+                    <th>Tanggal Upload</th>
+                    <th>Jenis</th>
+                    <th>Penyusun</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -244,26 +244,26 @@ function MateriAjar() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Tingkat" className="text-left">
+                        <td data-label="Tingkat">
                           {berita.tingkat}
                         </td>
-                        <td data-label="Mapel" className="text-left">
+                        <td data-label="Mapel">
                           {berita.mapel}
                         </td>
-                        <td data-label="Judul" className="text-left">
+                        <td data-label="Judul">
                           {berita.judul}
                         </td>
-                        <td data-label="Tanggal Upload" className="text-left">
+                        <td data-label="Tanggal Upload">
                           {berita.createdDate}
                         </td>
-                        <td data-label="Penyusun" className="text-left">
+                        <td data-label="Penyusun">
                           {berita.penyusun}
                         </td>
-                        <td data-label="Jenis" className="text-left">
+                        <td data-label="Jenis">
                           {berita.jenis}
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">

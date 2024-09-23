@@ -19,14 +19,10 @@ table {
         height: 60px !important;
 
         tr {
-            th:first-child {
-                padding-left: 45px;
-            }
-
             th {
                 text-transform: uppercase;
                 line-height: 60px !important;
-                text-align: left;
+                text-align: center;
                 font-size: 11px;
                 padding-top: 0px !important;
                 padding-bottom: 0px !important;
@@ -42,12 +38,8 @@ table {
             border-top: 1px solid #e5e5e5;
             height: 60px;
 
-            td:first-child {
-                padding-left: 45px;
-            }
-
             td {
-                text-align: center;
+                text-align: left;
             }
 
             /* td{
@@ -72,16 +64,16 @@ table {
 
         thead {
             display: none;
+            tr {
+                th{
+                    text-align: left;
+                }
+            }
         }
 
         tbody {
             tr {
                 border-bottom: 45px solid #F8F8F8;
-
-                td:first-child {
-                    padding-left: 10px;
-
-                }
 
                 td:before {
                     content: attr(data-label);
@@ -97,11 +89,12 @@ table {
                     font-size: 14px;
                     padding: 0px 10px;
                     box-shadow: 0 1px 1px rgba(0, 0, 0, .3);
-/*
-                    div {
-                    } */
                 }
 
+                td.action{
+                    display: flex;
+                    justify-content: space-between;
+                }
             }
         }
     }

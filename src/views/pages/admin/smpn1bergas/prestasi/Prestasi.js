@@ -227,13 +227,13 @@ function Prestasi() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
-                    <th className="text-center">Nama Prestasi</th>
-                    <th scope="col" className="text-center" className="text-left">
+                    <th scope="col">No</th>
+                    <th>Nama Prestasi</th>
+                    <th scope="col">
                       Nama Perserta
                     </th>
-                    <th className="text-center">Tanggal</th>
-                    <th className="text-center">Aksi</th>
+                    <th>Tanggal</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -243,17 +243,17 @@ function Prestasi() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Prestasi" className="text-left">
+                        <td data-label="Nama Prestasi">
                           {berita.judul}
                         </td>
-                        <td data-label="Nama Perserta" className="text-left">
+                        <td data-label="Nama Perserta">
                           {berita.nama_peserta}
                         </td>
-                        <td data-label="Tanggal" className="text-left">
+                        <td data-label="Tanggal">
                           {format(new Date(berita.tanggal || new Date()), "dd MM yyyy", { locale: idLocale })}
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">
