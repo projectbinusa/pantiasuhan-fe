@@ -181,38 +181,38 @@ function FotoKegiatan() {
           <table className="align-middle mb-0 table table-borderless table-striped table-hover">
             <thead>
               <tr>
-                <th scope="col" className="text-center">No</th>
-                <th className="text-center">Foto</th>
-                <th className="text-center">Nama Kegiatan</th>
-                <th className="text-center">Tanggal Dibuat</th>
-                <th className="text-center">Tanggal Update</th>
-                <th className="text-center">Aksi</th>
+                <th scope="col">No</th>
+                <th>Foto</th>
+                <th>Nama Kegiatan</th>
+                <th>Tanggal Dibuat</th>
+                <th>Tanggal Update</th>
+                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
               {filteredList.map((berita, no) => {
                 return (
                   <tr key={no}>
-                    <td data-label="No" className="">
+                    <td data-label="No" >
                       {no + 1 + (currentPage - 1) * rowsPerPage}
                     </td>
-                    <td data-label="Gambar" className="">
+                    <td data-label="Gambar" >
                       <img
                         src={berita.foto}
                         style={{ height: "4.5rem", width: "4.5rem" }}
                       />
                     </td>
-                    <td data-label="Nama Kegiatan" className="text-left">
+                    <td data-label="Nama Kegiatan">
                       {berita.kegiatan.judul}
                     </td>
-                    <td data-label="Tanggal Dibuat" className="text-left">
+                    <td data-label="Tanggal Dibuat">
                       {berita.createdDate}
                     </td>
-                    <td data-label="Tanggal Update" className="text-left">
+                    <td data-label="Tanggal Update">
                       {berita.updatedDate}
                     </td>
-                    <td data-label="Aksi">
-                      <div className="aksi">
+                    <td data-label="Aksi" className="action">
+                      <div className="d-flex justify-content-center align-items-center">
                         <button
                           type="button"
                           className="btn-primary btn-sm mr-2">

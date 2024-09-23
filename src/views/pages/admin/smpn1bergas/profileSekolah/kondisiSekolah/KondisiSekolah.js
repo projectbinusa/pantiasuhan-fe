@@ -243,7 +243,6 @@ function KondisiSekolah() {
                     <th scope="col" className="text-center">No</th>
                     <th
                       scope="col"
-                      className="text-left"
                       style={{ minWidth: "150px" }}>
                       Deskripsi
                     </th>
@@ -282,8 +281,8 @@ function KondisiSekolah() {
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">

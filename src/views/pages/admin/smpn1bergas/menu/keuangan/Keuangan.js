@@ -223,19 +223,18 @@ function Keuangan() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
-                    <th className="text-center">Judul</th>
+                    <th scope="col" >No</th>
+                    <th >Judul</th>
                     <th
                       scope="col"
-                      className="text-center"
                       style={{ minWidth: "150px" }}>
                       Isi
                     </th>
-                    <th scope="col" className="text-center">
+                    <th scope="col" >
                       Kategori Keuangan
                     </th>
-                    <th className="text-center">Image</th>
-                    <th className="text-center">Aksi</th>
+                    <th >Image</th>
+                    <th >Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -245,13 +244,13 @@ function Keuangan() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Judul" className="text-left">
+                        <td data-label="Judul">
                           {berita.judul}
                         </td>
                         <td
                           data-label="Isi"
                           style={{maxWidth: "250px"}}
-                          className="text-left">
+                        >
                           <div style={{
                             display: "-webkit-box",
                             WebkitBoxOrient: "vertical",
@@ -262,7 +261,7 @@ function Keuangan() {
                             dangerouslySetInnerHTML={{ __html: berita.isi }}
                           />
                         </td>
-                        <td data-label="Kategori Keuangan" className="text-left">
+                        <td data-label="Kategori Keuangan">
                           {berita.categoryKeuangan}
                         </td>
                         <td data-label="Image" className="">
@@ -271,8 +270,8 @@ function Keuangan() {
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">

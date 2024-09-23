@@ -225,16 +225,16 @@ function Struktur() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">
+                    <th scope="col">
                       No
                     </th>
-                    <th className="text-center">Nama</th>
-                    <th scope="col" className="text-center">
+                    <th>Nama</th>
+                    <th scope="col">
                       Tugas
                     </th>
-                    <th className="text-center">Jabatan</th>
-                    <th className="text-center">Foto</th>
-                    <th className="text-center">Aksi</th>
+                    <th>Jabatan</th>
+                    <th>Foto</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -244,13 +244,13 @@ function Struktur() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama" className="text-left">
+                        <td data-label="Nama">
                           {berita.nama}
                         </td>
-                        <td data-label="Tugas" className="text-left">
+                        <td data-label="Tugas">
                           {berita.tugas}
                         </td>
-                        <td data-label="Jabatan" className="text-left">
+                        <td data-label="Jabatan">
                           {berita.jabatan}
                         </td>
                         <td data-label="Foto" className="">
@@ -263,8 +263,8 @@ function Struktur() {
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">

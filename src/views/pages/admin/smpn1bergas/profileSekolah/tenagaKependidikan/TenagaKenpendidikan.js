@@ -217,11 +217,11 @@ function TenagaKenpendidikan() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
-                    <th className="text-center">Nama</th>
-                    <th scope="col" className="text-center">Status</th>
-                    <th scope="col" className="text-center">Foto</th>
-                    <th className="text-center">Aksi</th>
+                    <th scope="col">No</th>
+                    <th>Nama</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Foto</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -231,10 +231,10 @@ function TenagaKenpendidikan() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama" className="text-left">
+                        <td data-label="Nama">
                           {row.nama}
                         </td>
-                        <td data-label="Status" className="text-left">
+                        <td data-label="Status">
                           {row.status}
                         </td>
                         <td data-label="Image" className="">
@@ -243,8 +243,8 @@ function TenagaKenpendidikan() {
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">

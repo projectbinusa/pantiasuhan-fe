@@ -218,15 +218,15 @@ function Alumni() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
-                    <th className="text-center">Nama Alumni</th>
-                    <th scope="col" className="text-center">
+                    <th scope="col">No</th>
+                    <th>Nama Alumni</th>
+                    <th scope="col">
                       No Handphone
                     </th>
-                    <th scope="col" className="text-center">
+                    <th scope="col">
                       Sekolah / Pekerjaan Saat Ini
                     </th>
-                    <th className="text-center">Aksi</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -236,19 +236,18 @@ function Alumni() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Alumni" className="text-left">
+                        <td data-label="Nama Alumni">
                           {berita.nama}
                         </td>
-                        <td data-label="No Handphone" className="text-left">
+                        <td data-label="No Handphone">
                           {berita.kontak}
                         </td>
                         <td
-                          data-label="Sekolah/Pekerjaan Saat Ini"
-                          className="text-left">
+                          data-label="Sekolah/Pekerjaan Saat Ini">
                           {berita.profesi}
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">

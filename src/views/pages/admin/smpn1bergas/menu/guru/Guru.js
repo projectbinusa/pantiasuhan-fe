@@ -221,13 +221,13 @@ function Berita() {
               <table className="align-middle mb-0 table table-borderless table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
-                    <th className="text-center">Nama Guru</th>
-                    <th scope="col" className="text-center">Mapel</th>
-                    <th scope="col" className="text-center">NIP</th>
-                    <th scope="col" className="text-center">RIwayat Pendidikan</th>
-                    <th className="text-center">Image</th>
-                    <th className="text-center">Aksi</th>
+                    <th scope="col">No</th>
+                    <th>Nama Guru</th>
+                    <th scope="col">Mapel</th>
+                    <th scope="col">NIP</th>
+                    <th scope="col">RIwayat Pendidikan</th>
+                    <th>Image</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -237,16 +237,16 @@ function Berita() {
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Nama Guru" className="text-left">
+                        <td data-label="Nama Guru">
                           {row.nama_guru}
                         </td>
-                        <td data-label="Mapel" className="text-left">
+                        <td data-label="Mapel">
                           {row.mapel}
                         </td>
-                        <td data-label="NIP" className="text-left">
+                        <td data-label="NIP">
                           {row.nip}
                         </td>
-                        <td data-label="Riwayat" className="text-left">
+                        <td data-label="Riwayat">
                           {row.riwayat}
                         </td>
                         <td data-label="Image" className="">
@@ -255,8 +255,8 @@ function Berita() {
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
-                        <td data-label="Aksi">
-                          <div className="aksi">
+                        <td data-label="Aksi" className="action">
+                          <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2">
