@@ -34,7 +34,7 @@ function VisiMisi() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
+
   const getAll = async () => {
     try {
       const response = await axios.get(
@@ -232,7 +232,7 @@ function VisiMisi() {
             <div
               className="table-responsive-3"
               style={{ overflowX: "auto", maxWidth: "100%" }}>
-              <table className="align-middle mb-0 table table-borderless table-striped table-hover">
+              <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
                     <th scope="col" className="text-center">No</th>
