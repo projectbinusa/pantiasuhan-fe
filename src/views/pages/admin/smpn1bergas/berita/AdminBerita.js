@@ -209,7 +209,7 @@ function AdminBerita() {
             <div
               className="table-responsive-3"
               style={{ overflowX: "auto", maxWidth: "100%" }}>
-              <table className="align-middle mb-0 table table-borderless table-striped table-hover">
+              <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
                     <th>
@@ -228,7 +228,7 @@ function AdminBerita() {
                 <tbody>
                   {filteredList.map((berita, no) => {
                     return (
-                      <tr key={no}>
+                      <tr key={no}  >
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
