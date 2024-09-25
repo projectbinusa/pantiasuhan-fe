@@ -171,7 +171,7 @@ function EditGuru() {
                       type="file"
                       onChange={(e) => setFile(e.target.files[0])}
                       className="form-control"
-                      required
+                      // required
                       id="exampleInputPassword1"
                     />
                   </div>

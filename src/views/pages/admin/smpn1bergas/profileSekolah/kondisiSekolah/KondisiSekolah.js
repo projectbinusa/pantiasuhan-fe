@@ -278,7 +278,7 @@ function KondisiSekolah() {
                         <td data-label="Image" className="">
                           <img
                             src={berita.foto}
-                            style={{ height: "4.5rem", width: "4.5rem" }}
+                            style={{ height: "4.5rem", width: "4.5rem", marginLeft:"auto", marginRight:"auto", display:"flex" }}
                           />
                         </td>
                         <td data-label="Aksi" className="action">
