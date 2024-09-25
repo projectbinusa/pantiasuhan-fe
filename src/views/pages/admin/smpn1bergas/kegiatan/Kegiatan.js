@@ -255,7 +255,7 @@ function Kegiatan() {
                         <td data-label="Image" className="">
                           <img
                             src={berita.foto ? berita.foto : kegiatan}
-                            style={{ height: "4.5rem", width: "4.5rem" }}
+                            style={{ height: "4.5rem", width: "4.5rem", marginLeft:"auto", marginRight:"auto", display:"flex" }}
                           />
                         </td>
                         <td data-label="Tanggal Dibuat">

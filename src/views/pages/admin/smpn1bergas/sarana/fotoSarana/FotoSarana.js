@@ -201,7 +201,7 @@ function FotoSarana() {
                     <td data-label="Gambar">
                       <img
                         src={berita.foto ? berita.foto : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"}
-                        style={{ height: "4.5rem", width: "4.5rem" }}
+                        style={{ height: "4.5rem", width: "4.5rem", marginLeft:"auto", marginRight:"auto", display:"flex" }}
                       />
                     </td>
                     <td data-label="Nama Sarana">

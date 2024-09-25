@@ -241,7 +241,7 @@ function AdminBerita() {
                         <td data-label="Image">
                           <img
                             src={berita.image ? berita.image : news}
-                            style={{ height: "4.5rem", width: "4.5rem" }}
+                            style={{ height: "4.5rem", width: "4.5rem", marginLeft:"auto", marginRight:"auto", display:"flex" }}
                           />
                         </td>
                         <td data-label="Kategori Berita">
