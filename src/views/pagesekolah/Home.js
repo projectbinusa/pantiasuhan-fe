@@ -500,7 +500,13 @@ function Home() {
                       <img src={data.image} alt="img" className="news" />
                     </div>
                     <div className="details">
-                      <h4>
+                      <h4 style={{
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 1,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}>
                         <a href={`/detail-news-${data.id}`}>
                           {data.judulBerita}
                         </a>
@@ -708,7 +714,7 @@ function Home() {
               <div class="col-lg-3 col-md-6">
                 <div class="single-team-inner style-4 text-center">
                   <div class="thumb">
-                    <img src={data.foto} alt="img" />
+                    <img src={data.foto} alt="img" style={{width: '100%', height: '15em'}} />
                   </div>
                   <div class="details-wrap">
                     <div class="details-inner">
