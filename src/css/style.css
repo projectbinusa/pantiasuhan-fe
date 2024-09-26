@@ -4281,24 +4281,27 @@ ul {
   height: 15rem
 }
 
-@media only screen and (max-width: 991px) {
-  .alumni-thumb img {
-    width: 100%;  
-    height: 25rem
-  }
-  .navbarrr {
-    display: none;
-  }
-  .navbarrr2 {
-    display: block;
-  }
-}
-
 .navbarrr {
   display: block;
 }
+
 .navbarrr2 {
   display: none;
+}
+
+@media only screen and (max-width: 991px) {
+  .alumni-thumb img {
+    width: 100%;
+    height: 25rem
+  }
+
+  .navbarrr {
+    display: none;
+  }
+
+  .navbarrr2 {
+    display: block;
+  }
 }
 
 .single-team-inner .details-inner {
