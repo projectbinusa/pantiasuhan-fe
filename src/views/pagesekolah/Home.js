@@ -713,8 +713,8 @@ function Home() {
             {alumnus.map((data) => (
               <div class="col-lg-3 col-md-6">
                 <div class="single-team-inner style-4 text-center">
-                  <div class="thumb">
-                    <img src={data.foto} alt="img" style={{width: '100%', height: '15em'}} />
+                  <div class="thumb alumni-thumb">
+                    <img src={data.foto} alt="img" />
                   </div>
                   <div class="details-wrap">
                     <div class="details-inner">

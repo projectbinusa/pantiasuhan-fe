@@ -4276,6 +4276,18 @@ ul {
   width: 100%;
 }
 
+.alumni-thumb img {
+  width: 100%;
+  height: 15rem
+}
+
+@media only screen and (max-width: 991px) {
+  .alumni-thumb img {
+    width: 100%;  
+    height: 25rem
+  }
+}
+
 .single-team-inner .details-inner {
   padding: 20px;
   position: relative;
