@@ -15,6 +15,7 @@ import { API_DUMMY } from "../../utils/base_URL";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import NavbarSekolah from "../../component/NavbarSekolah";
+import NavbarSekolah2 from "../../component/NavbarSekolah2";
 
 function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -394,8 +395,13 @@ function Home() {
   }, []);
 
   return (
-    <div style={{ background: "#FFF9F9" }}>
-      <NavbarSekolah />
+    <div style={{ backgrnound: "#FFF9F9" }}>
+      <div className="navbarrr">
+        <NavbarSekolah />
+      </div>
+      <div className="navbarrr2">
+        <NavbarSekolah2 />
+      </div>
       <div
         style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
         <img
@@ -501,12 +507,12 @@ function Home() {
                     </div>
                     <div className="details">
                       <h4 style={{
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 1,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}>
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 1,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}>
                         <a href={`/detail-news-${data.id}`}>
                           {data.judulBerita}
                         </a>
@@ -1000,7 +1006,7 @@ function Home() {
                       />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px", textAlign:"left" }}>{address}</span>
+                    <span style={{ marginLeft: "8px", textAlign: "left" }}>{address}</span>
                   </Typography>
                 ) : (
                   <Typography
@@ -1067,9 +1073,8 @@ function Home() {
                 onClick={() => setIsLocked(!isLocked)}
                 style={{ width: "3%", fontSize: "18px" }}>
                 <i
-                  className={`fa-solid ${
-                    isLocked ? "fa-lock" : "fa-unlock"
-                  }`}></i>
+                  className={`fa-solid ${isLocked ? "fa-lock" : "fa-unlock"
+                    }`}></i>
               </Button>
             </div>
 
