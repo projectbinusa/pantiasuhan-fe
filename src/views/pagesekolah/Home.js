@@ -395,13 +395,14 @@ function Home() {
   }, []);
 
   return (
-    <div style={{ backgrnound: "#FFF9F9" }}>
-      <div className="navbarrr">
+    <div style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
+      {/* <div className="navbarrr">
         <NavbarSekolah />
       </div>
       <div className="navbarrr2">
         <NavbarSekolah2 />
-      </div>
+      </div> */}
+      <NavbarSekolah/>
       <div
         style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
         <img

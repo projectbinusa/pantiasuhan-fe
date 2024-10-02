@@ -22,8 +22,7 @@ function Alumni() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/alumni/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/alumni/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -121,7 +120,7 @@ function Alumni() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -134,18 +133,17 @@ function Alumni() {
   }, []);
 
   return (
-    <div  className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left">
@@ -230,56 +228,63 @@ function Alumni() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((berita, no) => {
-                    return (
-                      <tr key={no}>
-                        <td data-label="No" className="">
-                          {no + 1 + (currentPage - 1) * rowsPerPage}
-                        </td>
-                        <td data-label="Nama Alumni">
-                          {berita.nama}
-                        </td>
-                        <td data-label="No Handphone">
-                          {berita.kontak}
-                        </td>
-                        <td
-                          data-label="Sekolah/Pekerjaan Saat Ini">
-                          {berita.profesi}
-                        </td>
-                        <td data-label="Aksi" className="action">
-                          <div className="d-flex justify-content-center align-items-center">
-                            <button
-                              type="button"
-                              className="btn-primary btn-sm mr-2">
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit-alumni/${berita.id}`}>
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              type="button"
-                              class="btn-warning  mr-2 btn-sm">
-                              <a
-                                className="text-light"
-                                href={"/detail-alumni/" + berita.id}>
-                                <i class="fas fa-info-circle"></i>
-                              </a>
-                            </button>
-                            <button
-                              onClick={() => deleteData(berita.id)}
-                              type="button"
-                              className="btn-danger btn-sm">
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {filteredList.length > 0 ?
+                    filteredList.map((berita, no) => {
+                      return (
+                        <tr key={no}>
+                          <td data-label="No" className="">
+                            {no + 1 + (currentPage - 1) * rowsPerPage}
+                          </td>
+                          <td data-label="Nama Alumni">
+                            {berita.nama}
+                          </td>
+                          <td data-label="No Handphone">
+                            {berita.kontak}
+                          </td>
+                          <td
+                            data-label="Sekolah/Pekerjaan Saat Ini">
+                            {berita.profesi}
+                          </td>
+                          <td data-label="Aksi" className="action">
+                            <div className="d-flex justify-content-center align-items-center">
+                              <button
+                                type="button"
+                                className="btn-primary btn-sm mr-2">
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/edit-alumni/${berita.id}`}>
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                type="button"
+                                class="btn-warning  mr-2 btn-sm">
+                                <a
+                                  className="text-light"
+                                  href={"/detail-alumni/" + berita.id}>
+                                  <i class="fas fa-info-circle"></i>
+                                </a>
+                              </button>
+                              <button
+                                onClick={() => deleteData(berita.id)}
+                                type="button"
+                                className="btn-danger btn-sm">
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    }) : <tr>
+                      <td colSpan="5" className="text-center my-3">
+                        <div style={{ padding: "10px", color: "#555" }}>
+                          Tidak ada data yang tersedia.
+                        </div>
+                      </td>
+                    </tr>}
                 </tbody>
               </table>
             </div>

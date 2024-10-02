@@ -24,8 +24,7 @@ function Berita() {
   const getAll = async (page1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -121,7 +120,7 @@ function Berita() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -135,9 +134,8 @@ function Berita() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -146,7 +144,7 @@ function Berita() {
         <i className="fas fa-bars"></i>
       </a>
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div style={{marginTop:"50px"}}
+      <div style={{ marginTop: "50px" }}
         className="page-content1 mb-3 app-main__outer"
         data-aos="fade-left">
         <div
@@ -231,55 +229,62 @@ function Berita() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((row, no) => {
-                    return (
-                      <tr key={no}>
-                        <td data-label="No" className="">
-                          {no + 1 + (currentPage - 1) * rowsPerPage}
-                        </td>
-                        <td data-label="Nama Guru">
-                          {row.nama_guru}
-                        </td>
-                        <td data-label="Mapel">
-                          {row.mapel}
-                        </td>
-                        <td data-label="NIP">
-                          {row.nip}
-                        </td>
-                        <td data-label="Riwayat">
-                          {row.riwayat}
-                        </td>
-                        <td data-label="Image" className="">
-                          <img
-                            src={row.foto ? row.foto : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"}
-                            style={{ height: "4.5rem", width: "4.5rem", marginLeft:"auto", marginRight:"auto", display:"flex" }}
-                          />
-                        </td>
-                        <td data-label="Aksi" className="action">
-                          <div className="d-flex justify-content-center align-items-center">
-                            <button
-                              type="button"
-                              className="btn-primary btn-sm mr-2">
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit-guru/${row.id}`}>
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              onClick={() => deleteData(row.id)}
-                              type="button"
-                              className="btn-danger btn-sm">
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {filteredList.length > 0 ?
+                    filteredList.map((row, no) => {
+                      return (
+                        <tr key={no}>
+                          <td data-label="No" className="">
+                            {no + 1 + (currentPage - 1) * rowsPerPage}
+                          </td>
+                          <td data-label="Nama Guru">
+                            {row.nama_guru}
+                          </td>
+                          <td data-label="Mapel">
+                            {row.mapel}
+                          </td>
+                          <td data-label="NIP">
+                            {row.nip}
+                          </td>
+                          <td data-label="Riwayat">
+                            {row.riwayat}
+                          </td>
+                          <td data-label="Image" className="">
+                            <img
+                              src={row.foto ? row.foto : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"}
+                              style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
+                            />
+                          </td>
+                          <td data-label="Aksi" className="action">
+                            <div className="d-flex justify-content-center align-items-center">
+                              <button
+                                type="button"
+                                className="btn-primary btn-sm mr-2">
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/edit-guru/${row.id}`}>
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                onClick={() => deleteData(row.id)}
+                                type="button"
+                                className="btn-danger btn-sm">
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    }) : <tr>
+                      <td colSpan="7" className="text-center my-3">
+                        <div style={{ padding: "10px", color: "#555" }}>
+                          Tidak ada data yang tersedia.
+                        </div>
+                      </td>
+                    </tr>}
                 </tbody>
               </table>
             </div>

@@ -251,70 +251,77 @@ function KondisiSekolah() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((berita, no) => {
-                    return (
-                      <tr key={no}>
-                        <td data-label="No" className="">
-                          {no + 1 + (currentPage - 1) * rowsPerPage}
-                        </td>
-                        <td
-                          data-label="Deskripsi"
-                          style={{
-                            maxWidth: "250px",
-                            textAlign: "left"
-                          }}>
-                          <div style={{
-                            display: "-webkit-box",
-                            WebkitBoxOrient: "vertical",
-                            WebkitLineClamp: 3,
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                            dangerouslySetInnerHTML={{
-                              __html: berita.deskripsi,
+                  {filteredList.length > 0 ?
+                    filteredList.map((berita, no) => {
+                      return (
+                        <tr key={no}>
+                          <td data-label="No" className="">
+                            {no + 1 + (currentPage - 1) * rowsPerPage}
+                          </td>
+                          <td
+                            data-label="Deskripsi"
+                            style={{
+                              maxWidth: "250px",
+                              textAlign: "left"
+                            }}>
+                            <div style={{
+                              display: "-webkit-box",
+                              WebkitBoxOrient: "vertical",
+                              WebkitLineClamp: 3,
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
                             }}
-                          />
-                        </td>
-                        <td data-label="Image" className="">
-                          <img
-                            src={berita.foto}
-                            style={{ height: "4.5rem", width: "4.5rem", marginLeft:"auto", marginRight:"auto", display:"flex" }}
-                          />
-                        </td>
-                        <td data-label="Aksi" className="action">
-                          <div className="d-flex justify-content-center align-items-center">
-                            <button
-                              type="button"
-                              className="btn-primary btn-sm mr-2">
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit-kondisi-sekolah/${berita.id}`}>
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              type="button"
-                              class="btn-warning  mr-2 btn-sm">
-                              <a
-                                className="text-light"
-                                href={"/detail-kondisi-sekolah/" + berita.id}>
-                                <i class="fas fa-info-circle"></i>
-                              </a>
-                            </button>
-                            <button
-                              onClick={() => deleteData(berita.id)}
-                              type="button"
-                              className="btn-danger btn-sm">
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                              dangerouslySetInnerHTML={{
+                                __html: berita.deskripsi,
+                              }}
+                            />
+                          </td>
+                          <td data-label="Image" className="">
+                            <img
+                              src={berita.foto}
+                              style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
+                            />
+                          </td>
+                          <td data-label="Aksi" className="action">
+                            <div className="d-flex justify-content-center align-items-center">
+                              <button
+                                type="button"
+                                className="btn-primary btn-sm mr-2">
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/edit-kondisi-sekolah/${berita.id}`}>
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                type="button"
+                                class="btn-warning  mr-2 btn-sm">
+                                <a
+                                  className="text-light"
+                                  href={"/detail-kondisi-sekolah/" + berita.id}>
+                                  <i class="fas fa-info-circle"></i>
+                                </a>
+                              </button>
+                              <button
+                                onClick={() => deleteData(berita.id)}
+                                type="button"
+                                className="btn-danger btn-sm">
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    }) : <tr>
+                      <td colSpan="4" className="text-center my-3">
+                        <div style={{ padding: "10px", color: "#555" }}>
+                          Tidak ada data yang tersedia.
+                        </div>
+                      </td>
+                    </tr>}
                 </tbody>
               </table>
             </div>

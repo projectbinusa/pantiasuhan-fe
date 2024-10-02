@@ -190,52 +190,59 @@ function FotoKegiatan() {
               </tr>
             </thead>
             <tbody>
-              {filteredList.map((berita, no) => {
-                return (
-                  <tr key={no}>
-                    <td data-label="No" >
-                      {no + 1 + (currentPage - 1) * rowsPerPage}
-                    </td>
-                    <td data-label="Gambar" >
-                      <img
-                        src={berita.foto}
-                        style={{ height: "4.5rem", width: "4.5rem", marginLeft:"auto", marginRight:"auto", display:"flex" }}
-                      />
-                    </td>
-                    <td data-label="Nama Kegiatan">
-                      {berita.kegiatan.judul}
-                    </td>
-                    <td data-label="Tanggal Dibuat">
-                      {berita.createdDate}
-                    </td>
-                    <td data-label="Tanggal Update">
-                      {berita.updatedDate}
-                    </td>
-                    <td data-label="Aksi" className="action">
-                      <div className="d-flex justify-content-center align-items-center">
-                        <button
-                          type="button"
-                          className="btn-primary btn-sm mr-2">
-                          <a
-                            style={{
-                              color: "white",
-                              textDecoration: "none",
-                            }}
-                            href={`/edit-foto-kegiatan/${berita.id}`}>
-                            <i className="fa-solid fa-pen-to-square"></i>
-                          </a>
-                        </button>
-                        <button
-                          onClick={() => deleteData(berita.id)}
-                          type="button"
-                          className="btn-danger btn-sm">
-                          <i className="fa-solid fa-trash"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+              {filteredList.length > 0 ?
+                filteredList.map((berita, no) => {
+                  return (
+                    <tr key={no}>
+                      <td data-label="No" >
+                        {no + 1 + (currentPage - 1) * rowsPerPage}
+                      </td>
+                      <td data-label="Gambar" >
+                        <img
+                          src={berita.foto}
+                          style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
+                        />
+                      </td>
+                      <td data-label="Nama Kegiatan">
+                        {berita.kegiatan.judul}
+                      </td>
+                      <td data-label="Tanggal Dibuat">
+                        {berita.createdDate}
+                      </td>
+                      <td data-label="Tanggal Update">
+                        {berita.updatedDate}
+                      </td>
+                      <td data-label="Aksi" className="action">
+                        <div className="d-flex justify-content-center align-items-center">
+                          <button
+                            type="button"
+                            className="btn-primary btn-sm mr-2">
+                            <a
+                              style={{
+                                color: "white",
+                                textDecoration: "none",
+                              }}
+                              href={`/edit-foto-kegiatan/${berita.id}`}>
+                              <i className="fa-solid fa-pen-to-square"></i>
+                            </a>
+                          </button>
+                          <button
+                            onClick={() => deleteData(berita.id)}
+                            type="button"
+                            className="btn-danger btn-sm">
+                            <i className="fa-solid fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                }) : <tr>
+                  <td colSpan="6" className="text-center my-3">
+                    <div style={{ padding: "10px", color: "#555" }}>
+                      Tidak ada data yang tersedia.
+                    </div>
+                  </td>
+                </tr>}
             </tbody>
           </table>
         </div>

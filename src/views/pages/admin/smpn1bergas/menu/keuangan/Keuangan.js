@@ -238,63 +238,70 @@ function Keuangan() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((berita, no) => {
-                    return (
-                      <tr key={no}>
-                        <td data-label="No" className="">
-                          {no + 1 + (currentPage - 1) * rowsPerPage}
-                        </td>
-                        <td data-label="Judul">
-                          {berita.judul}
-                        </td>
-                        <td
-                          data-label="Isi"
-                          style={{maxWidth: "250px"}}
-                        >
-                          <div style={{
-                            display: "-webkit-box",
-                            WebkitBoxOrient: "vertical",
-                            WebkitLineClamp: 3,
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                          }}
-                            dangerouslySetInnerHTML={{ __html: berita.isi }}
-                          />
-                        </td>
-                        <td data-label="Kategori Keuangan">
-                          {berita.categoryKeuangan}
-                        </td>
-                        <td data-label="Image" className="">
-                          <img
-                            src={berita.fotoJudul ? berita.fotoJudul : keuangan}
-                            style={{ height: "4.5rem", width: "4.5rem", marginLeft:"auto", marginRight:"auto", display:"flex" }}
-                          />
-                        </td>
-                        <td data-label="Aksi" className="action">
-                          <div className="d-flex justify-content-center align-items-center">
-                            <button
-                              type="button"
-                              className="btn-primary btn-sm mr-2">
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit-keuangan/${berita.id}`}>
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              onClick={() => deleteData(berita.id)}
-                              type="button"
-                              className="btn-danger btn-sm">
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {filteredList.length > 0 ?
+                    filteredList.map((berita, no) => {
+                      return (
+                        <tr key={no}>
+                          <td data-label="No" className="">
+                            {no + 1 + (currentPage - 1) * rowsPerPage}
+                          </td>
+                          <td data-label="Judul">
+                            {berita.judul}
+                          </td>
+                          <td
+                            data-label="Isi"
+                            style={{ maxWidth: "250px" }}
+                          >
+                            <div style={{
+                              display: "-webkit-box",
+                              WebkitBoxOrient: "vertical",
+                              WebkitLineClamp: 3,
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                              dangerouslySetInnerHTML={{ __html: berita.isi }}
+                            />
+                          </td>
+                          <td data-label="Kategori Keuangan">
+                            {berita.categoryKeuangan}
+                          </td>
+                          <td data-label="Image" className="">
+                            <img
+                              src={berita.fotoJudul ? berita.fotoJudul : keuangan}
+                              style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
+                            />
+                          </td>
+                          <td data-label="Aksi" className="action">
+                            <div className="d-flex justify-content-center align-items-center">
+                              <button
+                                type="button"
+                                className="btn-primary btn-sm mr-2">
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/edit-keuangan/${berita.id}`}>
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                onClick={() => deleteData(berita.id)}
+                                type="button"
+                                className="btn-danger btn-sm">
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    }) : <tr>
+                      <td colSpan="6" className="text-center my-3">
+                        <div style={{ padding: "10px", color: "#555" }}>
+                          Tidak ada data yang tersedia.
+                        </div>
+                      </td>
+                    </tr>}
                 </tbody>
               </table>
             </div>

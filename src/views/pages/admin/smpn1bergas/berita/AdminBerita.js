@@ -40,6 +40,10 @@ function AdminBerita() {
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
+      if(error.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      }
     }
   };
 
@@ -226,62 +230,70 @@ function AdminBerita() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((berita, no) => {
-                    return (
-                      <tr key={no}  >
-                        <td data-label="No" className="">
-                          {no + 1 + (currentPage - 1) * rowsPerPage}
-                        </td>
-                        <td data-label="Judul Berita">
-                          {berita.judulBerita}
-                        </td>
-                        <td data-label="Penulis Berita">
-                          {berita.author}
-                        </td>
-                        <td data-label="Image">
-                          <img
-                            src={berita.image ? berita.image : news}
-                            style={{ height: "4.5rem", width: "4.5rem", marginLeft:"auto", marginRight:"auto", display:"flex" }}
-                          />
-                        </td>
-                        <td data-label="Kategori Berita">
-                          {berita.categoryBerita}
-                        </td>
-                        <td data-label="Aksi" className="action">
-                          <div className="d-flex justify-content-center align-items-center">
-                            <button
-                              type="button"
-                              className="btn-primary btn-sm mr-2"
-                              style={{ height: '100%' }}>
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit-berita-admin/${berita.id}`}>
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              type="button"
-                              className="btn-warning mr-2 btn-sm">
-                              <a
-                                className="text-light"
-                                href={"/detail/berita/" + berita.id}>
-                                <i className="fas fa-info-circle"></i>
-                              </a>
-                            </button>
-                            <button
-                              onClick={() => deleteData(berita.id)}
-                              type="button"
-                              className="btn-danger btn-sm">
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {filteredList.length > 0 ?
+                    filteredList.map((berita, no) => {
+                      return (
+                        <tr key={no}  >
+                          <td data-label="No" className="">
+                            {no + 1 + (currentPage - 1) * rowsPerPage}
+                          </td>
+                          <td data-label="Judul Berita">
+                            {berita.judulBerita}
+                          </td>
+                          <td data-label="Penulis Berita">
+                            {berita.author}
+                          </td>
+                          <td data-label="Image">
+                            <img
+                              src={berita.image ? berita.image : news}
+                              style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
+                            />
+                          </td>
+                          <td data-label="Kategori Berita">
+                            {berita.categoryBerita}
+                          </td>
+                          <td data-label="Aksi" className="action">
+                            <div className="d-flex justify-content-center align-items-center">
+                              <button
+                                type="button"
+                                className="btn-primary btn-sm mr-2"
+                                style={{ height: '100%' }}>
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/edit-berita-admin/${berita.id}`}>
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                type="button"
+                                className="btn-warning mr-2 btn-sm">
+                                <a
+                                  className="text-light"
+                                  href={"/detail/berita/" + berita.id}>
+                                  <i className="fas fa-info-circle"></i>
+                                </a>
+                              </button>
+                              <button
+                                onClick={() => deleteData(berita.id)}
+                                type="button"
+                                className="btn-danger btn-sm">
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    }) :
+                    <tr>
+                      <td colSpan="6" className="text-center my-3">
+                        <div style={{ padding: "10px", color: "#555" }}>
+                          Tidak ada data yang tersedia.
+                        </div>
+                      </td>
+                    </tr>}
                 </tbody>
               </table>
             </div>

@@ -48,8 +48,7 @@ function MateriAjar() {
   const getAll = async (page) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/materi_ajar/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/materi_ajar/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
@@ -143,9 +142,8 @@ function MateriAjar() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -238,65 +236,72 @@ function MateriAjar() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((berita, no) => {
-                    return (
-                      <tr key={no}>
-                        <td data-label="No" className="">
-                          {no + 1 + (currentPage - 1) * rowsPerPage}
-                        </td>
-                        <td data-label="Tingkat">
-                          {berita.tingkat}
-                        </td>
-                        <td data-label="Mapel">
-                          {berita.mapel}
-                        </td>
-                        <td data-label="Judul">
-                          {berita.judul}
-                        </td>
-                        <td data-label="Tanggal Upload">
-                          {berita.createdDate}
-                        </td>
-                        <td data-label="Penyusun">
-                          {berita.penyusun}
-                        </td>
-                        <td data-label="Jenis">
-                          {berita.jenis}
-                        </td>
-                        <td data-label="Aksi" className="action">
-                          <div className="d-flex justify-content-center align-items-center">
-                            <button
-                              type="button"
-                              className="btn-primary btn-sm mr-2">
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit-materi-ajar/${berita.id}`}>
-                                {" "}
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              type="button"
-                              class="btn-warning  mr-2 btn-sm">
-                              <a
-                                className="text-light"
-                                href={"/detail-materi-ajar/" + berita.id}>
-                                <i class="fas fa-info-circle"></i>
-                              </a>
-                            </button>
-                            <button
-                              onClick={() => deleteData(berita.id)}
-                              type="button"
-                              className="btn-danger btn-sm">
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {filteredList.length > 0 ?
+                    filteredList.map((berita, no) => {
+                      return (
+                        <tr key={no}>
+                          <td data-label="No" className="">
+                            {no + 1 + (currentPage - 1) * rowsPerPage}
+                          </td>
+                          <td data-label="Tingkat">
+                            {berita.tingkat}
+                          </td>
+                          <td data-label="Mapel">
+                            {berita.mapel}
+                          </td>
+                          <td data-label="Judul">
+                            {berita.judul}
+                          </td>
+                          <td data-label="Tanggal Upload">
+                            {berita.createdDate}
+                          </td>
+                          <td data-label="Penyusun">
+                            {berita.penyusun}
+                          </td>
+                          <td data-label="Jenis">
+                            {berita.jenis}
+                          </td>
+                          <td data-label="Aksi" className="action">
+                            <div className="d-flex justify-content-center align-items-center">
+                              <button
+                                type="button"
+                                className="btn-primary btn-sm mr-2">
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/edit-materi-ajar/${berita.id}`}>
+                                  {" "}
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                type="button"
+                                class="btn-warning  mr-2 btn-sm">
+                                <a
+                                  className="text-light"
+                                  href={"/detail-materi-ajar/" + berita.id}>
+                                  <i class="fas fa-info-circle"></i>
+                                </a>
+                              </button>
+                              <button
+                                onClick={() => deleteData(berita.id)}
+                                type="button"
+                                className="btn-danger btn-sm">
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    }) : <tr>
+                      <td colSpan="8" className="text-center my-3">
+                        <div style={{ padding: "10px", color: "#555" }}>
+                          Tidak ada data yang tersedia.
+                        </div>
+                      </td>
+                    </tr>}
                 </tbody>
               </table>
             </div>

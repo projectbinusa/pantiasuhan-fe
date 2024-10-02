@@ -238,7 +238,8 @@ function Struktur() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((berita, no) => {
+                  {filteredList.length>0?
+                  filteredList.map((berita, no) => {
                     return (
                       <tr key={no}>
                         <td data-label="No" className="">
@@ -287,7 +288,13 @@ function Struktur() {
                         </td>
                       </tr>
                     );
-                  })}
+                  }):<tr>
+                  <td colSpan="6" className="text-center my-3">
+                    <div style={{ padding: "10px", color: "#555" }}>
+                      Tidak ada data yang tersedia.
+                    </div>
+                  </td>
+                </tr>}
                 </tbody>
               </table>
             </div>
