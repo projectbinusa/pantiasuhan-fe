@@ -94,7 +94,6 @@ function MateriAjar() {
             });
 
             setTimeout(() => {
-              history.push("/admin-berita");
               window.location.reload();
             }, 1500);
           })

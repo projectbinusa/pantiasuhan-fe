@@ -21,8 +21,7 @@ function MateriAjarView() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/materi_ajar/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/materi_ajar/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`
       );
       setMateri(response.data.data.content);
@@ -200,12 +199,14 @@ function MateriAjarView() {
                       <td>{item.jenis}</td>
                       <td>{item.penyusun}</td>
                       <td>
-                        <button
-                          onClick={() => download(item.isi, item.judul)}
-                          type="button"
-                          className="btn-warning  mr-2 btn-sm text-light">
-                          <i className="fas fa-info-circle"></i>
-                        </button>
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                          <button
+                            onClick={() => download(item.isi, item.judul)}
+                            type="button"
+                            className="btn-warning btn-sm text-light">
+                            <i className="fas fa-info-circle"></i>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))

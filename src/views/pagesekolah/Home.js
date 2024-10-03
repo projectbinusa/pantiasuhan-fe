@@ -402,7 +402,7 @@ function Home() {
       <div className="navbarrr2">
         <NavbarSekolah2 />
       </div> */}
-      <NavbarSekolah/>
+      <NavbarSekolah />
       <div
         style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
         <img
@@ -836,7 +836,7 @@ function Home() {
                   flexDirection: "column",
                   gap: "10px",
                 }}>
-                {email ? (
+                {email !== "" ? (
                   <Typography
                     variant="body1"
                     gutterBottom
@@ -884,7 +884,7 @@ function Home() {
                   </Typography>
                 )}
 
-                {phone ? (
+                {phone !== "" ? (
                   <Typography
                     variant="body1"
                     gutterBottom
@@ -930,7 +930,7 @@ function Home() {
                   </Typography>
                 )}
 
-                {fax ? (
+                {fax !== "" ? (
                   <Typography
                     variant="body1"
                     gutterBottom
@@ -984,7 +984,7 @@ function Home() {
                   </Typography>
                 )}
 
-                {address ? (
+                {address !== "" ? (
                   <Typography
                     variant="body1"
                     gutterBottom
