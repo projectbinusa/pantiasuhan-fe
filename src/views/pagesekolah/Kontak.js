@@ -33,7 +33,7 @@ function Kontak() {
     Aos.init();
   }, []);
   return (
-    <main>
+    <main style={{overflow: "hidden"}}>
       <NavbarSekolah2 />
       <div className="container-alumni container">
         <section id="hubungi-kami" className="">

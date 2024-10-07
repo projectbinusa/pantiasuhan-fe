@@ -192,13 +192,13 @@ function MateriAjarView() {
                 {filteredList.length > 0 ? (
                   filteredList.map((item, index) => (
                     <tr key={item.id}>
-                      <td style={{ paddingRight: "0" }}>{item.tingkat}</td>
-                      <td>{item.mapel}</td>
-                      <td>{item.judul}</td>
-                      <td>{formatDate(item.createdDate)}</td>
-                      <td>{item.jenis}</td>
-                      <td>{item.penyusun}</td>
-                      <td>
+                      <td style={{ paddingRight: "0" }} data-label="Tingkat">{item.tingkat}</td>
+                      <td data-label="mapel">{item.mapel}</td>
+                      <td data-label="judul">{item.judul}</td>
+                      <td data-label="tgl upload">{formatDate(item.createdDate)}</td>
+                      <td data-label="jenis">{item.jenis}</td>
+                      <td data-label="penyusun">{item.penyusun}</td>
+                      <td data-label="download" className="action">
                         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                           <button
                             onClick={() => download(item.isi, item.judul)}
