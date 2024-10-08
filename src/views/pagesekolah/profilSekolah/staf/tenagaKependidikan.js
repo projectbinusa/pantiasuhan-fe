@@ -190,27 +190,6 @@ const TenagaKepndidkan = () => {
   return (
     <div style={{overflow: "hidden"}}>
       <NavbarSekolah2 />
-      {/* <div
-        style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-        <img
-          src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
-          style={imageStyle}
-          alt=""
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          }}
-        />
-        <div style={textOverlayStyle}>
-          <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
-        </div>
-      </div> */}
       <div className="container-berita container">
         <div className="header-berita" data-aos="fade-down">
           <ul>
@@ -428,7 +407,8 @@ const TenagaKepndidkan = () => {
           </Grid>
 
           <Card data-aos="fade-left"
-            style={{ marginRight: "auto", marginLeft: "auto" }}
+          style={{marginBottom: "2rem", marginRight: "auto", marginLeft: "auto" }}
+            // style={{ marginRight: "auto", marginLeft: "auto" }}
             xs={6}
             md={8}
             sx={{ maxWidth: 345 }}>
@@ -438,7 +418,7 @@ const TenagaKepndidkan = () => {
                   className="font-weight-bold"
                   variant="h5"
                   color="text.secondary"
-                  style={{ fontFamily: "'Poppins', sans-serif" }}>
+                  style={{ fontFamily: "'Poppins', sans-serif", textAlign: 'center' }}>
                   Detail
                 </Typography>
                 <img
@@ -498,7 +478,7 @@ const TenagaKepndidkan = () => {
                   className="font-weight-bold"
                   variant="h5"
                   color="text.secondary"
-                  style={{ fontFamily: "'Poppins', sans-serif" }}>
+                  style={{ fontFamily: "'Poppins', sans-serif", textAlign: 'center' }}>
                   Detail
                 </Typography>
                 <img
@@ -541,13 +521,12 @@ const TenagaKepndidkan = () => {
               </Container>
             ) : (
               <>
-                {" "}
-                <Container style={{ marginTop: "19px" }}>
+                <Container style={{ marginTop: "19px"}}>
                   <Typography
                     className="font-weight-bold"
                     variant="h5"
                     color="text.secondary"
-                    style={{ fontFamily: "'Poppins', sans-serif" }}>
+                    style={{ fontFamily: "'Poppins', sans-serif", textAlign: "center" }}>
                     Detail
                   </Typography>
                   <img
