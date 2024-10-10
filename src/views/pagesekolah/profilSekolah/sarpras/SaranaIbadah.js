@@ -29,6 +29,7 @@ function SaranaIbadah() {
       );
       setNamaSarana(response.data.data.content[0].nama_sarana);
       setDeskripsi(response.data.data.content[0].deskripsi);
+      console.log(response.data.data.content[0].id)
       setId(response.data.data.content[0].id);
     } catch (error) {
       console.log("get all", error);
@@ -37,17 +38,16 @@ function SaranaIbadah() {
 
   useEffect(() => {
     getAllSapras();
-    getAllSaprasFoto();
     Aos.init();
   }, []);
 
   const getAllSaprasFoto = async (page = 1) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/foto_sarana/all/by_id_sarana?id_sarana=${id}&page=${
-          page - 1
+        `${API_DUMMY}/smpn1bergas/api/foto_sarana/all/by_id_sarana?id_sarana=${id}&page=${page - 1
         }&size=5`
       );
+      console.log(response)
       setFoto(response.data.data.content);
       setTotalPage(response.data.data.totalPages);
     } catch (error) {
@@ -55,12 +55,16 @@ function SaranaIbadah() {
     }
   };
 
+  useEffect(() => {
+    getAllSaprasFoto();
+  }, [])
+
 
   return (
     <section>
       <NavbarSekolah2 />
       <main className="container-sapras container">
-        <div className="header-sapras"  data-aos="fade-down">
+        <div className="header-sapras" data-aos="fade-down">
           <ul>
             <li>
               <a href="/">

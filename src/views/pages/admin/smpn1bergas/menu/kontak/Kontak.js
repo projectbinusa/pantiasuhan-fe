@@ -28,14 +28,18 @@ function Kontak() {
         }
       );
       const res = response.data.data.content;
-      setList(res);
-      setEmail(res[0].email);
-      setFax(res[0].fax);
-      setPhone(res[0].phone);
-      setId(res[0].id);
-      setAddress(res[0].address);
-      setUpdateDate(res[0].updateDate);
-      setCreatedDate(res[0].createdDate);
+      console.log(res);
+      if (res.length > 0) {
+        setEmail(res[0].email);
+        setFax(res[0].fax);
+        setPhone(res[0].phone);
+        setId(res[0].id);
+        setAddress(res[0].address);
+        setUpdateDate(res[0].updatedDate);
+        setCreatedDate(res[0].createdDate);
+        setList(res);
+      }
+
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
     }
@@ -193,11 +197,12 @@ function Kontak() {
                     type="text"
                     class="form-control"
                     disabled
-                    value={format(
-                      new Date(createdDate || new Date()),
-                      "dd MMMM yyyy",
-                      { locale: idLocale }
-                    )}
+                    // value={format(
+                    //   new Date(createdDate || new Date()),
+                    //   "dd MMMM yyyy",
+                    //   { locale: idLocale }
+                    // )}
+                    value={createdDate}
                   />
                 </div>
                 <div class="mb-3">
@@ -206,11 +211,12 @@ function Kontak() {
                     type="text"
                     class="form-control"
                     disabled
-                    value={format(
-                      new Date(updateDate || new Date()),
-                      "dd MMMM yyyy",
-                      { locale: idLocale }
-                    )}
+                    // value={format(
+                    //   new Date(updateDate || new Date()),
+                    //   "dd MMMM yyyy",
+                    //   { locale: idLocale }
+                    // )}
+                    value={updateDate}      
                   />
                 </div>
               </div>

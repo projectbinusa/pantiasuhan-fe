@@ -7,6 +7,7 @@ import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import axios from "axios";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { API_DUMMY } from "../../../../utils/base_URL";
+import keuangan from "../../../../aset/smpn1bergas/Coins-rafiki.png"
 
 function DetailAPBD() {
     const [judul, setJudul] = useState("");
@@ -56,7 +57,7 @@ function DetailAPBD() {
                     </>
                 ) : (
                     <>
-                        <img src="https://via.placeholder.com/300x200?text=Award" />
+                        <img src={keuangan} />
                     </>
                 )}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "2rem" }}>

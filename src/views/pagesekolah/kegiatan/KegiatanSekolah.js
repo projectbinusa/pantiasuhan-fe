@@ -5,6 +5,7 @@ import axios from "axios";
 import { API_DUMMY } from "../../../utils/base_URL";
 import { Pagination } from "@mui/material";
 import "../../../css/alumni/KegiatanSekolah.css";
+import kegiatanP from "../../../aset/smpn1bergas/kegiatan.png";
 
 function KegiatanSekolah() {
   const [kegiatan, setKegiatan] = useState([]);
@@ -113,6 +114,8 @@ function KegiatanSekolah() {
     setCurrentPage(1);
   };
 
+  console.log(filteredKegiatan)
+
   return (
     <>
       <NavbarSekolah2 />
@@ -131,11 +134,11 @@ function KegiatanSekolah() {
               <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
               <ul className="category-berita">
                 <li>
-                <a
-                  onClick={() => handleCategoryClick("Semua")}
-                  style={{ cursor: "pointer" }}
-                >
-                  Semua
+                  <a
+                    onClick={() => handleCategoryClick("Semua")}
+                    style={{ cursor: "pointer" }}
+                  >
+                    Semua
                   </a>
                 </li>
                 <hr style={{ width: '100%', border: '0', borderTop: '2px dotted #002147', color: '#002147' }} />
@@ -158,19 +161,19 @@ function KegiatanSekolah() {
             </div>
             <br />
             <div>
-                <h5 style={{ fontWeight: "600", color: "#002147" }}>IKUTI KAMI</h5>
-                <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
-                <ul className="medsos-list">
-                    <li><a href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
-                        target="_blank"
-                    ><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="https://www.instagram.com/osisspensagas"
-                        target="_blank"
-                    ><i class="fab fa-instagram"></i></a></li>
-                    <li><a href="https://www.youtube.com/@OSIS-SMPN1Bergas"
-                        target="_blank"
-                    ><i class="fab fa-youtube"></i></a></li>
-                </ul>
+              <h5 style={{ fontWeight: "600", color: "#002147" }}>IKUTI KAMI</h5>
+              <hr style={{ width: '30%', color: '#0060ff', border: '2px solid #0060ff' }} />
+              <ul className="medsos-list">
+                <li><a href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
+                  target="_blank"
+                ><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://www.instagram.com/osisspensagas"
+                  target="_blank"
+                ><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://www.youtube.com/@OSIS-SMPN1Bergas"
+                  target="_blank"
+                ><i class="fab fa-youtube"></i></a></li>
+              </ul>
             </div>
           </div>
 
@@ -205,13 +208,17 @@ function KegiatanSekolah() {
                   .map((item, index) => (
                     <div key={index} className="card-berita">
                       <img
-                        src={item.foto}
+                        src={item.foto !== null ? item.foto : kegiatanP}
                         alt={item.judul}
                         className="cardImage"
                       />
-                        <h4 style={{textTransform: "uppercase"}}>{item.judul}</h4>
-                        <p className="cardText">{item.isi}</p>
-                        <a href={`/detail-kegiatan/${item.id}`}>Selengkapnya</a>
+                      <h4 style={{ textTransform: "uppercase" }}>{item.judul}</h4>
+                      <p className="cardText">
+                        <div
+                          dangerouslySetInnerHTML={{ __html: item.isi }}
+                        />
+                      </p>
+                      <a href={`/detail-kegiatan/${item.id}`}>Selengkapnya</a>
                     </div>
                   ))}
                 <Pagination

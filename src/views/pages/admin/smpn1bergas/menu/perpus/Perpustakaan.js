@@ -216,7 +216,7 @@ function Perpustakaan() {
                       <a
                         style={{ color: "white", textDecoration: "none" }}
                         href="/add-perpustakaan">
-                        Tambah Perpustakaan
+                        Tambah Buku
                       </a>
                     </button>
                   </div>

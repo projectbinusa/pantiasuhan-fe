@@ -6,7 +6,6 @@ import {
   TextField,
   Button,
   Grid,
-  IconButton,
 } from "@mui/material";
 import "../../css/prestasi/card.css";
 import AOS from "aos";
@@ -16,6 +15,8 @@ import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import NavbarSekolah from "../../component/NavbarSekolah";
 import NavbarSekolah2 from "../../component/NavbarSekolah2";
+import news from "../../aset/smpn1bergas/News-rafiki.png"
+import user from "../../aset/smpn1bergas/user_df.jpg"
 
 function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -504,7 +505,8 @@ function Home() {
                 <div className="col-lg-4 col-md-6" key={data.id}>
                   <div className="single-blog-inner style-2">
                     <div className="thumb">
-                      <img src={data.image} alt="img" className="news" />
+                      <img src={data.image ? data.image : news}
+                        alt="img" className="news" />
                     </div>
                     <div className="details">
                       <h4 style={{
@@ -683,7 +685,7 @@ function Home() {
               <div class="col-lg-3 col-md-6">
                 <div class="single-team-inner shadow-sm style-1 text-center">
                   <div class="thumb">
-                    <img src={data.foto} alt="img" />
+                    <img src={data.foto ? data.foto : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"} alt="img" />
                   </div>
                   <div class="details-wrap">
                     <div class="details-inner">
@@ -721,7 +723,7 @@ function Home() {
               <div class="col-lg-3 col-md-6">
                 <div class="single-team-inner style-4 text-center">
                   <div class="thumb alumni-thumb">
-                    <img src={data.foto} alt="img" />
+                    <img src={data.foto ? data.foto : user} alt="img"/>
                   </div>
                   <div class="details-wrap">
                     <div class="details-inner">
