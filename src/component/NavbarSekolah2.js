@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/navbarSekolah.css";
-import logo from "../aset/pantiasuhan/logo2.png";
+import logo from "../aset/pantiAsuhan/logo1.png";
 
 const NavbarSekolah2 = () => {
   const [activeMenu, setActiveMenu] = useState("");
