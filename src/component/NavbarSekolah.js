@@ -62,7 +62,7 @@ const NavbarSekolah = () => {
           />
         </a>
         <ul style={{ fontSize: "13.8px" }} className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
-          <li
+          {/* <li
             className={`navbars-item `}>
             <a
               href="#profil-sekolah"
@@ -177,16 +177,19 @@ const NavbarSekolah = () => {
                 <a href="/kegiatan">KEGIATAN</a>
               </li>
             </ul>
-          </li>
+          </li> */}
           <li className="navbars-item">
             <a
-              href="/perpustakaan"
+              href="/"
               style={{ textTransform: "uppercase", fontWeight: "600" }}>
-              PERPUSTAKAAN
+              HOME
             </a>
           </li>
           <li className="navbars-item">
-            <a href="/all-prestasi" style={{ textTransform: "uppercase", fontWeight: "600" }}>PRESTASI</a>
+            <a href="/visi-misi" style={{ textTransform: "uppercase", fontWeight: "600" }}>VISI-MISI</a>
+          </li>
+          <li className="navbars-item">
+            <a href="/program" style={{ textTransform: "uppercase", fontWeight: "600" }}>PROGRAM</a>
           </li>
           <li className="navbars-item">
             <a href="/kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>KONTAK</a>
