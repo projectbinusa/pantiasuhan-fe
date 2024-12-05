@@ -202,4 +202,5 @@ const NavbarSekolah = () => {
   );
 };
 
+
 export default NavbarSekolah;
