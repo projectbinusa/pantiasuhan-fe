@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/navbarSekolah.css";
-import logo from "../aset/pantiAsuhan/logo1.png";
+import logo from "../aset/pantiasuhan/logo.png";
 
 
 const NavbarSekolah = () => {

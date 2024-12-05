@@ -17,7 +17,7 @@ import NavbarSekolah from "../../component/NavbarSekolah";
 import NavbarSekolah2 from "../../component/NavbarSekolah2";
 import news from "../../aset/smpn1bergas/News-rafiki.png"
 import user from "../../aset/smpn1bergas/user_df.jpg"
-import backgroundImage from '../../aset/pantiAsuhan/pantiAsuhan.png';
+import backgroundImage from '../../aset/pantiasuhan/pantiasuhan.png';
 
 function Home() {
   const [scrollY, setScrollY] = useState(0);
