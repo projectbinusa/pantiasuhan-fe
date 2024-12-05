@@ -147,7 +147,11 @@ function FooterSekolah() {
                     <p style={{ color: "white", textAlign: "left" }}>{fax}</p>
                   </>
                 ) : (
-                  <p style={{ color: "white", textAlign: "left" }}>Informasi Kontak Tidak Tersedia</p>
+                  <p style={{ color: "white", textAlign: "left" }}>
+                    LKSA Panti Asuhan Muhammadiyah Kota Semarang
+                    Jl. Giri Mukti Barat II no. 19 
+                    Graha Mukti Tlogosari Kulon
+                  </p>
                 )}
               </div>
             </div>
@@ -217,7 +221,7 @@ function FooterSekolah() {
                     </a>
                   </li>
                 </ul>
-                <p>© 2024. SMP Negeri 1 Bergas.</p>
+                <p>© 2024. Panti Asuhan.</p>
               </div>
             </div>
           </div>

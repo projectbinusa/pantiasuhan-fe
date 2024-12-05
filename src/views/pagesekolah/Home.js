@@ -17,6 +17,7 @@ import NavbarSekolah from "../../component/NavbarSekolah";
 import NavbarSekolah2 from "../../component/NavbarSekolah2";
 import news from "../../aset/smpn1bergas/News-rafiki.png"
 import user from "../../aset/smpn1bergas/user_df.jpg"
+import backgroundImage from '../../aset/pantiasuhan/pantiasuhan.png';
 
 function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -407,9 +408,14 @@ function Home() {
       <div
         style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
         <img
-          src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
-          style={imageStyle}
-          alt=""
+          src={backgroundImage}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            filter: "brightness(0.7)",
+          }}
+          alt="Panti Asuhan"
         />
         <div
           style={{
@@ -421,52 +427,123 @@ function Home() {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
           }}
         />
-        <div style={textOverlayStyle}>
-          <p style={{ color: "white" }}>SMP NEGERI 1 BERGAS</p>
+       <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            textAlign: "center",
+          }}
+        >
+          <h1
+            style={{
+              color: "white",
+              fontSize: "3rem",
+              fontWeight: "bold",
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+            }}
+          >
+            PANTI ASUHAN
+          </h1>
+          <p
+            style={{
+              color: "white",
+              fontSize: "1.5rem",
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+            }}
+          >
+            Pantinya Sang Juara
+          </p>
         </div>
       </div>
 
-      <div className="about-area pd-top-90 pd-bottom-120">
+      <div className="about-area pd-top-90 pd-bottom-120" style={{ backgroundColor: "#f9f9f9" }}>
         <div className="container">
-          <div className="row">
-            <div data-aos="fade-right" className="col-lg-6">
-              <div className="mask-bg-wrap mask-bg-img-3">
+          <div className="row align-items-center">
+            {/* Gambar */}
+            <div data-aos="fade-right" className="col-lg-6 col-md-12 mb-4">
+              <div
+                className="mask-bg-wrap mask-bg-img-3 d-flex justify-content-center"
+                style={{ position: "relative" }}>
                 <img
-                  style={{ borderRadius: "15px", width: "70%" }}
+                  style={{
+                    borderRadius: "15px",
+                    width: "80%",
+                    boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)",
+                    transition: "transform 0.3s ease-in-out",
+                  }}
                   className="shape-image"
                   src={
                     fotoKepsek ||
                     "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
                   }
-                  alt="img"
+                  alt="Kepala Yayasan"
+                  onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+                  onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
                 />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "10%",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    background: "rgba(0, 0, 0, 0.5)",
+                    color: "white",
+                    padding: "5px 10px",
+                    borderRadius: "10px",
+                  }}>
+                </div>
               </div>
             </div>
-            <div data-aos="fade-left" className="col-lg-6 align-self-center">
+            {/* Teks */}
+            <div data-aos="fade-left" className="col-lg-6 col-md-12">
               <div className="section-title px-lg-5 mb-0">
-                <h5 className="sub-title left-border">
-                  Sambutan Kepala Sekolah
+                <h5
+                  className="sub-title left-border"
+                  style={{
+                    color: "#f57c00",
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                    borderLeft: "5px solid #f57c00",
+                    paddingLeft: "10px",
+                  }}>
+                  Sambutan Kepala Yayasan
                 </h5>
                 {namaKepsek ? (
-                  <h2 className="title">{namaKepsek}</h2>
+                  <h2 className="title" style={{ fontSize: "1.8rem", fontWeight: "700" }}>
+                    {namaKepsek}
+                  </h2>
                 ) : (
                   <p
                     className="title"
                     style={{ color: "#666", fontSize: "1rem", margin: 0 }}>
-                    Sambutan kepala sekolah tidak tersedia
+                    Sambutan kepala yayasan tidak tersedia
                   </p>
                 )}
                 <p
                   className="content mt-2 mb-2 isiBerita2"
-                  style={{ color: hasData ? "inherit" : "gray" }}>
+                  style={{
+                    color: hasData ? "#333" : "gray",
+                    fontSize: "1rem",
+                    lineHeight: "1.8",
+                  }}>
                   <div dangerouslySetInnerHTML={{ __html: sambutan }} />
                 </p>
                 {hasData && (
                   <>
-                    <a href="/sambutan" style={{ fontWeight: "600" }}>
+                    <a
+                      href="/sambutan"
+                      style={{
+                        fontWeight: "600",
+                        color: "#f57c00",
+                        textDecoration: "none",
+                      }}
+                      onMouseOver={(e) => (e.currentTarget.style.textDecoration = "underline")}
+                      onMouseOut={(e) => (e.currentTarget.style.textDecoration = "none")}>
                       SELENGKAPNYA
                     </a>
-                    <hr />
+                    <hr style={{ margin: "15px 0", borderTop: "2px solid #f57c00" }} />
                   </>
                 )}
               </div>
@@ -497,7 +574,17 @@ function Home() {
                     color: "white",
                     fontSize: "1.2rem",
                   }}>
-                  Berita Tidak Tersedia.
+                  Temukan informasi terkini tentang kegiatan, cerita inspiratif, dan
+                  berita terbaru di Panti Asuhan Kami.
+                </p>
+                <p
+                  style={{
+                    textAlign: "center",
+                    fontStyle: "italic",
+                    color: "#7f8c8d",
+                    fontSize: "1.2rem",
+                  }}>
+                  Saat ini belum ada berita terbaru. Nantikan kabar dari kami!
                 </p>
               </div>
             ) : (
@@ -559,15 +646,16 @@ function Home() {
                 data-aos="fade-down"
                 class="section-title style-white text-center">
                 <h5 class="sub-title double-line" style={{ color: "black" }}>
-                  Prestasi Unggulan
+                  Prestasi Panti Asuhan
                 </h5>
                 <h2 class="title" style={{ color: "black" }}>
-                  Temui Para Juara Kami
+                  Temui Anak-anak Berprestasi Kami
                 </h2>
                 <p class="content" style={{ color: "black" }}>
-                  Kami terus mengukir prestasi di berbagai bidang, dengan
-                  dedikasi dan kerja keras, kami siap untuk terus berkembang dan
-                  mencapai yang terbaik.
+                  Di panti asuhan kami, setiap anak memiliki kesempatan untuk berkembang
+                  dan meraih prestasi luar biasa di berbagai bidang. Kami bangga dengan
+                  setiap pencapaian mereka, dan terus mendukung mereka untuk menggapai
+                  impian mereka.
                 </p>
               </div>
             </div>
@@ -608,13 +696,13 @@ function Home() {
                 class="section-title style-white text-center"
                 data-aos="fade-down">
                 <h5 class="sub-title double-line">Ekstrakurikuler</h5>
-                <h2 class="title">Cara Pelaksanaannya</h2>
+                <h2 class="title">Cara Kami Membimbing Anak-anak</h2>
                 <p class="content">
-                  Pelatihan dilakukan secara bertahap dan sistematis. Setiap
-                  sesi dirancang untuk mengembangkan keterampilan peserta.
-                  Kegiatan berlangsung dengan pendekatan yang interaktif dan
-                  kolaboratif, memastikan setiap peserta mendapatkan pengalaman
-                  belajar yang optimal.
+                  Di panti asuhan kami, kegiatan ekstrakurikuler dilaksanakan dengan
+                  tujuan untuk mengembangkan keterampilan sosial, seni, dan olahraga
+                  anak-anak. Setiap kegiatan dilakukan secara bertahap, dengan pendekatan
+                  yang menyenangkan dan kolaboratif, agar setiap anak dapat belajar dan
+                  berkembang sesuai dengan potensi mereka.
                 </p>
               </div>
             </div>
@@ -667,15 +755,15 @@ function Home() {
             <div class="col-lg-6">
               <div class="section-title text-center" data-aos="fade-down">
                 <h5 class="sub-title double-line" style={{ color: "black" }}>
-                  Guru
+                  Pengasuh dan Pembimbing
                 </h5>
-                <h2 class="title">Bertemu dengan Guru Kami</h2>
+                <h2 class="title">Bertemu dengan Pengasuh Kami</h2>
                 <p class="content">
-                  Para guru kami adalah profesional yang berdedikasi. Dengan
-                  pengalaman dan keahlian yang luas, mereka siap membimbing
-                  setiap siswa menuju kesuksesan. Pembelajaran disampaikan
-                  dengan metode yang efektif dan inovatif, memastikan siswa
-                  memahami materi dengan baik.
+                  Pengasuh dan pembimbing kami adalah individu yang penuh kasih
+                  sayang dan berdedikasi. Mereka memiliki pengalaman dalam merawat
+                  anak-anak dan membimbing mereka melalui berbagai tantangan. Dengan
+                  pendekatan yang penuh perhatian dan penuh kasih, kami memastikan setiap
+                  anak merasa didukung dan dihargai dalam perjalanan mereka.
                 </p>
               </div>
             </div>
@@ -712,8 +800,9 @@ function Home() {
                 <h2 class="title">Bertemu dengan Alumni Kami</h2>
                 <p class="content">
                   Jalin koneksi dengan alumni berprestasi yang telah mengukir
-                  kesuksesan di berbagai bidang. Mereka siap berbagi pengalaman
-                  dan inspirasi untuk generasi berikutnya.
+                  tumbuh dan berkembang menjadi individu yang sukses. Mereka siap
+                  berbagi pengalaman hidup dan memberikan inspirasi kepada
+                  generasi berikutnya yang sedang menjalani masa-masa di panti asuhan.
                 </p>
               </div>
             </div>
@@ -815,7 +904,7 @@ function Home() {
               </Typography>
               <iframe
                 title="Location Map"
-                src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.547254951904!2d110.4257833236675!3d-7.178215195671886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70867ffa968b85%3A0x8fd0fe0f24112880!2s${address}!5e0!3m2!1sid!2sid!4v1725417582480!5m2!1sid!2sid`}
+                src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3129.9824873682737!2d110.45976957379189!3d-6.9885941684384205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708cdb5955f7fd%3A0x2dd118c3e56d1f3a!2sPanti%20Asuhan%20Muhammadiyah!5e1!3m2!1sid!2sid!4v1733301705391!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade`}
                 style={{ width: "100%", height: "400px", border: "0" }}
                 allowFullScreen=""
                 loading="lazy"></iframe>
@@ -1035,7 +1124,9 @@ function Home() {
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
                     <span style={{ color: "gray", marginLeft: "8px" }}>
-                      Alamat Tidak Tersedia
+                      LKSA Panti Asuhan Muhammadiyah Kota Semarang
+                      Jl. Giri Mukti Barat II no. 19 
+                      Graha Mukti Tlogosari Kulon
                     </span>
                   </Typography>
                 )}
@@ -1149,8 +1240,8 @@ function Home() {
         <div class="container">
           <div class="section-title style-white text-center">
             <h6 class="title">
-              ` Pendidikan adalah kunci untuk membuka pintu dunia, tempat impian
-              menjadi kenyataan dan pengetahuan menjadi kekuatan.`
+              ` Pendidikan adalah jembatan menuju masa depan yang lebih cerah, tempat harapan tumbuh, 
+              dan setiap anak menemukan kekuatan untuk meraih mimpinya.`
             </h6>
           </div>
         </div>

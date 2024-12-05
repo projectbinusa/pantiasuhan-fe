@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/navbarSekolah.css";
-import logo from "../aset/smpn1bergas/logo.png";
+import logo from "../aset/pantiasuhan/logo2.png";
 
 
 const NavbarSekolah = () => {
@@ -52,7 +52,14 @@ const NavbarSekolah = () => {
     <nav className={`navbars ${isScrolled ? "scrolled" : ""}`}>
       <div className="navbars-container">
         <a href="/">
-          <img src={logo} alt="Logo" className="navbars-logo" />
+          <img src={logo} alt="Logo" className="navbars-logo"
+            style={{
+              width: "50px", 
+              height: "50px", 
+              borderRadius: "50%", 
+              objectFit: "cover", 
+            }} 
+          />
         </a>
         <ul style={{ fontSize: "13.8px" }} className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
           <li
@@ -194,5 +201,6 @@ const NavbarSekolah = () => {
     </nav>
   );
 };
+
 
 export default NavbarSekolah;
