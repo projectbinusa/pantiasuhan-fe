@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/navbarSekolah.css";
-import logo from "../aset/pantiasuhan/logo2.png";
+import logo from "../aset/pantiasuhan/logo.png";
 
 const NavbarSekolah2 = () => {
   const [activeMenu, setActiveMenu] = useState("");
@@ -53,7 +53,7 @@ const NavbarSekolah2 = () => {
           />
         </a>
         <ul className={`navbars-menu ${isMenuOpen ? "active" : ""}`} style={{ fontSize: "13.8px" }}>
-          <li className={`navbars-item ${activeMenu === "profil-sekolah" ? "active" : ""}`}>
+          {/* <li className={`navbars-item ${activeMenu === "profil-sekolah" ? "active" : ""}`}>
             <a href="#profil-sekolah" className="has-submenu" onClick={(e) => handleMenuClick(e, "profil-sekolah")}>
               Profil Sekolah <i class="fa-solid fa-caret-down"></i>
             </a>
@@ -108,12 +108,15 @@ const NavbarSekolah2 = () => {
               <li><a href="/program">PROGRAM</a></li>
               <li><a href="/kegiatan">KEGIATAN</a></li>
             </ul>
+          </li> */}
+          <li className="navbars-item">
+            <a href="/" style={{ textTransform: "uppercase", fontWeight: "600" }}>HOME</a>
           </li>
           <li className="navbars-item">
-            <a href="/perpustakaan" style={{ textTransform: "uppercase", fontWeight: "600" }}>PERPUSTAKAAN</a>
+            <a href="/visi-misi" style={{ textTransform: "uppercase", fontWeight: "600" }}>VISI-MISI</a>
           </li>
           <li className="navbars-item">
-            <a href="/all-prestasi" style={{ textTransform: "uppercase", fontWeight: "600" }}>PRESTASI</a>
+            <a href="/program" style={{ textTransform: "uppercase", fontWeight: "600" }}>PROGRAM</a>
           </li>
           <li className="navbars-item">
             <a href="/kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>KONTAK</a>

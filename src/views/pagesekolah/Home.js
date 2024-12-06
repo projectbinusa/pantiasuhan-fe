@@ -1016,7 +1016,7 @@ function Home() {
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
                     <span style={{ color: "gray", marginLeft: "8px", textAlign: "left" }}>
-                      No. Telp Tidak Tersedia
+                      +628740041119
                     </span>
                   </Typography>
                 )}
@@ -1250,5 +1250,6 @@ function Home() {
     </div>
   );
 }
+
 
 export default Home;
