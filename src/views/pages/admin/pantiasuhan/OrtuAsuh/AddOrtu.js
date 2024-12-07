@@ -5,56 +5,39 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function AddOrtu() {
-  const [namaBuku, setNamaBuku] = useState("");
-  const [pengarang, setPengarang] = useState("");
-  const [sinopsis, setSinopsis] = useState("");
-  const [image, setImage] = useState(null);
-  const [tanggal, setTanggal] = useState("");
-  const [no, setNo] = useState("");
-  const [show, setShow] = useState(false);
+  const [nama, setNama] = useState("");
+  const [alamat, setAlamat] = useState("");
   const history = useHistory();
-
-  const handleEditorChange = (sinopsis, editor) => {
-    setSinopsis(sinopsis);
-  };
 
   const add = async (e) => {
     e.preventDefault();
     e.persist();
-
-    const formData = new FormData();
-    formData.append("nama_buku", namaBuku);
-    formData.append("pengarang", pengarang);
-    formData.append("sinopsis", sinopsis);
-    formData.append("tanggal", tanggal);
-    formData.append("no", no);
-    formData.append("file", image);
-
+    const datas = {
+      name: nama,
+      address: alamat,
+      url_image: ""
+    }
     try {
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/perpustakaan/add`,
-        formData,
+        `${API_DUMMY_PYTHON}/api/admin/foster_parent`, datas,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
-      setShow(false);
       Swal.fire({
         icon: "success",
         title: "Data Berhasil DiTambahkan",
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-perpustakaan");
       setTimeout(() => {
-        window.location.reload();
+        history.push("/admin_ortu_asuh");
       }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
@@ -127,8 +110,8 @@ function AddOrtu() {
                           Nama
                         </label>
                         <input
-                          value={pengarang}
-                          onChange={(e) => setPengarang(e.target.value)}
+                          value={nama}
+                          onChange={(e) => setNama(e.target.value)}
                           type="text"
                           className="form-control"
                           placeholder="Masukkan Nama"
@@ -142,14 +125,14 @@ function AddOrtu() {
                           Alamat
                         </label>
                         <input
-                          value={pengarang}
-                          onChange={(e) => setPengarang(e.target.value)}
+                          value={alamat}
+                          onChange={(e) => setAlamat(e.target.value)}
                           type="text"
                           className="form-control"
-                          placeholder="Masukkan harga pembelian"
+                          placeholder="Masukkan Alamat"
                         />
                       </div>
-                      <div className="mb-3 col-lg-6">
+                      {/* <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
                           Image
                         </label>
@@ -160,7 +143,7 @@ function AddOrtu() {
                           type="file"
                           className="form-control"
                         />
-                      </div>
+                      </div> */}
                     </div>
                     <button type="button" className="btn-danger mt-3 mr-3">
                       <a

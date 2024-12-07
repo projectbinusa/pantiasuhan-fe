@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import {
   useHistory,
   useParams,
@@ -10,55 +10,29 @@ import axios from "axios";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function EditOrtu() {
-  const [author, setAuthor] = useState("");
-  const [tanggal, setTanggal] = useState("");
-  const [judulBerita, setJudulBerita] = useState("");
-  const [image, setImage] = useState("");
-  const [categoryBerita, setCategoryBerita] = useState("");
-  const [isiBerita, setIsiBerita] = useState("");
-  const [show, setShow] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
+  const [nama, setNama] = useState("");
+  const [alamat, setAlamat] = useState("");
 
   const param = useParams();
   const history = useHistory();
 
   const updateBerita = (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("file", image);
+    e.persist();
 
     const data = {
-      author: author,
-      category: categoryBerita,
-      judulBerita: judulBerita,
-      isiBerita: isiBerita,
+      name: nama,
+      address: alamat,
+      url_image: ""
     };
 
     axios
-      .put(`${API_DUMMY}/pantiasuhan/api/berita/put/` + param.id, data, {
+      .put(`${API_DUMMY_PYTHON}/api/admin/foster_parent/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
         },
       })
-      .then((response) => {
-        if (image) {
-          axios
-            .put(
-              `${API_DUMMY}/pantiasuhan/api/berita/put/foto/` + param.id,
-              formData,
-              {
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-              }
-            )
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-        setShow(false);
+      .then(() => {
         Swal.fire({
           icon: "success",
           title: "Data Berhasil Diperbarui",
@@ -68,7 +42,6 @@ function EditOrtu() {
         setTimeout(() => {
           history.push("/admin_ortu_asuh");
         }, 1500);
-        console.log("Berhasil diperbarui", response.data);
       })
       .catch((error) => {
         if (error.ressponse && error.response.status === 401) {
@@ -88,18 +61,15 @@ function EditOrtu() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/pantiasuhan/api/berita/get/` + param.id, {
+      .get(`${API_DUMMY_PYTHON}/api/admin/foster_parent/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
         const response = ress.data.data;
-        setAuthor(response.author);
-        setJudulBerita(response.judulBerita);
-        setIsiBerita(response.isiBerita);
-        setImageUrl(response.image);
-        setCategoryBerita(response.categoryBerita);
+        setNama(response.name);
+        setAlamat(response.address);
       })
       .catch((error) => {
         console.log(error);
@@ -109,10 +79,6 @@ function EditOrtu() {
   useEffect(() => {
     AOS.init();
   }, []);
-
-  const handleEditorChange = (isiBerita, editor) => {
-    setIsiBerita(isiBerita);
-  };
 
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -165,8 +131,8 @@ function EditOrtu() {
                       Nama
                     </label>
                     <input
-                      value={author}
-                      onChange={(e) => setAuthor(e.target.value)}
+                      value={nama}
+                      onChange={(e) => setNama(e.target.value)}
                       type="text"
                       className="form-control"
                       placeholder="Masukkan Nama"
@@ -177,14 +143,14 @@ function EditOrtu() {
                       Alamat
                     </label>
                     <input
-                      value={judulBerita}
-                      onChange={(e) => setJudulBerita(e.target.value)}
+                      value={alamat}
+                      onChange={(e) => setAlamat(e.target.value)}
                       type="text"
                       className="form-control"
                       placeholder="Masukkan Alamat"
                     />
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  {/* <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
                       Image
                     </label>
@@ -208,7 +174,7 @@ function EditOrtu() {
                         />
                       </div>
                     )}
-                  </div>
+                  </div> */}
                 </div>
                 <button type="button" className="btn-danger mt-3">
                   <a
