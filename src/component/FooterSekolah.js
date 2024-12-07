@@ -35,7 +35,7 @@ function FooterSekolah() {
   const getAllKontak = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kontak/all/terbaru?page=0&size=1`
+        `${API_DUMMY}/pantiasuhan/api/kontak/all/terbaru?page=0&size=1`
       );
       const data = response.data.data.content[0] || {};
 
@@ -95,10 +95,10 @@ function FooterSekolah() {
         <div className="footer-menu container">
           <div style={{ width: "100%" }}>
             <div className="widget widget_about">
-              <h4 className="widget-title" style={{ textTransform: "uppercase" }}>{judul}</h4>
+              <h4 className="widget-title" style={{ textTransform: "uppercase" }}>Pantinya Sang Juara</h4>
               <div className="details">
                 <p style={{ fontSize: "14px", textAlign: "justify" }}>
-                  <div dangerouslySetInnerHTML={{ __html: isi }} />
+                  <div dangerouslySetInnerHTML={{ __html: "Mewujudkan cita-cita Muhammadiyah yakni menjunjung tinggi agama Islam yang berakidah tauhid, bersumber kepada Al-Qur'an dan sunnah Rasulullah SAW sehingga terwujud masyarakat Islam yang sebenar-benarnya, melalui pendidikan dan pembinaan anak asuh sehingga terwujud generasi yang beriman, berakhlak mulia, berilmu, dan mandiri." }} />
                 </p>
                 <ul className="social-media d-none d-md-none d-lg-flex gap-2 mb-4">
                   <li>
@@ -156,29 +156,6 @@ function FooterSekolah() {
               </div>
             </div>
           </div>
-          <div style={{ width: "100%" }}>
-            <div className="widget widget_news">
-              <h4 className="widget-title" style={{ textTransform: "uppercase" }}>Berita Terbaru</h4>
-              {berita.length > 0 ? (
-                <div className="details card-container">
-                  {berita.map(news => (
-                    <div className="card" key={news.id}>
-                      <div className="card-body berita ">
-                        <a href={`/detail-news-${news.id}`} className="card-title">{news.judulBerita}</a>
-                        <p className="card-date">{formatDate(news.createdDate)}</p>
-                        <p className="card-content" style={{ fontSize: "14px" }}>
-                          <div dangerouslySetInnerHTML={{ __html: news.isiBerita }} />
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p style={{ fontStyle: "italic", color: "white", fontSize: "0.9rem" }}>Berita Terbaru Tidak Tersedia</p>
-              )}
-            </div>
-          </div>
-
         </div>
 
         {/* Footer Bottom */}

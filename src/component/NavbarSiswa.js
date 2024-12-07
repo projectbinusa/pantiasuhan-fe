@@ -99,6 +99,9 @@ const NavbarSiswa = () => {
                 <a href="/siswa/data-absen">Absensi</a>
               </li>
               <li>
+                <a href="/anak_tahsin">Tahsin</a>
+              </li>
+              <li>
                 <a href="/siswa/izin">Izin</a>
               </li>
               <li>

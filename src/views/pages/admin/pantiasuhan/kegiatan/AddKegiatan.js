@@ -371,12 +371,13 @@ function AddKegiatanPanti() {
                             aria-label="Small select example"
                             onChange={(e) => setKategori(e.target.value)}>
                             <option selected>Pilih Kategori Kegiatan</option>
-                            <option value="Kegiatan Khusus">
-                              Kegiatan Khusus
+                            <option value="Kegiatan Peduli Lingkungan">
+                              Kegiatan Peduli Lingkungan
                             </option>
-                            <option value="Kegiatan Umum">Kegiatan Umum</option>
-                            <option value="Pemeliharaan">Pemeliharaan</option>
-                            <option value="Pengembangan">Pengembangan</option>
+                            <option value="Peduli Kebersihan">Peduli Kebersihan</option>
+                            <option value="Bersama Belajar">Bersama Belajar</option>
+                            <option value="Bersama Berkembang">Bersama Berkembang</option>
+                            <option value="Bersama Jadi Juara">Bersama Jadi Juara</option>
                           </select>
                         </div>
                         <div className="col-lg-12 mb-3">

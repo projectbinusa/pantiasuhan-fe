@@ -598,7 +598,7 @@ function Home() {
       </div>
 
       {/* BERITA */}
-      <div className="blog-area bg-green pd-top-115 pd-bottom-60">
+      <div className="blog-area bg-green pd-top-115 pd-bottom-60" id="visi-misi">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-xl-6 col-lg-7 col-md-10">
@@ -715,7 +715,7 @@ function Home() {
       </div>
 
       {/* PROGRAM */}
-      <div class="project-area pd-top-115 pd-bottom-90">
+      <div class="project-area pd-top-115 pd-bottom-90" id="program">
         <div class="container">
           <div id="prestasiSlider" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -876,7 +876,7 @@ function Home() {
       </div>
 
       {/* KONTAK */}
-      <div className="contact-section-style">
+      <div className="contact-section-style" id="kontak">
         <section id="hubungi-kami" className="contact-section-style">
           <div className="section-title style-white text-center">
             <h5

@@ -27,7 +27,7 @@ function EditBukuTamu() {
     axios
       .get(`${API_DUMMY_PYTHON}/api/admin/guestbook/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -67,7 +67,7 @@ function EditBukuTamu() {
           `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
             },
           }
         );
@@ -105,7 +105,7 @@ function EditBukuTamu() {
         {
           headers: {
             // "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

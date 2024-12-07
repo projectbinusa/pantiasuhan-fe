@@ -20,7 +20,7 @@ function DetailBukuTamu() {
         axios
           .get(`${API_DUMMY_PYTHON}/api/admin/guestbook/` + param.id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then((res) => {

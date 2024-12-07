@@ -186,13 +186,13 @@ const NavbarSekolah = () => {
             </a>
           </li>
           <li className="navbars-item">
-            <a href="/visi-misi" style={{ textTransform: "uppercase", fontWeight: "600" }}>VISI-MISI</a>
+            <a href="#visi-misi" style={{ textTransform: "uppercase", fontWeight: "600" }}>VISI-MISI</a>
           </li>
           <li className="navbars-item">
-            <a href="/program" style={{ textTransform: "uppercase", fontWeight: "600" }}>PROGRAM</a>
+            <a href="#program" style={{ textTransform: "uppercase", fontWeight: "600" }}>PROGRAM</a>
           </li>
           <li className="navbars-item">
-            <a href="/kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>KONTAK</a>
+            <a href="#kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>KONTAK</a>
           </li>
         </ul>
         <div
