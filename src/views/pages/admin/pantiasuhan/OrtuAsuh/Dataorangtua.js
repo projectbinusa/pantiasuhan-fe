@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -39,19 +39,17 @@ function Dataortu() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/pantiasuhan/api/kegiatan/all/terbaru?page=${page - 1
-        }&size=${rowsPerPage}`,
+        `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
-      setList(response.data.data.content);
-      console.log(response.data.data.content);
+      setList(response.data.data);
+      console.log(response.data.data);
       setPaginationInfo({
-        totalPages: response.data.data.totalPages,
-        totalElements: response.data.data.totalElements,
+        totalPages: response.pagination.total_pages,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -71,9 +69,9 @@ function Dataortu() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/pantiasuhan/api/kegiatan/` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/foster_parent/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
@@ -227,32 +225,19 @@ function Dataortu() {
                     <th scope="col" style={{ minWidth: "150px" }}>
                       alamat
                     </th>
-                    <th>Image</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredList.length > 0 ? (
-                    filteredList.map((berita, no) => {
+                    filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama">{berita.judul}</td>
-                          <td data-label="Alamat">{berita.penulis}</td>
-                          <td data-label="Image" className="">
-                            <img
-                              src={berita.foto ? berita.foto : ""}
-                              style={{
-                                height: "4.5rem",
-                                width: "4.5rem",
-                                marginLeft: "auto",
-                                marginRight: "auto",
-                                display: "flex",
-                              }}
-                            />
-                          </td>
+                          <td data-label="Nama">{row.name}</td>
+                          <td data-label="Alamat">{row.address}</td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
@@ -264,24 +249,13 @@ function Dataortu() {
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit_ortu_asuh/${berita.id}`}
-                                >
+                                  href={`/edit_ortu_asuh/${row.id}`}
+                                > 
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
                               </button>
                               <button
-                                type="button"
-                                class="btn-warning  mr-2 btn-sm"
-                              >
-                                <a
-                                  className="text-light"
-                                  href={"/detail_ortu_asuh/" + berita.id}
-                                >
-                                  <i class="fas fa-info-circle"></i>
-                                </a>
-                              </button>
-                              <button
-                                onClick={() => deleteData(berita.id)}
+                                onClick={() => deleteData(row.id)}
                                 type="button"
                                 className="btn-danger btn-sm"
                               >
@@ -294,7 +268,7 @@ function Dataortu() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="7" className="text-center my-3">
+                      <td colSpan="4" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
