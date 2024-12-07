@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../../css/login.css";
-import { API_DUMMY } from "../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import Ikon from "../../../aset/ikon-web.png";
 import Swal from "sweetalert2";
@@ -22,6 +22,10 @@ function Login() {
       password: password,
       role: role,
     };
+    const datapython = {
+      username: username,
+      password: password,
+    };
     try {
       const response = await axios.post(`${API_DUMMY}/login`, data);
 
@@ -32,9 +36,14 @@ function Login() {
           showConfirmButton: false,
           timer: 1500,
         });
+        const responsepython = await axios.post(`${API_DUMMY_PYTHON}/api/signin/admin`, datapython);
+        console.log(responsepython);
+        
+
         localStorage.setItem("id", response.data.userData.id);
         localStorage.setItem("role", response.data.userData.role);
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("tokenpython", responsepython.data.data.token);
         setTimeout(() => {
           history.push("/admin_sambutan");
         }, 1500);

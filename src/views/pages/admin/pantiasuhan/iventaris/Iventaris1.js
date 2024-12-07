@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -40,20 +40,17 @@ function Iventaris() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kegiatan/all/terbaru?page=${
-          page - 1
-        }&size=${rowsPerPage}`,
+        `${API_DUMMY_PYTHON}/api/admin/investaris`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
-      setList(response.data.data.content);
-      console.log(response.data.data.content);
+      setList(response.data.data);
+      console.log(response.data.data);
       setPaginationInfo({
-        totalPages: response.data.data.totalPages,
-        totalElements: response.data.data.totalElements,
+        totalPages: response.pagination.total_pages,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -73,9 +70,9 @@ function Iventaris() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/kegiatan/` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/investaris` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
@@ -179,7 +176,7 @@ function Iventaris() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Kegiatan</p>
+              <p className="mt-3">Iventaris</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -209,9 +206,9 @@ function Iventaris() {
                     <button className="active btn-focus p-2 rounded">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add-iventaris"
+                        href="/add_iventaris"
                       >
-                        Tambah investaris
+                        Tambah Investaris
                       </a>
                     </button>
                   </div>
@@ -226,7 +223,7 @@ function Iventaris() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>name</th>
+                    <th>nama</th>
                     <th scope="col" style={{ minWidth: "150px" }}>
                       tanggal pembelian     
                     </th>
@@ -238,19 +235,22 @@ function Iventaris() {
                 </thead>
                 <tbody>
                   {filteredList.length > 0 ? (
-                    filteredList.map((berita, no) => {
+                    filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Kegiatan">{berita.judul}</td>
-                          <td data-label="Penulis Kegiatan">
-                            {berita.penulis}
+                          <td data-label="Nama">{row.name}</td>
+                          <td data-label="Tanggal Pembelian">
+                            {row.purchase_date}
+                          </td>
+                          <td data-label="Harga Pembelian">
+                            {row.purchase_price}
                           </td>
                           <td data-label="Image" className="">
                             <img
-                              src={berita.foto ? berita.foto : kegiatan}
+                              src={row.url_image ? row.url_image : kegiatan}
                               style={{
                                 height: "4.5rem",
                                 width: "4.5rem",
@@ -260,11 +260,8 @@ function Iventaris() {
                               }}
                             />
                           </td>
-                          <td data-label="Tanggal Dibuat">
-                            {berita.createdDate}
-                          </td>
-                          <td data-label="Tanggal Update">
-                            {berita.updatedDate}
+                          <td data-label="Keterangan">
+                            {row.url_note}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
@@ -277,25 +274,13 @@ function Iventaris() {
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit-kegiatan/${berita.id}`}
+                                  href={`/edit_iventaris/${row.id}`}
                                 >
-                                  {" "}
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
                               </button>
                               <button
-                                type="button"
-                                class="btn-warning  mr-2 btn-sm"
-                              >
-                                <a
-                                  className="text-light"
-                                  href={"/admin-detail-kegiatan/" + berita.id}
-                                >
-                                  <i class="fas fa-info-circle"></i>
-                                </a>
-                              </button>
-                              <button
-                                onClick={() => deleteData(berita.id)}
+                                onClick={() => deleteData(row.id)}
                                 type="button"
                                 className="btn-danger btn-sm"
                               >
