@@ -6,13 +6,13 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
+import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
-import Sidebar1 from "../../../../../component/Sidebar1";
-
-function AddGalery() {
-  const [judul, setJudul] = useState("");
-  const [image, setImage] = useState(null);
-  const [deskripsi, setDeskripsi] = useState("");
+function AddKontakPanti() {
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState(null);
+  const [fax, setFax] = useState("");
+  const [phone, setPhone] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
 
@@ -21,15 +21,15 @@ function AddGalery() {
     e.preventDefault();
     e.persist();
 
-    const formData = new FormData();
-    formData.append("judul", judul);
-    formData.append("deskripsi", deskripsi);
-    formData.append("file", image);
-
+    const data = {
+      email: email,
+      address: address,
+      fax: fax,
+      phone: phone,
+    };
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/galeri/add`, formData, {
+      await axios.post(`${API_DUMMY}/pantiasuhan/api/kontak/add`, data, {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
@@ -40,9 +40,8 @@ function AddGalery() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-galery");
       setTimeout(() => {
-        window.location.reload();
+        history.push("/admin_kontak");
       }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
@@ -70,7 +69,7 @@ function AddGalery() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -83,21 +82,22 @@ function AddGalery() {
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
-          <div className="container">
+    <div
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
+        <div
+          className="container mt-3 mb-3 app-main__outer"
+          data-aos="fade-left">
+          <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
                 <div className="card shadow">
@@ -108,46 +108,60 @@ function AddGalery() {
                       <div className="row">
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Judul
+                            Email
                           </label>
                           <input
-                            value={judul}
-                            onChange={(e) => setJudul(e.target.value)}
-                            type="text"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="email"
                             className="form-control"
-                            placeholder="Masukkan Judul"
-                          />
-                        </div>
-                        <div className="mb-3 co-lg-6">
-                          <label className="form-label font-weight-bold">
-                            Gambar
-                          </label>
-                          <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
-                            type="file"
-                            className="form-control"
+                            required
+                            placeholder="Masukkan Email"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Deskripsi
+                            Fax
                           </label>
-                          <textarea
-                            value={deskripsi}
-                            onChange={(e) => setDeskripsi(e.target.value)}
+                          <input
+                            value={fax}
+                            onChange={(e) => setFax(e.target.value)}
                             type="text"
                             className="form-control"
-                            placeholder="Masukkan Deskripsi"></textarea>
+                            required
+                            placeholder="Masukkan Fax"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Alamat
+                          </label>
+                          <textarea
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            required
+                            placeholder="Masukkan Alamat Sekolah Lengkap"></textarea>
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            No Handphone / Telephone
+                          </label>
+                          <input
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            type="number"
+                            className="form-control"
+                            required
+                            placeholder="Masukkan Nomor Handphone / Telephone"
+                          />
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-galery">
+                          href="/admin_kontak">
                           Batal
                         </a>
                       </button>
@@ -161,9 +175,9 @@ function AddGalery() {
             </div>
           </div>
         </div>
-      {/* </div> */}
+      </div>
     </div>
   );
 }
 
-export default AddGalery;
+export default AddKontakPanti;

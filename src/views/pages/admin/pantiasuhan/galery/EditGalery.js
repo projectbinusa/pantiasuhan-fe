@@ -8,7 +8,7 @@ import {
 import AOS from "aos";
 
 import { API_DUMMY } from "../../../../../utils/base_URL";
-import Sidebar1 from "../../../../../component/Sidebar1";
+import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function EditGalery() {
   const [galery, setGalery] = useState("");
@@ -126,7 +126,7 @@ function EditGalery() {
       </a>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
-      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 app-main__outer" data-aos="fade-left">
           <div className="card shadow">
