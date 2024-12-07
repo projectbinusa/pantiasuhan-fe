@@ -146,6 +146,12 @@ import { analytics } from "./firebase";
 import EditCategoryProgram from "./views/pages/admin/smpn1bergas/program/category/EditCategoryProgram";
 import AddCategoryProgram from "./views/pages/admin/smpn1bergas/program/category/AddCategoryProgram";
 import DetailSejarah from "./views/pages/admin/smpn1bergas/menu/sejarah/DetailSejarah";
+import Iventaris from "./views/pages/admin/smpn1bergas/iventaris/Iventaris1";
+import AddInves from "./views/pages/admin/smpn1bergas/iventaris/Addiventaris";
+import EditInves from "./views/pages/admin/smpn1bergas/iventaris/EditIventaris";
+import Dataortu from "./views/pages/admin/smpn1bergas/OrtuAsuh/Dataorangtua";
+import AddOrtu from "./views/pages/admin/smpn1bergas/OrtuAsuh/AddOrtu";
+import EditOrtu from "./views/pages/admin/smpn1bergas/OrtuAsuh/EditOrtu";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -612,6 +618,14 @@ function App() {
               component={StrukturOrganisasi}
               exact
             />
+            {/* Iventaris */}
+            <Route path="/iventaris" component={Iventaris} exact />
+            <Route path="/add-iventaris" component={AddInves} exact />
+            <Route path="/edit-iventaris:id" component={EditInves} exact />
+            {/* Orangtua Asuh */}
+            <Route path="/data-ortu" component={Dataortu} exact />
+            <Route path="/add-ortu" component={AddOrtu} exact />
+            <Route path="/edit-ortu" component={EditOrtu} exact />
           </Switch>
         </main>
         <LogPageView />
