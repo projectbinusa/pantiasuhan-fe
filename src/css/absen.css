@@ -1,0 +1,65 @@
+.container-custom {
+  max-width: 1300px; /* Increased width for layout */
+  margin: 0 auto;
+  padding-top: 50px; /* Increased top padding */
+}
+
+.title-custom {
+  font-size: 2.4rem; /* Larger font size */
+  letter-spacing: 2px; /* More spacing */
+}
+
+.card {
+  border-radius: 25px; /* Increased border radius */
+}
+
+.profile-card-custom {
+  background: white;
+  width: 300px; /* Even larger profile box */
+  height: 300px; /* Even larger profile box */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Keeps circular shape */
+  overflow: hidden;
+  border: 5px solid #007BFF; /* Thicker blue border */
+}
+
+.profile-card-custom img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%; /* Keeps image circular */
+}
+
+.presensi-card-custom {
+  background: #333;
+  color: white;
+  width: 800px; /* Wider attendance card */
+  padding: 50px; /* More padding */
+}
+
+.presensi-card-custom h2 {
+  font-size: 2.8rem; /* Even larger font size for title */
+  font-weight: bold;
+}
+
+.presensi-card-custom .display-4 {
+  font-size: 5rem; /* Much larger font size for time */
+  font-weight: bold;
+}
+
+.presensi-card-custom .text-success {
+  font-size: 1.8rem; /* Even larger success text */
+}
+
+.form-control-custom {
+  width: 200px; /* Lebar input */
+  height: 35px; /* Tinggi input */
+  font-size: 1rem; /* Ukuran teks */
+  margin: 0 auto; /* Tengah */
+  border: 1px solid #ccc; /* Warna border */
+  border-radius: 8px; /* Border melengkung */
+  padding: 5px 10px; /* Ruang dalam */
+}
+
