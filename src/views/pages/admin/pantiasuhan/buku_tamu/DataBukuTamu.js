@@ -238,7 +238,7 @@ function DataBukuTamu() {
                             {berita.foster_parent_name}
                           </td>
                           <td data-label="Tanggal Kunjungan">
-                            {berita.created_date}
+                            {berita.visit_date}
                           </td>
                           <td data-label="Deskripsi Donasi">
                             {berita.description_donation}
