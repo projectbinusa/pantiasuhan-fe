@@ -1,0 +1,55 @@
+/* Navbar Spacing */
+.container {
+  margin-top: 100px; /* Add space between the navbar and the table */
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+/* Additional Styling for the Table and Other Elements */
+.table {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table thead {
+  background-color: #007bff;
+  color: white;
+}
+
+.table th, .table td {
+  text-align: center;
+  padding: 12px;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Alternate Row Colors */
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.table tfoot {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
