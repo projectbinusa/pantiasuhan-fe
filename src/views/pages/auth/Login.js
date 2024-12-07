@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import Ikon from "../../../aset/ikon-web.png";
 import Swal from "sweetalert2";
 import axios from "axios";
-import logo from "../../../aset/smpn1bergas.png";
+import logo from "../../../aset/pantiasuhan/logo.png";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -28,7 +28,7 @@ function Login() {
       if (response.status === 200) {
         Swal.fire({
           icon: "success",
-          title: "Berhasil Login Sebagai Adminn",
+          title: "Berhasil Login Sebagai Admin",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -36,13 +36,13 @@ function Login() {
         localStorage.setItem("role", response.data.userData.role);
         localStorage.setItem("token", response.data.token);
         setTimeout(() => {
-          history.push("/admin-berita");
+          history.push("/admin-sambutan");
         }, 1500);
       }
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Username / Password Salah",
+        title: "Username atau Password Salah",
       });
       console.error(error);
     }
@@ -57,10 +57,10 @@ function Login() {
           boxShadow: "rgba(47, 60, 95, 0.24) 0px 6px 10px",
         }}
         id="responsive-login"
-        className="row border rounded-5 p-3 bg-white  box-area padding-login">
+        className="row border rounded-5 p-3 bg-white box-area padding-login">
         <div
           id="gambar"
-          className=" col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box img-login">
+          className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box img-login">
           <div className="featured-image mb-3 img-login">
             <img
               src="https://static.vecteezy.com/system/resources/previews/010/998/284/non_2x/3d-password-input-illustration-design-free-png.png"
@@ -88,13 +88,6 @@ function Login() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-              {/* <input
-              type="hidden"
-              className="form-control form-control-lg bg-light fs-6"
-              required
-              placeholder="Username"
-              value="admin"
-            /> */}
             </div>
             <div className="input-group mb-1">
               <input
