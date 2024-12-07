@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -20,31 +19,6 @@ function DetailSAmbutan() {
   const [image, setImage] = useState("");
   const [id, setId] = useState(0);
   const [data, setdatas] = useState([]);
-  const param = useParams();
-
-  // get by id berita
-  // useEffect(() => {
-  //   axios
-  //     .get(`${API_DUMMY}/smpn1bergas/api/sambutan/get/` + param.id, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       const list_data = res.data.data;
-  //       console.log("sambutan: ", res.data.data);
-  //       setCreatedDate(list_data.createdDate);
-  //       setUpdateDate(list_data.updatedDate);
-  //       setJudulSambutan(list_data.judul);
-  //       setIsiSambutan(list_data.isi);
-  //       setNama(list_data.nama);
-  //       setImage(list_data.foto);
-  //       setNip(list_data.nip);
-  //     })
-  //     .catch((error) => {
-  //       alert("Terjadi Kesalahan " + error);
-  //     });
-  // }, [param.id]);
 
   const getAll = async () => {
     try {

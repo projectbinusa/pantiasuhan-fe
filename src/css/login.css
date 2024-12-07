@@ -72,7 +72,8 @@ body {
 		width: 380px;
 	}
 	#responsive-login{
-		padding: 50px;
+		margin: 0 15px;
+		padding: 10px;
 		width: 380px;
 	}
 	#gambar{
@@ -90,9 +91,9 @@ body {
 		height: 550px;
 	}
 	#responsive-login{
+		margin: 15px 0;
 		padding: 50px;
 		width: 700px;
-		height: 550px;
 	}
 
 	/* .img-login{

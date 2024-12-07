@@ -274,7 +274,7 @@ function AddSambutan() {
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
       <Sidebar1 toggleSidebar={toggleSidebar} />
-      <div style={{marginTop:"50px"}}
+      <div style={{marginTop:"10px"}}
         className="page-content1 mb-3 app-main__outer"
         data-aos="fade-left">
         <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
