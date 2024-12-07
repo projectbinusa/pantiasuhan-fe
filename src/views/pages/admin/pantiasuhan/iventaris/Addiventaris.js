@@ -58,7 +58,7 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import Sidebar1 from "../../../../../component/Sidebar1";
+import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function AddInves() {
   const [namaBuku, setNamaBuku] = useState("");
@@ -286,7 +286,7 @@ function AddInves() {
       </a>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
-      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container">
           <div className="row">

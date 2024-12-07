@@ -6,7 +6,7 @@ function DataAbsen() {
   return (
     <div>
       <NavbarSiswa />
-      <div className="container">
+      <div className="container-absen">
         <h2 className="mb-4">Data Absensi</h2>
         <table className="table table-striped table-bordered">
           <thead>

@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
-
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import {
-  IconButton,
-  InputAdornment,
-  Pagination,
-  TextField,
-} from "@mui/material";
-// import FotoKegiatan from "./fotoKegiatan/FotoKegiatan";
-import Sidebar1 from "../../../../../component/Sidebar1";
-import kegiatan from "../../../../../aset/smpn1bergas/kegiatan.png";
 
-function Dataortu() {
+import { Pagination } from "@mui/material";
+
+import { API_DUMMY } from "../../../../../utils/base_URL";
+import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+function VisiMisiPanti() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,8 +38,7 @@ function Dataortu() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kegiatan/all/terbaru?page=${
-          page - 1
+        `${API_DUMMY}/pantiasuhan/api/visiMisi/all/terbaru?page=${page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -57,6 +48,10 @@ function Dataortu() {
       );
       setList(response.data.data.content);
       console.log(response.data.data.content);
+      console.log(
+        "visi: ",
+        response.data.data.content.map((dt) => dt.visi)
+      );
       setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
@@ -79,7 +74,7 @@ function Dataortu() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/smpn1bergas/api/kegiatan/` + id, {
+          .delete(`${API_DUMMY}/pantiasuhan/api/visiMisi/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -91,7 +86,7 @@ function Dataortu() {
               showConfirmButton: false,
               timer: 1500,
             });
-            getAll();
+
             setTimeout(() => {
               window.location.reload();
             }, 1500);
@@ -136,28 +131,28 @@ function Dataortu() {
     )
   );
 
+  console.log(filteredList);
+
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      <Sidebar1 toggleSidebar={toggleSidebar} />
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left"
-        >
+          data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -166,8 +161,7 @@ function Dataortu() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}
-              >
+                value={rowsPerPage}>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -185,7 +179,7 @@ function Dataortu() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Kegiatan</p>
+              <p className="mt-3">Visi Misi</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -194,8 +188,7 @@ function Dataortu() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
+                    value={rowsPerPage}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -212,135 +205,129 @@ function Dataortu() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add-ortu"
-                      >
-                        Tambah Orang Tua Asuh
-                      </a>
-                    </button>
+                    {list.length > 0 ? (
+                      <>
+                        <button
+                          style={{ cursor: "not-allowed" }}
+                          disabled
+                          className="active btn-focus p-2 rounded">
+                          Tambah Data
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button className="active btn-focus p-2 rounded">
+                          <a
+                            style={{ color: "white", textDecoration: "none" }}
+                            href="/add-visimisi">
+                            Tambah Data
+                          </a>
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}
-            >
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th>name</th>
-                    <th scope="col" style={{ minWidth: "150px" }}>
-                      alamat    
+                    <th scope="col" className="text-center">No</th>
+                    <th className="text-center">Visi</th>
+                    {/* <th scope="col" className="text-center" className="text-left">
+                      Misi
                     </th>
-                    <th>Image</th>
-                    <th>Aksi</th>
+                    <th className="text-center">Tujuan</th> */}
+                    <th className="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length > 0 ? (
-                    filteredList.map((berita, no) => {
-                      return (
-                        <tr key={no}>
-                          <td data-label="No" className="">
-                            {no + 1 + (currentPage - 1) * rowsPerPage}
-                          </td>
-                          <td data-label="Kegiatan">{berita.judul}</td>
-                          <td data-label="Penulis Kegiatan">
-                            {berita.penulis}
-                          </td>
-                          <td data-label="Image" className="">
-                            <img
-                              src={berita.foto ? berita.foto : kegiatan}
-                              style={{
-                                height: "4.5rem",
-                                width: "4.5rem",
-                                marginLeft: "auto",
-                                marginRight: "auto",
-                                display: "flex",
-                              }}
-                            />
-                          </td>
-                          <td data-label="Tanggal Dibuat">
-                            {berita.createdDate}
-                          </td>
-                          <td data-label="Tanggal Update">
-                            {berita.updatedDate}
-                          </td>
-                          <td data-label="Aksi" className="action">
-                            <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                type="button"
-                                className="btn-primary btn-sm mr-2"
-                              >
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/edit-kegiatan/${berita.id}`}
-                                >
-                                  {" "}
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
-                              </button>
-                              <button
-                                type="button"
-                                class="btn-warning  mr-2 btn-sm"
-                              >
-                                <a
-                                  className="text-light"
-                                  href={"/admin-detail-kegiatan/" + berita.id}
-                                >
-                                  <i class="fas fa-info-circle"></i>
-                                </a>
-                              </button>
-                              <button
-                                onClick={() => deleteData(berita.id)}
-                                type="button"
-                                className="btn-danger btn-sm"
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  ) : (
-                    <tr>
-                      <td colSpan="7" className="text-center my-3">
-                        <div style={{ padding: "10px", color: "#555" }}>
-                          Tidak ada data yang tersedia.
-                        </div>
-                      </td>
-                    </tr>
-                  )}
+                  {filteredList.map((berita, no) => {
+                    return (
+                      <tr key={no}>
+                        <td data-label="No" className="">
+                          {no + 1 + (currentPage - 1) * rowsPerPage}
+                        </td>
+                        <td data-label="Visi" className=""
+                          style={{
+                            maxWidth: "150px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}>
+                          <div dangerouslySetInnerHTML={{ __html: berita.visi }} />
+                        </td>
+                        {/* <td
+                          style={{
+                            maxWidth: "150px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          data-label="Misi"
+                          className="text-left">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: berita.misi }}
+                          />
+                        </td>
+                        <td
+                          style={{
+                            maxWidth: "150px",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                          data-label="Tujuan"
+                          className="text-left">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: berita.tujuan }}
+                          />
+                        </td> */}
+                        <td data-label="Aksi">
+                          <div className="aksi">
+                            <button
+                              type="button"
+                              className="btn-primary btn-sm mr-2">
+                              <a
+                                style={{
+                                  color: "white",
+                                  textDecoration: "none",
+                                }}
+                                href={`/edit-visimisi/${berita.id}`}>
+                                <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn-warning  mr-2 btn-sm">
+                              <a
+                                className="text-light"
+                                href={"/detail-visimisi/" + berita.id}>
+                                <i class="fas fa-info-circle"></i>
+                              </a>
+                            </button>
+                            <button
+                              onClick={() => deleteData(berita.id)}
+                              type="button"
+                              className="btn-danger btn-sm">
+                              <i className="fa-solid fa-trash"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
-            <div className="card-header mt-3 d-flex justify-content-center">
-              <Pagination
-                count={paginationInfo.totalPages}
-                page={currentPage}
-                onChange={(event, value) => {
-                  setCurrentPage(value);
-                  setPage(value);
-                }}
-                showFirstButton
-                showLastButton
-                color="primary"
-              />
-            </div>
           </div>
-          {/* <FotoKegiatan></FotoKegiatan> */}
         </div>
       </div>
     </div>
   );
 }
 
-export default Dataortu;
+export default VisiMisiPanti;

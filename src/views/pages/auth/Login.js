@@ -36,7 +36,7 @@ function Login() {
         localStorage.setItem("role", response.data.userData.role);
         localStorage.setItem("token", response.data.token);
         setTimeout(() => {
-          history.push("/admin-sambutan");
+          history.push("/admin_sambutan");
         }, 1500);
       }
     } catch (error) {
