@@ -1,8 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import NavbarSiswa from "../../../component/NavbarSiswa";
 import "../../../css/dataabsen.css";
+import { API_DUMMY_PYTHON } from "../../../utils/base_URL";
 
 function DataAbsen() {
+  const [absensiData, setAbsensiData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_PYTHON}/api/siswa/presensi`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        if (response.data.code === 200) {
+          setAbsensiData(response.data.data);
+        } else {
+          console.error("Failed to fetch data:", response.data.message);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+
   return (
     <div>
       <NavbarSiswa />
@@ -20,30 +54,24 @@ function DataAbsen() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark Otto</td>
-              <td>2024-12-01</td>
-              <td>08:00</td>
-              <td>16:00</td>
-              <td>On Time</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob Thornton</td>
-              <td>2024-12-01</td>
-              <td>08:15</td>
-              <td>16:00</td>
-              <td>Late</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry Bird</td>
-              <td>2024-12-01</td>
-              <td>08:00</td>
-              <td>15:45</td>
-              <td>Early Leave</td>
-            </tr>
+            {absensiData.length > 0 ? (
+              absensiData.map((item, index) => (
+                <tr key={index}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{item.nama || "N/A"}</td>
+                  <td>{item.tanggal || "N/A"}</td>
+                  <td>{item.jamMasuk || "N/A"}</td>
+                  <td>{item.jamPulang || "N/A"}</td>
+                  <td>{item.keterangan || "N/A"}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="text-center">
+                  Tidak ada data absensi
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
