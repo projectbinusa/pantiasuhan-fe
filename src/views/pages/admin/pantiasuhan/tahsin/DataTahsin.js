@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -39,16 +39,15 @@ function DataTahsin() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/pantiasuhan/api/kegiatan/all/terbaru?page=${page - 1
-        }&size=${rowsPerPage}`,
+        `${API_DUMMY_PYTHON}/api/admin/tahsin`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      setList(response.data.data.content);
-      console.log(response.data.data.content);
+      setList(response.data.data);
+      console.log("data: ", response.data.data);
       setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
@@ -220,16 +219,16 @@ function DataTahsin() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td data-label="Nama">
-                            {berita.judul}
+                            {berita.nama_siswa}
                           </td>
                           <td data-label="Tanggal">
-                            {berita.penulis}
+                            {berita.created_date}
                           </td>
                           <td data-label="Pojok Awal - Pojok Akhir">
-                            {berita.createdDate}
+                            {berita.start_pojok} - {berita.end_pojok}
                           </td>
                           <td data-label="Juz Awal - Juz Akhir">
-                            {berita.updatedDate}
+                            {berita.start_juz} - {berita.end_juz}
                           </td>
                         </tr>
                       );

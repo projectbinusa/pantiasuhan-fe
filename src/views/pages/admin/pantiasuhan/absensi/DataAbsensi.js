@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -39,16 +39,15 @@ function DataAbsensi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/pantiasuhan/api/kegiatan/all/terbaru?page=${page - 1
-        }&size=${rowsPerPage}`,
+        `${API_DUMMY_PYTHON}/api/siswa/absensi`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      setList(response.data.data.content);
-      console.log(response.data.data.content);
+      setList(response.data.data);
+      console.log("presensi: ", response.data.data);
       setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
@@ -71,7 +70,7 @@ function DataAbsensi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/pantiasuhan/api/kegiatan/` + id, {
+          .delete(`${API_DUMMY}/api/siswa/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -225,10 +224,10 @@ function DataAbsensi() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama">{berita.judul}</td>
-                          <td data-label="Tanggal">{berita.penulis}</td>
-                          <td data-label="Jam Masuk">{berita.penulis}</td>
-                          <td data-label="Jam Pulang">{berita.penulis}</td>
+                          <td data-label="Nama">{berita.nama_siswa}</td>
+                          <td data-label="Tanggal">{berita.created_date}</td>
+                          <td data-label="Jam Masuk">{berita.jam_masuk}</td>
+                          <td data-label="Jam Pulang">{berita.jam_pulang}</td>
                         </tr>
                       );
                     })

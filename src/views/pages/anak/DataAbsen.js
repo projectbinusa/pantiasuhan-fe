@@ -22,6 +22,7 @@ function DataAbsen() {
         );
         if (response.data.code === 200) {
           setAbsensiData(response.data.data);
+          console.log("data: ", response.data.data);
         } else {
           console.error("Failed to fetch data:", response.data.message);
         }
@@ -58,11 +59,11 @@ function DataAbsen() {
               absensiData.map((item, index) => (
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
-                  <td>{item.nama || "N/A"}</td>
-                  <td>{item.tanggal || "N/A"}</td>
-                  <td>{item.jamMasuk || "N/A"}</td>
-                  <td>{item.jamPulang || "N/A"}</td>
-                  <td>{item.keterangan || "N/A"}</td>
+                  <td>{item.nama_siswa || "N/A"}</td>
+                  <td>{item.created_date || "N/A"}</td>
+                  <td>{item.jam_masuk || "N/A"}</td>
+                  <td>{item.jam_pulang || "N/A"}</td>
+                  <td>{item.description || "N/A"}</td>
                 </tr>
               ))
             ) : (

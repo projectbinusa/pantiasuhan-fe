@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import "../css/navbarSiswa.css";
 import logo from "../aset/pantiasuhan/logo.png";
 import profileImageUrl from "../aset/pantiasuhan/image.png";
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const NavbarSiswa = () => {
   const [activeMenu, setActiveMenu] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const history = useHistory()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +50,30 @@ const NavbarSiswa = () => {
       submenu.style.display = "block";
     }
   };
+  const logout = () => {
+    Swal.fire({
+      title: "Keluar Dari Akun Anda ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil Keluar Akun",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        localStorage.clear();
+        setTimeout(() => {
+          history.push("/login_siswa");
+        }, 1500);
+      }
+    });
+  };
 
   return (
     <nav className={`navbars ${isScrolled ? "scrolled" : ""}`}>
@@ -76,6 +103,9 @@ const NavbarSiswa = () => {
               </li>
               <li>
                 <a href="/siswa/profile">Profile</a>
+              </li>
+              <li>
+                <button onClick={logout}>Logout</button>
               </li>
             </ul>
           </li>

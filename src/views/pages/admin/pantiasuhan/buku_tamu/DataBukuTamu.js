@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -39,18 +39,18 @@ function DataBukuTamu() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/pantiasuhan/api/kegiatan/all/terbaru?page=${page - 1
-        }&size=${rowsPerPage}`,
+        `${API_DUMMY_PYTHON}/api/admin/guestbook?size=${rowsPerPage}&page=${page
+        }`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      setList(response.data.data.content);
-      console.log(response.data.data.content);
+      setList(response.data.data);
+      console.log(response.data.data);
       setPaginationInfo({
-        totalPages: response.data.data.totalPages,
+        totalPages: response.data.pagination.total_pages,
         totalElements: response.data.data.totalElements,
       });
     } catch (error) {
@@ -71,7 +71,7 @@ function DataBukuTamu() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/pantiasuhan/api/kegiatan/` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/guestbook/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -235,22 +235,22 @@ function DataBukuTamu() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td data-label="Nama Orang Tua">
-                            {berita.judul}
+                            {berita.foster_parent_name}
                           </td>
                           <td data-label="Tanggal Kunjungan">
-                            {berita.penulis}
+                            {berita.created_date}
                           </td>
                           <td data-label="Deskripsi Donasi">
-                            {berita.createdDate}
+                            {berita.description_donation}
                           </td>
                           <td data-label="Bukti Donasi" className="">
                             <img
-                              src={berita.foto ? berita.foto : ""}
+                              src={berita.url_image_donation ? berita.url_image_donation : ""}
                               style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
                             />
                           </td>
                           <td data-label="Catatan">
-                            {berita.updatedDate}
+                            {berita.note}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">

@@ -178,6 +178,7 @@ import DataAbsensiSiswa from "./views/pages/admin/pantiasuhan/absensi/DataAbsens
 import Galery from "./views/pages/admin/pantiasuhan/galery/Galery";
 import AddGalery from "./views/pages/admin/pantiasuhan/galery/AddGalery";
 import EditGalery from "./views/pages/admin/pantiasuhan/galery/EditGalery";
+import LoginSiswa from "./views/pages/anak/LoginSiswa";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -208,6 +209,7 @@ function App() {
           <Switch>
             {/* auth */}
             <Route path="/login" component={Login} exact />
+            <Route path="/login_siswa" component={LoginSiswa} exact />
             <Route path="/register" component={Register} exact />
             <Route path="/sidebar1" component={Sidebar1} exact />
             {/* page */}
