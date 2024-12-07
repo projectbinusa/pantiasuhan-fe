@@ -2,10 +2,13 @@ import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function EditBukuTamu() {
@@ -17,17 +20,24 @@ function EditBukuTamu() {
   const history = useHistory();
   const param = useParams();
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [foster_parent, setListFosterParent] = useState([]);
+  const [namaOrangTua, setNamaOrangTua] = useState("");
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/pantiasuhan/api/kegiatan/get/` + param.id, {
+      .get(`${API_DUMMY_PYTHON}/api/admin/guestbook/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((ress) => {
         const response = ress.data.data;
-        console.log(response);
+        setIdOrangTua(ress.data.data.foster_parent_id);
+        setDeskripsi(ress.data.data.description_donation);
+        setCatatan(ress.data.data.note);
+        setImage(ress.data.data.url_image_donation);
+        setTanggal(ress.data.data.visit_date);
+        console.log("response", ress.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -50,24 +60,51 @@ function EditBukuTamu() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        setListFosterParent(response.data.data);
+      } catch (error) {
+        console.error("Terjadi Kesalahan", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   //add
-  const add = async (e) => {
+  const put = async (e) => {
     e.preventDefault();
     e.persist();
 
     try {
-      const formData = new FormData();
-      formData.append("id", idOrangTua);
-      formData.append("note", catatan);
-      formData.append("tgl_visit", tanggal);
-      formData.append("deskripsi", deskripsi);
-      formData.append("file", image);
+      // const formData = new FormData();
+      // formData.append("id", idOrangTua);
+      // formData.append("note", catatan);
+      // formData.append("tgl_visit", tanggal);
+      // formData.append("deskripsi", deskripsi);
+      // formData.append("file", image);
 
-      await axios.post(
-        `${API_DUMMY}/pantiasuhan/api/kegiatan/add`, formData,
+      await axios.put(
+        `${API_DUMMY_PYTHON}/api/admin/guestbook/${param.id}`,
+        {
+          foster_parent_id: idOrangTua,
+          visit_date: tanggal,
+          url_image_donation: image,
+          note: catatan,
+          description_donation: deskripsi,
+        },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            // "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
@@ -103,8 +140,9 @@ function EditBukuTamu() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -120,9 +158,9 @@ function EditBukuTamu() {
               <div className="col-md-12">
                 <div className="card shadow">
                   <div className="card-body">
-                    <h1 className="fs-4">Form Tambah Data</h1>
+                    <h1 className="fs-4">Form Edit Data</h1>
                     <hr />
-                    <form onSubmit={add}>
+                    <form onSubmit={put}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
@@ -132,14 +170,24 @@ function EditBukuTamu() {
                             value={idOrangTua}
                             className="form-control"
                             aria-label="Small select example"
-                            onChange={(e) => setIdOrangTua(e.target.value)}>
-                            <option selected>Pilih Orang Tua Asuh</option>
-                            <option value="Kegiatan Khusus">
-                              Kegiatan Khusus
+                            onChange={(e) => {
+                              const selectedId = e.target.value;
+                              setIdOrangTua(selectedId);
+                              const selectedParent = foster_parent.find(
+                                (data) => String(data.id) === String(selectedId)
+                              );
+                              setNamaOrangTua(
+                                selectedParent ? selectedParent.name : ""
+                              );
+                            }}>
+                            <option value="" disabled>
+                              Pilih Orang Tua Asuh
                             </option>
-                            <option value="Kegiatan Umum">Kegiatan Umum</option>
-                            <option value="Pemeliharaan">Pemeliharaan</option>
-                            <option value="Pengembangan">Pengembangan</option>
+                            {foster_parent.map((data, index) => (
+                              <option key={index} value={data.id}>
+                                {data.name}
+                              </option>
+                            ))}
                           </select>
                         </div>
                         <div className="mb-3 col-lg-12">
@@ -157,13 +205,24 @@ function EditBukuTamu() {
                           <label className="form-label font-weight-bold">
                             Deskripsi Donasi
                           </label>
-                          <textarea className="form-control" rows={5} placeholder="Masukkan Deskripsi Donasi"></textarea>
+                          <textarea
+                            value={deskripsi}
+                            onChange={(e) => setDeskripsi(e.target.value)}
+                            className="form-control"
+                            rows={5}
+                            placeholder="Masukkan Deskripsi Donasi"></textarea>
                         </div>
                         <div className="mb-3 co-lg-12">
                           <label className="form-label font-weight-bold">
                             Bukti Donasi
                           </label>
                           <input
+                            value={image}
+                            onChange={(e) => setImage(e.target.value)}
+                            type="text"
+                            className="form-control"
+                          />
+                          {/* <input
                             onChange={(e) =>
                               setImage(
                                 e.target.files ? e.target.files[0] : null
@@ -171,11 +230,18 @@ function EditBukuTamu() {
                             }
                             type="file"
                             className="form-control"
-                          />
+                          /> */}
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Catatan</label>
-                          <textarea className="form-control" rows={5} placeholder="Masukkan Catatan"></textarea>
+                          <label className="form-label font-weight-bold">
+                            Catatan
+                          </label>
+                          <textarea
+                            value={catatan}
+                            onChange={(e) => setCatatan(e.target.value)}
+                            className="form-control"
+                            rows={5}
+                            placeholder="Masukkan Catatan"></textarea>
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">

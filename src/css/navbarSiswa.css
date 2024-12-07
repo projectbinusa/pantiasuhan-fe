@@ -12,7 +12,7 @@
     justify-content: space-between; /* This will ensure logo is on the left and profile is on the right */
     align-items: center;
   }
-  
+
   /* Navbar container for proper alignment */
   .navbars-container {
     display: flex;
@@ -20,13 +20,13 @@
     width: 100%;
     padding: 0 20px; /* Add some padding on sides */
   }
-  
+
   .navbars-logo {
     height: 50px;
     width: 45px;
     object-fit: cover;
   }
-  
+
   /* Menu and submenu */
   .navbars-menu {
     display: flex;
@@ -35,18 +35,18 @@
     padding: 0;
     align-items: center;
   }
-  
+
   .navbars-item {
     margin: 0 40px;
     position: relative;
   }
-  
+
   .navbars-item a {
     color: #ffffff;
     text-decoration: none;
     font-weight: 600;
   }
-  
+
   .submenu {
     display: none;
     position: absolute;
@@ -56,27 +56,28 @@
     z-index: 1;
     border-radius: 5px;
     top: 100%; /* Position the submenu below the parent item */
-    left: 0;
+    right: 0;
+    /* left: -20px; */
   }
-  
+
   .navbars-item:hover .submenu {
     display: block;
   }
-  
+
   .submenu li {
     padding: 10px 20px;
   }
-  
+
   .submenu li a {
     color: #ffffff;
     font-weight: 600;
   }
-  
+
   .has-submenu {
     font-weight: 600;
     text-transform: uppercase;
   }
-  
+
   .hamburger {
     display: none;
     font-size: 30px;
@@ -90,16 +91,16 @@
     justify-content: center;
     padding: 0;
   }
-  
+
   .profile-img {
-    width: 40px; 
-    height: 40px; 
-    border-radius: 50%; 
-    object-fit: cover; 
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
     border: 2px solid #fff;
   }
-  
-  
+
+
   @media screen and (max-width: 992px) {
     .navbars-menu {
       display: none;
@@ -108,26 +109,25 @@
       width: 100%;
       padding: 10px 0;
     }
-  
+
     .navbars-menu.active {
       display: flex;
     }
-  
+
     .navbars-item {
       margin: 10px 0;
     }
-  
+
     .hamburger {
       display: block;
     }
-  
+
     .submenu {
       position: static;
       padding-left: 20px;
     }
-  
+
     .submenu li {
       padding-left: 20px;
     }
   }
-  

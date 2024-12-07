@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function DetailBukuTamu() {
@@ -18,18 +18,18 @@ function DetailBukuTamu() {
 
     useEffect(() => {
         axios
-          .get(`${API_DUMMY}/pantiasuhan/api/kegiatan/get/` + param.id, {
+          .get(`${API_DUMMY_PYTHON}/api/admin/guestbook/` + param.id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
           .then((res) => {
             const response = res.data.data;
-            setFoto(response.foto);
-            setNamaOrtu(response.judul);
-            setDeskripsi(response.penulis);
-            setCatatan(response.isi);
-            setTanggal(response.updatedDate);
+            setNamaOrtu(res.data.data.foster_parent_name);
+            setDeskripsi(res.data.data.description_donation);
+            setCatatan(res.data.data.note);
+            setFoto(res.data.data.url_image_donation);
+            setTanggal(res.data.data.visit_date);
         })
         .catch((error) => {
           alert("Terjadi Kesalahan " + error);

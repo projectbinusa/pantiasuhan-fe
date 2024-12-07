@@ -5,15 +5,17 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function AddBukuTamu() {
   const [idOrangTua, setIdOrangTua] = useState("");
+  const [namaOrangTua, setNamaOrangTua] = useState("");
   const [tanggal, setTanggal] = useState("");
   const [image, setImage] = useState(null);
   const [deskripsi, setDeskripsi] = useState("");
   const [catatan, setCatatan] = useState("");
+  const [foster_parent, setListFosterParent] = useState([]);
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -28,9 +30,30 @@ function AddBukuTamu() {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        setListFosterParent(response.data.data);
+      } catch (error) {
+        console.error("Terjadi Kesalahan", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+    console.log("nama: ", namaOrangTua);
   }, []);
 
   //add
@@ -39,22 +62,23 @@ function AddBukuTamu() {
     e.persist();
 
     try {
-      const formData = new FormData();
-      formData.append("id", idOrangTua);
-      formData.append("note", catatan);
-      formData.append("tgl_visit", tanggal);
-      formData.append("deskripsi", deskripsi);
-      formData.append("file", image);
-
       await axios.post(
-        `${API_DUMMY}/pantiasuhan/api/kegiatan/add`, formData,
+        `${API_DUMMY_PYTHON}/api/admin/guestbook`,
+        {
+          foster_parent_id: idOrangTua,
+          visit_date: tanggal,
+          url_image_donation: image,
+          note: catatan,
+          description_donation: deskripsi,
+        },
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            // "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
+
       Swal.fire({
         icon: "success",
         title: "Data Berhasil DiTambahkan",
@@ -86,8 +110,9 @@ function AddBukuTamu() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -115,14 +140,24 @@ function AddBukuTamu() {
                             value={idOrangTua}
                             className="form-control"
                             aria-label="Small select example"
-                            onChange={(e) => setIdOrangTua(e.target.value)}>
-                            <option selected>Pilih Orang Tua Asuh</option>
-                            <option value="Kegiatan Khusus">
-                              Kegiatan Khusus
+                            onChange={(e) => {
+                              const selectedId = e.target.value;
+                              setIdOrangTua(selectedId);
+                              const selectedParent = foster_parent.find(
+                                (data) => String(data.id) === String(selectedId)
+                            );
+                              setNamaOrangTua(
+                                selectedParent ? selectedParent.name : ""
+                              );
+                            }}>
+                            <option value="" disabled>
+                              Pilih Orang Tua Asuh
                             </option>
-                            <option value="Kegiatan Umum">Kegiatan Umum</option>
-                            <option value="Pemeliharaan">Pemeliharaan</option>
-                            <option value="Pengembangan">Pengembangan</option>
+                            {foster_parent.map((data, index) => (
+                              <option key={index} value={data.id}>
+                                {data.name}
+                              </option>
+                            ))}
                           </select>
                         </div>
                         <div className="mb-3 col-lg-12">
@@ -140,13 +175,24 @@ function AddBukuTamu() {
                           <label className="form-label font-weight-bold">
                             Deskripsi Donasi
                           </label>
-                          <textarea className="form-control" rows={5} placeholder="Masukkan Deskripsi Donasi"></textarea>
+                          <textarea
+                            value={deskripsi}
+                            onChange={(e) => setDeskripsi(e.target.value)}
+                            className="form-control"
+                            rows={5}
+                            placeholder="Masukkan Deskripsi Donasi"></textarea>
                         </div>
                         <div className="mb-3 co-lg-12">
                           <label className="form-label font-weight-bold">
                             Bukti Donasi
                           </label>
                           <input
+                            value={image}
+                            onChange={(e) => setImage(e.target.value)}
+                            type="text"
+                            className="form-control"
+                          />
+                          {/* <input
                             onChange={(e) =>
                               setImage(
                                 e.target.files ? e.target.files[0] : null
@@ -154,11 +200,18 @@ function AddBukuTamu() {
                             }
                             type="file"
                             className="form-control"
-                          />
+                          /> */}
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Catatan</label>
-                          <textarea className="form-control" rows={5} placeholder="Masukkan Catatan"></textarea>
+                          <label className="form-label font-weight-bold">
+                            Catatan
+                          </label>
+                          <textarea
+                            value={catatan}
+                            onChange={(e) => setCatatan(e.target.value)}
+                            className="form-control"
+                            rows={5}
+                            placeholder="Masukkan Catatan"></textarea>
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">

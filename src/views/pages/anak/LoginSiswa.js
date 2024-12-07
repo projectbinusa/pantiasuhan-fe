@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import logo from "../../../aset/pantiasuhan/logo.png";
 
-function Login() {
+function LoginSiswa() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, seRole] = useState("admin");
@@ -27,12 +27,12 @@ function Login() {
       password: password,
     };
     try {
-      const response = await axios.post(`${API_DUMMY_PYTHON}/api/signin/admin`, datapython);;
+      const response = await axios.post(`${API_DUMMY_PYTHON}/api/signin/siswa`, datapython);;
 
       if (response.status === 200) {
         Swal.fire({
           icon: "success",
-          title: "Berhasil Login Sebagai Admin",
+          title: "Berhasil Login Sebagai Anak",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -45,7 +45,7 @@ function Login() {
         localStorage.setItem("token", response.data.data.token);
         localStorage.setItem("tokenpython", response.data.data.token);
         setTimeout(() => {
-          history.push("/admin_sambutan");
+          history.push("/siswa/data-absen");
         }, 1500);
       }
     } catch (error) {
@@ -143,4 +143,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginSiswa;
