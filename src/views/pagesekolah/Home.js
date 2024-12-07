@@ -18,6 +18,19 @@ import NavbarSekolah2 from "../../component/NavbarSekolah2";
 import news from "../../aset/smpn1bergas/News-rafiki.png"
 import user from "../../aset/smpn1bergas/user_df.jpg"
 import backgroundImage from '../../aset/pantiasuhan/pantiasuhan.png';
+import program1 from '../../aset/pantiasuhan/program1.png';
+import program2 from '../../aset/pantiasuhan/program/program9.png';
+import program3 from '../../aset/pantiasuhan/program/program10.png';
+import program4 from '../../aset/pantiasuhan/program/program11.png';
+import program5 from '../../aset/pantiasuhan/program/program12.png';
+import program6 from '../../aset/pantiasuhan/program/program13.png';
+import program7 from '../../aset/pantiasuhan/program/program14.png';
+import program8 from '../../aset/pantiasuhan/program/program15.png';
+import program9 from '../../aset/pantiasuhan/program/program16.png';
+import program10 from '../../aset/pantiasuhan/program/program18.png';
+import program11 from '../../aset/pantiasuhan/program/program19.png';
+import program12 from '../../aset/pantiasuhan/program/program20.png';
+import program13 from '../../aset/pantiasuhan/program/program22.png';
 
 function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -66,10 +79,10 @@ function Home() {
     marginRight: "auto",
     padding: "10px 20px",
     fontSize: "16px",
-    color: isHoveredss ? "#000" : "#fff",
-    backgroundColor: isHoveredss ? "#fff" : "#003366",
-    border: isHoveredss ? "2px solid #003366" : "2px solid #fff",
-    borderRadius: "5px",
+    color: isHoveredss ? "#006400" : "#fff",
+    backgroundColor: isHoveredss ? "#f0f9f0" : "#006400",
+    border: isHoveredss ? "2px solid #006400" : "2px solid #f0f9f0",
+    borderRadius: "8px",
     textDecoration: "none",
     textAlign: "center",
     cursor: "pointer",
@@ -148,9 +161,9 @@ function Home() {
     fontSize: "16px",
     fontWeight: "medium",
     width: isMobile ? "40%" : "15%",
-    color: isHovered ? "#000" : "#fff",
-    backgroundColor: isHovered ? "#fff" : "#003366",
-    border: isHovered ? "2px solid #003366" : "2px solid #fff",
+    color: isHovered ? "#006400" : "#fff",
+    backgroundColor: isHovered ? "#f0f9f0" : "#006400",
+    border: isHovered ? "2px solid #006400" : "2px solid #f0f9f0",
     borderRadius: "5px",
     textDecoration: "none",
     textAlign: "center",
@@ -406,7 +419,7 @@ function Home() {
       </div> */}
       <NavbarSekolah />
       <div
-        style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
+        style={{ position: "relative", height: "100vh", overflow: "hidden", fontFamily: "'Poppins', sans-serif", }}>
         <img
           src={backgroundImage}
           style={{
@@ -424,7 +437,7 @@ function Home() {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
           }}
         />
        <div
@@ -434,23 +447,26 @@ function Home() {
             left: "50%",
             transform: "translate(-50%, -50%)",
             textAlign: "center",
+            color: "white",
           }}
         >
           <h1
             style={{
-              color: "white",
-              fontSize: "3rem",
+              fontSize: "3.5rem",
               fontWeight: "bold",
-              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+              textShadow: "3px 3px 6px rgba(0, 0, 0, 0.9)",
+              marginBottom: "20px",
+              letterSpacing: "2px",
             }}
           >
-            PANTI ASUHAN
+            PANTI ASUHAN MUHAMMADIYAH
           </h1>
           <p
             style={{
-              color: "white",
-              fontSize: "1.5rem",
-              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+              fontSize: "1.8rem",
+              fontWeight: "300",
+              textShadow: "2px 2px 5px rgba(0, 0, 0, 0.8)",
+              marginBottom: "30px",
             }}
           >
             Pantinya Sang Juara
@@ -458,47 +474,52 @@ function Home() {
         </div>
       </div>
 
-      <div className="about-area pd-top-90 pd-bottom-120" style={{ backgroundColor: "#f9f9f9" }}>
+      <div
+        className="about-area pd-top-90 pd-bottom-120"
+        style={{
+          backgroundColor: "#f9f9f9",
+          fontFamily: "'Poppins', sans-serif",
+        }}
+      >
         <div className="container">
           <div className="row align-items-center">
             {/* Gambar */}
-            <div data-aos="fade-right" className="col-lg-6 col-md-12 mb-4">
+            <div
+              data-aos="fade-right"
+              className="col-lg-6 col-md-12 mb-4 d-flex justify-content-center"
+            >
               <div
-                className="mask-bg-wrap mask-bg-img-3 d-flex justify-content-center"
-                style={{ position: "relative" }}>
+                className="mask-bg-wrap mask-bg-img-3"
+                style={{
+                  position: "relative",
+                  maxWidth: "400px",
+                }}
+              >
                 <img
                   style={{
                     borderRadius: "15px",
-                    width: "80%",
-                    boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)",
+                    width: "100%",
+                    boxShadow: "0px 6px 20px rgba(0, 0, 0, 0.3)",
                     transition: "transform 0.3s ease-in-out",
                   }}
-                  className="shape-image"
                   src={
                     fotoKepsek ||
                     "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"
                   }
                   alt="Kepala Yayasan"
-                  onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-                  onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                  onMouseOver={(e) =>
+                    (e.currentTarget.style.transform = "scale(1.08)")
+                  }
+                  onMouseOut={(e) =>
+                    (e.currentTarget.style.transform = "scale(1)")
+                  }
                 />
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: "10%",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    background: "rgba(0, 0, 0, 0.5)",
-                    color: "white",
-                    padding: "5px 10px",
-                    borderRadius: "10px",
-                  }}>
-                </div>
               </div>
             </div>
+
             {/* Teks */}
             <div data-aos="fade-left" className="col-lg-6 col-md-12">
-              <div className="section-title px-lg-5 mb-0">
+              <div className="section-title px-lg-5">
                 <h5
                   className="sub-title left-border"
                   style={{
@@ -506,45 +527,69 @@ function Home() {
                     fontSize: "1.2rem",
                     fontWeight: "bold",
                     borderLeft: "5px solid #f57c00",
-                    paddingLeft: "10px",
-                  }}>
+                    paddingLeft: "15px",
+                    marginBottom: "15px",
+                  }}
+                >
                   Sambutan Kepala Yayasan
                 </h5>
                 {namaKepsek ? (
-                  <h2 className="title" style={{ fontSize: "1.8rem", fontWeight: "700" }}>
+                  <h2
+                    style={{
+                      fontSize: "2rem",
+                      fontWeight: "700",
+                      color: "#333",
+                      marginBottom: "20px",
+                    }}
+                  >
                     {namaKepsek}
                   </h2>
                 ) : (
                   <p
-                    className="title"
-                    style={{ color: "#666", fontSize: "1rem", margin: 0 }}>
-                    Sambutan kepala yayasan tidak tersedia
+                    style={{
+                      fontSize: "1rem",
+                      color: "#666",
+                      marginBottom: "15px",
+                    }}
+                  >
+                    Assalamu'alaikum Warahmatullahi Wabarakatuh, <br />
+                    Selamat datang di website Panti Asuhan Muhammadiyah. Kami sangat
+                    bersyukur atas kesempatan yang diberikan untuk berbagi informasi
+                    dan kegiatan yang kami lakukan di sini.
                   </p>
                 )}
-                <p
-                  className="content mt-2 mb-2 isiBerita2"
+                <div
                   style={{
-                    color: hasData ? "#333" : "gray",
                     fontSize: "1rem",
                     lineHeight: "1.8",
-                  }}>
-                  <div dangerouslySetInnerHTML={{ __html: sambutan }} />
-                </p>
+                    color: hasData ? "#333" : "gray",
+                    marginBottom: "20px",
+                  }}
+                  dangerouslySetInnerHTML={{ __html: sambutan }}
+                />
                 {hasData && (
-                  <>
-                    <a
-                      href="/sambutan"
-                      style={{
-                        fontWeight: "600",
-                        color: "#f57c00",
-                        textDecoration: "none",
-                      }}
-                      onMouseOver={(e) => (e.currentTarget.style.textDecoration = "underline")}
-                      onMouseOut={(e) => (e.currentTarget.style.textDecoration = "none")}>
-                      SELENGKAPNYA
-                    </a>
-                    <hr style={{ margin: "15px 0", borderTop: "2px solid #f57c00" }} />
-                  </>
+                  <a
+                    href="/sambutan"
+                    style={{
+                      display: "inline-block",
+                      padding: "10px 20px",
+                      fontWeight: "600",
+                      color: "white",
+                      backgroundColor: "#f57c00",
+                      borderRadius: "25px",
+                      textDecoration: "none",
+                      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                      transition: "background-color 0.3s ease",
+                    }}
+                    onMouseOver={(e) =>
+                      (e.currentTarget.style.backgroundColor = "#e67e22")
+                    }
+                    onMouseOut={(e) =>
+                      (e.currentTarget.style.backgroundColor = "#f57c00")
+                    }
+                  >
+                    SELENGKAPNYA
+                  </a>
                 )}
               </div>
             </div>
@@ -553,328 +598,279 @@ function Home() {
       </div>
 
       {/* BERITA */}
-      <div class="blog-area bg-blue pd-top-115 pd-bottom-60">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-xl-6 col-lg-7 col-md-10">
-              <div
-                class="section-title style-white text-center"
-                data-aos="fade-down">
-                <h5 class="sub-title double-line">Berita Terbaru</h5>
+      <div className="blog-area bg-green pd-top-115 pd-bottom-60">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-xl-6 col-lg-7 col-md-10">
+              <div className="section-title text-center" data-aos="fade-down">
+                <h5 className="sub-title double-line" style={{ color: "#006400" }}>
+                  Visi-Misi
+                </h5>
               </div>
             </div>
           </div>
-          <div data-aos="fade-up" class="row justify-content-center">
-            {berita.length === 0 ? (
-              <div className="col-12">
-                <p
-                  style={{
-                    textAlign: "center",
-                    fontStyle: "italic",
-                    color: "white",
-                    fontSize: "1.2rem",
-                  }}>
-                  Temukan informasi terkini tentang kegiatan, cerita inspiratif, dan
-                  berita terbaru di Panti Asuhan Kami.
-                </p>
-                <p
-                  style={{
-                    textAlign: "center",
-                    fontStyle: "italic",
-                    color: "#7f8c8d",
-                    fontSize: "1.2rem",
-                  }}>
-                  Saat ini belum ada berita terbaru. Nantikan kabar dari kami!
-                </p>
-              </div>
-            ) : (
-              berita.map((data) => (
-                <div className="col-lg-4 col-md-6" key={data.id}>
-                  <div className="single-blog-inner style-2">
-                    <div className="thumb">
-                      <img src={data.image ? data.image : news}
-                        alt="img" className="news" />
-                    </div>
-                    <div className="details">
-                      <h4 style={{
-                        display: "-webkit-box",
-                        WebkitBoxOrient: "vertical",
-                        WebkitLineClamp: 1,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}>
-                        <a href={`/detail-news-${data.id}`}>
-                          {data.judulBerita}
-                        </a>
-                      </h4>
-                      <ul className="blog-meta">
-                        <li>
-                          <i className="far fa-user"></i> By {data.author}
-                        </li>
-                        <li>
-                          <i className="far fa-calendar-alt"></i>{" "}
-                          {data.created_date}
-                        </li>
-                      </ul>
-                      <p
-                        style={{
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 3,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}>
-                        <div
-                          dangerouslySetInnerHTML={{ __html: data.isiBerita }}
-                        />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
+
+          <div
+            style={{
+              maxWidth: "900px",
+              margin: "0 auto",
+              fontFamily: "Arial, sans-serif",
+              lineHeight: "1.8",
+            }}
+          >
+            <div
+              data-aos="fade-up"
+              style={{
+                textAlign: "center",
+                padding: "30px",
+                marginBottom: "30px",
+                background: "#f0f9f0", // Hijau muda untuk latar
+                borderRadius: "20px",
+                boxShadow: "0px 6px 20px rgba(0, 100, 0, 0.2)", // Hijau lembut
+                transition: "transform 0.3s ease-in-out",
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            >
+              <h2
+                style={{
+                  fontSize: "2.2em",
+                  fontWeight: "bold",
+                  textTransform: "uppercase",
+                  marginBottom: "20px",
+                  color: "#006400", // Hijau tua
+                  letterSpacing: "1px",
+                }}
+              >
+                Visi Panti Asuhan
+              </h2>
+              <p
+                style={{
+                  fontSize: "1.2em",
+                  color: "#34495e",
+                  padding: "0 15px",
+                  lineHeight: "1.6",
+                }}
+              >
+                Mewujudkan cita-cita Muhammadiyah yakni menjunjung tinggi agama Islam
+                yang berakidah tauhid, bersumber kepada Al-Qur'an dan sunnah
+                Rasulullah SAW sehingga terwujud masyarakat Islam yang
+                sebenar-benarnya, melalui pendidikan dan pembinaan anak asuh sehingga
+                terwujud generasi yang beriman, berakhlak mulia, berilmu, dan mandiri.
+              </p>
+            </div>
+            <div
+              data-aos="fade-up"
+              style={{
+                textAlign: "center",
+                padding: "30px",
+                background: "#f0f9f0", // Hijau muda untuk latar
+                borderRadius: "20px",
+                boxShadow: "0px 6px 20px rgba(0, 100, 0, 0.2)", // Hijau lembut
+                transition: "transform 0.3s ease-in-out",
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            >
+              <h2
+                style={{
+                  fontSize: "2.2em",
+                  fontWeight: "bold",
+                  textTransform: "uppercase",
+                  marginBottom: "20px",
+                  color: "#006400", // Hijau tua
+                  letterSpacing: "1px",
+                }}
+              >
+                Misi Panti Asuhan
+              </h2>
+              <ul
+                style={{
+                  fontSize: "1.2em",
+                  color: "#34495e",
+                  textAlign: "left",
+                  padding: "0 30px",
+                  listStyleType: "disc",
+                  lineHeight: "1.8",
+                }}
+              >
+                <li>Menyelenggarakan pendidikan agama dan keagamaan bagi anak asuh.</li>
+                <li>
+                  Memberikan pengasuhan dan pembinaan serta membantu tumbuh kembang
+                  jasmani dan rohani anak asuh secara wajar.
+                </li>
+                <li>
+                  Melindungi dan mengembangkan kemampuan anak asuh untuk menjadi
+                  pribadi tangguh dan memahami jati diri sebagai Muslim.
+                </li>
+                <li>Menyiapkan anak asuh menghadapi masa depan yang gemilang.</li>
+                <li>
+                  Menjadikan panti asuhan Muhammadiyah sebagai ajang kaderisasi
+                  Muhammadiyah.
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* PRESTASI */}
+      {/* PROGRAM */}
       <div class="project-area pd-top-115 pd-bottom-90">
         <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <div
-                data-aos="fade-down"
-                class="section-title style-white text-center">
-                <h5 class="sub-title double-line" style={{ color: "black" }}>
-                  Prestasi Panti Asuhan
-                </h5>
-                <h2 class="title" style={{ color: "black" }}>
-                  Temui Anak-anak Berprestasi Kami
-                </h2>
-                <p class="content" style={{ color: "black" }}>
-                  Di panti asuhan kami, setiap anak memiliki kesempatan untuk berkembang
-                  dan meraih prestasi luar biasa di berbagai bidang. Kami bangga dengan
-                  setiap pencapaian mereka, dan terus mendukung mereka untuk menggapai
-                  impian mereka.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="container-grid" data-aos="fade-up">
-            {prestasi.map((item) => (
-              <div class="card item" key={item.id}>
-                <div class="single-project-inner style-two">
+          <div id="prestasiSlider" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="single-project-inner style-two text-center">
                   <div class="thumb">
-                    {item.foto !== null ? (
-                      <img src={item.foto} alt="img" />
-                    ) : (
-                      <img
-                        src="https://lh5.googleusercontent.com/p/AF1QipPiTYMPukmrWn57NP0O_90hGlAwYH1dxd-Tv39r=w2048-h2048-k-no"
-                        alt="img"
-                      />
-                    )}
-                  </div>
-                  <div class="details-wrap">
-                    <h3>{item.judul}</h3>
-                    <a href={`/detail-prestasi-${item.id}`}>
-                      SELENGKAPNYA <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <img
+                      src={program1}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 1"
+                    />
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* EKSTRAKULIKULER */}
-      <div class="how-it-work-area bg-blue pd-top-110 pd-top-110">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <div
-                class="section-title style-white text-center"
-                data-aos="fade-down">
-                <h5 class="sub-title double-line">Ekstrakurikuler</h5>
-                <h2 class="title">Cara Kami Membimbing Anak-anak</h2>
-                <p class="content">
-                  Di panti asuhan kami, kegiatan ekstrakurikuler dilaksanakan dengan
-                  tujuan untuk mengembangkan keterampilan sosial, seni, dan olahraga
-                  anak-anak. Setiap kegiatan dilakukan secara bertahap, dengan pendekatan
-                  yang menyenangkan dan kolaboratif, agar setiap anak dapat belajar dan
-                  berkembang sesuai dengan potensi mereka.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="row" data-aos="fade-up">
-            {ekstrakurikuler.map((data, index) => (
-              <div class="col-lg-3 col-md-6">
-                <div class="single-work-inner style-two text-center">
-                  <div class="count-wrap">
-                    <div class="count-inner">
-                      <h2>{index + 1}</h2>
-                    </div>
-                  </div>
-                  <div class="details-wrap">
-                    <div class="details-inner">
-                      <h4>{data.name}</h4>
-                      <p
-                        style={{
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 3,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}>
-                        {data.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>{" "}
-          <div data-aos="fade-up">
-            <Link
-              href="/ekstrakurikuler"
-              style={buttonStylesss}
-              onMouseEnter={() => setIsHoveredss(true)}
-              onMouseLeave={() => setIsHoveredss(false)}>
-              Tampilkan Semua Ekstrakurikuler
-            </Link>
-          </div>
-          <div class="client-slider pd-top-90 owl-carousel"></div>
-        </div>
-      </div>
-
-      {/* GURU */}
-      <div class="team-area pd-top-115 pd-bottom-90">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <div class="section-title text-center" data-aos="fade-down">
-                <h5 class="sub-title double-line" style={{ color: "black" }}>
-                  Pengasuh dan Pembimbing
-                </h5>
-                <h2 class="title">Bertemu dengan Pengasuh Kami</h2>
-                <p class="content">
-                  Pengasuh dan pembimbing kami adalah individu yang penuh kasih
-                  sayang dan berdedikasi. Mereka memiliki pengalaman dalam merawat
-                  anak-anak dan membimbing mereka melalui berbagai tantangan. Dengan
-                  pendekatan yang penuh perhatian dan penuh kasih, kami memastikan setiap
-                  anak merasa didukung dan dihargai dalam perjalanan mereka.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="row" data-aos="fade-up">
-            {gurus.map((data) => (
-              <div class="col-lg-3 col-md-6">
-                <div class="single-team-inner shadow-sm style-1 text-center">
+              <div class="carousel-item">
+                <div class="single-project-inner style-two text-center">
                   <div class="thumb">
-                    <img src={data.foto ? data.foto : "https://cdn3d.iconscout.com/3d/premium/thumb/profile-3d-icon-download-in-png-blend-fbx-gltf-file-formats--user-avatar-account-man-person-shopping-pack-e-commerce-icons-7190777.png"} alt="img" />
-                  </div>
-                  <div class="details-wrap">
-                    <div class="details-inner">
-                      <h4>{data.nama_guru}</h4>
-                      <p>{data.mapel}</p>
-                    </div>
+                    <img
+                      src={program2}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 2"
+                    />
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ALUMNI */}
-      <div class="team-area bg-blue pd-top-90 pd-bottom-90">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <div
-                class="section-title style-white text-center"
-                data-aos="fade-down">
-                <h5 class="sub-title double-line">ALumni</h5>
-                <h2 class="title">Bertemu dengan Alumni Kami</h2>
-                <p class="content">
-                  Jalin koneksi dengan alumni berprestasi yang telah mengukir
-                  tumbuh dan berkembang menjadi individu yang sukses. Mereka siap
-                  berbagi pengalaman hidup dan memberikan inspirasi kepada
-                  generasi berikutnya yang sedang menjalani masa-masa di panti asuhan.
-                </p>
+              <div class="carousel-item">
+                <div class="single-project-inner style-two text-center">
+                  <div class="thumb">
+                    <img
+                      src={program3}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 3"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="single-project-inner style-two text-center">
+                  <div class="thumb">
+                    <img
+                      src={program4}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 4"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="single-project-inner style-two text-center">
+                  <div class="thumb">
+                    <img
+                      src={program5}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 5"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="single-project-inner style-two text-center">
+                  <div class="thumb">
+                    <img
+                      src={program6}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 6"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="single-project-inner style-two text-center">
+                  <div class="thumb">
+                    <img
+                      src={program7}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 7"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="single-project-inner style-two text-center">
+                  <div class="thumb">
+                    <img
+                      src={program8}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 8"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="single-project-inner style-two text-center">
+                  <div class="thumb">
+                    <img
+                      src={program9}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 9"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="single-project-inner style-two text-center">
+                  <div class="thumb">
+                    <img
+                      src={program10}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 9"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="single-project-inner style-two text-center">
+                  <div class="thumb">
+                    <img
+                      src={program11}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 9"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="single-project-inner style-two text-center">
+                  <div class="thumb">
+                    <img
+                      src={program12}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 9"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="single-project-inner style-two text-center">
+                  <div class="thumb">
+                    <img
+                      src={program13}
+                      class="d-block w-100"
+                      alt="Prestasi Anak 9"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row" data-aos="fade-up">
-            {alumnus.map((data) => (
-              <div class="col-lg-3 col-md-6">
-                <div class="single-team-inner style-4 text-center">
-                  <div class="thumb alumni-thumb">
-                    <img src={data.foto ? data.foto : user} alt="img"/>
-                  </div>
-                  <div class="details-wrap">
-                    <div class="details-inner">
-                      <h4
-                        style={{
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          color: "white",
-                          width: "200px",
-                        }}>
-                        <a>{data.nama}</a>
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="hover-details-wrap">
-                    <div
-                      class="hover-details-inner"
-                      style={{ padding: "0 1.5rem" }}>
-                      <h4>
-                        <a
-                          style={{
-                            display: "-webkit-box",
-                            WebkitBoxOrient: "vertical",
-                            WebkitLineClamp: 3,
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            color: "white",
-                            textAlign: "justify",
-                          }}
-                          href={`/detail-alumni-${data.id}`}>
-                          {data.nama}
-                        </a>
-                      </h4>
-                      <p
-                        style={{
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 3,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          color: "white",
-                          textAlign: "justify",
-                        }}>
-                        <div
-                          dangerouslySetInnerHTML={{ __html: data.biografi }}
-                        />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div data-aos="fade-up">
-            <Link
-              href="/all-alumni"
-              style={buttonStylesss}
-              onMouseEnter={() => setIsHoveredss(true)}
-              onMouseLeave={() => setIsHoveredss(false)}>
-              Tampilkan Semua Alumni
-            </Link>
+            <a class="carousel-control-prev" href="#prestasiSlider" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#prestasiSlider" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
           </div>
         </div>
       </div>
@@ -882,9 +878,9 @@ function Home() {
       {/* KONTAK */}
       <div className="contact-section-style">
         <section id="hubungi-kami" className="contact-section-style">
-          <div class="section-title style-white text-center">
+          <div className="section-title style-white text-center">
             <h5
-              class="sub-title double-line"
+              className="sub-title double-line"
               style={{ color: "black" }}
               data-aos="fade-down">
               Hubungi Kami
@@ -1236,12 +1232,20 @@ function Home() {
           </form>
         </section>
       </div>
-      <div class="client-area-area bg-base pt-5 pb-2">
-        <div class="container">
-          <div class="section-title style-white text-center">
-            <h6 class="title">
-              ` Pendidikan adalah jembatan menuju masa depan yang lebih cerah, tempat harapan tumbuh, 
-              dan setiap anak menemukan kekuatan untuk meraih mimpinya.`
+      <div className="client-area-area pt-5 pb-5" style={{ backgroundColor: "#f0f9f0" }}>
+        <div className="container">
+          <div className="section-title style-white text-center">
+            <h6
+              className="title"
+              style={{
+                color: "#006400", // Hijau tua untuk teks
+                fontSize: "1.5rem",
+                lineHeight: "1.8",
+                fontWeight: "bold",
+                padding: "20px",
+              }}
+            >
+              "Pendidikan adalah jembatan menuju masa depan yang lebih cerah, tempat harapan tumbuh, dan setiap anak menemukan kekuatan untuk meraih mimpinya."
             </h6>
           </div>
         </div>
