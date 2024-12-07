@@ -42,7 +42,7 @@ function DataTahsin() {
         `${API_DUMMY_PYTHON}/api/admin/tahsin`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

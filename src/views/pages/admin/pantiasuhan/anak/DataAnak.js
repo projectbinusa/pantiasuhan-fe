@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
-function DataAbsensi() {
+function DataAnak() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,7 +39,7 @@ function DataAbsensi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/siswa/absensi`,
+        `${API_DUMMY_PYTHON}/api/admin/siswa`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
@@ -47,10 +47,9 @@ function DataAbsensi() {
         }
       );
       setList(response.data.data);
-      console.log("presensi: ", response.data.data);
+      console.log(response.data.data);
       setPaginationInfo({
-        totalPages: response.data.data.totalPages,
-        totalElements: response.data.data.totalElements,
+        totalPages: response.pagination.total_pages,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -70,9 +69,9 @@ function DataAbsensi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/api/siswa/` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/siswa/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
@@ -175,7 +174,7 @@ function DataAbsensi() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Data Presensi</p>
+              <p className="mt-3">Anak Asuh</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -200,6 +199,18 @@ function DataAbsensi() {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
+                <div className="btn-actions-pane-right">
+                  <div role="group" className="btn-group-sm btn-group">
+                    <button className="active btn-focus p-2 rounded">
+                      <a
+                        style={{ color: "white", textDecoration: "none" }}
+                        href="/add_anak_asuh"
+                      >
+                        Tambah Anak Asuh
+                      </a>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -210,30 +221,56 @@ function DataAbsensi() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama</th>
-                    <th>Tanggal</th>
-                    <th>Jam Masuk</th>
-                    <th>Jam Pulang</th>
+                    <th>nama</th>
+                    <th>Username</th>
+                    <th>RFID Number</th>
+                    <th>NIK</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredList.length > 0 ? (
-                    filteredList.map((berita, no) => {
+                    filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama">{berita.nama_siswa}</td>
-                          <td data-label="Tanggal">{berita.created_date}</td>
-                          <td data-label="Jam Masuk">{berita.jam_masuk}</td>
-                          <td data-label="Jam Pulang">{berita.jam_pulang}</td>
+                          <td data-label="Nama">{row.name}</td>
+                          <td data-label="Username">{row.username}</td>
+                          <td data-label="RFID Number">{row.rfid_number}</td>
+                          <td data-label="NIK">{row.nik}</td>
+                          <td data-label="Aksi" className="action">
+                            <div className="d-flex justify-content-center align-items-center">
+                              <button
+                                type="button"
+                                className="btn-primary btn-sm mr-2"
+                              >
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/edit_anak_asuh/${row.id}`}
+                                > 
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                onClick={() => deleteData(row.id)}
+                                type="button"
+                                className="btn-danger btn-sm"
+                              >
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
+                          </td>
                         </tr>
                       );
                     })
                   ) : (
                     <tr>
-                      <td colSpan="5" className="text-center my-3">
+                      <td colSpan="6" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
@@ -263,4 +300,4 @@ function DataAbsensi() {
   );
 }
 
-export default DataAbsensi;
+export default DataAnak;

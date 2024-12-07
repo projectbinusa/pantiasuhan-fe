@@ -179,6 +179,11 @@ import Galery from "./views/pages/admin/pantiasuhan/galery/Galery";
 import AddGalery from "./views/pages/admin/pantiasuhan/galery/AddGalery";
 import EditGalery from "./views/pages/admin/pantiasuhan/galery/EditGalery";
 import LoginSiswa from "./views/pages/anak/LoginSiswa";
+import TahsinAnak from "./views/pages/anak/TahsinAnak";
+import AddTahsin from "./views/pages/anak/AddTashin";
+import EditTahsin from "./views/pages/anak/EditTahsin";
+import DataAnak from "./views/pages/admin/pantiasuhan/anak/DataAnak";
+import AddAnak from "./views/pages/admin/pantiasuhan/anak/AddAnak";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -348,6 +353,31 @@ function App() {
             <PrivateRoute
               path="/siswa/data-absen"
               component={DataAbsen}
+              exact
+            />
+            <Route
+              path="/anak_tahsin"
+              component={TahsinAnak}
+              exact
+            />
+            <Route
+              path="/add_anak_tahsin"
+              component={AddTahsin}
+              exact
+            />
+            <Route
+              path="/edit_anak_tahsin/:id"
+              component={EditTahsin}
+              exact
+            />
+            <Route
+              path="/admin_anak_asuh"
+              component={DataAnak}
+              exact
+            />
+            <Route
+              path="/add_anak_asuh"
+              component={AddAnak}
               exact
             />
             {/* END PANTI ASUHAN */}

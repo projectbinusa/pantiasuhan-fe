@@ -30,25 +30,33 @@ function Login() {
       const response = await axios.post(`${API_DUMMY_PYTHON}/api/signin/admin`, datapython);;
 
       if (response.status === 200) {
+        if (response.data.data.type_token === "ADMIN") {
+          try {
+            const resp = await axios.post(`${API_DUMMY}/login`, data);
+            console.log(resp);
+
+            localStorage.setItem("token", resp.data.token);
+          } catch (err) {
+            console.log(err);
+          }
+        }
         Swal.fire({
           icon: "success",
-          title: "Berhasil Login Sebagai Admin",
+          title: `Berhasil Login Sebagai ${response.data.data.type_token}`,
+          // title: `Berhasil Login`,
           showConfirmButton: false,
           timer: 1500,
         });
-        // const responsepython = await axios.post(`${API_DUMMY_PYTHON}/api/signin/admin`, datapython);
-        // console.log(responsepython);
-
 
         localStorage.setItem("id", response.data.data.id);
-        localStorage.setItem("role", response.data.data.role);
-        localStorage.setItem("token", response.data.data.token);
+        localStorage.setItem("role", response.data.data.type_token);
         localStorage.setItem("tokenpython", response.data.data.token);
         setTimeout(() => {
           history.push("/admin_sambutan");
         }, 1500);
       }
-    } catch (error) {
+    }
+    catch (error) {
       Swal.fire({
         icon: "error",
         title: "Username atau Password Salah",

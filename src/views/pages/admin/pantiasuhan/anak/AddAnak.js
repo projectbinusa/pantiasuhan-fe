@@ -8,7 +8,14 @@ import AOS from "aos";
 import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
-function AddBukuTamu() {
+function AddAnak() {
+  const [nama, setNama] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [rfidNumber, setRFIDNumber] = useState("");
+  const [nik, setNIK] = useState("");
+
+
   const [idOrangTua, setIdOrangTua] = useState("");
   const [namaOrangTua, setNamaOrangTua] = useState("");
   const [tanggal, setTanggal] = useState("");
@@ -63,17 +70,16 @@ function AddBukuTamu() {
 
     try {
       await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/guestbook`,
+        `${API_DUMMY_PYTHON}/api/admin/siswa`,
         {
-          foster_parent_id: idOrangTua,
-          visit_date: tanggal,
-          url_image_donation: image,
-          note: catatan,
-          description_donation: deskripsi,
+          name: nama,
+          username: username,
+          password: password,
+          rfid_number: rfidNumber,
+          nik: nik
         },
         {
           headers: {
-            // "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
           },
         }
@@ -86,7 +92,7 @@ function AddBukuTamu() {
         timer: 1500,
       });
       setTimeout(() => {
-        history.push("/admin_buku_tamu");
+        history.push("/admin_anak_asuh");
       }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
@@ -110,9 +116,8 @@ function AddBukuTamu() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -134,90 +139,58 @@ function AddBukuTamu() {
                       <div className="row">
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
-                            Orang Tua Asuh
-                          </label>
-                          <select
-                            value={idOrangTua}
-                            className="form-control"
-                            aria-label="Small select example"
-                            onChange={(e) => {
-                              const selectedId = e.target.value;
-                              setIdOrangTua(selectedId);
-                              const selectedParent = foster_parent.find(
-                                (data) => String(data.id) === String(selectedId)
-                            );
-                              setNamaOrangTua(
-                                selectedParent ? selectedParent.name : ""
-                              );
-                            }}>
-                            <option value="" disabled>
-                              Pilih Orang Tua Asuh
-                            </option>
-                            {foster_parent.map((data, index) => (
-                              <option key={index} value={data.id}>
-                                {data.name}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Tanggal Kunjungan
+                            Anak Asuh
                           </label>
                           <input
-                            value={tanggal}
-                            onChange={(e) => setTanggal(e.target.value)}
-                            type="date"
-                            className="form-control"
+                            value={nama}
+                            onChange={(e) => setNama(e.target.value)}
+                            placeholder="Masukkan Nama Anak Asuh" className="form-control"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Deskripsi Donasi
+                            Username
                           </label>
-                          <textarea
-                            value={deskripsi}
-                            onChange={(e) => setDeskripsi(e.target.value)}
-                            className="form-control"
-                            rows={5}
-                            placeholder="Masukkan Deskripsi Donasi"></textarea>
+                          <input
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Masukkan Username Anak Asuh" className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Password
+                          </label>
+                          <input
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Masukkan Password Anak Asuh" className="form-control"
+                          />
                         </div>
                         <div className="mb-3 co-lg-12">
                           <label className="form-label font-weight-bold">
-                            Bukti Donasi
+                            RFID Number
                           </label>
                           <input
-                            value={image}
-                            onChange={(e) => setImage(e.target.value)}
-                            type="text"
-                            className="form-control"
+                            value={rfidNumber}
+                            onChange={(e) => setRFIDNumber(e.target.value)}
+                            placeholder="Masukkan RFID Number Anak Asuh" className="form-control"
                           />
-                          {/* <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
-                            type="file"
-                            className="form-control"
-                          /> */}
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Catatan
+                            NIK
                           </label>
-                          <textarea
-                            value={catatan}
-                            onChange={(e) => setCatatan(e.target.value)}
-                            className="form-control"
-                            rows={5}
-                            placeholder="Masukkan Catatan"></textarea>
-                        </div>
+                          <input
+                            value={nik}
+                            onChange={(e) => setNIK(e.target.value)}
+                            placeholder="Masukkan NIK Anak Asuh" className="form-control"
+                          />                        </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_buku_tamu">
+                          href="/admin_anak_asuh">
                           Batal
                         </a>
                       </button>
@@ -236,4 +209,4 @@ function AddBukuTamu() {
   );
 }
 
-export default AddBukuTamu;
+export default AddAnak;

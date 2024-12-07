@@ -69,6 +69,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       action: ["/add_iventaris", "/edit_iventaris", "/detail_iventaris"],
     },
     {
+      title: "Anak Asuh",
+      icon: "fa-solid fa-user",
+      path: "/admin_anak_asuh",
+      action: ["/add_anak_asuh", "/edit_anak_asuh", "/detail_anak_asuh"],
+    },
+    {
       title: "Orang Tua Asuh",
       icon: "fa-solid fa-user",
       path: "/admin_ortu_asuh",
