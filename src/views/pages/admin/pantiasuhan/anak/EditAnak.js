@@ -8,7 +8,7 @@ import AOS from "aos";
 import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
-function AddAnak() {
+function EditAnak() {
   const [nama, setNama] = useState("");
   const [username, setUsername] = useState("");
   const [rfidNumber, setRFIDNumber] = useState("");
@@ -57,7 +57,7 @@ function AddAnak() {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-    console.log("nama: ", namaOrangTua);
+    // console.log("nama: ", namaOrangTua);
   }, []);
 
   //add
@@ -66,7 +66,7 @@ function AddAnak() {
     e.persist();
 
     try {
-      await axios.post(
+      await axios.put(
         `${API_DUMMY_PYTHON}/api/admin/siswa/${param.id}`,
         {
           name: nama,
@@ -195,4 +195,4 @@ function AddAnak() {
   );
 }
 
-export default AddAnak;
+export default EditAnak;
