@@ -17,6 +17,7 @@ function EditBukuTamu() {
   const [image, setImage] = useState(null);
   const [deskripsi, setDeskripsi] = useState("");
   const [catatan, setCatatan] = useState("");
+  const [noWa, setNoWa] = useState("");
   const history = useHistory();
   const param = useParams();
   const [sidebarToggled, setSidebarToggled] = useState(true);
@@ -35,6 +36,7 @@ function EditBukuTamu() {
         setIdOrangTua(ress.data.data.foster_parent_id);
         setDeskripsi(ress.data.data.description_donation);
         setCatatan(ress.data.data.note);
+        setNoWa(ress.data.data.no_wa);
         setImage(ress.data.data.url_image_donation);
         setTanggal(ress.data.data.visit_date);
         console.log("response", ress.data.data);
@@ -100,6 +102,7 @@ function EditBukuTamu() {
           visit_date: tanggal,
           url_image_donation: image,
           note: catatan,
+          no_wa: noWa,
           description_donation: deskripsi,
         },
         {
@@ -198,6 +201,18 @@ function EditBukuTamu() {
                             value={tanggal}
                             onChange={(e) => setTanggal(e.target.value)}
                             type="date"
+                            className="form-control"
+                          />
+                        </div>
+
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Nomor Whatsapp
+                          </label>
+                          <input
+                            value={noWa}
+                            onChange={(e) => setNoWa(e.target.value)}
+                            type="number"
                             className="form-control"
                           />
                         </div>
