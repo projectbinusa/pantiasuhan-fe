@@ -12,6 +12,7 @@ function AddBukuTamu() {
   const [idOrangTua, setIdOrangTua] = useState("");
   const [namaOrangTua, setNamaOrangTua] = useState("");
   const [tanggal, setTanggal] = useState("");
+  const [noWa, setNoWa] = useState("");
   const [image, setImage] = useState(null);
   const [deskripsi, setDeskripsi] = useState("");
   const [catatan, setCatatan] = useState("");
@@ -69,6 +70,7 @@ function AddBukuTamu() {
           visit_date: tanggal,
           url_image_donation: image,
           note: catatan,
+          no_wa: noWa,
           description_donation: deskripsi,
         },
         {
@@ -168,6 +170,17 @@ function AddBukuTamu() {
                             value={tanggal}
                             onChange={(e) => setTanggal(e.target.value)}
                             type="date"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Nomor Whatsapp
+                          </label>
+                          <input
+                            value={noWa}
+                            onChange={(e) => setNoWa(e.target.value)}
+                            type="number"
                             className="form-control"
                           />
                         </div>

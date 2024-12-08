@@ -14,6 +14,7 @@ function DetailBukuTamu() {
     const [deskripsi, setDeskripsi] = useState("");
     const [catatan, setCatatan] = useState("");
     const [tanggal, setTanggal] = useState("");
+    const [noWa, setNoWa] = useState("");
     const param = useParams();
 
     useEffect(() => {
@@ -28,6 +29,7 @@ function DetailBukuTamu() {
             setNamaOrtu(res.data.data.foster_parent_name);
             setDeskripsi(res.data.data.description_donation);
             setCatatan(res.data.data.note);
+            setNoWa(res.data.data.no_wa);
             setFoto(res.data.data.url_image_donation);
             setTanggal(res.data.data.visit_date);
         })
@@ -88,6 +90,10 @@ function DetailBukuTamu() {
                   <input type="text" class="form-control" disabled value={format(new Date(tanggal || new Date()), "dd MMMM yyyy", { locale: idLocale })} />
                 </div>
                 <div class="mb-3">
+                  <label class="form-label fw-bold">Nomor Whatsapp</label>
+                  <input type="number" class="form-control" disabled value={noWa} />
+                </div>
+                <div class="mb-3">
                   <label class="form-label fw-bold">Deskripsi Donasi</label>
                   <div className="form-control" style={{ height:"auto", background: "#e9ecef" }} dangerouslySetInnerHTML={{ __html: deskripsi }} />
                 </div>
@@ -96,7 +102,7 @@ function DetailBukuTamu() {
                   <div className="form-control" style={{ height:"auto", background: "#e9ecef" }} dangerouslySetInnerHTML={{ __html: catatan }} />
                 </div>
               </div>
-              <button
+              <button style={{width:"12%"}}
                 type="submit"
                 className="btn-kembali btn-danger mt-3 mr-3">
                 <a

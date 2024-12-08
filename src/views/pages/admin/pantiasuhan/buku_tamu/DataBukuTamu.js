@@ -218,6 +218,7 @@ function DataBukuTamu() {
                     <th scope="col">No</th>
                     <th>Nama Orang Tua</th>
                     <th>Tanggal Kunjungan</th>
+                    <th>Nomor Whatsapp</th>
                     <th
                       scope="col"
                       style={{ minWidth: "150px" }}>Deskripsi Donasi</th>
@@ -239,6 +240,9 @@ function DataBukuTamu() {
                           </td>
                           <td data-label="Tanggal Kunjungan">
                             {berita.visit_date}
+                          </td>
+                          <td data-label="Nomor Whatsapp">
+                            {berita.no_wa}
                           </td>
                           <td data-label="Deskripsi Donasi">
                             {berita.description_donation}
