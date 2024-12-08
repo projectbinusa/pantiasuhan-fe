@@ -3,9 +3,7 @@ import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import {
-  Pagination,
-} from "@mui/material";
+import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function DataAnak() {
@@ -39,17 +37,20 @@ function DataAnak() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/siswa`,
+        `${API_DUMMY_PYTHON}/api/admin/siswa?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
-      setList(response.data.data);
-      console.log(response.data.data);
+
+      // Memastikan data response valid
+      const { data, pagination } = response.data;
+      setList(data);
       setPaginationInfo({
-        totalPages: response.pagination.total_pages,
+        totalPages: pagination.total_page,
+        totalElements: pagination.total,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -109,13 +110,12 @@ function DataAnak() {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setCurrentPage(1); // Reset ke halaman pertama
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset ke halaman pertama setelah pencarian
   };
 
   const filteredList = list.filter((item) =>
@@ -130,23 +130,21 @@ function DataAnak() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left"
-        >
+          data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -155,8 +153,7 @@ function DataAnak() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}
-              >
+                value={rowsPerPage}>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -183,8 +180,7 @@ function DataAnak() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
+                    value={rowsPerPage}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -204,8 +200,7 @@ function DataAnak() {
                     <button className="active btn-focus p-2 rounded">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add_anak_asuh"
-                      >
+                        href="/add_anak_asuh">
                         Tambah Anak Asuh
                       </a>
                     </button>
@@ -215,8 +210,7 @@ function DataAnak() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}
-            >
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -244,23 +238,20 @@ function DataAnak() {
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 type="button"
-                                className="btn-primary btn-sm mr-2"
-                              >
+                                className="btn-primary btn-sm mr-2">
                                 <a
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit_anak_asuh/${row.id}`}
-                                > 
+                                  href={`/edit_anak_asuh/${row.id}`}>
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
                               </button>
                               <button
                                 onClick={() => deleteData(row.id)}
                                 type="button"
-                                className="btn-danger btn-sm"
-                              >
+                                className="btn-danger btn-sm">
                                 <i className="fa-solid fa-trash"></i>
                               </button>
                             </div>
@@ -281,13 +272,21 @@ function DataAnak() {
               </table>
             </div>
             <div className="card-header mt-3 d-flex justify-content-center">
-              <Pagination
+              {/* <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
                 onChange={(event, value) => {
                   setCurrentPage(value);
                   setPage(value);
                 }}
+                showFirstButton
+                showLastButton
+                color="primary"
+              /> */}
+              <Pagination
+                count={paginationInfo.totalPages}
+                page={currentPage}
+                onChange={(event, value) => setCurrentPage(value)}
                 showFirstButton
                 showLastButton
                 color="primary"

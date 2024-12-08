@@ -27,7 +27,7 @@ function EditTahsin() {
       end_pojok: pojokAkhir,
     }
     try {
-      await axios.post(
+      await axios.put(
         `${API_DUMMY_PYTHON}/api/siswa/tahsin/${param.id}`, datas,
         {
           headers: {
@@ -37,7 +37,7 @@ function EditTahsin() {
       );
       Swal.fire({
         icon: "success",
-        title: "Data Berhasil DiTambahkan",
+        title: "Data Berhasil DiEdit",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -51,7 +51,7 @@ function EditTahsin() {
       } else {
         Swal.fire({
           icon: "error",
-          title: "Tambah Data Gagal!",
+          title: "Edit Data Gagal!",
           showConfirmButton: false,
           timer: 1500,
         });

@@ -24,6 +24,7 @@ function AddTahsin() {
       end_juz: juzAkhir,
       start_pojok: pojokAwal,
       end_pojok: pojokAkhir,
+      status: "Aproved"
     }
     try {
       await axios.post(

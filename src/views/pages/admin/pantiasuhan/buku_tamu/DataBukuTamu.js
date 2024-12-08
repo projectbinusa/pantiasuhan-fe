@@ -39,7 +39,7 @@ function DataBukuTamu() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/guestbook?size=${rowsPerPage}&page=${page
+        `${API_DUMMY_PYTHON}/api/admin/guestbook?size=${rowsPerPage}&page=${currentPage
         }`,
         {
           headers: {
@@ -49,9 +49,10 @@ function DataBukuTamu() {
       );
       setList(response.data.data);
       console.log(response.data.data);
+      const { data, pagination } = response.data;
       setPaginationInfo({
-        totalPages: response.data.pagination.total_pages,
-        totalElements: response.data.data.totalElements,
+        totalPages: pagination.total_pages,
+        totalElements: pagination.total,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -111,12 +112,11 @@ function DataBukuTamu() {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setCurrentPage(1); // Reset ke halaman pertama
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
     setCurrentPage(1);
   };
 
@@ -296,13 +296,10 @@ function DataBukuTamu() {
               </table>
             </div>
             <div className="card-header mt-3 d-flex justify-content-center">
-              <Pagination
+            <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => {
-                  setCurrentPage(value);
-                  setPage(value);
-                }}
+                onChange={(event, value) => setCurrentPage(value)}
                 showFirstButton
                 showLastButton
                 color="primary"

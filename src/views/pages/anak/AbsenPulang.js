@@ -141,19 +141,19 @@ const AbsenPulang = () => {
                 <h3 className="fw-bold">PRESENSI DIGITAL</h3>
                 <h2 className=" fw-bold">{formatTime(currentTime)}</h2>
                 <input
-                    type="password"
-                    id="card_number"
-                    value={cardNumber}
-                    onChange={(e) => setCardNumber(e.target.value)}
-                    required
-                    ref={inputRef}
-                  />
+                  type="password"
+                  id="card_number"
+                  value={cardNumber}
+                  onChange={(e) => setCardNumber(e.target.value)}
+                  required
+                  ref={inputRef}
+                />
                 <h2 className="display-6">{formatDate(currentTime)}</h2>
                 <h4 className="fw-bold">{userName || "Anak"}</h4>
                 <h4 className={`text-${errorMessage ? "danger" : "success"}`}>
-                  {description ||
-                    errorMessage ||
-                    "Berhasil Melakukan Presensi Pulang"}
+                  {errorMessage ||
+                    description ||
+                    "Berhasil Melakukan Presensi Masuk"}
                 </h4>
                 <h4>Jam Presensi: {datetime}</h4>
               </form>

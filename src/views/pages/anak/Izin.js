@@ -10,14 +10,13 @@ function Izin() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle form submission, e.g., send to backend or log the data
     console.log("Keterangan Izin: ", keterangan);
   };
 
   return (
     <div>
       <NavbarSiswa />
-      <div className="container">
+      <div className="container mt-5">
         <h2 className="mb-4">Form Izin</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">

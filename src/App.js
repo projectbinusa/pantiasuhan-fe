@@ -184,6 +184,7 @@ import AddTahsin from "./views/pages/anak/AddTashin";
 import EditTahsin from "./views/pages/anak/EditTahsin";
 import DataAnak from "./views/pages/admin/pantiasuhan/anak/DataAnak";
 import AddAnak from "./views/pages/admin/pantiasuhan/anak/AddAnak";
+import EditAnak from "./views/pages/admin/pantiasuhan/anak/EditAnak";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -378,6 +379,16 @@ function App() {
             <Route
               path="/add_anak_asuh"
               component={AddAnak}
+              exact
+            />
+            <Route
+              path="/add_anak_asuh"
+              component={AddAnak}
+              exact
+            />
+            <Route
+              path="/edit_anak_asuh/:id"
+              component={EditAnak}
               exact
             />
             {/* END PANTI ASUHAN */}

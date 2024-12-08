@@ -151,10 +151,9 @@ const AbsenMasuk = () => {
                 <h2 className="display-6">{formatDate(currentTime)}</h2>
                 <h4 className="fw-bold">{userName || "Anak"}</h4>
                 <h4 className={`text-${errorMessage ? "danger" : "success"}`}>
-                  {description ||
-                    errorMessage ||
-                    "Berhasil Melakukan Presensi Masuk"}
-                </h4>
+  {errorMessage || description || "Berhasil Melakukan Presensi Masuk"}
+</h4>
+
                 <h4>Jam Presensi: {datetime}</h4>
               </form>
             </div>
