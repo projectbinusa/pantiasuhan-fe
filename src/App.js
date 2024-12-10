@@ -186,6 +186,11 @@ import DataAnak from "./views/pages/admin/pantiasuhan/anak/DataAnak";
 import AddAnak from "./views/pages/admin/pantiasuhan/anak/AddAnak";
 import EditAnak from "./views/pages/admin/pantiasuhan/anak/EditAnak";
 import FormBukuTamu from "./views/pages/admin/pantiasuhan/buku_tamu/FormBukuTamu";
+import DataBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/barang/DataBarangInventaris";
+import KategoriBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/kategori/KategoriBarang";
+import StokBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/stok/StokBarangInventaris";
+import StatusBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/status/StatusBarangInventaris";
+import LokasiBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/lokasi/LokasiBarangInventaris";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -393,6 +398,11 @@ function App() {
               exact
             />
             <Route path="/form_buku_tamu/:organization_id" component={FormBukuTamu} exact/>
+            <Route path="/barang_inventaris" component={DataBarangInventaris} exact/>
+            <Route path="/kategori_barang_inventaris" component={KategoriBarangInventaris} exact/>
+            <Route path="/stok_barang_inventaris" component={StokBarangInventaris} exact/>
+            <Route path="/status_barang_inventaris" component={StatusBarangInventaris} exact/>
+            <Route path="/lokasi_barang_inventaris" component={LokasiBarangInventaris} exact/>
             {/* END PANTI ASUHAN */}
             <Route path="/sambutan" component={sambutan} exact />
             <Route path="/visi-misi" component={VisiMisiSekolah} exact />
