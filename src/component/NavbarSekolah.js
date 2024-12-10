@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import "../css/navbarSekolah.css";
 import logo from "../aset/pantiasuhan/logo.png";
 
-
 const NavbarSekolah = () => {
-  const [activeMenu, setActiveMenu] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 992); // Track screen width for mobile view
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,193 +16,63 @@ const NavbarSekolah = () => {
       }
     };
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 992); // Update mobile state on resize
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize); // Listen for resize events
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
-  const handleScrollToSection = (id) => {
-    const isHomePage = window.location.pathname === "/";
-
-    if (isHomePage) {
-      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
-    } else {
-      window.location.href = `/#${id}`;
-    }
-  };
-
-  const handleMenuClick = (event, menu) => {
-    event.preventDefault();
-    setActiveMenu(menu);
-
-    const submenu = event.target.nextElementSibling;
-
-    document.querySelectorAll(".submenu").forEach((item) => {
-      if (item !== submenu) item.style.display = "none";
-    });
-
-    if (submenu.style.display === "block") {
-      submenu.style.display = "none";
-    } else {
-      submenu.style.display = "block";
-    }
+  const handleMenuClick = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
     <nav className={`navbars ${isScrolled ? "scrolled" : ""}`}>
       <div className="navbars-container">
         <a href="/">
-          <img src={logo} alt="Logo" className="navbars-logo"
+          <img
+            src={logo}
+            alt="Logo"
+            className="navbars-logo"
             style={{
-              width: "50px", 
-              height: "50px", 
-              borderRadius: "50%", 
-              objectFit: "cover", 
-            }} 
+              width: "50px",
+              height: "50px",
+              borderRadius: "50%",
+              objectFit: "cover",
+            }}
           />
         </a>
-        <ul style={{ fontSize: "13.8px" }} className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
-          {/* <li
-            className={`navbars-item `}>
-            <a
-              href="#profil-sekolah"
-              className="has-submenu"
-              onClick={(e) => handleMenuClick(e, "profil-sekolah")}>
-              Profil Sekolah<i class="fa-solid fa-caret-down"></i>
-            </a>
-            <ul className="submenu">
-              <li>
-                <a href="/sambutan">SAMBUTAN KEPALA SEKOLAH</a>
-              </li>
-              <li>
-                <a href="/sejarah">SEJARAH</a>
-              </li>
-              <li>
-                <a href="/visi-misi">VISI & MISI</a>
-              </li>
-              <li>
-                <a href="/struktur-organisasi">STRUKTUR ORGANISASI</a>
-              </li>
-              <li>
-                <a href="/kondisi-sekolah-view">KONDISI SEKOLAH</a>
-              </li>
-              <li>
-                <a href="/staff">STAFF</a>
-              </li>
-            </ul>
-          </li>
-          <li
-            className={`navbars-item ${activeMenu === "berita" ? "active" : ""
-              }`}>
-            <a
-              href="#berita"
-              className="has-submenu"
-              onClick={(e) => handleMenuClick(e, "berita")}>
-              Berita<i class="fa-solid fa-caret-down"></i>
-            </a>
-            <ul className="submenu">
-              <li>
-                <a href="/news">BERITA TERBARU</a>
-              </li>
-              <li>
-                <a href="/info">INFO SEKOLAH</a>
-              </li>
-              <li>
-                <a href="/agenda">AGENDA</a>
-              </li>
-              <li>
-                <a href="/galery">GALERI</a>
-              </li>
-            </ul>
-          </li>
-          <li
-            className={`navbars-item ${activeMenu === "keuangan" ? "active" : ""
-              }`}>
-            <a
-              href="#keuangan"
-              className="has-submenu"
-              onClick={(e) => handleMenuClick(e, "keuangan")}>
-              KEUANGAN<i class="fa-solid fa-caret-down"></i>
-            </a>
-            <ul className="submenu">
-              <li>
-                <a href="/keuangan-bos">BOS</a>
-              </li>
-              <li>
-                <a href="/keuangan-apbd">APBD</a>
-              </li>
-              <li>
-                <a href="/keuangan-komite">KOMITE</a>
-              </li>
-            </ul>
-          </li>
-          <li
-            className={`navbars-item ${activeMenu === "kesiswaan" ? "active" : ""
-              }`}>
-            <a
-              href="#kesiswaan"
-              className="has-submenu"
-              onClick={(e) => handleMenuClick(e, "kesiswaan")}>
-              KESISWAAN<i class="fa-solid fa-caret-down"></i>
-            </a>
-            <ul className="submenu">
-              <li>
-                <a href="/materi_ajar">Materi AJAR</a>
-              </li>
-              <li>
-                <a href="/osis">OSIS</a>
-              </li>
-              <li>
-                <a href="/ekstrakurikuler" style={{ textTransform: "uppercase", fontWeight: "600" }}>EKSTRAKURIKULER</a>
-              </li>
-            </ul>
-          </li>
-          <li
-            className={`navbars-item ${activeMenu === "berita" ? "active" : ""
-              }`}>
-            <a
-              href="#sapras"
-              className="has-submenu"
-              onClick={(e) => handleMenuClick(e, "berita")}>
-              Sarana prasarana<i class="fa-solid fa-caret-down"></i>
-            </a>
-            <ul className="submenu">
-              <li>
-                <a href="/sarana-prasarana">SARANA</a>
-              </li>
-              <li>
-                <a href="/program">PROGRAM</a>
-              </li>
-              <li>
-                <a href="/kegiatan">KEGIATAN</a>
-              </li>
-            </ul>
-          </li> */}
+        {isMobile && (
+          <div
+            className={`hamburger ${isMenuOpen ? "active" : ""}`}
+            onClick={handleMenuClick}
+          >
+            {isMenuOpen ? "✖" : "☰"}
+          </div>
+        )}
+        <ul className={`navbars-menu ${isMenuOpen ? "active" : ""}`}>
           <li className="navbars-item">
-            <a
-              href="/"
-              style={{ textTransform: "uppercase", fontWeight: "600" }}>
-              HOME
-            </a>
+            <a href="/">HOME</a>
           </li>
           <li className="navbars-item">
-            <a href="#visi-misi" style={{ textTransform: "uppercase", fontWeight: "600" }}>VISI-MISI</a>
+            <a href="#visi-misi">VISI-MISI</a>
           </li>
           <li className="navbars-item">
-            <a href="#program" style={{ textTransform: "uppercase", fontWeight: "600" }}>PROGRAM</a>
+            <a href="#program">PROGRAM</a>
           </li>
           <li className="navbars-item">
-            <a href="#kontak" style={{ textTransform: "uppercase", fontWeight: "600" }}>KONTAK</a>
+            <a href="#kontak">KONTAK</a>
           </li>
         </ul>
-        <div
-          className={`hamburger ${isMenuOpen ? "active" : ""}`}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          {isMenuOpen ? "✖" : "☰"}
-        </div>
       </div>
     </nav>
   );
 };
-
 
 export default NavbarSekolah;

@@ -1,12 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import Footer from "../../component/FooterSekolah";
-import {
-  Link,
-  Typography,
-  TextField,
-  Button,
-  Grid,
-} from "@mui/material";
+import { Link, Typography, TextField, Button, Grid } from "@mui/material";
 import "../../css/prestasi/card.css";
 import AOS from "aos";
 import axios from "axios";
@@ -15,22 +9,22 @@ import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import NavbarSekolah from "../../component/NavbarSekolah";
 import NavbarSekolah2 from "../../component/NavbarSekolah2";
-import news from "../../aset/smpn1bergas/News-rafiki.png"
-import user from "../../aset/smpn1bergas/user_df.jpg"
-import backgroundImage from '../../aset/pantiasuhan/pantiasuhan.png';
-import program1 from '../../aset/pantiasuhan/program1.png';
-import program2 from '../../aset/pantiasuhan/program/program9.png';
-import program3 from '../../aset/pantiasuhan/program/program10.png';
-import program4 from '../../aset/pantiasuhan/program/program11.png';
-import program5 from '../../aset/pantiasuhan/program/program12.png';
-import program6 from '../../aset/pantiasuhan/program/program13.png';
-import program7 from '../../aset/pantiasuhan/program/program14.png';
-import program8 from '../../aset/pantiasuhan/program/program15.png';
-import program9 from '../../aset/pantiasuhan/program/program16.png';
-import program10 from '../../aset/pantiasuhan/program/program18.png';
-import program11 from '../../aset/pantiasuhan/program/program19.png';
-import program12 from '../../aset/pantiasuhan/program/program20.png';
-import program13 from '../../aset/pantiasuhan/program/program22.png';
+import news from "../../aset/smpn1bergas/News-rafiki.png";
+import user from "../../aset/smpn1bergas/user_df.jpg";
+import backgroundImage from "../../aset/pantiasuhan/pantiasuhan.png";
+import program1 from "../../aset/pantiasuhan/program1.png";
+import program2 from "../../aset/pantiasuhan/program/program9.png";
+import program3 from "../../aset/pantiasuhan/program/program10.png";
+import program4 from "../../aset/pantiasuhan/program/program11.png";
+import program5 from "../../aset/pantiasuhan/program/program12.png";
+import program6 from "../../aset/pantiasuhan/program/program13.png";
+import program7 from "../../aset/pantiasuhan/program/program14.png";
+import program8 from "../../aset/pantiasuhan/program/program15.png";
+import program9 from "../../aset/pantiasuhan/program/program16.png";
+import program10 from "../../aset/pantiasuhan/program/program18.png";
+import program11 from "../../aset/pantiasuhan/program/program19.png";
+import program12 from "../../aset/pantiasuhan/program/program20.png";
+import program13 from "../../aset/pantiasuhan/program/program22.png";
 
 function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -419,14 +413,20 @@ function Home() {
       </div> */}
       <NavbarSekolah />
       <div
-        style={{ position: "relative", height: "100vh", overflow: "hidden", fontFamily: "'Poppins', sans-serif", }}>
+        style={{
+          position: "relative",
+          height: "100vh",
+          overflow: "hidden",
+          fontFamily: "'Poppins', sans-serif",
+        }}
+      >
         <img
           src={backgroundImage}
           style={{
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            filter: "brightness(0.7)",
+            filter: "brightness(0.7) blur(2px)",
           }}
           alt="Panti Asuhan"
         />
@@ -437,10 +437,10 @@ function Home() {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
           }}
         />
-       <div
+        <div
           style={{
             position: "absolute",
             top: "50%",
@@ -452,21 +452,27 @@ function Home() {
         >
           <h1
             style={{
-              fontSize: "3.5rem",
+              fontSize: "clamp(2rem, 5vw, 3.5rem)",
               fontWeight: "bold",
               textShadow: "3px 3px 6px rgba(0, 0, 0, 0.9)",
               marginBottom: "20px",
               letterSpacing: "2px",
+              color: "#e1f5fe",
+              animation: "fadeIn 2s ease-in-out",
             }}
           >
             PANTI ASUHAN MUHAMMADIYAH
           </h1>
           <p
             style={{
-              fontSize: "1.8rem",
+              fontSize: "clamp(1rem, 4vw, 1.8rem)",
               fontWeight: "300",
               textShadow: "2px 2px 5px rgba(0, 0, 0, 0.8)",
               marginBottom: "30px",
+              background: "linear-gradient(90deg, #ffffff, #e0f7fa)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              animation: "fadeIn 3s ease-in-out",
             }}
           >
             Pantinya Sang Juara
@@ -477,7 +483,7 @@ function Home() {
       <div
         className="about-area pd-top-90 pd-bottom-120"
         style={{
-          backgroundColor: "#f9f9f9",
+          backgroundColor: "#f1f8fe", // Biru muda lembut sebagai latar
           fontFamily: "'Poppins', sans-serif",
         }}
       >
@@ -523,10 +529,10 @@ function Home() {
                 <h5
                   className="sub-title left-border"
                   style={{
-                    color: "#f57c00",
+                    color: "#1e88e5", // Biru cerah
                     fontSize: "1.2rem",
                     fontWeight: "bold",
-                    borderLeft: "5px solid #f57c00",
+                    borderLeft: "5px solid #1e88e5", // Biru cerah
                     paddingLeft: "15px",
                     marginBottom: "15px",
                   }}
@@ -538,7 +544,7 @@ function Home() {
                     style={{
                       fontSize: "2rem",
                       fontWeight: "700",
-                      color: "#333",
+                      color: "#005b9f", // Biru lebih gelap
                       marginBottom: "20px",
                     }}
                   >
@@ -553,9 +559,9 @@ function Home() {
                     }}
                   >
                     Assalamu'alaikum Warahmatullahi Wabarakatuh, <br />
-                    Selamat datang di website Panti Asuhan Muhammadiyah. Kami sangat
-                    bersyukur atas kesempatan yang diberikan untuk berbagi informasi
-                    dan kegiatan yang kami lakukan di sini.
+                    Selamat datang di website Panti Asuhan Muhammadiyah. Kami
+                    sangat bersyukur atas kesempatan yang diberikan untuk
+                    berbagi informasi dan kegiatan yang kami lakukan di sini.
                   </p>
                 )}
                 <div
@@ -575,17 +581,17 @@ function Home() {
                       padding: "10px 20px",
                       fontWeight: "600",
                       color: "white",
-                      backgroundColor: "#f57c00",
+                      backgroundColor: "#43a047", // Hijau sesuai tema
                       borderRadius: "25px",
                       textDecoration: "none",
                       boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
                       transition: "background-color 0.3s ease",
                     }}
-                    onMouseOver={(e) =>
-                      (e.currentTarget.style.backgroundColor = "#e67e22")
+                    onMouseOver={
+                      (e) => (e.currentTarget.style.backgroundColor = "#388e3c") // Hijau lebih gelap saat hover
                     }
                     onMouseOut={(e) =>
-                      (e.currentTarget.style.backgroundColor = "#f57c00")
+                      (e.currentTarget.style.backgroundColor = "#43a047")
                     }
                   >
                     SELENGKAPNYA
@@ -598,47 +604,68 @@ function Home() {
       </div>
 
       {/* BERITA */}
-      <div className="blog-area bg-green pd-top-115 pd-bottom-60" id="visi-misi">
+      <div
+        className="blog-area pd-top-115 pd-bottom-60"
+        id="visi-misi"
+        style={{
+          backgroundColor: "#004080", // Biru sangat muda untuk latar keseluruhan
+          fontFamily: "'Poppins', sans-serif",
+        }}
+      >
         <div className="container">
+          {/* Header Visi-Misi */}
           <div className="row justify-content-center">
             <div className="col-xl-6 col-lg-7 col-md-10">
               <div className="section-title text-center" data-aos="fade-down">
-                <h5 className="sub-title double-line" style={{ color: "#006400" }}>
-                  Visi-Misi
+                <h5
+                  className="sub-title double-line"
+                  style={{
+                    color: "#f1fcf1",
+                    fontSize: "1.5em",
+                    fontWeight: "bold",
+                    marginBottom: "20px",
+                  }}
+                >
+                  Visi dan Misi
                 </h5>
               </div>
             </div>
           </div>
 
+          {/* Konten Visi-Misi */}
           <div
+            className="row"
             style={{
-              maxWidth: "900px",
-              margin: "0 auto",
-              fontFamily: "Arial, sans-serif",
-              lineHeight: "1.8",
+              display: "flex",
+              gap: "30px",
+              justifyContent: "center",
+              marginTop: "40px",
             }}
           >
+            {/* Visi */}
             <div
               data-aos="fade-up"
               style={{
-                textAlign: "center",
+                flex: "1 1 45%",
+                background: "#f1fcf1", // Hijau sangat muda untuk blok
+                borderRadius: "15px",
+                boxShadow: "0px 6px 15px rgba(0, 64, 128, 0.2)", // Biru lembut
                 padding: "30px",
-                marginBottom: "30px",
-                background: "#f0f9f0", // Hijau muda untuk latar
-                borderRadius: "20px",
-                boxShadow: "0px 6px 20px rgba(0, 100, 0, 0.2)", // Hijau lembut
-                transition: "transform 0.3s ease-in-out",
+                textAlign: "center",
+                transition: "transform 0.3s ease",
               }}
-              onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.transform = "scale(1.05)")
+              }
               onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
             >
               <h2
                 style={{
-                  fontSize: "2.2em",
+                  fontSize: "1.8em",
                   fontWeight: "bold",
-                  textTransform: "uppercase",
+                  color: "#004080", // Biru gelap
                   marginBottom: "20px",
-                  color: "#006400", // Hijau tua
+                  textTransform: "uppercase",
                   letterSpacing: "1px",
                 }}
               >
@@ -648,37 +675,42 @@ function Home() {
                 style={{
                   fontSize: "1.2em",
                   color: "#34495e",
-                  padding: "0 15px",
                   lineHeight: "1.6",
                 }}
               >
-                Mewujudkan cita-cita Muhammadiyah yakni menjunjung tinggi agama Islam
-                yang berakidah tauhid, bersumber kepada Al-Qur'an dan sunnah
-                Rasulullah SAW sehingga terwujud masyarakat Islam yang
-                sebenar-benarnya, melalui pendidikan dan pembinaan anak asuh sehingga
-                terwujud generasi yang beriman, berakhlak mulia, berilmu, dan mandiri.
+                Mewujudkan cita-cita Muhammadiyah yakni menjunjung tinggi agama
+                Islam yang berakidah tauhid, bersumber kepada Al-Qur'an dan
+                sunnah Rasulullah SAW sehingga terwujud masyarakat Islam yang
+                sebenar-benarnya, melalui pendidikan dan pembinaan anak asuh
+                sehingga terwujud generasi yang beriman, berakhlak mulia,
+                berilmu, dan mandiri.
               </p>
             </div>
+
+            {/* Misi */}
             <div
               data-aos="fade-up"
               style={{
-                textAlign: "center",
+                flex: "1 1 45%",
+                background: "#f1fcf1", // Hijau sangat muda untuk blok
+                borderRadius: "15px",
+                boxShadow: "0px 6px 15px rgba(0, 64, 128, 0.2)", // Biru lembut
                 padding: "30px",
-                background: "#f0f9f0", // Hijau muda untuk latar
-                borderRadius: "20px",
-                boxShadow: "0px 6px 20px rgba(0, 100, 0, 0.2)", // Hijau lembut
-                transition: "transform 0.3s ease-in-out",
+                textAlign: "center",
+                transition: "transform 0.3s ease",
               }}
-              onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.transform = "scale(1.05)")
+              }
               onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
             >
               <h2
                 style={{
-                  fontSize: "2.2em",
+                  fontSize: "1.8em",
                   fontWeight: "bold",
-                  textTransform: "uppercase",
+                  color: "#004080", // Biru gelap
                   marginBottom: "20px",
-                  color: "#006400", // Hijau tua
+                  textTransform: "uppercase",
                   letterSpacing: "1px",
                 }}
               >
@@ -688,22 +720,26 @@ function Home() {
                 style={{
                   fontSize: "1.2em",
                   color: "#34495e",
-                  textAlign: "left",
-                  padding: "0 30px",
-                  listStyleType: "disc",
                   lineHeight: "1.8",
+                  textAlign: "left",
+                  paddingLeft: "20px",
                 }}
               >
-                <li>Menyelenggarakan pendidikan agama dan keagamaan bagi anak asuh.</li>
                 <li>
-                  Memberikan pengasuhan dan pembinaan serta membantu tumbuh kembang
-                  jasmani dan rohani anak asuh secara wajar.
+                  Menyelenggarakan pendidikan agama dan keagamaan bagi anak
+                  asuh.
+                </li>
+                <li>
+                  Memberikan pengasuhan dan pembinaan serta membantu tumbuh
+                  kembang jasmani dan rohani anak asuh secara wajar.
                 </li>
                 <li>
                   Melindungi dan mengembangkan kemampuan anak asuh untuk menjadi
                   pribadi tangguh dan memahami jati diri sebagai Muslim.
                 </li>
-                <li>Menyiapkan anak asuh menghadapi masa depan yang gemilang.</li>
+                <li>
+                  Menyiapkan anak asuh menghadapi masa depan yang gemilang.
+                </li>
                 <li>
                   Menjadikan panti asuhan Muhammadiyah sebagai ajang kaderisasi
                   Muhammadiyah.
@@ -863,12 +899,28 @@ function Home() {
                 </div>
               </div>
             </div>
-            <a class="carousel-control-prev" href="#prestasiSlider" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <a
+              class="carousel-control-prev"
+              href="#prestasiSlider"
+              role="button"
+              data-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
               <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#prestasiSlider" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <a
+              class="carousel-control-next"
+              href="#prestasiSlider"
+              role="button"
+              data-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
               <span class="sr-only">Next</span>
             </a>
           </div>
@@ -882,7 +934,8 @@ function Home() {
             <h5
               className="sub-title double-line"
               style={{ color: "black" }}
-              data-aos="fade-down">
+              data-aos="fade-down"
+            >
               Hubungi Kami
             </h5>
           </div>
@@ -895,7 +948,8 @@ function Home() {
                   fontWeight: "bold",
                   textAlign: "left",
                   fontFamily: "'Poppins', sans-serif",
-                }}>
+                }}
+              >
                 Denah Lokasi
               </Typography>
               <iframe
@@ -903,7 +957,8 @@ function Home() {
                 src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3129.9824873682737!2d110.45976957379189!3d-6.9885941684384205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708cdb5955f7fd%3A0x2dd118c3e56d1f3a!2sPanti%20Asuhan%20Muhammadiyah!5e1!3m2!1sid!2sid!4v1733301705391!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade`}
                 style={{ width: "100%", height: "400px", border: "0" }}
                 allowFullScreen=""
-                loading="lazy"></iframe>
+                loading="lazy"
+              ></iframe>
             </Grid>
 
             <Grid item xs={12} md={6} data-aos="fade-left">
@@ -914,7 +969,8 @@ function Home() {
                   fontWeight: "bold",
                   textAlign: "left",
                   fontFamily: "'Poppins', sans-serif",
-                }}>
+                }}
+              >
                 Kontak
               </Typography>
               <div
@@ -922,7 +978,8 @@ function Home() {
                   display: "flex",
                   flexDirection: "column",
                   gap: "10px",
-                }}>
+                }}
+              >
                 {email !== "" ? (
                   <Typography
                     variant="body1"
@@ -930,7 +987,8 @@ function Home() {
                     style={{
                       display: "flex",
                       fontFamily: "'Poppins', sans-serif",
-                    }}>
+                    }}
+                  >
                     <svg
                       className="w-6 h-6 text-gray-800 dark:text-white"
                       aria-hidden="true"
@@ -938,7 +996,8 @@ function Home() {
                       width="24"
                       height="24"
                       fill="currentColor"
-                      viewBox="0 0 24 24">
+                      viewBox="0 0 24 24"
+                    >
                       <path d="M2.038 5.61A2.01 2.01 0 0 0 2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-.12-.01-.238-.03-.352l-.866.65-7.89 6.032a2 2 0 0 1-2.429 0L2.884 6.288l-.846-.677Z" />
                       <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
                     </svg>
@@ -952,7 +1011,8 @@ function Home() {
                     style={{
                       display: "flex",
                       fontFamily: "'Poppins', sans-serif",
-                    }}>
+                    }}
+                  >
                     <svg
                       className="w-6 h-6 text-gray-800 dark:text-white"
                       aria-hidden="true"
@@ -960,7 +1020,8 @@ function Home() {
                       width="24"
                       height="24"
                       fill="currentColor"
-                      viewBox="0 0 24 24">
+                      viewBox="0 0 24 24"
+                    >
                       <path d="M2.038 5.61A2.01 2.01 0 0 0 2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-.12-.01-.238-.03-.352l-.866.65-7.89 6.032a2 2 0 0 1-2.429 0L2.884 6.288l-.846-.677Z" />
                       <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
                     </svg>
@@ -978,7 +1039,8 @@ function Home() {
                     style={{
                       display: "flex",
                       fontFamily: "'Poppins', sans-serif",
-                    }}>
+                    }}
+                  >
                     <svg
                       className="w-6 h-6 text-gray-800 dark:text-white"
                       aria-hidden="true"
@@ -986,7 +1048,8 @@ function Home() {
                       width="24"
                       height="24"
                       fill="currentColor"
-                      viewBox="0 0 24 24">
+                      viewBox="0 0 24 24"
+                    >
                       <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z" />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
@@ -999,7 +1062,8 @@ function Home() {
                     style={{
                       display: "flex",
                       fontFamily: "'Poppins', sans-serif",
-                    }}>
+                    }}
+                  >
                     <svg
                       className="w-6 h-6 text-gray-800 dark:text-white"
                       aria-hidden="true"
@@ -1007,11 +1071,18 @@ function Home() {
                       width="24"
                       height="24"
                       fill="currentColor"
-                      viewBox="0 0 24 24">
+                      viewBox="0 0 24 24"
+                    >
                       <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z" />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ color: "gray", marginLeft: "8px", textAlign: "left" }}>
+                    <span
+                      style={{
+                        color: "gray",
+                        marginLeft: "8px",
+                        textAlign: "left",
+                      }}
+                    >
                       +628740041119
                     </span>
                   </Typography>
@@ -1024,7 +1095,8 @@ function Home() {
                     style={{
                       display: "flex",
                       fontFamily: "'Poppins', sans-serif",
-                    }}>
+                    }}
+                  >
                     <svg
                       className="w-6 h-6 text-gray-800 dark:text-white"
                       aria-hidden="true"
@@ -1032,7 +1104,8 @@ function Home() {
                       width="24"
                       height="24"
                       fill="currentColor"
-                      viewBox="0 0 24 24">
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         fillRule="evenodd"
                         d="M11 4a1 1 0 0 0-1 1v10h10.459l.522-3H16a1 1 0 1 1 0-2h5.33l.174-1H16a1 1 0 1 1 0-2h5.852l.117-.67v-.003A1.983 1.983 0 0 0 20.06 4H11ZM9 18c0-.35.06-.687.17-1h11.66c.11.313.17.65.17 1v1a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-1Zm-6.991-7a17.8 17.8 0 0 0 .953 6.1c.198.54 1.61.9 2.237.9h1.34c.17 0 .339-.032.495-.095a1.24 1.24 0 0 0 .41-.27c.114-.114.2-.25.254-.396a1.01 1.01 0 0 0 .055-.456l-.242-2.185a1.073 1.073 0 0 0-.395-.71 1.292 1.292 0 0 0-.819-.286H5.291c-.12-.863-.17-1.732-.145-2.602-.024-.87.024-1.74.145-2.602H6.54c.302 0 .594-.102.818-.286a1.07 1.07 0 0 0 .396-.71l.24-2.185a1.01 1.01 0 0 0-.054-.456 1.088 1.088 0 0 0-.254-.397 1.223 1.223 0 0 0-.41-.269A1.328 1.328 0 0 0 6.78 4H4.307c-.3-.001-.592.082-.838.238a1.335 1.335 0 0 0-.531.634A17.127 17.127 0 0 0 2.008 11Z"
@@ -1049,7 +1122,8 @@ function Home() {
                     style={{
                       display: "flex",
                       fontFamily: "'Poppins', sans-serif",
-                    }}>
+                    }}
+                  >
                     <svg
                       className="w-6 h-6 text-gray-800 dark:text-white"
                       aria-hidden="true"
@@ -1057,7 +1131,8 @@ function Home() {
                       width="24"
                       height="24"
                       fill="currentColor"
-                      viewBox="0 0 24 24">
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         fillRule="evenodd"
                         d="M11 4a1 1 0 0 0-1 1v10h10.459l.522-3H16a1 1 0 1 1 0-2h5.33l.174-1H16a1 1 0 1 1 0-2h5.852l.117-.67v-.003A1.983 1.983 0 0 0 20.06 4H11ZM9 18c0-.35.06-.687.17-1h11.66c.11.313.17.65.17 1v1a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-1Zm-6.991-7a17.8 17.8 0 0 0 .953 6.1c.198.54 1.61.9 2.237.9h1.34c.17 0 .339-.032.495-.095a1.24 1.24 0 0 0 .41-.27c.114-.114.2-.25.254-.396a1.01 1.01 0 0 0 .055-.456l-.242-2.185a1.073 1.073 0 0 0-.395-.71 1.292 1.292 0 0 0-.819-.286H5.291c-.12-.863-.17-1.732-.145-2.602-.024-.87.024-1.74.145-2.602H6.54c.302 0 .594-.102.818-.286a1.07 1.07 0 0 0 .396-.71l.24-2.185a1.01 1.01 0 0 0-.054-.456 1.088 1.088 0 0 0-.254-.397 1.223 1.223 0 0 0-.41-.269A1.328 1.328 0 0 0 6.78 4H4.307c-.3-.001-.592.082-.838.238a1.335 1.335 0 0 0-.531.634A17.127 17.127 0 0 0 2.008 11Z"
@@ -1078,15 +1153,17 @@ function Home() {
                     style={{
                       display: "flex",
                       fontFamily: "'Poppins', sans-serif",
-                    }}>
+                    }}
+                  >
                     <svg
-                      className="w-6 h-6 text-gray-800 dark:text-white"
+                      className="w-8 h-8 text-gray-800 dark:text-white"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
                       fill="currentColor"
-                      viewBox="0 0 24 24">
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         fillRule="evenodd"
                         d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.577-.764 1.072 1.072 0 0 1-.182-.62A8.021 8.021 0 0 1 3.62 10.24 7.976 7.976 0 0 1 1.875 6.804a7.99 7.99 0 0 1 6.137-5.295c.2-.058.399-.106.597-.147a.969.969 0 0 1 .299-.011l.006.002ZM11.07 7.553a.5.5 0 0 1 .37-.683c.31-.085.639-.075.94.026.318.107.623.292.844.55a.5.5 0 0 1 .092.618l-1 2a.5.5 0 0 1-.866-.5l.815-1.627a.482.482 0 0 1 .127-.139ZM8 12a1 1 0 0 1 1 1v4a1 1 0 0 1-2 0v-4a1 1 0 0 1 1-1ZM7 8.585A.996.996 0 0 1 7.248 8H8v3a1 1 0 0 1-1 1h-.004a.995.995 0 0 1-.992-.891V9.415ZM13 9v4a1 1 0 0 1-1 1v-4a1 1 0 0 1 1-1Zm1-4.243a.5.5 0 0 1 .658-.237c.05.03.099.068.145.107.379.346.723.72 1.01 1.113a1.048 1.048 0 0 1 .16.305A4.477 4.477 0 0 1 14 8v1.58c0 .2-.017.4-.048.597.044.04.087.083.124.129a.5.5 0 0 1-.5.816.51.51 0 0 1-.228-.046A3.5 3.5 0 0 0 14 9.415V9a1 1 0 0 1-1-1v-.585ZM9.17 5.72a.999.999 0 0 1-.17-.176 1.001 1.001 0 0 1 .338-1.374 1.002 1.002 0 0 1 1.351.215l.825 1.2a.5.5 0 0 1 .032.497.51.51 0 0 1-.031.066l-1.05 2.2a.5.5 0 0 1-.745.122l-.18-.17a.502.502 0 0 1-.06-.672.479.479 0 0 1 .113-.135l1.307-1.935a.501.501 0 0 1 .716-.052c.278.278.438.648.438 1.041a.5.5 0 0 1-.315.415l-1.029.684c-.282.189-.432.487-.432.773a.5.5 0 0 1-.387.487.507.507 0 0 1-.452-.06l-.446-.447a1.019 1.019 0 0 1-.126-1.382Zm5.027-.98a.995.995 0 0 1 .87-.26.975.975 0 0 1 .507.164c.123.057.237.133.336.23a2.11 2.11 0 0 1 .368.295.492.492 0 0 1 .062.65l-.37.517a1.025 1.025 0 0 1-.225.171l-1.321.883a.492.492 0 0 1-.7-.228l-.493-.843a.501.501 0 0 1 .12-.694l1.068-.734a1.013 1.013 0 0 1 .647-.212Zm-.014-2.124a.5.5 0 0 1 .48.327.5.5 0 0 1-.106.603l-1.056 1.056a.5.5 0 0 1-.707-.707l.899-.9A.493.493 0 0 1 15.056 2Z"
@@ -1094,7 +1171,9 @@ function Home() {
                       />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px", textAlign: "left" }}>{address}</span>
+                    <span style={{ marginLeft: "8px", textAlign: "left" }}>
+                      {address}
+                    </span>
                   </Typography>
                 ) : (
                   <Typography
@@ -1103,15 +1182,17 @@ function Home() {
                     style={{
                       display: "flex",
                       fontFamily: "'Poppins', sans-serif",
-                    }}>
+                    }}
+                  >
                     <svg
-                      className="w-6 h-6 text-gray-800 dark:text-white"
+                      className="w-8 h-8 text-gray-800 dark:text-white"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
                       fill="currentColor"
-                      viewBox="0 0 24 24">
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         fillRule="evenodd"
                         d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z"
@@ -1119,10 +1200,15 @@ function Home() {
                       />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ color: "gray", marginLeft: "8px" }}>
-                      LKSA Panti Asuhan Muhammadiyah Kota Semarang
-                      Jl. Giri Mukti Barat II no. 19 
-                      Graha Mukti Tlogosari Kulon
+                    <span
+                      style={{
+                        color: "gray",
+                        marginLeft: "8px",
+                        textAlign: "left",
+                      }}
+                    >
+                      LKSA Panti Asuhan Muhammadiyah Kota Semarang Jl. Giri
+                      Mukti Barat II no. 19 Graha Mukti Tlogosari Kulon
                     </span>
                   </Typography>
                 )}
@@ -1135,7 +1221,8 @@ function Home() {
             onSubmit={add}
             style={formStyle}
             className="container"
-            data-aos="fade-up">
+            data-aos="fade-up"
+          >
             <Typography variant="h5" gutterBottom style={titleStyle}>
               Kotak Saran
             </Typography>
@@ -1146,7 +1233,8 @@ function Home() {
                 alignItems: "center",
                 gap: "5px",
                 marginBottom: "5px",
-              }}>
+              }}
+            >
               <p style={{ margin: 0 }}>
                 Kode Captcha:{" "}
                 <span style={captchaTextStyle}>{generatedCaptcha}</span>
@@ -1155,22 +1243,28 @@ function Home() {
                 type="button"
                 onClick={generateCaptcha}
                 disabled={isLocked}
-                style={{ width: "3%", fontSize: "18px" }}>
+                style={{ width: "3%", fontSize: "18px" }}
+              >
                 <i className="fa-solid fa-arrows-rotate"></i>
               </Button>
               <Button
                 type="button"
                 onClick={() => setIsLocked(!isLocked)}
-                style={{ width: "3%", fontSize: "18px" }}>
+                style={{ width: "3%", fontSize: "18px" }}
+              >
                 <i
-                  className={`fa-solid ${isLocked ? "fa-lock" : "fa-unlock"
-                    }`}></i>
+                  className={`fa-solid ${isLocked ? "fa-lock" : "fa-unlock"}`}
+                ></i>
               </Button>
             </div>
 
             <div style={inputContainerStyle}>
               <TextField
-                style={{ ...inputFieldStyles }}
+                style={{
+                  ...inputFieldStyles,
+                  width: "100%",
+                  borderColor: "#1D3557", // Dark blue border color for input fields
+                }}
                 label="Kode Captcha"
                 variant="outlined"
                 value={captcha}
@@ -1179,7 +1273,11 @@ function Home() {
                 disabled={isLocked}
               />
               <TextField
-                style={{ ...inputFieldStyle }}
+                style={{
+                  ...inputFieldStyle,
+                  width: "100%",
+                  borderColor: "#1D3557", // Dark blue border color for input fields
+                }}
                 label="Nama"
                 variant="outlined"
                 value={namaPengirim}
@@ -1190,7 +1288,11 @@ function Home() {
 
             <div style={inputContainerStyle}>
               <TextField
-                style={{ ...inputFieldStyles }}
+                style={{
+                  ...inputFieldStyles,
+                  width: "100%",
+                  borderColor: "#1D3557", // Dark blue border color for input fields
+                }}
                 label="Email"
                 type="email"
                 variant="outlined"
@@ -1199,7 +1301,11 @@ function Home() {
                 required
               />
               <TextField
-                style={{ ...inputFieldStyle }}
+                style={{
+                  ...inputFieldStyle,
+                  width: "100%",
+                  borderColor: "#1D3557", // Dark blue border color for input fields
+                }}
                 label="Nomor Telephon"
                 type="number"
                 variant="outlined"
@@ -1210,7 +1316,11 @@ function Home() {
 
             <div style={messageContainerStyle}>
               <TextField
-                style={{ ...inputFieldStyles, width: "100%" }}
+                style={{
+                  ...inputFieldStyles,
+                  width: "100%",
+                  borderColor: "#1D3557", // Dark blue border color for input fields
+                }}
                 label="Pesan"
                 variant="outlined"
                 multiline
@@ -1224,29 +1334,41 @@ function Home() {
 
             <Button
               type="submit"
-              style={buttonStyless}
+              style={{
+                ...buttonStyless,
+                backgroundColor: "#1D3557", // Dark blue button color
+                color: "white", // White text color
+                fontWeight: "bold", // Make text bold for better visibility
+                textTransform: "uppercase", // Make the text uppercase for better emphasis
+              }}
               onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}>
+              onMouseLeave={() => setIsHovered(false)}
+            >
               Kirim
             </Button>
           </form> */}
           {/* SARAN */}
         </section>
       </div>
-      <div className="client-area-area pt-5 pb-5" style={{ backgroundColor: "#f0f9f0" }}>
+      <div
+        className="client-area-area pt-5 pb-5"
+        style={{ backgroundColor: "#f0f9f0" }}
+      >
         <div className="container">
           <div className="section-title style-white text-center">
             <h6
               className="title"
               style={{
-                color: "#006400", // Hijau tua untuk teks
+                color: "#004080",
                 fontSize: "1.5rem",
                 lineHeight: "1.8",
                 fontWeight: "bold",
                 padding: "20px",
               }}
             >
-              "Pendidikan adalah jembatan menuju masa depan yang lebih cerah, tempat harapan tumbuh, dan setiap anak menemukan kekuatan untuk meraih mimpinya."
+              "Pendidikan adalah jembatan menuju masa depan yang lebih cerah,
+              tempat harapan tumbuh, dan setiap anak menemukan kekuatan untuk
+              meraih mimpinya."
             </h6>
           </div>
         </div>
@@ -1255,6 +1377,5 @@ function Home() {
     </div>
   );
 }
-
 
 export default Home;

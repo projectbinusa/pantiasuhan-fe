@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import {
   useHistory,
   useParams,
@@ -104,7 +104,8 @@ function EditKegiatanPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/pantiasuhan/api/kegiatan/all/terbaru?page=${page - 1
+        `${API_DUMMY_PYTHON}/api/admin/kegiatan/?page=${
+          page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -133,7 +134,7 @@ function EditKegiatanPanti() {
       category: kategori,
     };
     await axios
-      .put(`${API_DUMMY}/pantiasuhan/api/kegiatan/put/` + param.id, data, {
+      .put(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -142,7 +143,7 @@ function EditKegiatanPanti() {
         if (image) {
           axios
             .put(
-              `${API_DUMMY}/pantiasuhan/api/kegiatan/put/foto/` + param.id,
+              `${API_DUMMY_PYTHON}/api/admin/kegiatan/put/foto/` + param.id,
               formData,
               {
                 headers: {
@@ -187,7 +188,7 @@ function EditKegiatanPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/pantiasuhan/api/kegiatan/get/` + param.id, {
+      .get(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -335,13 +336,16 @@ function EditKegiatanPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -385,7 +389,8 @@ function EditKegiatanPanti() {
                       value={kategori}
                       className="form-control"
                       aria-label="Small select example"
-                      onChange={(e) => setKategori(e.target.value)}>
+                      onChange={(e) => setKategori(e.target.value)}
+                    >
                       <option selected>Pilih Kategori Kegiatan</option>
                       <option value="Kegiatan Khusus">Kegiatan Khusus</option>
                       <option value="Kegiatan Umum">Kegiatan Umum</option>
@@ -658,7 +663,8 @@ function EditKegiatanPanti() {
                 <button type="button" className="btn-danger mt-3">
                   <a
                     style={{ color: "white", textDecoration: "none" }}
-                    href="/admin_kegiatan">
+                    href="/admin_kegiatan"
+                  >
                     Batal
                   </a>
                 </button>

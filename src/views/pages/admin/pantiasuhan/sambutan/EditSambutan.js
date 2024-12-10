@@ -7,7 +7,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
 
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -73,14 +73,14 @@ function EditSambutanPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/pantiasuhan/api/sambutan/get/` + param.id, {
+      .get(`${API_DUMMY_PYTHON}/api/admin/sambutan/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((ress) => {
         const response = ress.data.data;
-        setIsiSambutan(response.isi);
+        setIsiSambutan(response.isi_sambutan);
         setJudulSambutan(response.judul);
         setNip(response.nip);
         setNama(response.nama);
@@ -102,28 +102,34 @@ function EditSambutanPanti() {
     formData.append("file", file);
 
     const data = {
-      isi: isiSambutan,
+      isi_sambutan: isiSambutan,
       nama: nama,
       judul: judulSambutan,
-      nip: nip
-    }
+      nip: nip,
+    };
 
     await axios
-      .put(`${API_DUMMY}/pantiasuhan/api/sambutan/put/` + param.id, data, {
+      .put(`${API_DUMMY_PYTHON}/api/admin/sambutan/` + param.id, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
         if (file) {
-          axios.put(`${API_DUMMY}/pantiasuhan/api/sambutan/put/foto/` + param.id, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }).catch((err) => {
-            console.log(err);
-          })
+          axios
+            .put(
+              `${API_DUMMY_PYTHON}/api/admin/sambutan/` + param.id,
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            )
+            .catch((err) => {
+              console.log(err);
+            });
         }
         Swal.fire({
           icon: "success",
@@ -284,7 +290,7 @@ function EditSambutanPanti() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -292,29 +298,36 @@ function EditSambutanPanti() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <div
-    className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
-    <div style={{marginTop:"50px"}}
-      className="page-content1 mb-3 app-main__outer"
-      data-aos="fade-left">
-        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}
+      >
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
+      <div
+        style={{ marginTop: "50px" }}
+        className="page-content1 mb-3 app-main__outer"
+        data-aos="fade-left"
+      >
+        <div
+          className="container mt-3 mb-3 app-main__outer"
+          data-aos="fade-left"
+        >
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -614,7 +627,8 @@ function EditSambutanPanti() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_sambutan">
+                          href="/admin_sambutan"
+                        >
                           Batal
                         </a>
                       </button>

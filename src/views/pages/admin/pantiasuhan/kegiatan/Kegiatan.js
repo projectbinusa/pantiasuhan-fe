@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import {
-  Pagination,
-} from "@mui/material";
+import { Pagination } from "@mui/material";
 import FotoKegiatanPanti from "./fotoKegiatan/FotoKegiatan";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import kegiatan from "../../../../../aset/smpn1bergas/kegiatan.png";
@@ -41,7 +39,8 @@ function KegiatanPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/pantiasuhan/api/kegiatan/all/terbaru?page=${page - 1
+        `${API_DUMMY_PYTHON}/api/admin/kegiatan?page=${
+          page - 1
         }&size=${rowsPerPage}`,
         {
           headers: {
@@ -49,8 +48,8 @@ function KegiatanPanti() {
           },
         }
       );
-      setList(response.data.data.content);
-      console.log(response.data.data.content);
+      setList(response.data.data);
+      console.log(response.data.data);
       setPaginationInfo({
         totalPages: response.data.data.totalPages,
         totalElements: response.data.data.totalElements,
@@ -73,7 +72,7 @@ function KegiatanPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/pantiasuhan/api/kegiatan/` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -134,20 +133,24 @@ function KegiatanPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -156,7 +159,8 @@ function KegiatanPanti() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -183,7 +187,8 @@ function KegiatanPanti() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -203,7 +208,8 @@ function KegiatanPanti() {
                     <button className="active btn-focus p-2 rounded">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add_kegiatan">
+                        href="/add_kegiatan"
+                      >
                         Tambah kegiatan
                       </a>
                     </button>
@@ -213,17 +219,14 @@ function KegiatanPanti() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">
-                      No
-                    </th>
+                    <th scope="col">No</th>
                     <th>Kegiatan</th>
-                    <th
-                      scope="col"
-                      style={{ minWidth: "150px" }}>
+                    <th scope="col" style={{ minWidth: "150px" }}>
                       Penulis Kegiatan
                     </th>
                     <th>Gambar</th>
@@ -233,71 +236,83 @@ function KegiatanPanti() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length > 0 ?
-                    filteredList.map((berita, no) => {
+                  {filteredList.length > 0 ? (
+                    filteredList.map((kegiatan, no) => {
                       return (
                         <tr key={no}>
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Kegiatan">
-                            {berita.judul}
-                          </td>
+                          <td data-label="Kegiatan">{kegiatan.judul}</td>
                           <td data-label="Penulis Kegiatan">
-                            {berita.penulis}
+                            {kegiatan.penulis}
                           </td>
                           <td data-label="Image" className="">
                             <img
-                              src={berita.foto ? berita.foto : kegiatan}
-                              style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
+                              src={kegiatan.foto ? kegiatan.foto : kegiatan}
+                              style={{
+                                height: "4.5rem",
+                                width: "4.5rem",
+                                marginLeft: "auto",
+                                marginRight: "auto",
+                                display: "flex",
+                              }}
                             />
                           </td>
                           <td data-label="Tanggal Dibuat">
-                            {berita.createdDate}
+                            {kegiatan.created_date}
                           </td>
                           <td data-label="Tanggal Update">
-                            {berita.updatedDate}
+                            {kegiatan.updated_date}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 type="button"
-                                className="btn-primary btn-sm mr-2">
+                                className="btn-primary btn-sm mr-2"
+                              >
                                 <a
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit_kegiatan/${berita.id}`}>
+                                  href={`/edit_kegiatan/${kegiatan.id}`}
+                                >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
                               </button>
                               <button
                                 type="button"
-                                class="btn-warning  mr-2 btn-sm">
+                                class="btn-warning  mr-2 btn-sm"
+                              >
                                 <a
                                   className="text-light"
-                                  href={"/admin_detail_kegiatan/" + berita.id}>
+                                  href={"/admin_detail_kegiatan/" + kegiatan.id}
+                                >
                                   <i class="fas fa-info-circle"></i>
                                 </a>
                               </button>
                               <button
-                                onClick={() => deleteData(berita.id)}
+                                onClick={() => deleteData(kegiatan.id)}
                                 type="button"
-                                className="btn-danger btn-sm">
+                                className="btn-danger btn-sm"
+                              >
                                 <i className="fa-solid fa-trash"></i>
                               </button>
                             </div>
                           </td>
                         </tr>
                       );
-                    }) : <tr>
+                    })
+                  ) : (
+                    <tr>
                       <td colSpan="7" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
                       </td>
-                    </tr>}
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

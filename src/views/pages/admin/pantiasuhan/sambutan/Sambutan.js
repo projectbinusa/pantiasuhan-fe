@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function AdminSambutanPanti() {
@@ -24,21 +24,24 @@ function AdminSambutanPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/pantiasuhan/api/sambutan/all/terbaru?page=${
-          page - 1
-        }&size=${rowsPerPage}`,
+        `${API_DUMMY}/api/admin/sambutan?page=${page - 1}&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-      setList(response.data.data.content);
-      console.log("data sambutan: ", response);
-      setPaginationInfo({
-        totalPages: response.data.data.totalPages,
-        totalElements: response.data.data.totalElements,
-      });
+
+      if (response.data && response.data.data && response.data.data.content) {
+        setList(response.data.data.content);
+        console.log("data sambutan: ", response);
+        setPaginationInfo({
+          totalPages: response.data.pagination.total_pages,
+          totalElements: response.data.pagination.total,
+        });
+      } else {
+        console.error("No data found in response");
+      }
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
     }
@@ -57,7 +60,7 @@ function AdminSambutanPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/pantiasuhan/api/sambutan/` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/sambutan/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -73,15 +76,16 @@ function AdminSambutanPanti() {
             setTimeout(() => {
               window.location.reload();
             }, 1500);
-          }).catch((err) => {
+          })
+          .catch((err) => {
             Swal.fire({
               icon: "error",
               title: "Hapus Data Gagal!",
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     });
   };
@@ -123,7 +127,7 @@ function AdminSambutanPanti() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -131,29 +135,34 @@ function AdminSambutanPanti() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-     <div
+    <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
-      <div style={{marginTop:"50px"}}
+      <div
+        style={{ marginTop: "50px" }}
         className="page-content1 mb-3 app-main__outer"
-        data-aos="fade-left">
+        data-aos="fade-left"
+      >
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           <div className="search">
             <input
               type="search"
@@ -181,7 +190,8 @@ function AdminSambutanPanti() {
                         <button
                           style={{ cursor: "not-allowed" }}
                           disabled
-                          className="active btn-focus p-2 rounded">
+                          className="active btn-focus p-2 rounded"
+                        >
                           Tambah Data
                         </button>
                       </>
@@ -190,7 +200,8 @@ function AdminSambutanPanti() {
                         <button className="active btn-focus p-2 rounded">
                           <a
                             style={{ color: "white", textDecoration: "none" }}
-                            href="/add-kontak">
+                            href="/add-sambutan"
+                          >
                             Tambah Data
                           </a>
                         </button>
@@ -202,17 +213,21 @@ function AdminSambutanPanti() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
+                    <th scope="col" className="text-center">
+                      No
+                    </th>
                     <th className="text-center">Judul Sambutan</th>
                     <th className="text-center">Nama Kepala Sekolah</th>
                     <th
                       scope="col"
                       className="text-center"
-                      style={{ minWidth: "150px" }}>
+                      style={{ minWidth: "150px" }}
+                    >
                       Isi Sambutan
                     </th>
                     <th className="text-center">NIP</th>
@@ -221,17 +236,20 @@ function AdminSambutanPanti() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((berita, no) => {
+                  {filteredList.map((sambutan, no) => {
                     return (
                       <tr key={no}>
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
                         <td data-label="Judul Sambutan" className="text-long">
-                          {berita.judul}
+                          {sambutan.judul}
                         </td>
-                        <td data-label="Nama Kepala Sekolah" className="text-long">
-                          {berita.nama}
+                        <td
+                          data-label="Nama Kepala Sekolah"
+                          className="text-long"
+                        >
+                          {sambutan.nama}
                         </td>
                         <td
                           style={{
@@ -241,47 +259,61 @@ function AdminSambutanPanti() {
                             textOverflow: "ellipsis",
                           }}
                           data-label="Isi Sejarah"
-                          className="text-long">
+                          className="text-long"
+                        >
                           <div
-                            dangerouslySetInnerHTML={{ __html: berita.isi }}
+                            dangerouslySetInnerHTML={{
+                              __html: sambutan.isi_sambutan,
+                            }}
                           />
                         </td>
                         <td data-label="NIP" className="">
-                          {berita.nip}
+                          {sambutan.nip}
                         </td>
                         <td data-label="Gambar" className="">
                           <img
-                            src={berita.foto}
-                            style={{ height: "4.5rem", width: "4.5rem", marginLeft:"auto", marginRight:"auto", display:"flex" }}
+                            src={sambutan.foto}
+                            style={{
+                              height: "4.5rem",
+                              width: "4.5rem",
+                              marginLeft: "auto",
+                              marginRight: "auto",
+                              display: "flex",
+                            }}
                           />
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button
                               type="button"
-                              className="btn-primary btn-sm mr-2">
+                              className="btn-primary btn-sm mr-2"
+                            >
                               <a
                                 style={{
                                   color: "white",
                                   textDecoration: "none",
                                 }}
-                                href={`/edit_sambutan/${berita.id}`}>
+                                href={`/edit_sambutan/${sambutan.id}`}
+                              >
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>
                             <button
                               type="button"
-                              class="btn-warning  mr-2 btn-sm">
+                              class="btn-warning  mr-2 btn-sm"
+                            >
                               <a
                                 className="text-light"
-                                href={"/detail_sambutan/" + berita.id}>
+                                href={"/detail_sambutan/" + sambutan.id}
+                              >
                                 <i class="fas fa-info-circle"></i>
                               </a>
                             </button>
                             <button
-                              onClick={() => deleteData(berita.id)}
+                              onClick={() => deleteData(sambutan.id)}
                               type="button"
-                              className="btn-danger btn-sm">
+                              className="btn-danger btn-sm"
+                            >
                               <i className="fa-solid fa-trash"></i>
                             </button>
                           </div>
