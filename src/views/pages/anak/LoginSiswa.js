@@ -8,7 +8,7 @@ import axios from "axios";
 import logo from "../../../aset/pantiasuhan/logo.png";
 
 function LoginSiswa() {
-  const [username, setUsername] = useState("");
+  const [uniqueId, setUniqueId] = useState("");
   const [password, setPassword] = useState("");
   const [role, seRole] = useState("admin");
   const history = useHistory();
@@ -18,16 +18,16 @@ function LoginSiswa() {
     e.preventDefault();
 
     const data = {
-      username: username,
+      uniqueId: uniqueId,
       password: password,
       role: role,
     };
     const datapython = {
-      username: username,
+      uniqueId: uniqueId,
       password: password,
     };
     try {
-      const response = await axios.post(`${API_DUMMY_PYTHON}/api/signin/siswa`, datapython);;
+      const response = await axios.post(`https://api.byrtagihan.com/api/member/login`, datapython);;
 
       if (response.status === 200) {
         Swal.fire({
@@ -93,9 +93,9 @@ function LoginSiswa() {
                 type="text"
                 className="form-control form-control-lg bg-light fs-6"
                 required
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Unique ID"
+                value={uniqueId}
+                onChange={(e) => setUniqueId(e.target.value)}
               />
             </div>
             <div className="input-group mb-1">
