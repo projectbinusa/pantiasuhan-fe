@@ -128,6 +128,70 @@ function DataBarangInventaris() {
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 500,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 3,
+    borderRadius: "10px",
+    backgroundColor: "#f5f5f5"
+  }
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+    // ADD
+    const [lokasi, setLokasi] = useState("");
+    const [deskripsi, setDeskripsi] = useState("");
+  
+    const add = async (e) => {
+      e.preventDefault();
+      e.persist();
+  
+      const data = {
+        nama_lokasi: lokasi,
+        deskripsi: deskripsi,
+      }
+  
+      try {
+        await axios.post(
+          `${API_DUMMY_PYTHON}/api/admin/lokasi`, data,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        Swal.fire({
+          icon: "success",
+          title: "Data Berhasil DiTambahkan",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setTimeout(() => {
+          window.location.reload()
+        }, 1500);
+      } catch (error) {
+        if (error.ressponse && error.response.status === 401) {
+          localStorage.clear();
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Tambah Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          console.log(error);
+        }
+      }
+    };
+  
   return (
     <div
       className={`page-wrapper chiller-theme ${
