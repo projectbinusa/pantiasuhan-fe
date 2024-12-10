@@ -217,11 +217,12 @@ function DataBukuTamu() {
                   <tr>
                     <th scope="col">No</th>
                     <th>Nama Orang Tua</th>
-                    <th>Tanggal Kunjungan</th>
                     <th>Nomor Whatsapp</th>
+                    <th>Alamat</th>
+                    <th>Tanggal Kunjungan</th>
                     <th
                       scope="col"
-                      style={{ minWidth: "150px" }}>Deskripsi Donasi</th>
+                      style={{ minWidth: "150px" }}>Tujuan Kunjungan</th>
                     <th>Bukti Donasi</th>
                     <th>Catatan</th>
                     <th>Aksi</th>
@@ -236,15 +237,18 @@ function DataBukuTamu() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td data-label="Nama Orang Tua">
-                            {berita.foster_parent_name}
-                          </td>
-                          <td data-label="Tanggal Kunjungan">
-                            {berita.visit_date}
+                            {berita.nama}
                           </td>
                           <td data-label="Nomor Whatsapp">
                             {berita.no_wa}
                           </td>
-                          <td data-label="Deskripsi Donasi">
+                          <td data-label="Alamat">
+                            {berita.address}
+                          </td>
+                          <td data-label="Tanggal Kunjungan">
+                            {berita.visit_date}
+                          </td>
+                          <td data-label="Tujuan Kunjungan">
                             {berita.description_donation}
                           </td>
                           <td data-label="Bukti Donasi" className="">
@@ -260,24 +264,16 @@ function DataBukuTamu() {
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 type="button"
-                                className="btn-primary btn-sm mr-2">
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/edit_buku_tamu/${berita.id}`}>
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
-                              </button>
-                              <button
-                                type="button"
-                                class="btn-warning  mr-2 btn-sm">
-                                <a
-                                  className="text-light"
-                                  href={"/admin_detail_buku_tamu/" + berita.id}>
-                                  <i class="fas fa-info-circle"></i>
-                                </a>
+                                class="btn-warning  mr-2 btn-sm" onClick={() => {
+                                  const phone = encodeURIComponent(berita.no_wa);
+                                  const message = encodeURIComponent(
+                                    `Terima kasih atas kunjungannya, semoga amal bapak/ibu ${berita.nama} bermanfaat bagi kami semua`
+                                  );
+                                  window.open(
+                                    `https://api.whatsapp.com/send?phone=${phone}&text=${message}`
+                                  );
+                                }}>
+                                <i class="fab fa-whatsapp"></i>
                               </button>
                               <button
                                 onClick={() => deleteData(berita.id)}
@@ -300,7 +296,7 @@ function DataBukuTamu() {
               </table>
             </div>
             <div className="card-header mt-3 d-flex justify-content-center">
-            <Pagination
+              <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
                 onChange={(event, value) => setCurrentPage(value)}

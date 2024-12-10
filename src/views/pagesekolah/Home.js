@@ -1216,7 +1216,7 @@ function Home() {
             </Grid>
           </Grid>
           {/* SARAN */}
-          <br /> <br />
+          {/* <br /> <br />
           <form
             onSubmit={add}
             style={formStyle}
@@ -1346,7 +1346,8 @@ function Home() {
             >
               Kirim
             </Button>
-          </form>
+          </form> */}
+          {/* SARAN */}
         </section>
       </div>
       <div

@@ -185,6 +185,7 @@ import EditTahsin from "./views/pages/anak/EditTahsin";
 import DataAnak from "./views/pages/admin/pantiasuhan/anak/DataAnak";
 import AddAnak from "./views/pages/admin/pantiasuhan/anak/AddAnak";
 import EditAnak from "./views/pages/admin/pantiasuhan/anak/EditAnak";
+import FormBukuTamu from "./views/pages/admin/pantiasuhan/buku_tamu/FormBukuTamu";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -356,41 +357,42 @@ function App() {
               component={DataAbsen}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/anak_tahsin"
               component={TahsinAnak}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add_anak_tahsin"
               component={AddTahsin}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit_anak_tahsin/:id"
               component={EditTahsin}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/admin_anak_asuh"
               component={DataAnak}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add_anak_asuh"
               component={AddAnak}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add_anak_asuh"
               component={AddAnak}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit_anak_asuh/:id"
               component={EditAnak}
               exact
             />
+            <Route path="/form_buku_tamu/:organization_id" component={FormBukuTamu} exact/>
             {/* END PANTI ASUHAN */}
             <Route path="/sambutan" component={sambutan} exact />
             <Route path="/visi-misi" component={VisiMisiSekolah} exact />
