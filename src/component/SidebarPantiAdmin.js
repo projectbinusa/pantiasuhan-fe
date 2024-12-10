@@ -63,7 +63,13 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       action: ["/add_visimisi", "/edit_visimisi", "/detail_visimisi"],
     },
     {
-      title: "Iventaris",
+      title: "Inventaris",
+      icon: "fa-solid fa-list",
+      path: "/admin_iventaris",
+      action: ["/add_iventaris", "/edit_iventaris", "/detail_iventaris"],
+    },
+    {
+      title: "Inventaris",
       icon: "fa-solid fa-list",
       path: "/admin_iventaris",
       action: ["/add_iventaris", "/edit_iventaris", "/detail_iventaris"],
