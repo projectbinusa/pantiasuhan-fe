@@ -1130,7 +1130,7 @@ function Home() {
             </Grid>
           </Grid>
           {/* SARAN */}
-          <br /> <br />
+          {/* <br /> <br />
           <form
             onSubmit={add}
             style={formStyle}
@@ -1229,7 +1229,8 @@ function Home() {
               onMouseLeave={() => setIsHovered(false)}>
               Kirim
             </Button>
-          </form>
+          </form> */}
+          {/* SARAN */}
         </section>
       </div>
       <div className="client-area-area pt-5 pb-5" style={{ backgroundColor: "#f0f9f0" }}>
