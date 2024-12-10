@@ -5,9 +5,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
-
 
 function DetailSAmbutanPanti() {
   const [judulSambutan, setJudulSambutan] = useState("");
@@ -19,11 +18,15 @@ function DetailSAmbutanPanti() {
   const [image, setImage] = useState("");
   const [id, setId] = useState(0);
   const [data, setdatas] = useState([]);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/pantiasuhan/api/sambutan/all/terbaru?page=0&size=1`,
+        `${API_DUMMY_PYTHON}/api/admin/sambutan?page=${
+          page - 1
+        }&size=${rowsPerPage}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -36,7 +39,7 @@ function DetailSAmbutanPanti() {
       setCreatedDate(res[0].createdDate);
       setUpdateDate(res[0].updatedDate);
       setJudulSambutan(res[0].judul);
-      setIsiSambutan(res[0].isi);
+      setIsiSambutan(res[0].isi_sambutan);
       setNama(res[0].nama);
       setImage(res[0].foto);
       setNip(res[0].nip);
@@ -46,8 +49,8 @@ function DetailSAmbutanPanti() {
   };
 
   useEffect(() => {
-    getAll()
-  }, [])
+    getAll();
+  }, []);
 
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -63,8 +66,8 @@ function DetailSAmbutanPanti() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const deleteData = async (id) => {
@@ -80,7 +83,7 @@ function DetailSAmbutanPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/pantiasuhan/api/sambutan/` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/sambutan/` + id, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -96,28 +99,32 @@ function DetailSAmbutanPanti() {
             setTimeout(() => {
               window.location.reload();
             }, 1500);
-          }).catch((err) => {
+          })
+          .catch((err) => {
             Swal.fire({
               icon: "error",
               title: "Hapus Data Gagal!",
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     });
   };
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -127,36 +134,41 @@ function DetailSAmbutanPanti() {
             <div className="card shadow w-100">
               <div className="title card-header d-flex justify-content-between">
                 <h1 className="fw-bold fs-3">Sambutan</h1>
-                {data.length > 0 ? (<>
-                  <div>
-                    <button
-                      type="button"
-                      className="btn-primary btn-sm mr-2">
+                {data.length > 0 ? (
+                  <>
+                    <div>
+                      <button type="button" className="btn-primary btn-sm mr-2">
+                        <a
+                          style={{
+                            color: "white",
+                            textDecoration: "none",
+                          }}
+                          href={`/edit_sambutan/${id}`}
+                        >
+                          <i className="fa-solid fa-pen-to-square"></i>
+                        </a>
+                      </button>
+                      <button
+                        onClick={() => deleteData(id)}
+                        type="button"
+                        className="btn-danger btn-sm"
+                      >
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <button className="active btn-focus p-2 rounded">
                       <a
-                        style={{
-                          color: "white",
-                          textDecoration: "none",
-                        }}
-                        href={`/edit_sambutan/${id}`}>
-                        <i className="fa-solid fa-pen-to-square"></i>
+                        style={{ color: "white", textDecoration: "none" }}
+                        href="/add_sambutan"
+                      >
+                        Tambah Data
                       </a>
                     </button>
-                    <button
-                      onClick={() => deleteData(id)}
-                      type="button"
-                      className="btn-danger btn-sm">
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </div>
-                </>) : (<>
-                  <button className="active btn-focus p-2 rounded">
-                    <a
-                      style={{ color: "white", textDecoration: "none" }}
-                      href="/add_sambutan">
-                      Tambah Data
-                    </a>
-                  </button>
-                </>)}
+                  </>
+                )}
               </div>
               <br />
               <div className="card-body">

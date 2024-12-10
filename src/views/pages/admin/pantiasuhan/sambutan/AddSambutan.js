@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -81,7 +81,7 @@ function AddSambutanPanti() {
       formData.append("judul", judulSambutan);
       formData.append("nip", nip);
       formData.append("file", file);
-      await axios.post(`${API_DUMMY}/pantiasuhan/api/sambutan/add`, formData, {
+      await axios.post(`${API_DUMMY_PYTHON}/api/admin/sambutan/`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -246,7 +246,7 @@ function AddSambutanPanti() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -254,29 +254,36 @@ function AddSambutanPanti() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
+
   return (
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
-      <div style={{marginTop:"10px"}}
+      <div
+        style={{ marginTop: "10px" }}
         className="page-content1 mb-3 app-main__outer"
-        data-aos="fade-left">
-        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
+        data-aos="fade-left"
+      >
+        <div
+          className="container mt-3 mb-3 app-main__outer"
+          data-aos="fade-left"
+        >
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -576,7 +583,8 @@ function AddSambutanPanti() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_sambutan">
+                          href="/admin_sambutan"
+                        >
                           Batal
                         </a>
                       </button>

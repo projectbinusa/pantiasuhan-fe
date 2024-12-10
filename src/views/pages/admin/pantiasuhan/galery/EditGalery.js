@@ -7,11 +7,11 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
 
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function EditGalery() {
-  const [galery, setGalery] = useState("");
+  const [judul, setJudul] = useState("");
   const [image, setFile] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const param = useParams();
@@ -31,20 +31,20 @@ function EditGalery() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/galeri/get/` + param.id, {
+      .get(`${API_DUMMY_PYTHON}/api/admin/galery/` + param.id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((ress) => {
         const response = ress.data.data;
-        setGalery(response.judul);
+        setJudul(response.judul);
         setDeskripsi(response.deskripsi);
         setFile(response.foto);
         console.log("galery : ", ress.data.data);
@@ -62,26 +62,32 @@ function EditGalery() {
     formData.append("file", image);
 
     const data = {
-      judul: galery,
-      deskripsi: deskripsi
-    }
+      judul: judul,
+      deskripsi: deskripsi,
+    };
 
     await axios
-      .put(`${API_DUMMY}/smpn1bergas/api/galeri/put/` + param.id, formData, {
+      .put(`${API_DUMMY_PYTHON}/api/admin/galery/` + param.id, formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then(() => {
         if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/galeri/put/foto/` + param.id, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }).catch((err) => {
-            console.log(err);
-          })
+          axios
+            .put(
+              `${API_DUMMY_PYTHON}/api/admin/galery/put/foto/` + param.id,
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            )
+            .catch((err) => {
+              console.log(err);
+            });
         }
         Swal.fire({
           icon: "success",
@@ -115,13 +121,17 @@ function EditGalery() {
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-      }`}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
@@ -138,12 +148,13 @@ function EditGalery() {
                   <div className="mb-3 col-lg-6">
                     <label
                       for="exampleInputPassword1"
-                      className="form-label font-weight-bold">
+                      className="form-label font-weight-bold"
+                    >
                       Judul
                     </label>
                     <input
-                      value={galery}
-                      onChange={(e) => setGalery(e.target.value)}
+                      value={judul}
+                      onChange={(e) => setJudul(e.target.value)}
                       type="text"
                       className="form-control"
                       required
@@ -153,7 +164,8 @@ function EditGalery() {
                   <div className="mb-3 col-lg-6">
                     <label
                       for="exampleInputPassword1"
-                      className="form-label font-weight-bold">
+                      className="form-label font-weight-bold"
+                    >
                       Image
                     </label>
                     <input
@@ -167,7 +179,8 @@ function EditGalery() {
                   <div className="mb-3 col-lg-6">
                     <label
                       for="exampleInputPassword1"
-                      className="form-label font-weight-bold">
+                      className="form-label font-weight-bold"
+                    >
                       deskripsi
                     </label>
                     <textarea
@@ -176,13 +189,15 @@ function EditGalery() {
                       type="text"
                       className="form-control"
                       required
-                      id="exampleInputPassword1"></textarea>
+                      id="exampleInputPassword1"
+                    ></textarea>
                   </div>
                 </div>
                 <button type="button" className="btn-danger mt-3 mr-3">
                   <a
                     href="/admin-galery"
-                    style={{ color: "white", textDecoration: "none" }}>
+                    style={{ color: "white", textDecoration: "none" }}
+                  >
                     Batal
                   </a>
                 </button>

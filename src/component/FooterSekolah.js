@@ -20,7 +20,8 @@ function FooterSekolah() {
         `${API_DUMMY}/smpn1bergas/api/sejarah/all/terbaru?page=0&size=1`
       );
       const content = response.data.data.content[0]?.isi || "";
-      const truncatedContent = content.length > 375 ? `${content.substring(0, 375)}...` : content;
+      const truncatedContent =
+        content.length > 375 ? `${content.substring(0, 375)}...` : content;
       setJudul(response.data.data.content[0]?.judul || "Data tidak ditemukan");
       setIsi(truncatedContent);
     } catch (error) {
@@ -39,7 +40,8 @@ function FooterSekolah() {
       );
       const data = response.data.data.content[0] || {};
 
-      const isDataAvailable = data.email || data.phone || data.fax || data.address;
+      const isDataAvailable =
+        data.email || data.phone || data.fax || data.address;
 
       setIsContactAvailable(!!isDataAvailable);
       setEmail(data.email || "Email tidak tersedia");
@@ -57,7 +59,9 @@ function FooterSekolah() {
 
   const getAllBerita = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=4&sort=created_date`);
+      const response = await axios.get(
+        `${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=4&sort=created_date`
+      );
       setBerita(response.data.data.content);
     } catch (error) {
       console.log("Error fetching berita data:", error);
@@ -73,8 +77,18 @@ function FooterSekolah() {
 
     const day = date.getDate();
     const monthNames = [
-      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
     ];
     const month = monthNames[date.getMonth()];
     const year = date.getFullYear();
@@ -95,10 +109,20 @@ function FooterSekolah() {
         <div className="footer-menu container">
           <div style={{ width: "100%" }}>
             <div className="widget widget_about">
-              <h4 className="widget-title" style={{ textTransform: "uppercase" }}>Pantinya Sang Juara</h4>
+              <h4
+                className="widget-title"
+                style={{ textTransform: "uppercase" }}
+              >
+                Pantinya Sang Juara
+              </h4>
               <div className="details">
                 <p style={{ fontSize: "14px", textAlign: "justify" }}>
-                  <div dangerouslySetInnerHTML={{ __html: "Mewujudkan cita-cita Muhammadiyah yakni menjunjung tinggi agama Islam yang berakidah tauhid, bersumber kepada Al-Qur'an dan sunnah Rasulullah SAW sehingga terwujud masyarakat Islam yang sebenar-benarnya, melalui pendidikan dan pembinaan anak asuh sehingga terwujud generasi yang beriman, berakhlak mulia, berilmu, dan mandiri." }} />
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        "Mewujudkan cita-cita Muhammadiyah yakni menjunjung tinggi agama Islam yang berakidah tauhid, bersumber kepada Al-Qur'an dan sunnah Rasulullah SAW sehingga terwujud masyarakat Islam yang sebenar-benarnya, melalui pendidikan dan pembinaan anak asuh sehingga terwujud generasi yang beriman, berakhlak mulia, berilmu, dan mandiri.",
+                    }}
+                  />
                 </p>
                 <ul className="social-media d-none d-md-none d-lg-flex gap-2 mb-4">
                   <li>
@@ -137,20 +161,30 @@ function FooterSekolah() {
           </div>
           <div style={{ width: "100%" }}>
             <div className="widget widget_subscribe">
-              <h4 className="widget-title" style={{ textTransform: "uppercase" }}>Alamat</h4>
+              <h4
+                className="widget-title"
+                style={{ textTransform: "uppercase" }}
+              >
+                Alamat
+              </h4>
               <div className="details" style={{ fontSize: "14px" }}>
                 {isContactAvailable ? (
                   <>
-                    <p style={{ color: "white", textAlign: "left" }}>{address}</p>
-                    <p style={{ color: "white", textAlign: "left" }}>Telepon (+62) {phone}</p>
-                    <p style={{ color: "white", textAlign: "left" }}>E-mail {email}</p>
+                    <p style={{ color: "white", textAlign: "left" }}>
+                      {address}
+                    </p>
+                    <p style={{ color: "white", textAlign: "left" }}>
+                      Telepon (+628740041119 ) {phone}
+                    </p>
+                    <p style={{ color: "white", textAlign: "left" }}>
+                      E-mail {email}
+                    </p>
                     <p style={{ color: "white", textAlign: "left" }}>{fax}</p>
                   </>
                 ) : (
                   <p style={{ color: "white", textAlign: "left" }}>
-                    LKSA Panti Asuhan Muhammadiyah Kota Semarang
-                    Jl. Giri Mukti Barat II no. 19 
-                    Graha Mukti Tlogosari Kulon
+                    LKSA Panti Asuhan Muhammadiyah Kota Semarang Jl. Giri Mukti
+                    Barat II no. 19 Graha Mukti Tlogosari Kulon
                   </p>
                 )}
               </div>

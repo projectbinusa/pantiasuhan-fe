@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -102,7 +102,7 @@ function AddKegiatanPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/pantiasuhna/api/kegiatan/all/terbaru?page=${
+        `${API_DUMMY_PYTHON}/api/admin/kegiatan?page=${
           page - 1
         }&size=${rowsPerPage}`,
         {
@@ -156,7 +156,7 @@ function AddKegiatanPanti() {
       // // formData.append("file", image);
       // formData.append("category", kategori);
       await axios.post(
-        `${API_DUMMY}/pantiasuhna/api/kegiatan/add`,
+        `${API_DUMMY_PYTHON}/api/admin/kegiatan`,
         {
           judul: judul,
           isi: isi,
@@ -329,12 +329,14 @@ function AddKegiatanPanti() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -369,15 +371,24 @@ function AddKegiatanPanti() {
                             value={kategori}
                             className="form-control"
                             aria-label="Small select example"
-                            onChange={(e) => setKategori(e.target.value)}>
+                            onChange={(e) => setKategori(e.target.value)}
+                          >
                             <option selected>Pilih Kategori Kegiatan</option>
                             <option value="Kegiatan Peduli Lingkungan">
                               Kegiatan Peduli Lingkungan
                             </option>
-                            <option value="Peduli Kebersihan">Peduli Kebersihan</option>
-                            <option value="Bersama Belajar">Bersama Belajar</option>
-                            <option value="Bersama Berkembang">Bersama Berkembang</option>
-                            <option value="Bersama Jadi Juara">Bersama Jadi Juara</option>
+                            <option value="Peduli Kebersihan">
+                              Peduli Kebersihan
+                            </option>
+                            <option value="Bersama Belajar">
+                              Bersama Belajar
+                            </option>
+                            <option value="Bersama Berkembang">
+                              Bersama Berkembang
+                            </option>
+                            <option value="Bersama Jadi Juara">
+                              Bersama Jadi Juara
+                            </option>
                           </select>
                         </div>
                         <div className="col-lg-12 mb-3">
@@ -650,7 +661,8 @@ function AddKegiatanPanti() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_kegiatan">
+                          href="/admin_kegiatan"
+                        >
                           Batal
                         </a>
                       </button>
