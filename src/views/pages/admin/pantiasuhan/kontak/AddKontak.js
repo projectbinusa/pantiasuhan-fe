@@ -30,7 +30,7 @@ function AddKontakPanti() {
     try {
       await axios.post(`${API_DUMMY}/pantiasuhan/api/kontak/add`, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       });
       setShow(false);

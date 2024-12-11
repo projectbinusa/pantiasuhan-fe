@@ -26,7 +26,7 @@ function DetailAlumni() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/alumni/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {

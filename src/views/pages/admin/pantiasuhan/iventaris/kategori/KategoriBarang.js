@@ -44,7 +44,7 @@ function KategoriBarangInventaris() {
         `${API_DUMMY_PYTHON}/api/admin/barang`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -73,7 +73,7 @@ function KategoriBarangInventaris() {
         axios
           .delete(`${API_DUMMY_PYTHON}/api/admin/kategori_barang` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
@@ -165,7 +165,7 @@ function KategoriBarangInventaris() {
         `${API_DUMMY_PYTHON}/api/admin/kategori_barang`, data,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

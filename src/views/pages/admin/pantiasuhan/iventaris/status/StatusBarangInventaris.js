@@ -44,7 +44,7 @@ function StatusBarangInventaris() {
         `${API_DUMMY_PYTHON}/api/admin/barang`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -73,7 +73,7 @@ function StatusBarangInventaris() {
         axios
           .delete(`${API_DUMMY_PYTHON}/api/admin/barang` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
@@ -164,7 +164,7 @@ function StatusBarangInventaris() {
         `${API_DUMMY_PYTHON}/api/admin/status_barang`, data,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

@@ -29,7 +29,7 @@ function EditFotoKegiatan() {
           `${API_DUMMY}/smpn1bergas/api/kegiatan/get/` + param.id,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }
         );
@@ -56,7 +56,7 @@ function EditFotoKegiatan() {
         `${API_DUMMY}/smpn1bergas/api/kegiatan/all`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -81,7 +81,7 @@ function EditFotoKegiatan() {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       )

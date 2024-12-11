@@ -25,7 +25,7 @@ function DetailVisi() {
   //   axios
   //     .get(`${API_DUMMY}/smpn1bergas/api/visiMisi/get/` + param.id, {
   //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
   //       },
   //     })
   //     .then((res) => {
@@ -47,7 +47,7 @@ function DetailVisi() {
         `${API_DUMMY}/smpn1bergas/api/visiMisi/all/terbaru?page=0&size=1`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -83,7 +83,7 @@ function DetailVisi() {
         axios
           .delete(`${API_DUMMY}/smpn1bergas/api/visiMisi/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

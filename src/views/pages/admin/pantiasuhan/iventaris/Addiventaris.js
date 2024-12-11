@@ -19,7 +19,7 @@ function AddInves() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
-    
+
     const data = {
       name: nama,
       purchase_date: tanggal,
@@ -32,7 +32,7 @@ function AddInves() {
         `${API_DUMMY_PYTHON}/api/admin/investaris`, data,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

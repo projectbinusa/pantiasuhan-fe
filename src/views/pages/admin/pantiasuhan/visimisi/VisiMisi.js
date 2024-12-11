@@ -42,7 +42,7 @@ function VisiMisiPanti() {
         }&size=${rowsPerPage}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -76,7 +76,7 @@ function VisiMisiPanti() {
         axios
           .delete(`${API_DUMMY}/pantiasuhan/api/visiMisi/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

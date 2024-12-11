@@ -75,7 +75,7 @@ function EditVisiMisiPanti() {
     axios
       .get(`${API_DUMMY}/pantiasuhan/api/visiMisi/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -102,7 +102,7 @@ function EditVisiMisiPanti() {
     await axios
       .put(`${API_DUMMY}/pantiasuhan/api/visiMisi/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {

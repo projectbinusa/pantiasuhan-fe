@@ -74,7 +74,7 @@ function EditSejarah() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/sejarah/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -98,7 +98,7 @@ function EditSejarah() {
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/sejarah/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {

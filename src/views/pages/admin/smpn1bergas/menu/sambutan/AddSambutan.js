@@ -84,7 +84,7 @@ function AddSambutan() {
       await axios.post(`${API_DUMMY}/smpn1bergas/api/sambutan/add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       });
       setShow(false);
@@ -258,7 +258,7 @@ function AddSambutan() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  
+
   return (
     <div
       className={`page-wrapper chiller-theme ${

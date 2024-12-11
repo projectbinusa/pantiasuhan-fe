@@ -44,7 +44,7 @@ function LokasiBarangInventaris() {
         `${API_DUMMY_PYTHON}/api/admin/lokasi_barang`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -73,7 +73,7 @@ function LokasiBarangInventaris() {
         axios
           .delete(`${API_DUMMY_PYTHON}/api/admin/lokasi_barang` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
@@ -170,7 +170,7 @@ function LokasiBarangInventaris() {
         `${API_DUMMY_PYTHON}/api/admin/lokasi`, data,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -211,7 +211,7 @@ function LokasiBarangInventaris() {
           `${API_DUMMY_PYTHON}/api/admin/barang`,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }
         );
@@ -227,7 +227,7 @@ function LokasiBarangInventaris() {
           `${API_DUMMY_PYTHON}/api/admin/lokasi`, // Asumsi endpoint berbeda
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }
         );
@@ -255,7 +255,7 @@ function LokasiBarangInventaris() {
         `${API_DUMMY_PYTHON}/api/admin/lokasi_barang`, data,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

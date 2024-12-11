@@ -27,7 +27,7 @@ function LoginSiswa() {
       password: password,
     };
     try {
-      const response = await axios.post(`https://api.byrtagihan.com/api/member/login`, datapython);;
+      const response = await axios.post(`https://dev-api.byrtagihan.com/api/member/login`, datapython);;
 
       if (response.status === 200) {
         Swal.fire({

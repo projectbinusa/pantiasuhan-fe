@@ -19,7 +19,7 @@ function EditCategoryProgram() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/category_program/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -56,7 +56,7 @@ function EditCategoryProgram() {
         // },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       )

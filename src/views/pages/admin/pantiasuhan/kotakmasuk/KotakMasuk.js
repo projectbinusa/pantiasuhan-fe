@@ -47,7 +47,7 @@ function KotakMasukPanti() {
         }&size=${rowsPerPage}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -77,7 +77,7 @@ function KotakMasukPanti() {
         axios
           .delete(`${API_DUMMY}/pantiasuhan/api/kotak_saran/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

@@ -31,7 +31,7 @@ function EditTahsin() {
         `${API_DUMMY_PYTHON}/api/siswa/tahsin/${param.id}`, datas,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -64,7 +64,7 @@ function EditTahsin() {
     axios
       .get(`${API_DUMMY_PYTHON}/api/siswa/tahsin/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {

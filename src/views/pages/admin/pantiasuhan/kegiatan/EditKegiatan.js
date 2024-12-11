@@ -109,7 +109,7 @@ function EditKegiatanPanti() {
         }&size=${rowsPerPage}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -136,7 +136,7 @@ function EditKegiatanPanti() {
     await axios
       .put(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {
@@ -148,7 +148,7 @@ function EditKegiatanPanti() {
               {
                 headers: {
                   "Content-Type": "multipart/form-data",
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
                 },
               }
             )
@@ -190,7 +190,7 @@ function EditKegiatanPanti() {
     axios
       .get(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {

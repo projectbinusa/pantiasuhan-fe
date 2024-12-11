@@ -25,7 +25,7 @@ function TahsinAnak() {
         axios
           .delete(`${API_DUMMY_PYTHON}/api/siswa/tahsin/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
@@ -59,7 +59,7 @@ function TahsinAnak() {
           `${API_DUMMY_PYTHON}/api/siswa/tahsin`,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }
         );

@@ -25,7 +25,7 @@ function DetailPrestasi() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/prestasi/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((res) => {

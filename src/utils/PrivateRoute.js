@@ -13,7 +13,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   //       window.location.href = "/login";
   //     }, FIVE_HOURS);
 
-  //     return () => clearTimeout(timeout); 
+  //     return () => clearTimeout(timeout);
   //   }
   // }, [token]);
 
@@ -26,14 +26,14 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   //   />
   // );
 
-  const isLoggedIn = localStorage.getItem("token");
+  const isLoggedIn = localStorage.getItem("tokenpython");
 
   const isTokenValid = (token) => {
     if (!token) return false;
 
     try {
-      const decodedToken = jwtDecode(token);      
-      const currentTime = Date.now() / 1000; 
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
       return decodedToken.exp > currentTime;
     } catch (error) {
       return false;

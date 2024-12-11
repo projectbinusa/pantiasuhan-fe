@@ -21,7 +21,7 @@ function DetailKegiatanPanti() {
     axios
       .get(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((res) => {

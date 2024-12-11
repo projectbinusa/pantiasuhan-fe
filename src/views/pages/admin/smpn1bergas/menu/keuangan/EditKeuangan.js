@@ -90,7 +90,7 @@ function EditKeuangan() {
         data,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       )
@@ -103,7 +103,7 @@ function EditKeuangan() {
               {
                 headers: {
                   "Content-Type": "multipart/form-data",
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
                 },
               }
             )
@@ -265,7 +265,7 @@ function EditKeuangan() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/keuangan/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {

@@ -31,7 +31,7 @@ function AddTahsin() {
         `${API_DUMMY_PYTHON}/api/siswa/tahsin`, datas,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

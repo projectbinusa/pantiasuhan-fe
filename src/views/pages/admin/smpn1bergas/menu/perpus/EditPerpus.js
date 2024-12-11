@@ -78,7 +78,7 @@ function EditPerpus() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/perpustakaan/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -114,7 +114,7 @@ function EditPerpus() {
       .put(
         `${API_DUMMY}/smpn1bergas/api/perpustakaan/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       }
       )
@@ -123,7 +123,7 @@ function EditPerpus() {
           axios.put(`${API_DUMMY}/smpn1bergas/api/perpustakaan/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }).catch((err) => {
             console.log(err);

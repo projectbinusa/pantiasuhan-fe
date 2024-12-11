@@ -19,7 +19,7 @@ function Header({ toggleSidebar }) {
   //       `${API_DUMMY}/bawaslu/api/jenis-informasi/all`,
   //       {
   //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
   //         },
   //       }
   //     );
@@ -37,7 +37,7 @@ function Header({ toggleSidebar }) {
   //       `${API_DUMMY}/bawaslu/api/jenis-regulasi/all`,
   //       {
   //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
   //         },
   //       }
   //     );
