@@ -309,7 +309,7 @@ function KategoriBarangInventaris() {
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit_barang_inventaris/${row.id}`}
+                                  href={`/edit_kategori_barang_inventaris/${row.id}`}
                                 >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>

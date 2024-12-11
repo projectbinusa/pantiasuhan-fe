@@ -135,31 +135,31 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       title: "Barang Inventaris",
       icon: "fa-solid fa-list",
       path: "/barang_inventaris",
-      action: ["/add_iventaris", "/edit_iventaris", "/detail_iventaris"],
+      action: ["/edit_barang_inventaris"],
     },
     {
       title: "Kategori Barang",
       icon: "fa-solid fa-list",
       path: "/kategori_barang_inventaris",
-      action: ["/add_iventaris", "/edit_iventaris", "/detail_iventaris"],
+      action: ["/edit_kategori_barang_inventaris"],
     },
     {
       title: "Status Barang",
       icon: "fa-solid fa-list",
       path: "/status_barang_inventaris",
-      action: ["/add_iventaris", "/edit_iventaris", "/detail_iventaris"],
+      action: ["/edit_status_barang_inventaris"],
     },
     {
       title: "Stok Barang",
       icon: "fa-solid fa-list",
       path: "/stok_barang_inventaris",
-      action: ["/add_iventaris", "/edit_iventaris", "/detail_iventaris"],
+      action: ["/edit_stok_barang_inventaris"],
     },
     {
       title: "Lokasi Barang",
       icon: "fa-solid fa-list",
       path: "/lokasi_barang_inventaris",
-      action: ["/add_iventaris", "/edit_iventaris", "/detail_iventaris"],
+      action: ["/edit_lokasi_barang_inventaris"],
     },
   ]
   useEffect(() => {
