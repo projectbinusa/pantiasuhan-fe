@@ -19,7 +19,7 @@ function EditKontakPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/pantiasuhan/api/kontak/get/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/kontak` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
