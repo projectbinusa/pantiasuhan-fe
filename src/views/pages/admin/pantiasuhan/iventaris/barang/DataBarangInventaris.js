@@ -4,6 +4,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import {
+  Box,
+  Modal,
   Pagination,
 } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
@@ -146,57 +148,99 @@ function DataBarangInventaris() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-    // ADD
-    const [lokasi, setLokasi] = useState("");
-    const [deskripsi, setDeskripsi] = useState("");
+  // ADD
+  const [namaBarang, setNamaBarang] = useState("");
+  const [idKategori, setIdKategori] = useState("");
+  const [idStatus, setIdStatus] = useState("");
+  const [tanggal, setTanggal] = useState("");
+  const [kategori, setKategori] = useState([]);
+  const [status, setStatus] = useState([]);
 
-    const add = async (e) => {
-      e.preventDefault();
-      e.persist();
-
-      const data = {
-        nama_lokasi: lokasi,
-        deskripsi: deskripsi,
-      }
-
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-        await axios.post(
-          `${API_DUMMY_PYTHON}/api/admin/lokasi`, data,
+        const response = await axios.get(
+          `${API_DUMMY_PYTHON}/api/admin/status_barang`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }
         );
-        Swal.fire({
-          icon: "success",
-          title: "Data Berhasil DiTambahkan",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setTimeout(() => {
-          window.location.reload()
-        }, 1500);
+        setStatus(response.data.data);
       } catch (error) {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Tambah Data Gagal!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log(error);
-        }
+        console.error("Terjadi Kesalahan saat mengambil data barang:", error);
       }
     };
 
+    const fetchDataKategori = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_PYTHON}/api/admin/kategori_barang`, // Asumsi endpoint berbeda
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        setKategori(response.data.data); // Pastikan ada state untuk lokasi
+      } catch (error) {
+        console.error("Terjadi Kesalahan saat mengambil data lokasi:", error);
+      }
+    };
+
+    fetchData();
+    fetchDataKategori();
+  }, []);
+
+  const add = async (e) => {
+    e.preventDefault();
+    e.persist();
+
+    const data = {
+      nama_barang: namaBarang,
+      kategori_id: idKategori,
+      status_id: idStatus,
+      tgl_masuk: tanggal
+    }
+
+    try {
+      await axios.post(
+        `${API_DUMMY_PYTHON}/api/admin/barang`, data,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+      Swal.fire({
+        icon: "success",
+        title: "Data Berhasil DiTambahkan",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setTimeout(() => {
+        window.location.reload()
+      }, 1500);
+    } catch (error) {
+      if (error.ressponse && error.response.status === 401) {
+        localStorage.clear();
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -266,14 +310,7 @@ function DataBarangInventaris() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add_barang_inventaris"
-                      >
-                        Tambah
-                      </a>
-                    </button>
+                    <button className="active btn-focus p-2 rounded" onClick={openModal}>Tambah</button>
                   </div>
                 </div>
               </div>
@@ -303,13 +340,13 @@ function DataBarangInventaris() {
                           </td>
                           <td data-label="Nama Barang">{row.name}</td>
                           <td data-label="Kategori">
-                            {row.purchase_date}
+                            {row.kategori_name}
                           </td>
                           <td data-label="Status">
-                            {row.purchase_price}
+                            {row.status_name}
                           </td>
                           <td data-label="Tanggal Masuk">
-                            {row.url_note}
+                            {row.tgl_masuk}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
@@ -365,6 +402,81 @@ function DataBarangInventaris() {
               />
             </div>
           </div>
+          <Modal
+            open={isModalOpen}
+            onClose={closeModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <form onSubmit={add}>
+                <div className="row">
+                  <div className="mb-3 col-lg-12">
+                    <label
+                      for="exampleInputEmail1"
+                      className="form-label  font-weight-bold "
+                    >Nama Barang</label>
+                    <input className="form-control" placeholder="Masukkan Nama Barang" onChange={(e) => setNamaBarang(e.target.value)} />
+                  </div>
+                  <div className="mb-3 col-lg-12">
+                    <label
+                      for="exampleInputEmail1"
+                      className="form-label font-weight-bold "
+                    >Tanggal Masuk</label>
+                    <input className="form-control" type="date" onChange={(e) => setTanggal(e.target.value)} />
+                  </div>
+                  <div className="mb-3 col-lg-12">
+                    <label
+                      for="exampleInputEmail1"
+                      className="form-label font-weight-bold "
+                    >Kategori Barang</label>
+                    <select
+                      className="form-control"
+                      aria-label="Small select example"
+                      onChange={(e) => {
+                        const selectedId = e.target.value;
+                        setIdKategori(selectedId);
+                      }}>
+                      <option value="">
+                        Pilih Kategori
+                      </option>
+                      {kategori.map((data, index) => (
+                        <option key={index} value={data.id}>
+                          {data.nama_kategori}
+                        </option>
+                      ))}
+                    </select> 
+                  </div>
+                  <div className="mb-3 col-lg-12">
+                    <label
+                      for="exampleInputEmail1"
+                      className="form-label font-weight-bold "
+                    >Status Barang</label>
+                    <select
+                      className="form-control"
+                      aria-label="Small select example"
+                      onChange={(e) => {
+                        const selectedId = e.target.value;
+                        setIdStatus(selectedId);
+                      }}>
+                      <option value="">
+                        Pilih Status
+                      </option>
+                      {status.map((data, index) => (
+                        <option key={index} value={data.id}>
+                          {data.nama_status}
+                        </option>
+                      ))}
+                    </select> 
+                  </div>
+                  <div style={{ display: "flex", gap: '1rem' }}>
+                    <button onClick={closeModal} className="btn-danger ">TUTUP</button>
+                    <button type="submit" className="btn-primary">SIMPAN</button>
+                  </div>
+                </div>
+              </form>
+            </Box>
+          </Modal>
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ function Login() {
       if (response.status === 200) {
         Swal.fire({
           icon: "success",
-          title: `Berhasil Login Sebagai ${response.data.data.type_token}`,
+          title: `Berhasil Login Sebagai Admin`,
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
