@@ -65,6 +65,7 @@ function AddKegiatanPanti() {
   const [isi, setIsi] = useState("");
   const [penulis, setPenulis] = useState("");
   const [tanggal, setTanggal] = useState("");
+  const [foto, setFoto] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
   const [kategori, setKategori] = useState("");
@@ -99,25 +100,6 @@ function AddKegiatanPanti() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const getAll = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kegiatan?page=${
-          page - 1
-        }&size=${rowsPerPage}`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
-      setList(response.data.data.content);
-      console.log(response.data.data.content);
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
-  };
-
   //add
   const add = async (e) => {
     e.preventDefault();
@@ -148,29 +130,19 @@ function AddKegiatanPanti() {
     }
 
     try {
-      // const formData = new FormData();
-      // formData.append("judul", judul);
-      // formData.append("isi", isi);
-      // formData.append("penulis", penulis);
-      // formData.append("tanggal", formatDateToSlash(tanggal));
-      // // formData.append("file", image);
-      // formData.append("category", kategori);
-      await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/kegiatan`,
-        {
-          judul: judul,
-          isi: isi,
-          penulis: penulis,
-          tanggal: tanggal,
-          category: kategori,
+      const formData = new FormData();
+      formData.append("judul", judul);
+      formData.append("penulis", penulis);
+      formData.append("foto", foto);
+      formData.append("isi", isi);
+      formData.append("category", kategori);
+
+      await axios.post(`${API_DUMMY_PYTHON}/api/admin/kegiatan`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
-        {
-          headers: {
-            // "Content-Type": "multipart/form-data",
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+      });
       setShow(false);
       Swal.fire({
         icon: "success",
@@ -182,7 +154,7 @@ function AddKegiatanPanti() {
         history.push("/admin_kegiatan");
       }, 1500);
     } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         localStorage.clear();
         history.push("/login");
       } else {
@@ -322,7 +294,6 @@ function AddKegiatanPanti() {
 
   useEffect(() => {
     AOS.init();
-    getAll();
   }, []);
 
   return (
