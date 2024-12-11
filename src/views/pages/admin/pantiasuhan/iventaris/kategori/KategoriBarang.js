@@ -41,7 +41,7 @@ function KategoriBarangInventaris() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/barang`,
+        `${API_DUMMY_PYTHON}/api/admin/kategori_barang`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -51,7 +51,7 @@ function KategoriBarangInventaris() {
       setList(response.data.data);
       console.log(response.data.data);
       setPaginationInfo({
-        totalPages: response.pagination.total_pages,
+        totalPages: response.pagination.total_page,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -71,7 +71,7 @@ function KategoriBarangInventaris() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/kategori_barang` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/kategori_barang/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -175,6 +175,7 @@ function KategoriBarangInventaris() {
         showConfirmButton: false,
         timer: 1500,
       });
+      setIsModalOpen(false)
       setTimeout(() => {
         window.location.reload()
       }, 1500);
@@ -182,6 +183,7 @@ function KategoriBarangInventaris() {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
       } else {
+        setIsModalOpen(false)
         Swal.fire({
           icon: "error",
           title: "Tambah Data Gagal!",
@@ -294,9 +296,9 @@ function KategoriBarangInventaris() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama Kategori">{row.name}</td>
+                          <td data-label="Nama Kategori">{row.nama_kategori}</td>
                           <td data-label="Deskripsi">
-                            {row.purchase_date}
+                            {row.deskripsi}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">

@@ -41,7 +41,7 @@ function StokBarangInventaris() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/barang`,
+        `${API_DUMMY_PYTHON}/api/admin/stok_barang`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -49,6 +49,8 @@ function StokBarangInventaris() {
         }
       );
       setList(response.data.data);
+      console.log("stok_barang: ", response.data.data);
+
       console.log(response.data.data);
       setPaginationInfo({
         totalPages: response.pagination.total_pages,
@@ -164,6 +166,8 @@ function StokBarangInventaris() {
           }
         );
         setBarang(response.data.data);
+        console.log("res: ", response.data.data);
+
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -189,6 +193,7 @@ function StokBarangInventaris() {
           },
         }
       );
+      setIsModalOpen(false);
       Swal.fire({
         icon: "success",
         title: "Data Berhasil DiTambahkan",
@@ -202,6 +207,7 @@ function StokBarangInventaris() {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
       } else {
+        setIsModalOpen(false);
         Swal.fire({
           icon: "error",
           title: "Tambah Data Gagal!",
@@ -313,8 +319,8 @@ function StokBarangInventaris() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama Barang">{row.name}</td>
-                          <td data-label="Stok Barang">{row.name}</td>
+                          <td data-label="Nama Barang">{row.barang_id}</td>
+                          <td data-label="Stok Barang">{row.jumlah_stok}</td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button

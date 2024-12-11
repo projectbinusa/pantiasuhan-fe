@@ -41,7 +41,7 @@ function StatusBarangInventaris() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/barang`,
+        `${API_DUMMY_PYTHON}/api/admin/status_barang`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -51,7 +51,7 @@ function StatusBarangInventaris() {
       setList(response.data.data);
       console.log(response.data.data);
       setPaginationInfo({
-        totalPages: response.pagination.total_pages,
+        totalPages: response.pagination.total_page,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -71,7 +71,7 @@ function StatusBarangInventaris() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/barang` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/status_barang/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -174,6 +174,7 @@ function StatusBarangInventaris() {
         showConfirmButton: false,
         timer: 1500,
       });
+      setIsModalOpen(false)
       setTimeout(() => {
         window.location.reload()
       }, 1500);
@@ -181,6 +182,7 @@ function StatusBarangInventaris() {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
       } else {
+        setIsModalOpen(false)
         Swal.fire({
           icon: "error",
           title: "Tambah Data Gagal!",
@@ -292,9 +294,9 @@ function StatusBarangInventaris() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Status Barang">{row.name}</td>
+                          <td data-label="Status Barang">{row.nama_status}</td>
                           <td data-label="Deskripsi">
-                            {row.purchase_date}
+                            {row.deskripsi}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
@@ -307,7 +309,7 @@ function StatusBarangInventaris() {
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit_barang_inventaris/${row.id}`}
+                                  href={`/edit_status_barang_inventaris/${row.id}`}
                                 >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>

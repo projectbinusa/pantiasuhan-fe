@@ -195,6 +195,7 @@ import EditBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/bara
 import EditKategoriBarang from "./views/pages/admin/pantiasuhan/iventaris/kategori/EditKategoriBarang";
 import EditStokBarang from "./views/pages/admin/pantiasuhan/iventaris/stok/EditStokBarang";
 import EditLokasiBarang from "./views/pages/admin/pantiasuhan/iventaris/lokasi/EditLokasiBarang";
+import EditStatusBarang from "./views/pages/admin/pantiasuhan/iventaris/status/EditStatusBarang";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -406,6 +407,7 @@ function App() {
             <PrivateRoute path="/kategori_barang_inventaris" component={KategoriBarangInventaris} exact/>
             <PrivateRoute path="/stok_barang_inventaris" component={StokBarangInventaris} exact/>
             <PrivateRoute path="/status_barang_inventaris" component={StatusBarangInventaris} exact/>
+            <PrivateRoute path="/edit_status_barang_inventaris/:id" component={EditStatusBarang} exact/>
             <PrivateRoute path="/lokasi_barang_inventaris" component={LokasiBarangInventaris} exact/>
             <PrivateRoute path="/edit_barang_inventaris/:id" component={EditBarangInventaris} exact/>
             <PrivateRoute path="/edit_kategori_barang_inventaris/:id" component={EditKategoriBarang} exact/>

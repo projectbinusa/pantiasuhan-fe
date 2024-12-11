@@ -70,6 +70,8 @@ function EditBarangInventaris() {
       })
       .then((ress) => {
         const response = ress.data.data;
+        console.log("res: ", ress.data.data);
+        
         setNamaBarang(response.nama_barang);
         setTanggal(response.tgl_masuk)
         setIdKategori(response.kategori_id)
@@ -172,7 +174,7 @@ function EditBarangInventaris() {
                           <input
                             value={namaBarang}
                             onChange={(e) => setNamaBarang(e.target.value)}
-                            type="number"
+                            type="text"
                             className="form-control"
                           />
                         </div>
