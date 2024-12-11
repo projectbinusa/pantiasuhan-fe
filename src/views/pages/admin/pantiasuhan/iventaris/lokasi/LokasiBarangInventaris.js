@@ -174,6 +174,7 @@ function LokasiBarangInventaris() {
           },
         }
       );
+      setIsModalOpen(false)
       Swal.fire({
         icon: "success",
         title: "Data Berhasil DiTambahkan",
@@ -187,6 +188,7 @@ function LokasiBarangInventaris() {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
       } else {
+        setIsModalOpen(false)
         Swal.fire({
           icon: "error",
           title: "Tambah Data Gagal!",

@@ -27,6 +27,7 @@ function EditKategoriBarang() {
       })
       .then((ress) => {
         const response = ress.data.data;
+        console.log("res: ", ress.data.data.nama_kategori);
         setNamaKategori(response.nama_kategori);
         setDeskripsi(response.deskripsi)
       })
@@ -125,7 +126,7 @@ function EditKategoriBarang() {
                           <input
                             value={namaKategori}
                             onChange={(e) => setNamaKategori(e.target.value)}
-                            type="number"
+                            type="text"
                             className="form-control"
                           />
                         </div>
@@ -133,8 +134,8 @@ function EditKategoriBarang() {
                           <label className="form-label font-weight-bold">
                             Deskripsi
                           </label>
-                          <textarea rows={3} placeholder="Masukkan Deskripsi" className="form-control" value={namaKategori}
-                            onChange={(e) => setNamaKategori(e.target.value)}></textarea>
+                          <textarea rows={3} placeholder="Masukkan Deskripsi" className="form-control" value={deskripsi}
+                            onChange={(e) => setDeskripsi(e.target.value)}></textarea>
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
