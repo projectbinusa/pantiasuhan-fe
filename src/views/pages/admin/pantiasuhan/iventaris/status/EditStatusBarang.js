@@ -125,7 +125,7 @@ function EditStatusBarang() {
                           <input
                             value={namaStatus}
                             onChange={(e) => setNamaStatus(e.target.value)}
-                            type="number"
+                            type="text"
                             className="form-control"
                           />
                         </div>
@@ -133,8 +133,8 @@ function EditStatusBarang() {
                           <label className="form-label font-weight-bold">
                             Deskripsi
                           </label>
-                          <textarea rows={3} placeholder="Masukkan Deskripsi" className="form-control" value={namaStatus}
-                            onChange={(e) => setNamaStatus(e.target.value)}></textarea>
+                          <textarea rows={3} placeholder="Masukkan Deskripsi" className="form-control" value={deskripsi}
+                            onChange={(e) => setDeskripsi(e.target.value)}></textarea>
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">

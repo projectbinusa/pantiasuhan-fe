@@ -51,7 +51,7 @@ function DataBarangInventaris() {
       setList(response.data.data);
       console.log(response.data.data);
       setPaginationInfo({
-        totalPages: response.pagination.total_pages,
+        totalPages: response.pagination.total_page,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -71,7 +71,7 @@ function DataBarangInventaris() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/barang` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/barang/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -213,6 +213,7 @@ function DataBarangInventaris() {
           },
         }
       );
+      setIsModalOpen(false)
       Swal.fire({
         icon: "success",
         title: "Data Berhasil DiTambahkan",
@@ -226,6 +227,7 @@ function DataBarangInventaris() {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
       } else {
+        setIsModalOpen(false)
         Swal.fire({
           icon: "error",
           title: "Tambah Data Gagal!",
@@ -338,7 +340,7 @@ function DataBarangInventaris() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama Barang">{row.name}</td>
+                          <td data-label="Nama Barang">{row.nama_barang}</td>
                           <td data-label="Kategori">
                             {row.kategori_name}
                           </td>
@@ -445,7 +447,7 @@ function DataBarangInventaris() {
                           {data.nama_kategori}
                         </option>
                       ))}
-                    </select> 
+                    </select>
                   </div>
                   <div className="mb-3 col-lg-12">
                     <label
@@ -467,7 +469,7 @@ function DataBarangInventaris() {
                           {data.nama_status}
                         </option>
                       ))}
-                    </select> 
+                    </select>
                   </div>
                   <div style={{ display: "flex", gap: '1rem' }}>
                     <button onClick={closeModal} className="btn-danger ">TUTUP</button>
