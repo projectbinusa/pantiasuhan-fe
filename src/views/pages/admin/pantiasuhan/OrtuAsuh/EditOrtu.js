@@ -29,7 +29,7 @@ function EditOrtu() {
     axios
       .put(`${API_DUMMY_PYTHON}/api/admin/foster_parent/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {
@@ -63,7 +63,7 @@ function EditOrtu() {
     axios
       .get(`${API_DUMMY_PYTHON}/api/admin/foster_parent/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {

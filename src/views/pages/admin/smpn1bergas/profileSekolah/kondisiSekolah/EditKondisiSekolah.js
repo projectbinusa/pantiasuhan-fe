@@ -72,7 +72,7 @@ function EditKondisiSekolah() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -102,7 +102,7 @@ function EditKondisiSekolah() {
         `${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/put/` + param.id, data,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       )
@@ -111,7 +111,7 @@ function EditKondisiSekolah() {
           axios.put(`${API_DUMMY}/smpn1bergas/api/kondisi_sekolah/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }).catch((err) => {
             console.log(err);

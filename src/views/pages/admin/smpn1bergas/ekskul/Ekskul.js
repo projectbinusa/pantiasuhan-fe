@@ -25,7 +25,7 @@ function Ekskul() {
         }&size=${rowsPerPage}&sort=createdDate`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -55,7 +55,7 @@ function Ekskul() {
         axios
           .delete(`${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

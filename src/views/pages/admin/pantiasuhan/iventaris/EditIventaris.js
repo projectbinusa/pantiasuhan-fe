@@ -21,7 +21,7 @@ function EditInves() {
   const history = useHistory();
 
   console.log(imageUrl);
-  
+
   const updateBerita = (e) => {
     e.preventDefault();
     e.persist();
@@ -32,12 +32,12 @@ function EditInves() {
       purchase_price: purchasePrice,
       url_note: urlNote,
       url_image: ''
-    };    
+    };
 
     axios
       .put(`${API_DUMMY_PYTHON}/api/admin/investaris/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((response) => {
@@ -72,13 +72,13 @@ function EditInves() {
     axios
       .get(`${API_DUMMY_PYTHON}/api/admin/investaris/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
         const response = ress.data.data;
         console.log(response);
-        
+
         setNama(response.name);
         setPurchasePrice(response.purchase_price);
         setTanggal(response.purchase_date);

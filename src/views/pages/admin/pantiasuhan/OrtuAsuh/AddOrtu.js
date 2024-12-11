@@ -26,7 +26,7 @@ function AddOrtu() {
         `${API_DUMMY_PYTHON}/api/admin/foster_parent`, datas,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

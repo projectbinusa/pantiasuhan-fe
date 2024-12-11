@@ -42,7 +42,7 @@ function DataBarangInventaris() {
         `${API_DUMMY_PYTHON}/api/admin/barang`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -71,7 +71,7 @@ function DataBarangInventaris() {
         axios
           .delete(`${API_DUMMY_PYTHON}/api/admin/barang` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
@@ -149,22 +149,22 @@ function DataBarangInventaris() {
     // ADD
     const [lokasi, setLokasi] = useState("");
     const [deskripsi, setDeskripsi] = useState("");
-  
+
     const add = async (e) => {
       e.preventDefault();
       e.persist();
-  
+
       const data = {
         nama_lokasi: lokasi,
         deskripsi: deskripsi,
       }
-  
+
       try {
         await axios.post(
           `${API_DUMMY_PYTHON}/api/admin/lokasi`, data,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }
         );
@@ -191,7 +191,7 @@ function DataBarangInventaris() {
         }
       }
     };
-  
+
   return (
     <div
       className={`page-wrapper chiller-theme ${

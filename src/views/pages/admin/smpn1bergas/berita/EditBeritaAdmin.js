@@ -89,7 +89,7 @@ function EditBeritaAdmin() {
     axios
       .put(`${API_DUMMY}/smpn1bergas/api/berita/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((response) => {
@@ -97,7 +97,7 @@ function EditBeritaAdmin() {
           axios.put(`${API_DUMMY}/smpn1bergas/api/berita/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }).catch((err) => {
             console.log(err);
@@ -136,7 +136,7 @@ function EditBeritaAdmin() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/berita/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {

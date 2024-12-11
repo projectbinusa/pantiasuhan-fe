@@ -28,7 +28,7 @@ function FotoKegiatanPanti() {
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -58,7 +58,7 @@ function FotoKegiatanPanti() {
         axios
           .delete(`${API_DUMMY}/pantiasuhan/api/foto_kegiatan/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

@@ -36,7 +36,7 @@ function AddMateriAjar() {
       await axios.post(`${API_DUMMY}/smpn1bergas/api/materi_ajar/add`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       });
       setShow(false);

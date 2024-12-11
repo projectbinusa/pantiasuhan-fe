@@ -111,7 +111,7 @@ function EditKegiatan() {
         }&size=${rowsPerPage}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -161,7 +161,7 @@ function EditKegiatan() {
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/kegiatan/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {
@@ -173,7 +173,7 @@ function EditKegiatan() {
               {
                 headers: {
                   "Content-Type": "multipart/form-data",
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
                 },
               }
             )
@@ -217,7 +217,7 @@ function EditKegiatan() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/kegiatan/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {

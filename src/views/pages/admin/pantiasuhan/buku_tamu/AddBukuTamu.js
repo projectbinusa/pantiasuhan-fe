@@ -37,7 +37,7 @@ function AddBukuTamu() {
           `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }
         );
@@ -76,7 +76,7 @@ function AddBukuTamu() {
         {
           headers: {
             // "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

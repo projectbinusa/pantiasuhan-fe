@@ -28,7 +28,7 @@ function Berita() {
         }&size=${rowsPerPage}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -58,7 +58,7 @@ function Berita() {
         axios
           .delete(`${API_DUMMY}/smpn1bergas/api/guru/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

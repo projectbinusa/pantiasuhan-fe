@@ -44,7 +44,7 @@ function StokBarangInventaris() {
         `${API_DUMMY_PYTHON}/api/admin/barang`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -73,7 +73,7 @@ function StokBarangInventaris() {
         axios
           .delete(`${API_DUMMY_PYTHON}/api/admin/barang` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
@@ -159,7 +159,7 @@ function StokBarangInventaris() {
           `${API_DUMMY_PYTHON}/api/admin/barang`,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }
         );
@@ -185,7 +185,7 @@ function StokBarangInventaris() {
         `${API_DUMMY_PYTHON}/api/admin/stok_barang`, data,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

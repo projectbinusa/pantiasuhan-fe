@@ -26,7 +26,7 @@ function DetailSAmbutan() {
         `${API_DUMMY}/smpn1bergas/api/sambutan/all/terbaru?page=0&size=1`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -82,7 +82,7 @@ function DetailSAmbutan() {
         axios
           .delete(`${API_DUMMY}/smpn1bergas/api/sambutan/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

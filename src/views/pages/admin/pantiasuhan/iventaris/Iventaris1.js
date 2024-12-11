@@ -43,7 +43,7 @@ function Iventaris() {
         `${API_DUMMY_PYTHON}/api/admin/investaris`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -72,7 +72,7 @@ function Iventaris() {
         axios
           .delete(`${API_DUMMY_PYTHON}/api/admin/investaris` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
@@ -225,7 +225,7 @@ function Iventaris() {
                     <th scope="col">No</th>
                     <th>nama</th>
                     <th scope="col" style={{ minWidth: "150px" }}>
-                      tanggal pembelian     
+                      tanggal pembelian
                     </th>
                     <th>harga pembelian</th>
                     <th>Image</th>

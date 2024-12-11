@@ -26,7 +26,7 @@ function FotoSarana() {
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -56,7 +56,7 @@ function FotoSarana() {
         axios
           .delete(`${API_DUMMY}/smpn1bergas/api/foto_sarana/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

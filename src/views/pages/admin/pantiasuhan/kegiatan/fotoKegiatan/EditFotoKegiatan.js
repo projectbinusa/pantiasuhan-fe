@@ -26,7 +26,7 @@ function EditFotoKegiatanPanti() {
           `${API_DUMMY}/pantiasuhan/api/kegiatan/get/` + param.id,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }
         );
@@ -53,7 +53,7 @@ function EditFotoKegiatanPanti() {
         `${API_DUMMY}/pantiasuhan/api/kegiatan/all`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -78,7 +78,7 @@ function EditFotoKegiatanPanti() {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       )

@@ -82,7 +82,7 @@ function EditProgram() {
         }&size=${rowsPerPage}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -101,7 +101,7 @@ function EditProgram() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/program/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -143,7 +143,7 @@ function EditProgram() {
         // },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       )

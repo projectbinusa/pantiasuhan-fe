@@ -75,7 +75,7 @@ function EditSambutan() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/sambutan/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -111,7 +111,7 @@ function EditSambutan() {
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/sambutan/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {
@@ -119,7 +119,7 @@ function EditSambutan() {
           axios.put(`${API_DUMMY}/smpn1bergas/api/sambutan/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }).catch((err) => {
             console.log(err);

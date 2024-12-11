@@ -52,7 +52,7 @@ function Prestasi() {
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -82,7 +82,7 @@ function Prestasi() {
         axios
           .delete(`${API_DUMMY}/smpn1bergas/api/prestasi/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

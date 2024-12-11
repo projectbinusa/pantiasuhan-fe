@@ -23,7 +23,7 @@ function EditFotoSarana() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/foto_sarana/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -55,7 +55,7 @@ function EditFotoSarana() {
         {
           headers: {
             // "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       )
@@ -64,7 +64,7 @@ function EditFotoSarana() {
           axios.put(`${API_DUMMY}/smpn1bergas/api/foto_sarana/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }).catch((err) => {
             console.log(err);
@@ -105,7 +105,7 @@ function EditFotoSarana() {
         `${API_DUMMY}/smpn1bergas/api/sarana/all`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

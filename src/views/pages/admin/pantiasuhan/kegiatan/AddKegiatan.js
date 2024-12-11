@@ -107,7 +107,7 @@ function AddKegiatanPanti() {
         }&size=${rowsPerPage}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -167,7 +167,7 @@ function AddKegiatanPanti() {
         {
           headers: {
             // "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

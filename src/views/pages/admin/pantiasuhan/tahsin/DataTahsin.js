@@ -42,7 +42,7 @@ function DataTahsin() {
         `${API_DUMMY_PYTHON}/api/admin/tahsin`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -72,7 +72,7 @@ function DataTahsin() {
         axios
           .delete(`${API_DUMMY}/pantiasuhan/api/kegiatan/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

@@ -22,7 +22,7 @@ function EditTenagaKependidikan() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -50,7 +50,7 @@ function EditTenagaKependidikan() {
     axios
       .put(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((response) => {
@@ -58,7 +58,7 @@ function EditTenagaKependidikan() {
           axios.put(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }).catch((err) => {
             console.log(err);

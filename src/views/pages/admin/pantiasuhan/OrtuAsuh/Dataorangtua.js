@@ -42,7 +42,7 @@ function Dataortu() {
         `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -71,7 +71,7 @@ function Dataortu() {
         axios
           .delete(`${API_DUMMY_PYTHON}/api/admin/foster_parent/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
@@ -250,7 +250,7 @@ function Dataortu() {
                                     textDecoration: "none",
                                   }}
                                   href={`/edit_ortu_asuh/${row.id}`}
-                                > 
+                                >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
                               </button>

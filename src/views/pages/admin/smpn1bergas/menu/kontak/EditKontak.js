@@ -21,7 +21,7 @@ function EditKontak() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/kontak/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -50,7 +50,7 @@ function EditKontak() {
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/kontak/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {

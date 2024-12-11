@@ -21,7 +21,7 @@ function DetailBukuTamu() {
         axios
           .get(`${API_DUMMY_PYTHON}/api/admin/guestbook/` + param.id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then((res) => {

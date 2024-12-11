@@ -40,7 +40,7 @@ function EditStruktur() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/struktur/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -72,7 +72,7 @@ function EditStruktur() {
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/struktur/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {
@@ -80,7 +80,7 @@ function EditStruktur() {
           axios.put(`${API_DUMMY}/smpn1bergas/api/struktur/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }).catch((err) => {
             console.log(err);

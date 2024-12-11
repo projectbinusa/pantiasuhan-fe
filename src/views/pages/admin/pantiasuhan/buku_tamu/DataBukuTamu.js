@@ -43,7 +43,7 @@ function DataBukuTamu() {
         }`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -74,7 +74,7 @@ function DataBukuTamu() {
         axios
           .delete(`${API_DUMMY_PYTHON}/api/admin/guestbook/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

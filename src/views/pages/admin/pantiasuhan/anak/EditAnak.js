@@ -36,7 +36,7 @@ function EditAnak() {
           `${API_DUMMY_PYTHON}/api/admin/siswa/${param.id}`,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }
         );
@@ -76,7 +76,7 @@ function EditAnak() {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

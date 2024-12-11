@@ -50,7 +50,7 @@ function Struktur() {
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -80,7 +80,7 @@ function Struktur() {
         axios
           .delete(`${API_DUMMY}/smpn1bergas/api/struktur/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
