@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -72,7 +72,7 @@ function AddVisiMisiPanti() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -80,8 +80,8 @@ function AddVisiMisiPanti() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   //add
@@ -95,7 +95,7 @@ function AddVisiMisiPanti() {
         misi: misi,
         tujuan: tujuan,
       };
-      await axios.post(`${API_DUMMY}/pantiasuhan/api/visiMisi/add`, data, {
+      await axios.post(`${API_DUMMY_PYTHON}/api/admin/visi-misi`, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -254,21 +254,27 @@ function AddVisiMisiPanti() {
   ];
 
   return (
-    <div className={`page-wrapper chiller-theme ${
+    <div
+      className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
       {/* <div className="app-main"> */}
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
+        <div
+          className="container mt-3 mb-3 app-main__outer"
+          data-aos="fade-left"
+        >
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -986,7 +992,8 @@ function AddVisiMisiPanti() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_visimisi">
+                          href="/admin_visimisi"
+                        >
                           Batal
                         </a>
                       </button>

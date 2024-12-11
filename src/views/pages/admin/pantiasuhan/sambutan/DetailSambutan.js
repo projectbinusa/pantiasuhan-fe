@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function DetailSAmbutanPanti() {
   const [judulSambutan, setJudulSambutan] = useState("");
@@ -16,35 +17,47 @@ function DetailSAmbutanPanti() {
   const [nip, setNip] = useState("");
   const [nama, setNama] = useState("");
   const [image, setImage] = useState("");
-  const [id, setId] = useState(0);
+  // const [id, setId] = useState(0);
   const [data, setdatas] = useState([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const { id } = useParams();
 
-  const getAll = async () => {
+  const getAll = async (id) => {
+    if (!id) {
+      console.warn("ID tidak diberikan untuk fetch data sambutan.");
+      return;
+    }
+
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/sambutan?page=${
-          page - 1
-        }&size=${rowsPerPage}`,
+        `${API_DUMMY_PYTHON}/api/admin/sambutan/${id}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
-      const res = response.data.data.content;
-      setdatas(res);
-      setId(res[0].id);
-      setCreatedDate(res[0].createdDate);
-      setUpdateDate(res[0].updatedDate);
-      setJudulSambutan(res[0].judul);
-      setIsiSambutan(res[0].isi_sambutan);
-      setNama(res[0].nama);
-      setImage(res[0].foto);
-      setNip(res[0].nip);
+
+      const res = response.data;
+
+      if (res.data) {
+        setdatas([res.data]);
+        // setId(res.data.id || "");
+        setCreatedDate(res.data.created_date || "");
+        setUpdateDate(res.data.update_date || "");
+        setJudulSambutan(res.data.judul || "");
+        setIsiSambutan(res.data.isi_sambutan || "");
+        setNama(res.data.nama || "");
+        setImage(res.data.foto || "");
+        setNip(res.data.nip || "");
+      } else {
+        console.warn("Data sambutan tidak ditemukan.");
+        setdatas([]);
+      }
     } catch (error) {
-      console.error("Terjadi Kesalahan", error);
+      console.error("Terjadi Kesalahan: ", error.message || error);
+      alert("Gagal mengambil data sambutan. Silakan coba lagi.");
     }
   };
 
@@ -128,7 +141,7 @@ function DetailSAmbutanPanti() {
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
-      <div className="page-content1" style={{ marginTop: "10px" }}>
+      <div className="page-content1" style={{ marginTop: "5px" }}>
         <div className="container mt-3 mb-3 app-main__outer">
           <div className="box-tabel">
             <div className="card shadow w-100">
@@ -172,60 +185,66 @@ function DetailSAmbutanPanti() {
               </div>
               <br />
               <div className="card-body">
-                {image === null ? (
-                  <img
-                    className="rounded-circle w-75 mr-auto ml-auto d-block"
-                    src="https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
-                  />
-                ) : (
-                  <img
-                    style={{ maxWidth: "400px", maxHeight: "400px" }}
-                    className="w-75 d-block mr-auto ml-auto"
-                    src={image}
-                  />
-                )}
+                <img
+                  className={`w-75 d-block mr-auto ml-auto ${
+                    image === null ? "rounded-circle" : ""
+                  }`}
+                  style={
+                    image === null
+                      ? {}
+                      : { maxWidth: "400px", maxHeight: "400px" }
+                  }
+                  src={
+                    image === null
+                      ? "https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
+                      : image
+                  }
+                  alt="Foto Kepala Panti"
+                />
                 <br />
                 <br />
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Judul Sambutan</label>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Judul Sambutan</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     disabled
                     value={judulSambutan}
                   />
                 </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Nama Kepala Sekolah</label>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">
+                    Nama Kepala Panti
+                  </label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     disabled
                     value={nama}
                   />
                 </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">NIP</label>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">NIY</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     disabled
                     value={nip}
                   />
                 </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Isi Sambutan</label>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Isi Sambutan</label>
                   <div
                     className="form-control"
                     style={{ height: "auto", background: "#e9ecef" }}
                     dangerouslySetInnerHTML={{ __html: isiSambutan }}
                   />
                 </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Tanggal Dibuat</label>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Tanggal Dibuat</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     disabled
                     value={format(
                       new Date(createdDate || new Date()),
@@ -234,11 +253,11 @@ function DetailSAmbutanPanti() {
                     )}
                   />
                 </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Tanggal Update</label>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Tanggal Update</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     disabled
                     value={format(
                       new Date(updateDate || new Date()),

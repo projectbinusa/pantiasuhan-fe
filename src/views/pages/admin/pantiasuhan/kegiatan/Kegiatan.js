@@ -39,9 +39,7 @@ function KegiatanPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kegiatan?page=${
-          page - 1
-        }&size=${rowsPerPage}`,
+        `${API_DUMMY_PYTHON}/api/admin/kegiatan`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -330,7 +328,7 @@ function KegiatanPanti() {
               />
             </div>
           </div>
-          <FotoKegiatanPanti></FotoKegiatanPanti>
+          {/* <FotoKegiatanPanti></FotoKegiatanPanti> */}
         </div>
       </div>
     </div>

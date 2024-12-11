@@ -69,6 +69,9 @@ const NavbarSekolah = () => {
           <li className="navbars-item">
             <a href="#kontak">KONTAK</a>
           </li>
+          <li className="navbars-item">
+            <a href="/form_buku_tamu/:organization_id">BUKU TAMU</a>
+          </li>
         </ul>
       </div>
     </nav>

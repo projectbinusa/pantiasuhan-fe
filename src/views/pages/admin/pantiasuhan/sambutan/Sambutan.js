@@ -5,7 +5,7 @@ import AOS from "aos";
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
-function AdminSambutanPanti() {
+function Sambutan() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,7 +24,7 @@ function AdminSambutanPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/admin/sambutan?page=${page - 1}&size=${rowsPerPage}`,
+        `${API_DUMMY_PYTHON}/api/admin/sambutan`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -32,12 +32,15 @@ function AdminSambutanPanti() {
         }
       );
 
-      if (response.data && response.data.data && response.data.data.content) {
-        setList(response.data.data.content);
-        console.log("data sambutan: ", response);
+      if (response.data && Array.isArray(response.data.data)) {
+        // Set data ke state
+        setList(response.data.data);
+        console.log("Data sambutan: ", response.data.data);
+
+        // Set pagination jika data pagination tersedia
         setPaginationInfo({
-          totalPages: response.data.pagination.total_pages,
-          totalElements: response.data.pagination.total,
+          totalPages: response.data.pagination.total_pages || 1,
+          totalElements: response.data.pagination.total || 0,
         });
       } else {
         console.error("No data found in response");
@@ -222,7 +225,7 @@ function AdminSambutanPanti() {
                       No
                     </th>
                     <th className="text-center">Judul Sambutan</th>
-                    <th className="text-center">Nama Kepala Sekolah</th>
+                    <th className="text-center">Nama Kepala Panti</th>
                     <th
                       scope="col"
                       className="text-center"
@@ -230,7 +233,7 @@ function AdminSambutanPanti() {
                     >
                       Isi Sambutan
                     </th>
-                    <th className="text-center">NIP</th>
+                    <th className="text-center">NIY</th>
                     <th className="text-center">Gambar</th>
                     <th className="text-center">Aksi</th>
                   </tr>
@@ -331,4 +334,4 @@ function AdminSambutanPanti() {
   );
 }
 
-export default AdminSambutanPanti;
+export default Sambutan;

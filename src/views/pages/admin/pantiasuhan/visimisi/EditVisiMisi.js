@@ -73,7 +73,7 @@ function EditVisiMisiPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/pantiasuhan/api/visiMisi/get/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/visi-misi/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -100,7 +100,7 @@ function EditVisiMisiPanti() {
     };
 
     await axios
-      .put(`${API_DUMMY}/pantiasuhan/api/visiMisi/put/` + param.id, data, {
+      .put(`${API_DUMMY}/api/admin/visi-misi/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -265,7 +265,7 @@ function EditVisiMisiPanti() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -273,26 +273,32 @@ function EditVisiMisiPanti() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}
+      >
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
+        <div
+          className="container mt-3 mb-3 app-main__outer"
+          data-aos="fade-left"
+        >
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -1011,7 +1017,8 @@ function EditVisiMisiPanti() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_visimisi">
+                          href="/admin_visimisi"
+                        >
                           Batal
                         </a>
                       </button>

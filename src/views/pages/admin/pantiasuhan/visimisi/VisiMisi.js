@@ -37,15 +37,11 @@ function VisiMisiPanti() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY}/pantiasuhan/api/visiMisi/all/terbaru?page=${page - 1
-        }&size=${rowsPerPage}`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+      const response = await axios.get(`${API_DUMMY}/api/admin/visi-misi`, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      });
       setList(response.data.data.content);
       console.log(response.data.data.content);
       console.log(
@@ -74,7 +70,7 @@ function VisiMisiPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/pantiasuhan/api/visiMisi/` + id, {
+          .delete(`${API_DUMMY}/api/admin/visi-misi/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -137,13 +133,16 @@ function VisiMisiPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
@@ -152,7 +151,8 @@ function VisiMisiPanti() {
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -161,7 +161,8 @@ function VisiMisiPanti() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -188,7 +189,8 @@ function VisiMisiPanti() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -210,7 +212,8 @@ function VisiMisiPanti() {
                         <button
                           style={{ cursor: "not-allowed" }}
                           disabled
-                          className="active btn-focus p-2 rounded">
+                          className="active btn-focus p-2 rounded"
+                        >
                           Tambah Data
                         </button>
                       </>
@@ -219,7 +222,8 @@ function VisiMisiPanti() {
                         <button className="active btn-focus p-2 rounded">
                           <a
                             style={{ color: "white", textDecoration: "none" }}
-                            href="/add-visimisi">
+                            href="/add-visimisi"
+                          >
                             Tambah Data
                           </a>
                         </button>
@@ -231,11 +235,14 @@ function VisiMisiPanti() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" className="text-center">No</th>
+                    <th scope="col" className="text-center">
+                      No
+                    </th>
                     <th className="text-center">Visi</th>
                     {/* <th scope="col" className="text-center" className="text-left">
                       Misi
@@ -245,22 +252,27 @@ function VisiMisiPanti() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((berita, no) => {
+                  {filteredList.map((visimisi, no) => {
                     return (
                       <tr key={no}>
                         <td data-label="No" className="">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
-                        <td data-label="Visi" className=""
+                        <td
+                          data-label="Visi"
+                          className=""
                           style={{
                             maxWidth: "150px",
                             whiteSpace: "nowrap",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
-                          }}>
-                          <div dangerouslySetInnerHTML={{ __html: berita.visi }} />
+                          }}
+                        >
+                          <div
+                            dangerouslySetInnerHTML={{ __html: visimisi.visi }}
+                          />
                         </td>
-                        {/* <td
+                        <td
                           style={{
                             maxWidth: "150px",
                             whiteSpace: "nowrap",
@@ -268,9 +280,10 @@ function VisiMisiPanti() {
                             textOverflow: "ellipsis",
                           }}
                           data-label="Misi"
-                          className="text-left">
+                          className="text-left"
+                        >
                           <div
-                            dangerouslySetInnerHTML={{ __html: berita.misi }}
+                            dangerouslySetInnerHTML={{ __html: visimisi.misi }}
                           />
                         </td>
                         <td
@@ -281,38 +294,46 @@ function VisiMisiPanti() {
                             textOverflow: "ellipsis",
                           }}
                           data-label="Tujuan"
-                          className="text-left">
+                          className="text-left"
+                        >
                           <div
-                            dangerouslySetInnerHTML={{ __html: berita.tujuan }}
+                            dangerouslySetInnerHTML={{
+                              __html: visimisi.tujuan,
+                            }}
                           />
-                        </td> */}
+                        </td>
                         <td data-label="Aksi">
                           <div className="aksi">
                             <button
                               type="button"
-                              className="btn-primary btn-sm mr-2">
+                              className="btn-primary btn-sm mr-2"
+                            >
                               <a
                                 style={{
                                   color: "white",
                                   textDecoration: "none",
                                 }}
-                                href={`/edit-visimisi/${berita.id}`}>
+                                href={`/edit-visimisi/${visimisi.id}`}
+                              >
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>
                             <button
                               type="button"
-                              class="btn-warning  mr-2 btn-sm">
+                              class="btn-warning  mr-2 btn-sm"
+                            >
                               <a
                                 className="text-light"
-                                href={"/detail-visimisi/" + berita.id}>
+                                href={"/detail-visimisi/" + visimisi.id}
+                              >
                                 <i class="fas fa-info-circle"></i>
                               </a>
                             </button>
                             <button
-                              onClick={() => deleteData(berita.id)}
+                              onClick={() => deleteData(visimisi.id)}
                               type="button"
-                              className="btn-danger btn-sm">
+                              className="btn-danger btn-sm"
+                            >
                               <i className="fa-solid fa-trash"></i>
                             </button>
                           </div>

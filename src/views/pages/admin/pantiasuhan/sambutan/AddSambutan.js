@@ -75,30 +75,52 @@ function AddSambutanPanti() {
     e.persist();
 
     try {
+      // Create FormData to send the data to the server
       const formData = new FormData();
-      formData.append("isi", isiSambutan);
-      formData.append("nama", namaKepsek);
       formData.append("judul", judulSambutan);
+      formData.append("isi_sambutan", isiSambutan);
+      formData.append("foto", file); // Ensure 'file' is not null
+      formData.append("nama", namaKepsek);
       formData.append("nip", nip);
-      formData.append("file", file);
-      await axios.post(`${API_DUMMY_PYTHON}/api/admin/sambutan/`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      });
-      setShow(false);
-      Swal.fire({
-        icon: "success",
-        title: "Data Berhasil DiTambahkan",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        history.push("/admin_sambutan");
-      }, 1500);
+
+      // Make the POST request to the backend API
+      const response = await axios.post(
+        `${API_DUMMY_PYTHON}/api/admin/sambutan`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Authentication token
+          },
+        }
+      );
+
+      // Check for a successful response
+      if (response.data.code === 200) {
+        setShow(false); // Hide modal or reset form
+        Swal.fire({
+          icon: "success",
+          title: "Data Berhasil Ditambahkan",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        // Redirect after success
+        setTimeout(() => {
+          history.push("/admin_sambutan");
+        }, 1500);
+      } else {
+        // Handle other responses with error message
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
+      // Handle errors, especially for authentication issues
+      if (error.response && error.response.status === 401) {
         localStorage.clear();
         history.push("/login");
       } else {
@@ -108,7 +130,7 @@ function AddSambutanPanti() {
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(error);
+        console.log(error); // Log the error for debugging
       }
     }
   };
@@ -308,7 +330,7 @@ function AddSambutanPanti() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Nama Kepala Sekolah
+                            Nama Kepala Panti
                           </label>
                           <input
                             value={namaKepsek}
@@ -316,12 +338,12 @@ function AddSambutanPanti() {
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan Nama Kepala Sekolah"
+                            placeholder="Masukkan Nama Kepala Panti"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            NIP
+                            NIY
                           </label>
                           <input
                             value={nip}
@@ -329,7 +351,7 @@ function AddSambutanPanti() {
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan NIP"
+                            placeholder="Masukkan NIY"
                           />
                         </div>
                         <div className="mb-3 col-lg-6">

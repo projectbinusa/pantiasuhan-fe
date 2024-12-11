@@ -352,7 +352,7 @@ function EditSambutanPanti() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Nama Kepala Sekolah
+                            Nama Kepala Panti
                           </label>
                           <input
                             value={nama}
@@ -360,12 +360,12 @@ function EditSambutanPanti() {
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan Nama Kepala Sekolah"
+                            placeholder="Masukkan Nama Kepala Panti"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            NIP
+                            NIY
                           </label>
                           <input
                             value={nip}
@@ -373,7 +373,7 @@ function EditSambutanPanti() {
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan NIP"
+                            placeholder="Masukkan NIY"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
