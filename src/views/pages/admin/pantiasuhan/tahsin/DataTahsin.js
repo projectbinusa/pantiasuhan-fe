@@ -39,7 +39,7 @@ function DataTahsin() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/tahsin`,
+        `https://dev-api.byrtagihan.com/api/tahsin`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
