@@ -27,7 +27,7 @@ function AdminSambutanPanti() {
         `${API_DUMMY}/api/admin/sambutan?page=${page - 1}&size=${rowsPerPage}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -62,7 +62,7 @@ function AdminSambutanPanti() {
         axios
           .delete(`${API_DUMMY_PYTHON}/api/admin/sambutan/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

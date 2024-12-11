@@ -23,7 +23,7 @@ function EditGuru() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/guru/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -57,7 +57,7 @@ function EditGuru() {
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/guru/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {
@@ -65,7 +65,7 @@ function EditGuru() {
           axios.put(`${API_DUMMY}/smpn1bergas/api/guru/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }).catch((err) => {
             console.log(err);

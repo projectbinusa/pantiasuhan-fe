@@ -43,7 +43,7 @@ function AddAnak() {
           `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }
         );
@@ -80,7 +80,7 @@ function AddAnak() {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

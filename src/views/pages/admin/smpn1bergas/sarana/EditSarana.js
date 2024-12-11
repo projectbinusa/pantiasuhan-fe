@@ -27,7 +27,7 @@ function EditSarana() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/sarana/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -74,7 +74,7 @@ function EditSarana() {
         {
           headers: {
             // "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -114,7 +114,7 @@ function EditSarana() {
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       )

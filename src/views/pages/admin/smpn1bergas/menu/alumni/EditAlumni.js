@@ -96,7 +96,7 @@ function EditAlumni() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/alumni/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -132,7 +132,7 @@ function EditAlumni() {
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/alumni/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {
@@ -140,7 +140,7 @@ function EditAlumni() {
           axios.put(`${API_DUMMY}/smpn1bergas/api/alumni/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }).catch((err) => {
             console.log(err);

@@ -32,7 +32,7 @@ function AddFotoKegiatanPanti() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -62,7 +62,7 @@ function AddFotoKegiatanPanti() {
         `${API_DUMMY}/pantiasuhan/api/kegiatan/all`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );

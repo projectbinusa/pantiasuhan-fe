@@ -26,7 +26,7 @@ function TenagaKenpendidikan() {
         }&size=${rowsPerPage}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -56,7 +56,7 @@ function TenagaKenpendidikan() {
         axios
           .delete(`${API_DUMMY}/smpn1bergas/api/tenaga_kependidikan/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

@@ -46,7 +46,7 @@ function EditOsis() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/osis/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -86,7 +86,7 @@ function EditOsis() {
     await axios
       .put(`${API_DUMMY}/smpn1bergas/api/osis/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
     .then(() => {
@@ -94,7 +94,7 @@ function EditOsis() {
           axios.put(`${API_DUMMY}/smpn1bergas/api/osis/put/foto/` + param.id, formData, {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }).catch((err) => {
             console.log(err);

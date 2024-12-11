@@ -39,7 +39,7 @@ function EditGalery() {
     axios
       .get(`${API_DUMMY_PYTHON}/api/admin/galery/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -69,7 +69,7 @@ function EditGalery() {
     await axios
       .put(`${API_DUMMY_PYTHON}/api/admin/galery/` + param.id, formData, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {
@@ -81,7 +81,7 @@ function EditGalery() {
               {
                 headers: {
                   "Content-Type": "multipart/form-data",
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
                 },
               }
             )

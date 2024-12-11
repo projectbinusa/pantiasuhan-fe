@@ -32,7 +32,7 @@ function AddCategoryProgram() {
     await axios
       .post(`${API_DUMMY}/smpn1bergas/api/category_program/add`, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {

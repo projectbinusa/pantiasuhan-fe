@@ -11,6 +11,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
   const history = useHistory();
   const location = useLocation();
   const menuRefs = useRef([]);
+  const inventarisRefs = useRef([]);
 
   useEffect(() => {
     const activeIndex = menuItems.findIndex(
@@ -18,6 +19,17 @@ function SidebarPantiAdmin({ toggleSidebar }) {
     );
     if (activeIndex !== -1 && menuRefs.current[activeIndex]) {
       menuRefs.current[activeIndex].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+
+    // INVENTARIS MENU
+    const activeIndexInventaris = inventarisItems.findIndex(
+      (item) => location.pathname === item.path
+    );
+    if (activeIndexInventaris !== -1 && inventarisRefs.current[activeIndexInventaris]) {
+      inventarisRefs.current[activeIndexInventaris].scrollIntoView({
         behavior: "smooth",
         block: "nearest",
       });
@@ -61,18 +73,6 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       icon: "fa-solid fa-list",
       path: "/admin_visimisi",
       action: ["/add_visimisi", "/edit_visimisi", "/detail_visimisi"],
-    },
-    {
-      title: "Inventaris",
-      icon: "fa-solid fa-list",
-      path: "/admin_iventaris",
-      action: ["/add_iventaris", "/edit_iventaris", "/detail_iventaris"],
-    },
-    {
-      title: "Inventaris",
-      icon: "fa-solid fa-list",
-      path: "/admin_iventaris",
-      action: ["/add_iventaris", "/edit_iventaris", "/detail_iventaris"],
     },
     {
       title: "Anak Asuh",
@@ -130,6 +130,38 @@ function SidebarPantiAdmin({ toggleSidebar }) {
     },
   ];
 
+  const inventarisItems = [
+    {
+      title: "Barang Inventaris",
+      icon: "fa-solid fa-list",
+      path: "/barang_inventaris",
+      action: ["/edit_barang_inventaris"],
+    },
+    {
+      title: "Kategori Barang",
+      icon: "fa-solid fa-list",
+      path: "/kategori_barang_inventaris",
+      action: ["/edit_kategori_barang_inventaris"],
+    },
+    {
+      title: "Status Barang",
+      icon: "fa-solid fa-list",
+      path: "/status_barang_inventaris",
+      action: ["/edit_status_barang_inventaris"],
+    },
+    {
+      title: "Stok Barang",
+      icon: "fa-solid fa-list",
+      path: "/stok_barang_inventaris",
+      action: ["/edit_stok_barang_inventaris"],
+    },
+    {
+      title: "Lokasi Barang",
+      icon: "fa-solid fa-list",
+      path: "/lokasi_barang_inventaris",
+      action: ["/edit_lokasi_barang_inventaris"],
+    },
+  ]
   useEffect(() => {
     console.log(
       "data: ",
@@ -158,12 +190,28 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                 <li key={index} ref={(el) => (menuRefs.current[index] = el)}>
                   <NavLink to={data.path} style={{ background: "none" }}>
                     <i
-                      className={`${data.icon} ${
-                        location.pathname === data.path ||
+                      className={`${data.icon} ${location.pathname === data.path ||
                         data.action.includes(location.pathname)
-                          ? "active"
-                          : ""
-                      }`}></i>
+                        ? "active"
+                        : ""
+                        }`}></i>
+
+                    <span>{data.title}</span>
+                  </NavLink>
+                </li>
+              ))}
+              <li className="header-menu1">
+                <span>Inventaris</span>
+              </li>
+              {inventarisItems.map((data, index) => (
+                <li key={index} ref={(el) => (inventarisRefs.current[index] = el)}>
+                  <NavLink to={data.path} style={{ background: "none" }}>
+                    <i
+                      className={`${data.icon} ${location.pathname === data.path ||
+                        data.action.includes(location.pathname)
+                        ? "active"
+                        : ""
+                        }`}></i>
 
                     <span>{data.title}</span>
                   </NavLink>

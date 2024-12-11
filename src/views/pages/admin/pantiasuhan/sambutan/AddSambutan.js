@@ -84,7 +84,7 @@ function AddSambutanPanti() {
       await axios.post(`${API_DUMMY_PYTHON}/api/admin/sambutan/`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       });
       setShow(false);

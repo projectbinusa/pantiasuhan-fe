@@ -25,7 +25,7 @@ function DetailPerpus() {
     axios
       .get(`${API_DUMMY}/smpn1bergas/api/berita/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((res) => {

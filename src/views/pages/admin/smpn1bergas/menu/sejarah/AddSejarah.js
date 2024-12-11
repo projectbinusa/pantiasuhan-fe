@@ -80,7 +80,7 @@ function AddSejarah() {
       };
       await axios.post(`${API_DUMMY}/smpn1bergas/api/sejarah/add`, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       });
       setShow(false);

@@ -34,7 +34,7 @@ function Sarana() {
         }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -64,7 +64,7 @@ function Sarana() {
         axios
           .delete(`${API_DUMMY}/smpn1bergas/api/sarana/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {
@@ -232,7 +232,7 @@ function Sarana() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length>0? 
+                  {filteredList.length>0?
                   filteredList.map((berita, no) => {
                     return (
                       <tr key={no}>

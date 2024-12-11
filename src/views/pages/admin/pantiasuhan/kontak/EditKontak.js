@@ -21,7 +21,7 @@ function EditKontakPanti() {
     axios
       .get(`${API_DUMMY}/pantiasuhan/api/kontak/get/` + param.id, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
@@ -50,7 +50,7 @@ function EditKontakPanti() {
     await axios
       .put(`${API_DUMMY}/pantiasuhan/api/kontak/put/` + param.id, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then(() => {

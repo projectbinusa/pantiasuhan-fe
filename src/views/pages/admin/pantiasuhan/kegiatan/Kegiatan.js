@@ -44,7 +44,7 @@ function KegiatanPanti() {
         }&size=${rowsPerPage}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -74,7 +74,7 @@ function KegiatanPanti() {
         axios
           .delete(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

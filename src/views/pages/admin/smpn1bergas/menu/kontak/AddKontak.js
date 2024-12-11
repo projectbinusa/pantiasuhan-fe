@@ -30,7 +30,7 @@ function AddKontak() {
     try {
       await axios.post(`${API_DUMMY}/smpn1bergas/api/kontak/add`, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       });
       setShow(false);

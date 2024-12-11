@@ -186,6 +186,15 @@ import DataAnak from "./views/pages/admin/pantiasuhan/anak/DataAnak";
 import AddAnak from "./views/pages/admin/pantiasuhan/anak/AddAnak";
 import EditAnak from "./views/pages/admin/pantiasuhan/anak/EditAnak";
 import FormBukuTamu from "./views/pages/admin/pantiasuhan/buku_tamu/FormBukuTamu";
+import DataBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/barang/DataBarangInventaris";
+import KategoriBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/kategori/KategoriBarang";
+import StokBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/stok/StokBarangInventaris";
+import StatusBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/status/StatusBarangInventaris";
+import LokasiBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/lokasi/LokasiBarangInventaris";
+import EditBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/barang/EditBarangInventaris";
+import EditKategoriBarang from "./views/pages/admin/pantiasuhan/iventaris/kategori/EditKategoriBarang";
+import EditStokBarang from "./views/pages/admin/pantiasuhan/iventaris/stok/EditStokBarang";
+import EditLokasiBarang from "./views/pages/admin/pantiasuhan/iventaris/lokasi/EditLokasiBarang";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -393,6 +402,16 @@ function App() {
               exact
             />
             <Route path="/form_buku_tamu/:organization_id" component={FormBukuTamu} exact/>
+            <PrivateRoute path="/barang_inventaris" component={DataBarangInventaris} exact/>
+            <PrivateRoute path="/kategori_barang_inventaris" component={KategoriBarangInventaris} exact/>
+            <PrivateRoute path="/stok_barang_inventaris" component={StokBarangInventaris} exact/>
+            <PrivateRoute path="/status_barang_inventaris" component={StatusBarangInventaris} exact/>
+            <PrivateRoute path="/lokasi_barang_inventaris" component={LokasiBarangInventaris} exact/>
+            <PrivateRoute path="/edit_barang_inventaris/:id" component={EditBarangInventaris} exact/>
+            <PrivateRoute path="/edit_kategori_barang_inventaris/:id" component={EditKategoriBarang} exact/>
+            <PrivateRoute path="/edit_status_barang_inventaris/:id" component={EditKategoriBarang} exact/>
+            <PrivateRoute path="/edit_stok_barang_inventaris/:id" component={EditStokBarang} exact/>
+            <PrivateRoute path="/edit_lokasi_barang_inventaris/:id" component={EditLokasiBarang} exact/>
             {/* END PANTI ASUHAN */}
             <Route path="/sambutan" component={sambutan} exact />
             <Route path="/visi-misi" component={VisiMisiSekolah} exact />

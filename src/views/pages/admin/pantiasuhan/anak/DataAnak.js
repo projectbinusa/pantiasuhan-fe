@@ -40,7 +40,7 @@ function DataAnak() {
         `${API_DUMMY_PYTHON}/api/admin/siswa?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
@@ -72,7 +72,7 @@ function DataAnak() {
         axios
           .delete(`${API_DUMMY_PYTHON}/api/admin/siswa/` + id, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           })
           .then(() => {

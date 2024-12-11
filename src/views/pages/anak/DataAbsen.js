@@ -16,7 +16,7 @@ function DataAbsen() {
           `${API_DUMMY_PYTHON}/api/siswa/presensi`,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("tokenpython")}`,
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
           }
         );

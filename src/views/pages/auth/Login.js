@@ -8,7 +8,7 @@ import axios from "axios";
 import logo from "../../../aset/pantiasuhan/logo.png";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, seRole] = useState("admin");
   const history = useHistory();
@@ -17,46 +17,31 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const data = {
-      username: username,
-      password: password,
-      role: role,
-    };
     const datapython = {
-      username: username,
+      email: email,
       password: password,
     };
+
     try {
-      const response = await axios.post(`${API_DUMMY_PYTHON}/api/signin/admin`, datapython);;
+      const response = await axios.post(`https://api.byrtagihan.com/api/customer/login`, datapython);
 
       if (response.status === 200) {
-        if (response.data.data.type_token === "ADMIN") {
-          try {
-            const resp = await axios.post(`${API_DUMMY}/login`, data);
-            console.log(resp);
-
-            localStorage.setItem("token", resp.data.token);
-          } catch (err) {
-            console.log(err);
-          }
-        }
         Swal.fire({
           icon: "success",
-          title: `Berhasil Login Sebagai ${response.data.data.type_token}`,
-          // title: `Berhasil Login`,
+          title: `Berhasil Login Sebagai Admin`,
           showConfirmButton: false,
           timer: 1500,
-        });
+        }).then(() => {
+          // Setelah alert selesai, lakukan pengalihan
+          localStorage.setItem("id", response.data.data.id);
+          localStorage.setItem("role", response.data.data.type_token);
+          localStorage.setItem("tokenpython", response.data.data.token);
 
-        localStorage.setItem("id", response.data.data.id);
-        localStorage.setItem("role", response.data.data.type_token);
-        localStorage.setItem("tokenpython", response.data.data.token);
-        setTimeout(() => {
+          // Arahkan ke halaman admin_sambutan
           history.push("/admin_sambutan");
-        }, 1500);
+        });
       }
-    }
-    catch (error) {
+    } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Username atau Password Salah",
@@ -101,9 +86,9 @@ function Login() {
                 type="text"
                 className="form-control form-control-lg bg-light fs-6"
                 required
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="input-group mb-1">
