@@ -61,11 +61,11 @@ import "ckeditor5/ckeditor5.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function AddSambutanPanti() {
-  const [judulSambutan, setJudulSambutan] = useState("");
-  const [isiSambutan, setIsiSambutan] = useState("");
-  const [file, setFile] = useState(null);
+  const [judul, setJudul] = useState("");
+  const [isi_sambutan, setIsiSambutan] = useState("");
+  const [foto, setFoto] = useState(null);
   const [nip, setNip] = useState("");
-  const [namaKepsek, setNamaKepsek] = useState("");
+  const [nama, setNama] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
 
@@ -75,29 +75,29 @@ function AddSambutanPanti() {
     e.persist();
 
     try {
-      // Create FormData to send the data to the server
+      // Create FormData untuk mengirim data ke server
       const formData = new FormData();
-      formData.append("judul", judulSambutan);
-      formData.append("isi_sambutan", isiSambutan);
-      formData.append("foto", file); // Ensure 'file' is not null
-      formData.append("nama", namaKepsek);
+      formData.append("judul", judul);
+      formData.append("isi_sambutan", isi_sambutan);
+      formData.append("foto", foto);
       formData.append("nip", nip);
+      formData.append("nama", nama);
 
-      // Make the POST request to the backend API
+      // Buat POST request ke backend API
       const response = await axios.post(
         `${API_DUMMY_PYTHON}/api/admin/sambutan`,
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Authentication token
+            "Content-Type": "multipart/form-data", // Tambahkan header Content-Type
           },
         }
       );
 
-      // Check for a successful response
+      // Periksa respons yang berhasil
       if (response.data.code === 200) {
-        setShow(false); // Hide modal or reset form
+        setShow(false); // Hide modal atau reset form
         Swal.fire({
           icon: "success",
           title: "Data Berhasil Ditambahkan",
@@ -105,21 +105,22 @@ function AddSambutanPanti() {
           timer: 1500,
         });
 
-        // Redirect after success
+        // Redirect setelah berhasil
         setTimeout(() => {
           history.push("/admin_sambutan");
         }, 1500);
       } else {
-        // Handle other responses with error message
+        // Handle respons lain dengan pesan error
         Swal.fire({
           icon: "error",
           title: "Tambah Data Gagal!",
+          text: response.data.message, // Tambahkan pesan error dari respons
           showConfirmButton: false,
           timer: 1500,
         });
       }
     } catch (error) {
-      // Handle errors, especially for authentication issues
+      // Handle error, terutama untuk masalah autentikasi
       if (error.response && error.response.status === 401) {
         localStorage.clear();
         history.push("/login");
@@ -127,10 +128,11 @@ function AddSambutanPanti() {
         Swal.fire({
           icon: "error",
           title: "Tambah Data Gagal!",
+          text: error.message, // Tambahkan pesan error dari error
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(error); // Log the error for debugging
+        console.log(error); // Log error untuk debugging
       }
     }
   };
@@ -320,8 +322,8 @@ function AddSambutanPanti() {
                             Judul Sambutan
                           </label>
                           <input
-                            value={judulSambutan}
-                            onChange={(e) => setJudulSambutan(e.target.value)}
+                            value={judul}
+                            onChange={(e) => setJudul(e.target.value)}
                             type="text"
                             className="form-control"
                             required
@@ -333,8 +335,8 @@ function AddSambutanPanti() {
                             Nama Kepala Panti
                           </label>
                           <input
-                            value={namaKepsek}
-                            onChange={(e) => setNamaKepsek(e.target.value)}
+                            value={nama}
+                            onChange={(e) => setNama(e.target.value)}
                             type="text"
                             className="form-control"
                             required
@@ -359,10 +361,9 @@ function AddSambutanPanti() {
                             Gambar
                           </label>
                           <input
-                            onChange={(e) =>
-                              setFile(e.target.files ? e.target.files[0] : null)
-                            }
                             type="file"
+                            accept="image/*"
+                            onChange={(e) => setFoto(e.target.files[0])}
                             className="form-control"
                           />
                         </div>
@@ -372,7 +373,7 @@ function AddSambutanPanti() {
                           </label>
                           <CKEditor
                             editor={ClassicEditor}
-                            data={isiSambutan} // Gunakan 'data' untuk set initial value
+                            data={isi_sambutan} // Gunakan 'data' untuk set initial value
                             onChange={(event, editor) => {
                               const data = editor.getData(); // Ambil data dari editor
                               setIsiSambutan(data); // Set state dengan data dari editor
