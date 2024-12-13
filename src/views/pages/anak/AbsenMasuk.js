@@ -99,7 +99,8 @@ const AbsenMasuk = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         height: "110vh",
-      }}>
+      }}
+    >
       <div className="container text-white vh-100 py-4">
         <h2 className="text-center fw-bold mb-3">PRESENSI MASUK</h2>
         <div className="row justify-content-center g-4">
@@ -110,10 +111,12 @@ const AbsenMasuk = () => {
                 backgroundColor: "white",
                 border: "2px solid white",
               }}
-              className="shadow card h-100">
+              className="shadow card h-100"
+            >
               <div
                 className="card-body d-flex justify-content-center align-items-center"
-                style={{ backgroundColor: "white" }}>
+                style={{ backgroundColor: "white" }}
+              >
                 <img
                   style={{ width: "80%" }}
                   src={
@@ -135,25 +138,27 @@ const AbsenMasuk = () => {
                 borderRadius: "5px",
                 padding: "15px",
               }}
-              className="shadow">
+              className="shadow"
+            >
               <form onSubmit={handleSubmit}>
                 <img style={{ width: "17%" }} src={logo} alt="Logo" />
                 <h4 className="fw-bold">PRESENSI DIGITAL</h4>
                 <h2 className=" fw-bold">{formatTime(currentTime)}</h2>
                 <input
-                    type="password"
-                    id="card_number"
-                    value={cardNumber}
-                    onChange={(e) => setCardNumber(e.target.value)}
-                    required
-                    ref={inputRef}
-                  />
+                  type="password"
+                  id="card_number"
+                  value={cardNumber}
+                  onChange={(e) => setCardNumber(e.target.value)}
+                  required
+                  ref={inputRef}
+                />
                 <h2 className="display-6">{formatDate(currentTime)}</h2>
                 <h4 className="fw-bold">{userName || "Anak"}</h4>
-                <h4 className={`text-${errorMessage ? "danger" : "success"}`}>
-  {errorMessage || description || "Berhasil Melakukan Presensi Masuk"}
-</h4>
-
+                <h4 className={`text-${errorMessage ? "danger" : "light"}`}>
+                  {errorMessage ||
+                    description ||
+                    "Berhasil Melakukan Presensi Masuk"}
+                </h4>
                 <h4>Jam Presensi: {datetime}</h4>
               </form>
             </div>

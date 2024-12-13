@@ -72,6 +72,9 @@ const NavbarSekolah = () => {
           <li className="navbars-item">
             <a href="/form_buku_tamu/:organization_id">BUKU TAMU</a>
           </li>
+          <li className="navbars-item">
+            <a href="/donasi-umum">DONASI</a>
+          </li>
         </ul>
       </div>
     </nav>

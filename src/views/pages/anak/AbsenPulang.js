@@ -154,7 +154,7 @@ const AbsenPulang = () => {
                 />
                 <h2 className="display-6">{formatDate(currentTime)}</h2>
                 <h4 className="fw-bold">{userName || "Anak"}</h4>
-                <h4 className={`text-${errorMessage ? "danger" : "success"}`}>
+                <h4 className={`text-${errorMessage ? "danger" : "light"}`}>
                   {errorMessage ||
                     description ||
                     "Berhasil Melakukan Presensi Pulang"}

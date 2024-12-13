@@ -28,7 +28,10 @@ function SidebarPantiAdmin({ toggleSidebar }) {
     const activeIndexInventaris = inventarisItems.findIndex(
       (item) => location.pathname === item.path
     );
-    if (activeIndexInventaris !== -1 && inventarisRefs.current[activeIndexInventaris]) {
+    if (
+      activeIndexInventaris !== -1 &&
+      inventarisRefs.current[activeIndexInventaris]
+    ) {
       inventarisRefs.current[activeIndexInventaris].scrollIntoView({
         behavior: "smooth",
         block: "nearest",
@@ -128,6 +131,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       path: "/admin_kotak_saran",
       action: ["/add_kotak_saran", "/edit_kotak_saran"],
     },
+    {
+      title: "Donasi",
+      icon: "fas fa-hand-holding-heart",
+      path: "/donasi",
+      action: ["/donasi/add", "/donasi/put"],
+    },
   ];
 
   const inventarisItems = [
@@ -161,7 +170,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       path: "/lokasi_barang_inventaris",
       action: ["/edit_lokasi_barang_inventaris"],
     },
-  ]
+  ];
   useEffect(() => {
     console.log(
       "data: ",
@@ -190,11 +199,13 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                 <li key={index} ref={(el) => (menuRefs.current[index] = el)}>
                   <NavLink to={data.path} style={{ background: "none" }}>
                     <i
-                      className={`${data.icon} ${location.pathname === data.path ||
+                      className={`${data.icon} ${
+                        location.pathname === data.path ||
                         data.action.includes(location.pathname)
-                        ? "active"
-                        : ""
-                        }`}></i>
+                          ? "active"
+                          : ""
+                      }`}
+                    ></i>
 
                     <span>{data.title}</span>
                   </NavLink>
@@ -204,14 +215,19 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                 <span>Inventaris</span>
               </li>
               {inventarisItems.map((data, index) => (
-                <li key={index} ref={(el) => (inventarisRefs.current[index] = el)}>
+                <li
+                  key={index}
+                  ref={(el) => (inventarisRefs.current[index] = el)}
+                >
                   <NavLink to={data.path} style={{ background: "none" }}>
                     <i
-                      className={`${data.icon} ${location.pathname === data.path ||
+                      className={`${data.icon} ${
+                        location.pathname === data.path ||
                         data.action.includes(location.pathname)
-                        ? "active"
-                        : ""
-                        }`}></i>
+                          ? "active"
+                          : ""
+                      }`}
+                    ></i>
 
                     <span>{data.title}</span>
                   </NavLink>
