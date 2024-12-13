@@ -130,24 +130,24 @@ function AddBukuTamu() {
               <div className="col-md-12">
                 <div className="card shadow">
                   <div className="card-body">
-                    <h1 className="fs-4">Form Tambah Data</h1>
+                    <h1 className="fs-3 text-center mb-4">Form Tambah Data</h1>
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label  font-weight-bold ">
+                        <div className="col-md-6 mb-3">
+                          <label
+                            className="form-label text-center font-weight-bold w-100">
                             Orang Tua Asuh
                           </label>
                           <select
                             value={idOrangTua}
                             className="form-control"
-                            aria-label="Small select example"
                             onChange={(e) => {
                               const selectedId = e.target.value;
                               setIdOrangTua(selectedId);
                               const selectedParent = foster_parent.find(
                                 (data) => String(data.id) === String(selectedId)
-                            );
+                              );
                               setNamaOrangTua(
                                 selectedParent ? selectedParent.name : ""
                               );
@@ -162,8 +162,9 @@ function AddBukuTamu() {
                             ))}
                           </select>
                         </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
+                        <div className="col-md-6 mb-3">
+                          <label
+                            className="form-label text-center font-weight-bold w-100">
                             Tanggal Kunjungan
                           </label>
                           <input
@@ -173,8 +174,9 @@ function AddBukuTamu() {
                             className="form-control"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
+                        <div className="col-md-6 mb-3">
+                          <label
+                            className="form-label text-center font-weight-bold w-100">
                             Nomor Whatsapp
                           </label>
                           <input
@@ -184,19 +186,21 @@ function AddBukuTamu() {
                             className="form-control"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
+                        <div className="col-md-6 mb-3">
+                          <label
+                            className="form-label text-center font-weight-bold w-100">
                             Deskripsi Donasi
                           </label>
                           <textarea
                             value={deskripsi}
                             onChange={(e) => setDeskripsi(e.target.value)}
                             className="form-control"
-                            rows={5}
+                            rows={3}
                             placeholder="Masukkan Deskripsi Donasi"></textarea>
                         </div>
-                        <div className="mb-3 co-lg-12">
-                          <label className="form-label font-weight-bold">
+                        <div className="col-md-6 mb-3">
+                          <label
+                            className="form-label text-center font-weight-bold w-100">
                             Bukti Donasi
                           </label>
                           <input
@@ -205,25 +209,17 @@ function AddBukuTamu() {
                             type="text"
                             className="form-control"
                           />
-                          {/* <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
-                            type="file"
-                            className="form-control"
-                          /> */}
                         </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
+                        <div className="col-md-6 mb-3">
+                          <label
+                            className="form-label text-center font-weight-bold w-100">
                             Catatan
                           </label>
                           <textarea
                             value={catatan}
                             onChange={(e) => setCatatan(e.target.value)}
                             className="form-control"
-                            rows={5}
+                            rows={3}
                             placeholder="Masukkan Catatan"></textarea>
                         </div>
                       </div>
@@ -247,6 +243,7 @@ function AddBukuTamu() {
       </div>
     </div>
   );
+  
 }
 
 export default AddBukuTamu;
