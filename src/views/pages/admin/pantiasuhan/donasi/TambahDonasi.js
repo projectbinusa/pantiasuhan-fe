@@ -198,7 +198,7 @@ function TambahDonasi() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_anak_asuh"
+                          href="/donasi"
                         >
                           Batal
                         </a>
