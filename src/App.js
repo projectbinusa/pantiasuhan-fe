@@ -196,6 +196,10 @@ import EditKategoriBarang from "./views/pages/admin/pantiasuhan/iventaris/katego
 import EditStokBarang from "./views/pages/admin/pantiasuhan/iventaris/stok/EditStokBarang";
 import EditLokasiBarang from "./views/pages/admin/pantiasuhan/iventaris/lokasi/EditLokasiBarang";
 import EditStatusBarang from "./views/pages/admin/pantiasuhan/iventaris/status/EditStatusBarang";
+import Donasi from "./views/pages/admin/pantiasuhan/donasi/Donasi.js";
+import EditDonasi from "./views/pages/admin/pantiasuhan/donasi/EditDonasi.js";
+import TambahDonasi from "./views/pages/admin/pantiasuhan/donasi/TambahDonasi.js";
+import DonasiUmum from "./views/pages/admin/pantiasuhan/donasi/DonasiUmum.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -367,53 +371,81 @@ function App() {
               component={DataAbsen}
               exact
             />
-            <PrivateRoute
-              path="/anak_tahsin"
-              component={TahsinAnak}
-              exact
-            />
-            <PrivateRoute
-              path="/add_anak_tahsin"
-              component={AddTahsin}
-              exact
-            />
+            <PrivateRoute path="/anak_tahsin" component={TahsinAnak} exact />
+            <PrivateRoute path="/add_anak_tahsin" component={AddTahsin} exact />
             <PrivateRoute
               path="/edit_anak_tahsin/:id"
               component={EditTahsin}
               exact
             />
-            <PrivateRoute
-              path="/admin_anak_asuh"
-              component={DataAnak}
-              exact
-            />
-            <PrivateRoute
-              path="/add_anak_asuh"
-              component={AddAnak}
-              exact
-            />
-            <PrivateRoute
-              path="/add_anak_asuh"
-              component={AddAnak}
-              exact
-            />
+            <PrivateRoute path="/admin_anak_asuh" component={DataAnak} exact />
+            <PrivateRoute path="/add_anak_asuh" component={AddAnak} exact />
+            <PrivateRoute path="/add_anak_asuh" component={AddAnak} exact />
             <PrivateRoute
               path="/edit_anak_asuh/:id"
               component={EditAnak}
               exact
             />
-            <Route path="/form_buku_tamu/:organization_id" component={FormBukuTamu} exact/>
-            <PrivateRoute path="/barang_inventaris" component={DataBarangInventaris} exact/>
-            <PrivateRoute path="/kategori_barang_inventaris" component={KategoriBarangInventaris} exact/>
-            <PrivateRoute path="/stok_barang_inventaris" component={StokBarangInventaris} exact/>
-            <PrivateRoute path="/status_barang_inventaris" component={StatusBarangInventaris} exact/>
-            <PrivateRoute path="/edit_status_barang_inventaris/:id" component={EditStatusBarang} exact/>
-            <PrivateRoute path="/lokasi_barang_inventaris" component={LokasiBarangInventaris} exact/>
-            <PrivateRoute path="/edit_barang_inventaris/:id" component={EditBarangInventaris} exact/>
-            <PrivateRoute path="/edit_kategori_barang_inventaris/:id" component={EditKategoriBarang} exact/>
-            <PrivateRoute path="/edit_status_barang_inventaris/:id" component={EditKategoriBarang} exact/>
-            <PrivateRoute path="/edit_stok_barang_inventaris/:id" component={EditStokBarang} exact/>
-            <PrivateRoute path="/edit_lokasi_barang_inventaris/:id" component={EditLokasiBarang} exact/>
+            <Route
+              path="/form_buku_tamu/:organization_id"
+              component={FormBukuTamu}
+              exact
+            />
+            <PrivateRoute
+              path="/barang_inventaris"
+              component={DataBarangInventaris}
+              exact
+            />
+            <PrivateRoute
+              path="/kategori_barang_inventaris"
+              component={KategoriBarangInventaris}
+              exact
+            />
+            <PrivateRoute
+              path="/stok_barang_inventaris"
+              component={StokBarangInventaris}
+              exact
+            />
+            <PrivateRoute
+              path="/status_barang_inventaris"
+              component={StatusBarangInventaris}
+              exact
+            />
+            <PrivateRoute
+              path="/edit_status_barang_inventaris/:id"
+              component={EditStatusBarang}
+              exact
+            />
+            <PrivateRoute
+              path="/lokasi_barang_inventaris"
+              component={LokasiBarangInventaris}
+              exact
+            />
+            <PrivateRoute
+              path="/edit_barang_inventaris/:id"
+              component={EditBarangInventaris}
+              exact
+            />
+            <PrivateRoute
+              path="/edit_kategori_barang_inventaris/:id"
+              component={EditKategoriBarang}
+              exact
+            />
+            <PrivateRoute
+              path="/edit_status_barang_inventaris/:id"
+              component={EditKategoriBarang}
+              exact
+            />
+            <PrivateRoute
+              path="/edit_stok_barang_inventaris/:id"
+              component={EditStokBarang}
+              exact
+            />
+            <PrivateRoute
+              path="/edit_lokasi_barang_inventaris/:id"
+              component={EditLokasiBarang}
+              exact
+            />
             {/* END PANTI ASUHAN */}
             <Route path="/sambutan" component={sambutan} exact />
             <Route path="/visi-misi" component={VisiMisiSekolah} exact />
@@ -878,6 +910,11 @@ function App() {
             <Route path="/absen-masuk" component={AbsenMasuk} exact />
             <Route path="/absen-pulang" component={AbsenPulang} exact />
             <Route path="/siswa/izin" component={Izin} exact />
+            {/* Donasi */}
+            <Route path="/donasi" component={Donasi} exact />
+            <Route path="/donasi/put/id" component={EditDonasi} exact />
+            <Route path="/donasi/add" component={TambahDonasi} exact />
+            <Route path="/donasi-umum" component={DonasiUmum} exact />
           </Switch>
         </main>
         <LogPageView />
