@@ -20,8 +20,14 @@ function EditBarangInventaris() {
   const [idKategori, setIdKategori] = useState("");
   const [namaKategori, setNamaKategori] = useState("");
   const [idStatus, setIdStatus] = useState("");
+  const [idKondisi, setIdKondisi] = useState("");
+  const [idLokasi, setIdLokasi] = useState("");
   const [namaStatus, setNamaStatus] = useState("");
+  const [NamaKondisi, setNamaKondisi] = useState("");
+  const [stok, setSTok] = useState("");
   const [kategori, setKategori] = useState([]);
+  const [kondisi, setKondisi] = useState([]);
+  const [lokasi, setLokasi] = useState([]);
   const [status, setStatus] = useState([]);
 
   useEffect(() => {
@@ -57,13 +63,49 @@ function EditBarangInventaris() {
       }
     };
 
+    const fetchDataLokasi = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_PYTHON}/api/admin/lokasi_barang`, // Asumsi endpoint berbeda
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        setLokasi(response.data.data); // Pastikan ada state untuk lokasi
+      } catch (error) {
+        console.error("Terjadi Kesalahan saat mengambil data lokasi:", error);
+      }
+    };
+
+    const fetchDataKondisi = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_PYTHON}/api/admin/kondisi_barang`, // Asumsi endpoint berbeda
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        setKondisi(response.data.data); // Pastikan ada state untuk lokasi
+        console.log("kondisi: ", response.data.data);
+
+      } catch (error) {
+        console.error("Terjadi Kesalahan saat mengambil data lokasi:", error);
+      }
+    };
+
     fetchData();
+    fetchDataLokasi();
+    fetchDataKondisi();
     fetchDataKategori();
   }, []);
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/barang/` + param.id, {
+      .get(`${API_DUMMY_PYTHON}/api/admin/investaris/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -71,11 +113,14 @@ function EditBarangInventaris() {
       .then((ress) => {
         const response = ress.data.data;
         console.log("res: ", ress.data.data);
-        
-        setNamaBarang(response.nama_barang);
-        setTanggal(response.tgl_masuk)
-        setIdKategori(response.kategori_id)
-        setIdStatus(response.status_id)
+
+        setNamaBarang(response.name);
+        setTanggal(response.tanggal_masuk)
+        setIdKategori(response.kategori_barang_id)
+        setIdStatus(response.status_barang_id)
+        setIdKondisi(response.kondisi_barang_id)
+        setIdLokasi(response.lokasi_barang_id)
+        setSTok(response.stok)
       })
       .catch((error) => {
         console.log(error);
@@ -104,12 +149,16 @@ function EditBarangInventaris() {
 
     try {
       await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/barang/${param.id}`,
+        `${API_DUMMY_PYTHON}/api/admin/investaris/${param.id}`,
         {
-          nama_barang: namaBarang,
-          kategori_id: idKategori,
-          status_id: idStatus,
-          tgl_masuk: tanggal,
+          name: namaBarang,
+          kategori_barang_id: idKategori,
+          status_barang_id: idStatus,
+          lokasi_barang_id: idLokasi,
+          tanggal_masuk: tanggal,
+          // purchase_date: purchase_date,
+          // purchase_price: purchase_price,
+          stok: stok
         },
         {
           headers: {
@@ -241,6 +290,62 @@ function EditBarangInventaris() {
                             {status.map((data, index) => (
                               <option key={index} value={data.id}>
                                 {data.nama_status}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Status Barang
+                          </label>
+                          <select
+                            value={idStatus}
+                            className="form-control"
+                            aria-label="Small select example"
+                            onChange={(e) => {
+                              const selectedId = e.target.value;
+                              setIdStatus(selectedId);
+                              const selected = status.find(
+                                (data) => String(data.id) === String(selectedId)
+                              );
+                              setNamaStatus(
+                                selected ? selected.nama_status : ""
+                              );
+                            }}>
+                            <option value="">
+                              Pilih Status
+                            </option>
+                            {status.map((data, index) => (
+                              <option key={index} value={data.id}>
+                                {data.nama_status}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Kondisi Barang
+                          </label>
+                          <select
+                            value={idKondisi}
+                            className="form-control"
+                            aria-label="Small select example"
+                            onChange={(e) => {
+                              const selectedId = e.target.value;
+                              setIdKondisi(selectedId);
+                              const selected = status.find(
+                                (data) => String(data.id) === String(selectedId)
+                              );
+                              setNamaKondisi(
+                                selected ? selected.kondisi_barang_name : ""
+                              );
+                            }}>
+                            <option value="">
+                              Pilih Kondisi
+                            </option>
+                            {kondisi.map((data, index) => (
+                              <option key={index} value={data.id}>
+                                {data.kondisi_barang_name}
                               </option>
                             ))}
                           </select>
