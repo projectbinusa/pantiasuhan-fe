@@ -11,24 +11,25 @@ import AOS from "aos";
 import { API_DUMMY_PYTHON } from "../../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
 
-function EditLokasiBarang() {
+function EditKondisiBarang() {
   const history = useHistory();
   const param = useParams();
   const [sidebarToggled, setSidebarToggled] = useState(true);
-  const [lokasi, setLokasi] = useState([]);
-
+  const [kondisi, setKondisi] = useState("");
+  const [deskripsi, setDeskripsi] = useState("");
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/lokasi_barang/` + param.id, {
+      .get(`${API_DUMMY_PYTHON}/api/admin/kondisi_barang/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
         const response = ress.data.data;
-        console.log("lokasi: ", ress.data.data.lokasi_barang);
-        setLokasi(response.lokasi_barang);
+        console.log("kondisi: ", ress.data.data.kondisi_barang);
+        setKondisi(response.kondisi_barang);
+        setDeskripsi(response.deskripsi)
       })
       .catch((error) => {
         console.log(error);
@@ -57,9 +58,10 @@ function EditLokasiBarang() {
 
     try {
       await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/lokasi_barang/${param.id}`,
+        `${API_DUMMY_PYTHON}/api/admin/kondisi_barang/${param.id}`,
         {
-          lokasi_barang: lokasi,
+          kondisi_barang: kondisi,
+          deskripsi: deskripsi
         },
         {
           headers: {
@@ -69,12 +71,12 @@ function EditLokasiBarang() {
       );
       Swal.fire({
         icon: "success",
-        title: "Berhasil Mengedit Lokasi",
+        title: "Berhasil Mengedit Kondisi",
         showConfirmButton: false,
         timer: 1500,
       });
       setTimeout(() => {
-        history.push("/lokasi_barang_inventaris");
+        history.push("/kondisi_barang_inventaris");
       }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
@@ -97,9 +99,8 @@ function EditLokasiBarang() {
   }, []);
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -123,21 +124,29 @@ function EditLokasiBarang() {
                           <label
                             for="exampleInputEmail1"
                             className="form-label  font-weight-bold ">
-                            Lokasi Barang
+                            Kondisi Barang
                           </label>
                           <input
-                            onChange={(e) => setLokasi(e.target.value)}
+                            onChange={(e) => setKondisi(e.target.value)}
                             type="text"
-                            value={lokasi}
+                            value={kondisi}
                             className="form-control"
-                            placeholder="Masukkan Lokasi Barang"
+                            placeholder="Masukkan Kondisi Barang"
                           />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label
+                            for="exampleInputEmail1"
+                            className="form-label font-weight-bold "
+                          >Deskripsi</label>
+                          <textarea rows={3} onChange={(e) => setDeskripsi(e.target.value)}
+                            className="form-control" placeholder="Masukkan Deskripsi" value={deskripsi}></textarea>
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/lokasi_barang_inventaris">
+                          href="/kondisi_barang_inventaris">
                           Batal
                         </a>
                       </button>
@@ -156,4 +165,4 @@ function EditLokasiBarang() {
   );
 }
 
-export default EditLokasiBarang;
+export default EditKondisiBarang;

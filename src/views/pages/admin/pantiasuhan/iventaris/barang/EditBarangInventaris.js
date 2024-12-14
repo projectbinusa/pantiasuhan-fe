@@ -155,6 +155,7 @@ function EditBarangInventaris() {
           kategori_barang_id: idKategori,
           status_barang_id: idStatus,
           lokasi_barang_id: idLokasi,
+          kondisi_barang_id: idKondisi,
           tanggal_masuk: tanggal,
           // purchase_date: purchase_date,
           // purchase_price: purchase_price,
@@ -345,7 +346,7 @@ function EditBarangInventaris() {
                             </option>
                             {kondisi.map((data, index) => (
                               <option key={index} value={data.id}>
-                                {data.kondisi_barang_name}
+                                {data.kondisi_barang}
                               </option>
                             ))}
                           </select>
