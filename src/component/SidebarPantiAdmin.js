@@ -158,12 +158,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       path: "/status_barang_inventaris",
       action: ["/edit_status_barang_inventaris"],
     },
-    {
-      title: "Stok Barang",
-      icon: "fa-solid fa-list",
-      path: "/stok_barang_inventaris",
-      action: ["/edit_stok_barang_inventaris"],
-    },
+    // {
+    //   title: "Stok Barang",
+    //   icon: "fa-solid fa-list",
+    //   path: "/stok_barang_inventaris",
+    //   action: ["/edit_stok_barang_inventaris"],
+    // },
     {
       title: "Lokasi Barang",
       icon: "fa-solid fa-list",

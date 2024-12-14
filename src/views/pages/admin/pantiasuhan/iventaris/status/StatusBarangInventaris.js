@@ -294,8 +294,8 @@ function StatusBarangInventaris() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Status Barang">{row.nama_status}</td>
-                          <td data-label="Deskripsi">
+                          <td className="text-sm-start text-end" data-label="Status Barang">{row.nama_status}</td>
+                          <td className="text-sm-start text-end" data-label="Deskripsi">
                             {row.deskripsi}
                           </td>
                           <td data-label="Aksi" className="action">

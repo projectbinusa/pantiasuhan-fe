@@ -15,46 +15,8 @@ function EditLokasiBarang() {
   const history = useHistory();
   const param = useParams();
   const [sidebarToggled, setSidebarToggled] = useState(true);
-  const [idBarang, setIdBarang] = useState("");
-  const [barang, setBarang] = useState([]);
-  const [idLokasi, setIdLokasi] = useState("");
   const [lokasi, setLokasi] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/barang`,
-          {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          }
-        );
-        setBarang(response.data.data);
-      } catch (error) {
-        console.error("Terjadi Kesalahan saat mengambil data barang:", error);
-      }
-    };
-    const fetchDataLokasi = async () => {
-      try {
-        const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/lokasi`,
-          {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          }
-        );
-        setLokasi(response.data.data);
-      } catch (error) {
-        console.error("Terjadi Kesalahan saat mengambil data barang:", error);
-      }
-    };
-
-    fetchData();
-    fetchDataLokasi();
-  }, []);
 
   useEffect(() => {
     axios
@@ -65,8 +27,8 @@ function EditLokasiBarang() {
       })
       .then((ress) => {
         const response = ress.data.data;
-        setIdLokasi(response.lokasi_id);
-        setIdBarang(response.barang_id)
+        console.log("lokasi: ", ress.data.data.lokasi_barang);
+        setLokasi(response.lokasi_barang);
       })
       .catch((error) => {
         console.log(error);
@@ -97,8 +59,7 @@ function EditLokasiBarang() {
       await axios.put(
         `${API_DUMMY_PYTHON}/api/admin/lokasi_barang/${param.id}`,
         {
-          lokasi_id: idLokasi,
-          barang_id: idBarang,
+          lokasi_barang: lokasi,
         },
         {
           headers: {
@@ -136,8 +97,9 @@ function EditLokasiBarang() {
   }, []);
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -158,44 +120,18 @@ function EditLokasiBarang() {
                     <form onSubmit={put}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Nama Barang
+                          <label
+                            for="exampleInputEmail1"
+                            className="form-label  font-weight-bold ">
+                            Lokasi Barang
                           </label>
-                          <select
+                          <input
+                            onChange={(e) => setLokasi(e.target.value)}
+                            type="text"
+                            value={lokasi}
                             className="form-control"
-                            aria-label="Small select example"
-                            onChange={(e) => {
-                              const selectedId = e.target.value;
-                              setIdBarang(selectedId);
-                            }}>
-                            <option value="">
-                              Pilih Barang
-                            </option>
-                            {barang.map((data, index) => (
-                              <option key={index} value={data.id}>
-                                {data.nama_barang}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Nama Lokasi
-                          </label>
-                          <select
-                            className="form-control"
-                            aria-label="Small select example"
-                            onChange={(e) => {
-                              const selectedId = e.target.value;
-                              setIdLokasi(selectedId);
-                            }}>
-                            <option value="">
-                              Pilih Lokasi
-                            </option>
-                            {lokasi.map((data, index) => (
-                              <option key={index} value={data.id}>
-                                {data.nama_lokasi}
-                              </option>
-                            ))}
-                          </select>
+                            placeholder="Masukkan Lokasi Barang"
+                          />
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
