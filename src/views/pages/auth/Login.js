@@ -23,7 +23,7 @@ function Login() {
     };
 
     try {
-      const response = await axios.post(`https://dev-api.byrtagihan.com/api/customer/login`, datapython);
+      const response = await axios.post(`https://api.byrtagihan.com/api/customer/login`, datapython);
 
       if (response.status === 200) {
         Swal.fire({
