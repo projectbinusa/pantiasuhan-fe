@@ -911,9 +911,9 @@ function App() {
             <Route path="/absen-pulang" component={AbsenPulang} exact />
             <Route path="/siswa/izin" component={Izin} exact />
             {/* Donasi */}
-            <Route path="/donasi" component={Donasi} exact />
-            <Route path="/donasi/put/id" component={EditDonasi} exact />
-            <Route path="/donasi/add" component={TambahDonasi} exact />
+            <PrivateRoute path="/donasi" component={Donasi} exact />
+            <PrivateRoute path="/donasi/put/id" component={EditDonasi} exact />
+            <PrivateRoute path="/donasi/add" component={TambahDonasi} exact />
             <Route path="/donasi-umum" component={DonasiUmum} exact />
           </Switch>
         </main>

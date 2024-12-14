@@ -13,10 +13,10 @@ import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function EditDonasi() {
   const [nama, setNama] = useState("");
-  const [username, setUsername] = useState("");
-  const [rfidNumber, setRFIDNumber] = useState("");
-  const [nik, setNIK] = useState("");
-  const [lits, setLists] = useState(null);
+  const [deskripsi, setDeskripsi] = useState("");
+  const [totalIncome, setTotalIncome] = useState("");
+  const [totalOutcome, setOutcome] = useState("");
+  const [image, setImage] = useState(null);
 
   const history = useHistory();
   const param = useParams();

@@ -17,21 +17,13 @@ function DetailSAmbutanPanti() {
   const [nip, setNip] = useState("");
   const [nama, setNama] = useState("");
   const [image, setImage] = useState("");
-  // const [id, setId] = useState(0);
-  const [data, setdatas] = useState([]);
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const { id } = useParams();
+  const [id, setId] = useState(0);
+  const [data, setdatas] = useState(0);
 
-  const getAll = async (id) => {
-    if (!id) {
-      console.warn("ID tidak diberikan untuk fetch data sambutan.");
-      return;
-    }
-
+  const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/sambutan/${id}`,
+        `${API_DUMMY_PYTHON}/api/admin/sambutan?page=1&limit=1`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -39,25 +31,19 @@ function DetailSAmbutanPanti() {
         }
       );
 
-      const res = response.data;
-
-      if (res.data) {
-        setdatas([res.data]);
-        // setId(res.data.id || "");
-        setCreatedDate(res.data.created_date || "");
-        setUpdateDate(res.data.update_date || "");
-        setJudulSambutan(res.data.judul || "");
-        setIsiSambutan(res.data.isi_sambutan || "");
-        setNama(res.data.nama || "");
-        setImage(res.data.foto || "");
-        setNip(res.data.nip || "");
-      } else {
-        console.warn("Data sambutan tidak ditemukan.");
-        setdatas([]);
-      }
+      const res = response.data.data[0];
+      console.log(response.data.data.length);
+      setdatas(response.data.data.length)
+      setCreatedDate(res.created_date);
+      setUpdateDate(res.update_date);
+      setJudulSambutan(res.judul);
+      setIsiSambutan(res.isi_sambutan);
+      setNama(res.nama);
+      setImage(res.foto);
+      setNip(res.nip);
+      setId(res.id);
     } catch (error) {
       console.error("Terjadi Kesalahan: ", error.message || error);
-      alert("Gagal mengambil data sambutan. Silakan coba lagi.");
     }
   };
 
@@ -128,9 +114,8 @@ function DetailSAmbutanPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -147,7 +132,7 @@ function DetailSAmbutanPanti() {
             <div className="card shadow w-100">
               <div className="title card-header d-flex justify-content-between">
                 <h1 className="fw-bold fs-3">Sambutan</h1>
-                {data.length > 0 ? (
+                {data > 0 ? (
                   <>
                     <div>
                       <button type="button" className="btn-primary btn-sm mr-2">
@@ -186,9 +171,8 @@ function DetailSAmbutanPanti() {
               <br />
               <div className="card-body">
                 <img
-                  className={`w-75 d-block mr-auto ml-auto ${
-                    image === null ? "rounded-circle" : ""
-                  }`}
+                  className={`w-75 d-block mr-auto ml-auto ${image === null ? "rounded-circle" : ""
+                    }`}
                   style={
                     image === null
                       ? {}

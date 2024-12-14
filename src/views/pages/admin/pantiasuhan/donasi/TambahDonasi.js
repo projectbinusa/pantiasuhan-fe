@@ -8,18 +8,17 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function TambahDonasi() {
   const [nama, setNama] = useState("");
-  const [username, setUsername] = useState("");
-  const [rfidNumber, setRFIDNumber] = useState("");
-  const [nik, setNIK] = useState("");
-  const [lits, setLists] = useState(null);
+  const [deskripsi, setDeskripsi] = useState("");
+  const [totalIncome, setTotalIncome] = useState("");
+  const [totalOutcome, setOutcome] = useState("");
+  const [image, setImage] = useState(null);
 
   const history = useHistory();
-  const param = useParams();
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
@@ -31,30 +30,6 @@ function TambahDonasi() {
       setSidebarToggled(false);
     }
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/siswa/${param.id}`,
-          {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          }
-        );
-        const resp = response.data.data;
-        setNama(resp.name);
-        setUsername(resp.username);
-        setRFIDNumber(resp.rfid_number);
-        setNIK(resp.nik);
-      } catch (error) {
-        console.error("Terjadi Kesalahan", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   useEffect(() => {
     handleResize();
@@ -69,13 +44,14 @@ function TambahDonasi() {
     e.persist();
 
     try {
-      await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/siswa/${param.id}`,
+      await axios.post(
+        `${API_DUMMY_PYTHON}/api/admin/donasi`,
         {
           name: nama,
-          username: username,
-          rfid_number: rfidNumber,
-          nik: nik,
+          total_income: totalIncome,
+          total_outcome: totalOutcome,
+          description: deskripsi,
+          domain: "dd"
         },
         {
           headers: {
@@ -115,9 +91,8 @@ function TambahDonasi() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -155,9 +130,8 @@ function TambahDonasi() {
                             Deskripsi
                           </label>
                           <input
-                            // value={deskriDeskripsi}
-                            // onChange={(e) => setDeskripsi(e.target.value)}
                             placeholder="Masukkan Deskripsi"
+                            onChange={(e) => setDeskripsi(e.target.value)}
                             className="form-control"
                           />
                         </div>
@@ -166,8 +140,7 @@ function TambahDonasi() {
                             Total Income
                           </label>
                           <input
-                            value={rfidNumber}
-                            onChange={(e) => setRFIDNumber(e.target.value)}
+                            onChange={(e) => setTotalIncome(e.target.value)}
                             placeholder="MasukkanTotal Income Anak Asuh"
                             className="form-control"
                           />
@@ -177,8 +150,7 @@ function TambahDonasi() {
                             Total Outcome
                           </label>
                           <input
-                            value={nik}
-                            onChange={(e) => setNIK(e.target.value)}
+                            onChange={(e) => setOutcome(e.target.value)}
                             placeholder="Masukkan Total Outcome"
                             className="form-control"
                           />
@@ -190,7 +162,7 @@ function TambahDonasi() {
                           <input
                             type="file"
                             accept="image/*"
-                            // onChange={(e) => handleImageUpload(e)}
+                            onChange={(e) => setImage(e.target.files[0])}
                             className="form-control"
                           />
                         </div>
