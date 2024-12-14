@@ -442,7 +442,7 @@ function App() {
               exact
             />
             <PrivateRoute
-              path="/edit_lokasi_barang_inventaris/:id"
+              path="/edit_lokasi_barang/:id"
               component={EditLokasiBarang}
               exact
             />
