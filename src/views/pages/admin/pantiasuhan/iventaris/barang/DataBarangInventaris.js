@@ -210,6 +210,18 @@ function DataBarangInventaris() {
       }
     };
 
+    const fetchDataKegiatan = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_PYTHON}/api/public/kegiatan`
+        );
+        console.log("kegiatan: ", response.data.data)
+      } catch (error) {
+        console.error("Terjadi Kesalahan saat mengambil data lokasi:", error);
+      }
+    };
+
+    fetchDataKegiatan()
     fetchDataLokasi();
     fetchData();
     fetchDataKategori();
