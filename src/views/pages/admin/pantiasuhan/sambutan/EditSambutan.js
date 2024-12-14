@@ -66,7 +66,7 @@ function EditSambutanPanti() {
   const [isiSambutan, setIsiSambutan] = useState("");
   const [nip, setNip] = useState("");
   const [nama, setNama] = useState("");
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(null);
   const [show, setShow] = useState(false);
   const history = useHistory();
   const param = useParams();
@@ -97,64 +97,66 @@ function EditSambutanPanti() {
 
   const update = async (e) => {
     e.preventDefault();
+    e.persist();
 
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const data = {
-      isi_sambutan: isiSambutan,
-      nama: nama,
-      judul: judulSambutan,
-      nip: nip,
-    };
-
-    await axios
-      .put(`${API_DUMMY_PYTHON}/api/admin/sambutan/` + param.id, data, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+    try {
+      const response = await axios.put(
+        `${API_DUMMY_PYTHON}/api/admin/sambutan/${param.id}`,
+        {
+          judul: judulSambutan,
+          isi_sambutan: isiSambutan,
+          foto: file.name,
+          nama: nama,
+          nip: nip,
+          organization_id: +localStorage.getItem('organization_id')
         },
-      })
-      .then(() => {
-        if (file) {
-          axios
-            .put(
-              `${API_DUMMY_PYTHON}/api/admin/sambutan/` + param.id,
-              formData,
-              {
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-                },
-              }
-            )
-            .catch((err) => {
-              console.log(err);
-            });
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Authentication token
+          },
         }
+      );
+
+      // Periksa respons yang berhasil
+      if (response.data.code === 200) {
+        setShow(false); // Hide modal atau reset form
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Data Sambutan",
           showConfirmButton: false,
           timer: 1500,
         });
+
+        // Redirect setelah berhasil
         setTimeout(() => {
           history.push("/admin_sambutan");
         }, 1500);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log(error);
-        }
-      });
+      } else {
+        // Handle respons lain dengan pesan error
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          text: response.data.message, // Tambahkan pesan error dari respons
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      // Handle error, terutama untuk masalah autentikasi
+      if (error.response && error.response.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          text: error.message, // Tambahkan pesan error dari error
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error); // Log error untuk debugging
+      }
+    }
   };
 
   useEffect(() => {
