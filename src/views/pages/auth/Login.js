@@ -23,7 +23,7 @@ function Login() {
     };
 
     try {
-      const response = await axios.post(`https://api.byrtagihan.com/api/customer/login`, datapython);
+      const response = await axios.post(`https://dev-api.byrtagihan.com/api/customer/login`, datapython);
 
       if (response.status === 200) {
         Swal.fire({
@@ -36,6 +36,7 @@ function Login() {
           localStorage.setItem("id", response.data.data.id);
           localStorage.setItem("role", response.data.data.type_token);
           localStorage.setItem("tokenpython", response.data.data.token);
+          localStorage.setItem("organization_id", response.data.data.organization_id);          
 
           // Arahkan ke halaman admin_sambutan
           history.push("/admin_sambutan");

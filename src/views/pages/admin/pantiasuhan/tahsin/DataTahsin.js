@@ -219,7 +219,7 @@ function DataTahsin() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td data-label="Nama">
-                            {berita.nama_siswa}
+                            {berita.member_name}
                           </td>
                           <td data-label="Tanggal">
                             {berita.created_date}
