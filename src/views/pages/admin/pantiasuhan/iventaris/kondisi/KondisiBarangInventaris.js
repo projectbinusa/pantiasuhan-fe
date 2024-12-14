@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
 
-function DataBarangInventaris() {
+function KondisiBarangInventaris() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,7 +41,7 @@ function DataBarangInventaris() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/investaris`,
+        `${API_DUMMY_PYTHON}/api/admin/kategori_barang`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -49,9 +49,9 @@ function DataBarangInventaris() {
         }
       );
       setList(response.data.data);
-      console.log("response: ", response.data.data);
+      console.log(response.data.data);
       setPaginationInfo({
-        totalPages: response.pagination.total_pages,
+        totalPages: response.pagination.total_page,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -71,7 +71,7 @@ function DataBarangInventaris() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/investaris/` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/kategori_barang/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -149,115 +149,36 @@ function DataBarangInventaris() {
   const closeModal = () => setIsModalOpen(false);
 
   // ADD
-  const [namaBarang, setNamaBarang] = useState("");
-  const [idKategori, setIdKategori] = useState("");
-  const [idStatus, setIdStatus] = useState("");
-  const [idLokasi, setIdLokasi] = useState("");
-  const [stok, setStok] = useState("");
-  const [purchase_price, setPurchasePrice] = useState("");
-  const [purchase_date, setPurchaseDate] = useState("");
-  const [tanggal, setTanggal] = useState("");
-  const [kategori, setKategori] = useState([]);
-  const [status, setStatus] = useState([]);
-  const [lokasi, setLokasi] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/status_barang`,
-          {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          }
-        );
-        setStatus(response.data.data);
-      } catch (error) {
-        console.error("Terjadi Kesalahan saat mengambil data barang:", error);
-      }
-    };
-
-    const fetchDataKategori = async () => {
-      try {
-        const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/kategori_barang`, // Asumsi endpoint berbeda
-          {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          }
-        );
-        setKategori(response.data.data); // Pastikan ada state untuk lokasi
-      } catch (error) {
-        console.error("Terjadi Kesalahan saat mengambil data lokasi:", error);
-      }
-    };
-
-    const fetchDataLokasi = async () => {
-      try {
-        const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/lokasi_barang`,
-          {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          }
-        );
-        setLokasi(response.data.data);
-      } catch (error) {
-        console.error("Terjadi Kesalahan saat mengambil data lokasi:", error);
-      }
-    };
-
-    const fetchDataKegiatan = async () => {
-      try {
-        const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/public/kegiatan`
-        );
-        console.log("kegiatan: ", response.data.data)
-      } catch (error) {
-        console.error("Terjadi Kesalahan saat mengambil data lokasi:", error);
-      }
-    };
-
-    fetchDataKegiatan()
-    fetchDataLokasi();
-    fetchData();
-    fetchDataKategori();
-  }, []);
+  const [kategori, setKategori] = useState("");
+  const [deskripsi, setDeskripsi] = useState("");
 
   const add = async (e) => {
     e.preventDefault();
     e.persist();
 
     const data = {
-      name: namaBarang,
-      kategori_barang_id: idKategori,
-      status_barang_id: idStatus,
-      lokasi_barang_id: idLokasi,
-      tanggal_masuk: tanggal,
-      // purchase_date: purchase_date,
-      // purchase_price: purchase_price,
-      stok: stok
+      nama_kategori: kategori,
+      deskripsi: deskripsi,
+      organization_id: localStorage.getItem("organization_id")
     }
+    console.log(data);
 
     try {
       await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/investaris`, data,
+        `${API_DUMMY_PYTHON}/api/admin/kategori_barang`, data,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
-      setIsModalOpen(false)
       Swal.fire({
         icon: "success",
         title: "Data Berhasil DiTambahkan",
         showConfirmButton: false,
         timer: 1500,
       });
+      setIsModalOpen(false)
       setTimeout(() => {
         window.location.reload()
       }, 1500);
@@ -323,7 +244,7 @@ function DataBarangInventaris() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Barang Inventaris</p>
+              <p className="mt-3">Kategori Barang</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -350,7 +271,9 @@ function DataBarangInventaris() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded" onClick={openModal}>Tambah</button>
+                    <button className="active btn-focus p-2 rounded" onClick={openModal}>
+                      Tambah
+                    </button>
                   </div>
                 </div>
               </div>
@@ -363,12 +286,8 @@ function DataBarangInventaris() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama Barang</th>
-                    <th scope="col">Kategori</th>
-                    <th>Status</th>
-                    <th>Tanggal Masuk</th>
-                    <th>Lokasi</th>
-                    <th>Kondisi</th>
+                    <th>Nama Kategori</th>
+                    <th scope="col">Deskripsi</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -377,26 +296,14 @@ function DataBarangInventaris() {
                     filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
-                          <td className="text-sm-start text-end" data-label="No">
+                          <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td className="text-sm-start text-end" data-label="Nama Barang">{row.name}</td>
-                          <td className="text-sm-start text-end" data-label="Kategori">
-                            {row.kategori_barang_name}
+                          <td className="text-sm-start text-end" data-label="Nama Kategori">{row.nama_kategori}</td>
+                          <td className="text-sm-start text-end" data-label="Deskripsi">
+                            {row.deskripsi}
                           </td>
-                          <td className="text-sm-start text-end" data-label="Status">
-                            {row.status_barang_name}
-                          </td>
-                          <td className="text-sm-start text-end" data-label="Tanggal Masuk">
-                            {row.tanggal_masuk}
-                          </td>
-                          <td className="text-sm-start text-end" data-label="Lokasi">
-                            {row.lokasi_barang_name}
-                          </td>
-                          <td className="text-sm-start text-end" data-label="Kondisi">
-                            {row.kondisi_barang_name}
-                          </td>
-                          <td className="text-sm-start text-end action" data-label="Aksi">
+                          <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 type="button"
@@ -407,7 +314,7 @@ function DataBarangInventaris() {
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit_barang_inventaris/${row.id}`}
+                                  href={`/edit_kategori_barang_inventaris/${row.id}`}
                                 >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
@@ -426,7 +333,7 @@ function DataBarangInventaris() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="8" className="text-center my-3">
+                      <td colSpan="4" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
@@ -459,106 +366,25 @@ function DataBarangInventaris() {
             <Box sx={style}>
               <form onSubmit={add}>
                 <div className="row">
-                  <div className="mb-3 col-md-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold "
-                    >Nama Barang</label>
-                    <input className="form-control" required placeholder="Masukkan Nama Barang" onChange={(e) => setNamaBarang(e.target.value)} />
-                  </div>
-                  <div className="mb-3 col-md-6">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label font-weight-bold "
-                    >Tanggal Masuk</label>
-                    <input className="form-control" type="date" required onChange={(e) => setTanggal(e.target.value)} />
-                  </div>
-                  <div className="mb-3 col-md-6">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label font-weight-bold "
-                    >Kategori Barang</label>
-                    <select required
+                    >Kategori</label>
+                    <input
+                      onChange={(e) => setKategori(e.target.value)}
+                      type="text"
                       className="form-control"
-                      aria-label="Small select example"
-                      onChange={(e) => {
-                        const selectedId = e.target.value;
-                        setIdKategori(selectedId);
-                      }}>
-                      <option value="">
-                        Pilih Kategori
-                      </option>
-                      {kategori.map((data, index) => (
-                        <option key={index} value={data.id}>
-                          {data.nama_kategori}
-                        </option>
-                      ))}
-                    </select>
+                      placeholder="Masukkan Kategori"
+                    />
                   </div>
-                  <div className="mb-3 col-md-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputEmail1"
                       className="form-label font-weight-bold "
-                    >Status Barang</label>
-                    <select required
-                      className="form-control"
-                      aria-label="Small select example"
-                      onChange={(e) => {
-                        const selectedId = e.target.value;
-                        setIdStatus(selectedId);
-                      }}>
-                      <option value="">
-                        Pilih Status
-                      </option>
-                      {status.map((data, index) => (
-                        <option key={index} value={data.id}>
-                          {data.nama_status}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="mb-3 col-md-6">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label font-weight-bold "
-                    >Lokasi Barang</label>
-                    <select required
-                      className="form-control"
-                      aria-label="Small select example"
-                      onChange={(e) => {
-                        const selectedId = e.target.value;
-                        setIdLokasi(selectedId);
-                      }}>
-                      <option value="">
-                        Pilih Lokasi
-                      </option>
-                      {lokasi.map((data, index) => (
-                        <option key={index} value={data.id}>
-                          {data.lokasi_barang}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  {/* <div className="mb-3 col-md-6">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label  font-weight-bold "
-                    >Harga Beli (Optional)</label>
-                    <input type="number" className="form-control" placeholder="Masukkan Harga Beli (Optional)" onChange={(e) => setPurchasePrice(e.target.value)} />
-                  </div>
-                  <div className="mb-3 col-md-6">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label  font-weight-bold "
-                    >Tanggal Beli (Optional)</label>
-                    <input className="form-control" type="date" placeholder="Masukkan Tanggal Beli (Optional)" onChange={(e) => setPurchaseDate(e.target.value)} />
-                  </div> */}
-                  <div className="mb-3 col-md-6">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label  font-weight-bold "
-                    >Stok</label>
-                    <input type="number" className="form-control" placeholder="Masukkan Stok Barang" onChange={(e) => setStok(e.target.value)} />
+                    >Deskripsi</label>
+                    <textarea rows={3} onChange={(e) => setDeskripsi(e.target.value)}
+                      className="form-control" placeholder="Masukkan Deskripsi"></textarea>
                   </div>
                   <div style={{ display: "flex", gap: '1rem' }}>
                     <button onClick={closeModal} className="btn-danger ">TUTUP</button>
@@ -574,4 +400,4 @@ function DataBarangInventaris() {
   );
 }
 
-export default DataBarangInventaris;
+export default KondisiBarangInventaris;
