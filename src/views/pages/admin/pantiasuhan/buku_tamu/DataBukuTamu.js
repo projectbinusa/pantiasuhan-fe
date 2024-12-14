@@ -264,7 +264,7 @@ function DataBukuTamu() {
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 type="button"
-                                class="btn-warning  mr-2 btn-sm" onClick={() => {
+                                class="btn-success  mr-2 btn-sm" onClick={() => {
                                   const phone = encodeURIComponent(berita.no_wa);
                                   const message = encodeURIComponent(
                                     `Terima kasih atas kunjungannya, semoga amal bapak/ibu ${berita.nama} bermanfaat bagi kami semua`

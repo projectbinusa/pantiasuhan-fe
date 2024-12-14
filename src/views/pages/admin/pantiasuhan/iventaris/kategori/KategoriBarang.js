@@ -159,7 +159,10 @@ function KategoriBarangInventaris() {
     const data = {
       nama_kategori: kategori,
       deskripsi: deskripsi,
+      organization_id: localStorage.getItem("organization_id")
     }
+    console.log(data);
+    
     try {
       await axios.post(
         `${API_DUMMY_PYTHON}/api/admin/kategori_barang`, data,

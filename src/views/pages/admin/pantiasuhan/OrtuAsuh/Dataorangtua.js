@@ -47,7 +47,6 @@ function Dataortu() {
         }
       );
       setList(response.data.data);
-      console.log(response.data.data);
       setPaginationInfo({
         totalPages: response.pagination.total_pages,
       });
