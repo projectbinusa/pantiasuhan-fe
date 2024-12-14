@@ -2,7 +2,7 @@ import "../css/style.css";
 import "../css/gabung.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API_DUMMY } from "../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../utils/base_URL";
 
 function FooterSekolah() {
   const [berita, setBerita] = useState([]);
@@ -98,6 +98,26 @@ function FooterSekolah() {
     return formattedDate;
   };
 
+  // GET VISI MISI PANTI
+  const [visiPanti, setVisiPanti] = useState(null);
+
+  const getAllVisiMisiPanti = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_PYTHON}/api/public/visimisi?page=1&limit=1`
+      );
+      console.log(response.data.data[0]);
+
+      setVisiPanti(response.data.data[0]);
+    } catch (error) {
+      console.log("get visi misi", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllVisiMisiPanti();
+  }, []);
+
   return (
     <>
       <footer
@@ -122,6 +142,9 @@ function FooterSekolah() {
                       __html:
                         "Mewujudkan cita-cita Muhammadiyah yakni menjunjung tinggi agama Islam yang berakidah tauhid, bersumber kepada Al-Qur'an dan sunnah Rasulullah SAW sehingga terwujud masyarakat Islam yang sebenar-benarnya, melalui pendidikan dan pembinaan anak asuh sehingga terwujud generasi yang beriman, berakhlak mulia, berilmu, dan mandiri.",
                     }}
+                  />
+                  <div
+                    dangerouslySetInnerHTML={{ __html: visiPanti?.visi }}
                   />
                 </p>
                 <ul className="social-media d-none d-md-none d-lg-flex gap-2 mb-4">

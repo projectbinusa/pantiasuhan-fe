@@ -137,6 +137,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       path: "/donasi",
       action: ["/donasi/add", "/donasi/put"],
     },
+    {
+      title: "Donasi TRX",
+      icon: "fas fa-hand-holding-heart",
+      path: "/donasi_trx",
+      action: ["/add_donasi_trx", "/edit_donasi_rtx"],
+    },
   ];
 
   const inventarisItems = [

@@ -22,16 +22,17 @@ function Galery() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/galery`, {
+      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/galery?page=${currentPage}&limit=${rowsPerPage}`, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       });
-      setList(response.data.data);
-      console.log(response.data.data);
+      const { data, pagination } = response.data;
+      console.log(response);
+      setList(data);
       setPaginationInfo({
-        totalPages: response.data.data.totalPages,
-        totalElements: response.data.data.totalElements,
+        totalPages: pagination.total_page || 1,
+        totalElements: pagination.total || 0,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -89,24 +90,31 @@ function Galery() {
     AOS.init();
   }, []);
 
+  useEffect(() => {
+    if (currentPage > paginationInfo.totalPages) {
+      setCurrentPage(paginationInfo.totalPages || 1);
+    }
+  }, [paginationInfo.totalPages, currentPage]);
+
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setCurrentPage(1);
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
     setCurrentPage(1);
   };
 
-  const filteredList = list.filter((item) =>
-    Object.values(item).some(
-      (value) =>
-        typeof value === "string" &&
-        value.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredList = searchTerm
+    ? list.filter((item) =>
+      Object.values(item).some(
+        (value) =>
+          typeof value === "string" &&
+          value.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     )
-  );
+    : list;
 
   console.log(filteredList);
 
@@ -131,9 +139,8 @@ function Galery() {
   }, []);
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"

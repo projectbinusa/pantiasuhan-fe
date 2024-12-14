@@ -200,6 +200,9 @@ import Donasi from "./views/pages/admin/pantiasuhan/donasi/Donasi.js";
 import EditDonasi from "./views/pages/admin/pantiasuhan/donasi/EditDonasi.js";
 import TambahDonasi from "./views/pages/admin/pantiasuhan/donasi/TambahDonasi.js";
 import DonasiUmum from "./views/pages/admin/pantiasuhan/donasi/DonasiUmum.js";
+import DonasiTrx from "./views/pages/admin/pantiasuhan/donasitrx/DonasiTrx.js";
+import TambahDonasiTrx from "./views/pages/admin/pantiasuhan/donasitrx/TambahDonasiTrx.js";
+import EditDonasiTrx from "./views/pages/admin/pantiasuhan/donasitrx/EditDonasiTrx.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -912,8 +915,11 @@ function App() {
             <Route path="/siswa/izin" component={Izin} exact />
             {/* Donasi */}
             <PrivateRoute path="/donasi" component={Donasi} exact />
-            <PrivateRoute path="/donasi/put/id" component={EditDonasi} exact />
+            <PrivateRoute path="/donasi/put/:id" component={EditDonasi} exact />
             <PrivateRoute path="/donasi/add" component={TambahDonasi} exact />
+            <PrivateRoute path="/donasi_trx" component={DonasiTrx} exact />
+            <PrivateRoute path="/add_donasi_trx" component={TambahDonasiTrx} exact />
+            <PrivateRoute path="/edit_donasi_trx/:id" component={EditDonasiTrx} exact />
             <Route path="/donasi-umum" component={DonasiUmum} exact />
           </Switch>
         </main>

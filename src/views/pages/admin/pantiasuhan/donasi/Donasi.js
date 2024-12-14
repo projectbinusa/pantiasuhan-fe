@@ -36,7 +36,7 @@ function Donasi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/customer/donation?page=${currentPage}&limit=${rowsPerPage}`,
+        `https://api.byrtagihan.com/api/customer/donation?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -47,11 +47,6 @@ function Donasi() {
       // Pastikan struktur response sesuai
       const { data, pagination } = response.data;
 
-      if (!data || !pagination) {
-        console.error("Data atau pagination tidak ditemukan dalam response.");
-        return;
-      }
-
       // Set data dan pagination
       setList(data);
       setPaginationInfo({
@@ -60,11 +55,6 @@ function Donasi() {
       });
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
-      Swal.fire(
-        "Error!",
-        error.response?.data?.message || "Gagal memuat data.",
-        "error"
-      );
     }
   };
 
@@ -82,7 +72,7 @@ function Donasi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/donasi/${id}`, {
+          .delete(`https://api.byrtagihan.com/api/customer/donation/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -119,12 +109,12 @@ function Donasi() {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const filteredList = list.filter((item) =>
@@ -139,9 +129,8 @@ function Donasi() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -250,6 +239,20 @@ function Donasi() {
                         <img src={item.image} alt="image" style={{ width: 50, height: 50 }} />
                       </td>
                       <td>
+                        <button
+                          type="button"
+                          className="btn-primary btn-sm mr-2"
+                        >
+                          <a
+                            style={{
+                              color: "white",
+                              textDecoration: "none",
+                            }}
+                            href={`/donasi/put/${item.id}`}
+                          >
+                            <i className="fa-solid fa-pen-to-square"></i>
+                          </a>
+                        </button>
                         <button
                           type="button"
                           className="btn-danger btn-sm"
