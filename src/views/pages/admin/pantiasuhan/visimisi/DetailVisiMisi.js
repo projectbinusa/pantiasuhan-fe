@@ -16,18 +16,13 @@ function DetailVisiPanti() {
   const [updateDate, setUpdateDate] = useState("");
   const [misi, setMisi] = useState("");
   const [visi, setVisi] = useState("");
-  const [datas, setDatas] = useState([]);
-  const { id } = useParams(); // Mengambil id dari URL params
+  const [id, setId] = useState("");
+  const [datas, setDatas] = useState(0);
 
-  const getAll = async (id) => {
-    if (!id) {
-      console.warn("ID tidak diberikan untuk fetch data visi-misi.");
-      return;
-    }
-
+  const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/visi-misi/${id}`, // Perbaiki URL API dengan menyertakan id
+        `${API_DUMMY_PYTHON}/api/admin/visi-misi?page=1&limit=1`, // Perbaiki URL API dengan menyertakan id
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -36,16 +31,18 @@ function DetailVisiPanti() {
       );
 
       const res = response.data.data;
+      console.log(res);
+      
       if (res) {
-        setDatas([res]); // Menyimpan data visi-misi dalam state
-        setTujuan(res.tujuan);
-        setCreatedDate(res.created_date);
-        setUpdateDate(res.updated_date);
-        setVisi(res.visi);
-        setMisi(res.misi);
+        setDatas(res.length); // Menyimpan data visi-misi dalam state
+        setTujuan(res[0]?.tujuan);
+        setCreatedDate(res[0]?.created_date);
+        setUpdateDate(res[0]?.updated_date);
+        setVisi(res[0]?.visi);
+        setMisi(res[0]?.misi);
+        setId(res[0]?.id);
       } else {
         console.warn("Data visi-misi tidak ditemukan.");
-        setDatas([]); // Jika tidak ada data, set state ke array kosong
       }
     } catch (error) {
       console.error("Terjadi Kesalahan:", error);
@@ -53,10 +50,8 @@ function DetailVisiPanti() {
   };
 
   useEffect(() => {
-    if (id) {
-      getAll(id); // Panggil getAll hanya jika id tersedia
-    }
-  }, [id]);
+      getAll(); 
+  }, []);
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -140,7 +135,7 @@ function DetailVisiPanti() {
             <div className="card shadow w-100">
               <div className="title card-header d-flex justify-content-between">
                 <h1 className="fw-bold fs-3">Visi Misi</h1>
-                {datas.length > 0 ? (
+                {datas > 0 ? (
                   <>
                     <div>
                       <button type="button" className="btn-primary btn-sm mr-2">

@@ -75,22 +75,18 @@ function AddSambutanPanti() {
     e.persist();
 
     try {
-      // Create FormData untuk mengirim data ke server
-      const formData = new FormData();
-      formData.append("judul", judul);
-      formData.append("isi_sambutan", isi_sambutan);
-      formData.append("foto", foto);
-      formData.append("nip", nip);
-      formData.append("nama", nama);
-
-      // Buat POST request ke backend API
       const response = await axios.post(
         `${API_DUMMY_PYTHON}/api/admin/sambutan`,
-        formData,
+        {
+          judul: judul,
+          isi_sambutan: isi_sambutan,
+          foto: foto.name,
+          nama: nama,
+          nip: nip
+        },
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Authentication token
-            "Content-Type": "multipart/form-data", // Tambahkan header Content-Type
           },
         }
       );
@@ -284,9 +280,8 @@ function AddSambutanPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"

@@ -125,12 +125,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       path: "/admin_kontak",
       action: ["/add_kontak", "/edit_kontak"],
     },
-    {
-      title: "Kotak Saran",
-      icon: "fas fa-comment-dots",
-      path: "/admin_kotak_saran",
-      action: ["/add_kotak_saran", "/edit_kotak_saran"],
-    },
+    // {
+    //   title: "Kotak Saran",
+    //   icon: "fas fa-comment-dots",
+    //   path: "/admin_kotak_saran",
+    //   action: ["/add_kotak_saran", "/edit_kotak_saran"],
+    // },
     {
       title: "Donasi",
       icon: "fas fa-hand-holding-heart",
