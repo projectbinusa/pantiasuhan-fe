@@ -22,16 +22,11 @@ function Galery() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/galery?page=${
-          page - 1
-        }&size=${rowsPerPage}`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/galery`, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      });
       setList(response.data.data);
       console.log(response.data.data);
       setPaginationInfo({

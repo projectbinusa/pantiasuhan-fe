@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -61,28 +61,15 @@ import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function AddKegiatanPanti() {
   const [judul, setJudul] = useState("");
-  const [image, setImage] = useState(null);
+  const [foto, setFoto] = useState(null);
   const [isi, setIsi] = useState("");
   const [penulis, setPenulis] = useState("");
   const [tanggal, setTanggal] = useState("");
-  const [foto, setFoto] = useState("");
+  const [kategori, setKategori] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
-  const [kategori, setKategori] = useState("");
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [sidebarToggled, setSidebarToggled] = useState(true);
-
-  const formatDateToSlash = (value) => {
-    const date = new Date(value);
-
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-
-    return `${year}/${month}/${day}`;
-  };
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -100,60 +87,54 @@ function AddKegiatanPanti() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  //add
   const add = async (e) => {
     e.preventDefault();
     e.persist();
 
-    const categoryExists = list.some(
-      (kegiatan) => kegiatan.category === kategori
-    );
-
-    const kegiatanExists = list.some((kegiatan) => kegiatan.judul === judul);
-
-    if (categoryExists) {
-      Swal.fire({
-        icon: "error",
-        title: "Tambah Data Gagal!",
-        text: "Kategori sudah ada. Silakan pilih kategori lain.",
-        showConfirmButton: true,
-      });
-      return;
-    } else if (kegiatanExists) {
-      Swal.fire({
-        icon: "error",
-        title: "Tambah Data Gagal!",
-        text: "Judul Kegiatan Sudah Ada.",
-        showConfirmButton: true,
-      });
-      return;
-    }
-
     try {
-      const formData = new FormData();
-      formData.append("judul", judul);
-      formData.append("penulis", penulis);
-      formData.append("foto", foto);
-      formData.append("isi", isi);
-      formData.append("category", kategori);
-
-      await axios.post(`${API_DUMMY_PYTHON}/api/admin/kegiatan`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+      const response = await axios.post(
+        `${API_DUMMY}/api/admin/kegiatan`,
+        {
+          judul: judul,
+          isi: isi,
+          foto: foto.name,
+          penulis: penulis,
+          tanggal: tanggal,
+          category: kategori,
         },
-      });
-      setShow(false);
-      Swal.fire({
-        icon: "success",
-        title: "Data Berhasil DiTambahkan",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        history.push("/admin_kegiatan");
-      }, 1500);
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Authentication token
+          },
+        }
+      );
+
+      // Periksa respons yang berhasil
+      if (response.data.code === 200) {
+        setShow(false); // Hide modal atau reset form
+        Swal.fire({
+          icon: "success",
+          title: "Data Berhasil Ditambahkan",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        // Redirect setelah berhasil
+        setTimeout(() => {
+          history.push("/admin_kegiatan");
+        }, 1500);
+      } else {
+        // Handle respons lain dengan pesan error
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          text: response.data.message, // Tambahkan pesan error dari respons
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
     } catch (error) {
+      // Handle error, terutama untuk masalah autentikasi
       if (error.response && error.response.status === 401) {
         localStorage.clear();
         history.push("/login");
@@ -161,10 +142,11 @@ function AddKegiatanPanti() {
         Swal.fire({
           icon: "error",
           title: "Tambah Data Gagal!",
+          text: error.message, // Tambahkan pesan error dari error
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(error);
+        console.log(error); // Log error untuk debugging
       }
     }
   };
@@ -361,6 +343,17 @@ function AddKegiatanPanti() {
                               Bersama Jadi Juara
                             </option>
                           </select>
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Gambar
+                          </label>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setFoto(e.target.files[0])}
+                            className="form-control"
+                          />
                         </div>
                         <div className="col-lg-12 mb-3">
                           <label className="form-label font-weight-bold">
