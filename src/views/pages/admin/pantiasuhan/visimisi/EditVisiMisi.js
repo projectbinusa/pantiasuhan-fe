@@ -8,7 +8,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -73,7 +73,7 @@ function EditVisiMisiPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/api/admin/visi-misi/` + param.id, {
+      .get(`${API_DUMMY_PYTHON}/api/admin/visi-misi/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -83,7 +83,6 @@ function EditVisiMisiPanti() {
         setVisi(response.visi);
         setMisi(response.misi);
         setTujuan(response.tujuan);
-        console.log("misi : ", ress.data.data);
       })
       .catch((error) => {
         console.log(error);
@@ -97,10 +96,11 @@ function EditVisiMisiPanti() {
       visi: visi,
       misi: misi,
       tujuan: tujuan,
+      organization_id: +localStorage.getItem("organization_id")
     };
 
     await axios
-      .put(`${API_DUMMY}/api/admin/visi-misi/` + param.id, data, {
+      .put(`${API_DUMMY_PYTHON}/api/admin/visi-misi/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -108,7 +108,7 @@ function EditVisiMisiPanti() {
       .then(() => {
         Swal.fire({
           icon: "success",
-          title: "Berhasil Mengedit Data Sambutan",
+          title: "Berhasil Mengedit Data Visi Misi",
           showConfirmButton: false,
           timer: 1500,
         });

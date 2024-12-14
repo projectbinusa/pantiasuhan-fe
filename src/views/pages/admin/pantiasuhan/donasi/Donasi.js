@@ -8,7 +8,6 @@ import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function Donasi() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -37,7 +36,7 @@ function Donasi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/siswa?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_PYTHON}/api/customer/donation?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -45,17 +44,30 @@ function Donasi() {
         }
       );
 
-      // Memastikan data response valid
+      // Pastikan struktur response sesuai
       const { data, pagination } = response.data;
+
+      if (!data || !pagination) {
+        console.error("Data atau pagination tidak ditemukan dalam response.");
+        return;
+      }
+
+      // Set data dan pagination
       setList(data);
       setPaginationInfo({
         totalPages: pagination.total_page,
         totalElements: pagination.total,
       });
     } catch (error) {
-      console.error("Terjadi Kesalahan", error);
+      console.error("Terjadi kesalahan:", error.response || error.message);
+      Swal.fire(
+        "Error!",
+        error.response?.data?.message || "Gagal memuat data.",
+        "error"
+      );
     }
   };
+
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -70,7 +82,7 @@ function Donasi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/siswa/` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/donasi/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -83,9 +95,6 @@ function Donasi() {
               timer: 1500,
             });
             getAll();
-            setTimeout(() => {
-              window.location.reload();
-            }, 1500);
           })
           .catch((err) => {
             Swal.fire({
@@ -101,7 +110,7 @@ function Donasi() {
   };
 
   useEffect(() => {
-    getAll(currentPage);
+    getAll();
   }, [currentPage, rowsPerPage]);
 
   useEffect(() => {
@@ -110,12 +119,12 @@ function Donasi() {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setCurrentPage(1); // Reset ke halaman pertama
+    setCurrentPage(1); 
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1); // Reset ke halaman pertama setelah pencarian
+    setCurrentPage(1); 
   };
 
   const filteredList = list.filter((item) =>
@@ -144,10 +153,7 @@ function Donasi() {
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div
-          className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left"
-        >
+        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -205,7 +211,7 @@ function Donasi() {
                     <button className="active btn-focus p-2 rounded">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add_anak_asuh"
+                        href="/donasi/add"
                       >
                         Tambah Donasi
                       </a>
@@ -232,64 +238,32 @@ function Donasi() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td data-label="No" className="">
-                      1
-                    </td>
-                    <td data-label="Nama">test</td>
-                    <td data-label="Username">test</td>
-                    <td data-label="RFID Number">test</td>
-                    <td data-label="NIK">test</td>
-                    <td data-label="NIK">test</td>
-                    <td data-label="NIK">test</td>
-                    <td data-label="Aksi" className="action">
-                      <div className="d-flex justify-content-center align-items-center">
+                  {filteredList.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage).map((item, index) => (
+                    <tr key={index}>
+                      <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                      <td>{item.name}</td>
+                      <td>{item.description}</td>
+                      <td>{item.total_income}</td>
+                      <td>{item.total_outcome}</td>
+                      <td>{item.aktif ? "Yes" : "No"}</td>
+                      <td>
+                        <img src={item.image} alt="image" style={{ width: 50, height: 50 }} />
+                      </td>
+                      <td>
                         <button
-                          type="button"
-                          className="btn-primary btn-sm mr-2"
-                        >
-                          <a
-                            style={{
-                              color: "white",
-                              textDecoration: "none",
-                            }}
-                            href={`/donasi/put/id`}
-                          >
-                            <i className="fa-solid fa-pen-to-square"></i>
-                          </a>
-                        </button>
-                        <button
-                          onClick={() => deleteData()}
                           type="button"
                           className="btn-danger btn-sm"
+                          onClick={() => deleteData(item.id)}
                         >
                           <i className="fa-solid fa-trash"></i>
                         </button>
-                      </div>
-                    </td>
-                  </tr>
-                  {/* <tr>
-                    <td colSpan="6" className="text-center my-3">
-                      <div style={{ padding: "10px", color: "#555" }}>
-                        Tidak ada data yang tersedia.
-                      </div>
-                    </td>
-                  </tr> */}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
             <div className="card-header mt-3 d-flex justify-content-center">
-              {/* <Pagination
-                  count={paginationInfo.totalPages}
-                  page={currentPage}
-                  onChange={(event, value) => {
-                    setCurrentPage(value);
-                    setPage(value);
-                  }}
-                  showFirstButton
-                  showLastButton
-                  color="primary"
-                /> */}
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
