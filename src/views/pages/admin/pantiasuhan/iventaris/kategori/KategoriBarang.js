@@ -162,7 +162,7 @@ function KategoriBarangInventaris() {
       organization_id: localStorage.getItem("organization_id")
     }
     console.log(data);
-    
+
     try {
       await axios.post(
         `${API_DUMMY_PYTHON}/api/admin/kategori_barang`, data,
@@ -299,8 +299,8 @@ function KategoriBarangInventaris() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama Kategori">{row.nama_kategori}</td>
-                          <td data-label="Deskripsi">
+                          <td className="text-sm-start text-end" data-label="Nama Kategori">{row.nama_kategori}</td>
+                          <td className="text-sm-start text-end" data-label="Deskripsi">
                             {row.deskripsi}
                           </td>
                           <td data-label="Aksi" className="action">
