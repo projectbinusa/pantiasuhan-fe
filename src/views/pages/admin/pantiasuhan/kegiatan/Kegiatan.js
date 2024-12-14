@@ -130,7 +130,7 @@ function KegiatanPanti() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div
+  <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
       }`}
