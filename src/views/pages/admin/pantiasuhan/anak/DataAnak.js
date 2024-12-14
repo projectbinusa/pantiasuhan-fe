@@ -46,6 +46,8 @@ function DataAnak() {
       );
 
       // Memastikan data response valid
+      console.log(response);
+      
       const { data, pagination } = response.data;
       setList(data);
       setPaginationInfo({

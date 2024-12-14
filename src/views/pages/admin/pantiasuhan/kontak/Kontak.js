@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import idLocale from "date-fns/locale/id";
 import { format } from "date-fns";
@@ -16,30 +16,27 @@ function KontakPanti() {
   const [id, setId] = useState(0);
   const [createdDate, setCreatedDate] = useState("");
   const [updateDate, setUpdateDate] = useState("");
+  const organization_id = localStorage.getItem("organization_id");
 
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/admin/kontak?page=0&size=1`,
+        `${API_DUMMY_PYTHON}/api/admin/kontak-organization/${organization_id}/organization`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
-      const res = response.data.data.content;
+      const res = response.data.data;
       console.log(res);
-      if (res.length > 0) {
-        setEmail(res[0].email);
-        setFax(res[0].fax);
-        setPhone(res[0].phone);
-        setId(res[0].id);
-        setAddress(res[0].address);
-        setUpdateDate(res[0].updatedDate);
-        setCreatedDate(res[0].createdDate);
-        setList(res);
-      }
-
+      setEmail(res.email);
+      setFax(res.fax);
+      setPhone(res.phone);
+      setId(res.id);
+      setAddress(res.address);
+      setUpdateDate(res.updated_date);
+      setCreatedDate(res.created_date);
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
     }

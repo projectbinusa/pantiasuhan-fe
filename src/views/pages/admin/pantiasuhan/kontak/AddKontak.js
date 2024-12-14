@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function AddKontakPanti() {
@@ -20,15 +20,19 @@ function AddKontakPanti() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    const organization_id = +localStorage.getItem("organization_id");
 
     const data = {
       email: email,
       address: address,
       fax: fax,
       phone: phone,
+      organization_id: organization_id
     };
+    console.log(data);
+    
     try {
-      await axios.post(`${API_DUMMY}/api/admin/kontak`, data, {
+      await axios.post(`${API_DUMMY_PYTHON}/api/admin/kontak`, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
