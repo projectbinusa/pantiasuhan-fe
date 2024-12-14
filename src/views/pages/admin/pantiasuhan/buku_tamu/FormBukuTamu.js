@@ -28,7 +28,7 @@ function FormBukuTamu() {
           address: alamat,
           nama: nama,
           visit_date: tanggal,
-          url_image_donation: image.name,
+          // url_image_donation: image.name,
           note: catatan,
           description_donation: tujuan,
           organization_id: param.organization_id
@@ -101,7 +101,7 @@ function FormBukuTamu() {
                     <label className="form-label font-weight-bold">Tanggal Kunjungan</label>
                     <input className="form-control" type="date" value={tanggal} onChange={(e) => setTanggal(e.target.value)}/>
                   </div>
-                  <div className="mb-3 col-lg-12">
+                  {/* <div className="mb-3 col-lg-12">
                     <label className="form-label font-weight-bold">Bukti Donasi</label>
                     <input
                       onChange={(e) =>
@@ -111,7 +111,7 @@ function FormBukuTamu() {
                       } type="file"
                       className="form-control"
                     />
-                  </div>
+                  </div> */}
                   <div className="mb-3 col-lg-12">
                     <label className="form-label font-weight-bold">Catatan</label>
                     <textarea rows={3} className="form-control" placeholder="Masukkan Catatan" value={catatan} onChange={(e) => setCatatan(e.target.value)}
