@@ -6,7 +6,7 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function EditKontakPanti() {
@@ -19,7 +19,7 @@ function EditKontakPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/api/admin/kontak` + param.id, {
+      .get(`${API_DUMMY_PYTHON}/api/admin/kontak/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -41,14 +41,15 @@ function EditKontakPanti() {
     e.preventDefault();
 
     const data = {
-      email: email,
       address: address,
-      fax: fax,
       phone: phone,
-    };
+      email: email,
+      fax: fax,
+      organization_id: +localStorage.getItem("organization_id")
+    }
 
     await axios
-      .put(`${API_DUMMY}/pantiasuhan/api/kontak/put/` + param.id, data, {
+      .put(`${API_DUMMY_PYTHON}/api/admin/kontak/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -89,7 +90,7 @@ function EditKontakPanti() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -103,9 +104,8 @@ function EditKontakPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"

@@ -8,7 +8,7 @@ import idLocale from "date-fns/locale/id";
 import { format } from "date-fns";
 
 function KontakPanti() {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(null);
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState(null);
   const [fax, setFax] = useState("");
@@ -29,6 +29,7 @@ function KontakPanti() {
         }
       );
       const res = response.data.data;
+      setList(res)      
       console.log(res);
       setEmail(res.email);
       setFax(res.fax);
@@ -119,7 +120,7 @@ function KontakPanti() {
             <div className="card shadow w-100">
               <div className="title card-header d-flex justify-content-between">
                 <h1 className="fw-bold fs-3">Kontak</h1>
-                {list.length > 0 ? (<>
+                {list !== null ? (<>
                   <div>
                     <button
                       type="button"

@@ -8,16 +8,16 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
-function EditDonasi() {
+function TambahDonasiTrx() {
   const [nama, setNama] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
+  const [nominal, setNominal] = useState(0);
   const [image, setImage] = useState(null);
 
   const history = useHistory();
-  const param = useParams();
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
@@ -31,31 +31,6 @@ function EditDonasi() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.byrtagihan.com/api/customer/donation/${param.id}`,
-          {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          }
-        );
-        const resp = response.data.data;
-        console.log(resp);
-
-        setNama(resp.name);
-        setDeskripsi(resp.description);
-        setImage(resp.url_image)
-      } catch (error) {
-        console.error("Terjadi Kesalahan", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -63,18 +38,18 @@ function EditDonasi() {
   }, []);
 
   //add
-  const put = async (e) => {
+  const add = async (e) => {
     e.preventDefault();
-    e.persist();
-
     try {
-      await axios.put(
-        `https://api.byrtagihan.com/api/customer/donation/${param.id}`,
+      await axios.post(
+        `${API_DUMMY_PYTHON}/api/admin/donation-rtx`,
         {
+          organization_id: +localStorage.getItem('organization_id'),
           name: nama,
+          nominal: nominal,
           description: deskripsi,
-          id: param.id,
-          url_image: image
+          url_image: image.name,
+          donation_id: 1
         },
         {
           headers: {
@@ -85,12 +60,12 @@ function EditDonasi() {
 
       Swal.fire({
         icon: "success",
-        title: "Data Berhasil DiPerbarui",
+        title: "Data Berhasil Ditambahkan",
         showConfirmButton: false,
         timer: 1500,
       });
       setTimeout(() => {
-        history.push("/donasi");
+        history.push("/donasi_trx");
       }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
@@ -99,7 +74,7 @@ function EditDonasi() {
       } else {
         Swal.fire({
           icon: "error",
-          title: "Edit Data Gagal!",
+          title: "Tambah Data Gagal!",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -133,9 +108,9 @@ function EditDonasi() {
               <div className="col-md-12">
                 <div className="card shadow">
                   <div className="card-body">
-                    <h1 className="fs-4">Form Edit Data Donasi</h1>
+                    <h1 className="fs-4">Form Tambah Data Donasi</h1>
                     <hr />
-                    <form onSubmit={put}>
+                    <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
@@ -149,17 +124,27 @@ function EditDonasi() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Nominal
+                          </label>
+                          <input
+                            value={nominal}
+                            onChange={(e) => setNominal(e.target.value)}
+                            placeholder="Masukkan Nominal" type="number"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Deskripsi
                           </label>
                           <input
-                            value={deskripsi}
-                            onChange={(e) => setDeskripsi(e.target.value)}
                             placeholder="Masukkan Deskripsi"
+                            onChange={(e) => setDeskripsi(e.target.value)}
                             className="form-control"
                           />
                         </div>
-                        {/* <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Image
                           </label>
@@ -169,12 +154,12 @@ function EditDonasi() {
                             onChange={(e) => setImage(e.target.files[0])}
                             className="form-control"
                           />
-                        </div> */}
+                        </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/donasi"
+                          href="/donasi_trx"
                         >
                           Batal
                         </a>
@@ -194,4 +179,4 @@ function EditDonasi() {
   );
 }
 
-export default EditDonasi;
+export default TambahDonasiTrx;

@@ -11,9 +11,10 @@ import AOS from "aos";
 import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
-function EditDonasi() {
+function EditDonasiTrx() {
   const [nama, setNama] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
+  const [nominal, setNominal] = useState(0);
   const [image, setImage] = useState(null);
 
   const history = useHistory();
@@ -34,7 +35,7 @@ function EditDonasi() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://api.byrtagihan.com/api/customer/donation/${param.id}`,
+          `${API_DUMMY_PYTHON}/api/admin/donation-rtx/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -46,6 +47,7 @@ function EditDonasi() {
 
         setNama(resp.name);
         setDeskripsi(resp.description);
+        setNominal(resp.nominal);
         setImage(resp.url_image)
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
@@ -69,12 +71,15 @@ function EditDonasi() {
 
     try {
       await axios.put(
-        `https://api.byrtagihan.com/api/customer/donation/${param.id}`,
+        `${API_DUMMY_PYTHON}/api/admin/donation-rtx/${param.id}`,
         {
           name: nama,
           description: deskripsi,
+          nominal: nominal,
           id: param.id,
-          url_image: image
+          donation_id: 1,
+          url_image: image,
+          organization_id: +localStorage.getItem('organization_id'),
         },
         {
           headers: {
@@ -90,7 +95,7 @@ function EditDonasi() {
         timer: 1500,
       });
       setTimeout(() => {
-        history.push("/donasi");
+        history.push("/donasi_trx");
       }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
@@ -133,7 +138,7 @@ function EditDonasi() {
               <div className="col-md-12">
                 <div className="card shadow">
                   <div className="card-body">
-                    <h1 className="fs-4">Form Edit Data Donasi</h1>
+                    <h1 className="fs-4">Form Edit Data Donasi TRX</h1>
                     <hr />
                     <form onSubmit={put}>
                       <div className="row">
@@ -145,6 +150,17 @@ function EditDonasi() {
                             value={nama}
                             onChange={(e) => setNama(e.target.value)}
                             placeholder="Masukkan Nama"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Nominal
+                          </label>
+                          <input
+                            value={nominal}
+                            onChange={(e) => setNominal(e.target.value)}
+                            placeholder="Masukkan Nominal" type="number"
                             className="form-control"
                           />
                         </div>
@@ -174,7 +190,7 @@ function EditDonasi() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/donasi"
+                          href="/donasi_trx"
                         >
                           Batal
                         </a>
@@ -194,4 +210,4 @@ function EditDonasi() {
   );
 }
 
-export default EditDonasi;
+export default EditDonasiTrx;

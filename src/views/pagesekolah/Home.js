@@ -4,7 +4,7 @@ import { Link, Typography, TextField, Button, Grid } from "@mui/material";
 import "../../css/prestasi/card.css";
 import AOS from "aos";
 import axios from "axios";
-import { API_DUMMY } from "../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../utils/base_URL";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import NavbarSekolah from "../../component/NavbarSekolah";
@@ -402,6 +402,58 @@ function Home() {
       sessionStorage.removeItem("scrollToId");
     }
   }, []);
+  // GET VISI MISI PANTI
+  const [visiPanti, setVisiPanti] = useState(null);
+
+  const getAllVisiMisiPanti = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_PYTHON}/api/public/visimisi?page=1&limit=1`
+      );
+      console.log(response.data.data[0]);
+
+      setVisiPanti(response.data.data[0]);
+    } catch (error) {
+      console.log("get visi misi", error);
+    }
+  };
+  // GET SAMBUTAN PANTI
+  const [sambutanPanti, setSambutanPanti] = useState(null);
+
+  const getAllSambutanPanti = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_PYTHON}/api/public/sambutan?page=1&limit=1`
+      );
+      console.log(response.data.data[0]);
+
+      setSambutanPanti(response.data.data[0]);
+    } catch (error) {
+      console.log("get visi misi", error);
+    }
+  };
+  // GET KONTAK PANTI
+  const [kontakPanti, setKontakPanti] = useState(null);
+
+  const getAllKontakPanti = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_PYTHON}/api/public/kontak?page=1&limit=1`
+      );
+      console.log(response.data.data[0]);
+
+      setKontakPanti(response.data.data[0]);
+    } catch (error) {
+      console.log("get visi misi", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllVisiMisiPanti();
+    getAllSambutanPanti();
+    getAllKontakPanti();
+  }, []);
+
 
   return (
     <div style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
@@ -537,33 +589,38 @@ function Home() {
                     marginBottom: "15px",
                   }}
                 >
-                  Sambutan Kepala Yayasan
+                  {/* Sambutan Kepala Yayasan */} {sambutanPanti?.judul}
                 </h5>
-                {namaKepsek ? (
-                  <h2
-                    style={{
-                      fontSize: "2rem",
-                      fontWeight: "700",
-                      color: "#005b9f", // Biru lebih gelap
-                      marginBottom: "20px",
-                    }}
-                  >
-                    {namaKepsek}
-                  </h2>
-                ) : (
-                  <p
-                    style={{
-                      fontSize: "1rem",
-                      color: "#666",
-                      marginBottom: "15px",
-                    }}
-                  >
-                    Assalamu'alaikum Warahmatullahi Wabarakatuh, <br />
-                    Selamat datang di website Panti Asuhan Muhammadiyah. Kami
-                    sangat bersyukur atas kesempatan yang diberikan untuk
-                    berbagi informasi dan kegiatan yang kami lakukan di sini.
-                  </p>
-                )}
+                <h2
+                  style={{
+                    fontSize: "2rem",
+                    fontWeight: "700",
+                    color: "#005b9f", // Biru lebih gelap
+                    marginBottom: "20px",
+                  }}
+                >
+                  {sambutanPanti?.nama}
+                </h2>
+                <div
+                  style={{
+                    fontSize: "1rem",
+                    color: "#666",
+                    marginBottom: "15px",
+                  }}
+                  dangerouslySetInnerHTML={{ __html: sambutanPanti?.isi_sambutan }}
+                />
+                {/* <p
+                  style={{
+                    fontSize: "1rem",
+                    color: "#666",
+                    marginBottom: "15px",
+                  }}
+                >
+                  Assalamu'alaikum Warahmatullahi Wabarakatuh, <br />
+                  Selamat datang di website Panti Asuhan Muhammadiyah. Kami
+                  sangat bersyukur atas kesempatan yang diberikan untuk
+                  berbagi informasi dan kegiatan yang kami lakukan di sini.
+                </p> */}
                 <div
                   style={{
                     fontSize: "1rem",
@@ -671,7 +728,16 @@ function Home() {
               >
                 Visi Panti Asuhan
               </h2>
-              <p
+              <div
+                style={{
+                  fontSize: "1rem",
+                  lineHeight: "1.8",
+                  color: hasData ? "#333" : "gray",
+                  marginBottom: "20px",
+                }}
+                dangerouslySetInnerHTML={{ __html: visiPanti?.visi }}
+              />
+              {/* <p
                 style={{
                   fontSize: "1.2em",
                   color: "#34495e",
@@ -684,7 +750,7 @@ function Home() {
                 sebenar-benarnya, melalui pendidikan dan pembinaan anak asuh
                 sehingga terwujud generasi yang beriman, berakhlak mulia,
                 berilmu, dan mandiri.
-              </p>
+              </p> */}
             </div>
 
             {/* Misi */}
@@ -716,7 +782,17 @@ function Home() {
               >
                 Misi Panti Asuhan
               </h2>
-              <ul
+              <div
+                style={{
+                  fontSize: "1rem",
+                  lineHeight: "1.8",
+                  color: hasData ? "#333" : "gray",
+                  marginBottom: "20px",
+                  textAlign: "left"
+                }}
+                dangerouslySetInnerHTML={{ __html: visiPanti?.misi }}
+              />
+              {/* <ul
                 style={{
                   fontSize: "1.2em",
                   color: "#34495e",
@@ -744,7 +820,7 @@ function Home() {
                   Menjadikan panti asuhan Muhammadiyah sebagai ajang kaderisasi
                   Muhammadiyah.
                 </li>
-              </ul>
+              </ul> */}
             </div>
           </div>
         </div>
@@ -980,7 +1056,7 @@ function Home() {
                   gap: "10px",
                 }}
               >
-                {email !== "" ? (
+                {kontakPanti?.email !== "" ? (
                   <Typography
                     variant="body1"
                     gutterBottom
@@ -1002,7 +1078,7 @@ function Home() {
                       <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px" }}>{email}</span>
+                    <span style={{ marginLeft: "8px" }}>{kontakPanti?.email}</span>
                   </Typography>
                 ) : (
                   <Typography
@@ -1032,7 +1108,7 @@ function Home() {
                   </Typography>
                 )}
 
-                {phone !== "" ? (
+                {kontakPanti?.phone !== "" ? (
                   <Typography
                     variant="body1"
                     gutterBottom
@@ -1053,7 +1129,7 @@ function Home() {
                       <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z" />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px" }}>+62 {phone}</span>
+                    <span style={{ marginLeft: "8px" }}>+62 {kontakPanti?.phone}</span>
                   </Typography>
                 ) : (
                   <Typography
@@ -1088,7 +1164,7 @@ function Home() {
                   </Typography>
                 )}
 
-                {fax !== "" ? (
+                {kontakPanti?.fax !== "" ? (
                   <Typography
                     variant="body1"
                     gutterBottom
@@ -1113,7 +1189,7 @@ function Home() {
                       />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px" }}>{fax}</span>
+                    <span style={{ marginLeft: "8px" }}>{kontakPanti?.fax}</span>
                   </Typography>
                 ) : (
                   <Typography
@@ -1146,7 +1222,7 @@ function Home() {
                   </Typography>
                 )}
 
-                {address !== "" ? (
+                {kontakPanti?.alamat !== "" ? (
                   <Typography
                     variant="body1"
                     gutterBottom
@@ -1172,7 +1248,7 @@ function Home() {
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
                     <span style={{ marginLeft: "8px", textAlign: "left" }}>
-                      {address}
+                      {kontakPanti?.alamat}
                     </span>
                   </Typography>
                 ) : (
