@@ -203,6 +203,8 @@ import DonasiUmum from "./views/pages/admin/pantiasuhan/donasi/DonasiUmum.js";
 import DonasiTrx from "./views/pages/admin/pantiasuhan/donasitrx/DonasiTrx.js";
 import TambahDonasiTrx from "./views/pages/admin/pantiasuhan/donasitrx/TambahDonasiTrx.js";
 import EditDonasiTrx from "./views/pages/admin/pantiasuhan/donasitrx/EditDonasiTrx.js";
+import KondisiBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/kondisi/KondisiBarangInventaris.js";
+import EditKondisiBarang from "./views/pages/admin/pantiasuhan/iventaris/kondisi/EditKondisiBarang.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -417,6 +419,16 @@ function App() {
             <Route
               path="/edit_status_barang_inventaris/:id"
               component={EditStatusBarang}
+              exact
+            />
+            <PrivateRoute
+              path="/kondisi_barang_inventaris"
+              component={KondisiBarangInventaris}
+              exact
+            />
+            <PrivateRoute
+              path="/edit_kondisi_barang_inventaris/:id"
+              component={EditKondisiBarang}
               exact
             />
             <Route

@@ -41,7 +41,7 @@ function KondisiBarangInventaris() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kategori_barang`,
+        `${API_DUMMY_PYTHON}/api/admin/kondisi_barang`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -71,7 +71,7 @@ function KondisiBarangInventaris() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/kategori_barang/` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/kondisi_barang/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -149,7 +149,7 @@ function KondisiBarangInventaris() {
   const closeModal = () => setIsModalOpen(false);
 
   // ADD
-  const [kategori, setKategori] = useState("");
+  const [kondisi, setKondisi] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
 
   const add = async (e) => {
@@ -157,15 +157,15 @@ function KondisiBarangInventaris() {
     e.persist();
 
     const data = {
-      nama_kategori: kategori,
+      kondisi_barang: kondisi,
       deskripsi: deskripsi,
-      organization_id: localStorage.getItem("organization_id")
+      organization_id: +localStorage.getItem("organization_id")
     }
     console.log(data);
 
     try {
       await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/kategori_barang`, data,
+        `${API_DUMMY_PYTHON}/api/admin/kondisi_barang`, data,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -244,7 +244,7 @@ function KondisiBarangInventaris() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Kategori Barang</p>
+              <p className="mt-3">Kondisi Barang</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -286,7 +286,7 @@ function KondisiBarangInventaris() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama Kategori</th>
+                    <th>Nama Kondisi</th>
                     <th scope="col">Deskripsi</th>
                     <th>Aksi</th>
                   </tr>
@@ -299,7 +299,7 @@ function KondisiBarangInventaris() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td className="text-sm-start text-end" data-label="Nama Kategori">{row.nama_kategori}</td>
+                          <td className="text-sm-start text-end" data-label="Kondisi">{row.kondisi_barang}</td>
                           <td className="text-sm-start text-end" data-label="Deskripsi">
                             {row.deskripsi}
                           </td>
@@ -314,7 +314,7 @@ function KondisiBarangInventaris() {
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit_kategori_barang_inventaris/${row.id}`}
+                                  href={`/edit_kondisi_barang_inventaris/${row.id}`}
                                 >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
@@ -370,12 +370,12 @@ function KondisiBarangInventaris() {
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold "
-                    >Kategori</label>
+                    >Kondisi</label>
                     <input
-                      onChange={(e) => setKategori(e.target.value)}
+                      onChange={(e) => setKondisi(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan Kategori"
+                      placeholder="Masukkan Kondisi"
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
