@@ -4,7 +4,6 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
-import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function DonasiUmum() {
   const [list, setList] = useState([]); // Data yang ditampilkan
@@ -15,7 +14,7 @@ function DonasiUmum() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   const getAll = async () => {
     try {
       const response = await axios.get(
@@ -139,6 +138,18 @@ function DonasiUmum() {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
+                <div className="btn-actions-pane-right">
+                  <div role="group" className="btn-group-sm btn-group">
+                    <button className="active btn-focus p-2 rounded">
+                      <a
+                        style={{ color: "white", textDecoration: "none" }}
+                        href="/tambah-donasi-umum"
+                      >
+                        Tambah Donasi
+                      </a>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
