@@ -32,7 +32,7 @@ function Panduan({ member }) {
           <div style={{ lineHeight: "1.1" }}>
             <p>Bank Negara Indonesia</p>
             <p>Rara</p>
-            <p>RP. 4.000</p>
+            <p>RP. 0</p>
             <p style={{ color: "blue" }}>
               <i className="fa-regular fa-copy"></i>
             </p>
