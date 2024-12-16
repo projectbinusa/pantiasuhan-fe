@@ -454,7 +454,6 @@ function Home() {
     getAllKontakPanti();
   }, []);
 
-
   return (
     <div style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
       {/* <div className="navbarrr">
@@ -607,7 +606,9 @@ function Home() {
                     color: "#666",
                     marginBottom: "15px",
                   }}
-                  dangerouslySetInnerHTML={{ __html: sambutanPanti?.isi_sambutan }}
+                  dangerouslySetInnerHTML={{
+                    __html: sambutanPanti?.isi_sambutan,
+                  }}
                 />
                 {/* <p
                   style={{
@@ -788,7 +789,7 @@ function Home() {
                   lineHeight: "1.8",
                   color: hasData ? "#333" : "gray",
                   marginBottom: "20px",
-                  textAlign: "left"
+                  textAlign: "left",
                 }}
                 dangerouslySetInnerHTML={{ __html: visiPanti?.misi }}
               />
@@ -821,6 +822,53 @@ function Home() {
                   Muhammadiyah.
                 </li>
               </ul> */}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="blog-area pd-top-115 pd-bottom-60"
+        id="visi-misi"
+        style={{
+          backgroundColor: "#f4f4f4",
+          fontFamily: "'Poppins', sans-serif",
+        }}
+      >
+        <div class="containerr">
+          <div class="card-small">
+            <img
+              src="https://via.placeholder.com/150x100"
+              alt="Foto Kegiatan Sosial"
+              class="image-small"
+            />
+            <div class="content-small">
+              <h4>Kegiatan Sosial</h4>
+              <p class="date">
+                <strong>Tanggal:</strong> 18 Desember 2024
+              </p>
+              <p>
+                <strong>Kategori:</strong> Sosial
+              </p>
+              <p class="description">test</p>
+            </div>
+          </div>
+
+          <div class="card-small">
+            <img
+              src="https://via.placeholder.com/150x100"
+              alt="Foto Kegiatan Pendidikan"
+              class="image-small"
+            />
+            <div class="content-small">
+              <h4>Kegiatan Pendidikan</h4>
+              <p class="date">
+                <strong>Tanggal:</strong> 19 Desember 2024
+              </p>
+              <p>
+                <strong>Kategori:</strong> Pendidikan
+              </p>
+              <p class="description">test</p>
             </div>
           </div>
         </div>
@@ -1078,7 +1126,9 @@ function Home() {
                       <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z" />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px" }}>{kontakPanti?.email}</span>
+                    <span style={{ marginLeft: "8px" }}>
+                      {kontakPanti?.email}
+                    </span>
                   </Typography>
                 ) : (
                   <Typography
@@ -1129,7 +1179,9 @@ function Home() {
                       <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z" />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px" }}>+62 {kontakPanti?.phone}</span>
+                    <span style={{ marginLeft: "8px" }}>
+                      +62 {kontakPanti?.phone}
+                    </span>
                   </Typography>
                 ) : (
                   <Typography
@@ -1189,7 +1241,9 @@ function Home() {
                       />
                     </svg>
                     <strong style={{ marginLeft: "8px" }}>:</strong>
-                    <span style={{ marginLeft: "8px" }}>{kontakPanti?.fax}</span>
+                    <span style={{ marginLeft: "8px" }}>
+                      {kontakPanti?.fax}
+                    </span>
                   </Typography>
                 ) : (
                   <Typography
