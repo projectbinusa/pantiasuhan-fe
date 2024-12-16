@@ -46,6 +46,8 @@ function Donasi() {
 
       // Pastikan struktur response sesuai
       const { data, pagination } = response.data;
+      console.log(data);
+
 
       // Set data dan pagination
       setList(data);
@@ -100,7 +102,7 @@ function Donasi() {
   };
 
   useEffect(() => {
-    getAll();
+    getAll(currentPage);
   }, [currentPage, rowsPerPage]);
 
   useEffect(() => {
@@ -222,22 +224,22 @@ function Donasi() {
                     <th>Total Income</th>
                     <th>Total Outcome</th>
                     <th>Aktif</th>
-                    <th>Image</th>
+                    {/* <th>Image</th> */}
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage).map((item, index) => (
+                  {filteredList.map((item, index) => (
                     <tr key={index}>
                       <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
                       <td>{item.name}</td>
-                      <td>{item.description}</td>
+                      <td><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
                       <td>{item.total_income}</td>
                       <td>{item.total_outcome}</td>
                       <td>{item.aktif ? "Yes" : "No"}</td>
-                      <td>
+                      {/* <td>
                         <img src={item.image} alt="image" style={{ width: 50, height: 50 }} />
-                      </td>
+                      </td> */}
                       <td>
                         <button
                           type="button"
@@ -251,6 +253,15 @@ function Donasi() {
                             href={`/donasi/put/${item.id}`}
                           >
                             <i className="fa-solid fa-pen-to-square"></i>
+                          </a>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-warning mr-2 btn-sm">
+                          <a
+                            className="text-light"
+                            href={"/donasi/detail/" + item.id}>
+                            <i className="fas fa-info-circle"></i>
                           </a>
                         </button>
                         <button

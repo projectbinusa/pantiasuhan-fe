@@ -207,6 +207,8 @@ import KondisiBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/k
 import EditKondisiBarang from "./views/pages/admin/pantiasuhan/iventaris/kondisi/EditKondisiBarang.js";
 import TambahDonasiUmum from "./views/pages/admin/pantiasuhan/donasi/AddDonasiUmum.js";
 import Panduan from "./views/pages/admin/Panduan/Panduan.js";
+import DetailDonasi from "./views/pages/admin/pantiasuhan/donasi/DetailDonasi.js";
+import PreviewDonasi from "./views/pages/admin/pantiasuhan/donasi/PreviewDonasi.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -930,11 +932,13 @@ function App() {
             {/* Donasi */}
             <PrivateRoute path="/donasi" component={Donasi} exact />
             <PrivateRoute path="/donasi/put/:id" component={EditDonasi} exact />
+            <PrivateRoute path="/donasi/detail/:id" component={DetailDonasi} exact />
             <PrivateRoute path="/donasi/add" component={TambahDonasi} exact />
             <PrivateRoute path="/donasi_trx" component={DonasiTrx} exact />
             <Route path="/add_donasi_trx" component={TambahDonasiTrx} exact />
             <PrivateRoute path="/edit_donasi_trx/:id" component={EditDonasiTrx} exact />
             <Route path="/donasi-umum" component={DonasiUmum} exact />
+            <Route path="/donasi-preview" component={PreviewDonasi} exact />
             <Route path="/tambah-donasi-umum" component={TambahDonasiUmum} exact />
             {/* Panduan */}
             <Route path="/panduan" component={Panduan} exact />
