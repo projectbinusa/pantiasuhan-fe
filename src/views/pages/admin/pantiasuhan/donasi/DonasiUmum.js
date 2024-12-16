@@ -83,7 +83,6 @@ function DonasiUmum() {
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left"
         >
-          {/* Filter Rows dan Search */}
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -109,11 +108,9 @@ function DonasiUmum() {
               onChange={handleSearchChange}
             />
           </div>
-
-          {/* Tabel */}
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Donasi</p>
+              <p className="mt-3">Donasi </p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -145,15 +142,13 @@ function DonasiUmum() {
                         style={{ color: "white", textDecoration: "none" }}
                         href="/tambah-donasi-umum"
                       >
-                        Tambah Donasi
+                        Ayo Donasi
                       </a>
                     </button>
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* Table Content */}
             <div
               className="table-responsive-3"
               style={{ overflowX: "auto", maxWidth: "100%" }}
@@ -167,40 +162,57 @@ function DonasiUmum() {
                     <th>Total Income</th>
                     <th>Total Outcome</th>
                     <th>Aktif</th>
-                    {/* <th>Image</th> */}
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length > 0 ? (
-                    filteredList.map((row, index) => (
+                  {filteredList
+                    .slice(
+                      (currentPage - 1) * rowsPerPage,
+                      currentPage * rowsPerPage
+                    )
+                    .map((item, index) => (
                       <tr key={index}>
-                        <td data-label="No">{index + 1}</td>
-                        <td data-label="Nama">{row.name}</td>
-                        <td data-label="Deskripsi">{row.description}</td>
-                        <td data-label="Total Income">{row.total_income}</td>
-                        <td data-label="Total Outcome">{row.total_outcome}</td>
-                        <td data-label="Aktif">{row.domain}</td>
-                        {/* <td data-label="Image">
-                          <img
-                            src={row.image_url}
-                            alt="Donasi"
-                            style={{ width: "50px", height: "50px" }}
-                          />
-                        </td> */}
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="7" className="text-center">
-                        Tidak ada data tersedia
+                        <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                        <td>{item.name}</td>
+                        <td>{item.description}</td>
+                        <td>{item.total_income}</td>
+                        <td>{item.total_outcome}</td>
+                        <td>{item.aktif ? "Yes" : "No"}</td>
+                        {/* <td>
+                        <img
+                          src={item.image}
+                          alt="image"
+                          style={{ width: 50, height: 50 }}
+                        />
                       </td>
-                    </tr>
-                  )}
+                      <td>
+                        <button
+                          type="button"
+                          className="btn-primary btn-sm mr-2"
+                        >
+                          <a
+                            style={{
+                              color: "white",
+                              textDecoration: "none",
+                            }}
+                            href={`/donasi/put/${item.id}`}
+                          >
+                            <i className="fa-solid fa-pen-to-square"></i>
+                          </a>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-danger btn-sm"
+                          onClick={() => deleteData(item.id)}
+                        >
+                          <i className="fa-solid fa-trash"></i>
+                        </button>
+                      </td> */}
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
-
-            {/* Pagination */}
             <div className="card-header mt-3 d-flex justify-content-center">
               <Pagination
                 count={paginationInfo.totalPages}

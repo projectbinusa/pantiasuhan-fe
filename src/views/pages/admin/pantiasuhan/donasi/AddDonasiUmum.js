@@ -1,21 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
-import { useState } from "react";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
-import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import AOS from "aos";
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
-import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function TambahDonasiUmum() {
-  const [nama, setNama] = useState("");
-  const [deskripsi, setDeskripsi] = useState("");
-  const [nominal, setNominal] = useState(0);
-  const [image, setImage] = useState(null);
+  const [name, setName] = useState("");
+  const [hp, setHp] = useState(0);
+  const [addres, setAddres] = useState("");
+  const [image, setImage] = useState(null); // Uncomment when you add image functionality
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
 
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
@@ -34,22 +28,17 @@ function TambahDonasiUmum() {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-    // console.log("nama: ", namaOrangTua);
   }, []);
 
-  //add
   const add = async (e) => {
     e.preventDefault();
     try {
       await axios.post(
-        `${API_DUMMY_PYTHON}/api/public/donation/`,
+        `${API_DUMMY_PYTHON}/api/public/donation/1/proccess`,
         {
-          organization_id: +localStorage.getItem("organization_id"),
-          name: nama,
-          nominal: nominal,
-          description: deskripsi,
-          url_image: image.name,
-          donation_id: 1,
+          name: name,
+          hp: hp,
+          address: addres,
         },
         {
           headers: {
@@ -57,28 +46,19 @@ function TambahDonasiUmum() {
           },
         }
       );
-
-      Swal.fire({
-        icon: "success",
-        title: "Data Berhasil Ditambahkan",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        history.push("/donasi_trx");
-      }, 1500);
+      setIsModalOpen(true); // Show modal on success
     } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
-        localStorage.clear();
-        history.push("/login");
+      console.log("Error details:", error); // Log the error
+      if (error.response) {
+        console.log("Error response:", error.response); // API error response
+        if (error.response.status === 401) {
+          localStorage.clear();
+          history.push("/login");
+        }
+      } else if (error.request) {
+        console.log("Error request:", error.request); // No response received
       } else {
-        Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log(error);
+        console.log("Error message:", error.message); // Other errors
       }
     }
   };
@@ -96,51 +76,39 @@ function TambahDonasiUmum() {
               <div className="col-md-12">
                 <div className="card shadow">
                   <div className="card-body">
-                    <h1 className="fs-4">Form Tambah Data Donasi</h1>
+                    <h1 className="fs-4">Form Tambah Donasi</h1>
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label  font-weight-bold ">
-                            Nama
+                          <label className="form-label font-weight-bold">
+                            Name
                           </label>
                           <input
-                            value={nama}
-                            onChange={(e) => setNama(e.target.value)}
-                            placeholder="Masukkan Nama"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Masukkan Name"
                             className="form-control"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label  font-weight-bold ">
-                            Nominal
+                          <label className="form-label font-weight-bold">
+                            No Hp
                           </label>
                           <input
-                            value={nominal}
-                            onChange={(e) => setNominal(e.target.value)}
-                            placeholder="Masukkan Nominal"
+                            onChange={(e) => setHp(e.target.value)}
+                            placeholder="Masukkan nomor hp"
                             type="number"
                             className="form-control"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Deskripsi
+                            Alamat
                           </label>
                           <input
-                            placeholder="Masukkan Deskripsi"
-                            onChange={(e) => setDeskripsi(e.target.value)}
-                            className="form-control"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Image
-                          </label>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => setImage(e.target.files[0])}
+                            placeholder="Masukkan Alamat"
+                            onChange={(e) => setAddres(e.target.value)}
                             className="form-control"
                           />
                         </div>
@@ -164,6 +132,44 @@ function TambahDonasiUmum() {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed bg-gray-900 items-center" style={{ transform:"translateY(-123%)", width:"30%", marginLeft:"35%" }}>
+          <div className="bg-white rounded-lg shadow-lg p-2">
+            {/* Header Modal */}
+            <div className="border-b px-6 py-4 flex justify-between items-center">
+              <h5 className="text-lg font-semibold">
+                Data Berhasil Ditambahkan
+              </h5>
+              {/* <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                &times; 
+              </button> */}
+            </div>
+
+            {/* Body Modal */}
+            <div className="px-6 py-4">
+              <p className="text-gray-700">
+                Data donasi telah berhasil ditambahkan. Nomor donasi:{" "}
+                <strong>123456</strong>
+              </p>
+            </div>
+
+            {/* Footer Modal */}
+            <div className="border-t px-6 py-4 flex justify-end space-x-2">
+              <button
+                onClick={() => setIsModalOpen(false)} // Close modal
+                className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 text-gray-600"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
