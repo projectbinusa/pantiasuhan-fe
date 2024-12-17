@@ -143,6 +143,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       path: "/donasi_trx",
       action: ["/add_donasi_trx", "/edit_donasi_rtx"],
     },
+    {
+      title: "Dana Keluar",
+      icon: "fas fa-minus",
+      path: "/admin_dana_keluar",
+      action: ["/add_dana_keluar", "/edit_dana_keluar"],
+    },
   ];
 
   const inventarisItems = [
