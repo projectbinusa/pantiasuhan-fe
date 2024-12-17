@@ -1,10 +1,61 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+
+const formatTanggal = (tanggalString) => {
+  const tanggal = new Date(tanggalString);
+  const bulan = [
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+  ];
+  const hari = tanggal.getDate();
+  const bulanNama = bulan[tanggal.getMonth()];
+  const tahun = tanggal.getFullYear();
+
+  return `${hari} ${bulanNama} ${tahun}`;
+};
 
 function PreviewDonasi() {
   const [showFullStory, setShowFullStory] = useState(false);
+  const [datas, setDatas] = useState(null);
+  const [danaMasuk, setDanaMasuk] = useState([]);
+  const [danaKeluar, setDanaKeluar] = useState([]);
 
   const toggleStory = () => {
     setShowFullStory(!showFullStory);
+  };
+
+  const param = useParams();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.byrtagihan.com/api/customer/donation/${param.id}`,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        const resp = response.data.data;
+        setDatas(resp)
+        console.log(resp);
+        setDanaMasuk(resp.income_trx)
+        setDanaKeluar(resp.outcome_trx)
+      } catch (error) {
+        console.error("Terjadi Kesalahan", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const rupiah = (number) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0
+    }).format(number);
   };
 
   return (
@@ -20,79 +71,72 @@ function PreviewDonasi() {
             <img src="https://via.placeholder.com/500x250" alt="Gambar Header" />
           </div>
           <div className="content-donasi">
-            <h2>Tolong, Selamatkan Nyawa Balita Sakit Kronis!</h2>
-            <p className="donation-amount">Rp20.144</p>
+            <h2>{datas?.name}</h2>
+            <p className="donation-amount">Rp{datas?.total_income}</p>
             <div className="info-box">
               Semakin banyak donasi yang tersedia, semakin besar bantuan yang bisa disalurkan oleh gerakan ini.
             </div>
             <div className="story-section">
               <h3>Cerita Penggalangan Dana</h3>
-              <p>23 Agustus 2024</p>
-              <p className={showFullStory ? '' : 'content-isi'}>
-                Sahabat, ada ratusan anak menderita sakit kanker di pelosok yang saat ini nyawanya terancam karena sulit...
+              <p>{formatTanggal(datas?.created_date)}</p>
+              <div className={showFullStory ? 'stories' : 'content-isi stories'}>
+                <div dangerouslySetInnerHTML={{ __html: datas?.description }} />
+              </div>
+              {/* <p className={showFullStory ? '' : 'content-isi'}>
+              Sahabat, ada ratusan anak menderita sakit kanker di pelosok yang saat ini nyawanya terancam karena sulit...
                 Akses terhadap layanan kesehatan masih terbatas, dan banyak keluarga tidak memiliki dana untuk
                 pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka.
                 Akses terhadap layanan kesehatan masih terbatas, dan banyak keluarga tidak memiliki dana untuk
                 pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka.
                 Akses terhadap layanan kesehatan masih terbatas, dan banyak keluarga tidak memiliki dana untuk
-                pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka.
-              </p>
+                pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka. 
+              </p> */}
               <button className="lihat-selengkapnya" onClick={toggleStory}>
                 {showFullStory ? "Lihat Lebih Sedikit" : "Lihat Selengkapnya"}
               </button>
             </div>
             <hr />
             <div className="dana-masuk">
-              <h3>Dana Masuk</h3> <br />
-              <ul>
-                <li>
-                  <h3>Yulianto</h3>
-                  <p>Berdonasi sebesar <b>Rp500.000</b></p>
-                  <span>2024-12-12</span>
-                </li>
-                <li>
-                  <h3>Yulianto</h3>
-                  <p>Berdonasi sebesar <b>Rp500.000</b></p>
-                  <span>2024-12-12</span>
-                </li>
-                <li>
-                  <h3>Yulianto</h3>
-                  <p>Berdonasi sebesar <b>Rp500.000</b></p>
-                  <span>2024-12-12</span>
-                </li>
-                <li>
-                  <h3>Yulianto</h3>
-                  <p>Berdonasi sebesar <b>Rp500.000</b></p>
-                  <span>2024-12-12</span>
-                </li>
-                <li>
-                  <h3>Yulianto</h3>
-                  <p>Berdonasi sebesar <b>Rp500.000</b></p>
-                  <span>2024-12-12</span>
-                </li>
-              </ul>
+              <header>
+                <h3>Dana Masuk <span>32</span></h3>
+                <a href={`/dana-masuk/${param.id}`}><i class="fas fa-caret-right"></i></a>
+              </header>
+              {danaMasuk.map((item) => (
+                <ul>
+                  <li>
+                    <h3>{item.name}</h3>
+                    <p>Berdonasi sebesar <b>{rupiah(item.nominal)}</b></p>
+                    <span>{formatTanggal(item.created_date)}</span>
+                  </li>
+                </ul>
+              ))}
             </div>
             <hr />
             <div className="dana-masuk">
-              <h3>Dana Keluar</h3> <br />
-              <ul>
-                <li>
-                  <h3>Pembelian ATK</h3>
-                  <p>Sebesar <b>Rp500.000</b></p>
-                  <span>2024-12-12</span>
-                </li>
-              </ul>
+              <header>
+                <h3>Dana Keluar</h3>
+                <a href={`/dana-keluar/${param.id}`}><i class="fas fa-caret-right"></i></a>
+              </header>
+              {danaKeluar.map((item) => (
+                <ul>
+                  <li>
+                    <h3>{item.name}</h3>
+                    <p>Sebesar <b>{rupiah(item.nominal)}</b></p>
+                    <span>{formatTanggal(item.created_date)}</span>
+                  </li>
+                </ul>
+              ))}
             </div>
           </div>
         </div>
 
         {/* Fixed Donate Button */}
         <div className="fixed-donate-buttons">
-          <button className="donate-automatic">Donasi Sekarang!</button>
+          <button className="donate-automatic" onClick={() => window.location.href = `/tambah-donasi-umum/${datas?.id}`}>Donasi Sekarang!</button>
         </div>
       </section>
-
       <style>
+
         {`
         * {
           margin: 0;
@@ -187,6 +231,27 @@ function PreviewDonasi() {
           color: #444;
         }
 
+        .dana-masuk h3 span{
+        background-color: #f0f8ff;
+        color: #005b9f;
+        font-weight: 500;
+        font-family: "Poppins", sans-serif;
+        margin-left: 0.3rem;
+        padding: 5px;
+        border-radius: 1rem;
+        }
+
+        .dana-masuk header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .dana-masuk header a{
+          color: #555;
+          font-size: 1.5rem
+        }
+
         .story-section p,
         .dana-masuk p {
           font-size: 14px;
@@ -215,6 +280,10 @@ function PreviewDonasi() {
     box-sizing: border-box; /* Pastikan padding masuk dalam perhitungan width */
 }
 
+.dana-masuk ul li b, .dana-masuk ul li span{
+font-family: "Poppins", sans-serif;
+}
+
         .lihat-selengkapnya {
           background-color: transparent;
           color: #005b9f;
@@ -239,7 +308,7 @@ function PreviewDonasi() {
           display: flex;
           justify-content: center;
           gap: 10px;
-          padding: 10px 0;
+          padding: 10px;
           background-color: #f8f8f8;
           z-index: 1000;
         }

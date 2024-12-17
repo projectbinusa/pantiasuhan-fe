@@ -205,10 +205,14 @@ import TambahDonasiTrx from "./views/pages/admin/pantiasuhan/donasitrx/TambahDon
 import EditDonasiTrx from "./views/pages/admin/pantiasuhan/donasitrx/EditDonasiTrx.js";
 import KondisiBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/kondisi/KondisiBarangInventaris.js";
 import EditKondisiBarang from "./views/pages/admin/pantiasuhan/iventaris/kondisi/EditKondisiBarang.js";
-import TambahDonasiUmum from "./views/pages/admin/pantiasuhan/donasi/AddDonasiUmum.js";
-import Panduan from "./views/pages/admin/Panduan/Panduan.js";
+import TambahDonasiUmum from "./views/pages/admin/pantiasuhan/donasi/publik/AddDonasiUmum.js";
 import DetailDonasi from "./views/pages/admin/pantiasuhan/donasi/DetailDonasi.js";
-import PreviewDonasi from "./views/pages/admin/pantiasuhan/donasi/PreviewDonasi.js";
+import PreviewDonasi from "./views/pages/admin/pantiasuhan/donasi/publik/PreviewDonasi.js";
+import Panduan from "./views/pages/admin/pantiasuhan/donasi/publik/Panduan.js";
+import DanaMasuk from "./views/pages/admin/pantiasuhan/donasi/publik/DanaMasuk.js";
+import AdminDanaKeluar from "./views/pages/admin/pantiasuhan/donasi/danakeluar/AdminDanaKeluar.js";
+import AddDanaKeluar from "./views/pages/admin/pantiasuhan/donasi/danakeluar/AddDanaKeluar.js";
+import EditDanaKeluar from "./views/pages/admin/pantiasuhan/donasi/danakeluar/EditDanaKeluar.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -938,10 +942,14 @@ function App() {
             <Route path="/add_donasi_trx" component={TambahDonasiTrx} exact />
             <PrivateRoute path="/edit_donasi_trx/:id" component={EditDonasiTrx} exact />
             <Route path="/donasi-umum" component={DonasiUmum} exact />
-            <Route path="/donasi-preview" component={PreviewDonasi} exact />
-            <Route path="/tambah-donasi-umum" component={TambahDonasiUmum} exact />
+            <Route path="/donasi-preview/:id" component={PreviewDonasi} exact />
+            <Route path="/tambah-donasi-umum/:id" component={TambahDonasiUmum} exact />
             {/* Panduan */}
-            <Route path="/panduan" component={Panduan} exact />
+            <Route path="/panduan-donasi" component={Panduan} exact />
+            <Route path="/dana-masuk/:id" component={DanaMasuk} exact />
+            <PrivateRoute path="/admin_dana_keluar" component={AdminDanaKeluar} exact />
+            <PrivateRoute path="/admin_dana_keluar/add" component={AddDanaKeluar} exact />
+            <PrivateRoute path="/admin_dana_keluar/put/:id" component={EditDanaKeluar} exact />
           </Switch>
         </main>
         <LogPageView />

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import AOS from "aos";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function TambahDonasiUmum() {
   const [name, setName] = useState("");
@@ -10,6 +11,7 @@ function TambahDonasiUmum() {
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
 
   const history = useHistory();
+  const param = useParams();
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
@@ -32,7 +34,7 @@ function TambahDonasiUmum() {
     e.preventDefault();
     try {
       await axios.post(
-        `https://dev-api.byrtagihan.com/api/public/donation/1/proccess`,
+        `https://api.byrtagihan.com/api/public/donation/${param.id}/proccess`,
         {
           name: name,
           hp: hp,
@@ -44,7 +46,10 @@ function TambahDonasiUmum() {
           },
         }
       );
-      setIsModalOpen(true); // Show modal on success
+      // setIsModalOpen(true); // Show modal on success
+      setTimeout(() => {
+        history.push(`/panduan-donasi/${param.id}`);
+      }, 1500);
     } catch (error) {
       console.log("Error details:", error); // Log the error
       if (error.response) {
@@ -113,16 +118,15 @@ function TambahDonasiUmum() {
           </div>
         </div>
         <div className="fixed-donate-buttons">
-          <button type="button" className="btn-danger mt-3 mr-3">
+          {/* <button type="button" className="btn-danger mt-3 mr-3">
             <a
               style={{ color: "white", textDecoration: "none" }}
               href="/donasi-umum"
             >
               Batal
             </a>
-          </button>
-          <button type="button" onClick={add} className="btn-primary mt-3">
-            Submit
+          </button> */}
+          <button type="button" onClick={add} className="btn-primary">Lanjut pembayaran
           </button>
         </div>
       </section>
@@ -173,6 +177,7 @@ function TambahDonasiUmum() {
           padding: 0;
           box-sizing: border-box;
           font-family: Arial, sans-serif;
+          font-family: "Poppins", sans-serif
         }
 
         body {
@@ -245,7 +250,7 @@ function TambahDonasiUmum() {
           width: 100%;
           display: flex;
           justify-content: center;
-          gap: 10px;
+          // gap: 10px;
           padding: 10px 0;
           background-color: #f8f8f8;
           z-index: 1000;
@@ -260,7 +265,7 @@ function TambahDonasiUmum() {
           font-size: 14px;
           font-family: "Poppins", sans-serif;
           width: 100%;
-          max-width: 230px;
+          max-width: 500px;
         }
 
         .fixed-donate-buttons button a {
