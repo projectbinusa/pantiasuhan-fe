@@ -447,6 +447,20 @@ function Home() {
       console.log("get visi misi", error);
     }
   };
+  const [kegiatan, setkegiatan] = useState(null);
+
+  const getAllKegiatan = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_PYTHON}/api/public/kegiatan?page=1&limit=1`
+      );
+      console.log(response.data.data[0]);
+
+      setkegiatan(response.data.data[0]);
+    } catch (error) {
+      console.log("get kegiatan", error);
+    }
+  }
 
   useEffect(() => {
     getAllVisiMisiPanti();
@@ -827,50 +841,462 @@ function Home() {
         </div>
       </div>
 
+      {/* KEGIATAN */}
       <div
         className="blog-area pd-top-115 pd-bottom-60"
         id="visi-misi"
         style={{
-          backgroundColor: "#f4f4f4",
+          backgroundColor: "#f9f9f9",
           fontFamily: "'Poppins', sans-serif",
+          padding: "40px 20px",
         }}
       >
-        <div class="containerr">
-          <div class="card-small">
-            <img
-              src="https://via.placeholder.com/150x100"
-              alt="Foto Kegiatan Sosial"
-              class="image-small"
-            />
-            <div class="content-small">
-              <h4>Kegiatan Sosial</h4>
-              <p class="date">
-                <strong>Tanggal:</strong> 18 Desember 2024
-              </p>
-              <p>
-                <strong>Kategori:</strong> Sosial
-              </p>
-              <p class="description">test</p>
+        <div
+          className="container"
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+          }}
+        >
+          <div className="row justify-content-center">
+            <div className="col-xl-6 col-lg-7 col-md-10">
+              <div className="section-title text-center" data-aos="fade-down">
+                <h5
+                  className="sub-title double-line"
+                  style={{
+                    color: "#000000",
+                    fontSize: "1.5em",
+                    fontWeight: "bold",
+                    marginBottom: "20px",
+                  }}
+                >
+                  Informasi Kegiatan
+                </h5>
+              </div>
             </div>
           </div>
+          <div
+            className="grid-container"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gap: "20px",
+            }}
+          >
+            <div
+              className="card"
+              style={{
+                backgroundColor: "#fff",
+                borderRadius: "15px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                overflow: "hidden",
+                transition: "transform 0.3s, box-shadow 0.3s",
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = "scale(1.05)";
+                e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+                e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+              }}
+            >
+              <img
+                src="https://via.placeholder.com/300x200"
+                alt="Foto Kegiatan Sosial"
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                }}
+              />
+              <div style={{ padding: "20px" }}>
+                <h4
+                  style={{
+                    fontSize: "1.5rem",
+                    fontWeight: "bold",
+                    color: "#004080",
+                    marginBottom: "10px",
+                  }}
+                >
+                  Kegiatan Sosial
+                </h4>
+                <p
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "#555",
+                    marginBottom: "5px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <svg
+                    className="svg-inline--fa fa-calendar-alt fa-w-14"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="far"
+                    data-icon="calendar-alt"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                      color: "#004080",
+                      marginRight: "5px",
+                    }}
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-56V64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H152V64zM32 192h384v272c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V192zm96 100c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40z"
+                    />
+                  </svg>
+                  18 Desember 2024
+                </p>
+                <p
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "#555",
+                    marginBottom: "15px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <svg
+                    className="svg-inline--fa fa-tags fa-w-18"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="fas"
+                    data-icon="tags"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 640 512"
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                      color: "#007b5e",
+                      marginRight: "5px",
+                    }}
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M497.941 225.941l-212.49-212.49C276.678 4.678 259.149 0 241.04 0H32C14.326 0 0 14.326 0 32v209.04c0 18.109 4.678 35.638 13.451 50.411l212.49 212.49c37.27 37.27 97.818 37.27 135.088 0l136.912-136.912c37.27-37.27 37.27-97.818 0-135.088zm-80.108-45.94c0-35.346-28.654-64-64-64s-64 28.654-64 64 28.654 64 64 64 64-28.654 64-64zm214.059 45.94l-136.912 136.912c-37.27 37.27-97.818 37.27-135.088 0l-22.66-22.66 169.728-169.728c35.346 0 64-28.654 64-64s-28.654-64-64-64l-169.728 169.728-22.66-22.66c-37.27-37.27-97.818-37.27-135.088 0L50.412 310.451c-9.743-16.269-15.451-35.006-15.451-54.411V32C35.04 14.326 49.366 0 67.04 0h209.04c19.404 0 38.142 5.708 54.411 15.451l212.49 212.49c37.27 37.27 37.27 97.818 0 135.088z"
+                    />
+                  </svg>
+                  Sosial
+                </p>
+                <p
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "#777",
+                    lineHeight: "1.5",
+                    marginBottom: "15px",
+                  }}
+                >
+                  Ini adalah deskripsi singkat dari kegiatan sosial. Deskripsi dapat
+                  diperpanjang sesuai kebutuhan.
+                </p>
+                <a
+                  className="read-more-text"
+                  href="blog-details.html"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    fontSize: "0.9rem",
+                    fontWeight: "bold",
+                    color: "#004080",
+                    textDecoration: "none",
+                    transition: "color 0.3s ease",
+                  }}
+                  onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
+                  onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}
+                >
+                  <span style={{ marginRight: "8px" }}>Read More</span>
+                </a>
+              </div>
+            </div>
 
-          <div class="card-small">
-            <img
-              src="https://via.placeholder.com/150x100"
-              alt="Foto Kegiatan Pendidikan"
-              class="image-small"
-            />
-            <div class="content-small">
-              <h4>Kegiatan Pendidikan</h4>
-              <p class="date">
-                <strong>Tanggal:</strong> 19 Desember 2024
-              </p>
-              <p>
-                <strong>Kategori:</strong> Pendidikan
-              </p>
-              <p class="description">test</p>
+            {/* Card lainnya */}
+            <div
+              className="card"
+              style={{
+                backgroundColor: "#fff",
+                borderRadius: "15px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                overflow: "hidden",
+                transition: "transform 0.3s, box-shadow 0.3s",
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = "scale(1.05)";
+                e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+                e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+              }}
+            >
+              <img
+                src="https://via.placeholder.com/300x200"
+                alt="Foto Kegiatan Pendidikan"
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                }}
+              />
+              <div style={{ padding: "20px" }}>
+                <h4
+                  style={{
+                    fontSize: "1.5rem",
+                    fontWeight: "bold",
+                    color: "#004080",
+                    marginBottom: "10px",
+                  }}
+                >
+                  Kegiatan Pendidikan
+                </h4>
+                <p
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "#555",
+                    marginBottom: "5px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <svg
+                    className="svg-inline--fa fa-calendar-alt fa-w-14"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="far"
+                    data-icon="calendar-alt"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                      color: "#004080",
+                      marginRight: "5px",
+                    }}
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-56V64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H152V64zM32 192h384v272c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V192zm96 100c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40z"
+                    />
+                  </svg>
+                  19 Desember 2024
+                </p>
+                <p
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "#555",
+                    marginBottom: "15px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <svg
+                    className="svg-inline--fa fa-tags fa-w-18"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="fas"
+                    data-icon="tags"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 640 512"
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                      color: "#007b5e",
+                      marginRight: "5px",
+                    }}
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M497.941 225.941l-212.49-212.49C276.678 4.678 259.149 0 241.04 0H32C14.326 0 0 14.326 0 32v209.04c0 18.109 4.678 35.638 13.451 50.411l212.49 212.49c37.27 37.27 97.818 37.27 135.088 0l136.912-136.912c37.27-37.27 37.27-97.818 0-135.088zm-80.108-45.94c0-35.346-28.654-64-64-64s-64 28.654-64 64 28.654 64 64 64 64-28.654 64-64zm214.059 45.94l-136.912 136.912c-37.27 37.27-97.818 37.27-135.088 0l-22.66-22.66 169.728-169.728c35.346 0 64-28.654 64-64s-28.654-64-64-64l-169.728 169.728-22.66-22.66c-37.27-37.27-97.818-37.27-135.088 0L50.412 310.451c-9.743-16.269-15.451-35.006-15.451-54.411V32C35.04 14.326 49.366 0 67.04 0h209.04c19.404 0 38.142 5.708 54.411 15.451l212.49 212.49c37.27 37.27 37.27 97.818 0 135.088z"
+                    />
+                  </svg>
+                  Pendidikan
+                </p>
+                <p
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "#777",
+                    lineHeight: "1.5",
+                    marginBottom: "15px",
+                  }}
+                >
+                  Ini adalah deskripsi singkat dari kegiatan pendidikan. Deskripsi
+                  dapat diperpanjang sesuai kebutuhan.
+                </p>
+                <a
+                  className="read-more-text"
+                  href="blog-details.html"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    fontSize: "0.9rem",
+                    fontWeight: "bold",
+                    color: "#004080",
+                    textDecoration: "none",
+                    transition: "color 0.3s ease",
+                  }}
+                  onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
+                  onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}
+                >
+                  <span style={{ marginRight: "8px" }}>Read More</span>
+                </a>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+
+       {/* BERITA TERBARU */}
+       <div style={{ padding: "40px 20px", backgroundColor: "#f9f9f9" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: "20px",
+          }}
+        >
+          {/* Card Berita */}
+          {[1, 2, 3].map((item) => (
+            <div
+              key={item}
+              className="news-card"
+              style={{
+                backgroundColor: "#fff",
+                borderRadius: "15px",
+                overflow: "hidden",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                transition: "transform 0.3s, box-shadow 0.3s",
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = "scale(1.05)";
+                e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+                e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+              }}
+            >
+              {/* Gambar Berita */}
+              <img
+                src={`https://via.placeholder.com/150x100+${item}`}
+                alt={`Berita ${item}`}
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                }}
+              />
+              <div style={{ padding: "20px" }}>
+                {/* Judul Berita */}
+                <h3
+                  style={{
+                    fontSize: "1.2rem",
+                    fontWeight: "bold",
+                    color: "#333",
+                    marginBottom: "10px",
+                  }}
+                >
+                  Jum'at Berkah Panti Asuhan Muhammadiyah {item}
+                </h3>
+                {/* Info Penulis dan Tanggal */}
+                <p
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: "0.9rem",
+                    color: "#666",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <svg
+                    className="svg-inline--fa fa-user fa-w-14"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="far"
+                    data-icon="user"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                    style={{
+                      widht: "16px",
+                      height: "16px",
+                      color: "#004080",
+                      marginRight: "5px",
+                    }}
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"
+                    ></path>
+                  </svg>
+                  Admin &nbsp;|&nbsp;
+                  <svg
+                    className="svg-inline--fa fa-calendar-alt fa-w-14"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="far"
+                    data-icon="calendar-alt"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                    style={{
+                      widht: "16px",
+                      height: "16px",
+                      color: "#004080",
+                      marginRight: "5px",
+                    }}
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M148 288h-40c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"
+                    ></path>
+                  </svg>
+                  Sabtu, 14 Desember 2024
+                </p>
+                {/* Isi Berita */}
+                <p
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "#666",
+                    lineHeight: "1.5",
+                    maxHeight: "60px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    marginBottom: "15px",
+                  }}
+                >
+                  Ini adalah isi berita ke-{item} yang dibuat untuk menampilkan
+                  informasi terbaru. Anda dapat mengganti teks ini sesuai dengan
+                  berita Anda.
+                </p>
+                {/* Tombol Baca Selengkapnya */}
+                <a
+                  className="read-more-text"
+                  href="blog-details.html"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    fontSize: "0.9rem",
+                    fontWeight: "bold",
+                    color: "#004080",
+                    textDecoration: "none",
+                    transition: "color 0.3s ease",
+                  }}
+                  onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
+                  onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}
+                >
+                  <span style={{ marginRight: "8px" }}>Read More</span>
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
