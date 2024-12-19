@@ -21,31 +21,31 @@ function AdminBerita() {
   const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
 
-  const getAll = async (page) => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/berita/all?page=${page - 1
-        }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
-      setList(response.data.data.content);
-      console.log("list berita : ", response.data.data.content);
-      setPaginationInfo({
-        totalPages: response.data.data.totalPages,
-        totalElements: response.data.data.totalElements,
-      });
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-      if(error.status === 401) {
-        localStorage.clear();
-        history.push("/login");
-      }
-    }
-  };
+  // const getAll = async (page) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/smpn1bergas/api/berita/all?page=${page - 1
+  //       }&size=${rowsPerPage}&sortBy=id&sortOrder=desc`,
+  //       {
+  //         headers: {
+  //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+  //         },
+  //       }
+  //     );
+  //     setList(response.data.data.content);
+  //     console.log("list berita : ", response.data.data.content);
+  //     setPaginationInfo({
+  //       totalPages: response.data.data.totalPages,
+  //       totalElements: response.data.data.totalElements,
+  //     });
+  //   } catch (error) {
+  //     console.error("Terjadi Kesalahan", error);
+  //     if(error.status === 401) {
+  //       localStorage.clear();
+  //       history.push("/login");
+  //     }
+  //   }
+  // };
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -83,7 +83,7 @@ function AdminBerita() {
   };
 
   useEffect(() => {
-    getAll(currentPage);
+    // getAll(currentPage);
   }, [currentPage, rowsPerPage]);
 
   useEffect(() => {

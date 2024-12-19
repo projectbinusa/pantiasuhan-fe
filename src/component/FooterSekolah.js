@@ -14,63 +14,63 @@ function FooterSekolah() {
   const [isi, setIsi] = useState("");
   const [isContactAvailable, setIsContactAvailable] = useState(true);
 
-  const getAllSejarah = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sejarah/all/terbaru?page=0&size=1`
-      );
-      const content = response.data.data.content[0]?.isi || "";
-      const truncatedContent =
-        content.length > 375 ? `${content.substring(0, 375)}...` : content;
-      setJudul(response.data.data.content[0]?.judul || "Data tidak ditemukan");
-      setIsi(truncatedContent);
-    } catch (error) {
-      console.log("Error fetching sejarah data:", error);
-    }
-  };
+  // const getAllSejarah = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/smpn1bergas/api/sejarah/all/terbaru?page=0&size=1`
+  //     );
+  //     const content = response.data.data.content[0]?.isi || "";
+  //     const truncatedContent =
+  //       content.length > 375 ? `${content.substring(0, 375)}...` : content;
+  //     setJudul(response.data.data.content[0]?.judul || "Data tidak ditemukan");
+  //     setIsi(truncatedContent);
+  //   } catch (error) {
+  //     console.log("Error fetching sejarah data:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getAllSejarah();
-  }, []);
+  // useEffect(() => {
+  //   getAllSejarah();
+  // }, []);
 
-  const getAllKontak = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/pantiasuhan/api/kontak/all/terbaru?page=0&size=1`
-      );
-      const data = response.data.data.content[0] || {};
+  // const getAllKontak = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/pantiasuhan/api/kontak/all/terbaru?page=0&size=1`
+  //     );
+  //     const data = response.data.data.content[0] || {};
 
-      const isDataAvailable =
-        data.email || data.phone || data.fax || data.address;
+  //     const isDataAvailable =
+  //       data.email || data.phone || data.fax || data.address;
 
-      setIsContactAvailable(!!isDataAvailable);
-      setEmail(data.email || "Email tidak tersedia");
-      setPhone(data.phone || "Telepon tidak tersedia");
-      setFax(data.fax || "Fax tidak tersedia");
-      setAddress(data.address || "Alamat tidak tersedia");
-    } catch (error) {
-      console.log("Error fetching contact data:", error);
-    }
-  };
+  //     setIsContactAvailable(!!isDataAvailable);
+  //     setEmail(data.email || "Email tidak tersedia");
+  //     setPhone(data.phone || "Telepon tidak tersedia");
+  //     setFax(data.fax || "Fax tidak tersedia");
+  //     setAddress(data.address || "Alamat tidak tersedia");
+  //   } catch (error) {
+  //     console.log("Error fetching contact data:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getAllKontak();
-  }, []);
+  // useEffect(() => {
+  //   getAllKontak();
+  // }, []);
 
-  const getAllBerita = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=4&sort=created_date`
-      );
-      setBerita(response.data.data.content);
-    } catch (error) {
-      console.log("Error fetching berita data:", error);
-    }
-  };
+  // const getAllBerita = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=4&sort=created_date`
+  //     );
+  //     setBerita(response.data.data.content);
+  //   } catch (error) {
+  //     console.log("Error fetching berita data:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getAllBerita();
-  }, []);
+  // useEffect(() => {
+  //   getAllBerita();
+  // }, []);
 
   const formatDate = (value) => {
     const date = new Date(value);
