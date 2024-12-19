@@ -9,8 +9,6 @@ import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import NavbarSekolah from "../../component/NavbarSekolah";
 import NavbarSekolah2 from "../../component/NavbarSekolah2";
-import news from "../../aset/smpn1bergas/News-rafiki.png";
-import user from "../../aset/smpn1bergas/user_df.jpg";
 import backgroundImage from "../../aset/pantiasuhan/pantiasuhan.png";
 import program1 from "../../aset/pantiasuhan/program1.png";
 import program2 from "../../aset/pantiasuhan/program/program9.png";
@@ -173,93 +171,94 @@ function Home() {
   // GET ALL BERITA TERBARU
   const [berita, setBerita] = useState([]);
 
-  const getAll = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=6&sort=created_date`
-      );
-      setBerita(response.data.data.content);
-      console.log(response.data.data.content);
-    } catch (error) {
-      console.log("get all", error);
-    }
-  };
+  // const getAll = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY_PYTHON}/api/berita/by-category?category=Berita%20Sekolah&order=asc&page=0&size=6&sort=created_date`
+  //     );
+  //     setBerita(response.data.data.content);
+  //     console.log(response.data.data.content);
+  //   } catch (error) {
+  //     console.log("get all", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getAll();
-  }, []);
+  // useEffect(() => {
+  //   getAll();
+  // }, []);
 
   // GET ALL EKSTRAKURIKULER
   const [ekstrakurikuler, setEkstrakurikuler] = useState([]);
 
-  const getAllEkskul = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all/terbaru?page=0&size=8`
-      );
-      setEkstrakurikuler(response.data.data.content);
-    } catch (error) {
-      console.log("get all", error);
-    }
-  };
+  // const getAllEkskul = async () => {
 
-  useEffect(() => {
-    getAllEkskul();
-  }, []);
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/smpn1bergas/api/ekstrakulikuler/all/terbaru?page=0&size=8`
+  //     );
+  //     setEkstrakurikuler(response.data.data.content);
+  //   } catch (error) {
+  //     console.log("get all", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getAllEkskul();
+  // }, []);
 
   // GET ALL GURU
   const [gurus, setGurus] = useState([]);
 
-  const getAllGuru = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=0&size=20`
-      );
-      setGurus(response.data.data.content);
-    } catch (error) {
-      console.log("get all", error);
-    }
-  };
+  // const getAllGuru = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/smpn1bergas/api/guru/all/terbaru?page=0&size=20`
+  //     );
+  //     setGurus(response.data.data.content);
+  //   } catch (error) {
+  //     console.log("get all", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getAllGuru();
-  }, []);
+  // useEffect(() => {
+  //   getAllGuru();
+  // }, []);
 
   // GET ALL ALUMNI
   const [alumnus, setAlumnus] = useState([]);
 
-  const getAllAlumni = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/alumni/all/terbaru?page=0&size=6`
-      );
-      setAlumnus(response.data.data.content);
-    } catch (error) {
-      console.log("get all", error);
-    }
-  };
+  // const getAllAlumni = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/smpn1bergas/api/alumni/all/terbaru?page=0&size=6`
+  //     );
+  //     setAlumnus(response.data.data.content);
+  //   } catch (error) {
+  //     console.log("get all", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getAllAlumni();
-  }, []);
+  // useEffect(() => {
+  //   getAllAlumni();
+  // }, []);
 
   // GET ALL PRESTASI
   const [prestasi, setPrestasi] = useState([]);
 
-  const getAllPrestasi = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/prestasi/all/terbaru?page=0&size=6`
-      );
-      setPrestasi(response.data.data.content);
-    } catch (error) {
-      console.log("get all", error);
-    }
-  };
+  // const getAllPrestasi = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/smpn1bergas/api/prestasi/all/terbaru?page=0&size=6`
+  //     );
+  //     setPrestasi(response.data.data.content);
+  //   } catch (error) {
+  //     console.log("get all", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getAllPrestasi();
-  }, []);
+  // useEffect(() => {
+  //   getAllPrestasi();
+  // }, []);
 
   // GET ALL KONTAK
   const [phone, setPhone] = useState("");
@@ -267,46 +266,46 @@ function Home() {
   const [address, setAddress] = useState("");
   const [fax, setFax] = useState("");
 
-  const getAllKontak = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/kontak/all/terbaru?page=0&size=1`
-      );
-      setEmail(response.data.data.content[0].email);
-      setPhone(response.data.data.content[0].phone);
-      setFax(response.data.data.content[0].fax);
-      setAddress(response.data.data.content[0].address);
-      console.log(response.data.data.content[0]);
-    } catch (error) {
-      console.log("get all", error);
-    }
-  };
+  // const getAllKontak = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/smpn1bergas/api/kontak/all/terbaru?page=0&size=1`
+  //     );
+  //     setEmail(response.data.data.content[0].email);
+  //     setPhone(response.data.data.content[0].phone);
+  //     setFax(response.data.data.content[0].fax);
+  //     setAddress(response.data.data.content[0].address);
+  //     console.log(response.data.data.content[0]);
+  //   } catch (error) {
+  //     console.log("get all", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getAllKontak();
-  }, []);
+  // useEffect(() => {
+  //   getAllKontak();
+  // }, []);
 
   const [sambutan, setSambutan] = useState("");
   const [fotoKepsek, setFotoKepsek] = useState("");
   const [namaKepsek, setNamaKepsek] = useState("");
 
-  const getAllSambutan = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/smpn1bergas/api/sambutan/all/terbaru?page=0&size=1`
-      );
-      const res = response.data.data.content[0];
-      setSambutan(res.isi || "");
-      setFotoKepsek(res.foto || "");
-      setNamaKepsek(res.nama || "");
-    } catch (error) {
-      console.log("get all", error);
-    }
-  };
+  // const getAllSambutan = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY}/smpn1bergas/api/sambutan/all/terbaru?page=0&size=1`
+  //     );
+  //     const res = response.data.data.content[0];
+  //     setSambutan(res.isi || "");
+  //     setFotoKepsek(res.foto || "");
+  //     setNamaKepsek(res.nama || "");
+  //   } catch (error) {
+  //     console.log("get all", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getAllSambutan();
-  }, []);
+  // useEffect(() => {
+  //   getAllSambutan();
+  // }, []);
 
   const hasData = namaKepsek && sambutan;
 
@@ -374,7 +373,7 @@ function Home() {
     };
 
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/kotak_saran/add`, data);
+      await axios.post(`${API_DUMMY_PYTHON}/api/kotak_saran/add`, data);
       Swal.fire({
         icon: "success",
         title: "Kotak Masuk Berhasil Terkirim",
