@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -93,7 +93,7 @@ function AddKegiatanPanti() {
 
     try {
       const response = await axios.post(
-        `${API_DUMMY}/api/admin/kegiatan`,
+        `${API_DUMMY_PYTHON}/api/admin/kegiatan`,
         {
           judul: judul,
           isi: isi,
