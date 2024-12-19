@@ -23,7 +23,8 @@ function AddOrtu() {
     }
     try {
       await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/foster_parent`, datas,
+        `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
+        datas,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
