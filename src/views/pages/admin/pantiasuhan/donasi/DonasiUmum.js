@@ -18,7 +18,7 @@ function DonasiUmum() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/donation?page=${currentPage}&limit=${rowsPerPage}`,
+        `https://api.byrtagihan.com/api/public/donation?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -40,7 +40,8 @@ function DonasiUmum() {
         totalPages: pagination.total_page,
         totalElements: pagination.total,
       });
-    } catch (error) {
+    } 
+    catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
       Swal.fire(
         "Error!",
@@ -137,14 +138,14 @@ function DonasiUmum() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
+                    {/* <button className="active btn-focus p-2 rounded">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
                         href="/tambah-donasi-umum"
                       >
                         Ayo Donasi
                       </a>
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
