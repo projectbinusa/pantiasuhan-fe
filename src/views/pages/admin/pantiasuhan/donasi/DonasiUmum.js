@@ -69,48 +69,66 @@ function DonasiUmum() {
   const filteredList = [
     {
       title: "Korban bencana",
-      imageUrl: "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
-      description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
+      imageUrl:
+        "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
     },
     {
       title: "Korban bencana",
-      imageUrl: "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
-      description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
+      imageUrl:
+        "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
     },
     {
       title: "Korban bencana",
-      imageUrl: "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
-      description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
+      imageUrl:
+        "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
     },
     {
       title: "Korban bencana",
-      imageUrl: "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
-      description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
+      imageUrl:
+        "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
     },
     {
       title: "Korban bencana",
-      imageUrl: "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
-      description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
+      imageUrl:
+        "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
     },
     {
       title: "Korban bencana",
-      imageUrl: "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
-      description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
+      imageUrl:
+        "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
     },
     {
       title: "Korban bencana",
-      imageUrl: "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
-      description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
+      imageUrl:
+        "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
     },
     {
       title: "Korban bencana",
-      imageUrl: "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
-      description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
+      imageUrl:
+        "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
     },
     {
       title: "Korban bencana",
-      imageUrl: "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
-      description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
+      imageUrl:
+        "https://media.wired.com/photos/65e83cc9b8ffa5f8fa84c893/4:3/w_2664,h_1998,c_limit/wired-uk-google-watching.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis qui nulla quia dignissimos aliquam minima odit pariatur, eos ipsum illo rerum, nobis animi. Fugit, excepturi non porro tempora commodi sapiente",
     },
   ];
 
@@ -142,8 +160,25 @@ function DonasiUmum() {
             </div>
             <div className="col-lg-3">
               <div className="p-4">
-                <h1 className="font-bold mb-4" style={{ fontSize:"210%", color:"black", whiteSpace: "nowrap" }}>{item.title}</h1>
+                <h1
+                  className="font-bold mb-4"
+                  style={{
+                    fontSize: "210%",
+                    color: "black",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {item.title}
+                </h1>
                 <p className="text-gray-700">{item.description}</p>
+                <button type="button" className="btn-danger mt-3 mr-3">
+                  <a
+                    style={{ color: "white", textDecoration: "none" }}
+                    href="/donasi-preview/:id"
+                  >
+                    Detail
+                  </a>
+                </button>
               </div>
             </div>
           </div>
