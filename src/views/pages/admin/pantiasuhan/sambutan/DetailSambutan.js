@@ -32,7 +32,7 @@ function DetailSAmbutanPanti() {
       );
 
       const res = response.data.data[0];
-      console.log(response.data.data.length);
+      console.log("response: ", response.data.data);
       setdatas(response.data.data.length)
       setCreatedDate(res.created_date);
       setUpdateDate(res.update_date);

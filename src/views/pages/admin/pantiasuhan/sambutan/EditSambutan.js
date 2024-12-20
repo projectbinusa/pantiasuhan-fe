@@ -60,6 +60,7 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function EditSambutanPanti() {
   const [judulSambutan, setJudulSambutan] = useState("");
@@ -84,6 +85,7 @@ function EditSambutanPanti() {
         setJudulSambutan(response.judul);
         setNip(response.nip);
         setNama(response.nama);
+        setFile(response.foto);
         console.log("sambutan : ", ress.data.data);
       })
       .catch((error) => {
@@ -100,15 +102,20 @@ function EditSambutanPanti() {
     e.persist();
 
     try {
+      let imageUrl = file;
+
+      if (file) {
+        imageUrl = await uploadImageToS3(file);
+      }
       const response = await axios.put(
         `${API_DUMMY_PYTHON}/api/admin/sambutan/${param.id}`,
         {
           judul: judulSambutan,
           isi_sambutan: isiSambutan,
-          foto: file.name,
+          foto: imageUrl,
           nama: nama,
           nip: nip,
-          organization_id: +localStorage.getItem('organization_id')
+          organization_id: +localStorage.getItem("organization_id"),
         },
         {
           headers: {
@@ -308,14 +315,12 @@ function EditSambutanPanti() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
@@ -324,12 +329,10 @@ function EditSambutanPanti() {
       <div
         style={{ marginTop: "50px" }}
         className="page-content1 mb-3 app-main__outer"
-        data-aos="fade-left"
-      >
+        data-aos="fade-left">
         <div
           className="container mt-3 mb-3 app-main__outer"
-          data-aos="fade-left"
-        >
+          data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -629,8 +632,7 @@ function EditSambutanPanti() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_sambutan"
-                        >
+                          href="/admin_sambutan">
                           Batal
                         </a>
                       </button>
