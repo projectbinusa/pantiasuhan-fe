@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function AddBukuTamu() {
   const [idOrangTua, setIdOrangTua] = useState("");
@@ -63,12 +64,17 @@ function AddBukuTamu() {
     e.persist();
 
     try {
+      let imageUrl = image;
+
+      if (image) {
+        imageUrl = await uploadImageToS3(image);
+      }
       await axios.post(
         `${API_DUMMY_PYTHON}/api/admin/guestbook`,
         {
           foster_parent_id: idOrangTua,
           visit_date: tanggal,
-          url_image_donation: image,
+          url_image_donation: imageUrl,
           note: catatan,
           no_wa: noWa,
           description_donation: deskripsi,
@@ -114,12 +120,14 @@ function AddBukuTamu() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -135,8 +143,7 @@ function AddBukuTamu() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="col-md-6 mb-3">
-                          <label
-                            className="form-label text-center font-weight-bold w-100">
+                          <label className="form-label text-center font-weight-bold w-100">
                             Orang Tua Asuh
                           </label>
                           <select
@@ -151,7 +158,8 @@ function AddBukuTamu() {
                               setNamaOrangTua(
                                 selectedParent ? selectedParent.name : ""
                               );
-                            }}>
+                            }}
+                          >
                             <option value="" disabled>
                               Pilih Orang Tua Asuh
                             </option>
@@ -163,8 +171,7 @@ function AddBukuTamu() {
                           </select>
                         </div>
                         <div className="col-md-6 mb-3">
-                          <label
-                            className="form-label text-center font-weight-bold w-100">
+                          <label className="form-label text-center font-weight-bold w-100">
                             Tanggal Kunjungan
                           </label>
                           <input
@@ -175,8 +182,7 @@ function AddBukuTamu() {
                           />
                         </div>
                         <div className="col-md-6 mb-3">
-                          <label
-                            className="form-label text-center font-weight-bold w-100">
+                          <label className="form-label text-center font-weight-bold w-100">
                             Nomor Whatsapp
                           </label>
                           <input
@@ -187,8 +193,7 @@ function AddBukuTamu() {
                           />
                         </div>
                         <div className="col-md-6 mb-3">
-                          <label
-                            className="form-label text-center font-weight-bold w-100">
+                          <label className="form-label text-center font-weight-bold w-100">
                             Deskripsi Donasi
                           </label>
                           <textarea
@@ -196,23 +201,22 @@ function AddBukuTamu() {
                             onChange={(e) => setDeskripsi(e.target.value)}
                             className="form-control"
                             rows={3}
-                            placeholder="Masukkan Deskripsi Donasi"></textarea>
+                            placeholder="Masukkan Deskripsi Donasi"
+                          ></textarea>
                         </div>
                         <div className="col-md-6 mb-3">
-                          <label
-                            className="form-label text-center font-weight-bold w-100">
+                          <label className="form-label text-center font-weight-bold w-100">
                             Bukti Donasi
                           </label>
                           <input
                             value={image}
-                            onChange={(e) => setImage(e.target.value)}
+                            onChange={(e) => setImage(e.target.files[0])}
                             type="text"
                             className="form-control"
                           />
                         </div>
                         <div className="col-md-6 mb-3">
-                          <label
-                            className="form-label text-center font-weight-bold w-100">
+                          <label className="form-label text-center font-weight-bold w-100">
                             Catatan
                           </label>
                           <textarea
@@ -220,13 +224,15 @@ function AddBukuTamu() {
                             onChange={(e) => setCatatan(e.target.value)}
                             className="form-control"
                             rows={3}
-                            placeholder="Masukkan Catatan"></textarea>
+                            placeholder="Masukkan Catatan"
+                          ></textarea>
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_buku_tamu">
+                          href="/admin_buku_tamu"
+                        >
                           Batal
                         </a>
                       </button>
@@ -243,7 +249,6 @@ function AddBukuTamu() {
       </div>
     </div>
   );
-  
 }
 
 export default AddBukuTamu;

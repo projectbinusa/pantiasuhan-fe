@@ -9,11 +9,13 @@ import AOS from "aos";
 
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function EditGalery() {
   const [judul, setJudul] = useState("");
-  const [image, setFile] = useState("");
+  const [file, setFile] = useState(null);
   const [deskripsi, setDeskripsi] = useState("");
+  const [show, setShow] = useState("");
   const param = useParams();
   const history = useHistory();
 
@@ -54,66 +56,70 @@ function EditGalery() {
       });
   }, []);
 
-  //edit pengumuman
   const update = async (e) => {
     e.preventDefault();
+    e.persist();
 
-    const formData = new FormData();
-    formData.append("file", image);
+    try {
+      let imageUrl = file;
 
-    const data = {
-      judul: judul,
-      deskripsi: deskripsi,
-    };
-
-    await axios
-      .put(`${API_DUMMY_PYTHON}/api/admin/galery/` + param.id, formData, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+      if (file) {
+        imageUrl = await uploadImageToS3(file);
+      }
+      const response = await axios.put(
+        `${API_DUMMY_PYTHON}/api/admin/galery/${param.id}`,
+        {
+          judul: judul,
+          deskripsi: deskripsi,
+          foto: imageUrl,
         },
-      })
-      .then(() => {
-        if (image) {
-          axios
-            .put(
-              `${API_DUMMY_PYTHON}/api/admin/galery/put/foto/` + param.id,
-              formData,
-              {
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-                },
-              }
-            )
-            .catch((err) => {
-              console.log(err);
-            });
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Authentication token
+          },
         }
+      );
+
+      // Periksa respons yang berhasil
+      if (response.data.code === 200) {
+        setShow(false); // Hide modal atau reset form
         Swal.fire({
           icon: "success",
-          title: "Berhasil Mengedit Data galery",
+          title: "Berhasil Mengedit Data Galery",
           showConfirmButton: false,
           timer: 1500,
         });
-        history.push("/admin-galery");
+
+        // Redirect setelah berhasil
         setTimeout(() => {
-          window.location.reload();
+          history.push("/admin_galery");
         }, 1500);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log(error);
-        }
-      });
+      } else {
+        // Handle respons lain dengan pesan error
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          text: response.data.message, // Tambahkan pesan error dari respons
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      // Handle error, terutama untuk masalah autentikasi
+      if (error.response && error.response.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          text: error.message, // Tambahkan pesan error dari error
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error); // Log error untuk debugging
+      }
+    }
   };
 
   useEffect(() => {
@@ -162,18 +168,15 @@ function EditGalery() {
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
-                    <label
-                      for="exampleInputPassword1"
-                      className="form-label font-weight-bold"
-                    >
-                      Image
+                    <label className="form-label font-weight-bold">
+                      Gambar
                     </label>
                     <input
+                      onChange={(e) =>
+                        setFile(e.target.files ? e.target.files[0] : null)
+                      }
                       type="file"
-                      onChange={(e) => setFile(e.target.files[0])}
                       className="form-control"
-                      required
-                      id="exampleInputPassword1"
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
@@ -181,7 +184,7 @@ function EditGalery() {
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold"
                     >
-                      deskripsi
+                      Deskripsi
                     </label>
                     <textarea
                       value={deskripsi}

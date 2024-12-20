@@ -2,9 +2,7 @@ import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
-import {
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
@@ -59,7 +57,7 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-
+import { uploadImageToS3 } from "../../../../../../utils/uploadToS3";
 
 function AddDanaKeluar() {
   const [nama, setNama] = useState("");
@@ -100,7 +98,7 @@ function AddDanaKeluar() {
       );
       const { data, pagination } = response.data;
       console.log(data);
-      setDonasi(data)
+      setDonasi(data);
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
     }
@@ -112,15 +110,20 @@ function AddDanaKeluar() {
     e.persist();
 
     try {
+      let imageUrl = image;
+
+      if (image) {
+        imageUrl = await uploadImageToS3(image);
+      }
       await axios.post(
         `https://api.byrtagihan.com/api/customer/donation_trx`,
         {
           name: nama,
           nominal: nominal,
           description: deskripsi,
-          url_image: image.name,
+          url_image: imageUrl,
           is_income: false,
-          donation_id: idDonasi
+          donation_id: idDonasi,
         },
         {
           headers: {
@@ -156,7 +159,7 @@ function AddDanaKeluar() {
 
   useEffect(() => {
     AOS.init();
-    getAll()
+    getAll();
   }, []);
 
   const REDUCED_MATERIAL_COLORS = [
@@ -284,8 +287,9 @@ function AddDanaKeluar() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -318,10 +322,9 @@ function AddDanaKeluar() {
                             onChange={(e) => {
                               const selectedId = e.target.value;
                               setIdDonasi(selectedId);
-                            }}>
-                            <option value="">
-                              Pilih Donasi
-                            </option>
+                            }}
+                          >
+                            <option value="">Pilih Donasi</option>
                             {donasi.map((data, index) => (
                               <option key={index} value={data.id}>
                                 {data.name}
@@ -347,7 +350,8 @@ function AddDanaKeluar() {
                           <input
                             value={nominal}
                             onChange={(e) => setNominal(e.target.value)}
-                            placeholder="Masukkan Nominal" type="number"
+                            placeholder="Masukkan Nominal"
+                            type="number"
                             className="form-control"
                           />
                         </div>

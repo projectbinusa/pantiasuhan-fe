@@ -58,6 +58,7 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function AddKegiatanPanti() {
   const [judul, setJudul] = useState("");
@@ -92,12 +93,17 @@ function AddKegiatanPanti() {
     e.persist();
 
     try {
+      let imageUrl = foto;
+
+      if (foto) {
+        imageUrl = await uploadImageToS3(foto);
+      }
       const response = await axios.post(
         `${API_DUMMY_PYTHON}/api/admin/kegiatan`,
         {
           judul: judul,
           isi: isi,
-          foto: foto.name,
+          foto: imageUrl,
           penulis: penulis,
           tanggal: tanggal,
           category: kategori,

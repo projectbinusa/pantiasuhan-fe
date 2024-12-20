@@ -59,18 +59,43 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function EditKegiatanPanti() {
   const [judul, setJudul] = useState("");
-  const [image, setImage] = useState(null);
+  const [file, setFile] = useState(null);
   const [isi, setIsi] = useState("");
   const [penulis, setPenulis] = useState("");
   const [kategori, setKategori] = useState("");
   const [tanggal, setTanggal] = useState("");
-  const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const history = useHistory();
+  const param = useParams();
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + param.id, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      })
+      .then((ress) => {
+        const response = ress.data.data;
+        setJudul(response.judul);
+        setIsi(response.isi);
+        setPenulis(response.penulis);
+        setKategori(response.category);
+        setFile(response.foto);
+        setTanggal(response.tanggal);
+        console.log("kegiatan : ", ress.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const formatDateToSlash = (value) => {
     const date = new Date(value);
@@ -98,88 +123,73 @@ function EditKegiatanPanti() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const param = useParams();
-  const history = useHistory();
-
-  const getAll = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kegiatan/?page=${
-          page - 1
-        }&size=${rowsPerPage}`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
-      setList(response.data.data.content);
-      console.log(response.data.data.content);
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-    }
-  };
-
   const update = async (e) => {
     e.preventDefault();
     e.persist();
-    const formData = new FormData();
-    formData.append("file", image);
 
-    const data = {
-      judul: judul,
-      isi: isi,
-      penulis: penulis,
-      tanggal: tanggal,
-      category: kategori,
-    };
-    await axios
-      .put(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + param.id, data, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+    try {
+      let imageUrl = file;
+
+      if (file) {
+        imageUrl = await uploadImageToS3(file);
+      }
+      const response = await axios.put(
+        `${API_DUMMY_PYTHON}/api/admin/kegiatan/${param.id}`,
+        {
+          judul: judul,
+          isi: isi,
+          penulis: penulis,
+          tanggal: tanggal,
+          category: kategori,
+          foto: imageUrl,
         },
-      })
-      .then(() => {
-        if (image) {
-          axios
-            .put(
-              `${API_DUMMY_PYTHON}/api/admin/kegiatan/put/foto/` + param.id,
-              formData,
-              {
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-                },
-              }
-            )
-            .catch((err) => {
-              console.log(err);
-            });
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Authentication token
+          },
         }
+      );
+
+      // Periksa respons yang berhasil
+      if (response.data.code === 200) {
+        setShow(false); // Hide modal atau reset form
         Swal.fire({
           icon: "success",
-          title: "Berhasil Mengedit Kegiatan",
+          title: "Berhasil Mengedit Data Kegiatan",
           showConfirmButton: false,
           timer: 1500,
         });
+
+        // Redirect setelah berhasil
         setTimeout(() => {
-          history.push("/admin-kegiatan");
+          history.push("/admin_kegiatan");
         }, 1500);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log(error);
-        }
-      });
+      } else {
+        // Handle respons lain dengan pesan error
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          text: response.data.message, // Tambahkan pesan error dari respons
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      // Handle error, terutama untuk masalah autentikasi
+      if (error.response && error.response.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          text: error.message, // Tambahkan pesan error dari error
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error); // Log error untuk debugging
+      }
+    }
   };
 
   const handleEditorChange = (isi, editor) => {
@@ -187,28 +197,7 @@ function EditKegiatanPanti() {
   };
 
   useEffect(() => {
-    axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + param.id, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      })
-      .then((ress) => {
-        const response = ress.data.data;
-        setJudul(response.judul);
-        setIsi(response.isi);
-        setTanggal(response.tanggal);
-        setPenulis(response.penulis);
-        setKategori(response.category);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  useEffect(() => {
     AOS.init();
-    getAll();
   }, []);
 
   const REDUCED_MATERIAL_COLORS = [
@@ -363,7 +352,7 @@ function EditKegiatanPanti() {
                     </label>
                     <input
                       onChange={(e) =>
-                        setImage(e.target.files ? e.target.files[0] : null)
+                        setFile(e.target.files ? e.target.files[0] : null)
                       }
                       type="file"
                       className="form-control"
