@@ -59,6 +59,8 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 function AddSambutanPanti() {
   const [judul, setJudul] = useState("");
@@ -75,12 +77,17 @@ function AddSambutanPanti() {
     e.persist();
 
     try {
+      let imageUrl = foto;
+
+      if (foto) {
+        imageUrl = await uploadImageToS3(foto);
+      }
       const response = await axios.post(
         `${API_DUMMY_PYTHON}/api/admin/sambutan`,
         {
           judul: judul,
           isi_sambutan: isi_sambutan,
-          foto: foto.name,
+          foto: imageUrl,
           nama: nama,
           nip: nip
         },
