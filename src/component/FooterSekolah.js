@@ -137,12 +137,12 @@ function FooterSekolah() {
               </h4>
               <div className="details">
                 <p style={{ fontSize: "14px", textAlign: "justify" }}>
-                  <div
+                  {/* <div
                     dangerouslySetInnerHTML={{
                       __html:
                         "Mewujudkan cita-cita Muhammadiyah yakni menjunjung tinggi agama Islam yang berakidah tauhid, bersumber kepada Al-Qur'an dan sunnah Rasulullah SAW sehingga terwujud masyarakat Islam yang sebenar-benarnya, melalui pendidikan dan pembinaan anak asuh sehingga terwujud generasi yang beriman, berakhlak mulia, berilmu, dan mandiri.",
                     }}
-                  />
+                  /> */}
                   <div
                     dangerouslySetInnerHTML={{ __html: visiPanti?.visi }}
                   />

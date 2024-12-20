@@ -213,6 +213,8 @@ import DanaMasuk from "./views/pages/admin/pantiasuhan/donasi/publik/DanaMasuk.j
 import AdminDanaKeluar from "./views/pages/admin/pantiasuhan/donasi/danakeluar/AdminDanaKeluar.js";
 import AddDanaKeluar from "./views/pages/admin/pantiasuhan/donasi/danakeluar/AddDanaKeluar.js";
 import EditDanaKeluar from "./views/pages/admin/pantiasuhan/donasi/danakeluar/EditDanaKeluar.js";
+import DashboardPanti from "./views/pages/admin/pantiasuhan/DashboardPanti.js";
+import DetailBeritaPanti from "./views/pages/admin/pantiasuhan/DetailBeritaPanti.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -902,7 +904,7 @@ function App() {
             <Route path="/osis" component={Osis} exact />
             {/* Berita */}
             <Route path="/galery" component={GalerySekolah} exact />
-            <Route path="/news" component={beritaNews} exact />
+            {/* <Route path="/news" component={beritaNews} exact /> */}
             <Route path="/detail-news-:id" component={DetailNews} exact />
             <Route path="/info" component={Info} exact />
             <Route path="/detail-info-:id" component={DetailInfo} exact />
@@ -950,6 +952,8 @@ function App() {
             <PrivateRoute path="/admin_dana_keluar" component={AdminDanaKeluar} exact />
             <PrivateRoute path="/admin_dana_keluar/add" component={AddDanaKeluar} exact />
             <PrivateRoute path="/admin_dana_keluar/put/:id" component={EditDanaKeluar} exact />
+            <PrivateRoute path="/dashboard_panti" component={DashboardPanti} exact />
+            <Route path="/news/:name" component={DetailBeritaPanti} exact />
           </Switch>
         </main>
         <LogPageView />
