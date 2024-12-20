@@ -10,13 +10,13 @@ import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function TambahDonasiTrx() {
   const [nama, setNama] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [nominal, setNominal] = useState(0);
   const [image, setImage] = useState(null);
-
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -41,15 +41,20 @@ function TambahDonasiTrx() {
   const add = async (e) => {
     e.preventDefault();
     try {
+      let imageUrl = image;
+
+      if (image) {
+        imageUrl = await uploadImageToS3(image);
+      }
       await axios.post(
         `${API_DUMMY_PYTHON}/api/admin/donation-rtx`,
         {
-          organization_id: +localStorage.getItem('organization_id'),
+          organization_id: +localStorage.getItem("organization_id"),
           name: nama,
           nominal: nominal,
           description: deskripsi,
-          url_image: image.name,
-          donation_id: 1
+          url_image: imageUrl,
+          donation_id: 1,
         },
         {
           headers: {
@@ -89,8 +94,9 @@ function TambahDonasiTrx() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -130,7 +136,8 @@ function TambahDonasiTrx() {
                           <input
                             value={nominal}
                             onChange={(e) => setNominal(e.target.value)}
-                            placeholder="Masukkan Nominal" type="number"
+                            placeholder="Masukkan Nominal"
+                            type="number"
                             className="form-control"
                           />
                         </div>

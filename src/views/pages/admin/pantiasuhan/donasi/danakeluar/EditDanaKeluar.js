@@ -60,7 +60,7 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-
+import { uploadImageToS3 } from "../../../../../../utils/uploadToS3";
 
 function EditDanaKeluar() {
   const [nama, setNama] = useState("");
@@ -103,7 +103,7 @@ function EditDanaKeluar() {
       );
       const { data, pagination } = response.data;
       console.log(data);
-      setDonasi(data)
+      setDonasi(data);
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
     }
@@ -115,15 +115,20 @@ function EditDanaKeluar() {
     e.persist();
 
     try {
+      let imageUrl = image;
+
+      if (image) {
+        imageUrl = await uploadImageToS3(image);
+      }
       await axios.put(
         `https://api.byrtagihan.com/api/customer/donation_trx/${param.id}`,
         {
           name: nama,
           nominal: nominal,
           description: deskripsi,
-          url_image: image.name,
+          url_image: imageUrl,
           is_income: false,
-          donation_id: idDonasi
+          donation_id: idDonasi,
         },
         {
           headers: {
@@ -159,7 +164,7 @@ function EditDanaKeluar() {
 
   useEffect(() => {
     AOS.init();
-    getAll()
+    getAll();
   }, []);
 
   const REDUCED_MATERIAL_COLORS = [
@@ -287,8 +292,9 @@ function EditDanaKeluar() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -321,10 +327,9 @@ function EditDanaKeluar() {
                             onChange={(e) => {
                               const selectedId = e.target.value;
                               setIdDonasi(selectedId);
-                            }}>
-                            <option value="">
-                              Pilih Donasi
-                            </option>
+                            }}
+                          >
+                            <option value="">Pilih Donasi</option>
                             {donasi.map((data, index) => (
                               <option key={index} value={data.id}>
                                 {data.name}
@@ -350,7 +355,8 @@ function EditDanaKeluar() {
                           <input
                             value={nominal}
                             onChange={(e) => setNominal(e.target.value)}
-                            placeholder="Masukkan Nominal" type="number"
+                            placeholder="Masukkan Nominal"
+                            type="number"
                             className="form-control"
                           />
                         </div>
@@ -592,9 +598,12 @@ function EditDanaKeluar() {
                             Image
                           </label>
                           <input
+                            onChange={(e) =>
+                              setImage(
+                                e.target.files ? e.target.files[0] : null
+                              )
+                            }
                             type="file"
-                            accept="image/*"
-                            onChange={(e) => setImage(e.target.files[0])}
                             className="form-control"
                           />
                         </div>

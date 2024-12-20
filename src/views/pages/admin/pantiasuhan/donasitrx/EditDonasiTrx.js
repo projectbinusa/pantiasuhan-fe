@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function EditDonasiTrx() {
   const [nama, setNama] = useState("");
@@ -48,7 +49,7 @@ function EditDonasiTrx() {
         setNama(resp.name);
         setDeskripsi(resp.description);
         setNominal(resp.nominal);
-        setImage(resp.url_image)
+        setImage(resp.url_image);
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -70,6 +71,11 @@ function EditDonasiTrx() {
     e.persist();
 
     try {
+      let imageUrl = image;
+
+      if (image) {
+        imageUrl = await uploadImageToS3(image);
+      }
       await axios.put(
         `${API_DUMMY_PYTHON}/api/admin/donation-rtx/${param.id}`,
         {
@@ -78,8 +84,8 @@ function EditDonasiTrx() {
           nominal: nominal,
           id: param.id,
           donation_id: 1,
-          url_image: image,
-          organization_id: +localStorage.getItem('organization_id'),
+          url_image: imageUrl,
+          organization_id: +localStorage.getItem("organization_id"),
         },
         {
           headers: {
@@ -119,8 +125,9 @@ function EditDonasiTrx() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -160,7 +167,8 @@ function EditDonasiTrx() {
                           <input
                             value={nominal}
                             onChange={(e) => setNominal(e.target.value)}
-                            placeholder="Masukkan Nominal" type="number"
+                            placeholder="Masukkan Nominal"
+                            type="number"
                             className="form-control"
                           />
                         </div>
@@ -175,17 +183,20 @@ function EditDonasiTrx() {
                             className="form-control"
                           />
                         </div>
-                        {/* <div className="mb-3 col-lg-12">
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Image
                           </label>
                           <input
+                            onChange={(e) =>
+                              setImage(
+                                e.target.files ? e.target.files[0] : null
+                              )
+                            }
                             type="file"
-                            accept="image/*"
-                            onChange={(e) => setImage(e.target.files[0])}
                             className="form-control"
                           />
-                        </div> */}
+                        </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a

@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function EditBukuTamu() {
   const [idOrangTua, setIdOrangTua] = useState("");
@@ -88,19 +89,18 @@ function EditBukuTamu() {
     e.persist();
 
     try {
-      // const formData = new FormData();
-      // formData.append("id", idOrangTua);
-      // formData.append("note", catatan);
-      // formData.append("tgl_visit", tanggal);
-      // formData.append("deskripsi", deskripsi);
-      // formData.append("file", image);
+      let imageUrl = image;
+
+      if (image) {
+        imageUrl = await uploadImageToS3(image);
+      }
 
       await axios.put(
         `${API_DUMMY_PYTHON}/api/admin/guestbook/${param.id}`,
         {
           foster_parent_id: idOrangTua,
           visit_date: tanggal,
-          url_image_donation: image,
+          url_image_donation: imageUrl,
           note: catatan,
           no_wa: noWa,
           description_donation: deskripsi,
@@ -145,12 +145,14 @@ function EditBukuTamu() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -182,7 +184,8 @@ function EditBukuTamu() {
                               setNamaOrangTua(
                                 selectedParent ? selectedParent.name : ""
                               );
-                            }}>
+                            }}
+                          >
                             <option value="" disabled>
                               Pilih Orang Tua Asuh
                             </option>
@@ -225,7 +228,8 @@ function EditBukuTamu() {
                             onChange={(e) => setDeskripsi(e.target.value)}
                             className="form-control"
                             rows={5}
-                            placeholder="Masukkan Deskripsi Donasi"></textarea>
+                            placeholder="Masukkan Deskripsi Donasi"
+                          ></textarea>
                         </div>
                         <div className="mb-3 co-lg-12">
                           <label className="form-label font-weight-bold">
@@ -233,7 +237,11 @@ function EditBukuTamu() {
                           </label>
                           <input
                             value={image}
-                            onChange={(e) => setImage(e.target.value)}
+                            onChange={(e) =>
+                              setImage(
+                                e.target.files ? e.target.files[0] : null
+                              )
+                            }
                             type="text"
                             className="form-control"
                           />
@@ -256,13 +264,15 @@ function EditBukuTamu() {
                             onChange={(e) => setCatatan(e.target.value)}
                             className="form-control"
                             rows={5}
-                            placeholder="Masukkan Catatan"></textarea>
+                            placeholder="Masukkan Catatan"
+                          ></textarea>
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_buku_tamu">
+                          href="/admin_buku_tamu"
+                        >
                           Batal
                         </a>
                       </button>

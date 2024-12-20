@@ -6,6 +6,7 @@ import "aos/dist/aos.css";
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 const AddGalery = () => {
   const [judul, setJudul] = useState("");
@@ -23,12 +24,17 @@ const AddGalery = () => {
     e.preventDefault();
 
     try {
+      let imageUrl = foto;
+
+      if (foto) {
+        imageUrl = await uploadImageToS3(foto);
+      }
       const response = await axios.post(
         `${API_DUMMY_PYTHON}/api/admin/galery`,
         {
           judul: judul,
           deskripsi: deskripsi,
-          foto: foto.name,
+          foto: imageUrl,
         },
         {
           headers: {
