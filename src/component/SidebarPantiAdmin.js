@@ -66,88 +66,119 @@ function SidebarPantiAdmin({ toggleSidebar }) {
 
   const menuItems = [
     {
-      title: "Sambutan",
-      icon: "fa-solid fa-book-open",
-      path: "/admin_sambutan",
-      action: ["/add_sambutan", "/edit_sambutan"],
+      header: "Admin",
+      items: [
+        {
+          title: "Sambutan",
+          icon: "fa-solid fa-book-open",
+          path: "/admin_sambutan",
+          action: ["/add_sambutan", "/edit_sambutan"],
+        },
+        {
+          title: "Visi Misi",
+          icon: "fa-solid fa-list",
+          path: "/admin_visimisi",
+          action: ["/add_visimisi", "/edit_visimisi"],
+        },
+        {
+          title: "Kegiatan",
+          icon: "fas fa-calendar-alt",
+          path: "/admin_kegiatan",
+          action: ["/add_kegiatan", "/edit_kegiatan"],
+        },
+        {
+          title: "Postingan",
+          icon: "fa-solid fa-newspaper",
+          path: "/admin_postingan",
+          action: ["/add_postingan", "/edit_postingan"],
+        },
+        {
+          title: "Galeri",
+          icon: "fa-solid fa-images",
+          path: "/admin_galeri",
+          action: ["/add_galeri", "/edit_galeri"],
+        },
+        {
+          title: "Kontak",
+          icon: "fa-solid fa-id-card",
+          path: "/admin_kontak",
+          action: ["/add_kontak", "/edit_kontak"],
+        },
+      ],
     },
     {
-      title: "Visi Misi",
-      icon: "fa-solid fa-list",
-      path: "/admin_visimisi",
-      action: ["/add_visimisi", "/edit_visimisi", "/detail_visimisi"],
+      header: "Panti",
+      items: [
+        {
+          title: "Anak Asuh",
+          icon: "fa-solid fa-user",
+          path: "/admin_anak_asuh",
+          action: ["/add_anak_asuh", "/edit_anak_asuh"],
+        },
+        {
+          title: "Orang Tua Asuh",
+          icon: "fa-solid fa-user",
+          path: "/admin_ortu_asuh",
+          action: ["/add_ortu_asuh", "/edit_ortu_asuh"],
+        },
+      ],
     },
     {
-      title: "Anak Asuh",
-      icon: "fa-solid fa-user",
-      path: "/admin_anak_asuh",
-      action: ["/add_anak_asuh", "/edit_anak_asuh", "/detail_anak_asuh"],
+      header: "Presensi",
+      items: [
+        {
+          title: "Presensi",
+          icon: "fa-solid fa-list",
+          path: "/admin_absensi",
+          action: [],
+        },
+        {
+          title: "Laporan Presensi",
+          icon: "fa-solid fa-file",
+          path: "/laporan_presensi",
+          action: [],
+        },
+      ],
     },
     {
-      title: "Orang Tua Asuh",
-      icon: "fa-solid fa-user",
-      path: "/admin_ortu_asuh",
-      action: ["/add_ortu_asuh", "/edit_ortu_asuh", "/detail_ortu_asuh"],
+      header: "Buku Tamu",
+      items: [
+        {
+          title: "Buku Tamu",
+          icon: "fa-solid fa-book",
+          path: "/admin_buku_tamu",
+          action: ["/add_buku_tamu", "/edit_buku_tamu"],
+        },
+      ],
     },
     {
-      title: "Buku Tamu",
-      icon: "fa-solid fa-list",
-      path: "/admin_buku_tamu",
-      action: ["/add_buku_tamu", "/edit_buku_tamu", "/detail_buku_tamu"],
-    },
-    {
-      title: "Tahsin",
-      icon: "fa-solid fa-list",
-      path: "/admin_tahsin",
-      action: ["/edit_tahsin"],
-    },
-    {
-      title: "Presensi",
-      icon: "fa-solid fa-list",
-      path: "/admin_absensi",
-      action: [],
-    },
-    {
-      title: "Kegiatan",
-      icon: "fas fa-calendar-alt",
-      path: "/admin_kegiatan",
-      action: ["/add_kegiatan", "/edit_kegiatan", "/detail_kegiatan"],
-    },
-    {
-      title: "Galeri",
-      icon: "fa-solid fa-images",
-      path: "/admin_galeri",
-      action: ["/add_galeri", "/edit_galeri"],
-    },
-    {
-      title: "Kontak",
-      icon: "fa-solid fa-id-card",
-      path: "/admin_kontak",
-      action: ["/add_kontak", "/edit_kontak"],
-    },
-    // {
-    //   title: "Kotak Saran",
-    //   icon: "fas fa-comment-dots",
-    //   path: "/admin_kotak_saran",
-    //   action: ["/add_kotak_saran", "/edit_kotak_saran"],
-    // },
-    {
-      title: "Donasi",
-      icon: "fas fa-hand-holding-heart",
-      path: "/donasi",
-      action: ["/donasi/add", "/donasi/put"],
-    },
-    {
-      title: "Donasi TRX",
-      icon: "fas fa-hand-holding-heart",
-      path: "/donasi_trx",
-      action: ["/add_donasi_trx", "/edit_donasi_rtx"],
-    },
-    {
-      title: "Dana Keluar",
-      icon: "fas fa-minus",
-      path: "/admin_dana_keluar",
-      action: ["/add_dana_keluar", "/edit_dana_keluar"],
+      header: "Keuangan",
+      items: [
+        {
+          title: "Keuangan",
+          icon: "fa-solid fa-wallet",
+          path: "/admin_keuangan",
+          action: [],
+        },
+        {
+          title: "Donasi Masuk",
+          icon: "fas fa-hand-holding-heart",
+          path: "/donasi",
+          action: ["/donasi/add", "/donasi/put"],
+        },
+        {
+          title: "Dana Keluar",
+          icon: "fas fa-minus",
+          path: "/admin_dana_keluar",
+          action: ["/add_dana_keluar", "/edit_dana_keluar"],
+        },
+        {
+          title: "Laporan Keuangan",
+          icon: "fa-solid fa-file-invoice-dollar",
+          path: "/laporan_keuangan",
+          action: [],
+        },
+      ],
     },
   ];
 
@@ -176,12 +207,6 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       path: "/kondisi_barang_inventaris",
       action: ["/edit_kondisi_barang_inventaris"],
     },
-    // {
-    //   title: "Stok Barang",
-    //   icon: "fa-solid fa-list",
-    //   path: "/stok_barang_inventaris",
-    //   action: ["/edit_stok_barang_inventaris"],
-    // },
     {
       title: "Lokasi Barang",
       icon: "fa-solid fa-list",
@@ -189,6 +214,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       action: ["/edit_lokasi_barang_inventaris"],
     },
   ];
+
   useEffect(() => {
     console.log(
       "data: ",
@@ -210,24 +236,30 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           </div>
           <div className="sidebar-menu1">
             <ul>
-              <li className="header-menu1">
-                <span>Menu</span>
-              </li>{" "}
-              {menuItems.map((data, index) => (
-                <li key={index} ref={(el) => (menuRefs.current[index] = el)}>
-                  <NavLink to={data.path} style={{ background: "none" }}>
-                    <i
-                      className={`${data.icon} ${
-                        location.pathname === data.path ||
-                        data.action.includes(location.pathname)
-                          ? "active"
-                          : ""
-                      }`}
-                    ></i>
-
-                    <span>{data.title}</span>
-                  </NavLink>
-                </li>
+              {menuItems.map((menu, index) => (
+                <React.Fragment key={index}>
+                  <li className="header-menu1">
+                    <span>{menu.header}</span>
+                  </li>
+                  {menu.items.map((data, subIndex) => (
+                    <li
+                      key={subIndex}
+                      ref={(el) => (menuRefs.current[subIndex] = el)}
+                    >
+                      <NavLink to={data.path} style={{ background: "none" }}>
+                        <i
+                          className={`${data.icon} ${
+                            location.pathname === data.path ||
+                            data.action.includes(location.pathname)
+                              ? "active"
+                              : ""
+                          }`}
+                        ></i>
+                        <span>{data.title}</span>
+                      </NavLink>
+                    </li>
+                  ))}
+                </React.Fragment>
               ))}
               <li className="header-menu1">
                 <span>Inventaris</span>
@@ -246,7 +278,6 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                           : ""
                       }`}
                     ></i>
-
                     <span>{data.title}</span>
                   </NavLink>
                 </li>
