@@ -250,183 +250,183 @@ function App() {
             <Route path="/sidebar1" component={Sidebar1} exact />
             {/* page */}
             <Route path="/" component={Dashbaord} exact />
-            <Route
+            <PrivateRoute
               path="/admin_sambutan"
               component={DetailSAmbutanPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add_sambutan"
               component={AddSambutanPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit_sambutan/:id"
               component={EditSambutanPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/detail_sambutan/:id"
               component={DetailSAmbutanPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/admin_visimisi"
               component={DetailVisiPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add_visimisi"
               component={AddVisiMisiPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit_visimisi/:id"
               component={EditVisiMisiPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/detail_visimisi/:id"
               component={DetailVisiPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/admin_kegiatan"
               component={KegiatanPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add_kegiatan"
               component={AddKegiatanPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/admin_detail_kegiatan/:id"
               component={DetailKegiatanPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit_kegiatan/:id"
               component={EditKegiatanPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/admin_foto_kegiatan"
               component={FotoKegiatanPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add_foto_kegiatan"
               component={AddFotoKegiatanPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit_foto_kegiatan/:id"
               component={EditFotoKegiatanPanti}
               exact
             />
-            <Route path="/admin_galeri" component={Galery} exact />
-            <Route path="/add_galeri" component={AddGalery} exact />
-            <Route
+            <PrivateRoute path="/admin_galeri" component={Galery} exact />
+            <PrivateRoute path="/add_galeri" component={AddGalery} exact />
+            <PrivateRoute
               path="/edit_galeri/:id"
               component={EditGalery}
               exact
             />
-            <Route path="/admin_kontak" component={KontakPanti} exact />
-            <Route path="/add_kontak" component={AddKontakPanti} exact />
-            <Route
+            <PrivateRoute path="/admin_kontak" component={KontakPanti} exact />
+            <PrivateRoute path="/add_kontak" component={AddKontakPanti} exact />
+            <PrivateRoute
               path="/edit_kontak/:id"
               component={EditKontakPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/admin_kotak_saran"
               component={KotakMasukPanti}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/admin_buku_tamu"
               component={DataBukuTamu}
               exact
             />
-            <Route path="/add_buku_tamu" component={AddBukuTamu} exact />
-            <Route
+            <PrivateRoute path="/add_buku_tamu" component={AddBukuTamu} exact />
+            <PrivateRoute
               path="/edit_buku_tamu/:id"
               component={EditBukuTamu}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/admin_detail_buku_tamu/:id"
               component={DetailBukuTamu}
               exact
             />
-            <Route path="/admin_tahsin" component={DataTahsin} exact />
-            <Route path="/admin_iventaris" component={Iventaris} exact />
-            <Route path="/add_iventaris" component={AddInves} exact />
-            <Route
+            <PrivateRoute path="/admin_tahsin" component={DataTahsin} exact />
+            <PrivateRoute path="/admin_iventaris" component={Iventaris} exact />
+            <PrivateRoute path="/add_iventaris" component={AddInves} exact />
+            <PrivateRoute
               path="/edit_iventaris/:id"
               component={EditInves}
               exact
             />
-            <Route path="/admin_ortu_asuh" component={Dataortu} exact />
-            <Route path="/add_ortu_asuh" component={AddOrtu} exact />
-            <Route
+            <PrivateRoute path="/admin_ortu_asuh" component={Dataortu} exact />
+            <PrivateRoute path="/add_ortu_asuh" component={AddOrtu} exact />
+            <PrivateRoute
               path="/edit_ortu_asuh/:id"
               component={EditOrtu}
               exact
             />
-            <Route path="/admin_absensi" component={DataAbsensi} exact />
-            <Route
+            <PrivateRoute path="/admin_absensi" component={DataAbsensi} exact />
+            <PrivateRoute
               path="/siswa_absensi"
               component={DataAbsensiSiswa}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/siswa/data-absen"
               component={DataAbsen}
               exact
             />
-            <Route path="/anak_tahsin" component={TahsinAnak} exact />
-            <Route path="/add_anak_tahsin" component={AddTahsin} exact />
-            <Route
+            <PrivateRoute path="/anak_tahsin" component={TahsinAnak} exact />
+            <PrivateRoute path="/add_anak_tahsin" component={AddTahsin} exact />
+            <PrivateRoute
               path="/edit_anak_tahsin/:id"
               component={EditTahsin}
               exact
             />
-            <Route path="/admin_anak_asuh" component={DataAnak} exact />
-            <Route path="/add_anak_asuh" component={AddAnak} exact />
-            <Route path="/add_anak_asuh" component={AddAnak} exact />
-            <Route
+            <PrivateRoute path="/admin_anak_asuh" component={DataAnak} exact />
+            <PrivateRoute path="/add_anak_asuh" component={AddAnak} exact />
+            <PrivateRoute path="/add_anak_asuh" component={AddAnak} exact />
+            <PrivateRoute
               path="/edit_anak_asuh/:id"
               component={EditAnak}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/form_buku_tamu/:organization_id"
               component={FormBukuTamu}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/barang_inventaris"
               component={DataBarangInventaris}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/kategori_barang_inventaris"
               component={KategoriBarangInventaris}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/stok_barang_inventaris"
               component={StokBarangInventaris}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/status_barang_inventaris"
               component={StatusBarangInventaris}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit_status_barang_inventaris/:id"
               component={EditStatusBarang}
               exact
@@ -441,27 +441,27 @@ function App() {
               component={EditKondisiBarang}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/lokasi_barang_inventaris"
               component={LokasiBarangInventaris}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit_barang_inventaris/:id"
               component={EditBarangInventaris}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit_kategori_barang_inventaris/:id"
               component={EditKategoriBarang}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit_status_barang_inventaris/:id"
               component={EditKategoriBarang}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit_stok_barang_inventaris/:id"
               component={EditStokBarang}
               exact
@@ -490,14 +490,26 @@ function App() {
               exact
             />
             {/* SAPRAS */}
-            <Route path="/sarana-prasarana" component={Sarpras} exact />
-            <Route path="/ruang-kantor" component={RuangKantor} exact />
-            <Route path="/ruang-kelas" component={RuangKelas} exact />
-            <Route path="/ruang-lab" component={RuangLab} exact />
-            <Route path="/sarana-olahraga" component={SaranaOlahraga} exact />
-            <Route path="/sarana-ibadah" component={SaranaIbadah} exact />
-            <Route path="/sarana-kesehatan" component={SaranaKesehatan} exact />
-            <Route
+            <PrivateRoute path="/sarana-prasarana" component={Sarpras} exact />
+            <PrivateRoute path="/ruang-kantor" component={RuangKantor} exact />
+            <PrivateRoute path="/ruang-kelas" component={RuangKelas} exact />
+            <PrivateRoute path="/ruang-lab" component={RuangLab} exact />
+            <PrivateRoute
+              path="/sarana-olahraga"
+              component={SaranaOlahraga}
+              exact
+            />
+            <PrivateRoute
+              path="/sarana-ibadah"
+              component={SaranaIbadah}
+              exact
+            />
+            <PrivateRoute
+              path="/sarana-kesehatan"
+              component={SaranaKesehatan}
+              exact
+            />
+            <PrivateRoute
               path="/sarana-protokol-kesehatan"
               component={SaranaProtokolKesehatan}
               exact
@@ -506,264 +518,264 @@ function App() {
             {/* admin */}
             {/* admin smpn1bergas */}
             {/* guru */}
-            <Route path="/admin-guru" component={Guru} exact />
-            <Route path="/add-guru" component={AddGuru} exact />
-            <Route path="/edit-guru/:id" component={EditGuru} exact />
+            <PrivateRoute path="/admin-guru" component={Guru} exact />
+            <PrivateRoute path="/add-guru" component={AddGuru} exact />
+            <PrivateRoute path="/edit-guru/:id" component={EditGuru} exact />
             {/* end guru */}
             {/* alumni */}
-            <Route path="/admin-alumni" component={Alumni} exact />
-            <Route path="/add-alumni" component={AddAlumni} exact />
-            <Route
+            <PrivateRoute path="/admin-alumni" component={Alumni} exact />
+            <PrivateRoute path="/add-alumni" component={AddAlumni} exact />
+            <PrivateRoute
               path="/edit-alumni/:id"
               component={EditAlumni}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/detail-alumni/:id"
               component={DetailAlumniAdmin}
               exact
             />
             {/* edit alumni */}
             {/* kontak */}
-            <Route path="/admin-kontak" component={Kontak} exact />
-            <Route path="/add-kontak" component={AddKontak} exact />
-            <Route
+            <PrivateRoute path="/admin-kontak" component={Kontak} exact />
+            <PrivateRoute path="/add-kontak" component={AddKontak} exact />
+            <PrivateRoute
               path="/edit-kontak/:id"
               component={EditKontak}
               exact
             />
             {/* end kontak */}
             {/* sambutan */}
-            <Route
+            <PrivateRoute
               path="/admin-sambutan"
               component={DetailSambutan}
               exact
             />
-            <Route path="/add-sambutan" component={AddSambutan} exact />
-            <Route
+            <PrivateRoute path="/add-sambutan" component={AddSambutan} exact />
+            <PrivateRoute
               path="/edit-sambutan/:id"
               component={EditSambutan}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/detail-sambutan/:id"
               component={DetailSambutan}
               exact
             />
             {/* end sambutan */}
             {/* sejarah */}
-            <Route
+            <PrivateRoute
               path="/admin-sejarah"
               component={DetailSejarah}
               exact
             />
-            <Route path="/add-sejarah" component={AddSejarah} exact />
-            <Route
+            <PrivateRoute path="/add-sejarah" component={AddSejarah} exact />
+            <PrivateRoute
               path="/edit-sejarah/:id"
               component={EditSejarah}
               exact
             />
             {/* end Sejarah */}
             {/* tenaga kependidikan */}
-            <Route
+            <PrivateRoute
               path="/admin-tenaga-kependidikan"
               component={TenagaKenpendidikan}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add-tenaga-kependidikan"
               component={AddTenagaKependidikan}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-tenaga-kependidikan/:id"
               component={EditTenagaKependidikan}
               exact
             />
             {/* end tenaga kependidikan */}
             {/* VisiMisi */}
-            <Route path="/admin-visimisi" component={DetailVisi} exact />
-            <Route path="/add-visimisi" component={AddVisiMisi} exact />
-            <Route
+            <PrivateRoute path="/admin-visimisi" component={DetailVisi} exact />
+            <PrivateRoute path="/add-visimisi" component={AddVisiMisi} exact />
+            <PrivateRoute
               path="/edit-visimisi/:id"
               component={EditVisiMisi}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/detail-visimisi/:id"
               component={DetailVisi}
               exact
             />
             {/* end visimisi */}
-            <Route
+            <PrivateRoute
               path="/admin-tenaga-pendidikan"
               component={TenagaPendidikan}
               exact
             />
             {/* sarana */}
-            <Route path="/admin-sarana" component={Sarana} exact />
-            <Route path="/add-sarana" component={AddSarana} exact />
-            <Route
+            <PrivateRoute path="/admin-sarana" component={Sarana} exact />
+            <PrivateRoute path="/add-sarana" component={AddSarana} exact />
+            <PrivateRoute
               path="/edit-sarana/:id"
               component={EditSarana}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/detail-sarana/:id"
               component={DetailSarana}
               exact
             />
             {/* end sarana */}
             {/* kegiatan */}
-            <Route path="/admin-kegiatan" component={Kegiatan} exact />
-            <Route path="/add-kegiatan" component={AddKegiatan} exact />
-            <Route
+            <PrivateRoute path="/admin-kegiatan" component={Kegiatan} exact />
+            <PrivateRoute path="/add-kegiatan" component={AddKegiatan} exact />
+            <PrivateRoute
               path="/admin-detail-kegiatan/:id"
               component={DetailKegiatanAdmin}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-kegiatan/:id"
               component={EditKegiatan}
               exact
             />
             {/* end kegiatan */}
             {/* program */}
-            <Route path="/admin-program" component={Program} exact />
-            <Route path="/add-program" component={AddProgram} exact />
-            <Route
+            <PrivateRoute path="/admin-program" component={Program} exact />
+            <PrivateRoute path="/add-program" component={AddProgram} exact />
+            <PrivateRoute
               path="/detail-program/:id"
               component={DetailProgram}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-program/:id"
               component={EditProgram}
               exact
             />
             {/* end program */}
             {/* kategori program */}
-            <Route
+            <PrivateRoute
               path="/add-category-program"
               component={AddCategoryProgram}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-category-program/:id"
               component={EditCategoryProgram}
               exact
             />
             {/* end program */}
             {/* prestasi */}
-            <Route path="/admin-prestasi" component={Prestasi} exact />
-            <Route path="/add-prestasi" component={AddPrestasi} exact />
-            <Route
+            <PrivateRoute path="/admin-prestasi" component={Prestasi} exact />
+            <PrivateRoute path="/add-prestasi" component={AddPrestasi} exact />
+            <PrivateRoute
               path="/admin-detail-prestasi/:id"
               component={DetailPrestasiAdmin}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-prestasi/:id"
               component={EditPrestasi}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/detail-prestasi/:id"
               component={DetailPrestasiAdmin}
               exact
             />
             {/* end prestasi */}
             {/* struktur */}
-            <Route path="/admin-struktur" component={Struktur} exact />
-            <Route path="/add-struktur" component={AddStructur} exact />
-            <Route
+            <PrivateRoute path="/admin-struktur" component={Struktur} exact />
+            <PrivateRoute path="/add-struktur" component={AddStructur} exact />
+            <PrivateRoute
               path="/edit-struktur/:id"
               component={EditStruktur}
               exact
             />
             {/* end prestasi */}
             {/* foto-kegiatan */}
-            <Route
+            <PrivateRoute
               path="/admin-foto-kegiatan"
               component={FotoKegiatan}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add-foto-kegiatan"
               component={AddFotoKegiatan}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-foto-kegiatan/:id"
               component={EditFotoKegiatan}
               exact
             />
             {/* end foto sarana */}
             {/* foto-sarana */}
-            <Route
+            <PrivateRoute
               path="/admin-foto-sarana"
               component={FotoSarana}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add-foto-sarana"
               component={AddFotoSarana}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-foto-sarana/:id"
               component={EditFotoSarana}
               exact
             />
             {/* end foto kegiatan */}
             {/* catedory berita */}
-            <Route
+            <PrivateRoute
               path="/tambah-category-berita"
               component={AddCategory}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-category-berita/:id"
               component={EditCategory}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-category-berita/:id"
               component={EditCategory}
               exact
             />
             {/* end category berita */}
             {/* berita */}
-            <Route
+            <PrivateRoute
               path="/add-berita-admin"
               component={AddBeritaAdmin}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-berita-admin/:id"
               component={EditBeritaAdmin}
               exact
             />
-            <Route path="/admin-berita" component={AdminBerita} exact />
-            <Route
+            <PrivateRoute path="/admin-berita" component={AdminBerita} exact />
+            <PrivateRoute
               path="/detail/berita/:id"
               component={DetailBerita}
               exact
             />
             {/* end berita */}
             {/* galery */}
-            <Route path="/admin-galery" component={Galery} exact />
-            <Route path="/add-galery" component={AddGalery} exact />
-            <Route
+            <PrivateRoute path="/admin-galery" component={Galery} exact />
+            <PrivateRoute path="/add-galery" component={AddGalery} exact />
+            <PrivateRoute
               path="/edit-galery/:id"
               component={EditGalery}
               exact
             />
             {/* end galery */}
             {/* keuangan */}
-            <Route path="/admin-keuangan" component={Keuangan} exact />
-            <Route path="/add-keuangan" component={AddKeuangan} exact />
-            <Route
+            <PrivateRoute path="/admin-keuangan" component={Keuangan} exact />
+            <PrivateRoute path="/add-keuangan" component={AddKeuangan} exact />
+            <PrivateRoute
               path="/edit-keuangan/:id"
               component={EditKeuangan}
               exact
@@ -782,177 +794,241 @@ function App() {
           /> */}
             {/* end category keuangan */}
             {/* ekskul */}
-            <Route
+            <PrivateRoute
               path="/admin-ekstrakulikuler"
               component={Ekskul}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add-ekstrakulikuler"
               component={AddEkskul}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-ekstrakulikuler/:id"
               component={EditEkskul}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/detail-ekstrakurikuler/:id"
               component={DetailEkskul}
               exact
             />
             {/* end ekskul */}
             {/* kondisi sekolah */}
-            <Route
+            <PrivateRoute
               path="/admin-kondisi-sekolah"
               component={KondisiSekolah}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add-kondisi-sekolah"
               component={AddKondisiSekolah}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-kondisi-sekolah/:id"
               component={EditKondisiSekolah}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/detail-kondisi-sekolah/:id"
               component={DetailKondisiSekolah}
               exact
             />
             {/* end kondisi sekolah */}
             {/* perpus*/}
-            <Route
+            <PrivateRoute
               path="/admin-perpustakaan"
               component={AdminPerpus}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add-perpustakaan"
               component={AddPerpus}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-perpustakaan/:id"
               component={EditPerpus}
               exact
             />
             {/* end perpus*/} {/* materi ajar*/}
-            <Route
+            <PrivateRoute
               path="/admin-materi-ajar"
               component={MateriAjar}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/add-materi-ajar"
               component={AddMateriAjar}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-materi-ajar/:id"
               component={EditMateriAjar}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/detail-materi-ajar/:id"
               component={DetailMateriAjar}
               exact
             />
             {/* end materi ajar */}
             {/* osis*/}
-            <Route path="/admin-osis" component={AdminOsis} exact />
-            <Route path="/add-osis" component={AddOsis} exact />
-            <Route path="/edit-osis/:id" component={EditOsis} exact />
+            <PrivateRoute path="/admin-osis" component={AdminOsis} exact />
+            <PrivateRoute path="/add-osis" component={AddOsis} exact />
+            <PrivateRoute path="/edit-osis/:id" component={EditOsis} exact />
             {/* end osis */}
-            <Route
+            <PrivateRoute
               path="/kondisi-sekolah-view"
               component={KonsidisiSekolahView}
               exact
             />
-            <Route path="/admin-kotak-saran" component={KotakMasuk} exact />
+            <PrivateRoute
+              path="/admin-kotak-saran"
+              component={KotakMasuk}
+              exact
+            />
             {/* end admin smpn1bergas */}
-            <Route
+            <PrivateRoute
               path="/add-berita-admin"
               component={AddBeritaAdmin}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/edit-berita-admin/:id"
               component={EditBeritaAdmin}
               exact
             />
-            {/* <Route path="/admin-berita" component={AdminBerita} exact /> */}
+            {/* <PrivateRoute path="/admin-berita" component={AdminBerita} exact /> */}
             {/* KEUANGAN */}
-            <Route path="/keuangan-apbd" component={AllAPBD} exact />
-            <Route path="/detail-apbd-:id" component={DetailAPBD} exact />
-            <Route path="/keuangan-bos" component={AllBOS} exact />
-            <Route path="/detail-bos-:id" component={DetailBOS} exact />
-            <Route path="/keuangan-komite" component={AllKomite} exact />
-            <Route path="/detail-komite-:id" component={DetailKomite} exact />
+            <PrivateRoute path="/keuangan-apbd" component={AllAPBD} exact />
+            <PrivateRoute
+              path="/detail-apbd-:id"
+              component={DetailAPBD}
+              exact
+            />
+            <PrivateRoute path="/keuangan-bos" component={AllBOS} exact />
+            <PrivateRoute path="/detail-bos-:id" component={DetailBOS} exact />
+            <PrivateRoute path="/keuangan-komite" component={AllKomite} exact />
+            <PrivateRoute
+              path="/detail-komite-:id"
+              component={DetailKomite}
+              exact
+            />
             {/* PRESTASI */}
-            <Route
+            <PrivateRoute
               path="/detail-prestasi-:id"
               component={DetailPrestasi}
               exact
             />
-            <Route path="/detail-alumni-:id" component={DetailAlumni} exact />
-            <Route path="/all-alumni" component={AlumniAll} exact />
-            <Route path="/osis" component={Osis} exact />
+            <PrivateRoute
+              path="/detail-alumni-:id"
+              component={DetailAlumni}
+              exact
+            />
+            <PrivateRoute path="/all-alumni" component={AlumniAll} exact />
+            <PrivateRoute path="/osis" component={Osis} exact />
             {/* Berita */}
-            <Route path="/galery" component={GalerySekolah} exact />
-            {/* <Route path="/news" component={beritaNews} exact /> */}
-            <Route path="/detail-news-:id" component={DetailNews} exact />
-            <Route path="/info" component={Info} exact />
-            <Route path="/detail-info-:id" component={DetailInfo} exact />
-            <Route path="/agenda" component={agenda} exact />
-            <Route path="/detail-agenda-:id" component={DetailAgenda} exact />
-            <Route path="/perpustakaan" component={Perpustakaan} exact />
-            <Route path="/detail-buku-:id" component={DetailPerpus} exact />
+            <PrivateRoute path="/galery" component={GalerySekolah} exact />
+            {/* <PrivateRoute path="/news" component={beritaNews} exact /> */}
+            <PrivateRoute
+              path="/detail-news-:id"
+              component={DetailNews}
+              exact
+            />
+            <PrivateRoute path="/info" component={Info} exact />
+            <PrivateRoute
+              path="/detail-info-:id"
+              component={DetailInfo}
+              exact
+            />
+            <PrivateRoute path="/agenda" component={agenda} exact />
+            <PrivateRoute
+              path="/detail-agenda-:id"
+              component={DetailAgenda}
+              exact
+            />
+            <PrivateRoute path="/perpustakaan" component={Perpustakaan} exact />
+            <PrivateRoute
+              path="/detail-buku-:id"
+              component={DetailPerpus}
+              exact
+            />
             {/* Kondisi Sekolah */}
-            <Route
+            <PrivateRoute
               path="/kondisi-sekolah-view"
               component={KonsidisiSekolahView}
               exact
             />
-            <Route
+            <PrivateRoute
               path="/struktur-organisasi"
               component={StrukturOrganisasi}
               exact
             />
             {/* Iventaris */}
-            <Route path="/iventaris" component={Iventaris} exact />
-            <Route path="/add-iventaris" component={AddInves} exact />
-            <Route path="/edit-iventaris:id" component={EditInves} exact />
+            <PrivateRoute path="/iventaris" component={Iventaris} exact />
+            <PrivateRoute path="/add-iventaris" component={AddInves} exact />
+            <PrivateRoute
+              path="/edit-iventaris:id"
+              component={EditInves}
+              exact
+            />
             {/* Orangtua Asuh */}
-            <Route path="/data-ortu" component={Dataortu} exact />
-            <Route path="/add-ortu" component={AddOrtu} exact />
-            <Route path="/edit-ortu" component={EditOrtu} exact />
+            <PrivateRoute path="/data-ortu" component={Dataortu} exact />
+            <PrivateRoute path="/add-ortu" component={AddOrtu} exact />
+            <PrivateRoute path="/edit-ortu" component={EditOrtu} exact />
             {/* Absensi */}
-            <Route path="/absen-masuk" component={AbsenMasuk} exact />
-            <Route path="/absen-pulang" component={AbsenPulang} exact />
-            <Route path="/siswa/izin" component={Izin} exact />
+            <PrivateRoute path="/absen-masuk" component={AbsenMasuk} exact />
+            <PrivateRoute path="/absen-pulang" component={AbsenPulang} exact />
+            <PrivateRoute path="/siswa/izin" component={Izin} exact />
             {/* Donasi */}
             <PrivateRoute path="/donasi" component={Donasi} exact />
             <PrivateRoute path="/donasi/put/:id" component={EditDonasi} exact />
-            <PrivateRoute path="/donasi/detail/:id" component={DetailDonasi} exact />
+            <PrivateRoute
+              path="/donasi/detail/:id"
+              component={DetailDonasi}
+              exact
+            />
             <PrivateRoute path="/donasi/add" component={TambahDonasi} exact />
             <PrivateRoute path="/donasi_trx" component={DonasiTrx} exact />
             <Route path="/add_donasi_trx" component={TambahDonasiTrx} exact />
-            <PrivateRoute path="/edit_donasi_trx/:id" component={EditDonasiTrx} exact />
+            <PrivateRoute
+              path="/edit_donasi_trx/:id"
+              component={EditDonasiTrx}
+              exact
+            />
             <Route path="/donasi-umum" component={DonasiUmum} exact />
             <Route path="/donasi-preview/:id" component={PreviewDonasi} exact />
-            <Route path="/tambah-donasi-umum/:id" component={TambahDonasiUmum} exact />
+            <Route
+              path="/tambah-donasi-umum/:id"
+              component={TambahDonasiUmum}
+              exact
+            />
             {/* Panduan */}
             <Route path="/panduan-donasi" component={Panduan} exact />
             <Route path="/dana-masuk/:id" component={DanaMasuk} exact />
-            <PrivateRoute path="/admin_dana_keluar" component={AdminDanaKeluar} exact />
-            <PrivateRoute path="/admin_dana_keluar/add" component={AddDanaKeluar} exact />
-            <PrivateRoute path="/admin_dana_keluar/put/:id" component={EditDanaKeluar} exact />
-            <PrivateRoute path="/dashboard_panti" component={DashboardPanti} exact />
+            <PrivateRoute
+              path="/admin_dana_keluar"
+              component={AdminDanaKeluar}
+              exact
+            />
+            <PrivateRoute
+              path="/admin_dana_keluar/add"
+              component={AddDanaKeluar}
+              exact
+            />
+            <PrivateRoute
+              path="/admin_dana_keluar/put/:id"
+              component={EditDanaKeluar}
+              exact
+            />
+            <PrivateRoute
+              path="/dashboard_panti"
+              component={DashboardPanti}
+              exact
+            />
             <Route path="/news/:name" component={DetailBeritaPanti} exact />
           </Switch>
         </main>
