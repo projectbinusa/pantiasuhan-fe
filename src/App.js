@@ -215,6 +215,7 @@ import AddDanaKeluar from "./views/pages/admin/pantiasuhan/donasi/danakeluar/Add
 import EditDanaKeluar from "./views/pages/admin/pantiasuhan/donasi/danakeluar/EditDanaKeluar.js";
 import DashboardPanti from "./views/pages/admin/pantiasuhan/DashboardPanti.js";
 import DetailBeritaPanti from "./views/pages/admin/pantiasuhan/DetailBeritaPanti.js";
+import AdminBeritaPanti from "./views/pages/admin/pantiasuhan/berita/AdminBerita.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -291,12 +292,12 @@ function App() {
               exact
             />
             <PrivateRoute
-              path="/admin_kegiatan"
+              path="/admin_program"
               component={KegiatanPanti}
               exact
             />
             <PrivateRoute
-              path="/add_kegiatan"
+              path="/add_program"
               component={AddKegiatanPanti}
               exact
             />
@@ -306,7 +307,7 @@ function App() {
               exact
             />
             <PrivateRoute
-              path="/edit_kegiatan/:id"
+              path="/edit_program/:id"
               component={EditKegiatanPanti}
               exact
             />
@@ -999,15 +1000,15 @@ function App() {
               component={EditDonasiTrx}
               exact
             />
-            <Route path="/donasi-umum" component={DonasiUmum} exact />
-            <Route path="/donasi-preview/:id" component={PreviewDonasi} exact />
+            <Route path="/donasiumum" component={DonasiUmum} exact />
+            <Route path="/donasiumum/preview/:id" component={PreviewDonasi} exact />
             <Route
-              path="/tambah-donasi-umum/:id"
+              path="/donasiumum/add/:id"
               component={TambahDonasiUmum}
               exact
             />
             {/* Panduan */}
-            <Route path="/panduan-donasi" component={Panduan} exact />
+            <Route path="/donasiumum/panduan" component={Panduan} exact />
             <Route path="/dana-masuk/:id" component={DanaMasuk} exact />
             <PrivateRoute
               path="/admin_dana_keluar"
@@ -1030,6 +1031,7 @@ function App() {
               exact
             />
             <Route path="/news/:name" component={DetailBeritaPanti} exact />
+            <PrivateRoute path="/admin_berita" component={AdminBeritaPanti} exact />
           </Switch>
         </main>
         <LogPageView />

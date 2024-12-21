@@ -68,8 +68,6 @@ function EditKegiatanPanti() {
   const [penulis, setPenulis] = useState("");
   const [kategori, setKategori] = useState("");
   const [tanggal, setTanggal] = useState("");
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const history = useHistory();
   const param = useParams();
@@ -142,6 +140,7 @@ function EditKegiatanPanti() {
           tanggal: tanggal,
           category: kategori,
           foto: imageUrl,
+          organization_id: +localStorage.getItem("organization_id")
         },
         {
           headers: {
@@ -155,14 +154,14 @@ function EditKegiatanPanti() {
         setShow(false); // Hide modal atau reset form
         Swal.fire({
           icon: "success",
-          title: "Berhasil Mengedit Data Kegiatan",
+          title: "Berhasil Mengedit Data Program",
           showConfirmButton: false,
           timer: 1500,
         });
 
         // Redirect setelah berhasil
         setTimeout(() => {
-          history.push("/admin_kegiatan");
+          history.push("/admin_program");
         }, 1500);
       } else {
         // Handle respons lain dengan pesan error
@@ -325,9 +324,8 @@ function EditKegiatanPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -360,19 +358,19 @@ function EditKegiatanPanti() {
                   </div>
                   <div className="mb-3 col-lg-12">
                     <label className="form-label font-weight-bold">
-                      Nama Kegiatan
+                      Nama Program
                     </label>
                     <input
                       value={judul}
                       onChange={(e) => setJudul(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan Nama Kegiatan"
+                      placeholder="Masukkan Nama Program"
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
                     <label className="form-label  font-weight-bold ">
-                      Kategori Kegiatan
+                      Kategori Program
                     </label>
                     <select
                       value={kategori}
@@ -380,40 +378,51 @@ function EditKegiatanPanti() {
                       aria-label="Small select example"
                       onChange={(e) => setKategori(e.target.value)}
                     >
-                      <option selected>Pilih Kategori Kegiatan</option>
-                      <option value="Kegiatan Khusus">Kegiatan Khusus</option>
-                      <option value="Kegiatan Umum">Kegiatan Umum</option>
-                      <option value="Pemeliharaan">Pemeliharaan</option>
-                      <option value="Pengembangan">Pengembangan</option>
+                      <option selected>Pilih Kategori Program</option>
+                      <option value="Kegiatan Peduli Lingkungan">
+                        Program Peduli Lingkungan
+                      </option>
+                      <option value="Peduli Kebersihan">
+                        Peduli Kebersihan
+                      </option>
+                      <option value="Bersama Belajar">
+                        Bersama Belajar
+                      </option>
+                      <option value="Bersama Berkembang">
+                        Bersama Berkembang
+                      </option>
+                      <option value="Bersama Jadi Juara">
+                        Bersama Jadi Juara
+                      </option>
                     </select>
                   </div>
                   <div className="mb-3 col-lg-12">
                     <label className="form-label font-weight-bold">
-                      Penulis Kegiatan
+                      Penulis Program
                     </label>
                     <input
                       value={penulis}
                       onChange={(e) => setPenulis(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan Nama Penulis Kegiatan"
+                      placeholder="Masukkan Nama Penulis Program"
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
                     <label className="form-label font-weight-bold">
-                      Tanggal Kegiatan
+                      Tanggal Program
                     </label>
                     <input
                       value={tanggal}
                       onChange={(e) => setTanggal(e.target.value)}
                       type="date"
                       className="form-control"
-                      placeholder="Masukkan Tanggal Kegiatan Dimulai"
+                      placeholder="Masukkan Tanggal Program Dimulai"
                     />
                   </div>
                   <div className="col-lg-12">
                     <label className="form-label font-weight-bold">
-                      Isi Kegiatan
+                      Isi Program
                     </label>
                     <div className="">
                       <CKEditor
@@ -652,7 +661,7 @@ function EditKegiatanPanti() {
                 <button type="button" className="btn-danger mt-3">
                   <a
                     style={{ color: "white", textDecoration: "none" }}
-                    href="/admin_kegiatan"
+                    href="/admin_program"
                   >
                     Batal
                   </a>

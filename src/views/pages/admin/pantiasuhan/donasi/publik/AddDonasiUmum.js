@@ -9,26 +9,30 @@ function TambahDonasiUmum() {
   const [hp, setHp] = useState(0);
   const [addres, setAddres] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+  const [datas, setDatas] = useState(null);
 
   const history = useHistory();
   const param = useParams();
-  const [sidebarToggled, setSidebarToggled] = useState(true);
-
-  const toggleSidebar = () => {
-    setSidebarToggled(!sidebarToggled);
-  };
-
-  const handleResize = () => {
-    if (window.innerWidth < 800) {
-      setSidebarToggled(false);
-    }
-  };
-
   useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.byrtagihan.com/api/customer/donation/${param.id}`,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        const resp = response.data.data;
+        setDatas(resp)
+      } catch (error) {
+        console.error("Terjadi Kesalahan", error);
+      }
+    };
+
+    fetchData();
+  }, [param.id]);
 
   const add = async (e) => {
     e.preventDefault();
@@ -48,7 +52,7 @@ function TambahDonasiUmum() {
       );
       // setIsModalOpen(true); // Show modal on success
       setTimeout(() => {
-        history.push(`/panduan-donasi/${param.id}`);
+        history.push(`/donasiumum/panduan/${param.id}`);
       }, 1500);
     } catch (error) {
       console.log("Error details:", error); // Log the error
@@ -75,10 +79,17 @@ function TambahDonasiUmum() {
       <section className="body-donasi">
         <div className="container-donasi">
           <header className="header-back">
-            <h6>Tolong, Selamatkan Nyawa Balita Sakit Kronis!</h6>
+            <h6>{datas?.name}</h6>
           </header>
           <div className="header-donasi">
-            <img src="https://via.placeholder.com/500x200" alt="Gambar Header" />
+            <img src={datas?.url_image !== "" ? datas?.url_image : "https://via.placeholder.com/500x250"}
+              alt="Foto Donasi"
+              style={{
+                width: "100%",
+                height: "250px",
+                objectFit: "cover",
+              }}
+            />
           </div>
           <div className="content-donasi">
             <div className="row">
@@ -121,7 +132,7 @@ function TambahDonasiUmum() {
           {/* <button type="button" className="btn-danger mt-3 mr-3">
             <a
               style={{ color: "white", textDecoration: "none" }}
-              href="/donasi-umum"
+              href="/donasiumum"
             >
               Batal
             </a>
@@ -322,7 +333,7 @@ function TambahDonasiUmum() {
     //                   <button type="button" className="btn-danger mt-3 mr-3">
     //                     <a
     //                       style={{ color: "white", textDecoration: "none" }}
-    //                       href="/donasi-umum"
+    //                       href="/donasiumum"
     //                     >
     //                       Batal
     //                     </a>

@@ -134,7 +134,7 @@ function Panduan() {
             <p className="thanks">Terima kasih atas donasi Anda! Dukungan Anda sangat berarti dan akan membawa perubahan positif bagi mereka yang membutuhkan. ❤️🙏</p>
           </div>
           <div className="fixed-donate-buttons">
-            <button type="button" className="btn-primary mt-3" onClick={() => window.location.href = `/donasi-umum`}>Kembali
+            <button type="button" className="btn-primary mt-3" onClick={() => window.location.href = `/donasi_umum`}>Kembali
             </button>
           </div>
         </div>

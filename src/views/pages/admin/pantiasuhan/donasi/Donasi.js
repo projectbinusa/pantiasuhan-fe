@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
