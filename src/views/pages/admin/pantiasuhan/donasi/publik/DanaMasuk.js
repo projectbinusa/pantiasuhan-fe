@@ -42,7 +42,7 @@ function DanaMasuk() {
             </div>
           </div>
           <div className="fixed-donate-buttons">
-            <button type="button" className="btn-primary" onClick={() => window.location.href = `/donasi-umum`}>Kembali
+            <button type="button" className="btn-primary" onClick={() => window.location.href = `/donasi_umum`}>Kembali
             </button>
           </div>
         </div>

@@ -39,7 +39,7 @@ function Login() {
           localStorage.setItem("organization_id", response.data.data.organization_id);          
 
           // Arahkan ke halaman admin_sambutan
-          history.push("/admin_sambutan");
+          history.push("/dashboard_panti");
         });
       }
     } catch (error) {

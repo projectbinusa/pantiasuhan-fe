@@ -64,11 +64,15 @@ function PreviewDonasi() {
         <div className="container-donasi">
           <div className="header-donasi">
             <header className="header-back">
-              <a href="/donasi-umum">
+              <a href="/donasiumum">
                 <i class="fas fa-arrow-left"></i>
               </a>
             </header>
-            <img src="https://via.placeholder.com/500x250" alt="Gambar Header" />
+            <img src={datas?.url_image !== "" ? datas?.url_image : "https://via.placeholder.com/500x250"} style={{
+              width: "100%",
+              height: "250px",
+              objectFit: "cover",
+            }} alt="Gambar Header" />
           </div>
           <div className="content-donasi">
             <h2>{datas?.name}</h2>
@@ -132,7 +136,7 @@ function PreviewDonasi() {
 
         {/* Fixed Donate Button */}
         <div className="fixed-donate-buttons">
-          <button className="donate-automatic" onClick={() => window.location.href = `/tambah-donasi-umum/${datas?.id}`}>Donasi Sekarang!</button>
+          <button className="donate-automatic" onClick={() => window.location.href = `/donasiumum/add/${datas?.id}`}>Donasi Sekarang!</button>
         </div>
       </section>
       <style>
