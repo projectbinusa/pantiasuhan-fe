@@ -6,7 +6,7 @@ import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import axios from "axios";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { API_DUMMY } from "../../../../utils/base_URL";
-import keuangan from "../../../../aset/smpn1bergas/Coins-rafiki.png"
+// import keuangan from "../../../../aset/smpn1bergas/Coins-rafiki.png"
 
 function DetailBOS() {
     const [judul, setJudul] = useState("");
@@ -56,7 +56,7 @@ function DetailBOS() {
                     </>
                 ) : (
                     <>
-                        <img src={keuangan} />
+                        <img src={''} />
                     </>
                 )}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "2rem" }}>

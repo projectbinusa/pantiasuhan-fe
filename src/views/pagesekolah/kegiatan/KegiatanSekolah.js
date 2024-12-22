@@ -5,7 +5,7 @@ import axios from "axios";
 import { API_DUMMY } from "../../../utils/base_URL";
 import { Pagination } from "@mui/material";
 import "../../../css/alumni/KegiatanSekolah.css";
-import kegiatanP from "../../../aset/smpn1bergas/kegiatan.png";
+// import kegiatanP from "../../../aset/smpn1bergas/kegiatan.png";
 
 function KegiatanSekolah() {
   const [kegiatan, setKegiatan] = useState([]);
@@ -208,7 +208,7 @@ function KegiatanSekolah() {
                   .map((item, index) => (
                     <div key={index} className="card-berita">
                       <img
-                        src={item.foto !== null ? item.foto : kegiatanP}
+                        src={item.foto !== null ? item.foto : ""}
                         alt={item.judul}
                         className="cardImage"
                       />

@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import keuangan from "../../../../../../aset/smpn1bergas/Coins-rafiki.png"
+// import keuangan from "../../../../../../aset/smpn1bergas/Coins-rafiki.png"
 
 import {
   IconButton,
@@ -267,7 +267,7 @@ function Keuangan() {
                           </td>
                           <td data-label="Image" className="">
                             <img
-                              src={berita.fotoJudul ? berita.fotoJudul : keuangan}
+                              src={berita.fotoJudul ? berita.fotoJudul : ""}
                               style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
                             />
                           </td>

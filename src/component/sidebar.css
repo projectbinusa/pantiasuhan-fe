@@ -328,7 +328,7 @@ body {
   width: 100%;
   bottom: 0;
   display: flex;
-  background: red;
+  background: #f43c3c;
 }
 
 .sidebar-footer>a {

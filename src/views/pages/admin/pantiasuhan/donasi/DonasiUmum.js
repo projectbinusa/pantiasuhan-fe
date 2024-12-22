@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import NavbarSekolah from "../../../../../component/NavbarSekolah";
 import image1 from "../../../../../aset/images.png";
+import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -33,7 +34,7 @@ function DonasiUmum() {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `https://api.byrtagihan.com/api/public/donation?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART_DEV}/api/public/donation?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -46,7 +47,7 @@ function DonasiUmum() {
       if (data && pagination) {
         setList((prevList) => [...data]); // Gabungkan data lama dengan yang baru
         // setList((prevList) => [...data, ...prevList]); // Gabungkan data lama dengan yang baru
-        setHasMore(currentPage < pagination.total_page); // Periksa apakah masih ada halaman berikutnya        
+        setHasMore(currentPage < pagination.total_page); // Periksa apakah masih ada halaman berikutnya
       } else {
         console.error("Data atau pagination tidak ditemukan dalam response.");
         setHasMore(false);
@@ -65,7 +66,7 @@ function DonasiUmum() {
 
   console.log(list);
   console.log(hasMore);
-  
+
 
   const handleScroll = () => {
     if (
@@ -99,7 +100,7 @@ function DonasiUmum() {
   // const getAll = async () => {
   //   try {
   //     const response = await axios.get(
-  //       `https://api.byrtagihan.com/api/public/donation?page=${currentPage}&limit=${rowsPerPage}`,
+  //       `${API_DUMMY_SMART_DEV}/api/public/donation?page=${currentPage}&limit=${rowsPerPage}`,
   //       {
   //         headers: {
   //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

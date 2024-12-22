@@ -53,12 +53,14 @@ function DetailBeritaPantiAdmin() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
       }`}>
       <a
         id="show-sidebar"
@@ -68,7 +70,9 @@ function DetailBeritaPantiAdmin() {
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
-      <div style={{ marginTop: "10px" }} className="page-content1 mt-3 mb-3 app-main__outer">
+      <div
+        style={{ marginTop: "10px" }}
+        className="page-content1 mt-3 mb-3 app-main__outer">
         <div className="container box-tabel">
           <div className="card shadow w-100">
             <h1 className="title card-header fw-bold fs-3">Detail</h1>
@@ -88,17 +92,54 @@ function DetailBeritaPantiAdmin() {
               )}
               <br />
               <br />
-              <h3>{judulBerita}</h3>
-              <p>{categoryBerita}</p>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <p>{author}</p>
-                <p>{createdDate}</p>
-              </div> <br />
-              <div dangerouslySetInnerHTML={{ __html: isiBerita }} />
+              <div className="row">
+                <div className="mb-3 col-lg-12">
+                  <label className="form-label font-weight-bold">
+                    Judul Berita
+                  </label>
+                  <input
+                    value={judulBerita}
+                    disabled
+                    type="text"
+                    className="form-control"
+                    placeholder="Masukkan Judul Berita"
+                  />
+                </div>
+                <div className="mb-3 col-lg-12">
+                  <label className="form-label font-weight-bold">
+                    Kategori Berita
+                  </label>
+                  <input
+                    value={categoryBerita}
+                    type="text"
+                    disabled
+                    className="form-control"
+                    placeholder="Masukkan Kategori Berita"
+                  />
+                </div>
+                <div className="mb-3 col-lg-12">
+                  <label
+                    for="exampleInputEmail1"
+                    className="form-label  font-weight-bold ">
+                    Penulis Berita
+                  </label>
+                  <input
+                    value={author}
+                    disabled
+                    type="disabled"
+                    className="form-control"
+                    placeholder="Masukkan Penulis Berita"
+                  />
+                </div>
+                <div className="mb-3 col-lg-12">
+                  <label className="form-label font-weight-bold">
+                    Isi Berita
+                  </label>
+                  <div style={{background:"#E9EFEC", borderRadius:"8px", padding:"4px", paddingLeft:"5px"}} dangerouslySetInnerHTML={{ __html: isiBerita }} />
+                </div>
+              </div>
             </div>
-            <button
-              type="button"
-              className="btn-kembali btn-danger mt-3 px-0">
+            <button type="button" className="btn-kembali btn-danger mt-3 px-0">
               <a
                 href="/admin_berita"
                 style={{ color: "white", textDecoration: "none" }}>

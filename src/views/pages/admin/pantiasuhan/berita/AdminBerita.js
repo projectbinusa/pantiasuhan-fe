@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import news from "../../../../../aset/smpn1bergas/News-rafiki.png";
+// import news from "../../../../../aset/smpn1bergas/News-rafiki.png";
 
 import { Pagination } from "@mui/material";
 import Sidebar1 from "../../../../../component/Sidebar1";
@@ -234,7 +234,7 @@ function AdminBeritaPanti() {
                           </td>
                           <td data-label="Thumbnail">
                             <img
-                              src={berita.image ? berita.image : news}
+                              src={berita.image ? berita.image : ""}
                               style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
                             />
                           </td>

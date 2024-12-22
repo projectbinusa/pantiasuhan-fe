@@ -1,14 +1,36 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { API_DUMMY } from "../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON } from "../utils/base_URL";
 import "../css/gabung.css";
+import "../css/style.css";
+import logo from "../aset/pantiasuhan/logo.png";
 
 function Navbar() {
   const [isSticky, setIsSticky] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [submenuOpen, setSubmenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
+  const getAllKontakPanti = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/kontak`);
+      console.log("kontak panti: ", response.data.data);
+
+      // Mengatur state dari data API
+      if (response.data.data.length > 0) {
+        const data = response.data.data[0];
+        setAddress(data.address);
+        setPhone(data.phone);
+        setEmail(data.email);
+      }
+    } catch (error) {
+      console.error("Error saat mendapatkan kontak panti:", error);
+    }
+  };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -73,21 +95,44 @@ function Navbar() {
   //     console.error("Terjadi Kesalahan", error);
   //   }
   // };
-  // useEffect(() => {
-  //   getInformasi();
-  //   getRegulasi();
-  // }, []);
+  useEffect(() => {
+    getAllKontakPanti();
+  }, []);
+
   return (
     // <!-- navbar start -->
     <>
-      <div className="navbar-top style-2">
+      <div className="navbar-top style-2 d-lg-flex d-none">
         <div className="container">
           <div className="row">
-            <div className="col-lg-3 d-lg-inline-block d-none">
-              <div className="logo1">
+            {/* <div class="col-sm-6">
+              <ul class="topbar-right text-md-start text-center">
+                <li class="d-inline-block d-lg-none">
+                  <p>
+                    <i class="far fa-clock"></i> Opening Hour 9:00am - 10:00pm
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <i class="far fa-envelope"></i>{" "}
+                    <a
+                      href="/cdn-cgi/l/email-protection"
+                      class="__cf_email__"
+                      data-cfemail="80e5f8e1edc0e7ede1e9ecaee3efed">
+                      [email&#160;protected]
+                    </a>
+                  </p>
+                </li>
+              </ul>
+            </div> */}
+            <div className="col-lg-3">
+              <div className="box-logo">
                 <a href="/">
-                  <img src="https://boyolali.bawaslu.go.id/sites/boyolali/files/bawaslu_logo.png" />
+                  <img className="logo1" src={logo} />
                 </a>
+                <p>
+                  Pantiasuhan <br /> Muhammadiyah
+                </p>
               </div>
             </div>
             <div className="col-lg-3 col-md-5 align-self-center">
@@ -97,7 +142,7 @@ function Navbar() {
                 </div>
                 <div className="media-body">
                   <h6>Telephone</h6>
-                  <p>(0276) 320420</p>
+                  <p>{phone}</p>
                 </div>
               </div>
             </div>
@@ -109,9 +154,9 @@ function Navbar() {
                 <div className="media-body">
                   <h6>Email</h6>
                   <p>
-                    <a href="mailto:set.boyolali@bawaslu.go.id">
-                      set.boyolali@bawaslu.go.id
-                    </a>
+                    <p>
+                      {email}
+                    </p>
                   </p>
                 </div>
               </div>
@@ -165,6 +210,29 @@ function Navbar() {
         className={`navbar-area navbar-area-2 navbar-expand-lg ${
           isSticky ? "sticky-active" : ""
         }`}>
+        <div
+          className="d-inline-block d-lg-none"
+          style={{
+            background: "#0d2f74",
+            fontWeight: "bold",
+            color: "white",
+            overflow: "hidden",
+            position: "relative",
+            whiteSpace: "nowrap",
+          }}>
+          <div
+            style={{
+              display: "inline-block",
+              whiteSpace: "nowrap",
+              animation: "marquee 20s linear infinite",
+            }}>
+            <span style={{ fontSize: "20px" }}>
+              "Pendidikan adalah jembatan menuju masa depan yang lebih cerah,
+              tempat harapan tumbuh, dan setiap anak menemukan kekuatan untuk
+              meraih mimpinya."
+            </span>
+          </div>
+        </div>
         <div className="container nav-container m-0">
           <div className="responsive-mobile-menu">
             <button
@@ -181,9 +249,20 @@ function Navbar() {
           </div>
 
           <div className="d-inline-block d-lg-none">
-            <a href="/">
-              <img src="https://boyolali.bawaslu.go.id/sites/boyolali/files/bawaslu_logo.png" />
-            </a>
+            <div
+              className="d-flex"
+              style={{
+                justifyContent: "center",
+                justifyItems: "center",
+                gap: "5px",
+              }}>
+              <a href="/">
+                <img style={{ width: "50px" }} src={logo} />
+              </a>
+              <p style={{ fontSize: "15px", fontWeight: "bold  " }}>
+                PantiAsuhan <br /> Muhammadiyah
+              </p>
+            </div>
           </div>
           <div
             style={{
@@ -200,21 +279,66 @@ function Navbar() {
                 display: "flex",
               }}>
               <li className="">
-                <a href="/" style={{paddingLeft:"15px"}}>Home</a>
+                <a href="/" style={{ paddingLeft: "15px" }}>
+                  Home
+                </a>
               </li>
               <li className="">
-                <a href="/profil" style={{paddingLeft:"15px"}}>Profile</a>
+                <a href="#visi-misi" style={{ paddingLeft: "15px" }}>
+                  Visi Misi
+                </a>
               </li>
               <li className="">
-                <a href="/berita" style={{paddingLeft:"15px"}}>Berita</a>
+                <a href="#program" style={{ paddingLeft: "15px" }}>
+                  Program
+                </a>
               </li>
               <li className="">
-                <a href="/library" style={{paddingLeft:"15px"}}>E-Library</a>
+                <a href="#berita" style={{ paddingLeft: "15px" }}>
+                  Berita
+                </a>
               </li>
               <li className="">
-                <a href="/pengumuman" style={{paddingLeft:"15px"}}>Pengumuman</a>
+                <a href="#santri" style={{ paddingLeft: "15px" }}>
+                  Santri
+                </a>
               </li>
-              <li className="menu-item-has-children">
+              <li className="">
+                <a href="/form_buku_tamu/35" style={{ paddingLeft: "15px" }}>
+                  Buku Tamu
+                </a>
+              </li>
+              <li className="">
+                <a href="/donasiumum" style={{ paddingLeft: "15px" }}>
+                  Donasi
+                </a>
+              </li>
+              <li
+                className="d-lg-flex d-none"
+                style={{
+                  background: "#95D2B3",
+                  borderTopLeftRadius: "60px",
+                  borderBottomLeftRadius: "60px",
+                  fontWeight: "bold",
+                  color: "#0d2f74",
+                  overflow: "hidden",
+                  position: "relative",
+                  whiteSpace: "nowrap",
+                }}>
+                <div
+                  style={{
+                    display: "inline-block",
+                    whiteSpace: "nowrap",
+                    animation: "marquee 20s linear infinite",
+                  }}>
+                  <span>
+                    "Pendidikan adalah jembatan menuju masa depan yang lebih
+                    cerah, tempat harapan tumbuh, dan setiap anak menemukan
+                    kekuatan untuk meraih mimpinya."
+                  </span>
+                </div>
+              </li>
+              {/* <li className="menu-item-has-children">
                 <a
                   href="#submenu"
                   data-bs-toggle="collapse"
@@ -340,8 +464,7 @@ function Navbar() {
                     </a>
                   </li>
                 </ul>
-              </li>
-              {/* <li><a href="contact.html">Contact Us</a></li> */}
+              </li> */}
             </ul>
           </div>
         </div>

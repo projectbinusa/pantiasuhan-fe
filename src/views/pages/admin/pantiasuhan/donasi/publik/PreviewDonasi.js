@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { API_DUMMY_SMART_DEV } from "../../../../../../utils/base_URL";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -30,7 +31,7 @@ function PreviewDonasi() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://api.byrtagihan.com/api/customer/donation/${param.id}`,
+          `${API_DUMMY_SMART_DEV}/api/customer/donation/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -93,7 +94,7 @@ function PreviewDonasi() {
                 Akses terhadap layanan kesehatan masih terbatas, dan banyak keluarga tidak memiliki dana untuk
                 pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka.
                 Akses terhadap layanan kesehatan masih terbatas, dan banyak keluarga tidak memiliki dana untuk
-                pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka. 
+                pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka.
               </p> */}
               <button className="lihat-selengkapnya" onClick={toggleStory}>
                 {showFullStory ? "Lihat Lebih Sedikit" : "Lihat Selengkapnya"}
@@ -229,7 +230,7 @@ function PreviewDonasi() {
           font-family: "Poppins", sans-serif;
         }
 
-        .story-section h3, 
+        .story-section h3,
         .dana-masuk h3 {
           font-size: 16px;
           color: #444;
@@ -296,7 +297,7 @@ font-family: "Poppins", sans-serif;
           cursor: pointer;
           font-family: "Poppins", sans-serif;
         }
-          
+
         .lihat-selengkapnya:hover{
         background-color: transparent;
           color: #005b9f;

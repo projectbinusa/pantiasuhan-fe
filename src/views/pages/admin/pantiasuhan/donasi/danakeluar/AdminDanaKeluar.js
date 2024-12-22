@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON, API_DUMMY_SMART_DEV } from "../../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -36,7 +36,7 @@ function AdminDanaKeluar() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `https://api.byrtagihan.com/api/customer/donation_trx?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -74,7 +74,7 @@ function AdminDanaKeluar() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://api.byrtagihan.com/api/customer/donation_trx/${id}`, {
+          .delete(`${API_DUMMY_SMART_DEV}/api/customer/donation_trx/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

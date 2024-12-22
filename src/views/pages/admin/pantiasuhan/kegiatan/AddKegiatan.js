@@ -333,7 +333,7 @@ function AddKegiatanPanti() {
                             onChange={(e) => setKategori(e.target.value)}
                           >
                             <option selected>Pilih Kategori Program</option>
-                            <option value="Kegiatan Peduli Lingkungan">
+                            <option value="Program Peduli Lingkungan">
                               Program Peduli Lingkungan
                             </option>
                             <option value="Peduli Kebersihan">

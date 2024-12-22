@@ -198,7 +198,7 @@ function EditGalery() {
                 </div>
                 <button type="button" className="btn-danger mt-3 mr-3">
                   <a
-                    href="/admin-galery"
+                    href="/admin_galeri"
                     style={{ color: "white", textDecoration: "none" }}
                   >
                     Batal
