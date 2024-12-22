@@ -60,10 +60,15 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
+import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
 
 function EditDonasi() {
   const [nama, setNama] = useState("");
+  const [income, setIncome] = useState("");
+  const [outcome, setOutcome] = useState("");
+  const [domain, setDomain] = useState("");
+  const [image, setImage] = useState(null);
   const [deskripsi, setDeskripsi] = useState("");
   const history = useHistory();
   const param = useParams();
@@ -83,7 +88,7 @@ function EditDonasi() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://api.byrtagihan.com/api/customer/donation/${param.id}`,
+          `${API_DUMMY_SMART_DEV}/api/customer/donation/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -94,7 +99,11 @@ function EditDonasi() {
         console.log(resp);
 
         setNama(resp.name);
+        setDomain(resp.domain);
+        setIncome(resp.total_income);
+        setOutcome(resp.total_outcome);
         setDeskripsi(resp.description);
+        setImage(resp.url_image);
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -114,20 +123,29 @@ function EditDonasi() {
   const put = async (e) => {
     e.preventDefault();
     e.persist();
+    let imageUrl = image;
+
+    if (image) {
+      imageUrl = await uploadImageToS3(image);
+    }
     const data = {
       name: nama,
+      url_image: imageUrl,
       description: deskripsi,
-      id: +param.id,
-      organization_id: +localStorage.getItem("organization_id"),
-      active: 1
-    }
+      total_outcome: outcome,
+      total_income: income,
+      domain: domain,
+      // id: +param.id,
+      // organization_id: +localStorage.getItem("organization_id"),
+      // active: 1,
+    };
 
     console.log(data);
-    
 
     try {
       await axios.put(
-        `https://api.byrtagihan.com/api/customer/donation/${param.id}`, data,
+        `${API_DUMMY_SMART_DEV}/api/customer/donation/${param.id}`,
+        data,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -289,15 +307,14 @@ function EditDonasi() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -320,6 +337,52 @@ function EditDonasi() {
                             value={nama}
                             onChange={(e) => setNama(e.target.value)}
                             placeholder="Masukkan Nama"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Total Income
+                          </label>
+                          <input
+                            type="number"
+                            value={income}
+                            onChange={(e) => setIncome(e.target.value)}
+                            placeholder="Masukkan Total Income"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Total Outcome
+                          </label>
+                          <input
+                            type="number"
+                            value={outcome}
+                            onChange={(e) => setOutcome(e.target.value)}
+                            placeholder="Masukkan Total Outcome"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Domain
+                          </label>
+                          <input
+                            type="text"
+                            value={domain}
+                            onChange={(e) => setDomain(e.target.value)}
+                            placeholder="Masukkan domain"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Gambar
+                          </label>
+                          <input
+                            type="file"
+                            onChange={(e) => setImage(e.target.files[0])}
                             className="form-control"
                           />
                         </div>
@@ -571,8 +634,7 @@ function EditDonasi() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/donasi"
-                        >
+                          href="/donasi">
                           Batal
                         </a>
                       </button>

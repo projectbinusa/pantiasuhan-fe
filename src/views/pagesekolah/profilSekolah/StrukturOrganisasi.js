@@ -5,7 +5,7 @@ import { API_DUMMY } from "../../../utils/base_URL";
 import axios from "axios";
 import NavbarSekolah2 from "../../../component/NavbarSekolah2";
 import bg from "../../../aset/bg-img.webp";
-import excelstruktur from "../../../aset/smpn1bergas/STRUKTUR_ORG_SMP_NEGERI_1_BERGAS_2023.xlsx";
+// import excelstruktur from "../../../aset/smpn1bergas/STRUKTUR_ORG_SMP_NEGERI_1_BERGAS_2023.xlsx";
 import Aos from "aos";
 
 function StrukturOrganisasi() {
@@ -38,7 +38,7 @@ function StrukturOrganisasi() {
 
   const download = () => {
     const link = document.createElement("a");
-    link.href = excelstruktur;
+    link.href = "";
     link.download = "STRUKTUR_ORG_SMP_NEGERI_1_BERGAS_2023.xlsx";
     document.body.appendChild(link);
     link.click();

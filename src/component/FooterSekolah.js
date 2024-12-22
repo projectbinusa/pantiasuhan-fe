@@ -3,6 +3,7 @@ import "../css/gabung.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_DUMMY, API_DUMMY_PYTHON } from "../utils/base_URL";
+import { Grid, Typography } from "@mui/material";
 
 function FooterSekolah() {
   const [berita, setBerita] = useState([]);
@@ -124,37 +125,35 @@ function FooterSekolah() {
         className="footer-area bg-cover"
         style={{
           backgroundImage: `url('https://www.solverwp.com/demo/html/itechie/assets/img/bg/2.webp')`,
-        }}
-      >
+        }}>
         <div className="footer-menu container">
-          <div style={{ width: "100%" }}>
-            <div className="widget widget_about">
-              <h4
-                className="widget-title"
-                style={{ textTransform: "uppercase" }}
-              >
-                Pantinya Sang Juara
-              </h4>
-              <div className="details">
-                <p style={{ fontSize: "14px", textAlign: "justify" }}>
-                  {/* <div
+          <Grid spacing={3} container>
+            <Grid item xs={12} md={6}>
+              <div className="widget widget_about">
+                <h4
+                  className="widget-title"
+                  style={{ textTransform: "uppercase" }}>
+                  Pantinya Sang Juara
+                </h4>
+                <div className="details">
+                  <p style={{ fontSize: "14px", textAlign: "justify" }}>
+                    {/* <div
                     dangerouslySetInnerHTML={{
                       __html:
                         "Mewujudkan cita-cita Muhammadiyah yakni menjunjung tinggi agama Islam yang berakidah tauhid, bersumber kepada Al-Qur'an dan sunnah Rasulullah SAW sehingga terwujud masyarakat Islam yang sebenar-benarnya, melalui pendidikan dan pembinaan anak asuh sehingga terwujud generasi yang beriman, berakhlak mulia, berilmu, dan mandiri.",
                     }}
                   /> */}
-                  <div
-                    dangerouslySetInnerHTML={{ __html: visiPanti?.visi }}
-                  />
-                </p>
-                <ul className="social-media d-none d-md-none d-lg-flex gap-2 mb-4">
+                    <div
+                      dangerouslySetInnerHTML={{ __html: visiPanti?.visi }}
+                    />
+                  </p>
+                  {/* <ul className="social-media d-none d-md-none d-lg-flex gap-2 mb-4">
                   <li>
                     <a
                       className="facebook"
                       href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
                       target="_blank"
-                      rel="noreferrer"
-                    >
+                      rel="noreferrer">
                       <i className="fab fa-facebook-f"></i>
                     </a>
                   </li>
@@ -163,8 +162,7 @@ function FooterSekolah() {
                       className="instagram"
                       href="https://www.instagram.com/osisspensagas"
                       target="_blank"
-                      rel="noreferrer"
-                    >
+                      rel="noreferrer">
                       <i className="fab fa-instagram"></i>
                     </a>
                   </li>
@@ -173,21 +171,85 @@ function FooterSekolah() {
                       className="youtube"
                       href="https://www.youtube.com/@OSIS-SMPN1Bergas"
                       target="_blank"
-                      rel="noreferrer"
-                    >
+                      rel="noreferrer">
                       <i className="fab fa-youtube"></i>
                     </a>
                   </li>
+                </ul> */}
+                </div>
+              </div>
+              <div class="widget widget_nav_menu">
+                <h4 class="widget-title">Menu</h4>
+                <ul className="text-white">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                      <li>
+                        <a className="text-white" href="/">
+                          Home
+                        </a>
+                      </li>
+                      <li>
+                        <a className="text-white" href="#visi-misi">
+                          Visi Misi{" "}
+                        </a>
+                      </li>
+                      <li>
+                        <a className="text-white" href="#program">
+                          Program
+                        </a>
+                      </li>
+                      <li>
+                        <a className="text-white" href="#berita">
+                          Berita
+                        </a>
+                      </li>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                      <li>
+                        <a className="text-white" href="#santri">
+                          Santri
+                        </a>
+                      </li>
+                      <li>
+                        <a className="text-white" href="/form_buku_tamu/35">
+                          Buku Tamu
+                        </a>
+                      </li>
+                      <li>
+                        <a className="text-white" href="/donasiumum">
+                          Donasi
+                        </a>
+                      </li>
+                    </div>
+                  </div>
                 </ul>
               </div>
-            </div>
-          </div>
-          <div style={{ width: "100%" }}>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Typography
+                variant="h5"
+                gutterBottom
+                style={{
+                  color: "white",
+                  fontWeight: "bold",
+                  textAlign: "left",
+                  fontFamily: "'Poppins', sans-serif",
+                }}>
+                Denah Lokasi
+              </Typography>
+              <iframe
+                title="Location Map"
+                src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3129.9824873682737!2d110.45976957379189!3d-6.9885941684384205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708cdb5955f7fd%3A0x2dd118c3e56d1f3a!2sPanti%20Asuhan%20Muhammadiyah!5e1!3m2!1sid!2sid!4v1733301705391!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade`}
+                style={{ width: "100%", height: "400px", border: "0" }}
+                allowFullScreen=""
+                loading="lazy"></iframe>
+            </Grid>
+          </Grid>
+          {/* <div style={{ width: "100%" }}>
             <div className="widget widget_subscribe">
               <h4
                 className="widget-title"
-                style={{ textTransform: "uppercase" }}
-              >
+                style={{ textTransform: "uppercase" }}>
                 Alamat
               </h4>
               <div className="details" style={{ fontSize: "14px" }}>
@@ -212,7 +274,7 @@ function FooterSekolah() {
                 )}
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Footer Bottom */}
@@ -222,15 +284,13 @@ function FooterSekolah() {
               <div className="col-md-12 align-self-center footer-media">
                 <ul
                   className="social-media d-lg-none d-md-flex gap-2 mb-3"
-                  style={{ alignItems: "center", justifyContent: "center" }}
-                >
+                  style={{ alignItems: "center", justifyContent: "center" }}>
                   <li>
                     <a
                       className="facebook"
                       href="https://www.facebook.com/p/SMP-N-1-Bergas-100079952028295"
                       target="_blank"
-                      rel="noreferrer"
-                    >
+                      rel="noreferrer">
                       <i className="fab fa-facebook-f"></i>
                     </a>
                   </li>
@@ -239,8 +299,7 @@ function FooterSekolah() {
                       className="instagram"
                       href="https://www.instagram.com/osisspensagas"
                       target="_blank"
-                      rel="noreferrer"
-                    >
+                      rel="noreferrer">
                       <i className="fab fa-instagram"></i>
                     </a>
                   </li>
@@ -249,8 +308,7 @@ function FooterSekolah() {
                       className="youtube"
                       href="https://www.youtube.com/@OSIS-SMPN1Bergas"
                       target="_blank"
-                      rel="noreferrer"
-                    >
+                      rel="noreferrer">
                       <i className="fab fa-youtube"></i>
                     </a>
                   </li>

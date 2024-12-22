@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../../css/login.css";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON, API_DUMMY_SMART_DEV } from "../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import Ikon from "../../../aset/ikon-web.png";
 import Swal from "sweetalert2";
@@ -23,7 +23,7 @@ function Login() {
     };
 
     try {
-      const response = await axios.post(`https://api.byrtagihan.com/api/customer/login`, datapython);
+      const response = await axios.post(`${API_DUMMY_SMART_DEV}/api/customer/login`, datapython);
 
       if (response.status === 200) {
         Swal.fire({
@@ -36,7 +36,7 @@ function Login() {
           localStorage.setItem("id", response.data.data.id);
           localStorage.setItem("role", response.data.data.type_token);
           localStorage.setItem("tokenpython", response.data.data.token);
-          localStorage.setItem("organization_id", response.data.data.organization_id);          
+          localStorage.setItem("organization_id", response.data.data.organization_id);
 
           // Arahkan ke halaman admin_sambutan
           history.push("/dashboard_panti");

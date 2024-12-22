@@ -4,7 +4,7 @@ import axios from "axios";
 import "../../../../css/ekstrakulikuler/ekstra.css";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
-import ekskul from "../../../../aset/smpn1bergas/ekstrakurikuler.png";
+// import ekskul from "../../../../aset/smpn1bergas/ekstrakurikuler.png";
 import { Pagination } from "@mui/material";
 import Aos from "aos";
 
@@ -59,7 +59,7 @@ function Ekstrakurikuler() {
             <div className="col-lg-4 col-md-6" key={item.id}>
               <div className="single-team-inner style-4 text-center">
                 <div className="thumb">
-                  <img src={item.foto ? item.foto : ekskul} alt={item.name} className="team-image" />
+                  <img src={item.foto ? item.foto : ""} alt={item.name} className="team-image" />
                 </div>
                 <div className="details-wrap">
                   <div className="details-inner">

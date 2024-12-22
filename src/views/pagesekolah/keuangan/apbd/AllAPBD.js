@@ -9,7 +9,7 @@ import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import axios from "axios";
 import { API_DUMMY } from '../../../../utils/base_URL';
 import Aos from "aos";
-import keuangan from "../../../../aset/smpn1bergas/Coins-rafiki.png"
+// import keuangan from "../../../../aset/smpn1bergas/Coins-rafiki.png"
 
 function AllAPBD() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -75,7 +75,7 @@ function AllAPBD() {
                         {apbd.map(newsItem => (
                             <CardKeuangan
                                 key={newsItem.id}
-                                fotoJudul={newsItem.fotoJudul ? newsItem.fotoJudul : keuangan}
+                                fotoJudul={newsItem.fotoJudul ? newsItem.fotoJudul : ""}
                                 id={newsItem.id}
                                 judul={newsItem.judul}
                                 isi={newsItem.isi}

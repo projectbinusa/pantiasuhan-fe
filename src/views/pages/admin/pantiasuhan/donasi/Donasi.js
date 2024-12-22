@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
 
 function Donasi() {
   const [list, setList] = useState([]);
@@ -35,7 +36,7 @@ function Donasi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `https://api.byrtagihan.com/api/customer/donation?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART_DEV}/api/customer/donation?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -73,7 +74,7 @@ function Donasi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://api.byrtagihan.com/api/customer/donation/${id}`, {
+          .delete(`${API_DUMMY_SMART_DEV}/api/customer/donation/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -222,7 +223,7 @@ function Donasi() {
                     <th>Deskripsi</th>
                     <th>Total Income</th>
                     <th>Total Outcome</th>
-                    <th>Aktif</th>
+                    {/* <th>Aktif</th> */}
                     {/* <th>Image</th> */}
                     <th>Aksi</th>
                   </tr>
@@ -235,7 +236,7 @@ function Donasi() {
                       <td><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
                       <td>{item.total_income}</td>
                       <td>{item.total_outcome}</td>
-                      <td>{item.aktif ? "Yes" : "No"}</td>
+                      {/* <td>{item.aktif ? "Yes" : "No"}</td> */}
                       {/* <td>
                         <img src={item.image} alt="image" style={{ width: 50, height: 50 }} />
                       </td> */}

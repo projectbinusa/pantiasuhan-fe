@@ -308,7 +308,7 @@ function App() {
               exact
             />
             <PrivateRoute
-              path="/admin_detail_kegiatan/:id"
+              path="/admin_detail_program/:id"
               component={DetailKegiatanPanti}
               exact
             />
@@ -637,7 +637,7 @@ function App() {
             <PrivateRoute path="/admin-kegiatan" component={Kegiatan} exact />
             <PrivateRoute path="/add-kegiatan" component={AddKegiatan} exact />
             <PrivateRoute
-              path="/admin-detail-kegiatan/:id"
+              path="/admin_detail_kegiatan/:id"
               component={DetailKegiatanAdmin}
               exact
             />

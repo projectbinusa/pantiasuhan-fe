@@ -2,9 +2,7 @@ import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
-import {
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
@@ -59,7 +57,8 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
+import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
 
 function TambahDonasi() {
   const [nama, setNama] = useState("");
@@ -92,12 +91,16 @@ function TambahDonasi() {
     e.persist();
 
     try {
+      let imageUrl = image;
+      if (image) {
+        imageUrl = await uploadImageToS3(image);
+      }
       await axios.post(
-        `https://api.byrtagihan.com/api/customer/donation`,
+        `${API_DUMMY_SMART_DEV}/api/customer/donation`,
         {
           name: nama,
           description: deskripsi,
-          url_image: image.name
+          url_image: imageUrl,
         },
         {
           headers: {
@@ -260,15 +263,14 @@ function TambahDonasi() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -542,8 +544,7 @@ function TambahDonasi() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/donasi"
-                        >
+                          href="/donasi">
                           Batal
                         </a>
                       </button>
