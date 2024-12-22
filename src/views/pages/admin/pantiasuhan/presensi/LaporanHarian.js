@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import news from "../../../../../aset/smpn1bergas/News-rafiki.png";
-
 import { Pagination } from "@mui/material";
-import Sidebar1 from "../../../../../component/Sidebar1";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
-function AdminBeritaPanti() {
+function LaporanHarianPresensi() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,7 +22,7 @@ function AdminBeritaPanti() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/berita?page=${currentPage}&limit=${rowsPerPage}`, {
+      const response = await axios.get(`${API_DUMMY_PYTHON}/api/siswa/absensi?page=${currentPage}&limit=${rowsPerPage}`, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -54,7 +52,7 @@ function AdminBeritaPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/berita/` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/siswa/absensi/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -68,7 +66,6 @@ function AdminBeritaPanti() {
             });
 
             setTimeout(() => {
-              history.push("/admin_berita");
               window.location.reload();
             }, 1500);
           });
@@ -167,7 +164,7 @@ function AdminBeritaPanti() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Berita</p>
+              <p className="mt-3">Presensi Harian</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -191,17 +188,6 @@ function AdminBeritaPanti() {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-                <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/admin_berita/add">
-                        Tambah
-                      </a>
-                    </button>
-                  </div>
-                </div>
               </div>
             </div>
             <div
@@ -211,62 +197,40 @@ function AdminBeritaPanti() {
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th style={{ maxWidth: "300px" }}>Judul Berita</th>
-                    <th>Penulis Berita</th>
-                    <th>Thumbnail</th>
-                    <th>Kategori Berita</th>
+                    <th>Nama</th>
+                    <th>Tanggal</th>
+                    <th>Jam Masuk</th>
+                    <th>Jam Pulang</th>
+                    <th>Keterangan</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredList.length > 0 ?
-                    filteredList.map((berita, no) => {
+                    filteredList.map((item, no) => {
                       return (
                         <tr key={no}  >
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Judul Berita" style={{ maxWidth: "300px" }}>
-                            <p className="isiBerita">{berita.judul_berita}</p>
+                          <td data-label="Nama"> {item.nama_siswa}
                           </td>
-                          <td data-label="Penulis Berita">
-                            {berita.author}
+                          <td data-label="Tanggal">
+                            {item.created_date}
                           </td>
-                          <td data-label="Thumbnail">
-                            <img
-                              src={berita.image ? berita.image : news}
-                              style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
-                            />
+                          <td data-label="Jam Masuk">
+                            {item.jam_masuk}
                           </td>
-                          <td data-label="Kategori Berita">
-                            {berita.category}
+                          <td data-label="Jam Pulang">
+                            {item.jam_pulang}
+                          </td>
+                          <td data-label="Keterangan">
+                            {item.description}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
-                                type="button"
-                                className="btn-primary btn-sm mr-2"
-                                style={{ height: '100%' }}>
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/admin_berita/edit/${berita.id}`}>
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
-                              </button>
-                              <button
-                                type="button"
-                                className="btn-warning mr-2 btn-sm">
-                                <a
-                                  className="text-light"
-                                  href={"/admin_berita/detail/" + berita.id}>
-                                  <i className="fas fa-info-circle"></i>
-                                </a>
-                              </button>
-                              <button
-                                onClick={() => deleteData(berita.id)}
+                                onClick={() => deleteData(item.id)}
                                 type="button"
                                 className="btn-danger btn-sm">
                                 <i className="fa-solid fa-trash"></i>
@@ -277,7 +241,7 @@ function AdminBeritaPanti() {
                       );
                     }) :
                     <tr>
-                      <td colSpan="6" className="text-center my-3">
+                      <td colSpan="7" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
@@ -306,4 +270,4 @@ function AdminBeritaPanti() {
   );
 }
 
-export default AdminBeritaPanti;
+export default LaporanHarianPresensi;

@@ -5,8 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
-
+import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -58,9 +57,10 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import Sidebar1 from "../../../../../component/Sidebar1";
+import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
-function AddBeritaAdmin() {
+function AddBeritaAdminPanti() {
   const [author, setAuthor] = useState("");
   const [judulBerita, setJudulBerita] = useState("");
   const [image, setImage] = useState(null);
@@ -68,11 +68,6 @@ function AddBeritaAdmin() {
   const [isiBerita, setIsiBerita] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
-  const [content, setContent] = useState("");
-
-  const handleEditorChange = (isiBerita, editor) => {
-    setIsiBerita(isiBerita);
-  };
 
   //add
   const add = async (e) => {
@@ -80,13 +75,19 @@ function AddBeritaAdmin() {
     e.persist();
 
     try {
+      let imageUrl = image;
+
+      if (image) {
+        imageUrl = await uploadImageToS3(image);
+      }
       await axios.post(
-        `${API_DUMMY}/smpn1bergas/api/berita/add?author=${author}&category=${categoryBerita}&isiBerita=${isiBerita}&judulBerita=${judulBerita}`,
+        `${API_DUMMY_PYTHON}/api/admin/berita`,
         {
           author: author,
-          judulBerita: judulBerita,
-          isiBerita: isiBerita,
           category: categoryBerita,
+          image: imageUrl,
+          isi_berita: isiBerita,
+          judul_berita: judulBerita
         },
         {
           headers: {
@@ -101,7 +102,7 @@ function AddBeritaAdmin() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin-berita");
+      history.push("/admin_berita");
       setTimeout(() => {
         window.location.reload();
       }, 1500);
@@ -267,9 +268,8 @@ function AddBeritaAdmin() {
   }, []);
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -277,9 +277,7 @@ function AddBeritaAdmin() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
-      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div
         style={{ marginTop: "50px" }}
         className="page-content1 mb-3 app-main__outer"
@@ -309,16 +307,13 @@ function AddBeritaAdmin() {
                         <label className="form-label font-weight-bold">
                           Kategori Berita
                         </label>
-                        <select
+                        <input
                           value={categoryBerita}
+                          onChange={(e) => setCategoryBerita(e.target.value)}
+                          type="text"
                           className="form-control"
-                          aria-label="Small select example"
-                          onChange={(e) => setCategoryBerita(e.target.value)}>
-                          <option selected>Pilih Kategori</option>
-                          <option value="Berita Sekolah">Berita Terbaru</option>
-                          <option value="Info Sekolah">Info Sekolah</option>
-                          <option value="Agenda Sekolah">Agenda</option>
-                        </select>
+                          placeholder="Masukkan Kategori Berita"
+                        />
                       </div>
                       <div className="mb-3 col-lg-6">
                         <label
@@ -332,6 +327,19 @@ function AddBeritaAdmin() {
                           type="text"
                           className="form-control"
                           placeholder="Masukkan Penulis Berita"
+                        />
+                      </div>
+                      <div className="mb-3 col-lg-6">
+                        <label
+                          for="exampleInputEmail1"
+                          className="form-label  font-weight-bold ">
+                          Thumbnail
+                        </label>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => setImage(e.target.files[0])}
+                          className="form-control"
                         />
                       </div>
                       <div className="mb-3 col-lg-12">
@@ -571,7 +579,7 @@ function AddBeritaAdmin() {
                     <button type="button" className="btn-danger mt-3 mr-3">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin-berita">
+                        href="/admin_berita">
                         Batal
                       </a>
                     </button>
@@ -590,4 +598,4 @@ function AddBeritaAdmin() {
   );
 }
 
-export default AddBeritaAdmin;
+export default AddBeritaAdminPanti;

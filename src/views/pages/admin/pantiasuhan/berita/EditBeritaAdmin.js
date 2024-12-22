@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
-
 import {
   useHistory,
   useParams,
@@ -8,7 +6,6 @@ import {
 import Swal from "sweetalert2";
 import AOS from "aos";
 import axios from "axios";
-// import { Editor } from "@tinymce/tinymce-react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -59,9 +56,11 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import Sidebar1 from "../../../../../component/Sidebar1";
+import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
-function EditBeritaAdmin() {
+function EditBeritaAdminPanti() {
   const [author, setAuthor] = useState("");
   const [judulBerita, setJudulBerita] = useState("");
   const [image, setImage] = useState("");
@@ -73,68 +72,77 @@ function EditBeritaAdmin() {
   const param = useParams();
   const history = useHistory();
 
-  const updateBerita = (e) => {
+  const updateBerita = async (e) => {
     e.preventDefault();
+    e.persist();
 
-    const formData = new FormData();
-    formData.append("file", image);
+    try {
+      let imageUrl = image;
 
-    const data = {
-      author: author,
-      category: categoryBerita,
-      judulBerita: judulBerita,
-      isiBerita: isiBerita
-    }
-
-    axios
-      .put(`${API_DUMMY}/smpn1bergas/api/berita/put/` + param.id, data, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+      if (image) {
+        imageUrl = await uploadImageToS3(image);
+      }
+      const response = await axios.put(
+        `${API_DUMMY_PYTHON}/api/admin/berita/${param.id}`,
+        {
+          author: author,
+          category: categoryBerita,
+          image: imageUrl,
+          isi_berita: isiBerita,
+          judul_berita: judulBerita
         },
-      })
-      .then((response) => {
-        if (image) {
-          axios.put(`${API_DUMMY}/smpn1bergas/api/berita/put/foto/` + param.id, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          }).catch((err) => {
-            console.log(err);
-          })
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Authentication token
+          },
         }
-        setShow(false);
+      );
+
+      // Periksa respons yang berhasil
+      if (response.data.code === 200) {
+        setShow(false); // Hide modal atau reset form
         Swal.fire({
           icon: "success",
-          title: "Data Berhasil Diperbarui",
+          title: "Berhasil Mengedit Data Berita",
           showConfirmButton: false,
           timer: 1500,
         });
-        history.push("/admin-berita");
+
+        // Redirect setelah berhasil
         setTimeout(() => {
-          window.location.reload();
+          history.push("/admin_berita");
         }, 1500);
-        console.log("Berhasil diperbarui", response.data);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log(error);
-        }
-      });
+      } else {
+        // Handle respons lain dengan pesan error
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          text: response.data.message, // Tambahkan pesan error dari respons
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      // Handle error, terutama untuk masalah autentikasi
+      if (error.response && error.response.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          text: error.message, // Tambahkan pesan error dari error
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error); // Log error untuk debugging
+      }
+    }
   };
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/smpn1bergas/api/berita/get/` + param.id, {
+      .get(`${API_DUMMY_PYTHON}/api/admin/berita/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -142,10 +150,10 @@ function EditBeritaAdmin() {
       .then((ress) => {
         const response = ress.data.data;
         setAuthor(response.author);
-        setJudulBerita(response.judulBerita);
-        setIsiBerita(response.isiBerita);
+        setJudulBerita(response.judul_berita);
+        setIsiBerita(response.isi_berita);
         setImageUrl(response.image);
-        setCategoryBerita(response.categoryBerita);
+        setCategoryBerita(response.category);
       })
       .catch((error) => {
         console.log(error);
@@ -155,10 +163,6 @@ function EditBeritaAdmin() {
   useEffect(() => {
     AOS.init();
   }, []);
-
-  const handleEditorChange = (isiBerita, editor) => {
-    setIsiBerita(isiBerita);
-  };
 
   const REDUCED_MATERIAL_COLORS = [
     { label: "Red 50", color: "#ffebee" },
@@ -312,9 +316,7 @@ function EditBeritaAdmin() {
         style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
-      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div style={{ marginTop: "10px" }} className="page-content1 absolute">
         <div
           className=" container mt-3 mb-3 app-main__outer"
@@ -327,18 +329,27 @@ function EditBeritaAdmin() {
                 <div className="row">
                   <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
+                      Judul Berita
+                    </label>
+                    <input
+                      value={judulBerita}
+                      onChange={(e) => setJudulBerita(e.target.value)}
+                      type="text"
+                      className="form-control"
+                      placeholder="Masukkan Judul Berita"
+                    />
+                  </div>
+                  <div className="mb-3 col-lg-6">
+                    <label className="form-label font-weight-bold">
                       Kategori Berita
                     </label>
-                    <select
+                    <input
                       value={categoryBerita}
+                      onChange={(e) => setCategoryBerita(e.target.value)}
+                      type="text"
                       className="form-control"
-                      aria-label="Small select example"
-                      onChange={(e) => setCategoryBerita(e.target.value)}>
-                      <option selected>Pilih Category</option>
-                      <option value="Berita Sekolah">Berita Sekolah</option>
-                      <option value="Info Sekolah">Info Sekolah</option>
-                      <option value="Agenda Sekolah">Agenda Sekolah</option>
-                    </select>
+                      placeholder="Masukkan Kategori Berita"
+                    />
                   </div>
                   <div className="mb-3 col-lg-6">
                     <label
@@ -355,47 +366,18 @@ function EditBeritaAdmin() {
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
-                    <label className="form-label font-weight-bold">
-                      Judul Berita
+                    <label
+                      for="exampleInputEmail1"
+                      className="form-label  font-weight-bold ">
+                      Thumbnail
                     </label>
                     <input
-                      value={judulBerita}
-                      onChange={(e) => setJudulBerita(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      placeholder="Masukkan Judul Berita"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-6">
-                    <label className="form-label font-weight-bold">
-                      Gambar
-                    </label>
-                    {/* {image && ( */}
-                    <input
-                      onChange={(e) => {
-                        if (setImage) {
-                          setImage(e.target.files[0]);
-                        } else {
-                          setImageUrl(e.target.value);
-                        }
-                      }}
                       type="file"
+                      accept="image/*"
+                      onChange={(e) => setImage(e.target.files[0])}
                       className="form-control"
                     />
-
-                    {/* )} */}
-
-                    {imageUrl && (
-                      <div className="mt-3">
-                        <img
-                          src={imageUrl}
-                          alt="Current Image"
-                          style={{ maxWidth: "100%", height: "auto" }}
-                        />
-                      </div>
-                    )}
                   </div>
-
                   <div className="mb-3 col-lg-12">
                     <label className="form-label font-weight-bold">
                       Isi Berita
@@ -663,10 +645,10 @@ function EditBeritaAdmin() {
                 <button type="button" className="btn-danger mt-3">
                   <a
                     style={{ color: "white", textDecoration: "none" }}
-                    href="/admin-berita">
+                    href="/admin_berita">
                     Batal
                   </a>
-                </button>{" "}
+                </button>
                 <button type="submit" className="btn-primary mt-3">
                   Submit
                 </button>
@@ -680,4 +662,4 @@ function EditBeritaAdmin() {
   );
 }
 
-export default EditBeritaAdmin;
+export default EditBeritaAdminPanti;

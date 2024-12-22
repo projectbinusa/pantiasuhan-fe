@@ -113,7 +113,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           title: "Berita",
           icon: "fa-solid fa-newspaper",
           path: "/admin_berita",
-          action: ["/add_berita", "/edit_berita"],
+          action: ["/admin_berita/add", "/admin_berita/edit", "/admin_berita/detail"],
         },
         {
           title: "Galeri",
@@ -150,15 +150,21 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       header: "Presensi",
       items: [
         {
-          title: "Presensi",
-          icon: "fa-solid fa-list",
-          path: "/admin_absensi",
+          title: "Laporan Harian",
+          icon: "fa-solid fa-file",
+          path: "/laporan_presensi/harian",
           action: [],
         },
         {
-          title: "Laporan Presensi",
-          icon: "fa-solid fa-file",
-          path: "/laporan_presensi",
+          title: "Laporan Bulanan",
+          icon: "fa-solid fa-list",
+          path: "/laporan_presensi/bulanan",
+          action: [],
+        },
+        {
+          title: "Laporan Tahunan",
+          icon: "fa-solid fa-list",
+          path: "/laporan_presensi/tahunan",
           action: [],
         },
       ],
@@ -178,17 +184,17 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       header: "Keuangan",
       items: [
         {
-          title: "Keuangan",
-          icon: "fa-solid fa-wallet",
-          path: "/admin_keuangan",
-          action: [],
-        },
-        {
-          title: "Donasi Masuk",
+          title: "Donasi",
           icon: "fas fa-hand-holding-heart",
           path: "/donasi",
           action: ["/donasi/add", "/donasi/put"],
         },
+        // {
+        //   title: "Dana Masuk",
+        //   icon: "fas fa-plus",
+        //   path: "/donasi_trx",
+        //   action: ["/add_donasi_trx", "/edit_donasi_trx"],
+        // },
         {
           title: "Dana Keluar",
           icon: "fas fa-minus",
