@@ -211,7 +211,7 @@ function FooterSekolah() {
                         </a>
                       </li>
                       <li>
-                        <a className="text-white" href="/form_buku_tamu/35">
+                        <a className="text-white" href="/bukutamu/form/35">
                           Buku Tamu
                         </a>
                       </li>

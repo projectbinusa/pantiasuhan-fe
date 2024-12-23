@@ -6,6 +6,7 @@ import AOS from "aos";
 import NavbarSekolah from "../../../../../component/NavbarSekolah";
 import image1 from "../../../../../aset/images.png";
 import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
+import Navbar from "../../../../../component/Navbar";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -158,7 +159,7 @@ function DonasiUmum() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <NavbarSekolah />
+      <Navbar />
       <div
         className="blog-area pd-top-115 pd-bottom-60"
         id="visi-misi"

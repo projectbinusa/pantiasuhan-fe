@@ -214,7 +214,6 @@ import AdminDanaKeluar from "./views/pages/admin/pantiasuhan/donasi/danakeluar/A
 import AddDanaKeluar from "./views/pages/admin/pantiasuhan/donasi/danakeluar/AddDanaKeluar.js";
 import EditDanaKeluar from "./views/pages/admin/pantiasuhan/donasi/danakeluar/EditDanaKeluar.js";
 import DashboardPanti from "./views/pages/admin/pantiasuhan/DashboardPanti.js";
-import DetailBeritaPanti from "./views/pages/admin/pantiasuhan/DetailBeritaPanti.js";
 import AdminBeritaPanti from "./views/pages/admin/pantiasuhan/berita/AdminBerita.js";
 import AddBeritaAdminPanti from "./views/pages/admin/pantiasuhan/berita/AddBeritaAdmin.js";
 import EditBeritaAdminPanti from "./views/pages/admin/pantiasuhan/berita/EditBeritaAdmin.js";
@@ -222,6 +221,8 @@ import DetailBeritaPantiAdmin from "./views/pages/admin/pantiasuhan/berita/Detai
 import LaporanHarianPresensi from "./views/pages/admin/pantiasuhan/presensi/LaporanHarian.js";
 import LaporanBulananPresensi from "./views/pages/admin/pantiasuhan/presensi/LaporanBulanan.js";
 import LaporanTahunanPresensi from "./views/pages/admin/pantiasuhan/presensi/LaporanTahunan.js";
+import PublikDetailProgramPanti from "./views/pages/admin/pantiasuhan/PublikDetailProgramPanti.js";
+import PublikDetailBeritaPanti from "./views/pages/admin/pantiasuhan/PublikDetailBeritaPanti.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -408,8 +409,8 @@ function App() {
               component={EditAnak}
               exact
             />
-            <PrivateRoute
-              path="/form_buku_tamu/:organization_id"
+            <Route
+              path="/bukutamu/form/:organization_id"
               component={FormBukuTamu}
               exact
             />
@@ -1015,7 +1016,7 @@ function App() {
             />
             {/* Panduan */}
             <Route path="/donasiumum/panduan" component={Panduan} exact />
-            <Route path="/dana-masuk/:id" component={DanaMasuk} exact />
+            <Route path="/donasiumum/danamasuk/:id" component={DanaMasuk} exact />
             <PrivateRoute
               path="/admin_dana_keluar"
               component={AdminDanaKeluar}
@@ -1036,7 +1037,6 @@ function App() {
               component={DashboardPanti}
               exact
             />
-            <Route path="/news/:name" component={DetailBeritaPanti} exact />
             <PrivateRoute path="/admin_berita" component={AdminBeritaPanti} exact />
             <PrivateRoute path="/admin_berita/add" component={AddBeritaAdminPanti} exact />
             <PrivateRoute path="/admin_berita/edit/:id" component={EditBeritaAdminPanti} exact />
@@ -1044,6 +1044,8 @@ function App() {
             <PrivateRoute path="/laporan_presensi/harian" component={LaporanHarianPresensi} exact />
             <PrivateRoute path="/laporan_presensi/bulanan" component={LaporanBulananPresensi} exact />
             <PrivateRoute path="/laporan_presensi/tahunan" component={LaporanTahunanPresensi} exact />
+            <Route path="/programpanti/:id" component={PublikDetailProgramPanti} exact />
+            <Route path="/beritapanti/:id" component={PublikDetailBeritaPanti} exact />
           </Switch>
         </main>
         <LogPageView />

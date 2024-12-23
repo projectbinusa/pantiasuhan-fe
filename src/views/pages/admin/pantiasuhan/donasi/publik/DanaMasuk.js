@@ -1,12 +1,40 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom/cjs/react-router-dom";
+import { API_DUMMY_SMART_DEV } from "../../../../../../utils/base_URL";
 
 function DanaMasuk() {
+  const [datas, setDatas] = useState(null);
+  const param = useParams();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_SMART_DEV}/api/public/donation/${param.id}`,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        const resp = response.data.data;
+        setDatas(resp)
+        console.log(resp);
+        // setDanaMasuk(resp.income_trx)
+        // setDanaKeluar(resp.outcome_trx)
+      } catch (error) {
+        console.error("Terjadi Kesalahan", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <main className="section-donasi">
       <section className="body-donasi">
         <div className="container-donasi">
           <header className="header-back">
-            <h6>Tolong, Selamatkan Nyawa Balita Sakit Kronis!</h6>
+            <h6>{datas?.name}</h6>
           </header>
           <div className="content-donasi">
             <div className="dana-masuk">
