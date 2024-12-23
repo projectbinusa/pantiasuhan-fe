@@ -149,7 +149,7 @@ function DetailKegiatanPanti() {
                 className="btn-kembali btn-danger mt-3 mr-3"
               >
                 <a
-                  href="/admin_kegiatan"
+                  href="/admin_program"
                   style={{ color: "white", textDecoration: "none" }}
                 >
                   Kembali

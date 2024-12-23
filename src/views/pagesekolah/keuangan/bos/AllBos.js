@@ -9,7 +9,7 @@ import { Pagination } from "@mui/material";
 import NavbarSekolah2 from "../../../../component/NavbarSekolah2";
 import axios from "axios";
 import Aos from "aos";
-import keuangan from "../../../../aset/smpn1bergas/Coins-rafiki.png"
+// import keuangan from "../../../../aset/smpn1bergas/Coins-rafiki.png"
 
 function AllBOS() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -125,7 +125,7 @@ function AllBOS() {
             {bos.map((newsItem) => (
               <CardKeuangan
                 key={newsItem.id}
-                fotoJudul={newsItem.fotoJudul ? newsItem?.fotoJudul : keuangan}
+                fotoJudul={newsItem.fotoJudul ? newsItem?.fotoJudul : ""}
                 id={newsItem.id}
                 judul={newsItem.judul}
                 link={"bos"}

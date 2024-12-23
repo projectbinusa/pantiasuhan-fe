@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { API_DUMMY_SMART_DEV } from "../../../../../../utils/base_URL";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -30,7 +31,7 @@ function PreviewDonasi() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://api.byrtagihan.com/api/customer/donation/${param.id}`,
+          `${API_DUMMY_SMART_DEV}/api/public/donation/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -64,11 +65,15 @@ function PreviewDonasi() {
         <div className="container-donasi">
           <div className="header-donasi">
             <header className="header-back">
-              <a href="/donasi-umum">
+              <a href="/donasiumum">
                 <i class="fas fa-arrow-left"></i>
               </a>
             </header>
-            <img src="https://via.placeholder.com/500x250" alt="Gambar Header" />
+            <img src={datas?.url_image !== "" ? datas?.url_image : "https://via.placeholder.com/500x250"} style={{
+              width: "100%",
+              height: "250px",
+              objectFit: "cover",
+            }} alt="Gambar Header" />
           </div>
           <div className="content-donasi">
             <h2>{datas?.name}</h2>
@@ -82,15 +87,6 @@ function PreviewDonasi() {
               <div className={showFullStory ? 'stories' : 'content-isi stories'}>
                 <div dangerouslySetInnerHTML={{ __html: datas?.description }} />
               </div>
-              {/* <p className={showFullStory ? '' : 'content-isi'}>
-              Sahabat, ada ratusan anak menderita sakit kanker di pelosok yang saat ini nyawanya terancam karena sulit...
-                Akses terhadap layanan kesehatan masih terbatas, dan banyak keluarga tidak memiliki dana untuk
-                pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka.
-                Akses terhadap layanan kesehatan masih terbatas, dan banyak keluarga tidak memiliki dana untuk
-                pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka.
-                Akses terhadap layanan kesehatan masih terbatas, dan banyak keluarga tidak memiliki dana untuk
-                pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka. 
-              </p> */}
               <button className="lihat-selengkapnya" onClick={toggleStory}>
                 {showFullStory ? "Lihat Lebih Sedikit" : "Lihat Selengkapnya"}
               </button>
@@ -98,8 +94,8 @@ function PreviewDonasi() {
             <hr />
             <div className="dana-masuk">
               <header>
-                <h3>Dana Masuk <span>32</span></h3>
-                <a href={`/dana-masuk/${param.id}`}><i class="fas fa-caret-right"></i></a>
+                <h3>Dana Masuk <span>{danaMasuk.length}</span></h3>
+                <a href={`/donasiumum/danamasuk/${param.id}`}><i class="fas fa-caret-right"></i></a>
               </header>
               {danaMasuk.map((item) => (
                 <ul>
@@ -132,7 +128,7 @@ function PreviewDonasi() {
 
         {/* Fixed Donate Button */}
         <div className="fixed-donate-buttons">
-          <button className="donate-automatic" onClick={() => window.location.href = `/tambah-donasi-umum/${datas?.id}`}>Donasi Sekarang!</button>
+          <button className="donate-automatic" onClick={() => window.location.href = `/donasiumum/add/${datas?.id}`}>Donasi Sekarang!</button>
         </div>
       </section>
       <style>
@@ -225,7 +221,7 @@ function PreviewDonasi() {
           font-family: "Poppins", sans-serif;
         }
 
-        .story-section h3, 
+        .story-section h3,
         .dana-masuk h3 {
           font-size: 16px;
           color: #444;
@@ -292,7 +288,7 @@ font-family: "Poppins", sans-serif;
           cursor: pointer;
           font-family: "Poppins", sans-serif;
         }
-          
+
         .lihat-selengkapnya:hover{
         background-color: transparent;
           color: #005b9f;

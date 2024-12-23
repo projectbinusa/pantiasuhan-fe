@@ -4,13 +4,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
-import FotoKegiatanPanti from "./fotoKegiatan/FotoKegiatan";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
-import kegiatan from "../../../../../aset/smpn1bergas/kegiatan.png";
 
 function KegiatanPanti() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -39,7 +36,7 @@ function KegiatanPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kegiatan`,
+        `${API_DUMMY_PYTHON}/api/admin/kegiatan?page=${currentPage}&size=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -47,10 +44,10 @@ function KegiatanPanti() {
         }
       );
       setList(response.data.data);
-      console.log(response.data.data);
+      console.log(response.data);
       setPaginationInfo({
-        totalPages: response.data.data.totalPages,
-        totalElements: response.data.data.totalElements,
+        totalPages: response.data.pagination.total_pages,
+        totalElements: response.data.pagination.total,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -110,12 +107,11 @@ function KegiatanPanti() {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setCurrentPage(1);
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
     setCurrentPage(1);
   };
 
@@ -130,10 +126,9 @@ function KegiatanPanti() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-  <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+    <div
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -176,7 +171,7 @@ function KegiatanPanti() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Kegiatan</p>
+              <p className="mt-3">Program</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -206,9 +201,9 @@ function KegiatanPanti() {
                     <button className="active btn-focus p-2 rounded">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add_kegiatan"
+                        href="/add_program"
                       >
-                        Tambah kegiatan
+                        Tambah
                       </a>
                     </button>
                   </div>
@@ -222,12 +217,9 @@ function KegiatanPanti() {
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th>Kegiatan</th>
-                    <th scope="col" style={{ minWidth: "150px" }}>
-                      Penulis Kegiatan
-                    </th>
-                    <th>Gambar</th>
+                    <th>No</th>
+                    <th style={{ maxWidth: "350px" }}>Program</th>
+                    <th>Penulis</th>
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Update</th>
                     <th>Aksi</th>
@@ -241,21 +233,11 @@ function KegiatanPanti() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Kegiatan">{kegiatan.judul}</td>
-                          <td data-label="Penulis Kegiatan">
-                            {kegiatan.penulis}
+                          <td data-label="Program" style={{ maxWidth: "350px" }}>
+                            <p className="isiBerita">{kegiatan.judul}</p>
                           </td>
-                          <td data-label="Image" className="">
-                            <img
-                              src={kegiatan.foto ? kegiatan.foto : kegiatan}
-                              style={{
-                                height: "4.5rem",
-                                width: "4.5rem",
-                                marginLeft: "auto",
-                                marginRight: "auto",
-                                display: "flex",
-                              }}
-                            />
+                          <td data-label="Penulis">
+                            {kegiatan.penulis}
                           </td>
                           <td data-label="Tanggal Dibuat">
                             {kegiatan.created_date}
@@ -274,7 +256,7 @@ function KegiatanPanti() {
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit_kegiatan/${kegiatan.id}`}
+                                  href={`/edit_program/${kegiatan.id}`}
                                 >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
@@ -285,7 +267,7 @@ function KegiatanPanti() {
                               >
                                 <a
                                   className="text-light"
-                                  href={"/admin_detail_kegiatan/" + kegiatan.id}
+                                  href={"/admin_detail_program/" + kegiatan.id}
                                 >
                                   <i class="fas fa-info-circle"></i>
                                 </a>
@@ -304,7 +286,7 @@ function KegiatanPanti() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="7" className="text-center my-3">
+                      <td colSpan="6" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
@@ -318,17 +300,13 @@ function KegiatanPanti() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => {
-                  setCurrentPage(value);
-                  setPage(value);
-                }}
+                onChange={(event, value) => setCurrentPage(value)}
                 showFirstButton
                 showLastButton
                 color="primary"
               />
             </div>
           </div>
-          {/* <FotoKegiatanPanti></FotoKegiatanPanti> */}
         </div>
       </div>
     </div>

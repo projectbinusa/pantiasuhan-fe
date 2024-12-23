@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import FotoKegiatan from "./fotoKegiatan/FotoKegiatan";
 import Sidebar1 from "../../../../../component/Sidebar1";
-import kegiatan from "../../../../../aset/smpn1bergas/kegiatan.png";
+// import kegiatan from "../../../../../aset/smpn1bergas/kegiatan.png";
 
 function Kegiatan() {
   const [list, setList] = useState([]);
@@ -253,7 +253,7 @@ function Kegiatan() {
                           </td>
                           <td data-label="Image" className="">
                             <img
-                              src={berita.foto ? berita.foto : kegiatan}
+                              src={berita.foto ? berita.foto : ""}
                               style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
                             />
                           </td>

@@ -70,10 +70,10 @@ const NavbarSekolah = () => {
             <a href="#kontak">KONTAK</a>
           </li>
           <li className="navbars-item">
-            <a href="/form_buku_tamu/35">BUKU TAMU</a>
+            <a href="/bukutamu/form/35">BUKU TAMU</a>
           </li>
           <li className="navbars-item">
-            <a href="/donasi-umum">DONASI</a>
+            <a href="/donasiumum">DONASI</a>
           </li>
         </ul>
       </div>

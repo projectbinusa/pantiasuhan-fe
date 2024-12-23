@@ -7,6 +7,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
   const location = useLocation();
   const menuRefs = useRef([]);
   const inventarisRefs = useRef([]);
+  const defaultRefs = useRef([]);
 
   useEffect(() => {
     const activeIndex = menuItems.findIndex(
@@ -27,6 +28,19 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       inventarisRefs.current[activeIndexInventaris]
     ) {
       inventarisRefs.current[activeIndexInventaris].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+    // INVENTARIS MENU
+    const activeIndexDashboard = defaultItems.findIndex(
+      (item) => location.pathname === item.path
+    );
+    if (
+      activeIndexDashboard !== -1 &&
+      inventarisRefs.current[activeIndexDashboard]
+    ) {
+      inventarisRefs.current[activeIndexDashboard].scrollIntoView({
         behavior: "smooth",
         block: "nearest",
       });
@@ -58,6 +72,15 @@ function SidebarPantiAdmin({ toggleSidebar }) {
     });
   };
 
+  const defaultItems = [
+    {
+      title: "Dashboard",
+      icon: "fa-solid fa-palette",
+      path: "/dashboard_panti",
+      action: ["/edit_barang_inventaris"],
+    }
+  ]
+
   const menuItems = [
     {
       header: "Admin",
@@ -73,14 +96,16 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           path: "/admin_visimisi",
         },
         {
-          title: "Kegiatan",
+          title: "Program",
           icon: "fas fa-calendar-alt",
-          path: "/admin_kegiatan",
+          path: "/admin_program",
+          action: ["/add_program", "/edit_program"],
         },
         {
-          title: "Postingan",
+          title: "Berita",
           icon: "fa-solid fa-newspaper",
-          path: "/admin_postingan",
+          path: "/admin_berita",
+          action: ["/admin_berita/add", "/admin_berita/edit", "/admin_berita/detail"],
         },
         {
           title: "Galeri",
@@ -113,14 +138,22 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       header: "Presensi",
       items: [
         {
-          title: "Presensi",
-          icon: "fa-solid fa-list",
-          path: "/admin_absensi",
+          title: "Laporan Harian",
+          icon: "fa-solid fa-file",
+          path: "/laporan_presensi/harian",
+          action: [],
         },
         {
-          title: "Laporan Presensi",
-          icon: "fa-solid fa-file",
-          path: "/laporan_presensi",
+          title: "Laporan Bulanan",
+          icon: "fa-solid fa-list",
+          path: "/laporan_presensi/bulanan",
+          action: [],
+        },
+        {
+          title: "Laporan Tahunan",
+          icon: "fa-solid fa-list",
+          path: "/laporan_presensi/tahunan",
+          action: [],
         },
       ],
     },
@@ -138,15 +171,23 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       header: "Keuangan",
       items: [
         {
+
           title: "Keuangan",
           icon: "fa-solid fa-wallet",
           path: "/admin_keuangan",
         },
         {
-          title: "Donasi Masuk",
+          title: "Donasi",
+
           icon: "fas fa-hand-holding-heart",
           path: "/donasi",
         },
+        // {
+        //   title: "Dana Masuk",
+        //   icon: "fas fa-plus",
+        //   path: "/donasi_trx",
+        //   action: ["/add_donasi_trx", "/edit_donasi_trx"],
+        // },
         {
           title: "Dana Keluar",
           icon: "fas fa-minus",
@@ -277,18 +318,41 @@ function SidebarPantiAdmin({ toggleSidebar }) {
 
           <div className="sidebar-menu1">
             <ul>
+              {defaultItems.map((data, index) => (
+                <li
+                  key={index}
+                  ref={(el) => (defaultRefs.current[index] = el)}
+                >
+                  <NavLink to={data.path} style={{ background: "none" }}>
+                    <i
+                      className={`${data.icon} ${location.pathname === data.path ||
+                        data.action.includes(location.pathname)
+                        ? "active"
+                        : ""
+                        }`}
+                    ></i>
+                    <span>{data.title}</span>
+                  </NavLink>
+                </li>
+              ))}
               {menuItems.map((menu, index) => (
                 <React.Fragment key={index}>
                   <li className="header-menu1">
                     <span>{menu.header}</span>
                   </li>
                   {menu.items.map((data, subIndex) => (
-                    <li key={subIndex} ref={(el) => (menuRefs.current[subIndex] = el)}>
-                      <NavLink
-                        to={data.path}
-                        className={({ isActive }) => (isActive ? "active" : "")}
-                      >
-                        <i className={data.icon}></i>
+                    <li
+                      key={subIndex}
+                      ref={(el) => (menuRefs.current[subIndex] = el)}
+                    >
+                      <NavLink to={data.path} style={{ background: "none" }}>
+                        <i
+                          className={`${data.icon} ${location.pathname === data.path ||
+                            data.action.includes(location.pathname)
+                            ? "active"
+                            : ""
+                            }`}
+                        ></i>
                         <span>{data.title}</span>
                       </NavLink>
                     </li>
@@ -299,12 +363,19 @@ function SidebarPantiAdmin({ toggleSidebar }) {
 
             <ul>
               {inventarisItems.map((data, index) => (
-                <li key={index} ref={(el) => (inventarisRefs.current[index] = el)}>
-                  <NavLink
-                    to={data.path}
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                  >
-                    <i className={data.icon}></i>
+
+                <li
+                  key={index}
+                  ref={(el) => (inventarisRefs.current[index] = el)}
+                >
+                  <NavLink to={data.path} style={{ background: "none" }}>
+                    <i
+                      className={`${data.icon} ${location.pathname === data.path ||
+                        data.action.includes(location.pathname)
+                        ? "active"
+                        : ""
+                        }`}
+                    ></i>
                     <span>{data.title}</span>
                   </NavLink>
                 </li>

@@ -7,7 +7,7 @@ import {
   Pagination,
 } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
-import kegiatan from "../../../../../aset/smpn1bergas/kegiatan.png";
+// import kegiatan from "../../../../../aset/smpn1bergas/kegiatan.png";
 
 function Iventaris() {
   const [list, setList] = useState([]);
@@ -250,7 +250,7 @@ function Iventaris() {
                           </td>
                           <td data-label="Image" className="">
                             <img
-                              src={row.url_image ? row.url_image : kegiatan}
+                              src={row.url_image ? row.url_image : ""}
                               style={{
                                 height: "4.5rem",
                                 width: "4.5rem",

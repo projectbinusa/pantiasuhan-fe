@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../../../../../../aset/BNILogo.png"; // Ganti dengan lokasi logo Anda
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function Panduan() {
   // const handleCopy = () => {
@@ -103,7 +104,7 @@ function Panduan() {
   //     </div>
   //   </div>
   // );
-
+  // const param = useParams();
   return (
     <main className="section-donasi">
       <section className="body-donasi">
@@ -114,27 +115,36 @@ function Panduan() {
           <div className="content-donasi">
             <div className="content-img">
               <img src={logo} />
-            </div> <br />
+            </div>{" "}
+            <br />
             <div style={{ display: "flex", marginTop: "5%", gap: "1rem" }}>
               <div style={{ lineHeight: "1.1" }}>
                 <p>Nama Bank </p>
-                <p>Nama Akun </p>
+                {/* <p>Nama Akun </p> */}
                 <p>Biaya Admin </p>
                 <p>No VA</p>
               </div>
               <div style={{ lineHeight: "1.1" }}>
                 <p>Bank Negara Indonesia</p>
-                <p>Rara</p>
+                {/* <p>Rara</p> */}
                 <p>Rp. 0</p>
                 <p style={{ color: "blue" }}>
                   <i className="fa-regular fa-copy"></i>
                 </p>
               </div>
-            </div> <br /> <br />
-            <p className="thanks">Terima kasih atas donasi Anda! Dukungan Anda sangat berarti dan akan membawa perubahan positif bagi mereka yang membutuhkan. ❤️🙏</p>
+            </div>{" "}
+            <br /> <br />
+            <p className="thanks">
+              Terima kasih atas donasi Anda! Dukungan Anda sangat berarti dan
+              akan membawa perubahan positif bagi mereka yang membutuhkan. ❤️🙏
+            </p>
           </div>
           <div className="fixed-donate-buttons">
-            <button type="button" className="btn-primary mt-3" onClick={() => window.location.href = `/donasi-umum`}>Kembali
+            <button
+              type="button"
+              className="btn-primary mt-3"
+              onClick={() => (window.location.href = `/donasi_umum`)}>
+              Kembali
             </button>
           </div>
         </div>
@@ -184,7 +194,7 @@ function Panduan() {
         .content-donasi {
           padding: 15px;
         }
-        
+
         .content-donasi .content-img{
           display: flex;
           justify-content: center;
@@ -208,7 +218,7 @@ function Panduan() {
           font-family: "Poppins", sans-serif
         }
 
-        .story-section h3, 
+        .story-section h3,
         .dana-masuk h3 {
           font-size: 16px;
           color: #444;
@@ -253,7 +263,7 @@ function Panduan() {
         `}
       </style>
     </main>
-  )
+  );
 }
 
 export default Panduan;

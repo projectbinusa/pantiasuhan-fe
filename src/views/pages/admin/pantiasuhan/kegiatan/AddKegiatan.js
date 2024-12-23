@@ -127,7 +127,7 @@ function AddKegiatanPanti() {
 
         // Redirect setelah berhasil
         setTimeout(() => {
-          history.push("/admin_kegiatan");
+          history.push("/admin_program");
         }, 1500);
       } else {
         // Handle respons lain dengan pesan error
@@ -312,19 +312,19 @@ function AddKegiatanPanti() {
                       <div className="row">
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Nama Kegiatan
+                            Nama Program
                           </label>
                           <input
                             value={judul}
                             onChange={(e) => setJudul(e.target.value)}
                             type="text"
                             className="form-control"
-                            placeholder="Masukkan Nama Kegiatan"
+                            placeholder="Masukkan Nama Program"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
-                            Kategori Kegiatan
+                            Kategori Program
                           </label>
                           <select
                             value={kategori}
@@ -332,9 +332,9 @@ function AddKegiatanPanti() {
                             aria-label="Small select example"
                             onChange={(e) => setKategori(e.target.value)}
                           >
-                            <option selected>Pilih Kategori Kegiatan</option>
-                            <option value="Kegiatan Peduli Lingkungan">
-                              Kegiatan Peduli Lingkungan
+                            <option selected>Pilih Kategori Program</option>
+                            <option value="Program Peduli Lingkungan">
+                              Program Peduli Lingkungan
                             </option>
                             <option value="Peduli Kebersihan">
                               Peduli Kebersihan
@@ -350,7 +350,7 @@ function AddKegiatanPanti() {
                             </option>
                           </select>
                         </div>
-                        <div className="mb-3 col-lg-6">
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Gambar
                           </label>
@@ -363,7 +363,7 @@ function AddKegiatanPanti() {
                         </div>
                         <div className="col-lg-12 mb-3">
                           <label className="form-label font-weight-bold">
-                            Isi Kegiatan
+                            Isi Program
                           </label>
                           <div className="">
                             <CKEditor
@@ -605,33 +605,33 @@ function AddKegiatanPanti() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Penulis Kegiatan
+                            Penulis Program
                           </label>
                           <input
                             value={penulis}
                             onChange={(e) => setPenulis(e.target.value)}
                             type="text"
                             className="form-control"
-                            placeholder="Masukkan Nama Penulis Kegiatan"
+                            placeholder="Masukkan Nama Penulis Program"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Tanggal Kegiatan
+                            Tanggal Program
                           </label>
                           <input
                             value={tanggal}
                             onChange={(e) => setTanggal(e.target.value)}
                             type="date"
                             className="form-control"
-                            placeholder="Masukkan Tanggal Kegiatan Dimulai"
+                            placeholder="Masukkan Tanggal Program Dimulai"
                           />
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_kegiatan"
+                          href="/admin_program"
                         >
                           Batal
                         </a>

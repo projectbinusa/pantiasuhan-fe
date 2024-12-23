@@ -58,6 +58,7 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import { uploadImageToS3 } from "../../../../../../utils/uploadToS3";
+import { API_DUMMY_SMART_DEV } from "../../../../../../utils/base_URL";
 
 function AddDanaKeluar() {
   const [nama, setNama] = useState("");
@@ -89,7 +90,7 @@ function AddDanaKeluar() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `https://api.byrtagihan.com/api/customer/donation`,
+        `${API_DUMMY_SMART_DEV}/api/customer/donation`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -116,7 +117,7 @@ function AddDanaKeluar() {
         imageUrl = await uploadImageToS3(image);
       }
       await axios.post(
-        `https://api.byrtagihan.com/api/customer/donation_trx`,
+        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx`,
         {
           name: nama,
           nominal: nominal,
