@@ -21,7 +21,7 @@ function TambahDonasiUmum() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_SMART_DEV}/api/customer/donation/${param.id}`,
+          `${API_DUMMY_SMART_DEV}/api/public/donation/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

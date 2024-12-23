@@ -57,8 +57,8 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
+import { uploadImageDonationToS3 } from "../../../../../utils/uploadDonationToS3";
 
 function TambahDonasi() {
   const [nama, setNama] = useState("");
@@ -93,7 +93,7 @@ function TambahDonasi() {
     try {
       let imageUrl = image;
       if (image) {
-        imageUrl = await uploadImageToS3(image);
+        imageUrl = await uploadImageDonationToS3(image);
       }
       await axios.post(
         `${API_DUMMY_SMART_DEV}/api/customer/donation`,

@@ -60,8 +60,8 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
+import { uploadImageDonationToS3 } from "../../../../../utils/uploadDonationToS3";
 
 function EditDonasi() {
   const [nama, setNama] = useState("");
@@ -126,7 +126,7 @@ function EditDonasi() {
     let imageUrl = image;
 
     if (image) {
-      imageUrl = await uploadImageToS3(image);
+      imageUrl = await uploadImageDonationToS3(image);
     }
     const data = {
       name: nama,

@@ -828,7 +828,7 @@ function Home() {
                     </div>
                     <div class="details-wrap">
                       <h3>
-                        <a href="#">{data.judul}</a>
+                        <a href={"/programpanti/" + data.id}>{data.judul}</a>
                       </h3>
                     </div>
                   </div>
@@ -1073,7 +1073,7 @@ function Home() {
           <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-7 col-md-10">
               <div class="section-title text-center" data-aos="fade-down">
-                <h5 class="sub-title double-line">blog Post</h5>
+                <h5 class="sub-title double-line">Blog Post</h5>
                 <h2 class="title">Informasi Berita Terbaru</h2>
                 {/* <p class="content">
                   Dcidunt eget semper nec quam. Sed hendrerit. acfelis Nunc
@@ -1102,7 +1102,7 @@ function Home() {
                   </div>
                   <div class="details shadow">
                     <h4>
-                      <a className="content-preview" href="blog-details.html">
+                      <a className="content-preview" href={`/beritapanti/${data.id}`}>
                         {data.judul_berita}
                       </a>
                     </h4>
@@ -1113,7 +1113,7 @@ function Home() {
                       }}
                       dangerouslySetInnerHTML={{ __html: data.isi_berita }}
                     />
-                    <a class="read-more-btn" href="blog-details.html">
+                    <a class="read-more-btn" href={`/beritapanti/${data.id}`}>
                       <i class="fa fa-arrow-right"></i>
                     </a>
                   </div>

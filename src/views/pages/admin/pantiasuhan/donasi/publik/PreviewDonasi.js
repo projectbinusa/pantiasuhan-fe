@@ -31,7 +31,7 @@ function PreviewDonasi() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_SMART_DEV}/api/customer/donation/${param.id}`,
+          `${API_DUMMY_SMART_DEV}/api/public/donation/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -87,15 +87,6 @@ function PreviewDonasi() {
               <div className={showFullStory ? 'stories' : 'content-isi stories'}>
                 <div dangerouslySetInnerHTML={{ __html: datas?.description }} />
               </div>
-              {/* <p className={showFullStory ? '' : 'content-isi'}>
-              Sahabat, ada ratusan anak menderita sakit kanker di pelosok yang saat ini nyawanya terancam karena sulit...
-                Akses terhadap layanan kesehatan masih terbatas, dan banyak keluarga tidak memiliki dana untuk
-                pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka.
-                Akses terhadap layanan kesehatan masih terbatas, dan banyak keluarga tidak memiliki dana untuk
-                pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka.
-                Akses terhadap layanan kesehatan masih terbatas, dan banyak keluarga tidak memiliki dana untuk
-                pengobatan yang memadai. Dukungan Anda sangat berarti untuk menyelamatkan mereka.
-              </p> */}
               <button className="lihat-selengkapnya" onClick={toggleStory}>
                 {showFullStory ? "Lihat Lebih Sedikit" : "Lihat Selengkapnya"}
               </button>
@@ -103,8 +94,8 @@ function PreviewDonasi() {
             <hr />
             <div className="dana-masuk">
               <header>
-                <h3>Dana Masuk <span>32</span></h3>
-                <a href={`/dana-masuk/${param.id}`}><i class="fas fa-caret-right"></i></a>
+                <h3>Dana Masuk <span>{danaMasuk.length}</span></h3>
+                <a href={`/donasiumum/danamasuk/${param.id}`}><i class="fas fa-caret-right"></i></a>
               </header>
               {danaMasuk.map((item) => (
                 <ul>
