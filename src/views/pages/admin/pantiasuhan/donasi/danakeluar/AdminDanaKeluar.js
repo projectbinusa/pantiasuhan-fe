@@ -36,7 +36,7 @@ function AdminDanaKeluar() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx/keluar?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -219,8 +219,7 @@ function AdminDanaKeluar() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama Donasi</th>
-                    <th>Nama</th>
+                    <th>Keperluan</th>
                     <th>Nominal</th>
                     <th>Deskripsi</th>
                     <th>Image</th>
@@ -230,16 +229,12 @@ function AdminDanaKeluar() {
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                      <td>{item.name}</td>
-                      <td><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
-                      <td>{item.total_income}</td>
-                      <td>{item.total_outcome}</td>
-                      <td>{item.aktif ? "Yes" : "No"}</td>
-                      {/* <td>
-                        <img src={item.image} alt="image" style={{ width: 50, height: 50 }} />
-                      </td> */}
-                      <td>
+                      <td data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                      <td data-label="Keperluan">{item.name}</td>
+                      <td data-label="Nominal">{item.nominal}</td>
+                      <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
+                      <td data-label="Image"><img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /></td>
+                      <td data-label="Aksi">
                         <button
                           type="button"
                           className="btn-primary btn-sm mr-2"
@@ -252,15 +247,6 @@ function AdminDanaKeluar() {
                             href={`/admin_dana_keluar/put/${item.id}`}
                           >
                             <i className="fa-solid fa-pen-to-square"></i>
-                          </a>
-                        </button>
-                        <button
-                          type="button"
-                          className="btn-warning mr-2 btn-sm">
-                          <a
-                            className="text-light"
-                            href={"/admin_dana_keluar/detail/" + item.id}>
-                            <i className="fas fa-info-circle"></i>
                           </a>
                         </button>
                         <button

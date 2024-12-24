@@ -143,7 +143,7 @@ function Panduan() {
             <button
               type="button"
               className="btn-primary mt-3"
-              onClick={() => (window.location.href = `/donasi_umum`)}>
+              onClick={() => (window.location.href = `/donasiumum`)}>
               Kembali
             </button>
           </div>

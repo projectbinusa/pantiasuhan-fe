@@ -289,12 +289,12 @@ function Navbar() {
                 </a>
               </li>
               <li className="">
-                <a href="#program" style={{ paddingLeft: "15px" }}>
+                <a href="/programpanti" style={{ paddingLeft: "15px" }}>
                   Program
                 </a>
               </li>
               <li className="">
-                <a href="#berita" style={{ paddingLeft: "15px" }}>
+                <a href="/beritapanti" style={{ paddingLeft: "15px" }}>
                   Berita
                 </a>
               </li>

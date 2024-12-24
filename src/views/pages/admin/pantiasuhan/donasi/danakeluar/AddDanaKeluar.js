@@ -57,13 +57,13 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import { uploadImageToS3 } from "../../../../../../utils/uploadToS3";
+import { uploadImageDonationToS3 } from "../../../../../../utils/uploadDonationToS3";
 import { API_DUMMY_SMART_DEV } from "../../../../../../utils/base_URL";
 
 function AddDanaKeluar() {
   const [nama, setNama] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
-  const [nominal, setNominal] = useState("");
+  const [nominal, setNominal] = useState(0);
   const [image, setImage] = useState(null);
   const [idDonasi, setIdDonasi] = useState("");
   const [donasi, setDonasi] = useState([]);
@@ -114,18 +114,22 @@ function AddDanaKeluar() {
       let imageUrl = image;
 
       if (image) {
-        imageUrl = await uploadImageToS3(image);
+        imageUrl = await uploadImageDonationToS3(image);
       }
+
+      const datas = {
+        name: nama,
+        nominal: parseInt(nominal),
+        description: deskripsi,
+        url_image: imageUrl,
+        donation_id: idDonasi,
+        is_income: false
+      }
+
+      console.log(datas);
+      
       await axios.post(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx`,
-        {
-          name: nama,
-          nominal: nominal,
-          description: deskripsi,
-          url_image: imageUrl,
-          is_income: false,
-          donation_id: idDonasi,
-        },
+        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx`, datas,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -288,9 +292,8 @@ function AddDanaKeluar() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"

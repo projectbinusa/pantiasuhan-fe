@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON, API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -36,7 +36,7 @@ function DonasiTrx() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/donation-rtx?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx/masuk?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -46,20 +46,19 @@ function DonasiTrx() {
 
       // Pastikan struktur response sesuai
       const { data, pagination } = response.data;
-      console.log(response);
+      console.log(data);
 
 
       // Set data dan pagination
       setList(data);
       setPaginationInfo({
-        totalPages: pagination.total_page || 1,
-        totalElements: pagination.total || 0,
+        totalPages: pagination.total_page,
+        totalElements: pagination.total,
       });
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
     }
   };
-
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -74,7 +73,7 @@ function DonasiTrx() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/donation-rtx/${id}`, {
+          .delete(`${API_DUMMY_SMART_DEV}/api/customer/donation_trx/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -133,7 +132,7 @@ function DonasiTrx() {
           value.toLowerCase().includes(searchTerm.toLowerCase())
       )
     )
-    : list;  
+    : list;
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
@@ -180,7 +179,7 @@ function DonasiTrx() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Donasi TRX</p>
+              <p className="mt-3">Dana Masuk</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -212,7 +211,7 @@ function DonasiTrx() {
                         style={{ color: "white", textDecoration: "none" }}
                         href="/add_donasi_trx"
                       >
-                        Tambah DonasiTrx
+                        Tambah
                       </a>
                     </button>
                   </div>
@@ -227,9 +226,9 @@ function DonasiTrx() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama</th>
-                    <th>Deskripsi</th>
+                    <th>Nama Donatur</th>
                     <th>Nominal</th>
+                    <th>Deskripsi</th>
                     <th>Image</th>
                     <th>Aksi</th>
                   </tr>
@@ -238,12 +237,10 @@ function DonasiTrx() {
                   {filteredList.map((item, index) => (
                     <tr key={index}>
                       <td data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                      <td data-label="Nama">{item.name}</td>
-                      <td data-label="Deskripsi">{item.description}</td>
+                      <td data-label="Nama Donatur">{item.name}</td>
                       <td data-label="Nominal">{item.nominal}</td>
-                      <td data-label="Image">
-                        <img src={item.image} alt="image" style={{ width: 50, height: 50 }} />
-                      </td>
+                      <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
+                      <td data-label="Image"><img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /></td>
                       <td data-label="Aksi">
                         <button
                           type="button"

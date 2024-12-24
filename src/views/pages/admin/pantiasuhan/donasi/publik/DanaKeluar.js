@@ -17,7 +17,7 @@ const formatTanggal = (tanggalString) => {
   return `${hari} ${bulanNama} ${tahun}`;
 };
 
-function DanaMasuk() {
+function DanaKeluar() {
   const [datas, setDatas] = useState(null);
   const param = useParams();
   useEffect(() => {
@@ -34,8 +34,6 @@ function DanaMasuk() {
         const resp = response.data.data;
         setDatas(resp)
         console.log(resp);
-        // setDanaMasuk(resp.income_trx)
-        // setDanaKeluar(resp.outcome_trx)
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -64,7 +62,7 @@ function DanaMasuk() {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/public/donation_trx/masuk/donation/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART_DEV}/api/public/donation_trx/keluar/donation/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -134,12 +132,12 @@ function DanaMasuk() {
           <div className="content-donasi">
             <div className="dana-masuk">
               <br />
-              <h3>Dana Masuk</h3> <br />
+              <h3>Dana Keluar</h3> <br />
               <ul>
                 {list.map((item, index) => (
                   <li key={index}>
                     <h3>{item.name}</h3>
-                    <p>Berdonasi sebesar <b>{rupiah(item.nominal)}</b></p>
+                    <p>Sebesar <b>{rupiah(item.nominal)}</b></p>
                     <span>{formatTanggal(item?.created_date)}</span>
                   </li>
                 ))}
@@ -268,4 +266,4 @@ font-family: "Poppins", sans-serif;
   )
 }
 
-export default DanaMasuk;
+export default DanaKeluar;
