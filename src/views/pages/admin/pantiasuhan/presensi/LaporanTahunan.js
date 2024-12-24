@@ -18,15 +18,30 @@ function LaporanTahunanPresensi() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
-  const history = useHistory();
+  const [date, setDate] = useState("");
+  const [date2, setDate2] = useState("");
+
+  const tanggal = new Date();
+  const tahun = tanggal.getFullYear();
+
+  const getTgl = () => {
+    setDate2(date)
+  }
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/siswa/absensi?page=${currentPage}&limit=${rowsPerPage}`, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      });
+      const tgl = date2 || tahun;
+      console.log(tgl);
+
+      const response = await axios.get(
+        `${API_DUMMY_PYTHON}/api/siswa/absensi/tahunan/${tgl}?page=${currentPage}&limit=${rowsPerPage}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          }
+        }
+      );
+
       const { data, pagination } = response.data;
       console.log(response);
       setList(data);
@@ -38,6 +53,11 @@ function LaporanTahunanPresensi() {
       console.error("Terjadi Kesalahan", error);
     }
   };
+
+  // Gunakan useEffect untuk memantau perubahan
+  useEffect(() => {
+    getAll();
+  }, [currentPage, rowsPerPage, date2]);
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -72,10 +92,6 @@ function LaporanTahunanPresensi() {
       }
     });
   };
-
-  useEffect(() => {
-    getAll(currentPage);
-  }, [currentPage, rowsPerPage]);
 
   useEffect(() => {
     AOS.init();
@@ -135,8 +151,12 @@ function LaporanTahunanPresensi() {
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
+        <div className="container d-flex g-3 align-items-center mt-3">
+          <input className="form-control" type="text" placeholder="Masukkan Tahun" onChange={(e) => setDate(e.target.value)} />
+          <button className="btn-primary ml-3" type="button" onClick={getTgl}>Pilih</button>
+        </div>
         <div
-          className="container box-table mt-3 app-main__outer"
+          className="container box-table app-main__outer"
           data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">

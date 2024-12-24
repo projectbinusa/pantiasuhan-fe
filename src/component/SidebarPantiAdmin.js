@@ -189,12 +189,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           path: "/donasi",
           action: ["/donasi/add", "/donasi/put"],
         },
-        // {
-        //   title: "Dana Masuk",
-        //   icon: "fas fa-plus",
-        //   path: "/donasi_trx",
-        //   action: ["/add_donasi_trx", "/edit_donasi_trx"],
-        // },
+        {
+          title: "Dana Masuk",
+          icon: "fas fa-plus",
+          path: "/donasi_trx",
+          action: ["/add_donasi_trx", "/edit_donasi_trx"],
+        },
         {
           title: "Dana Keluar",
           icon: "fas fa-minus",
