@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import Swal from "sweetalert2";
 import {
@@ -7,7 +7,7 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
-import charity from "../../../../../aset/pantiasuhan/charity.jpg"
+import charity from "../../../../../aset/pantiasuhan/charity.jpg";
 
 function FormBukuTamu() {
   const [nama, setNama] = useState("");
@@ -17,9 +17,43 @@ function FormBukuTamu() {
   const [image, setImage] = useState(null);
   const [tanggal, setTanggal] = useState("");
   const [catatan, setCatatan] = useState("");
-
+  const [signature, setSignature] = useState(""); // State to store signature
   const history = useHistory();
   const param = useParams();
+  const canvasRef = useRef(null);
+  const [isDrawing, setIsDrawing] = useState(false);
+
+  const handleMouseDown = (e) => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const rect = canvas.getBoundingClientRect();
+
+    setIsDrawing(true);
+    ctx.beginPath(); // Memulai path baru
+    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+  };
+
+  const handleDraw = (e) => {
+    if (!isDrawing) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const rect = canvas.getBoundingClientRect();
+
+    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    ctx.stroke();
+  };
+
+  const handleMouseUp = () => {
+    setIsDrawing(false);
+  };
+
+  const clearSignature = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Membersihkan seluruh canvas
+    ctx.beginPath(); // Inisialisasi ulang path
+  };
 
   const add = async (e) => {
     e.preventDefault();
@@ -27,10 +61,10 @@ function FormBukuTamu() {
 
     try {
       let imageUrl = image;
-
       if (image) {
         imageUrl = await uploadImageToS3(image);
       }
+
       await axios.post(`${API_DUMMY_PYTHON}/api/guestbook`, {
         no_wa: noWa,
         address: alamat,
@@ -40,6 +74,7 @@ function FormBukuTamu() {
         note: catatan,
         description_donation: tujuan,
         organization_id: param.organization_id,
+        signature: signature,
       });
 
       Swal.fire({
@@ -48,11 +83,12 @@ function FormBukuTamu() {
         showConfirmButton: false,
         timer: 1500,
       });
+
       setTimeout(() => {
         history.push("/");
       }, 1500);
     } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         localStorage.clear();
         history.push("/login");
       } else {
@@ -109,7 +145,9 @@ function FormBukuTamu() {
                 />
               </div>
               <div className="mb-3 col-lg-12">
-                <label className="form-label font-weight-bold">No Whatsapp</label>
+                <label className="form-label font-weight-bold">
+                  No Whatsapp
+                </label>
                 <input
                   onChange={(e) => setNoWa(e.target.value)}
                   placeholder="Masukkan nomor Whatsapp"
@@ -119,10 +157,17 @@ function FormBukuTamu() {
               </div>
               <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">Alamat</label>
-                <textarea className="form-control" onChange={(e) => setAlamat(e.target.value)} placeholder="Masukkan Alamat" rows={4}></textarea>
+                <textarea
+                  className="form-control"
+                  onChange={(e) => setAlamat(e.target.value)}
+                  placeholder="Masukkan Alamat"
+                  rows={4}
+                ></textarea>
               </div>
               <div className="mb-3 col-lg-12">
-                <label className="form-label font-weight-bold">Tanggal Kunjungan</label>
+                <label className="form-label font-weight-bold">
+                  Tanggal Kunjungan
+                </label>
                 <input
                   type="date"
                   onChange={(e) => setTanggal(e.target.value)}
@@ -131,12 +176,45 @@ function FormBukuTamu() {
               </div>
               <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">Tujuan</label>
-                <textarea className="form-control" onChange={(e) => setTujuan(e.target.value)} placeholder="Masukkan Tujuan" rows={4}></textarea>
+                <textarea
+                  className="form-control"
+                  onChange={(e) => setTujuan(e.target.value)}
+                  placeholder="Masukkan Tujuan"
+                  rows={4}
+                ></textarea>
               </div>
               <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">Catatan</label>
-                <textarea className="form-control" onChange={(e) => setCatatan(e.target.value)} placeholder="Masukkan Catatan" rows={4}></textarea>
-              </div> 
+                <textarea
+                  className="form-control"
+                  onChange={(e) => setCatatan(e.target.value)}
+                  placeholder="Masukkan Catatan"
+                  rows={4}
+                ></textarea>
+              </div>
+              <div className="mb-3 col-lg-12">
+                <label className="form-label font-weight-bold">
+                  Tanda Tangan
+                </label>
+                <canvas
+                  ref={canvasRef}
+                  width={400}
+                  height={200}
+                  style={{ border: "1px solid #000", marginBottom: "10px" }}
+                  onMouseDown={handleMouseDown}
+                  onMouseMove={handleDraw}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseUp}
+                ></canvas>
+                <br />
+                <button
+                  type="button"
+                  onClick={clearSignature}
+                  className="btn-secondary"
+                >
+                  Bersihkan Tanda Tangan
+                </button>
+              </div>
             </div>
           </div>
           <br /> <br />
@@ -147,7 +225,6 @@ function FormBukuTamu() {
           </button>
         </div>
       </section>
-
       <style>
         {`
         * {
@@ -252,7 +329,7 @@ function FormBukuTamu() {
         `}
       </style>
     </main>
-  )
+  );
   // return (
   //   <div className="app-main__inner m-4">
   //     <div className="row">

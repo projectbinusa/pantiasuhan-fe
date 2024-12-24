@@ -3,9 +3,7 @@ import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import {
-  Pagination,
-} from "@mui/material";
+import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 // import kegiatan from "../../../../../aset/smpn1bergas/kegiatan.png";
 
@@ -50,7 +48,7 @@ function Iventaris() {
       setList(response.data.data);
       console.log(response.data.data);
       setPaginationInfo({
-        totalPages: response.pagination.total_pages,
+        totalPages: response.data.pagination.total_pages,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -260,9 +258,7 @@ function Iventaris() {
                               }}
                             />
                           </td>
-                          <td data-label="Keterangan">
-                            {row.url_note}
-                          </td>
+                          <td data-label="Keterangan">{row.url_note}</td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
