@@ -223,6 +223,9 @@ import LaporanBulananPresensi from "./views/pages/admin/pantiasuhan/presensi/Lap
 import LaporanTahunanPresensi from "./views/pages/admin/pantiasuhan/presensi/LaporanTahunan.js";
 import PublikDetailProgramPanti from "./views/pages/admin/pantiasuhan/PublikDetailProgramPanti.js";
 import PublikDetailBeritaPanti from "./views/pages/admin/pantiasuhan/PublikDetailBeritaPanti.js";
+import PublikBerita from "./views/pages/admin/pantiasuhan/berita/PublikBerita.js";
+import PublikProgram from "./views/pages/admin/pantiasuhan/PublikProgram.js";
+import DanaKeluar from "./views/pages/admin/pantiasuhan/donasi/publik/DanaKeluar.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1017,6 +1020,7 @@ function App() {
             {/* Panduan */}
             <Route path="/donasiumum/panduan" component={Panduan} exact />
             <Route path="/donasiumum/danamasuk/:id" component={DanaMasuk} exact />
+            <Route path="/donasiumum/danakeluar/:id" component={DanaKeluar} exact />
             <PrivateRoute
               path="/admin_dana_keluar"
               component={AdminDanaKeluar}
@@ -1046,6 +1050,8 @@ function App() {
             <PrivateRoute path="/laporan_presensi/tahunan" component={LaporanTahunanPresensi} exact />
             <Route path="/programpanti/:id" component={PublikDetailProgramPanti} exact />
             <Route path="/beritapanti/:id" component={PublikDetailBeritaPanti} exact />
+            <Route path="/beritapanti" component={PublikBerita} exact />
+            <Route path="/programpanti" component={PublikProgram} exact />
           </Switch>
         </main>
         <LogPageView />

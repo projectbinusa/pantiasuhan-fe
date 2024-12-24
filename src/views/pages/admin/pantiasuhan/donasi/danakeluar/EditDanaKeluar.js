@@ -60,7 +60,7 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import { uploadImageToS3 } from "../../../../../../utils/uploadToS3";
+import { uploadImageDonationToS3 } from "../../../../../../utils/uploadDonationToS3";
 import { API_DUMMY_SMART_DEV } from "../../../../../../utils/base_URL";
 
 function EditDanaKeluar() {
@@ -69,7 +69,6 @@ function EditDanaKeluar() {
   const [nominal, setNominal] = useState("");
   const [image, setImage] = useState(null);
   const [idDonasi, setIdDonasi] = useState("");
-  const [namaDonasi, setNamaDonasi] = useState("");
   const [donasi, setDonasi] = useState([]);
 
   const history = useHistory();
@@ -119,13 +118,13 @@ function EditDanaKeluar() {
       let imageUrl = image;
 
       if (image) {
-        imageUrl = await uploadImageToS3(image);
+        imageUrl = await uploadImageDonationToS3(image);
       }
       await axios.put(
         `${API_DUMMY_SMART_DEV}/api/customer/donation_trx/${param.id}`,
         {
           name: nama,
-          nominal: nominal,
+          nominal: parseInt(nominal),
           description: deskripsi,
           url_image: imageUrl,
           is_income: false,
@@ -290,6 +289,31 @@ function EditDanaKeluar() {
     { label: "Grey 900", color: "#212121" },
     { label: "Blue grey 900", color: "#263238" },
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_SMART_DEV}/api/customer/donation_trx/${param.id}`,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        const resp = response.data.data;
+        console.log(resp);
+        setNama(resp.name);
+        setNominal(resp.nominal);
+        setDeskripsi(resp.description);
+        setImage(resp.url_image)
+      } catch (error) {
+        console.error("Terjadi Kesalahan", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div

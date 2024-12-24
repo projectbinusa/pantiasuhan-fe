@@ -94,7 +94,8 @@ function PreviewDonasi() {
             <hr />
             <div className="dana-masuk">
               <header>
-                <h3>Dana Masuk <span>{danaMasuk.length}</span></h3>
+                {/* <h3>Dana Masuk <span>{danaMasuk.length}</span></h3> */}
+                <h3>Dana Masuk</h3>
                 <a href={`/donasiumum/danamasuk/${param.id}`}><i class="fas fa-caret-right"></i></a>
               </header>
               {danaMasuk.map((item) => (
@@ -111,7 +112,7 @@ function PreviewDonasi() {
             <div className="dana-masuk">
               <header>
                 <h3>Dana Keluar</h3>
-                <a href={`/dana-keluar/${param.id}`}><i class="fas fa-caret-right"></i></a>
+                <a href={`/donasiumum/danakeluar/${param.id}`}><i class="fas fa-caret-right"></i></a>
               </header>
               {danaKeluar.map((item) => (
                 <ul>
