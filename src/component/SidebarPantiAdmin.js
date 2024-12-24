@@ -1,11 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import "../../src/component/sidebar.css"; // Assuming you have the CSS in this file
+import React, { useEffect, useRef } from "react";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
-import {
-  NavLink,
-  useHistory,
-  useLocation,
-} from "react-router-dom/cjs/react-router-dom.min";
 
 function SidebarPantiAdmin({ toggleSidebar }) {
   const history = useHistory();
@@ -25,7 +20,6 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       });
     }
 
-    // INVENTARIS MENU
     const activeIndexInventaris = inventarisItems.findIndex(
       (item) => location.pathname === item.path
     );
@@ -95,13 +89,11 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           title: "Sambutan",
           icon: "fa-solid fa-book-open",
           path: "/admin_sambutan",
-          action: ["/add_sambutan", "/edit_sambutan"],
         },
         {
           title: "Visi Misi",
           icon: "fa-solid fa-list",
           path: "/admin_visimisi",
-          action: ["/add_visimisi", "/edit_visimisi"],
         },
         {
           title: "Program",
@@ -119,13 +111,11 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           title: "Galeri",
           icon: "fa-solid fa-images",
           path: "/admin_galeri",
-          action: ["/add_galeri", "/edit_galeri"],
         },
         {
           title: "Kontak",
           icon: "fa-solid fa-id-card",
           path: "/admin_kontak",
-          action: ["/add_kontak", "/edit_kontak"],
         },
       ],
     },
@@ -136,13 +126,11 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           title: "Anak Asuh",
           icon: "fa-solid fa-user",
           path: "/admin_anak_asuh",
-          action: ["/add_anak_asuh", "/edit_anak_asuh"],
         },
         {
           title: "Orang Tua Asuh",
           icon: "fa-solid fa-user",
           path: "/admin_ortu_asuh",
-          action: ["/add_ortu_asuh", "/edit_ortu_asuh"],
         },
       ],
     },
@@ -176,7 +164,6 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           title: "Buku Tamu",
           icon: "fa-solid fa-book",
           path: "/admin_buku_tamu",
-          action: ["/add_buku_tamu", "/edit_buku_tamu"],
         },
       ],
     },
@@ -184,10 +171,16 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       header: "Keuangan",
       items: [
         {
+
+          title: "Keuangan",
+          icon: "fa-solid fa-wallet",
+          path: "/admin_keuangan",
+        },
+        {
           title: "Donasi",
+
           icon: "fas fa-hand-holding-heart",
           path: "/donasi",
-          action: ["/donasi/add", "/donasi/put"],
         },
         {
           title: "Dana Masuk",
@@ -199,13 +192,11 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           title: "Dana Keluar",
           icon: "fas fa-minus",
           path: "/admin_dana_keluar",
-          action: ["/add_dana_keluar", "/edit_dana_keluar"],
         },
         {
           title: "Laporan Keuangan",
           icon: "fa-solid fa-file-invoice-dollar",
           path: "/laporan_keuangan",
-          action: [],
         },
       ],
     },
@@ -216,53 +207,115 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       title: "Barang Inventaris",
       icon: "fa-solid fa-list",
       path: "/barang_inventaris",
-      action: ["/edit_barang_inventaris"],
     },
     {
       title: "Kategori Barang",
       icon: "fa-solid fa-list",
       path: "/kategori_barang_inventaris",
-      action: ["/edit_kategori_barang_inventaris"],
     },
     {
       title: "Status Barang",
       icon: "fa-solid fa-list",
       path: "/status_barang_inventaris",
-      action: ["/edit_status_barang_inventaris"],
     },
     {
       title: "Kondisi Barang",
       icon: "fa-solid fa-list",
       path: "/kondisi_barang_inventaris",
-      action: ["/edit_kondisi_barang_inventaris"],
     },
     {
       title: "Lokasi Barang",
       icon: "fa-solid fa-list",
       path: "/lokasi_barang_inventaris",
-      action: ["/edit_lokasi_barang_inventaris"],
     },
   ];
 
-  useEffect(() => {
-    console.log(
-      "data: ",
-      menuItems.map((dt) => dt.badge)
-    );
-  }, []);
-
   return (
     <>
+      <style>
+        {`
+          .sidebar-wrapper {
+            width: 250px;
+            background-color: #333;
+            color: white;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+            padding-bottom: 20px;
+          }
+
+          .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+          }
+
+          .sidebar-brand {
+            text-align: center;
+            padding-bottom: 20px;
+            font-size: 1.5rem;
+          }
+
+          .sidebar-menu1 {
+            list-style: none;
+            padding-left: 0;
+          }
+
+          .sidebar-menu1 li {
+            margin-bottom: 15px;
+          }
+
+          .sidebar-menu1 li a {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+          }
+
+          .sidebar-menu1 li a:hover,
+          .sidebar-menu1 li a.active {
+            background-color: #2E5077;
+          }
+
+          .sidebar-menu1 li a i {
+            margin-right: 10px;
+          }
+
+          .sidebar-footer {
+            margin-top: auto;
+            text-align: center;
+          }
+
+          .sidebar-footer button {
+            width: 100%;
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+          }
+
+          .sidebar-footer button:hover {
+            background-color: #d32f2f;
+          }
+        `}
+      </style>
+
       <nav id="sidebar" className="sidebar-wrapper">
         <div className="sidebar-content">
           <div className="sidebar-brand">
-            <a href="#" style={{ textAlign: "center" }}>
-              PANTI ASUHAN
-            </a>
+            <a href="#">PANTI ASUHAN</a>
             <div id="close-sidebar" onClick={toggleSidebar}>
               <i className="fas fa-times"></i>
             </div>
           </div>
+
           <div className="sidebar-menu1">
             <ul>
               {defaultItems.map((data, index) => (
@@ -306,10 +359,11 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                   ))}
                 </React.Fragment>
               ))}
-              <li className="header-menu1">
-                <span>Inventaris</span>
-              </li>
+            </ul>
+
+            <ul>
               {inventarisItems.map((data, index) => (
+
                 <li
                   key={index}
                   ref={(el) => (inventarisRefs.current[index] = el)}
@@ -329,10 +383,10 @@ function SidebarPantiAdmin({ toggleSidebar }) {
             </ul>
           </div>
         </div>
+
         <div className="sidebar-footer">
-          <button type="button" onClick={logout}>
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span> Logout</span>
+          <button onClick={logout}>
+            <i className="fas fa-sign-out-alt"></i> Logout
           </button>
         </div>
       </nav>

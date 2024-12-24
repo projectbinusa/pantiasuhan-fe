@@ -1032,7 +1032,7 @@ function App() {
               component={EditDanaKeluar}
               exact
             />
-            <PrivateRoute
+            <Route
               path="/dashboard_panti"
               component={DashboardPanti}
               exact
