@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import axios from "axios";
-import { API_DUMMY_PYTHON } from "../../../../utils/base_URL";
+import {
+  API_DUMMY,
+  API_DUMMY_PYTHON,
+  API_DUMMY_SMART_DEV,
+  API_DUMMY_SMART_PROD,
+} from "../../../../utils/base_URL";
 
 function DashboardPanti() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
@@ -9,6 +14,12 @@ function DashboardPanti() {
   const [total_tahsin, setTotalTahsin] = useState();
   const [presensiCount, setPresensiCount] = useState();
   const [guestCount, setGuestCount] = useState();
+  const [donationData, setDonationData] = useState();
+  const [anakAsuhCount, setAnakAsuhCount] = useState(0);
+  const [conditions, setConditions] = useState([]);
+  const [quantities, setQuantities] = useState([]);
+  const [jumlahPostingan, setJumlahPostingan] = useState(0);
+  const [jumlahDanaKeluar, setJumlahDanaKeluar] = useState(0); // Menyimpan jumlah dana keluar
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -26,7 +37,6 @@ function DashboardPanti() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Fungsi untuk melakukan fetch data
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("tokenpython");
@@ -35,87 +45,126 @@ function DashboardPanti() {
       }
 
       const response = await axios.get(
-        `https://api.byrtagihan.com/api/customer/donation`, 
+        `${API_DUMMY_PYTHON}/api/customer/donation/recap`,
         {
-          headers: {
-            "auth-tgh": `jwt ${token}`,
-          },
+          headers: { "auth-tgh": `jwt ${token}` },
         }
       );
-
-      setFetchWeekly(response.data.weeklyDonation); 
+      setFetchWeekly(response.data.weeklyDonation || 0);
     } catch (error) {
-      console.error("Error fetching data: ", error.message);
+      console.error("Error fetching donation data: ", error.message);
     }
   };
 
-  // ambil data tahsin
   const fetchTahsin = async () => {
     try {
       const response = await axios.get(
         `${API_DUMMY_PYTHON}/api/admin/tahsin/minggu`,
         {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
+          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      
-      if (response.status === 200) {
-        const { data } = response.data;
-        setTotalTahsin(data.total || 0);
-      } else {
-        console.error("Error: API tidak mengembalikan status 200");
-      }
+      setTotalTahsin(response.data?.data?.total_tahsin || 0);
     } catch (error) {
-      console.error("Gagal mengambil data tahsin:", error.response || error.message);
+      console.error("Gagal mengambil data tahsin:", error.message);
     }
   };
-  
 
-  // Ambil data presensi
   const fetchPresensi = async () => {
     try {
       const response = await axios.get(
         `${API_DUMMY_PYTHON}/api/siswa/presensi`,
         {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
+          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      const { data } = response.data;
-      const totalPresensi = data.reduce(
+      const totalPresensi = response.data?.data.reduce(
         (acc, item) => acc + (item.jumlah || 0),
         0
       );
-      setPresensiCount(totalPresensi);
+      setPresensiCount(totalPresensi || 0);
     } catch (error) {
-      console.error(
-        "Terjadi kesalahan saat mengambil data presensi:",
-        error.response || error.message
-      );
+      console.error("Gagal mengambil data presensi:", error.message);
     }
   };
 
-  // Ambil data tamu
   const fetchGuestCount = async () => {
     try {
       const response = await axios.get(
         `${API_DUMMY_PYTHON}/api/admin/guest_book/week`,
         {
+          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+        }
+      );
+      setGuestCount(response.data?.data?.total_tamu || 0);
+    } catch (error) {
+      console.error("Gagal mengambil data tamu:", error.message);
+    }
+  };
+
+  const fetchAnakAsuhData = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/siswa`, {
+        headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+      });
+      // Periksa struktur data respons yang diterima
+      console.log("Jumlah siswa = ", response.data?.data); // Mencetak data siswa yang diterima dari API
+
+      // Mengambil jumlah siswa berdasarkan array yang ada di response.data.data
+      setAnakAsuhCount(response.data?.data?.length || 0); // Asumsi response.data.data adalah array siswa
+    } catch (error) {
+      console.error("Gagal mengambil data anak asuh:", error.message);
+    }
+  };
+
+  const fetchJumlahPostingan = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_PYTHON}/api/admin/berita`, // Endpoint API
+        {
           headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Menambahkan token jika diperlukan
           },
         }
       );
-      const { data } = response.data;
-      setGuestCount(data.total || 0);
+      console.log(response.data); // Memeriksa struktur respons
+
+      // Pastikan 'organization_id' ada dalam respons yang sesuai
+      setJumlahPostingan(response.data?.organization_id || 0);
     } catch (error) {
-      console.error(
-        "Gagal mengambil data tamu:",
-        error.response || error.message
+      console.error("Error fetching jumlah postingan: ", error);
+    }
+  };
+
+  const fetchJumlahDanaKeluar = async () => {
+    try {
+      const response = await axios.get(
+        "https://dev-api.byrtagihan.com/api/customer/donation_trx/recap", // Endpoint API
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Menambahkan token jika diperlukan
+          },
+        }
       );
+
+      console.log("Response data:", response.data); // Melihat struktur data API
+
+      // Pastikan `data` adalah array sebelum menggunakan reduce
+      if (Array.isArray(response.data?.data)) {
+        const totalNominal = response.data.data.reduce((total, item) => {
+          console.log("Nominal item:", item.nominal); // Melihat setiap nominal
+          return total + (item.nominal || 0);
+        }, 0);
+
+        console.log("Total nominal dana keluar:", totalNominal); // Melihat total nominal
+        setJumlahDanaKeluar(totalNominal || 0); // Set total nominal ke state
+      } else {
+        console.error("Unexpected data format:", response.data?.data);
+        setJumlahDanaKeluar(0); // Jika data tidak sesuai, set ke 0
+      }
+    } catch (error) {
+      console.error("Error fetching jumlah dana keluar: ", error.message);
+      setJumlahDanaKeluar(0); // Jika error, tampilkan 0
     }
   };
 
@@ -124,6 +173,43 @@ function DashboardPanti() {
     fetchTahsin();
     fetchPresensi();
     fetchGuestCount();
+    fetchAnakAsuhData();
+    fetchJumlahPostingan();
+    fetchJumlahDanaKeluar();
+  }, []);
+
+  const fetchKondisiBarang = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_PYTHON}/api/admin/kondisi_barang`,
+        {
+          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+        }
+      );
+      setConditions(response.data?.data?.data || []);
+    } catch (error) {
+      console.error("Gagal mengambil kondisi barang:", error.message);
+    }
+  };
+
+  // Fetch stok barang
+  const fetchStokBarang = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_PYTHON}/api/admin/stok_barang`,
+        {
+          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+        }
+      );
+      setQuantities(response.data?.data?.data || []);
+    } catch (error) {
+      console.error("Gagal mengambil stok barang:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchKondisiBarang();
+    fetchStokBarang();
   }, []);
 
   return (
@@ -147,15 +233,20 @@ function DashboardPanti() {
             <div>
               <div className="card shadow w-100 border-none cardmenu">
                 <h2 className="">Jumlah Donasi dalam 1 Minggu Terakhir</h2>
-                {/* <h1>{fetchWeekly}</h1> */}
-                <h1>Rp 500.0000</h1>
+                <h1>{"Rp " + fetchWeekly}</h1>
+                {/* <h1>Rp 500.0000</h1> */}
                 <div className="info-link">
                   <a href="/donasi">Informasi Selengkapnya</a>
                 </div>
               </div>
               <div className="card shadow w-100 border-none cardmenu">
                 <h2 className="">Jumlah Dana Keluar dalam 1 Minggu Terakhir</h2>
-                <h1>Rp 500.000</h1>
+                <h1>
+                  {jumlahDanaKeluar.toLocaleString("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  })}
+                </h1>
                 <div className="info-link">
                   <a href="/admin_dana_keluar">Informasi Selengkapnya</a>
                 </div>
@@ -169,7 +260,7 @@ function DashboardPanti() {
               </div>
             </div>
             <div className="card shadow w-100 cardmenu">
-              <h2 className="">Jumlah Barang (stok barang)</h2> <br />
+              <h2 className="">Jumlah Barang</h2> <br />
               <table className="align-middle mb-0 table table-bordered table-striped table-hover tabelbarang">
                 <thead>
                   <tr>
@@ -181,17 +272,27 @@ function DashboardPanti() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td data-label="No" className="text-center">
-                      1
-                    </td>
-                    <td data-label="Kondisi" className="text-center">
-                      Baik
-                    </td>
-                    <td data-label="Jumlah" className="text-center">
-                      18
-                    </td>
-                  </tr>
+                  {conditions.length > 0 && quantities.length > 0 ? (
+                    conditions.map((condition, index) => (
+                      <tr key={index}>
+                        <td data-label="No" className="text-center">
+                          {index + 1}
+                        </td>
+                        <td data-label="Kondisi" className="text-center">
+                          {condition.kondisi_barang || "Tidak Diketahui"}
+                        </td>
+                        <td data-label="Jumlah" className="text-center">
+                          {quantities[index]?.jumlah_stok || 0}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="3" className="text-center">
+                        Data tidak tersedia
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
               <footer>
@@ -203,9 +304,8 @@ function DashboardPanti() {
           </div>
           <div className="box-tabel card2">
             <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Anak Asuh</h2> <br />
-              <br />
-              <h1>20</h1>
+              <h2 className="">Jumlah Anak Asuh</h2>
+              <h1>{anakAsuhCount}</h1>
               <div className="info-link">
                 <a href="/admin_anak_asuh">Informasi Selengkapnya</a>
               </div>
@@ -237,7 +337,7 @@ function DashboardPanti() {
             </div>
             <div className="card shadow w-100 border-none cardmenu">
               <h2 className="">Jumlah Postingan Blog Web</h2>
-              <h1>100</h1>
+              <h1>{jumlahPostingan}</h1>
               <div className="info-link">
                 <a href="#">Informasi Selengkapnya</a>
               </div>
