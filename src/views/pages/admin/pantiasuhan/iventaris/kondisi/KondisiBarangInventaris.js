@@ -3,11 +3,7 @@ import { API_DUMMY_PYTHON } from "../../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import {
-  Box,
-  Modal,
-  Pagination,
-} from "@mui/material";
+import { Box, Modal, Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
 
 function KondisiBarangInventaris() {
@@ -51,7 +47,7 @@ function KondisiBarangInventaris() {
       setList(response.data.data);
       console.log(response.data.data);
       setPaginationInfo({
-        totalPages: response.pagination.total_page,
+        totalPages: response.data.pagination.total_page,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -131,17 +127,17 @@ function KondisiBarangInventaris() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 500,
-    bgcolor: 'background.paper',
+    bgcolor: "background.paper",
     boxShadow: 24,
     p: 3,
     borderRadius: "10px",
-    backgroundColor: "#f5f5f5"
-  }
+    backgroundColor: "#f5f5f5",
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -159,34 +155,31 @@ function KondisiBarangInventaris() {
     const data = {
       kondisi_barang: kondisi,
       deskripsi: deskripsi,
-      organization_id: +localStorage.getItem("organization_id")
-    }
+      organization_id: +localStorage.getItem("organization_id"),
+    };
     console.log(data);
 
     try {
-      await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/kondisi_barang`, data,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+      await axios.post(`${API_DUMMY_PYTHON}/api/admin/kondisi_barang`, data, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      });
       Swal.fire({
         icon: "success",
         title: "Data Berhasil DiTambahkan",
         showConfirmButton: false,
         timer: 1500,
       });
-      setIsModalOpen(false)
+      setIsModalOpen(false);
       setTimeout(() => {
-        window.location.reload()
+        window.location.reload();
       }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
       } else {
-        setIsModalOpen(false)
+        setIsModalOpen(false);
         Swal.fire({
           icon: "error",
           title: "Tambah Data Gagal!",
@@ -200,8 +193,9 @@ function KondisiBarangInventaris() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -271,7 +265,10 @@ function KondisiBarangInventaris() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded" onClick={openModal}>
+                    <button
+                      className="active btn-focus p-2 rounded"
+                      onClick={openModal}
+                    >
                       Tambah
                     </button>
                   </div>
@@ -299,8 +296,16 @@ function KondisiBarangInventaris() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td className="text-sm-start text-end" data-label="Kondisi">{row.kondisi_barang}</td>
-                          <td className="text-sm-start text-end" data-label="Deskripsi">
+                          <td
+                            className="text-sm-start text-end"
+                            data-label="Kondisi"
+                          >
+                            {row.kondisi_barang}
+                          </td>
+                          <td
+                            className="text-sm-start text-end"
+                            data-label="Deskripsi"
+                          >
                             {row.deskripsi}
                           </td>
                           <td data-label="Aksi" className="action">
@@ -370,7 +375,9 @@ function KondisiBarangInventaris() {
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold "
-                    >Kondisi</label>
+                    >
+                      Kondisi
+                    </label>
                     <input
                       onChange={(e) => setKondisi(e.target.value)}
                       type="text"
@@ -382,13 +389,23 @@ function KondisiBarangInventaris() {
                     <label
                       for="exampleInputEmail1"
                       className="form-label font-weight-bold "
-                    >Deskripsi</label>
-                    <textarea rows={3} onChange={(e) => setDeskripsi(e.target.value)}
-                      className="form-control" placeholder="Masukkan Deskripsi"></textarea>
+                    >
+                      Deskripsi
+                    </label>
+                    <textarea
+                      rows={3}
+                      onChange={(e) => setDeskripsi(e.target.value)}
+                      className="form-control"
+                      placeholder="Masukkan Deskripsi"
+                    ></textarea>
                   </div>
-                  <div style={{ display: "flex", gap: '1rem' }}>
-                    <button onClick={closeModal} className="btn-danger ">TUTUP</button>
-                    <button type="submit" className="btn-primary">SIMPAN</button>
+                  <div style={{ display: "flex", gap: "1rem" }}>
+                    <button onClick={closeModal} className="btn-danger ">
+                      TUTUP
+                    </button>
+                    <button type="submit" className="btn-primary">
+                      SIMPAN
+                    </button>
                   </div>
                 </div>
               </form>

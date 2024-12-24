@@ -3,11 +3,7 @@ import { API_DUMMY_PYTHON } from "../../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import {
-  Box,
-  Modal,
-  Pagination,
-} from "@mui/material";
+import { Box, Modal, Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
 
 function StokBarangInventaris() {
@@ -53,7 +49,7 @@ function StokBarangInventaris() {
 
       console.log(response.data.data);
       setPaginationInfo({
-        totalPages: response.pagination.total_pages,
+        totalPages: response.data.pagination.total_pages,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -133,17 +129,17 @@ function StokBarangInventaris() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 500,
-    bgcolor: 'background.paper',
+    bgcolor: "background.paper",
     boxShadow: 24,
     p: 3,
     borderRadius: "10px",
-    backgroundColor: "#f5f5f5"
-  }
+    backgroundColor: "#f5f5f5",
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -167,7 +163,6 @@ function StokBarangInventaris() {
         );
         setBarang(response.data.data);
         console.log("res: ", response.data.data);
-
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -183,16 +178,13 @@ function StokBarangInventaris() {
     const data = {
       jumlah_stok: stok,
       barang_id: idBarang,
-    }
+    };
     try {
-      await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/stok_barang`, data,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+      await axios.post(`${API_DUMMY_PYTHON}/api/admin/stok_barang`, data, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      });
       setIsModalOpen(false);
       Swal.fire({
         icon: "success",
@@ -201,7 +193,7 @@ function StokBarangInventaris() {
         timer: 1500,
       });
       setTimeout(() => {
-        window.location.reload()
+        window.location.reload();
       }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
@@ -217,12 +209,13 @@ function StokBarangInventaris() {
         console.log(error);
       }
     }
-  }
+  };
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -292,7 +285,11 @@ function StokBarangInventaris() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded" onClick={openModal}>Tambah
+                    <button
+                      className="active btn-focus p-2 rounded"
+                      onClick={openModal}
+                    >
+                      Tambah
                     </button>
                   </div>
                 </div>
@@ -388,17 +385,18 @@ function StokBarangInventaris() {
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold "
-                    >Nama Barang</label>
+                    >
+                      Nama Barang
+                    </label>
                     <select
                       className="form-control"
                       aria-label="Small select example"
                       onChange={(e) => {
                         const selectedId = e.target.value;
                         setIdBarang(selectedId);
-                      }}>
-                      <option value="">
-                        Pilih Barang
-                      </option>
+                      }}
+                    >
+                      <option value="">Pilih Barang</option>
                       {barang.map((data, index) => (
                         <option key={index} value={data.id}>
                           {data.nama_barang}
@@ -410,7 +408,9 @@ function StokBarangInventaris() {
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold "
-                    >Stok Barang</label>
+                    >
+                      Stok Barang
+                    </label>
                     <input
                       onChange={(e) => setStok(e.target.value)}
                       type="number"
@@ -418,9 +418,13 @@ function StokBarangInventaris() {
                       placeholder="Masukkan Stok Barang"
                     />
                   </div>
-                  <div style={{ display: "flex", gap: '1rem' }}>
-                    <button onClick={closeModal} className="btn-danger ">TUTUP</button>
-                    <button type="submit" className="btn-primary">SIMPAN</button>
+                  <div style={{ display: "flex", gap: "1rem" }}>
+                    <button onClick={closeModal} className="btn-danger ">
+                      TUTUP
+                    </button>
+                    <button type="submit" className="btn-primary">
+                      SIMPAN
+                    </button>
                   </div>
                 </div>
               </form>
