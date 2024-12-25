@@ -368,6 +368,7 @@ function DataBarangInventaris() {
                     <th>Tanggal Masuk</th>
                     <th>Lokasi</th>
                     <th>Kondisi</th>
+                    <th>Stok</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -417,6 +418,12 @@ function DataBarangInventaris() {
                             data-label="Kondisi"
                           >
                             {row.kondisi_barang_name}
+                          </td>
+                          <td
+                            className="text-sm-start text-end"
+                            data-label="Stok"
+                          >
+                            {row.stok}
                           </td>
                           <td
                             className="text-sm-start text-end action"
