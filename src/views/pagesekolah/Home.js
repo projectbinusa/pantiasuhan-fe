@@ -55,10 +55,11 @@ function Home() {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 700,
+    maxHeight: "90vh",
     bgcolor: "background.paper",
-    // border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    overflowY: "auto",
   };
 
   useEffect(() => {
@@ -611,7 +612,7 @@ function Home() {
                   class="col-md-5">
                   <div class="thumb mb-4 mb-md-0">
                     <img
-                      src="https://solverwp.com/demo/html/itechie/assets/img/testimonial/2.webp"
+                      src={sambutanPanti?.foto}
                       alt="img"
                     />
                     <div class="quote-wrap">
@@ -2269,7 +2270,11 @@ function Home() {
             {judul}
           </Typography>
           <br />
-          <img style={{ width: "100%", height: "100%" }} src={foto} alt="" />
+          <img
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            src={foto}
+            alt=""
+          />
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {deskripsi}
           </Typography>
