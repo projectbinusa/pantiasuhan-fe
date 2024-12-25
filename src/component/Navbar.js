@@ -304,7 +304,7 @@ function Navbar() {
                 </a>
               </li>
               <li className="">
-                <a href="/bukutamu/form/35" style={{ paddingLeft: "15px" }}>
+                <a href="/bukutamu/form/38" style={{ paddingLeft: "15px" }}>
                   Buku Tamu
                 </a>
               </li>
