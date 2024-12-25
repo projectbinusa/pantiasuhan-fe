@@ -153,9 +153,9 @@ function KondisiBarangInventaris() {
     e.persist();
 
     const data = {
+      organization_id: +localStorage.getItem("organization_id"),
       kondisi_barang: kondisi,
       deskripsi: deskripsi,
-      organization_id: +localStorage.getItem("organization_id"),
     };
     console.log(data);
 

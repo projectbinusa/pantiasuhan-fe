@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import axios from "axios";
 import {
-  API_DUMMY,
   API_DUMMY_PYTHON,
-  API_DUMMY_SMART_DEV,
   API_DUMMY_SMART_PROD,
 } from "../../../../utils/base_URL";
+
+const rupiah = (number) => {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0
+  }).format(number);
+};
 
 function DashboardPanti() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
@@ -45,12 +51,13 @@ function DashboardPanti() {
       }
 
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/customer/donation/recap`,
+        `${API_DUMMY_SMART_PROD}/api/customer/donation/recap`,
         {
           headers: { "auth-tgh": `jwt ${token}` },
         }
       );
-      setFetchWeekly(response.data.weeklyDonation || 0);
+      setFetchWeekly(response.data.data?.total_income || 0);
+      setJumlahDanaKeluar(response.data.data?.total_outcome || 0);
     } catch (error) {
       console.error("Error fetching donation data: ", error.message);
     }
@@ -130,43 +137,43 @@ function DashboardPanti() {
       console.log(response.data); // Memeriksa struktur respons
 
       // Pastikan 'organization_id' ada dalam respons yang sesuai
-      setJumlahPostingan(response.data?.organization_id || 0);
+      setJumlahPostingan(response.data?.data?.length || 0);
     } catch (error) {
       console.error("Error fetching jumlah postingan: ", error);
     }
   };
 
-  const fetchJumlahDanaKeluar = async () => {
-    try {
-      const response = await axios.get(
-        "https://dev-api.byrtagihan.com/api/customer/donation_trx/recap", // Endpoint API
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Menambahkan token jika diperlukan
-          },
-        }
-      );
+  // const fetchJumlahDanaKeluar = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://dev-api.byrtagihan.com/api/customer/donation_trx/recap", // Endpoint API
+  //       {
+  //         headers: {
+  //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Menambahkan token jika diperlukan
+  //         },
+  //       }
+  //     );
 
-      console.log("Response data:", response.data); // Melihat struktur data API
+  //     console.log("Response data:", response.data); // Melihat struktur data API
 
-      // Pastikan `data` adalah array sebelum menggunakan reduce
-      if (Array.isArray(response.data?.data)) {
-        const totalNominal = response.data.data.reduce((total, item) => {
-          console.log("Nominal item:", item.nominal); // Melihat setiap nominal
-          return total + (item.nominal || 0);
-        }, 0);
+  //     // Pastikan `data` adalah array sebelum menggunakan reduce
+  //     if (Array.isArray(response.data?.data)) {
+  //       const totalNominal = response.data.data.reduce((total, item) => {
+  //         console.log("Nominal item:", item.nominal); // Melihat setiap nominal
+  //         return total + (item.nominal || 0);
+  //       }, 0);
 
-        console.log("Total nominal dana keluar:", totalNominal); // Melihat total nominal
-        setJumlahDanaKeluar(totalNominal || 0); // Set total nominal ke state
-      } else {
-        console.error("Unexpected data format:", response.data?.data);
-        setJumlahDanaKeluar(0); // Jika data tidak sesuai, set ke 0
-      }
-    } catch (error) {
-      console.error("Error fetching jumlah dana keluar: ", error.message);
-      setJumlahDanaKeluar(0); // Jika error, tampilkan 0
-    }
-  };
+  //       console.log("Total nominal dana keluar:", totalNominal); // Melihat total nominal
+  //       setJumlahDanaKeluar(totalNominal || 0); // Set total nominal ke state
+  //     } else {
+  //       console.error("Unexpected data format:", response.data?.data);
+  //       setJumlahDanaKeluar(0); // Jika data tidak sesuai, set ke 0
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching jumlah dana keluar: ", error.message);
+  //     setJumlahDanaKeluar(0); // Jika error, tampilkan 0
+  //   }
+  // };
 
   useEffect(() => {
     fetchData();
@@ -175,7 +182,7 @@ function DashboardPanti() {
     fetchGuestCount();
     fetchAnakAsuhData();
     fetchJumlahPostingan();
-    fetchJumlahDanaKeluar();
+    // fetchJumlahDanaKeluar();
   }, []);
 
   const fetchKondisiBarang = async () => {
@@ -186,7 +193,9 @@ function DashboardPanti() {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      setConditions(response.data?.data?.data || []);
+      console.log(response.data?.data);
+
+      setConditions(response.data?.data || []);
     } catch (error) {
       console.error("Gagal mengambil kondisi barang:", error.message);
     }
@@ -196,12 +205,13 @@ function DashboardPanti() {
   const fetchStokBarang = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/stok_barang`,
+        `${API_DUMMY_PYTHON}/api/admin/investaris`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      setQuantities(response.data?.data?.data || []);
+      console.log(response.data?.data);
+      setQuantities(response.data?.data || []);
     } catch (error) {
       console.error("Gagal mengambil stok barang:", error.message);
     }
@@ -214,9 +224,8 @@ function DashboardPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -233,20 +242,14 @@ function DashboardPanti() {
             <div>
               <div className="card shadow w-100 border-none cardmenu">
                 <h2 className="">Jumlah Donasi dalam 1 Minggu Terakhir</h2>
-                <h1>{"Rp " + fetchWeekly}</h1>
-                {/* <h1>Rp 500.0000</h1> */}
+                <h1>{rupiah(fetchWeekly)}</h1>
                 <div className="info-link">
                   <a href="/donasi">Informasi Selengkapnya</a>
                 </div>
               </div>
               <div className="card shadow w-100 border-none cardmenu">
                 <h2 className="">Jumlah Dana Keluar dalam 1 Minggu Terakhir</h2>
-                <h1>
-                  {jumlahDanaKeluar.toLocaleString("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  })}
-                </h1>
+                <h1>{rupiah(jumlahDanaKeluar)}</h1>
                 <div className="info-link">
                   <a href="/admin_dana_keluar">Informasi Selengkapnya</a>
                 </div>
@@ -273,19 +276,32 @@ function DashboardPanti() {
                 </thead>
                 <tbody>
                   {conditions.length > 0 && quantities.length > 0 ? (
-                    conditions.map((condition, index) => (
-                      <tr key={index}>
-                        <td data-label="No" className="text-center">
-                          {index + 1}
-                        </td>
-                        <td data-label="Kondisi" className="text-center">
-                          {condition.kondisi_barang || "Tidak Diketahui"}
-                        </td>
-                        <td data-label="Jumlah" className="text-center">
-                          {quantities[index]?.jumlah_stok || 0}
-                        </td>
-                      </tr>
-                    ))
+                    conditions.map((condition, index) => {
+                      const matchingQuantity = quantities.filter(
+                        (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
+                      );
+
+                      let ttl = 0;
+                      matchingQuantity.map((item) => (
+                        ttl += item.stok
+                      ))
+                      console.log(matchingQuantity);
+                      console.log(ttl);
+                      return (
+                        <tr key={index}>
+                          <td data-label="No" className="text-center">
+                            {index + 1}
+                          </td>
+                          <td data-label="Kondisi" className="text-center">
+                            {condition.kondisi_barang || "Tidak Diketahui"}
+                          </td>
+                          <td data-label="Jumlah" className="text-center">
+                            {/* {quantities[index]?.stok || 0} */}
+                            {ttl || 0}
+                          </td>
+                        </tr>
+                      )
+                    })
                   ) : (
                     <tr>
                       <td colSpan="3" className="text-center">
@@ -297,7 +313,7 @@ function DashboardPanti() {
               </table>
               <footer>
                 <div className="info-link">
-                  <a href="/barang_inventari">Informasi Selengkapnya</a>
+                  <a href="/barang_inventaris">Informasi Selengkapnya</a>
                 </div>
               </footer>
             </div>
@@ -305,6 +321,7 @@ function DashboardPanti() {
           <div className="box-tabel card2">
             <div className="card shadow w-100 border-none cardmenu">
               <h2 className="">Jumlah Anak Asuh</h2>
+              <br /> <br />
               <h1>{anakAsuhCount}</h1>
               <div className="info-link">
                 <a href="/admin_anak_asuh">Informasi Selengkapnya</a>
@@ -314,16 +331,16 @@ function DashboardPanti() {
               <h2 className="">Jumlah Setoran Tahsin</h2>
               <span>dalam 1 Minggu Terakhir</span> <br />
               <h1>{total_tahsin}</h1>
-              <div className="info-link">
+              {/* <div className="info-link">
                 <a href="#">Informasi Selengkapnya</a>
-              </div>
+              </div> */}
             </div>
             <div className="card shadow w-100 border-none cardmenu">
               <h2 className="">Jumlah Presensi</h2>
               <span>dalam 1 Minggu Terakhir</span> <br />
               <h1>{presensiCount}</h1>
               <div className="info-link">
-                <a href="/laporan_presensi">Informasi Selengkapnya</a>
+                <a href="/laporan_presensi/harian">Informasi Selengkapnya</a>
               </div>
             </div>
           </div>
@@ -339,7 +356,7 @@ function DashboardPanti() {
               <h2 className="">Jumlah Postingan Blog Web</h2>
               <h1>{jumlahPostingan}</h1>
               <div className="info-link">
-                <a href="#">Informasi Selengkapnya</a>
+                <a href="/admin_berita">Informasi Selengkapnya</a>
               </div>
             </div>
           </div>
