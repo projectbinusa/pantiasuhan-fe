@@ -3,11 +3,9 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-
 import { Pagination } from "@mui/material";
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import "../../../../../css/button.css";
-
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function Galery() {
@@ -20,6 +18,10 @@ function Galery() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  // Periksa peran user, jika 'yayasan', maka sembunyikan tombol
+  const userRole = localStorage.getItem("role"); // atau dari state setelah login
 
   const getAll = async () => {
     try {
@@ -32,7 +34,6 @@ function Galery() {
         }
       );
       const { data, pagination } = response.data;
-      console.log(response);
       setList(data);
       setPaginationInfo({
         totalPages: Math.ceil(pagination.total / rowsPerPage),
@@ -120,11 +121,7 @@ function Galery() {
       )
     : list;
 
-  console.log(filteredList);
-
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
-
-  const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -141,11 +138,10 @@ function Galery() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
     >
       <a
         id="show-sidebar"
@@ -155,14 +151,9 @@ function Galery() {
       >
         <i className="fas fa-bars"></i>
       </a>
-      {/* <Header toggleSidebar={toggleSidebar} /> */}
-      {/* <div className="app-main"> */}
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div
-          className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left"
-        >
+        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -191,43 +182,23 @@ function Galery() {
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Galery</p>
-              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-                <div className="col-auto">
-                  <label className="form-label mt-2">Rows per page:</label>
-                </div>
-                <div className="col-auto">
-                  <select
-                    className="form-select form-select-sm"
-                    onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                  </select>
-                </div>
-              </div>
-              <div className="d-flex ml-auto gap-3">
-                <input
-                  type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add-galery"
-                      >
-                        Tambah Galery
-                      </a>
-                    </button>
+              {/* Sembunyikan tombol jika peran 'yayasan' */}
+              {userRole !== "yayasan" && (
+                <div className="d-flex ml-auto gap-3">
+                  <div className="btn-actions-pane-right">
+                    <div role="group" className="btn-group-sm btn-group">
+                      <button className="active btn-focus p-2 rounded">
+                        <a
+                          style={{ color: "white", textDecoration: "none" }}
+                          href="/add-galery"
+                        >
+                          Tambah Galery
+                        </a>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
             <div
               className="table-responsive-3"
@@ -269,28 +240,32 @@ function Galery() {
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                type="button"
-                                className="btn-primary btn-sm mr-2"
-                              >
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/edit-galery/${galery.id}`}
-                                >
-                                  {" "}
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
-                              </button>
-                              <button
-                                onClick={() => deleteData(galery.id)}
-                                type="button"
-                                className="btn-danger btn-sm"
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
+                              {userRole !== "yayasan" && (
+                                <>
+                                  <button
+                                    type="button"
+                                    className="btn-primary btn-sm mr-2"
+                                  >
+                                    <a
+                                      style={{
+                                        color: "white",
+                                        textDecoration: "none",
+                                      }}
+                                      href={`/edit-galery/${galery.id}`}
+                                    >
+                                      {" "}
+                                      <i className="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                  </button>
+                                  <button
+                                    onClick={() => deleteData(galery.id)}
+                                    type="button"
+                                    className="btn-danger btn-sm"
+                                  >
+                                    <i className="fa-solid fa-trash"></i>
+                                  </button>
+                                </>
+                              )}
                             </div>
                           </td>
                         </tr>

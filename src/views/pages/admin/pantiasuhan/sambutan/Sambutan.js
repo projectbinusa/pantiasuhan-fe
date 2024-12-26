@@ -11,6 +11,7 @@ function Sambutan() {
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const userRole = localStorage.getItem("role");
   const [paginationInfo, setPaginationInfo] = useState({
     totalPages: 1,
     totalElements: 0,
@@ -277,6 +278,8 @@ function Sambutan() {
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
+                          {userRole !== "yayasan" && (
+                            <>
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2"
@@ -309,6 +312,8 @@ function Sambutan() {
                             >
                               <i className="fa-solid fa-trash"></i>
                             </button>
+                            </>
+                             )}
                           </div>
                         </td>
                       </tr>

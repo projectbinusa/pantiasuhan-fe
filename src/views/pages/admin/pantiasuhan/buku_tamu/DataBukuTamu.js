@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import {
-  Pagination,
-} from "@mui/material";
+import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import "../../../../../css/button.css";
 
@@ -20,6 +18,7 @@ function DataBukuTamu() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [role, setRole] = useState(""); // Menyimpan role pengguna
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -37,6 +36,12 @@ function DataBukuTamu() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    // Cek role pengguna di localStorage atau dari API
+    const userRole = localStorage.getItem("role"); // Misalnya role disimpan di localStorage
+    setRole(userRole);
+  }, []);
+
   const getAll = async () => {
     try {
       const response = await axios.get(
@@ -48,10 +53,8 @@ function DataBukuTamu() {
         }
       );
       setList(response.data.data);
-      console.log(response.data.pagination);
-      const { data, pagination } = response.data;
+      const { pagination } = response.data;
       setPaginationInfo({
-        // totalPages: pagination.total_pages,
         totalPages: Math.ceil(pagination.total / rowsPerPage),
         totalElements: pagination.total,
       });
@@ -132,87 +135,35 @@ function DataBukuTamu() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div
-          className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
-          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
-            <div className="col-auto">
-              <label className="form-label mt-2">Rows per page:</label>
-            </div>
-            <div className="col-auto">
-              <select
-                className="form-select form-select-xl w-auto"
-                onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-              </select>
-            </div>
-          </div>
-          <div className="search">
-            <input
-              type="search"
-              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div>
+        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+          {/* Baris filter dan pagination */}
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Buku Tamu</p>
-              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-                <div className="col-auto">
-                  <label className="form-label mt-2">Rows per page:</label>
-                </div>
-                <div className="col-auto">
-                  <select
-                    className="form-select form-select-sm"
-                    onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                  </select>
-                </div>
-              </div>
+              {/* ... */}
               <div className="d-flex ml-auto gap-3">
-                <input
-                  type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                {/* <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add_buku_tamu">
-                        Tambah Tamu
-                      </a>
-                    </button>
-                  </div>
-                </div> */}
+                {role !== "yayasan" && (
+                  <button
+                    className="active btn-focus p-2 rounded"
+                    style={{ color: "white", textDecoration: "none" }}
+                  >
+                    <a href="/add_buku_tamu">Tambah Tamu</a>
+                  </button>
+                )}
               </div>
             </div>
-            <div
-              className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -221,78 +172,64 @@ function DataBukuTamu() {
                     <th>Nomor Whatsapp</th>
                     <th>Alamat</th>
                     <th>Tanggal Kunjungan</th>
-                    <th
-                      scope="col"
-                      style={{ minWidth: "150px" }}>Tujuan Kunjungan</th>
+                    <th scope="col" style={{ minWidth: "150px" }}>Tujuan Kunjungan</th>
                     <th>TTD</th>
                     <th>Catatan</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length > 0 ?
-                    filteredList.map((berita, no) => {
-                      return (
-                        <tr key={no}>
-                          <td data-label="No" className="">
-                            {no + 1 + (currentPage - 1) * rowsPerPage}
-                          </td>
-                          <td data-label="Nama Orang Tua">
-                            {berita.nama}
-                          </td>
-                          <td data-label="Nomor Whatsapp">
-                            {berita.no_wa}
-                          </td>
-                          <td data-label="Alamat">
-                            {berita.address}
-                          </td>
-                          <td data-label="Tanggal Kunjungan">
-                            {berita.visit_date}
-                          </td>
-                          <td data-label="Tujuan Kunjungan">
-                            {berita.description_donation}
-                          </td>
-                          <td data-label="TTD" className="">
-                            <img
-                              src={berita.url_image_donation ? berita.url_image_donation : ""}
-                              style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
-                            />
-                          </td>
-                          <td data-label="Catatan">
-                            {berita.note}
-                          </td>
-                          <td data-label="Aksi" className="action">
-                            <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                type="button"
-                                class="btn-success  mr-2 btn-sm" onClick={() => {
-                                  const phone = encodeURIComponent(berita.no_wa);
-                                  const message = encodeURIComponent(
-                                    `Terima kasih atas kunjungannya, semoga amal bapak/ibu ${berita.nama} bermanfaat bagi kami semua`
-                                  );
-                                  window.open(
-                                    `https://api.whatsapp.com/send?phone=${phone}&text=${message}`
-                                  );
-                                }}>
-                                <i class="fab fa-whatsapp"></i>
-                              </button>
+                  {filteredList.length > 0 ? (
+                    filteredList.map((berita, no) => (
+                      <tr key={no}>
+                        <td>{no + 1 + (currentPage - 1) * rowsPerPage}</td>
+                        <td>{berita.nama}</td>
+                        <td>{berita.no_wa}</td>
+                        <td>{berita.address}</td>
+                        <td>{berita.visit_date}</td>
+                        <td>{berita.description_donation}</td>
+                        <td>
+                          <img
+                            src={berita.url_image_donation || ""}
+                            style={{ height: "4.5rem", width: "4.5rem" }}
+                          />
+                        </td>
+                        <td>{berita.note}</td>
+                        <td>
+                          <div className="d-flex justify-content-center align-items-center">
+                            <button
+                              className="btn-success  mr-2 btn-sm"
+                              onClick={() => {
+                                const phone = encodeURIComponent(berita.no_wa);
+                                const message = encodeURIComponent(
+                                  `Terima kasih atas kunjungannya, semoga amal bapak/ibu ${berita.nama} bermanfaat bagi kami semua`
+                                );
+                                window.open(
+                                  `https://api.whatsapp.com/send?phone=${phone}&text=${message}`
+                                );
+                              }}
+                            >
+                              <i className="fab fa-whatsapp"></i>
+                            </button>
+                            {role !== "yayasan" && (
                               <button
                                 onClick={() => deleteData(berita.id)}
-                                type="button"
-                                className="btn-danger btn-sm">
+                                className="btn-danger btn-sm"
+                              >
                                 <i className="fa-solid fa-trash"></i>
                               </button>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    }) : <tr>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
                       <td colSpan="9" className="text-center my-3">
-                        <div style={{ padding: "10px", color: "#555" }}>
-                          Tidak ada data yang tersedia.
-                        </div>
+                        Tidak ada data yang tersedia.
                       </td>
-                    </tr>}
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

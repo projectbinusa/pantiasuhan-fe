@@ -5,7 +5,7 @@ import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
-import "../../../../../css/button.css"
+import "../../../../../css/button.css";
 
 function Donasi() {
   const [list, setList] = useState([]);
@@ -17,6 +17,7 @@ function Donasi() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [userRole, setUserRole] = useState(null);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -31,6 +32,11 @@ function Donasi() {
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
+
+    // Mengambil role pengguna dari localStorage atau sumber lainnya
+    const role = localStorage.getItem("role"); // Misalnya disimpan dalam localStorage
+    setUserRole(role);
+
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -45,12 +51,9 @@ function Donasi() {
         }
       );
 
-      // Pastikan struktur response sesuai
       const { data, pagination } = response.data;
       console.log(data);
 
-
-      // Set data dan pagination
       setList(data);
       setPaginationInfo({
         totalPages: pagination.total_page,
@@ -60,7 +63,6 @@ function Donasi() {
       console.error("Terjadi kesalahan:", error.response || error.message);
     }
   };
-
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -132,8 +134,7 @@ function Donasi() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
     >
       <a
         id="show-sidebar"
@@ -190,27 +191,29 @@ function Donasi() {
                   </select>
                 </div>
               </div>
-              <div className="d-flex ml-auto gap-3">
-                <input
-                  type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/donasi/add"
-                      >
-                        Tambah Donasi
-                      </a>
-                    </button>
+              {userRole !== "Yayasan" && (
+                <div className="d-flex ml-auto gap-3">
+                  <input
+                    type="search"
+                    className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                  />
+                  <div className="btn-actions-pane-right">
+                    <div role="group" className="btn-group-sm btn-group">
+                      <button className="active btn-focus p-2 rounded">
+                        <a
+                          style={{ color: "white", textDecoration: "none" }}
+                          href="/donasi/add"
+                        >
+                          Tambah Donasi
+                        </a>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
             <div
               className="table-responsive-3"
@@ -224,8 +227,6 @@ function Donasi() {
                     <th>Deskripsi</th>
                     <th>Total Income</th>
                     <th>Total Outcome</th>
-                    {/* <th>Aktif</th> */}
-                    {/* <th>Image</th> */}
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -237,41 +238,43 @@ function Donasi() {
                       <td><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
                       <td>{item.total_income}</td>
                       <td>{item.total_outcome}</td>
-                      {/* <td>{item.aktif ? "Yes" : "No"}</td> */}
-                      {/* <td>
-                        <img src={item.image} alt="image" style={{ width: 50, height: 50 }} />
-                      </td> */}
                       <td>
-                        <button
-                          type="button"
-                          className="btn-primary btn-sm mr-2"
-                        >
-                          <a
-                            style={{
-                              color: "white",
-                              textDecoration: "none",
-                            }}
-                            href={`/donasi/put/${item.id}`}
-                          >
-                            <i className="fa-solid fa-pen-to-square"></i>
-                          </a>
-                        </button>
-                        <button
-                          type="button"
-                          className="btn-warning mr-2 btn-sm">
-                          <a
-                            className="text-light"
-                            href={"/donasi/detail/" + item.id}>
-                            <i className="fas fa-info-circle"></i>
-                          </a>
-                        </button>
-                        <button
-                          type="button"
-                          className="btn-danger btn-sm"
-                          onClick={() => deleteData(item.id)}
-                        >
-                          <i className="fa-solid fa-trash"></i>
-                        </button>
+                        {userRole !== "Yayasan" && (
+                          <>
+                            <button
+                              type="button"
+                              className="btn-primary btn-sm mr-2"
+                            >
+                              <a
+                                style={{
+                                  color: "white",
+                                  textDecoration: "none",
+                                }}
+                                href={`/donasi/put/${item.id}`}
+                              >
+                                <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn-warning mr-2 btn-sm"
+                            >
+                              <a
+                                className="text-light"
+                                href={"/donasi/detail/" + item.id}
+                              >
+                                <i className="fas fa-info-circle"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn-danger btn-sm"
+                              onClick={() => deleteData(item.id)}
+                            >
+                              <i className="fa-solid fa-trash"></i>
+                            </button>
+                          </>
+                        )}
                       </td>
                     </tr>
                   ))}
