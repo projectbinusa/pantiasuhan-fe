@@ -85,19 +85,17 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       icon: "fa-solid fa-palette",
       path: "/dashboard_yayasan",
       action: [],
-    }
+    };
   } else {
     datas = {
       title: "Dashboard",
       icon: "fa-solid fa-palette",
       path: "/dashboard_panti",
       action: [],
-    }
+    };
   }
 
-  const defaultItems = [
-    datas
-  ]
+  const defaultItems = [datas];
 
   const menuItems = [
     {
@@ -125,7 +123,11 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           title: "Berita",
           icon: "fa-solid fa-newspaper",
           path: "/admin_berita",
-          action: ["/admin_berita/add", "/admin_berita/edit", "/admin_berita/detail"],
+          action: [
+            "/admin_berita/add",
+            "/admin_berita/edit",
+            "/admin_berita/detail",
+          ],
         },
         {
           title: "Galeri",
@@ -138,6 +140,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           icon: "fa-solid fa-id-card",
           path: "/admin_kontak",
           action: ["/add_kontak", "/edit_kontak"],
+        },
+        {
+          title: "Shift",
+          icon: "fa-solid fa-clock",
+          path: "/admin_shift",
+          action: ["/add_shift", "/edit_shift"],
         },
       ],
     },
@@ -278,17 +286,15 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           <div className="sidebar-menu1">
             <ul>
               {defaultItems.map((data, index) => (
-                <li
-                  key={index}
-                  ref={(el) => (defaultRefs.current[index] = el)}
-                >
+                <li key={index} ref={(el) => (defaultRefs.current[index] = el)}>
                   <NavLink to={data.path} style={{ background: "none" }}>
                     <i
-                      className={`${data.icon} ${location.pathname === data.path ||
+                      className={`${data.icon} ${
+                        location.pathname === data.path ||
                         data.action.includes(location.pathname)
-                        ? "active"
-                        : ""
-                        }`}
+                          ? "active"
+                          : ""
+                      }`}
                     ></i>
                     <span>{data.title}</span>
                   </NavLink>
@@ -306,11 +312,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                     >
                       <NavLink to={data.path} style={{ background: "none" }}>
                         <i
-                          className={`${data.icon} ${location.pathname === data.path ||
+                          className={`${data.icon} ${
+                            location.pathname === data.path ||
                             data.action.includes(location.pathname)
-                            ? "active"
-                            : ""
-                            }`}
+                              ? "active"
+                              : ""
+                          }`}
                         ></i>
                         <span>{data.title}</span>
                       </NavLink>
@@ -328,11 +335,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                 >
                   <NavLink to={data.path} style={{ background: "none" }}>
                     <i
-                      className={`${data.icon} ${location.pathname === data.path ||
+                      className={`${data.icon} ${
+                        location.pathname === data.path ||
                         data.action.includes(location.pathname)
-                        ? "active"
-                        : ""
-                        }`}
+                          ? "active"
+                          : ""
+                      }`}
                     ></i>
                     <span>{data.title}</span>
                   </NavLink>

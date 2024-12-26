@@ -226,6 +226,8 @@ import PublikDetailBeritaPanti from "./views/pages/admin/pantiasuhan/PublikDetai
 import PublikBerita from "./views/pages/admin/pantiasuhan/berita/PublikBerita.js";
 import PublikProgram from "./views/pages/admin/pantiasuhan/PublikProgram.js";
 import DanaKeluar from "./views/pages/admin/pantiasuhan/donasi/publik/DanaKeluar.js";
+import DataShift from "./views/pages/admin/pantiasuhan/shift/DataShift.js";
+import EditShift from "./views/pages/admin/pantiasuhan/shift/EditShift.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1011,7 +1013,11 @@ function App() {
               exact
             />
             <Route path="/donasiumum" component={DonasiUmum} exact />
-            <Route path="/donasiumum/preview/:id" component={PreviewDonasi} exact />
+            <Route
+              path="/donasiumum/preview/:id"
+              component={PreviewDonasi}
+              exact
+            />
             <Route
               path="/donasiumum/add/:id"
               component={TambahDonasiUmum}
@@ -1019,8 +1025,16 @@ function App() {
             />
             {/* Panduan */}
             <Route path="/donasiumum/panduan" component={Panduan} exact />
-            <Route path="/donasiumum/danamasuk/:id" component={DanaMasuk} exact />
-            <Route path="/donasiumum/danakeluar/:id" component={DanaKeluar} exact />
+            <Route
+              path="/donasiumum/danamasuk/:id"
+              component={DanaMasuk}
+              exact
+            />
+            <Route
+              path="/donasiumum/danakeluar/:id"
+              component={DanaKeluar}
+              exact
+            />
             <PrivateRoute
               path="/admin_dana_keluar"
               component={AdminDanaKeluar}
@@ -1036,20 +1050,54 @@ function App() {
               component={EditDanaKeluar}
               exact
             />
-            <Route
-              path="/dashboard_panti"
-              component={DashboardPanti}
+            <Route path="/dashboard_panti" component={DashboardPanti} exact />
+            <PrivateRoute
+              path="/admin_berita"
+              component={AdminBeritaPanti}
               exact
             />
-            <PrivateRoute path="/admin_berita" component={AdminBeritaPanti} exact />
-            <PrivateRoute path="/admin_berita/add" component={AddBeritaAdminPanti} exact />
-            <PrivateRoute path="/admin_berita/edit/:id" component={EditBeritaAdminPanti} exact />
-            <PrivateRoute path="/admin_berita/detail/:id" component={DetailBeritaPantiAdmin} exact />
-            <PrivateRoute path="/laporan_presensi/harian" component={LaporanHarianPresensi} exact />
-            <PrivateRoute path="/laporan_presensi/bulanan" component={LaporanBulananPresensi} exact />
-            <PrivateRoute path="/laporan_presensi/tahunan" component={LaporanTahunanPresensi} exact />
-            <Route path="/programpanti/:id" component={PublikDetailProgramPanti} exact />
-            <Route path="/beritapanti/:id" component={PublikDetailBeritaPanti} exact />
+            <PrivateRoute
+              path="/admin_berita/add"
+              component={AddBeritaAdminPanti}
+              exact
+            />
+            <PrivateRoute
+              path="/admin_berita/edit/:id"
+              component={EditBeritaAdminPanti}
+              exact
+            />
+            <PrivateRoute
+              path="/admin_berita/detail/:id"
+              component={DetailBeritaPantiAdmin}
+              exact
+            />
+            <PrivateRoute
+              path="/laporan_presensi/harian"
+              component={LaporanHarianPresensi}
+              exact
+            />
+            <PrivateRoute
+              path="/laporan_presensi/bulanan"
+              component={LaporanBulananPresensi}
+              exact
+            />
+            <PrivateRoute
+              path="/laporan_presensi/tahunan"
+              component={LaporanTahunanPresensi}
+              exact
+            />
+            <Route path="/admin_shift" component={DataShift} exact />
+            <Route path="/admin_shift/edit/:id" component={EditShift} exact />
+            <Route
+              path="/programpanti/:id"
+              component={PublikDetailProgramPanti}
+              exact
+            />
+            <Route
+              path="/beritapanti/:id"
+              component={PublikDetailBeritaPanti}
+              exact
+            />
             <Route path="/beritapanti" component={PublikBerita} exact />
             <Route path="/programpanti" component={PublikProgram} exact />
           </Switch>
