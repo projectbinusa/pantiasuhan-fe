@@ -78,13 +78,25 @@ function SidebarPantiAdmin({ toggleSidebar }) {
     });
   };
 
-  const defaultItems = [
-    {
+  var datas;
+  if (localStorage.getItem("rolename") === "Yayasan") {
+    datas = {
+      title: "Dashboard",
+      icon: "fa-solid fa-palette",
+      path: "/dashboard_yayasan",
+      action: [],
+    }
+  } else {
+    datas = {
       title: "Dashboard",
       icon: "fa-solid fa-palette",
       path: "/dashboard_panti",
-      action: ["/edit_barang_inventaris"],
+      action: [],
     }
+  }
+
+  const defaultItems = [
+    datas
   ]
 
   const menuItems = [

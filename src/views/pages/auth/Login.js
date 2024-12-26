@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../../css/login.css";
-import { API_DUMMY, API_DUMMY_PYTHON, API_DUMMY_SMART_DEV } from "../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_PYTHON, API_DUMMY_SMART_DEV, API_DUMMY_SMART_PROD } from "../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import Ikon from "../../../aset/ikon-web.png";
 import Swal from "sweetalert2";
@@ -13,6 +13,7 @@ function Login() {
   const [role, seRole] = useState("admin");
   const history = useHistory();
   const [showPassword, setShowPassword] = useState(false);
+  const [type_token, setType_token] = useState("Admin");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,24 +24,46 @@ function Login() {
     };
 
     try {
-      const response = await axios.post(`${API_DUMMY_SMART_DEV}/api/customer/login`, datapython);
+      if (type_token === "Yayasan") {
+        const response = await axios.post(`${API_DUMMY_SMART_DEV}/api/user/login`, datapython);
+        if (response.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: `Berhasil Login Sebagai Yayasan`,
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            localStorage.setItem("id", response.data.data.id);
+            localStorage.setItem("typetoken", response.data.data.type_token);
+            localStorage.setItem("tokenpython", response.data.data.token);
+            localStorage.setItem("rolename", response.data.data.role_name);
+            localStorage.setItem("roleid", response.data.data.role_id);
+            if (response.data.data.role_name === "Yayasan") {
+              history.push("/dashboard_yayasan");
+            } else {
+              history.push("/dashboard_panti");
+            }
+          });
+        }
+      } else {
+        const resp = await axios.post(`${API_DUMMY_SMART_PROD}/api/customer/login`, datapython);
+        console.log(resp);
 
-      if (response.status === 200) {
-        Swal.fire({
-          icon: "success",
-          title: `Berhasil Login Sebagai Admin`,
-          showConfirmButton: false,
-          timer: 1500,
-        }).then(() => {
-          // Setelah alert selesai, lakukan pengalihan
-          localStorage.setItem("id", response.data.data.id);
-          localStorage.setItem("role", response.data.data.type_token);
-          localStorage.setItem("tokenpython", response.data.data.token);
-          localStorage.setItem("organization_id", response.data.data.organization_id);
-
-          // Arahkan ke halaman admin_sambutan
-          history.push("/dashboard_panti");
-        });
+        if (resp.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: `Berhasil Login Sebagai Admin`,
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            localStorage.setItem("id", resp.data.data.id);
+            localStorage.setItem("typetoken", resp.data.data.type_token);
+            localStorage.setItem("tokenpython", resp.data.data.token);
+            localStorage.setItem("rolename", "Admin");
+            localStorage.setItem("organization_id", resp.data.data.organization_id);
+            history.push("/dashboard_panti");
+          });
+        }
       }
     } catch (error) {
       Swal.fire({
@@ -49,6 +72,10 @@ function Login() {
       });
       console.error(error);
     }
+  };
+
+  const handleOptionChange = (event) => {
+    setType_token(event.target.value);
   };
 
   return (
@@ -81,6 +108,36 @@ function Login() {
                 <img style={{ width: "50px" }} src={logo} /> Login
               </h2>
               <p>Selamat Datang Kembali</p>
+            </div>
+            <div className="selector">
+              <div className="selector-item">
+                <input
+                  type="radio"
+                  id="radio1"
+                  name="selector"
+                  className="selector-item_radio"
+                  checked={type_token === "Admin"}
+                  value="Admin"
+                  onChange={handleOptionChange}
+                />
+                <label htmlFor="radio1" className="selector-item_label">
+                  Admin
+                </label>
+              </div>
+              <div className="selector-item">
+                <input
+                  type="radio"
+                  id="radio2"
+                  name="selector"
+                  className="selector-item_radio"
+                  checked={type_token === "Yayasan"}
+                  value="Yayasan"
+                  onChange={handleOptionChange}
+                />
+                <label htmlFor="radio2" className="selector-item_label">
+                  Yayasan
+                </label>
+              </div>
             </div>
             <div className="input-group mb-3">
               <input
@@ -133,6 +190,44 @@ function Login() {
           </form>
         </div>
       </div>
+      <style>
+        {`
+        .selector {
+    position: relative;
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 9999px;
+}
+        .selector-item_label {
+        position: relative;
+    height: 60%;
+    width: 100%;
+    text-align: center;
+    border-radius: 9999px;
+    font-size: 15px;
+    font-family: Poppins, sans-serif;
+    font-weight: 700;
+    transition-duration: .5s;
+    transition-property: transform, box-shadow;
+    transform: none;
+        }
+    .selector-item_radio {
+    appearance: none;
+    display: none;
+}
+
+.selector-item_radio:checked+.selector-item_label {
+    background-color: #005b9f;
+    color: white;
+    box-shadow: 0 0 4px #00000080, 0 2px 4px #00000080;
+    transform: translateY(-2px);
+    padding: 0.5rem 2rem;
+}
+        `}
+      </style>
     </div>
   );
 }

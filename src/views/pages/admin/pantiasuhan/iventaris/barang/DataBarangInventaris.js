@@ -37,7 +37,7 @@ function DataBarangInventaris() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/investaris`,
+        `${API_DUMMY_PYTHON}/api/admin/investaris?page=${currentPage}&size=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -45,9 +45,9 @@ function DataBarangInventaris() {
         }
       );
       setList(response.data.data);
-      console.log("response: ", response.data.data);
+      console.log("response: ", response.data);
       setPaginationInfo({
-        totalPages: response.data.pagination.total_pages,
+        totalPages: Math.ceil(response.data.pagination.total/rowsPerPage),
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);

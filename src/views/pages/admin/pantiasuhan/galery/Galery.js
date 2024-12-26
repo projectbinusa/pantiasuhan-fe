@@ -22,7 +22,7 @@ function Galery() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/galery?page=${currentPage}&limit=${rowsPerPage}`, {
+      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/galery?page=${currentPage}&size=${rowsPerPage}`, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -31,7 +31,7 @@ function Galery() {
       console.log(response);
       setList(data);
       setPaginationInfo({
-        totalPages: pagination.total_page || 1,
+        totalPages: Math.ceil(pagination.total/rowsPerPage),
         totalElements: pagination.total || 0,
       });
     } catch (error) {

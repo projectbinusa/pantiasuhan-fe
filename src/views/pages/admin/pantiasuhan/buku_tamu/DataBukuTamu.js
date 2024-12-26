@@ -39,8 +39,7 @@ function DataBukuTamu() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/guestbook?size=${rowsPerPage}&page=${currentPage
-        }`,
+        `${API_DUMMY_PYTHON}/api/admin/guestbook?page=${currentPage}&size=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -48,10 +47,11 @@ function DataBukuTamu() {
         }
       );
       setList(response.data.data);
-      console.log(response.data.data);
+      console.log(response.data.pagination);
       const { data, pagination } = response.data;
       setPaginationInfo({
-        totalPages: pagination.total_pages,
+        // totalPages: pagination.total_pages,
+        totalPages: Math.ceil(pagination.total / rowsPerPage),
         totalElements: pagination.total,
       });
     } catch (error) {
@@ -117,7 +117,7 @@ function DataBukuTamu() {
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset ke halaman pertama setelah pencarian
   };
 
   const filteredList = list.filter((item) =>
@@ -196,7 +196,7 @@ function DataBukuTamu() {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-                <div className="btn-actions-pane-right">
+                {/* <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
                     <button className="active btn-focus p-2 rounded">
                       <a
@@ -206,7 +206,7 @@ function DataBukuTamu() {
                       </a>
                     </button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div
@@ -223,7 +223,7 @@ function DataBukuTamu() {
                     <th
                       scope="col"
                       style={{ minWidth: "150px" }}>Tujuan Kunjungan</th>
-                    <th>Bukti Donasi</th>
+                    <th>TTD</th>
                     <th>Catatan</th>
                     <th>Aksi</th>
                   </tr>
@@ -251,7 +251,7 @@ function DataBukuTamu() {
                           <td data-label="Tujuan Kunjungan">
                             {berita.description_donation}
                           </td>
-                          <td data-label="Bukti Donasi" className="">
+                          <td data-label="TTD" className="">
                             <img
                               src={berita.url_image_donation ? berita.url_image_donation : ""}
                               style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
