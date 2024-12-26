@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-
+import "../../../../../css/button.css";
 import { Pagination } from "@mui/material";
 
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
@@ -12,6 +12,7 @@ function VisiMisiPanti() {
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const userRole = localStorage.getItem("role");
   const [paginationInfo, setPaginationInfo] = useState({
     totalPages: 1,
     totalElements: 0,
@@ -304,6 +305,8 @@ function VisiMisiPanti() {
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
+                          {userRole !== "yayasan" && (
+                            <>
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2"
@@ -336,6 +339,8 @@ function VisiMisiPanti() {
                             >
                               <i className="fa-solid fa-trash"></i>
                             </button>
+                            </>
+                             )}
                           </div>
                         </td>
                       </tr>

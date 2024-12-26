@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Box, Modal, Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
+import "../../../../../../css/button.css";
 
 function LokasiBarangInventaris() {
   const [list, setList] = useState([]);

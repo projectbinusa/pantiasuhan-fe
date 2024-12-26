@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import "../../../../../css/button.css";
 
 function DataAnak() {
   const [list, setList] = useState([]);
@@ -17,6 +18,7 @@ function DataAnak() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [userRole, setUserRole] = useState("");
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -45,9 +47,8 @@ function DataAnak() {
         }
       );
 
-      // Memastikan data response valid
       console.log(response);
-      
+
       const { data, pagination } = response.data;
       setList(data);
       setPaginationInfo({
@@ -104,6 +105,8 @@ function DataAnak() {
 
   useEffect(() => {
     getAll(currentPage);
+    const role = localStorage.getItem("userRole"); // Get role from localStorage
+    setUserRole(role); // Set role in state
   }, [currentPage, rowsPerPage]);
 
   useEffect(() => {
@@ -134,19 +137,19 @@ function DataAnak() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div
-          className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -155,7 +158,8 @@ function DataAnak() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -182,7 +186,8 @@ function DataAnak() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -199,20 +204,24 @@ function DataAnak() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add_anak_asuh">
-                        Tambah Anak Asuh
-                      </a>
-                    </button>
+                    {userRole !== "yayasan" && (
+                      <button className="active btn-focus p-2 rounded">
+                        <a
+                          style={{ color: "white", textDecoration: "none" }}
+                          href="/add_anak_asuh"
+                        >
+                          Tambah Anak Asuh
+                        </a>
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -240,22 +249,27 @@ function DataAnak() {
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 type="button"
-                                className="btn-primary btn-sm mr-2">
+                                className="btn-primary btn-sm mr-2"
+                              >
                                 <a
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit_anak_asuh/${row.id}`}>
+                                  href={`/edit_anak_asuh/${row.id}`}
+                                >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
                               </button>
-                              <button
-                                onClick={() => deleteData(row.id)}
-                                type="button"
-                                className="btn-danger btn-sm">
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
+                              {userRole !== "yayasan" && (
+                                <button
+                                  onClick={() => deleteData(row.id)}
+                                  type="button"
+                                  className="btn-danger btn-sm"
+                                >
+                                  <i className="fa-solid fa-trash"></i>
+                                </button>
+                              )}
                             </div>
                           </td>
                         </tr>
@@ -274,17 +288,6 @@ function DataAnak() {
               </table>
             </div>
             <div className="card-header mt-3 d-flex justify-content-center">
-              {/* <Pagination
-                count={paginationInfo.totalPages}
-                page={currentPage}
-                onChange={(event, value) => {
-                  setCurrentPage(value);
-                  setPage(value);
-                }}
-                showFirstButton
-                showLastButton
-                color="primary"
-              /> */}
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}

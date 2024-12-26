@@ -6,12 +6,13 @@ import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 // import kegiatan from "../../../../../aset/smpn1bergas/kegiatan.png";
-
+import "../../../../../css/button.css";
 function Iventaris() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const userRole = localStorage.getItem("role");
   const [paginationInfo, setPaginationInfo] = useState({
     totalPages: 1,
     totalElements: 0,
@@ -261,6 +262,8 @@ function Iventaris() {
                           <td data-label="Keterangan">{row.url_note}</td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
+                            {userRole !== "yayasan" && (
+                              <>
                               <button
                                 type="button"
                                 className="btn-primary btn-sm mr-2"
@@ -282,6 +285,8 @@ function Iventaris() {
                               >
                                 <i className="fa-solid fa-trash"></i>
                               </button>
+                              </>
+                              )}
                             </div>
                           </td>
                         </tr>

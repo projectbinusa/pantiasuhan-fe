@@ -4,12 +4,14 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import "../../../../../css/button.css";
 
 function Sambutan() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const userRole = localStorage.getItem("role");
   const [paginationInfo, setPaginationInfo] = useState({
     totalPages: 1,
     totalElements: 0,
@@ -188,28 +190,17 @@ function Sambutan() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    {list.length > 0 ? (
-                      <>
-                        <button
-                          style={{ cursor: "not-allowed" }}
-                          disabled
-                          className="active btn-focus p-2 rounded"
+                    <>
+                      {" "}
+                      <button className="active btn-focus p-2 rounded">
+                        <a
+                          style={{ color: "white", textDecoration: "none" }}
+                          // href="/add-sambutan"
                         >
                           Tambah Data
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <button className="active btn-focus p-2 rounded">
-                          <a
-                            style={{ color: "white", textDecoration: "none" }}
-                            href="/add-sambutan"
-                          >
-                            Tambah Data
-                          </a>
-                        </button>
-                      </>
-                    )}
+                        </a>
+                      </button>
+                    </>
                   </div>
                 </div>
               </div>
@@ -287,6 +278,8 @@ function Sambutan() {
                         </td>
                         <td data-label="Aksi">
                           <div className="aksi">
+                          {userRole !== "yayasan" && (
+                            <>
                             <button
                               type="button"
                               className="btn-primary btn-sm mr-2"
@@ -319,6 +312,8 @@ function Sambutan() {
                             >
                               <i className="fa-solid fa-trash"></i>
                             </button>
+                            </>
+                             )}
                           </div>
                         </td>
                       </tr>

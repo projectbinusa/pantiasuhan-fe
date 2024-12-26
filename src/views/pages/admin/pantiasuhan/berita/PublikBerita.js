@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import Navbar from "../../../../../component/Navbar";
+import { debounce } from 'lodash';
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
-  const bulan = [
-    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-  ];
+  const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
   const hari = tanggal.getDate();
   const bulanNama = bulan[tanggal.getMonth()];
   const tahun = tanggal.getFullYear();
@@ -21,14 +19,16 @@ const formatTanggal = (tanggalString) => {
 function PublikBerita() {
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage] = useState(9); // Tetapkan jumlah item per halaman
+  const [rowsPerPage] = useState(9);
   const [isLoading, setIsLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true); // Untuk mendeteksi apakah masih ada data untuk dimuat
+  const [hasMore, setHasMore] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  
+
+  const [userRole, setUserRole] = useState("");
+
   const getAll = async () => {
-    if (isLoading || !hasMore) return; // Hindari pemanggilan ganda jika sudah loading atau tidak ada data lagi
-  
+    if (isLoading || !hasMore) return;
+
     setIsLoading(true);
     try {
       const response = await axios.get(
@@ -39,35 +39,30 @@ function PublikBerita() {
           },
         }
       );
-  
+
       const { data, pagination } = response.data;
-  
+
       if (data && pagination) {
-        // Tambahkan data baru ke daftar yang sudah ada tanpa duplikat
         setList((prevList) => {
           const uniqueData = data.filter(
-            (item) => !prevList.some((prevItem) => prevItem.id === item.id) // Hindari data dengan ID yang sama
+            (item) => !prevList.some((prevItem) => prevItem.id === item.id)
           );
           return [...prevList, ...uniqueData];
         });
-  
-        setHasMore(currentPage < pagination.total_page); // Periksa apakah masih ada halaman berikutnya
+
+        setHasMore(currentPage < pagination.total_page);
       } else {
         console.error("Data atau pagination tidak ditemukan dalam response.");
         setHasMore(false);
       }
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
-      Swal.fire(
-        "Error!",
-        error.response?.data?.message || "Gagal memuat data.",
-        "error"
-      );
+      Swal.fire("Error!", error.response?.data?.message || "Gagal memuat data.", "error");
     } finally {
       setIsLoading(false);
     }
   };
-  
+
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop >=
@@ -75,21 +70,25 @@ function PublikBerita() {
       !isLoading &&
       hasMore
     ) {
-      setCurrentPage((prevPage) => prevPage + 1); // Naikkan halaman saat scroll mendekati bawah
+      setCurrentPage((prevPage) => prevPage + 1);
     }
   };
-  
+
   useEffect(() => {
-    getAll(); // Panggil fungsi getAll setiap kali currentPage berubah
+    // Ambil role pengguna dari localStorage atau tempat penyimpanan lain
+    const role = localStorage.getItem("role"); // Misalnya role disimpan di localStorage dengan key 'role'
+    setUserRole(role);
+
+    getAll();
   }, [currentPage]);
-  
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  
+
   const filteredList = list.filter((item) =>
     Object.values(item).some(
       (value) =>
@@ -102,10 +101,11 @@ function PublikBerita() {
     AOS.init();
   }, []);
 
-  const handleSearchChange = (event) => {
+  const handleSearchChange = debounce((event) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1);
-  };
+    setCurrentPage(1); // Reset to page 1 on search
+  }, 500); // Delay of 500ms after typing before performing search
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
@@ -118,13 +118,11 @@ function PublikBerita() {
           padding: "40px 20px",
         }}
       >
-        <div
-          className="container"
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-          }}
-        > <br /> <br /> <br /> <br />
+        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <br />
+          <br />
+          <br />
+          <br />
           <div className="row justify-content-center">
             <div className="col-xl-6 col-lg-7 col-md-10">
               <div className="section-title text-center" data-aos="fade-down">
@@ -148,7 +146,8 @@ function PublikBerita() {
             placeholder="Cari Berita..."
             value={searchTerm}
             onChange={handleSearchChange}
-          /> <br />
+          />
+          <br />
           <div
             className="grid-container"
             style={{
@@ -159,7 +158,8 @@ function PublikBerita() {
           >
             {filteredList.map((item, index) => (
               <div
-                className="card" key={index}
+                className="card"
+                key={index}
                 style={{
                   backgroundColor: "#fff",
                   borderRadius: "15px",
@@ -223,96 +223,36 @@ function PublikBerita() {
                     >
                       <path
                         fill="currentColor"
-                        d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-56V64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H152V64zM32 192h384v272c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V192zm96 100c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40z"
-                      />
+                        d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-72V64zm0 96h72c8.84 0 16-7.16 16-16V64h16c8.84 0 16 7.16 16 16v48h72c8.84 0 16 7.16 16 16v320c0 8.84-7.16 16-16 16H48c-8.84 0-16-7.16-16-16V160c0-8.84 7.16-16 16-16h72v-48c0-8.84 7.16-16 16-16h16c8.84 0 16 7.16 16 16v48z"
+                      ></path>
                     </svg>
-                    {formatTanggal(item.created_date)}
+                    {formatTanggal(item.tanggal_berita)}
                   </p>
-                  <p
-                    style={{
-                      fontSize: "0.9rem",
-                      color: "#777",
-                      lineHeight: "1.5",
-                      marginBottom: "15px", marginTop: "1rem"
-                    }} className="content-isi"
-                  >
-                    <div dangerouslySetInnerHTML={{ __html: item?.isi_berita }} />
+                  <p style={{ fontSize: "0.9rem", color: "#555" }}>
+                    {item.isi_berita.slice(0, 100)}...
                   </p>
-                  <a
-                    className="read-more-text"
-                    href={"/beritapanti/" + item.id}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      fontSize: "0.9rem",
-                      fontWeight: "bold",
-                      color: "#004080",
-                      textDecoration: "none",
-                      transition: "color 0.3s ease",
-                    }}
-                    onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
-                    onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}
-                  >
-                    <span style={{ marginRight: "8px" }}>Selengkapnya</span>
-                  </a>
+                  {/* Hide button if role is 'yayasan' */}
+                  {userRole !== "yayasan" && (
+                    <button
+                      style={{
+                        backgroundColor: "#004080",
+                        color: "#fff",
+                        padding: "10px 15px",
+                        borderRadius: "5px",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Button Example
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
           </div>
-
-          {/* {isLoading && <p>Memuat data...</p>}
-          {!hasMore && <p>Tidak ada data lagi.</p>} */}
+          {isLoading && <p>Memuat data...</p>}
         </div>
       </div>
-      {/* <div
-        className="container"
-        style={{
-          transform: "scale(0.6)",
-          transformOrigin: "top center",
-          marginTop: "8%",
-        }}
-      >
-        <button>ayo berdonasi</button>
-        {filteredList.map((item, index) => (
-          <div
-            key={index}
-            className="row align-items-center mb-5 bg-white text-white rounded-lg shadow"
-          >
-            <div className="col-lg-5 mb-3 mb-lg-0">
-              <div className="p-4">
-                <img
-                  src={image1}
-                  alt="Sample"
-                  className="w-100 rounded"
-                />
-              </div>
-            </div>
-            <div className="col-lg-3">
-              <div className="p-4">
-                <h1
-                  className="font-bold mb-4"
-                  style={{
-                    fontSize: "210%",
-                    color: "black",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {item.title}
-                </h1>
-                <p className="text-gray-700">{item.description}</p>
-                <button type="button" className="btn-danger mt-3 mr-3">
-                  <a
-                    style={{ color: "white", textDecoration: "none" }}
-                    href="/donasiumum/preview/:id"
-                  >
-                    Detail
-                  </a>
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 }

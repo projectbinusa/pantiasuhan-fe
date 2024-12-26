@@ -7,6 +7,7 @@ import {
   Pagination,
 } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import "../../../../../css/button.css";
 
 function DataTahsin() {
   const [list, setList] = useState([]);

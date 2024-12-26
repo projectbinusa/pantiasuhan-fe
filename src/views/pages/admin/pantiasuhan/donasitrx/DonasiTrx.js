@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY, API_DUMMY_PYTHON, API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
+import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import "../../../../../css/button.css";
 
 function DonasiTrx() {
   const [list, setList] = useState([]);
@@ -16,6 +17,9 @@ function DonasiTrx() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  // Mendapatkan role pengguna
+  const userRole = localStorage.getItem('role'); // Menyimpan role saat login
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -44,12 +48,7 @@ function DonasiTrx() {
         }
       );
 
-      // Pastikan struktur response sesuai
       const { data, pagination } = response.data;
-      console.log(data);
-
-
-      // Set data dan pagination
       setList(data);
       setPaginationInfo({
         totalPages: pagination.total_page,
@@ -126,21 +125,18 @@ function DonasiTrx() {
 
   const filteredList = searchTerm
     ? list.filter((item) =>
-      Object.values(item).some(
-        (value) =>
-          typeof value === "string" &&
-          value.toLowerCase().includes(searchTerm.toLowerCase())
+        Object.values(item).some(
+          (value) =>
+            typeof value === "string" &&
+            value.toLowerCase().includes(searchTerm.toLowerCase())
+        )
       )
-    )
     : list;
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
-    >
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -204,24 +200,24 @@ function DonasiTrx() {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-                <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add_donasi_trx"
-                      >
-                        Tambah
-                      </a>
-                    </button>
+                {/* Tombol Tambah hanya ditampilkan jika bukan role 'yayasan' */}
+                {userRole !== 'yayasan' && (
+                  <div className="btn-actions-pane-right">
+                    <div role="group" className="btn-group-sm btn-group">
+                      <button className="active btn-focus p-2 rounded">
+                        <a
+                          style={{ color: "white", textDecoration: "none" }}
+                          href="/add_donasi_trx"
+                        >
+                          Tambah
+                        </a>
+                      </button>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
-            <div
-              className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}
-            >
+            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -236,33 +232,41 @@ function DonasiTrx() {
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                      <td data-label="No">
+                        {(currentPage - 1) * rowsPerPage + index + 1}
+                      </td>
                       <td data-label="Nama Donatur">{item.name}</td>
                       <td data-label="Nominal">{item.nominal}</td>
-                      <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
-                      <td data-label="Image"><img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /></td>
+                      <td data-label="Deskripsi">
+                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
+                      </td>
+                      <td data-label="Image">
+                        <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} />
+                      </td>
                       <td data-label="Aksi">
-                        <button
-                          type="button"
-                          className="btn-primary btn-sm mr-2"
-                        >
-                          <a
-                            style={{
-                              color: "white",
-                              textDecoration: "none",
-                            }}
-                            href={`/edit_donasi_trx/${item.id}`}
-                          >
-                            <i className="fa-solid fa-pen-to-square"></i>
-                          </a>
-                        </button>
-                        <button
-                          type="button"
-                          className="btn-danger btn-sm"
-                          onClick={() => deleteData(item.id)}
-                        >
-                          <i className="fa-solid fa-trash"></i>
-                        </button>
+                        {/* Tombol hanya tampil jika role bukan 'yayasan' */}
+                        {userRole !== 'yayasan' && (
+                          <>
+                            <button type="button" className="btn-primary btn-sm mr-2">
+                              <a
+                                style={{
+                                  color: "white",
+                                  textDecoration: "none",
+                                }}
+                                href={`/edit_donasi_trx/${item.id}`}
+                              >
+                                <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn-danger btn-sm"
+                              onClick={() => deleteData(item.id)}
+                            >
+                              <i className="fa-solid fa-trash"></i>
+                            </button>
+                          </>
+                        )}
                       </td>
                     </tr>
                   ))}

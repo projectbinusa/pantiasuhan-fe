@@ -6,6 +6,7 @@ import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import idLocale from "date-fns/locale/id";
 import { format } from "date-fns";
+import "../../../../../css/button.css";
 
 function KontakPanti() {
   const [list, setList] = useState(null);
