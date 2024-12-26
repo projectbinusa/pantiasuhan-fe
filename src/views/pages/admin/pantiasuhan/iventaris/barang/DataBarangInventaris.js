@@ -49,7 +49,7 @@ function DataBarangInventaris() {
       setList(response.data.data);
       console.log("response: ", response.data);
       setPaginationInfo({
-        totalPages: Math.ceil(response.data.pagination.total/rowsPerPage),
+        totalPages: Math.ceil(response.data.pagination.total / rowsPerPage),
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
