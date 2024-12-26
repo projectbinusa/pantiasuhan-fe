@@ -298,11 +298,11 @@ function Navbar() {
                   Berita
                 </a>
               </li>
-              <li className="">
+              {/* <li className="">
                 <a href="#santri" style={{ paddingLeft: "15px" }}>
                   Santri
                 </a>
-              </li>
+              </li> */}
               <li className="">
                 <a href="/bukutamu/form/38" style={{ paddingLeft: "15px" }}>
                   Buku Tamu
@@ -311,6 +311,11 @@ function Navbar() {
               <li className="">
                 <a href="/donasiumum" style={{ paddingLeft: "15px" }}>
                   Donasi
+                </a>
+              </li>
+              <li className="">
+                <a href="/presensipanti" style={{ paddingLeft: "15px" }}>
+                  Presensi
                 </a>
               </li>
               <li

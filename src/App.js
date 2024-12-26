@@ -228,6 +228,7 @@ import PublikProgram from "./views/pages/admin/pantiasuhan/PublikProgram.js";
 import DanaKeluar from "./views/pages/admin/pantiasuhan/donasi/publik/DanaKeluar.js";
 import DataShift from "./views/pages/admin/pantiasuhan/shift/DataShift.js";
 import EditShift from "./views/pages/admin/pantiasuhan/shift/EditShift.js";
+import ShiftPublik from "./views/pages/anak/ShiftPublik.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1100,6 +1101,7 @@ function App() {
             />
             <Route path="/beritapanti" component={PublikBerita} exact />
             <Route path="/programpanti" component={PublikProgram} exact />
+            <Route path="/presensipanti" component={ShiftPublik} exact />
           </Switch>
         </main>
         <LogPageView />

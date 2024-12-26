@@ -3,6 +3,7 @@ import { API_DUMMY_PYTHON } from "../../../utils/base_URL";
 import "../../../css/absen.css";
 import logo from "../../../aset/pantiasuhan/logo.png";
 import panti from "../../../aset/pantiasuhan/pantiasuhan.png";
+import { useLocation } from "react-router-dom/cjs/react-router-dom";
 // import { API_DUMMY } from "../../../../../src/utils/baseURL";
 
 const AbsenPulang = () => {
@@ -14,6 +15,10 @@ const AbsenPulang = () => {
   const [datetime, setDatetime] = useState("");
   const [description, setDescription] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const shiftId = searchParams.get('shift_id');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +46,7 @@ const AbsenPulang = () => {
         setUserName(name || "Default User");
         setPicture(
           picture ||
-            "https://i.pinimg.com/736x/03/eb/d6/03ebd625cc0b9d636256ecc44c0ea324.jpg"
+          "https://i.pinimg.com/736x/03/eb/d6/03ebd625cc0b9d636256ecc44c0ea324.jpg"
         );
         setDatetime(datetime || "-");
         setDescription(description || "-");
@@ -98,10 +103,10 @@ const AbsenPulang = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        height: "110vh",
+        minHeight: "100vh",
       }}
     >
-      <div className="container text-white vh-100 py-4">
+      <div className="container text-white py-4">
         <h2 className="text-center fw-bold mb-3">PRESENSI PULANG</h2>
         <div className="row justify-content-center g-4">
           {/* Tanggal */}
