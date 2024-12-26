@@ -29,7 +29,7 @@ function FormBukuTamu() {
     const rect = canvas.getBoundingClientRect();
 
     setIsDrawing(true);
-    ctx.beginPath(); // Memulai path baru
+    ctx.beginPath();
     ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
   };
 
@@ -44,26 +44,44 @@ function FormBukuTamu() {
     ctx.stroke();
   };
 
+  // const handleMouseUp = () => {
+  //   setIsDrawing(false);
+
+  //   const canvas = canvasRef.current;
+  //   // Mengonversi canvas menjadi data URL dan menyimpannya ke state
+  //   const dataURL = canvas.toDataURL("image/png");
+  //   setSignature(dataURL);
+  // };
+
   const handleMouseUp = () => {
     setIsDrawing(false);
+
+    const canvas = canvasRef.current;
+    // Mengonversi canvas menjadi file image
+    canvas.toBlob((blob) => {
+      const file = new File([blob], "signature.png", { type: "image/png" });
+      setSignature(file);
+    }, "image/png");
   };
 
   const clearSignature = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Membersihkan seluruh canvas
-    ctx.beginPath(); // Inisialisasi ulang path
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    setSignature(""); // Reset data URL
   };
+  console.log(signature);
 
   const add = async (e) => {
     e.preventDefault();
     e.persist();
 
     try {
-      let imageUrl = image;
-      if (image) {
-        imageUrl = await uploadImageToS3(image);
-      }
+      let imageUrl = signature;
+      if (signature) {
+        imageUrl = await uploadImageToS3(signature);
+      }      
 
       await axios.post(`${API_DUMMY_PYTHON}/api/guestbook`, {
         no_wa: noWa,
@@ -74,7 +92,6 @@ function FormBukuTamu() {
         note: catatan,
         description_donation: tujuan,
         organization_id: param.organization_id,
-        signature: signature,
       });
 
       Swal.fire({
@@ -198,9 +215,8 @@ function FormBukuTamu() {
                 </label>
                 <canvas
                   ref={canvasRef}
-                  width={400}
-                  height={200}
-                  style={{ border: "1px solid #000", marginBottom: "10px" }}
+                  className="form-control"
+                  style={{ marginBottom: "10px", width: "100%", height: "10rem" }}
                   onMouseDown={handleMouseDown}
                   onMouseMove={handleDraw}
                   onMouseUp={handleMouseUp}
@@ -215,6 +231,12 @@ function FormBukuTamu() {
                   Bersihkan Tanda Tangan
                 </button>
               </div>
+              {/* {signature && (
+                <div style={{ marginTop: "10px" }}>
+                  <p>Generated Signature:</p>
+                  <img src={signature} alt="Signature" style={{ maxWidth: "100%" }} />
+                </div>
+              )} */}
             </div>
           </div>
           <br /> <br />

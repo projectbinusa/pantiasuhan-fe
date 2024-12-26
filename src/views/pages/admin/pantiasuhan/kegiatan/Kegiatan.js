@@ -44,9 +44,9 @@ function KegiatanPanti() {
         }
       );
       setList(response.data.data);
-      console.log(response.data);
+      console.log(response.data.pagination);
       setPaginationInfo({
-        totalPages: response.data.pagination.total_pages,
+        totalPages: Math.ceil(response.data.pagination.total/rowsPerPage),
         totalElements: response.data.pagination.total,
       });
     } catch (error) {
