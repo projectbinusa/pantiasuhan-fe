@@ -6,7 +6,7 @@ import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 // import kegiatan from "../../../../../aset/smpn1bergas/kegiatan.png";
-
+import "../../../../../css/button.css";
 function Iventaris() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);

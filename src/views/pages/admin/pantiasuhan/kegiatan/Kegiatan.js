@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import "../../../../../css/button.css";
 
 function KegiatanPanti() {
   const [list, setList] = useState([]);
@@ -44,9 +45,9 @@ function KegiatanPanti() {
         }
       );
       setList(response.data.data);
-      console.log(response.data.pagination);
+      console.log(response.data);
       setPaginationInfo({
-        totalPages: Math.ceil(response.data.pagination.total/rowsPerPage),
+        totalPages: response.data.pagination.total_pages,
         totalElements: response.data.pagination.total,
       });
     } catch (error) {

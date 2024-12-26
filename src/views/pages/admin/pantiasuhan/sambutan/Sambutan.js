@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import "../../../../../css/button.css";
 
 function Sambutan() {
   const [list, setList] = useState([]);
@@ -188,28 +189,17 @@ function Sambutan() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    {list.length > 0 ? (
-                      <>
-                        <button
-                          style={{ cursor: "not-allowed" }}
-                          disabled
-                          className="active btn-focus p-2 rounded"
+                    <>
+                      {" "}
+                      <button className="active btn-focus p-2 rounded">
+                        <a
+                          style={{ color: "white", textDecoration: "none" }}
+                          // href="/add-sambutan"
                         >
                           Tambah Data
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <button className="active btn-focus p-2 rounded">
-                          <a
-                            style={{ color: "white", textDecoration: "none" }}
-                            href="/add-sambutan"
-                          >
-                            Tambah Data
-                          </a>
-                        </button>
-                      </>
-                    )}
+                        </a>
+                      </button>
+                    </>
                   </div>
                 </div>
               </div>

@@ -7,6 +7,7 @@ import AOS from "aos";
 import {
   Pagination,
 } from "@mui/material";
+import "../../../../../../css/button.css";
 
 function FotoKegiatanPanti() {
   const [list, setList] = useState([]);

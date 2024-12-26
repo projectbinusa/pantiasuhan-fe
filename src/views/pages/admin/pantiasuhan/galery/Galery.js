@@ -6,6 +6,7 @@ import AOS from "aos";
 
 import { Pagination } from "@mui/material";
 import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import "../../../../../css/button.css";
 
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
@@ -22,16 +23,19 @@ function Galery() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/galery?page=${currentPage}&size=${rowsPerPage}`, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      });
+      const response = await axios.get(
+        `${API_DUMMY_PYTHON}/api/admin/galery?page=${currentPage}&size=${rowsPerPage}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
       const { data, pagination } = response.data;
       console.log(response);
       setList(data);
       setPaginationInfo({
-        totalPages: Math.ceil(pagination.total/rowsPerPage),
+        totalPages: Math.ceil(pagination.total / rowsPerPage),
         totalElements: pagination.total || 0,
       });
     } catch (error) {
@@ -108,12 +112,12 @@ function Galery() {
 
   const filteredList = searchTerm
     ? list.filter((item) =>
-      Object.values(item).some(
-        (value) =>
-          typeof value === "string" &&
-          value.toLowerCase().includes(searchTerm.toLowerCase())
+        Object.values(item).some(
+          (value) =>
+            typeof value === "string" &&
+            value.toLowerCase().includes(searchTerm.toLowerCase())
+        )
       )
-    )
     : list;
 
   console.log(filteredList);
@@ -139,8 +143,9 @@ function Galery() {
   }, []);
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"

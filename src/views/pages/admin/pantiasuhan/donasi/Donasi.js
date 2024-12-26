@@ -5,6 +5,7 @@ import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
+import "../../../../../css/button.css"
 
 function Donasi() {
   const [list, setList] = useState([]);
