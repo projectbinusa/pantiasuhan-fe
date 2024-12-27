@@ -16,16 +16,14 @@ const rupiah = (number) => {
 
 function DashboardYayasan() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
-  const [fetchWeekly, setFetchWeekly] = useState();
-  const [total_tahsin, setTotalTahsin] = useState();
-  const [presensiCount, setPresensiCount] = useState();
-  const [guestCount, setGuestCount] = useState();
-  const [donationData, setDonationData] = useState();
-  const [anakAsuhCount, setAnakAsuhCount] = useState(0);
   const [conditions, setConditions] = useState([]);
   const [quantities, setQuantities] = useState([]);
-  const [jumlahPostingan, setJumlahPostingan] = useState(0);
-  const [jumlahDanaKeluar, setJumlahDanaKeluar] = useState(0); // Menyimpan jumlah dana keluar
+  const [jumlahDanaKeluar, setJumlahDanaKeluar] = useState(0);
+  const [fetchWeekly, setFetchWeekly] = useState();
+  const [condition, setCondition] = useState([]);
+  const [quantitie, setQuantitie] = useState([]);
+  const [rekapdonasi, setRekapDonasi] = useState([]);
+  const [rekapDonasiTrx, setRekapDonasiTrx] = useState([]);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -45,181 +43,106 @@ function DashboardYayasan() {
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem("tokenpython");
-      if (!token) {
-        throw new Error("Token tidak ditemukan. Harap login ulang.");
-      }
-
-      const response = await axios.get(
-        `${API_DUMMY_SMART_PROD}/api/customer/donation/recap`,
-        {
-          headers: { "auth-tgh": `jwt ${token}` },
-        }
-      );
-      setFetchWeekly(response.data.data?.total_income || 0);
-      setJumlahDanaKeluar(response.data.data?.total_outcome || 0);
-    } catch (error) {
-      console.error("Error fetching donation data: ", error.message);
-    }
-  };
-
-  const fetchTahsin = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/tahsin/minggu`,
+      const respons = await axios.get(
+        `${API_DUMMY_PYTHON}/api/user/donation`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      setTotalTahsin(response.data?.data?.total_tahsin || 0);
+      console.log(respons.data?.data);
+
+      setConditions(respons.data?.data || []);
     } catch (error) {
-      console.error("Gagal mengambil data tahsin:", error.message);
+      console.error("Error fetcing donation data: ", error.message);
     }
   };
 
-  const fetchPresensi = async () => {
+  const fetchDonasiTrx = async () => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/siswa/presensi`,
+      const respons = await axios.get(
+        `${API_DUMMY_PYTHON}/api/user/donation_trx`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      const totalPresensi = response.data?.data.reduce(
-        (acc, item) => acc + (item.jumlah || 0),
-        0
-      );
-      setPresensiCount(totalPresensi || 0);
+      console.log(respons.data?.data);
+
+      setCondition(respons.data?.data || []);
     } catch (error) {
-      console.error("Gagal mengambil data presensi:", error.message);
+      console.error("Error fetcing donation data: ", error.message);
     }
   };
 
-  const fetchGuestCount = async () => {
+  const fetchDonasiRecap = async () => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/guest_book/week`,
+      const respons = await axios.get(
+        `${API_DUMMY_PYTHON}/api/user/donation/recap`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      setGuestCount(response.data?.data?.total_tamu || 0);
+      console.log(respons.data?.data);
+
+      setRekapDonasi(respons.data?.total_recap_donasi || 0);
     } catch (error) {
-      console.error("Gagal mengambil data tamu:", error.message);
+      console.error("Error fetcing donation data: ", error.message);
     }
   };
 
-  const fetchAnakAsuhData = async () => {
+  const fetchDonasiRecapTrx = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/siswa`, {
-        headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-      });
-      // Periksa struktur data respons yang diterima
-      console.log("Jumlah siswa = ", response.data?.data); // Mencetak data siswa yang diterima dari API
-
-      // Mengambil jumlah siswa berdasarkan array yang ada di response.data.data
-      setAnakAsuhCount(response.data?.data?.length || 0); // Asumsi response.data.data adalah array siswa
-    } catch (error) {
-      console.error("Gagal mengambil data anak asuh:", error.message);
-    }
-  };
-
-  const fetchJumlahPostingan = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/berita`, // Endpoint API
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Menambahkan token jika diperlukan
-          },
-        }
-      );
-      console.log(response.data); // Memeriksa struktur respons
-
-      // Pastikan 'organization_id' ada dalam respons yang sesuai
-      setJumlahPostingan(response.data?.data?.length || 0);
-    } catch (error) {
-      console.error("Error fetching jumlah postingan: ", error);
-    }
-  };
-
-  // const fetchJumlahDanaKeluar = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "https://dev-api.byrtagihan.com/api/customer/donation_trx/recap", // Endpoint API
-  //       {
-  //         headers: {
-  //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Menambahkan token jika diperlukan
-  //         },
-  //       }
-  //     );
-
-  //     console.log("Response data:", response.data); // Melihat struktur data API
-
-  //     // Pastikan `data` adalah array sebelum menggunakan reduce
-  //     if (Array.isArray(response.data?.data)) {
-  //       const totalNominal = response.data.data.reduce((total, item) => {
-  //         console.log("Nominal item:", item.nominal); // Melihat setiap nominal
-  //         return total + (item.nominal || 0);
-  //       }, 0);
-
-  //       console.log("Total nominal dana keluar:", totalNominal); // Melihat total nominal
-  //       setJumlahDanaKeluar(totalNominal || 0); // Set total nominal ke state
-  //     } else {
-  //       console.error("Unexpected data format:", response.data?.data);
-  //       setJumlahDanaKeluar(0); // Jika data tidak sesuai, set ke 0
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching jumlah dana keluar: ", error.message);
-  //     setJumlahDanaKeluar(0); // Jika error, tampilkan 0
-  //   }
-  // };
-
-  useEffect(() => {
-    fetchData();
-    fetchTahsin();
-    fetchPresensi();
-    fetchGuestCount();
-    fetchAnakAsuhData();
-    fetchJumlahPostingan();
-    // fetchJumlahDanaKeluar();
-  }, []);
-
-  const fetchKondisiBarang = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kondisi_barang`,
+      const respons = await axios.get(
+        `${API_DUMMY_PYTHON}/api/user/donation_trx/recap`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      console.log(response.data?.data);
+      console.log(respons.data?.data);
 
-      setConditions(response.data?.data || []);
+      setRekapDonasiTrx(respons.data?.total_recap_donasi_trx || 0);
     } catch (error) {
-      console.error("Gagal mengambil kondisi barang:", error.message);
+      console.error("Error fetcing donation data: ", error.message);
     }
   };
 
-  // Fetch stok barang
-  const fetchStokBarang = async () => {
+  const fetchDanaMasuk = async () => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/investaris`,
+      const respons = await axios.get(
+        `${API_DUMMY_PYTHON}/api/user/donation_trx/masuk`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      console.log(response.data?.data);
-      setQuantities(response.data?.data || []);
+      console.log(respons.data?.data);
+
+      setFetchWeekly(respons.data?.total_recap_donasi_masuk || 0);
     } catch (error) {
-      console.error("Gagal mengambil stok barang:", error.message);
+      console.error("Error fetcing donation data: ", error.message);
+    }
+  };
+
+  const fetchDanaKeluar = async () => {
+    try {
+      const respons = await axios.get(
+        `${API_DUMMY_PYTHON}/api/user/donation_trx/keluar`,
+        {
+          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+        }
+      );
+      console.log(respons.data?.data);
+
+      setJumlahDanaKeluar(respons.data?.total_recap_donasi_keluar || 0);
+    } catch (error) {
+      console.error("Error fetcing donation data: ", error.message);
     }
   };
 
   useEffect(() => {
-    fetchKondisiBarang();
-    fetchStokBarang();
+    fetchData();
+    fetchDonasiTrx();
+    fetchDonasiRecap();
+    fetchDonasiRecapTrx();
+    fetchDanaMasuk();
   }, []);
 
   return (
@@ -252,41 +175,40 @@ function DashboardYayasan() {
                   </tr>
                 </thead>
                 <tbody>
-                  {conditions.length > 0 && quantities.length > 0 ? (
-                    conditions.map((condition, index) => {
-                      const matchingQuantity = quantities.filter(
-                        (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
-                      );
+                {conditions.length > 0 && quantities.length > 0 ? (
+                  conditions.map((condition, index) => {
+                    const matchingQuantity = quantities.filter(
+                      (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
+                    );
 
-                      let ttl = 0;
-                      matchingQuantity.map((item) => (
-                        ttl += item.stok
-                      ))
-                      console.log(matchingQuantity);
-                      console.log(ttl);
-                      return (
-                        <tr key={index}>
-                          <td data-label="No" className="text-center">
-                            {index + 1}
-                          </td>
-                          <td data-label="Nama" className="text-center">
-                            {/* {condition.kondisi_barang || "Tidak Diketahui"} */}
-                          </td>
-                          <td data-label="Deskripsi" className="text-center">
-                            {/* {quantities[index]?.stok || 0} */}
-                            {/* {ttl || 0} */}
-                          </td>
-                        </tr>
-                      )
-                    })
-                  ) : (
-                    <tr>
-                      <td colSpan="3" className="text-center">
-                        Data tidak tersedia
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
+                    let ttl = 0;
+                    matchingQuantity.forEach((quantity) => {
+                      ttl += quantity.stok;
+                    });
+
+                    console.log(matchingQuantity);
+                    return (
+                      <tr key={index}>
+                        <td data-label="No" className="text-center">
+                          {index + 1}
+                        </td>
+                        <td data-label="Nama" className="text-center">
+                          {condition.name || "Tidak Diketahui"}
+                        </td>
+                        <td data-label="Deskripsi" className="text-center">
+                          <div dangerouslySetInnerHTML={{ __html: condition.description || "Tidak Ada Deskripsi" }} />
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan="3" className="text-center">
+                      Data tidak tersedia
+                    </td>
+                  </tr>
+                )}
+              </tbody>
               </table>
               <footer>
                 <div className="info-link">
@@ -307,32 +229,31 @@ function DashboardYayasan() {
                   </tr>
                 </thead>
                 <tbody>
-                  {conditions.length > 0 && quantities.length > 0 ? (
-                    conditions.map((condition, index) => {
-                      const matchingQuantity = quantities.filter(
+                  {condition.length > 0 && quantitie.length > 0 ? (
+                    condition.map((condition, index) => {
+                      const matchingQuantity = quantitie.filter(
                         (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
                       );
 
                       let ttl = 0;
-                      matchingQuantity.map((item) => (
-                        ttl += item.stok
-                      ))
+                      matchingQuantity.forEach((quantity) => {
+                        ttl += quantity.stok;
+                      });
+
                       console.log(matchingQuantity);
-                      console.log(ttl);
                       return (
                         <tr key={index}>
                           <td data-label="No" className="text-center">
                             {index + 1}
                           </td>
                           <td data-label="Nama Donatur" className="text-center">
-                            {/* {condition.kondisi_barang || "Tidak Diketahui"} */}
+                            {condition.name || "Tidak Diketahui"}
                           </td>
                           <td data-label="Deskripsi" className="text-center">
-                            {/* {quantities[index]?.stok || 0} */}
-                            {/* {ttl || 0} */}
+                            <div dangerouslySetInnerHTML={{ __html: condition.description || "Tidak Ada Deskripsi" }} />
                           </td>
                         </tr>
-                      )
+                      );
                     })
                   ) : (
                     <tr>
@@ -366,8 +287,8 @@ function DashboardYayasan() {
                   </tr>
                 </thead>
                 <tbody>
-                  {conditions.length > 0 && quantities.length > 0 ? (
-                    conditions.map((condition, index) => {
+                  {rekapdonasi.length > 0 && quantities.length > 0 ? (
+                    rekapdonasi.map((condition, index) => {
                       const matchingQuantity = quantities.filter(
                         (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
                       );
@@ -377,25 +298,24 @@ function DashboardYayasan() {
                         ttl += item.stok
                       ))
                       console.log(matchingQuantity);
-                      console.log(ttl);
                       return (
                         <tr key={index}>
                           <td data-label="No" className="text-center">
                             {index + 1}
                           </td>
                           <td data-label="Nama" className="text-center">
-                            {/* {condition.kondisi_barang || "Tidak Diketahui"} */}
+                            {condition.name || "Tidak Diketahui"}
                           </td>
                           <td data-label="Deskripsi" className="text-center">
-                            {/* {quantities[index]?.stok || 0} */}
+                            <div dangerouslySetInnerHTML={{ __html: conditions.description }} />
                             {/* {ttl || 0} */}
                           </td>
                           <td data-label="Total Income" className="text-center">
-                            {/* {quantities[index]?.stok || 0} */}
+                            {condition.total_income || "Tidak Diketahui"}
                             {/* {ttl || 0} */}
                           </td>
                           <td data-label="Total Outcome" className="text-center">
-                            {/* {quantities[index]?.stok || 0} */}
+                            {condition.total_outcome || "Tidak Diketahui"}
                             {/* {ttl || 0} */}
                           </td>
                         </tr>
@@ -430,8 +350,8 @@ function DashboardYayasan() {
                   </tr>
                 </thead>
                 <tbody>
-                  {conditions.length > 0 && quantities.length > 0 ? (
-                    conditions.map((condition, index) => {
+                  {rekapDonasiTrx.length > 0 && quantities.length > 0 ? (
+                    rekapDonasiTrx.map((condition, index) => {
                       const matchingQuantity = quantities.filter(
                         (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
                       );
@@ -441,20 +361,19 @@ function DashboardYayasan() {
                         ttl += item.stok
                       ))
                       console.log(matchingQuantity);
-                      console.log(ttl);
                       return (
                         <tr key={index}>
                           <td data-label="No" className="text-center">
                             {index + 1}
                           </td>
                           <td data-label="Nama Donatur" className="text-center">
-                            {/* {condition.kondisi_barang || "Tidak Diketahui"} */}
+                            {condition.name || "Tidak Diketahui"}
                           </td>
                           <td data-label="Nominal" className="text-center">
-                            {/* {condition.kondisi_barang || "Tidak Diketahui"} */}
+                            {condition.nominal || "Tidak Diketahui"}
                           </td>
                           <td data-label="Deskripsi" className="text-center">
-                            {/* {quantities[index]?.stok || 0} */}
+                            <div dangerouslySetInnerHTML={{ __html: condition.description }} />
                             {/* {ttl || 0} */}
                           </td>
                         </tr>
@@ -479,16 +398,16 @@ function DashboardYayasan() {
           <div className="box-tabel card1">
             <div className="card shadow w-100 border-none cardmenu">
               <h2 className="">Jumlah Donasi Masuk dalam 1 Minggu Terakhir</h2>
-              <h1>{guestCount}0</h1>
+              <h1>{rupiah(fetchWeekly)}</h1>
               <div className="info-link">
-                <a href="/admin_buku_tamu">Informasi Selengkapnya</a>
+                <a href="#">Informasi Selengkapnya</a>
               </div>
             </div>
             <div className="card shadow w-100 border-none cardmenu">
               <h2 className="">Jumlah Donasi Keluar dalam 1 Minggu Terakhir</h2>
-              <h1>{jumlahPostingan}</h1>
+              <h1>{rupiah(jumlahDanaKeluar)}</h1>
               <div className="info-link">
-                <a href="/admin_berita">Informasi Selengkapnya</a>
+                <a href="#">Informasi Selengkapnya</a>
               </div>
             </div>
           </div>
