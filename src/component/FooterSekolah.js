@@ -105,7 +105,11 @@ function FooterSekolah() {
   const getAllVisiMisiPanti = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/visimisi?page=1&limit=1`
+        `${API_DUMMY_PYTHON}/api/public/visimisi?page=1&limit=1`, {
+        headers: {
+          "x-origin": "mccsemarang.com"
+        },
+      }
       );
       console.log(response.data.data[0]);
 

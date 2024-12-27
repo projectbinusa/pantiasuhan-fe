@@ -3,10 +3,8 @@ import { Pagination } from "@mui/material";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import NavbarSekolah from "../../../../../component/NavbarSekolah";
-import image1 from "../../../../../aset/images.png";
-import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
-import Navbar from "../../../../../component/Navbar";
+import { API_DUMMY_SMART_DEV } from "../../../utils/base_URL";
+import Navbar from "../../../component/Navbar";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -21,21 +19,20 @@ const formatTanggal = (tanggalString) => {
   return `${hari} ${bulanNama} ${tahun}`;
 };
 
-function DonasiUmum() {
+function ShiftPublik() {
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage] = useState(9); // Tetapkan jumlah item per halaman
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true); // Untuk mendeteksi apakah masih ada data untuk dimuat
-  const [searchTerm, setSearchTerm] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [paginationInfo, setPaginationInfo] = useState({
+    totalPages: 1,
+    totalElements: 0,
+  });
+  const [searchTerm, setSearchTerm] = useState("")
 
   const getAll = async () => {
-    if (isLoading || !hasMore) return; // Hindari pemanggilan ganda
-
-    setIsLoading(true);
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/public/donation?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART_DEV}/api/public/shift?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -45,51 +42,39 @@ function DonasiUmum() {
       );
 
       const { data, pagination } = response.data;
+      console.log(data);
 
       if (data && pagination) {
-        setList((prevList) => [...data]); // Gabungkan data lama dengan yang baru
-        // setList((prevList) => [...data, ...prevList]); // Gabungkan data lama dengan yang baru
-        setHasMore(currentPage < pagination.total_page); // Periksa apakah masih ada halaman berikutnya
+        setList(data);
+        setPaginationInfo({
+          totalPages: pagination.total_page,
+          totalElements: pagination.total,
+        });
       } else {
         console.error("Data atau pagination tidak ditemukan dalam response.");
-        setHasMore(false);
       }
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
-      Swal.fire(
-        "Error!",
-        error.response?.data?.message || "Gagal memuat data.",
-        "error"
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  console.log(list);
-  console.log(hasMore);
-
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop >=
-      document.documentElement.offsetHeight - 200 &&
-      !isLoading
-    ) {
-      setCurrentPage((prevPage) => prevPage + 1); // Naikkan halaman saat scroll mendekati bawah
     }
   };
 
   useEffect(() => {
-    getAll();
-  }, [currentPage]);
+    getAll(currentPage);
+  }, [currentPage, rowsPerPage]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    AOS.init();
   }, []);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(1);
+  };
 
   const filteredList = list.filter((item) =>
     Object.values(item).some(
@@ -98,65 +83,6 @@ function DonasiUmum() {
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-
-  // const getAll = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${API_DUMMY_SMART_DEV}/api/public/donation?page=${currentPage}&limit=${rowsPerPage}`,
-  //       {
-  //         headers: {
-  //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-  //         },
-  //       }
-  //     );
-
-  //     const { data, pagination } = response.data;
-  //     console.log(data);
-
-  //     if (data && pagination) {
-  //       setList(data);
-  //       setPaginationInfo({
-  //         totalPages: pagination.total_page,
-  //         totalElements: pagination.total,
-  //       });
-  //     } else {
-  //       console.error("Data atau pagination tidak ditemukan dalam response.");
-  //     }
-  //   } catch (error) {
-  //     console.error("Terjadi kesalahan:", error.response || error.message);
-  //     Swal.fire(
-  //       "Error!",
-  //       error.response?.data?.message || "Gagal memuat data.",
-  //       "error"
-  //     );
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getAll();
-  // }, [currentPage, rowsPerPage]);
-
-  useEffect(() => {
-    AOS.init();
-  }, []);
-
-  // const handleRowsPerPageChange = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value, 10));
-  //   setCurrentPage(1);
-  // };
-
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-    setCurrentPage(1);
-  };
-
-  // const filteredList = list.filter((item) =>
-  //   Object.values(item).some(
-  //     (value) =>
-  //       typeof value === "string" &&
-  //       value.toLowerCase().includes(searchTerm.toLowerCase())
-  //   )
-  // );
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -168,6 +94,7 @@ function DonasiUmum() {
           backgroundColor: "#f9f9f9",
           fontFamily: "'Poppins', sans-serif",
           padding: "40px 20px",
+          minHeight: "100vh"
         }}
       >
         <div
@@ -176,7 +103,7 @@ function DonasiUmum() {
             maxWidth: "1200px",
             margin: "0 auto",
           }}
-        > <br /> <br /> <br />
+        > <br /> <br /> <br /> <br />
           <div className="row justify-content-center">
             <div className="col-xl-6 col-lg-7 col-md-10">
               <div className="section-title text-center" data-aos="fade-down">
@@ -189,12 +116,129 @@ function DonasiUmum() {
                     marginBottom: "20px",
                   }}
                 >
-                  Donasi Apa Hari Ini?
+                  Shiftmu, Kendalimu! 🕒
                 </h5>
               </div>
             </div>
           </div>
-          <input
+          <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+            <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
+              <div className="col-auto">
+                <label className="form-label mt-2">Rows per page:</label>
+              </div>
+              <div className="col-auto">
+                <select
+                  className="form-select form-select-xl w-auto"
+                  onChange={handleRowsPerPageChange}
+                  value={rowsPerPage}
+                >
+                  <option value={5}>5</option>
+                  <option value={10}>10</option>
+                  <option value={20}>20</option>
+                </select>
+              </div>
+            </div>
+            <div className="search">
+              <input
+                type="search"
+                className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
+            </div>
+            <div className="main-card box-tabel mb-3 card">
+              <div className="card-header" style={{ display: "flex" }}>
+                {/* <p className="mt-3">Donasi </p> */}
+                <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
+                  <div className="col-auto">
+                    <label className="form-label mt-2">Rows per page:</label>
+                  </div>
+                  <div className="col-auto">
+                    <select
+                      className="form-select form-select-sm"
+                      onChange={handleRowsPerPageChange}
+                      value={rowsPerPage}
+                    >
+                      <option value={5}>5</option>
+                      <option value={10}>10</option>
+                      <option value={20}>20</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="d-flex ml-auto gap-3">
+                  <input
+                    type="search"
+                    className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                  />
+                </div>
+              </div>
+              <div
+                className="table-responsive-3"
+                style={{ overflowX: "auto", maxWidth: "100%" }}
+              >
+                <table className="align-middle mb-0 table table-bordered table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">No</th>
+                      <th>Nama</th>
+                      <th>Deskripsi</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredList.map((item, index) => (
+                      <tr key={index}>
+                        <td data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                        <td data-label="Nama">{item.name}</td>
+                        <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
+                        <td data-label="Aksi">
+                          <button
+                            type="button"
+                            className="btn-primary btn-sm mr-2"
+                          >
+                            <a
+                              style={{
+                                color: "white",
+                                textDecoration: "none",
+                              }}
+                              href={`/absen-masuk?shift_id=${item.id}`}
+                            >Absen Masuk
+                            </a>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-warning mr-2 btn-sm">
+                            <a
+                              style={{
+                                color: "white",
+                                textDecoration: "none",
+                              }} href={`/absen-pulang?shift_id=${item.id}`}>
+                              Absen Pulang
+                            </a>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="card-header mt-3 d-flex justify-content-center">
+                <Pagination
+                  count={paginationInfo.totalPages}
+                  page={currentPage}
+                  onChange={(event, value) => setCurrentPage(value)}
+                  showFirstButton
+                  showLastButton
+                  color="primary"
+                />
+              </div>
+            </div>
+          </div>
+          {/* <input
             type="search"
             className="form-control widget-content-right w-100"
             placeholder="Cari Donasi..."
@@ -310,7 +354,7 @@ function DonasiUmum() {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
 
           {/* {isLoading && <p>Memuat data...</p>}
           {!hasMore && <p>Tidak ada data lagi.</p>} */}
@@ -369,4 +413,4 @@ function DonasiUmum() {
   );
 }
 
-export default DonasiUmum;
+export default ShiftPublik;

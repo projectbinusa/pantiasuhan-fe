@@ -203,7 +203,11 @@ function Home() {
 
   const getAllBerita = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/berita`);
+      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/berita`, {
+        headers: {
+          "x-origin": "mccsemarang.com"
+        },
+      });
       setBerita(response.data.data);
       console.log(response.data.data);
     } catch (error) {
@@ -257,7 +261,11 @@ function Home() {
 
   const getAllGalery = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/galery`);
+      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/galery`, {
+        headers: {
+          "x-origin": "mccsemarang.com"
+        },
+      });
       setGalery(response.data.data);
     } catch (error) {
       console.log("get all", error);
@@ -270,7 +278,11 @@ function Home() {
   const byIdGalery = async (id) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/galery/${id}`
+        `${API_DUMMY_PYTHON}/api/public/galery/${id}`, {
+        headers: {
+          "x-origin": "mccsemarang.com"
+        },
+      }
       );
       setFoto(response.data.data.foto);
       setJudul(response.data.data.judul);
@@ -289,7 +301,11 @@ function Home() {
 
   const getAllSantri = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/siswa`);
+      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/siswa`, {
+        headers: {
+          "x-origin": "mccsemarang.com"
+        },
+      });
       setSiswa(response.data.data);
       console.log("siswa: ", response.data.data);
     } catch (error) {
@@ -449,7 +465,11 @@ function Home() {
   const getAllVisiMisiPanti = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/visimisi`
+        `${API_DUMMY_PYTHON}/api/public/visimisi`, {
+        headers: {
+          "x-origin": "mccsemarang.com"
+        },
+      }
       );
       console.log("visi misi: ", response.data.data[0]);
 
@@ -464,7 +484,11 @@ function Home() {
   const getAllSambutanPanti = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/sambutan?page=1&limit=1`
+        `${API_DUMMY_PYTHON}/api/public/sambutan?page=1&limit=1`, {
+        headers: {
+          "x-origin": "mccsemarang.com"
+        },
+      }
       );
       console.log(response.data.data[0]);
 
@@ -478,7 +502,11 @@ function Home() {
   const getAllKegiatan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/kegiatan`
+        `${API_DUMMY_PYTHON}/api/public/kegiatan`, {
+        headers: {
+          "x-origin": "mccsemarang.com"
+        },
+      }
       );
       console.log("kegiatan: ", response.data.data);
       setkegiatan(response.data.data);

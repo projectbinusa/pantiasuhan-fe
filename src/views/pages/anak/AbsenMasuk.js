@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../utils/base_URL";
+import { API_DUMMY_ABSEN_DEV, API_DUMMY_PYTHON } from "../../../utils/base_URL";
 import "../../../css/absen.css";
 import logo from "../../../aset/pantiasuhan/logo.png";
 import panti from "../../../aset/pantiasuhan/pantiasuhan.png";
-// import { API_DUMMY } from "../../../../../src/utils/baseURL";
+import { useLocation } from "react-router-dom/cjs/react-router-dom";
 
 const AbsenMasuk = () => {
   const [cardNumber, setCardNumber] = useState("");
@@ -15,16 +15,21 @@ const AbsenMasuk = () => {
   const [description, setDescription] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const shiftId = searchParams.get('shift_id');    
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
       rfid_number: cardNumber,
       type: 1, // Type 1 untuk berangkat
+      shift_id: shiftId
     };
 
     try {
       const response = await fetch(
-        `${API_DUMMY_PYTHON}/api/siswa/absen_masuk`,
+        `${API_DUMMY_ABSEN_DEV}/api/siswa/absen_masuk`,
         {
           method: "POST",
           headers: {
@@ -98,10 +103,10 @@ const AbsenMasuk = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        height: "110vh",
+        minHeight: "100vh",
       }}
     >
-      <div className="container text-white vh-100 py-4">
+      <div className="container text-white py-4">
         <h2 className="text-center fw-bold mb-3">PRESENSI MASUK</h2>
         <div className="row justify-content-center g-4">
           {/* Tanggal */}

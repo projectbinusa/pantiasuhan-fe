@@ -17,7 +17,11 @@ function Navbar() {
 
   const getAllKontakPanti = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/kontak`);
+      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/kontak`,{
+        headers: {
+          "x-origin": "mccsemarang.com"
+        },
+      });
       console.log("kontak panti: ", response.data.data);
 
       // Mengatur state dari data API
@@ -298,11 +302,11 @@ function Navbar() {
                   Berita
                 </a>
               </li>
-              <li className="">
+              {/* <li className="">
                 <a href="#santri" style={{ paddingLeft: "15px" }}>
                   Santri
                 </a>
-              </li>
+              </li> */}
               <li className="">
                 <a href="/bukutamu/form/38" style={{ paddingLeft: "15px" }}>
                   Buku Tamu
@@ -311,6 +315,11 @@ function Navbar() {
               <li className="">
                 <a href="/donasiumum" style={{ paddingLeft: "15px" }}>
                   Donasi
+                </a>
+              </li>
+              <li className="">
+                <a href="/presensipanti" style={{ paddingLeft: "15px" }}>
+                  Presensi
                 </a>
               </li>
               <li
