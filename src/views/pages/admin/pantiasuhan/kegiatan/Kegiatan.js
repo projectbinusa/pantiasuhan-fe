@@ -49,7 +49,7 @@ function KegiatanPanti() {
       setList(response.data.data);
       console.log(response.data);
       setPaginationInfo({
-        totalPages: response.data.pagination.total_pages,
+        totalPages: Math.ceil(response.data.pagination.total/rowsPerPage),
         totalElements: response.data.pagination.total,
       });
     } catch (error) {
@@ -222,7 +222,7 @@ function KegiatanPanti() {
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th style={{ maxWidth: "350px" }}>Program</th>
+                    <th>Program</th>
                     <th>Penulis</th>
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Update</th>
@@ -237,10 +237,7 @@ function KegiatanPanti() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td
-                            data-label="Program"
-                            style={{ maxWidth: "350px" }}
-                          >
+                          <td data-label="Program">
                             <p className="isiBerita">{kegiatan.judul}</p>
                           </td>
                           <td data-label="Penulis">{kegiatan.penulis}</td>

@@ -69,6 +69,7 @@ function EditDonasi() {
   const [outcome, setOutcome] = useState("");
   const [domain, setDomain] = useState("");
   const [image, setImage] = useState(null);
+  const [file, setFile] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const history = useHistory();
   const param = useParams();
@@ -103,7 +104,7 @@ function EditDonasi() {
         setIncome(resp.total_income);
         setOutcome(resp.total_outcome);
         setDeskripsi(resp.description);
-        setImage(resp.url_image);
+        setFile(resp.url_image);
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -123,10 +124,12 @@ function EditDonasi() {
   const put = async (e) => {
     e.preventDefault();
     e.persist();
-    let imageUrl = image;
+    let imageUrl;
 
     if (image) {
       imageUrl = await uploadImageDonationToS3(image);
+    } else {
+      imageUrl = file
     }
     const data = {
       name: nama,

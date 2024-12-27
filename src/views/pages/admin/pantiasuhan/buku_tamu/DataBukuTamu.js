@@ -168,7 +168,7 @@ function DataBukuTamu() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama Orang Tua</th>
+                    <th>Nama Tamu</th>
                     <th>Nomor Whatsapp</th>
                     <th>Alamat</th>
                     <th>Tanggal Kunjungan</th>

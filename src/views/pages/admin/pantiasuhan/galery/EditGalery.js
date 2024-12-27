@@ -14,6 +14,7 @@ import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 function EditGalery() {
   const [judul, setJudul] = useState("");
   const [file, setFile] = useState(null);
+  const [image, setImage] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [show, setShow] = useState("");
   const param = useParams();
@@ -48,7 +49,7 @@ function EditGalery() {
         const response = ress.data.data;
         setJudul(response.judul);
         setDeskripsi(response.deskripsi);
-        setFile(response.foto);
+        setImage(response.foto);
         console.log("galery : ", ress.data.data);
       })
       .catch((error) => {
@@ -61,10 +62,12 @@ function EditGalery() {
     e.persist();
 
     try {
-      let imageUrl = file;
+      let imageUrl;
 
       if (file) {
         imageUrl = await uploadImageToS3(file);
+      } else {
+        imageUrl = image
       }
       const response = await axios.put(
         `${API_DUMMY_PYTHON}/api/admin/galery/${param.id}`,
