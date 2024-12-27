@@ -17,7 +17,11 @@ function Navbar() {
 
   const getAllKontakPanti = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/kontak`);
+      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/kontak`,{
+        headers: {
+          "x-origin": "mccsemarang.com"
+        },
+      });
       console.log("kontak panti: ", response.data.data);
 
       // Mengatur state dari data API

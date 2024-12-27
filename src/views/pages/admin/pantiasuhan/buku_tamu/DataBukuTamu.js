@@ -152,7 +152,7 @@ function DataBukuTamu() {
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Buku Tamu</p>
               {/* ... */}
-              <div className="d-flex ml-auto gap-3">
+              {/* <div className="d-flex ml-auto gap-3">
                 {role !== "yayasan" && (
                   <button
                     className="active btn-focus p-2 rounded"
@@ -161,7 +161,7 @@ function DataBukuTamu() {
                     <a href="/add_buku_tamu">Tambah Tamu</a>
                   </button>
                 )}
-              </div>
+              </div> */}
             </div>
             <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
