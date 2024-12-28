@@ -17,19 +17,19 @@ const AbsenMasuk = () => {
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const shiftId = searchParams.get('shift_id');    
+  const shiftId = searchParams.get('shift_id');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
       rfid_number: cardNumber,
-      type: 1, // Type 1 untuk berangkat
+      type: 1,
       shift_id: shiftId
     };
 
     try {
       const response = await fetch(
-        `${API_DUMMY_ABSEN_DEV}/api/siswa/absen_masuk`,
+        `${API_DUMMY_ABSEN_DEV}/api/absensi/submit`,
         {
           method: "POST",
           headers: {

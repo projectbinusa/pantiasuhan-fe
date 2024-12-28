@@ -25,11 +25,12 @@ const AbsenPulang = () => {
     const payload = {
       rfid_number: cardNumber,
       type: 2, // Type 1 untuk berangkat
+      shift_id: shiftId
     };
 
     try {
       const response = await fetch(
-        `${API_DUMMY_PYTHON}/api/siswa/absen_pulang`,
+        `${API_DUMMY_PYTHON}/api/absensi/submit`,
         {
           method: "PUT",
           headers: {
