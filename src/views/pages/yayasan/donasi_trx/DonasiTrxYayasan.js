@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
-import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
-import "../../../../../css/button.css";
+import "../../../../css/button.css";
+import { API_DUMMY_SMART_DEV } from "../../../../utils/base_URL";
+import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
-function DonasiTrx() {
+function DonasiTrxYayasan() {
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -40,7 +40,7 @@ function DonasiTrx() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/masuk?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -72,7 +72,7 @@ function DonasiTrx() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART_DEV}/api/customer/donation_trx/${id}`, {
+          .delete(`${API_DUMMY_SMART_DEV}/api/user/donation_trx/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -175,7 +175,7 @@ function DonasiTrx() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Dana Masuk</p>
+              <p className="mt-3">Donasi Trx</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -226,7 +226,6 @@ function DonasiTrx() {
                     <th>Nominal</th>
                     <th>Deskripsi</th>
                     <th>Image</th>
-                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -242,31 +241,6 @@ function DonasiTrx() {
                       </td>
                       <td data-label="Image">
                         <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} />
-                      </td>
-                      <td data-label="Aksi">
-                        {/* Tombol hanya tampil jika role bukan 'yayasan' */}
-                        {userRole !== 'yayasan' && (
-                          <>
-                            <button type="button" className="btn-primary btn-sm mr-2">
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit_donasi_trx/${item.id}`}
-                              >
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              type="button"
-                              className="btn-danger btn-sm"
-                              onClick={() => deleteData(item.id)}
-                            >
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </>
-                        )}
                       </td>
                     </tr>
                   ))}
@@ -291,4 +265,4 @@ function DonasiTrx() {
   );
 }
 
-export default DonasiTrx;
+export default DonasiTrxYayasan;
