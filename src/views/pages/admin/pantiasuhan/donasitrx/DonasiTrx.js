@@ -40,7 +40,7 @@ function DonasiTrx() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx/masuk?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -200,6 +200,21 @@ function DonasiTrx() {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
+                {/* Tombol Tambah hanya ditampilkan jika bukan role 'yayasan' */}
+                {userRole !== 'yayasan' && (
+                  <div className="btn-actions-pane-right">
+                    <div role="group" className="btn-group-sm btn-group">
+                      <button className="active btn-focus p-2 rounded">
+                        <a
+                          style={{ color: "white", textDecoration: "none" }}
+                          href="/add_donasi_trx"
+                        >
+                          Tambah
+                        </a>
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
