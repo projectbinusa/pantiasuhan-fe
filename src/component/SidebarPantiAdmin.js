@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import "../../src/component/sidebar.css"; // Assuming you have the CSS in this file
+import React, { useEffect, useRef } from "react";
+import "../../src/component/sidebar.css";
 import Swal from "sweetalert2";
 import {
   NavLink,
@@ -231,6 +231,38 @@ function SidebarPantiAdmin({ toggleSidebar }) {
     },
   ];
 
+  const menuItemsYayasan = [
+    {
+      header: "Donaasi",
+      items: [
+        {
+          title: "Donasi",
+          icon: "fa-solid fa-book-open",
+          path: "/yayasan_donasi",
+          action: [""],
+        },
+        {
+          title: "Donasi Trx",
+          icon: "fa-solid fa-book-open",
+          path: "/donasitrx_yayasan",
+          action: [""],
+        },
+        {
+          title: "Donasi Trx Masuk",
+          icon: "fa-solid fa-list",
+          path: "/donasitrx_masuk_yayasan",
+          action: [""],
+        },
+        {
+          title: "Donasi Trx Keluar",
+          icon: "fas fa-calendar-alt",
+          path: "/donasitrx_keluar_yayasan",
+          action: [""],
+        }
+      ],
+    },
+  ];
+
   const inventarisItems = [
     {
       title: "Barang Inventaris",
@@ -294,22 +326,45 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                         data.action.includes(location.pathname)
                           ? "active"
                           : ""
-                      }`}
-                    ></i>
+                      }`}></i>
                     <span>{data.title}</span>
                   </NavLink>
                 </li>
               ))}
-              {menuItems.map((menu, index) => (
-                <React.Fragment key={index}>
+              {localStorage.getItem("rolename") != "Yayasan" ? (
+                <>
+                  {menuItems.map((menu, index) => (
+                    <React.Fragment key={index}>
+                      <li className="header-menu1">
+                        <span>{menu.header}</span>
+                      </li>
+                      {menu.items.map((data, subIndex) => (
+                        <li
+                          key={subIndex}
+                          ref={(el) => (menuRefs.current[subIndex] = el)}>
+                          <NavLink
+                            to={data.path}
+                            style={{ background: "none" }}>
+                            <i
+                              className={`${data.icon} ${
+                                location.pathname === data.path ||
+                                data.action.includes(location.pathname)
+                                  ? "active"
+                                  : ""
+                              }`}></i>
+                            <span>{data.title}</span>
+                          </NavLink>
+                        </li>
+                      ))}
+                    </React.Fragment>
+                  ))}
                   <li className="header-menu1">
-                    <span>{menu.header}</span>
+                    <span>Inventaris</span>
                   </li>
-                  {menu.items.map((data, subIndex) => (
+                  {inventarisItems.map((data, index) => (
                     <li
-                      key={subIndex}
-                      ref={(el) => (menuRefs.current[subIndex] = el)}
-                    >
+                      key={index}
+                      ref={(el) => (inventarisRefs.current[index] = el)}>
                       <NavLink to={data.path} style={{ background: "none" }}>
                         <i
                           className={`${data.icon} ${
@@ -317,35 +372,41 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                             data.action.includes(location.pathname)
                               ? "active"
                               : ""
-                          }`}
-                        ></i>
+                          }`}></i>
                         <span>{data.title}</span>
                       </NavLink>
                     </li>
                   ))}
-                </React.Fragment>
-              ))}
-              <li className="header-menu1">
-                <span>Inventaris</span>
-              </li>
-              {inventarisItems.map((data, index) => (
-                <li
-                  key={index}
-                  ref={(el) => (inventarisRefs.current[index] = el)}
-                >
-                  <NavLink to={data.path} style={{ background: "none" }}>
-                    <i
-                      className={`${data.icon} ${
-                        location.pathname === data.path ||
-                        data.action.includes(location.pathname)
-                          ? "active"
-                          : ""
-                      }`}
-                    ></i>
-                    <span>{data.title}</span>
-                  </NavLink>
-                </li>
-              ))}
+                </>
+              ) : (
+                <>
+                  {menuItemsYayasan.map((menu, index) => (
+                    <React.Fragment key={index}>
+                      <li className="header-menu1">
+                        <span>{menu.header}</span>
+                      </li>
+                      {menu.items.map((data, subIndex) => (
+                        <li
+                          key={subIndex}
+                          ref={(el) => (menuRefs.current[subIndex] = el)}>
+                          <NavLink
+                            to={data.path}
+                            style={{ background: "none" }}>
+                            <i
+                              className={`${data.icon} ${
+                                location.pathname === data.path ||
+                                data.action.includes(location.pathname)
+                                  ? "active"
+                                  : ""
+                              }`}></i>
+                            <span>{data.title}</span>
+                          </NavLink>
+                        </li>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </>
+              )}
             </ul>
           </div>
         </div>

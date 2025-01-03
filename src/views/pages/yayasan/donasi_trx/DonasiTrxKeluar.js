@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
-import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
-import "../../../../../css/button.css";
+import "../../../../css/button.css";
+import { API_DUMMY_SMART_DEV } from "../../../../utils/base_URL";
+import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
-function DonasiTrx() {
+function DonasiTrxKeluar() {
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -40,7 +40,7 @@ function DonasiTrx() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/keluar?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -57,46 +57,6 @@ function DonasiTrx() {
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
     }
-  };
-
-  const deleteData = async (id) => {
-    Swal.fire({
-      title: "Apakah Anda Ingin Menghapus?",
-      text: "Perubahan data tidak bisa dikembalikan!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Hapus",
-      cancelButtonText: "Batal",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`${API_DUMMY_SMART_DEV}/api/customer/donation_trx/${id}`, {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          })
-          .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Dihapus!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            getAll();
-          })
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Hapus Data Gagal!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            console.log(err);
-          });
-      }
-    });
   };
 
   useEffect(() => {
@@ -175,7 +135,7 @@ function DonasiTrx() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Dana Masuk</p>
+              <p className="mt-3">Donasi Trx Keluar</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -201,20 +161,6 @@ function DonasiTrx() {
                   onChange={handleSearchChange}
                 />
                 {/* Tombol Tambah hanya ditampilkan jika bukan role 'yayasan' */}
-                {userRole !== 'yayasan' && (
-                  <div className="btn-actions-pane-right">
-                    <div role="group" className="btn-group-sm btn-group">
-                      <button className="active btn-focus p-2 rounded">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/add_donasi_trx"
-                        >
-                          Tambah
-                        </a>
-                      </button>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
             <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
@@ -226,7 +172,6 @@ function DonasiTrx() {
                     <th>Nominal</th>
                     <th>Deskripsi</th>
                     <th>Image</th>
-                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -242,31 +187,6 @@ function DonasiTrx() {
                       </td>
                       <td data-label="Image">
                         <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} />
-                      </td>
-                      <td data-label="Aksi">
-                        {/* Tombol hanya tampil jika role bukan 'yayasan' */}
-                        {userRole !== 'yayasan' && (
-                          <>
-                            <button type="button" className="btn-primary btn-sm mr-2">
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit_donasi_trx/${item.id}`}
-                              >
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              type="button"
-                              className="btn-danger btn-sm"
-                              onClick={() => deleteData(item.id)}
-                            >
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </>
-                        )}
                       </td>
                     </tr>
                   ))}
@@ -291,4 +211,4 @@ function DonasiTrx() {
   );
 }
 
-export default DonasiTrx;
+export default DonasiTrxKeluar;

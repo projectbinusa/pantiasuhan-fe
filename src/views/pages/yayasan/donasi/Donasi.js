@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
-import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
-import "../../../../../css/button.css";
+import "../../../../css/button.css";
+import { API_DUMMY_SMART_DEV } from "../../../../utils/base_URL";
+import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
-function DonasiTrx() {
+function DonasiYayasan() {
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -17,9 +17,7 @@ function DonasiTrx() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
-
-  // Mendapatkan role pengguna
-  const userRole = localStorage.getItem('role'); // Menyimpan role saat login
+  const [userRole, setUserRole] = useState(null);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -34,13 +32,18 @@ function DonasiTrx() {
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
+
+    // Mengambil role pengguna dari localStorage atau sumber lainnya
+    const role = localStorage.getItem("role"); // Misalnya disimpan dalam localStorage
+    setUserRole(role);
+
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART_DEV}/api/user/donation?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -49,6 +52,8 @@ function DonasiTrx() {
       );
 
       const { data, pagination } = response.data;
+      console.log(data);
+
       setList(data);
       setPaginationInfo({
         totalPages: pagination.total_page,
@@ -72,7 +77,7 @@ function DonasiTrx() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART_DEV}/api/customer/donation_trx/${id}`, {
+          .delete(`${API_DUMMY_SMART_DEV}/api/customer/donation/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -107,12 +112,6 @@ function DonasiTrx() {
     AOS.init();
   }, []);
 
-  useEffect(() => {
-    if (currentPage > paginationInfo.totalPages) {
-      setCurrentPage(paginationInfo.totalPages || 1);
-    }
-  }, [paginationInfo.totalPages, currentPage]);
-
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setCurrentPage(1);
@@ -123,20 +122,20 @@ function DonasiTrx() {
     setCurrentPage(1);
   };
 
-  const filteredList = searchTerm
-    ? list.filter((item) =>
-        Object.values(item).some(
-          (value) =>
-            typeof value === "string" &&
-            value.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      )
-    : list;
+  const filteredList = list.filter((item) =>
+    Object.values(item).some(
+      (value) =>
+        typeof value === "string" &&
+        value.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
+    <div
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -175,7 +174,7 @@ function DonasiTrx() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Dana Masuk</p>
+              <p className="mt-3">Donasi </p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -192,70 +191,55 @@ function DonasiTrx() {
                   </select>
                 </div>
               </div>
-              <div className="d-flex ml-auto gap-3">
-                <input
-                  type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                {/* Tombol Tambah hanya ditampilkan jika bukan role 'yayasan' */}
-                {userRole !== 'yayasan' && (
-                  <div className="btn-actions-pane-right">
-                    <div role="group" className="btn-group-sm btn-group">
-                      <button className="active btn-focus p-2 rounded">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/add_donasi_trx"
-                        >
-                          Tambah
-                        </a>
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
             </div>
-            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
+            <div
+              className="table-responsive-3"
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama Donatur</th>
-                    <th>Nominal</th>
+                    <th>Nama</th>
                     <th>Deskripsi</th>
-                    <th>Image</th>
-                    <th>Aksi</th>
+                    <th>Total Income</th>
+                    <th>Total Outcome</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td data-label="No">
-                        {(currentPage - 1) * rowsPerPage + index + 1}
-                      </td>
-                      <td data-label="Nama Donatur">{item.name}</td>
-                      <td data-label="Nominal">{item.nominal}</td>
-                      <td data-label="Deskripsi">
-                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
-                      </td>
-                      <td data-label="Image">
-                        <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} />
-                      </td>
-                      <td data-label="Aksi">
-                        {/* Tombol hanya tampil jika role bukan 'yayasan' */}
-                        {userRole !== 'yayasan' && (
+                      <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                      <td>{item.name}</td>
+                      <td><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
+                      <td>{item.total_income}</td>
+                      <td>{item.total_outcome}</td>
+                      <td>
+                        {userRole !== "Yayasan" && (
                           <>
-                            <button type="button" className="btn-primary btn-sm mr-2">
+                            <button
+                              type="button"
+                              className="btn-primary btn-sm mr-2"
+                            >
                               <a
                                 style={{
                                   color: "white",
                                   textDecoration: "none",
                                 }}
-                                href={`/edit_donasi_trx/${item.id}`}
+                                href={`/donasi/put/${item.id}`}
                               >
                                 <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn-warning mr-2 btn-sm"
+                            >
+                              <a
+                                className="text-light"
+                                href={"/detail_donasi_yayasan/" + item.id}
+                              >
+                                <i className="fas fa-info-circle"></i>
                               </a>
                             </button>
                             <button
@@ -281,7 +265,6 @@ function DonasiTrx() {
                 showFirstButton
                 showLastButton
                 color="primary"
-                disabled={paginationInfo.totalPages === 0}
               />
             </div>
           </div>
@@ -291,4 +274,4 @@ function DonasiTrx() {
   );
 }
 
-export default DonasiTrx;
+export default DonasiYayasan;

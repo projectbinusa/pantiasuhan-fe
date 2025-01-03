@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import axios from "axios";
 import {
-  API_DUMMY_PYTHON,
+  API_DUMMY_ABSEN_DEV,
+  API_DUMMY_ABSEN_PROD,
+  API_DUMMY_SMART_DEV,
   API_DUMMY_SMART_PROD,
 } from "../../../../utils/base_URL";
 
@@ -44,7 +46,7 @@ function DashboardYayasan() {
   const fetchData = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_PYTHON}/api/user/donation`,
+        `${API_DUMMY_SMART_DEV}/api/user/donation`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -60,7 +62,7 @@ function DashboardYayasan() {
   const fetchDonasiTrx = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_PYTHON}/api/user/donation_trx`,
+        `${API_DUMMY_SMART_DEV}/api/user/donation_trx`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -76,7 +78,7 @@ function DashboardYayasan() {
   const fetchDonasiRecap = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_PYTHON}/api/user/donation/recap`,
+        `${API_DUMMY_SMART_DEV}/api/user/donation/recap`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -92,7 +94,7 @@ function DashboardYayasan() {
   const fetchDonasiRecapTrx = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_PYTHON}/api/user/donation_trx/recap`,
+        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/recap`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -108,7 +110,7 @@ function DashboardYayasan() {
   const fetchDanaMasuk = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_PYTHON}/api/user/donation_trx/masuk`,
+        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/masuk`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -124,7 +126,7 @@ function DashboardYayasan() {
   const fetchDanaKeluar = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_PYTHON}/api/user/donation_trx/keluar`,
+        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/keluar`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -212,7 +214,7 @@ function DashboardYayasan() {
               </table>
               <footer>
                 <div className="info-link">
-                  <a href="/barang_inventaris">Informasi Selengkapnya</a>
+                  <a href="/yayasan_donasi">Informasi Selengkapnya</a>
                 </div>
               </footer>
             </div>
@@ -266,7 +268,7 @@ function DashboardYayasan() {
               </table>
               <footer>
                 <div className="info-link">
-                  <a href="/barang_inventaris">Informasi Selengkapnya</a>
+                  <a href="/donasitrx_yayasan">Informasi Selengkapnya</a>
                 </div>
               </footer>
             </div>
@@ -323,18 +325,18 @@ function DashboardYayasan() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="3" className="text-center">
+                      <td colSpan="6" className="text-center">
                         Data tidak tersedia
                       </td>
                     </tr>
                   )}
                 </tbody>
               </table>
-              <footer>
+              {/* <footer>
                 <div className="info-link">
                   <a href="/barang_inventaris">Informasi Selengkapnya</a>
                 </div>
-              </footer>
+              </footer> */}
             </div>
             <div className="card shadow w-100 cardmenu">
               <h2 className="">Rekap Donasi Trx dalam 1 Minggu Terakhir</h2> <br />
@@ -381,18 +383,18 @@ function DashboardYayasan() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="3" className="text-center">
+                      <td colSpan="5" className="text-center">
                         Data tidak tersedia
                       </td>
                     </tr>
                   )}
                 </tbody>
               </table>
-              <footer>
+              {/* <footer>
                 <div className="info-link">
                   <a href="/barang_inventaris">Informasi Selengkapnya</a>
                 </div>
-              </footer>
+              </footer> */}
             </div>
           </div>
           <div className="box-tabel card1">

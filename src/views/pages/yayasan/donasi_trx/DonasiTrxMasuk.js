@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
-import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
-import "../../../../../css/button.css";
+import "../../../../css/button.css";
+import { API_DUMMY_SMART_DEV } from "../../../../utils/base_URL";
+import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
-function DonasiTrx() {
+function DonasiTrxMasuk() {
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -19,7 +19,7 @@ function DonasiTrx() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   // Mendapatkan role pengguna
-  const userRole = localStorage.getItem('role'); // Menyimpan role saat login
+  const userRole = localStorage.getItem("role"); // Menyimpan role saat login
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -40,7 +40,7 @@ function DonasiTrx() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/masuk?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -72,7 +72,7 @@ function DonasiTrx() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART_DEV}/api/customer/donation_trx/${id}`, {
+          .delete(`${API_DUMMY_SMART_DEV}/api/user/donation_trx/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -136,18 +136,22 @@ function DonasiTrx() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+        <div
+          className="container box-table mt-3 app-main__outer"
+          data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -156,8 +160,7 @@ function DonasiTrx() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}
-              >
+                value={rowsPerPage}>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -175,7 +178,7 @@ function DonasiTrx() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Dana Masuk</p>
+              <p className="mt-3">Donasi Trx Masuk</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -184,8 +187,7 @@ function DonasiTrx() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
+                    value={rowsPerPage}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -201,23 +203,11 @@ function DonasiTrx() {
                   onChange={handleSearchChange}
                 />
                 {/* Tombol Tambah hanya ditampilkan jika bukan role 'yayasan' */}
-                {userRole !== 'yayasan' && (
-                  <div className="btn-actions-pane-right">
-                    <div role="group" className="btn-group-sm btn-group">
-                      <button className="active btn-focus p-2 rounded">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/add_donasi_trx"
-                        >
-                          Tambah
-                        </a>
-                      </button>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
-            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
+            <div
+              className="table-responsive-3"
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -226,7 +216,6 @@ function DonasiTrx() {
                     <th>Nominal</th>
                     <th>Deskripsi</th>
                     <th>Image</th>
-                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -238,35 +227,16 @@ function DonasiTrx() {
                       <td data-label="Nama Donatur">{item.name}</td>
                       <td data-label="Nominal">{item.nominal}</td>
                       <td data-label="Deskripsi">
-                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
+                        <div
+                          dangerouslySetInnerHTML={{ __html: item.description }}
+                        />
                       </td>
                       <td data-label="Image">
-                        <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} />
-                      </td>
-                      <td data-label="Aksi">
-                        {/* Tombol hanya tampil jika role bukan 'yayasan' */}
-                        {userRole !== 'yayasan' && (
-                          <>
-                            <button type="button" className="btn-primary btn-sm mr-2">
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit_donasi_trx/${item.id}`}
-                              >
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              type="button"
-                              className="btn-danger btn-sm"
-                              onClick={() => deleteData(item.id)}
-                            >
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </>
-                        )}
+                        <img
+                          src={item.url_image}
+                          alt="image"
+                          style={{ width: 50, height: 50 }}
+                        />
                       </td>
                     </tr>
                   ))}
@@ -291,4 +261,4 @@ function DonasiTrx() {
   );
 }
 
-export default DonasiTrx;
+export default DonasiTrxMasuk;

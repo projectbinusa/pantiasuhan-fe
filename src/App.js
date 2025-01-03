@@ -230,6 +230,11 @@ import DataShift from "./views/pages/admin/pantiasuhan/shift/DataShift.js";
 import EditShift from "./views/pages/admin/pantiasuhan/shift/EditShift.js";
 import ShiftPublik from "./views/pages/anak/ShiftPublik.js";
 import DashboardYayasan from "./views/pages/admin/pantiasuhan/DashboardYayasan.js";
+import DonasiYayasan from "./views/pages/yayasan/donasi/Donasi.js";
+import DetailDonasiYayasan from "./views/pages/yayasan/donasi/DetailDonasiYayasan.js";
+import DonasiTrxYayasan from "./views/pages/yayasan/donasi_trx/DonasiTrxYayasan.js";
+import DonasiTrxMasuk from "./views/pages/yayasan/donasi_trx/DonasiTrxMasuk.js";
+import DonasiTrxKeluar from "./views/pages/yayasan/donasi_trx/DonasiTrxKeluar.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1103,7 +1108,43 @@ function App() {
             <Route path="/beritapanti" component={PublikBerita} exact />
             <Route path="/programpanti" component={PublikProgram} exact />
             <Route path="/presensipanti" component={ShiftPublik} exact />
-            <Route path="/dashboard_yayasan" component={DashboardYayasan} exact />
+
+            {/* yayasan */}
+            <Route
+              path="/dashboard_yayasan"
+              component={DashboardYayasan}
+              exact
+            />
+            <Route
+              path="/yayasan_donasi"
+              component={DonasiYayasan}
+              exact
+            />
+            <Route
+              path="/detail_donasi_yayasan/:id"
+              component={DetailDonasiYayasan}
+              exact
+            />
+            <Route
+              path="/donasitrx_yayasan"
+              component={DonasiTrxYayasan}
+              exact
+            />
+            <Route
+              path="/donasitrx_masuk_yayasan"
+              component={DonasiTrxMasuk}
+              exact
+            />
+            <Route
+              path="/donasitrx_keluar_yayasan"
+              component={DonasiTrxKeluar}
+              exact
+            />
+            <Route
+              path="/detail_donasitrx_yayasan/:id"
+              component={DetailDonasiYayasan}
+              exact
+            />
           </Switch>
         </main>
         <LogPageView />
