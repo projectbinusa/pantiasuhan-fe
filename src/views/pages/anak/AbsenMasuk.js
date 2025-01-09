@@ -42,19 +42,18 @@ const AbsenMasuk = () => {
       const result = await response.json();
 
       if (response.ok) {
-        const { name, picture, datetime, description } = result; // Destructuring response
-        setUserName(name || "Default User");
+        setUserName(result.data.name || "Default User");
         setPicture(
-          picture ||
+          result.data.picture ||
             "https://i.pinimg.com/736x/03/eb/d6/03ebd625cc0b9d636256ecc44c0ea324.jpg"
         );
-        setDatetime(datetime || "-");
-        setDescription(description || "-");
+        setDatetime(result.data.datetime || "-");
+        setDescription(result.data.description || "-");
         setSuccessMessage("Berhasil melakukan presensi!");
         setErrorMessage("");
         setCardNumber("");
       } else {
-        setErrorMessage(result.error || "Presensi gagal.");
+        setErrorMessage(result.message || "Presensi gagal.");
         setSuccessMessage("");
         setCardNumber("");
       }

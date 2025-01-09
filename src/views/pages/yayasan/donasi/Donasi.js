@@ -6,6 +6,7 @@ import { Pagination } from "@mui/material";
 import "../../../../css/button.css";
 import { API_DUMMY_SMART_DEV } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
+import { formatRupiah } from "../../../../utils/formating";
 
 function DonasiYayasan() {
   const [list, setList] = useState([]);
@@ -52,7 +53,7 @@ function DonasiYayasan() {
       );
 
       const { data, pagination } = response.data;
-      console.log(data);
+      console.log("donasi: ", response.data);
 
       setList(data);
       setPaginationInfo({
@@ -134,19 +135,21 @@ function DonasiYayasan() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+        <div
+          className="container box-table mt-3 app-main__outer"
+          data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -155,8 +158,7 @@ function DonasiYayasan() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}
-              >
+                value={rowsPerPage}>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -183,8 +185,7 @@ function DonasiYayasan() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
+                    value={rowsPerPage}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -194,8 +195,7 @@ function DonasiYayasan() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}
-            >
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -211,42 +211,41 @@ function DonasiYayasan() {
                     <tr key={index}>
                       <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
                       <td>{item.name}</td>
-                      <td><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
-                      <td>{item.total_income}</td>
-                      <td>{item.total_outcome}</td>
+                      <td>
+                        <div
+                          dangerouslySetInnerHTML={{ __html: item.description }}
+                        />
+                      </td>
+                      <td>{formatRupiah(item.total_income)}</td>
+                      <td>{formatRupiah(item.total_outcome)}</td>
                       <td>
                         {userRole !== "Yayasan" && (
                           <>
                             <button
                               type="button"
-                              className="btn-primary btn-sm mr-2"
-                            >
+                              className="btn-primary btn-sm mr-2">
                               <a
                                 style={{
                                   color: "white",
                                   textDecoration: "none",
                                 }}
-                                href={`/donasi/put/${item.id}`}
-                              >
+                                href={`/donasi/put/${item.id}`}>
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>
                             <button
                               type="button"
-                              className="btn-warning mr-2 btn-sm"
-                            >
+                              className="btn-warning mr-2 btn-sm">
                               <a
                                 className="text-light"
-                                href={"/detail_donasi_yayasan/" + item.id}
-                              >
+                                href={"/detail_donasi_yayasan/" + item.id}>
                                 <i className="fas fa-info-circle"></i>
                               </a>
                             </button>
                             <button
                               type="button"
                               className="btn-danger btn-sm"
-                              onClick={() => deleteData(item.id)}
-                            >
+                              onClick={() => deleteData(item.id)}>
                               <i className="fa-solid fa-trash"></i>
                             </button>
                           </>
