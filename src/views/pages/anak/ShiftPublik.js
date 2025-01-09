@@ -5,12 +5,23 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { API_DUMMY_SMART_DEV } from "../../../utils/base_URL";
 import Navbar from "../../../component/Navbar";
+import Footer from "../../../component/Footer";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
   const bulan = [
-    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
   ];
   const hari = tanggal.getDate();
   const bulanNama = bulan[tanggal.getMonth()];
@@ -27,7 +38,7 @@ function ShiftPublik() {
     totalPages: 1,
     totalElements: 0,
   });
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
 
   const getAll = async () => {
     try {
@@ -36,7 +47,7 @@ function ShiftPublik() {
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            "x-origin": "mccsemarang.com"
+            "x-origin": "mccsemarang.com",
           },
         }
       );
@@ -88,22 +99,28 @@ function ShiftPublik() {
     <div className="min-h-screen bg-gray-100">
       <Navbar />
       <div
-        className="blog-area pd-top-115 pd-bottom-60"
-        id="visi-misi"
         style={{
           backgroundColor: "#f9f9f9",
           fontFamily: "'Poppins', sans-serif",
           padding: "40px 20px",
-          minHeight: "100vh"
+          minHeight: "100vh",
         }}
-      >
+        class="banner-area banner-area-1 bg-relative">
         <div
-          className="container"
+          className="banner-bg-img"
+          style={{
+            backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
+          }}></div>
+        <div class="container">
+          <div class="order-lg-first align-self-center">
+
+        <div
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
-          }}
-        > <br /> <br /> <br /> <br />
+          }}>
+          {" "}
+          <br /> <br /> <br /> <br />
           <div className="row justify-content-center">
             <div className="col-xl-6 col-lg-7 col-md-10">
               <div className="section-title text-center" data-aos="fade-down">
@@ -114,14 +131,15 @@ function ShiftPublik() {
                     fontSize: "1.5em",
                     fontWeight: "bold",
                     marginBottom: "20px",
-                  }}
-                >
+                  }}>
                   Shiftmu, Kendalimu! 🕒
                 </h5>
               </div>
             </div>
           </div>
-          <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+          <div
+            className="container box-table mt-3 app-main__outer"
+            data-aos="fade-left">
             <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
               <div className="col-auto">
                 <label className="form-label mt-2">Rows per page:</label>
@@ -130,8 +148,7 @@ function ShiftPublik() {
                 <select
                   className="form-select form-select-xl w-auto"
                   onChange={handleRowsPerPageChange}
-                  value={rowsPerPage}
-                >
+                  value={rowsPerPage}>
                   <option value={5}>5</option>
                   <option value={10}>10</option>
                   <option value={20}>20</option>
@@ -158,8 +175,7 @@ function ShiftPublik() {
                     <select
                       className="form-select form-select-sm"
                       onChange={handleRowsPerPageChange}
-                      value={rowsPerPage}
-                    >
+                      value={rowsPerPage}>
                       <option value={5}>5</option>
                       <option value={10}>10</option>
                       <option value={20}>20</option>
@@ -178,8 +194,7 @@ function ShiftPublik() {
               </div>
               <div
                 className="table-responsive-3"
-                style={{ overflowX: "auto", maxWidth: "100%" }}
-              >
+                style={{ overflowX: "auto", maxWidth: "100%" }}>
                 <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                   <thead>
                     <tr>
@@ -192,21 +207,28 @@ function ShiftPublik() {
                   <tbody>
                     {filteredList.map((item, index) => (
                       <tr key={index}>
-                        <td data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                        <td data-label="No">
+                          {(currentPage - 1) * rowsPerPage + index + 1}
+                        </td>
                         <td data-label="Nama">{item.name}</td>
-                        <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
+                        <td data-label="Deskripsi">
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: item.description,
+                            }}
+                          />
+                        </td>
                         <td data-label="Aksi">
                           <button
                             type="button"
-                            className="btn-primary btn-sm mr-2"
-                          >
+                            className="btn-primary btn-sm mr-2">
                             <a
                               style={{
                                 color: "white",
                                 textDecoration: "none",
                               }}
-                              href={`/absen-masuk?shift_id=${item.id}`}
-                            >Absen Masuk
+                              href={`/absen-masuk?shift_id=${item.id}`}>
+                              Absen Masuk
                             </a>
                           </button>
                           <button
@@ -216,7 +238,8 @@ function ShiftPublik() {
                               style={{
                                 color: "white",
                                 textDecoration: "none",
-                              }} href={`/absen-pulang?shift_id=${item.id}`}>
+                              }}
+                              href={`/absen-pulang?shift_id=${item.id}`}>
                               Absen Pulang
                             </a>
                           </button>
@@ -355,11 +378,19 @@ function ShiftPublik() {
               </div>
             ))}
           </div> */}
-
           {/* {isLoading && <p>Memuat data...</p>}
           {!hasMore && <p>Tidak ada data lagi.</p>} */}
         </div>
+          </div>
+          {/* </div> */}
+        </div>
       </div>
+        {/* <div
+          className="banner-bg-img"
+          style={{
+            backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
+          }}></div>
+          <img src="https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp" alt="" /> */}
       {/* <div
         className="container"
         style={{
@@ -409,6 +440,7 @@ function ShiftPublik() {
           </div>
         ))}
       </div> */}
+      <Footer />
     </div>
   );
 }

@@ -283,22 +283,22 @@ function Navbar() {
                 display: "flex",
               }}>
               <li className="">
-                <a href="/" style={{ paddingLeft: "15px" }}>
+                <a href="/" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Home
                 </a>
               </li>
               <li className="">
-                <a href="#visi-misi" style={{ paddingLeft: "15px" }}>
+                <a href="#visi-misi" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Visi Misi
                 </a>
               </li>
               <li className="">
-                <a href="/programpanti" style={{ paddingLeft: "15px" }}>
+                <a href="/programpanti" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Program
                 </a>
               </li>
               <li className="">
-                <a href="/beritapanti" style={{ paddingLeft: "15px" }}>
+                <a href="/beritapanti" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Berita
                 </a>
               </li>
@@ -308,17 +308,17 @@ function Navbar() {
                 </a>
               </li> */}
               <li className="">
-                <a href="/bukutamu/form/38" style={{ paddingLeft: "15px" }}>
+                <a href="/bukutamu/form/38" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Buku Tamu
                 </a>
               </li>
               <li className="">
-                <a href="/donasiumum" style={{ paddingLeft: "15px" }}>
+                <a href="/donasiumum" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Donasi
                 </a>
               </li>
               <li className="">
-                <a href="/presensipanti" style={{ paddingLeft: "15px" }}>
+                <a href="/presensipanti" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Presensi
                 </a>
               </li>

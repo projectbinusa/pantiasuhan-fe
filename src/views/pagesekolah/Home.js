@@ -582,19 +582,6 @@ function Home() {
             backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
           }}></div>
         <div class="container">
-          {/* <div class="row justify-content-center"> */}
-          {/* <div class="col-lg-6 col-md-7 text-center text-lg-end order-lg-last">
-            <div class="banner-mask-bg-wrap mb-5 mb-lg-0">
-              <img
-                class="shape-image"
-                src="assets/img/banner/6.webp"
-                alt="img"
-              />
-              <div class="thumb">
-                <img src="assets/img/banner/7.webp" alt="img" />
-              </div>
-            </div>
-          </div> */}
           <div class="order-lg-first align-self-center">
             <div
               data-aos="zoom-out-right"
@@ -610,18 +597,6 @@ function Home() {
                 PantiAsuhan Muhammadiyah <br />
                 <span style={{ color: "#00FF9C" }}> Pantinya Sang Juara</span>
               </h2>
-              {/* <h3>
-                Dcidunt eget semper nec quam. Sed hendrerit morbi ac felis. Nunc
-                egestas augue pellentesque
-              </h3>
-              <div class="btn-wrap">
-                <a class="btn btn-base me-2" href="blog.html">
-                  Get Started
-                </a>
-                <a class="btn btn-border-white" href="contact.html">
-                  Contact Us
-                </a>
-              </div> */}
             </div>
           </div>
           {/* </div> */}
@@ -1131,7 +1106,7 @@ function Home() {
                   </div>
                   <div class="details shadow">
                     <h4>
-                      <a className="content-preview" href={`/beritapanti/${data.id}`}>
+                      <a style={{color:"#0d2f74", textDecoration:"none"}} className="content-preview" href={`/beritapanti/${data.id}`}>
                         {data.judul_berita}
                       </a>
                     </h4>

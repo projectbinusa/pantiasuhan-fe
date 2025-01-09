@@ -9,10 +9,10 @@ import {
 } from "../../../../utils/base_URL";
 
 const rupiah = (number) => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
   }).format(number);
 };
 
@@ -51,9 +51,9 @@ function DashboardYayasan() {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      console.log(respons.data?.data);
+      console.log("data donasi: ", respons.data.data);
 
-      setConditions(respons.data?.data || []);
+      setConditions(respons.data.data || []);
     } catch (error) {
       console.error("Error fetcing donation data: ", error.message);
     }
@@ -67,14 +67,15 @@ function DashboardYayasan() {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      console.log(respons.data?.data);
-
-      setCondition(respons.data?.data || []);
+      console.log("donasi trx: ", respons.data.data);
+      setCondition(respons.data.data || []);
     } catch (error) {
       console.error("Error fetcing donation data: ", error.message);
     }
   };
 
+  const [total_income, setTotalIncome] = useState();
+  const [total_outcome, setTotalOutcome] = useState();
   const fetchDonasiRecap = async () => {
     try {
       const respons = await axios.get(
@@ -83,9 +84,9 @@ function DashboardYayasan() {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      console.log(respons.data?.data);
-
-      setRekapDonasi(respons.data?.total_recap_donasi || 0);
+      console.log("donasi recap: ", respons.data.data);
+      setTotalIncome(respons.data.data.total_income || 0);
+      setTotalOutcome(respons.data.data.total_outcome || 0);
     } catch (error) {
       console.error("Error fetcing donation data: ", error.message);
     }
@@ -99,9 +100,8 @@ function DashboardYayasan() {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      console.log(respons.data?.data);
-
-      setRekapDonasiTrx(respons.data?.total_recap_donasi_trx || 0);
+      console.log("donation trx recap: ", respons.data.data);
+      setRekapDonasiTrx(respons.data.data.total_nominal);
     } catch (error) {
       console.error("Error fetcing donation data: ", error.message);
     }
@@ -110,14 +110,14 @@ function DashboardYayasan() {
   const fetchDanaMasuk = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/masuk`,
+        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/keluar`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      console.log(respons.data?.data);
+      console.log("donation trx keluar: ", respons.data.data);
 
-      setFetchWeekly(respons.data?.total_recap_donasi_masuk || 0);
+      setFetchWeekly(respons.data.data.nominal || 0);
     } catch (error) {
       console.error("Error fetcing donation data: ", error.message);
     }
@@ -131,7 +131,7 @@ function DashboardYayasan() {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
-      console.log(respons.data?.data);
+      console.log(respons.data.data);
 
       setJumlahDanaKeluar(respons.data?.total_recap_donasi_keluar || 0);
     } catch (error) {
@@ -149,20 +149,47 @@ function DashboardYayasan() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer">
+          <div className="box-tabel row gap-3 d-none d-md-flex">
+            <div className="col card shadow w-100 border-none cardmenu">
+              <h2 className="">Jumlah Donasi Masuk</h2>
+              <h1>{rupiah(total_income)}</h1>
+            </div>
+            <div className="col card shadow w-100 border-none cardmenu">
+              <h2 className="">Jumlah Donasi Trx</h2>
+              <h1>{rupiah(rekapDonasiTrx)}</h1>
+            </div>
+            <div className="col card shadow w-100 border-none cardmenu">
+              <h2 className="">Jumlah Donasi Keluar</h2>
+              <h1>{rupiah(total_outcome)}</h1>
+            </div>
+          </div>
+          <div className="box-tabel d-lg-none">
+            <div className="card shadow w-100 border-none cardmenu">
+              <h2 className="">Jumlah Donasi Masuk</h2>
+              <h1>{rupiah(total_income)}</h1>
+            </div>
+            <div className="card shadow w-100 border-none cardmenu">
+              <h2 className="">Jumlah Donasi Trx</h2>
+              <h1>{rupiah(rekapDonasiTrx)}</h1>
+            </div>
+            <div className="card shadow w-100 border-none cardmenu">
+              <h2 className="">Jumlah Donasi Keluar</h2>
+              <h1>{rupiah(total_outcome)}</h1>
+            </div>
+          </div>
           <div className="box-tabel card1">
             <div className="card shadow w-100 cardmenu">
               <h2 className="">Donasi</h2> <br />
@@ -177,40 +204,46 @@ function DashboardYayasan() {
                   </tr>
                 </thead>
                 <tbody>
-                {conditions.length > 0 && quantities.length > 0 ? (
-                  conditions.map((condition, index) => {
-                    const matchingQuantity = quantities.filter(
-                      (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
-                    );
+                  {conditions.length > 0 ? (
+                    conditions.map((condition, index) => {
+                      // const matchingQuantity = quantities.filter(
+                      //   (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
+                      // );
 
-                    let ttl = 0;
-                    matchingQuantity.forEach((quantity) => {
-                      ttl += quantity.stok;
-                    });
+                      // let ttl = 0;
+                      // matchingQuantity.forEach((quantity) => {
+                      //   ttl += quantity.stok;
+                      // });
 
-                    console.log(matchingQuantity);
-                    return (
-                      <tr key={index}>
-                        <td data-label="No" className="text-center">
-                          {index + 1}
-                        </td>
-                        <td data-label="Nama" className="text-center">
-                          {condition.name || "Tidak Diketahui"}
-                        </td>
-                        <td data-label="Deskripsi" className="text-center">
-                          <div dangerouslySetInnerHTML={{ __html: condition.description || "Tidak Ada Deskripsi" }} />
-                        </td>
-                      </tr>
-                    );
-                  })
-                ) : (
-                  <tr>
-                    <td colSpan="3" className="text-center">
-                      Data tidak tersedia
-                    </td>
-                  </tr>
-                )}
-              </tbody>
+                      // console.log(matchingQuantity);
+                      return (
+                        <tr key={index}>
+                          <td data-label="No" className="text-center">
+                            {index + 1}
+                          </td>
+                          <td data-label="Nama" className="text-center">
+                            {condition.name || "Tidak Diketahui"}
+                          </td>
+                          <td data-label="Deskripsi" className="text-center">
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html:
+                                  condition.description ||
+                                  "Tidak Ada Deskripsi",
+                              }}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan="3" className="text-center">
+                        Data tidak tersedia
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
               </table>
               <footer>
                 <div className="info-link">
@@ -231,10 +264,12 @@ function DashboardYayasan() {
                   </tr>
                 </thead>
                 <tbody>
-                  {condition.length > 0 && quantitie.length > 0 ? (
+                  {condition.length > 0 ? (
                     condition.map((condition, index) => {
                       const matchingQuantity = quantitie.filter(
-                        (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
+                        (quantity) =>
+                          quantity.kondisi_barang_name ===
+                          condition.kondisi_barang
                       );
 
                       let ttl = 0;
@@ -252,7 +287,13 @@ function DashboardYayasan() {
                             {condition.name || "Tidak Diketahui"}
                           </td>
                           <td data-label="Deskripsi" className="text-center">
-                            <div dangerouslySetInnerHTML={{ __html: condition.description || "Tidak Ada Deskripsi" }} />
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html:
+                                  condition.description ||
+                                  "Tidak Ada Deskripsi",
+                              }}
+                            />
                           </td>
                         </tr>
                       );
@@ -274,8 +315,8 @@ function DashboardYayasan() {
             </div>
           </div>
           <div className="box-tabel card1">
-            <div className="card shadow w-100 cardmenu">
-              <h2 className="">Rekap Donasi dalam 1 Minggu Terakhir</h2> <br />
+            {/* <div className="card shadow w-100 cardmenu">
+              <h2 className="">Data Donasi</h2> <br />
               <table className="align-middle mb-0 table table-bordered table-striped table-hover tabelbarang">
                 <thead>
                   <tr>
@@ -289,7 +330,7 @@ function DashboardYayasan() {
                   </tr>
                 </thead>
                 <tbody>
-                  {rekapdonasi.length > 0 && quantities.length > 0 ? (
+                  {rekapdonasi.length > 0 ? (
                     rekapdonasi.map((condition, index) => {
                       const matchingQuantity = quantities.filter(
                         (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
@@ -310,15 +351,12 @@ function DashboardYayasan() {
                           </td>
                           <td data-label="Deskripsi" className="text-center">
                             <div dangerouslySetInnerHTML={{ __html: conditions.description }} />
-                            {/* {ttl || 0} */}
                           </td>
                           <td data-label="Total Income" className="text-center">
                             {condition.total_income || "Tidak Diketahui"}
-                            {/* {ttl || 0} */}
                           </td>
                           <td data-label="Total Outcome" className="text-center">
                             {condition.total_outcome || "Tidak Diketahui"}
-                            {/* {ttl || 0} */}
                           </td>
                         </tr>
                       )
@@ -332,27 +370,22 @@ function DashboardYayasan() {
                   )}
                 </tbody>
               </table>
-              {/* <footer>
-                <div className="info-link">
-                  <a href="/barang_inventaris">Informasi Selengkapnya</a>
-                </div>
-              </footer> */}
-            </div>
-            <div className="card shadow w-100 cardmenu">
-              <h2 className="">Rekap Donasi Trx dalam 1 Minggu Terakhir</h2> <br />
+            </div> */}
+            {/* <div className="card shadow w-100 cardmenu">
+              <h2 className="">Data Donasi Trx</h2> <br />
               <table className="align-middle mb-0 table table-bordered table-striped table-hover tabelbarang">
                 <thead>
                   <tr>
                     <th scope="col" className="text-center">
                       No
                     </th>
-                    <th className="text-center">Nama Donatur</th>
+                    <th className="text-center">Donatur</th>
                     <th className="text-center">Nominal</th>
                     <th className="text-center">Deskripsi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {rekapDonasiTrx.length > 0 && quantities.length > 0 ? (
+                  {rekapDonasiTrx.length > 0 ? (
                     rekapDonasiTrx.map((condition, index) => {
                       const matchingQuantity = quantities.filter(
                         (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
@@ -368,7 +401,7 @@ function DashboardYayasan() {
                           <td data-label="No" className="text-center">
                             {index + 1}
                           </td>
-                          <td data-label="Nama Donatur" className="text-center">
+                          <td data-label="Donatur" className="text-center">
                             {condition.name || "Tidak Diketahui"}
                           </td>
                           <td data-label="Nominal" className="text-center">
@@ -376,7 +409,6 @@ function DashboardYayasan() {
                           </td>
                           <td data-label="Deskripsi" className="text-center">
                             <div dangerouslySetInnerHTML={{ __html: condition.description }} />
-                            {/* {ttl || 0} */}
                           </td>
                         </tr>
                       )
@@ -390,28 +422,7 @@ function DashboardYayasan() {
                   )}
                 </tbody>
               </table>
-              {/* <footer>
-                <div className="info-link">
-                  <a href="/barang_inventaris">Informasi Selengkapnya</a>
-                </div>
-              </footer> */}
-            </div>
-          </div>
-          <div className="box-tabel card1">
-            <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Donasi Masuk dalam 1 Minggu Terakhir</h2>
-              <h1>{rupiah(fetchWeekly)}</h1>
-              <div className="info-link">
-                <a href="#">Informasi Selengkapnya</a>
-              </div>
-            </div>
-            <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Donasi Keluar dalam 1 Minggu Terakhir</h2>
-              <h1>{rupiah(jumlahDanaKeluar)}</h1>
-              <div className="info-link">
-                <a href="#">Informasi Selengkapnya</a>
-              </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

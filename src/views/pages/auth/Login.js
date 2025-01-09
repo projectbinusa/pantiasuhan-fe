@@ -46,7 +46,7 @@ function Login() {
           });
         }
       } else {
-        const resp = await axios.post(`${API_DUMMY_SMART_PROD}/api/customer/login`, datapython);
+        const resp = await axios.post(`${API_DUMMY_SMART_DEV}/api/customer/login`, datapython);
         console.log(resp);
 
         if (resp.status === 200) {

@@ -68,7 +68,7 @@ function DanaMasuk() {
         `${API_DUMMY_SMART_DEV}/api/public/donation_trx/masuk/donation/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            // "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             "x-origin": "mccsemarang.com"
           },
         }
@@ -76,7 +76,7 @@ function DanaMasuk() {
 
       const { data, pagination } = response.data;
       console.log(response);
-      
+
 
       if (data && pagination) {
         // Tambahkan data baru ke daftar yang sudah ada tanpa duplikat
@@ -199,7 +199,7 @@ function DanaMasuk() {
         .content-donasi {
           padding: 15px;
         }
-        
+
         .dana-masuk h3 {
           font-size: 16px;
           color: #444;

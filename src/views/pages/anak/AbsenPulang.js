@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../utils/base_URL";
+import { API_DUMMY_ABSEN_DEV, API_DUMMY_PYTHON } from "../../../utils/base_URL";
 import "../../../css/absen.css";
 import logo from "../../../aset/pantiasuhan/logo.png";
 import panti from "../../../aset/pantiasuhan/pantiasuhan.png";
@@ -18,21 +18,21 @@ const AbsenPulang = () => {
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const shiftId = searchParams.get('shift_id');
+  const shiftId = searchParams.get("shift_id");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
       rfid_number: cardNumber,
       type: 2, // Type 1 untuk berangkat
-      shift_id: shiftId
+      shift_id: shiftId,
     };
 
     try {
       const response = await fetch(
-        `${API_DUMMY_PYTHON}/api/absensi/submit`,
+        `${API_DUMMY_ABSEN_DEV}/api/absensi/submit`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -43,19 +43,18 @@ const AbsenPulang = () => {
       const result = await response.json();
 
       if (response.ok) {
-        const { name, picture, datetime, description } = result; // Destructuring response
-        setUserName(name || "Default User");
+        setUserName(result.data.name || "Default User");
         setPicture(
-          picture ||
-          "https://i.pinimg.com/736x/03/eb/d6/03ebd625cc0b9d636256ecc44c0ea324.jpg"
+          result.data.picture ||
+            "https://i.pinimg.com/736x/03/eb/d6/03ebd625cc0b9d636256ecc44c0ea324.jpg"
         );
-        setDatetime(datetime || "-");
-        setDescription(description || "-");
+        setDatetime(result.data.datetime || "-");
+        setDescription(result.data.description || "-");
         setSuccessMessage("Berhasil melakukan presensi!");
         setErrorMessage("");
         setCardNumber("");
       } else {
-        setErrorMessage(result.error || "Presensi gagal.");
+        setErrorMessage(result.message || "Presensi gagal.");
         setSuccessMessage("");
         setCardNumber("");
       }
@@ -105,8 +104,7 @@ const AbsenPulang = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         minHeight: "100vh",
-      }}
-    >
+      }}>
       <div className="container text-white py-4">
         <h2 className="text-center fw-bold mb-3">PRESENSI PULANG</h2>
         <div className="row justify-content-center g-4">
@@ -117,12 +115,10 @@ const AbsenPulang = () => {
                 backgroundColor: "white",
                 border: "2px solid white",
               }}
-              className="shadow card h-100"
-            >
+              className="shadow card h-100">
               <div
                 className="card-body d-flex justify-content-center align-items-center"
-                style={{ backgroundColor: "white" }}
-              >
+                style={{ backgroundColor: "white" }}>
                 <img
                   style={{ width: "80%" }}
                   src={
@@ -144,8 +140,7 @@ const AbsenPulang = () => {
                 borderRadius: "5px",
                 padding: "15px",
               }}
-              className="shadow"
-            >
+              className="shadow">
               <form onSubmit={handleSubmit}>
                 <img style={{ width: "17%" }} src={logo} alt="Logo" />
                 <h3 className="fw-bold">PRESENSI DIGITAL</h3>
