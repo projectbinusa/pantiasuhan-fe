@@ -25,10 +25,10 @@ function PublikProgram() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true); // Untuk mendeteksi apakah masih ada data untuk dimuat
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   const getAll = async () => {
     if (isLoading || !hasMore) return; // Hindari pemanggilan ganda jika sudah loading atau tidak ada data lagi
-  
+
     setIsLoading(true);
     try {
       const response = await axios.get(
@@ -36,13 +36,13 @@ function PublikProgram() {
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            "x-origin": "mccsemarang.com"
+            "x-origin": window.location.hostname
           },
         }
       );
-  
+
       const { data, pagination } = response.data;
-  
+
       if (data && pagination) {
         // Tambahkan data baru ke daftar yang sudah ada tanpa duplikat
         setList((prevList) => {
@@ -51,7 +51,7 @@ function PublikProgram() {
           );
           return [...prevList, ...uniqueData];
         });
-  
+
         setHasMore(currentPage < pagination.total_page); // Periksa apakah masih ada halaman berikutnya
       } else {
         console.error("Data atau pagination tidak ditemukan dalam response.");
@@ -68,10 +68,10 @@ function PublikProgram() {
       setIsLoading(false);
     }
   };
-  
+
   console.log(list);
   console.log(hasMore);
-  
+
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop >=
@@ -82,11 +82,11 @@ function PublikProgram() {
       setCurrentPage((prevPage) => prevPage + 1); // Naikkan halaman saat scroll mendekati bawah
     }
   };
-  
+
   useEffect(() => {
     getAll(); // Panggil fungsi getAll setiap kali currentPage berubah
   }, [currentPage]);
-  
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {

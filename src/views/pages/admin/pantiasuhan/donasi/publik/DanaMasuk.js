@@ -28,7 +28,7 @@ function DanaMasuk() {
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-              "x-origin": "mccsemarang.com"
+              "x-origin": window.location.hostname
             },
           }
         );
@@ -69,7 +69,7 @@ function DanaMasuk() {
         {
           headers: {
             // "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            "x-origin": "mccsemarang.com"
+            "x-origin": window.location.hostname
           },
         }
       );

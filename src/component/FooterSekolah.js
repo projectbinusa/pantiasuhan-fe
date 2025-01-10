@@ -107,7 +107,7 @@ function FooterSekolah() {
       const response = await axios.get(
         `${API_DUMMY_PYTHON}/api/public/visimisi?page=1&limit=1`, {
         headers: {
-          "x-origin": "mccsemarang.com"
+          "x-origin": window.location.hostname
         },
       }
       );

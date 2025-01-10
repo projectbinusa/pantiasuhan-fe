@@ -210,7 +210,7 @@ function Home() {
         `${API_DUMMY_PYTHON}/api/public/berita`,
         {
           headers: {
-            "x-origin": "mccsemarang.com",
+            "x-origin": window.location.hostname,
           },
         }
       );
@@ -271,7 +271,7 @@ function Home() {
         `${API_DUMMY_PYTHON}/api/public/galery`,
         {
           headers: {
-            "x-origin": "mccsemarang.com",
+            "x-origin": window.location.hostname,
           },
         }
       );
@@ -290,7 +290,7 @@ function Home() {
         `${API_DUMMY_PYTHON}/api/public/galery/${id}`,
         {
           headers: {
-            "x-origin": "mccsemarang.com",
+            "x-origin": window.location.hostname,
           },
         }
       );
@@ -313,7 +313,7 @@ function Home() {
     try {
       const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/siswa`, {
         headers: {
-          "x-origin": "mccsemarang.com",
+          "x-origin": window.location.hostname,
         },
       });
       setSiswa(response.data.data);
@@ -478,7 +478,7 @@ function Home() {
         `${API_DUMMY_PYTHON}/api/public/visimisi`,
         {
           headers: {
-            "x-origin": "mccsemarang.com",
+            "x-origin": window.location.hostname,
           },
         }
       );
@@ -498,7 +498,7 @@ function Home() {
         `${API_DUMMY_PYTHON}/api/public/sambutan?page=1&limit=1`,
         {
           headers: {
-            "x-origin": "mccsemarang.com",
+            "x-origin": window.location.hostname,
           },
         }
       );
@@ -517,7 +517,7 @@ function Home() {
         `${API_DUMMY_PYTHON}/api/public/kegiatan`,
         {
           headers: {
-            "x-origin": "mccsemarang.com",
+            "x-origin": window.location.hostname,
           },
         }
       );
