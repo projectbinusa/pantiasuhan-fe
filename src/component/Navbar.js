@@ -223,6 +223,7 @@ function Navbar() {
             overflow: "hidden",
             position: "relative",
             whiteSpace: "nowrap",
+            width:"100%"
           }}>
           <div
             style={{
