@@ -19,7 +19,7 @@ function Navbar() {
     try {
       const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/kontak`,{
         headers: {
-          "x-origin": "mccsemarang.com"
+          "x-origin": window.location.hostname
         },
       });
       console.log("kontak panti: ", response.data.data);
