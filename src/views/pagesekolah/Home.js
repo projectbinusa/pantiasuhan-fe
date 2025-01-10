@@ -203,6 +203,8 @@ function Home() {
   const [berita, setBerita] = useState([]);
 
   const getAllBerita = async () => {
+    const origin = window.location.hostname;
+    console.log("origin: ", origin);
     try {
       const response = await axios.get(
         `${API_DUMMY_PYTHON}/api/public/berita`,
