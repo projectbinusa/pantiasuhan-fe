@@ -135,7 +135,11 @@ function DataBukuTamu() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -146,7 +150,10 @@ function DataBukuTamu() {
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+        <div
+          className="container box-table mt-3 app-main__outer"
+          data-aos="fade-left"
+        >
           {/* Baris filter dan pagination */}
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
@@ -163,7 +170,10 @@ function DataBukuTamu() {
                 )}
               </div> */}
             </div>
-            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
+            <div
+              className="table-responsive-3"
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -172,7 +182,9 @@ function DataBukuTamu() {
                     <th>Nomor Whatsapp</th>
                     <th>Alamat</th>
                     <th>Tanggal Kunjungan</th>
-                    <th scope="col" style={{ minWidth: "150px" }}>Tujuan Kunjungan</th>
+                    <th scope="col" style={{ minWidth: "150px" }}>
+                      Tujuan Kunjungan
+                    </th>
                     <th>TTD</th>
                     <th>Catatan</th>
                     <th>Aksi</th>
@@ -190,7 +202,7 @@ function DataBukuTamu() {
                         <td>{berita.description_donation}</td>
                         <td>
                           <img
-                            src={berita.url_image_donation || ""}
+                            src={berita.signature ? berita.signature : ""}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
