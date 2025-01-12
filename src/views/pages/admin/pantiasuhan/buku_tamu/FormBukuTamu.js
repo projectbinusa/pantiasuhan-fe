@@ -7,7 +7,7 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
-import charity from "../../../../../aset/pantiasuhan/charity.jpg";
+import pantiasuhan from "../../../../../aset/pantiasuhan/pantiasuhan.png";
 
 function FormBukuTamu() {
   const [nama, setNama] = useState("");
@@ -81,7 +81,7 @@ function FormBukuTamu() {
       let imageUrl = signature;
       if (signature) {
         imageUrl = await uploadImageToS3(signature);
-      }      
+      }
 
       await axios.post(`${API_DUMMY_PYTHON}/api/guestbook`, {
         no_wa: noWa,
@@ -141,7 +141,7 @@ function FormBukuTamu() {
           </header>
           <div className="header-donasi">
             <img
-              src={charity}
+              src={pantiasuhan}
               alt="Foto Donasi"
               style={{
                 width: "100%",
@@ -201,22 +201,17 @@ function FormBukuTamu() {
                 ></textarea>
               </div>
               <div className="mb-3 col-lg-12">
-                <label className="form-label font-weight-bold">Catatan</label>
-                <textarea
-                  className="form-control"
-                  onChange={(e) => setCatatan(e.target.value)}
-                  placeholder="Masukkan Catatan"
-                  rows={4}
-                ></textarea>
-              </div>
-              <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">
                   Tanda Tangan
                 </label>
                 <canvas
                   ref={canvasRef}
                   className="form-control"
-                  style={{ marginBottom: "10px", width: "100%", height: "10rem" }}
+                  style={{
+                    marginBottom: "10px",
+                    width: "100%",
+                    height: "10rem",
+                  }}
                   onMouseDown={handleMouseDown}
                   onMouseMove={handleDraw}
                   onMouseUp={handleMouseUp}
