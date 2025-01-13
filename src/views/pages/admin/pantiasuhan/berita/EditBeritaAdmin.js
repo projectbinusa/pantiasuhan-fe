@@ -660,6 +660,13 @@ function EditBeritaAdminPanti() {
         </div>
       </div>
       {/* </div> */}
+      <style>
+        {`
+        .ck-editor__editable {
+          min-height: 400px;
+        }
+        `}
+      </style>
     </div>
   );
 }

@@ -204,20 +204,6 @@ function KontakPanti() {
                     value={createdDate}
                   />
                 </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Tanggal Update</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    // value={format(
-                    //   new Date(updateDate || new Date()),
-                    //   "dd MMMM yyyy",
-                    //   { locale: idLocale }
-                    // )}
-                    value={updateDate}
-                  />
-                </div>
               </div>
             </div>
           </div>

@@ -129,17 +129,33 @@ function DataShift() {
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
+  // const style = {
+  //   position: "absolute",
+  //   top: "50%",
+  //   left: "50%",
+  //   transform: "translate(-50%, -50%)",
+  //   width: 800,
+  //   bgcolor: "background.paper",
+  //   boxShadow: 24,
+  //   p: 3,
+  //   borderRadius: "10px",
+  //   backgroundColor: "#f5f5f5",
+  // };
+
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 800,
+    width: "90%", // Menggunakan persentase agar menyesuaikan dengan ukuran layar
+    maxWidth: "800px", // Menentukan lebar maksimum untuk layar besar
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 3,
     borderRadius: "10px",
     backgroundColor: "#f5f5f5",
+    overflowY: "auto", // Untuk menangani konten panjang
+    maxHeight: "90vh", // Membatasi tinggi modal agar tidak melebihi viewport
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -193,7 +209,7 @@ function DataShift() {
       waktu_pulang: formattedWaktuPulang, // Example: "15:00:00"
       active: parseInt(active), // Ensure active is an integer (1 or 0)
       description: deskripsi,
-      level: level,
+      level: "santri",
     };
 
     try {
@@ -214,9 +230,7 @@ function DataShift() {
         showConfirmButton: false,
         timer: 1500,
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
+      window.location.reload();
     } catch (error) {
       if (error.response && error.response.status === 401) {
         localStorage.clear();
@@ -236,9 +250,8 @@ function DataShift() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -436,7 +449,7 @@ function DataShift() {
             <Box sx={style}>
               <form onSubmit={add}>
                 <div className="row">
-                  <div className="mb-3 col-md-6">
+                  <div className="mb-3 col-md-12">
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold "
@@ -450,7 +463,7 @@ function DataShift() {
                       onChange={(e) => setName(e.target.value)}
                     />
                   </div>
-                  <div className="mb-3 col-md-6">
+                  <div className="mb-3 col-md-12">
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold "
@@ -465,7 +478,7 @@ function DataShift() {
                       onChange={handleWaktuMasukChange}
                     />
                   </div>
-                  <div className="mb-3 col-md-6">
+                  <div className="mb-3 col-md-12">
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold "
@@ -480,7 +493,7 @@ function DataShift() {
                       onChange={handleWaktuPulangChange}
                     />
                   </div>
-                  <div className="mb-3 col-md-6">
+                  <div className="mb-3 col-md-12">
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold "
@@ -492,20 +505,6 @@ function DataShift() {
                       required
                       placeholder="Masukkan Deskripsi"
                       onChange={(e) => setDeskripsi(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-3 col-md-6">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label  font-weight-bold "
-                    >
-                      Level
-                    </label>
-                    <input
-                      className="form-control"
-                      required
-                      placeholder="Masukkan Level"
-                      onChange={(e) => setLevel(e.target.value)}
                     />
                   </div>
                   <div style={{ display: "flex", gap: "1rem" }}>
