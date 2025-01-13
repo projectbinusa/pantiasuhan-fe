@@ -81,7 +81,7 @@ function AddBeritaAdminPanti() {
         imageUrl = await uploadImageToS3(image);
       }
       await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/berita`,
+        `${API_DUMMY}/api/admin/berita`,
         {
           author: author,
           category: categoryBerita,

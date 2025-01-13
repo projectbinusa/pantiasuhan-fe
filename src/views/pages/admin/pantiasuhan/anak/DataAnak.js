@@ -39,7 +39,7 @@ function DataAnak() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/siswa?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY}/api/admin/siswa?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -73,7 +73,7 @@ function DataAnak() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/siswa/` + id, {
+          .delete(`${API_DUMMY}/api/admin/siswa/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

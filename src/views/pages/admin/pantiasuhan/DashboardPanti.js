@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import axios from "axios";
 import {
-  API_DUMMY_PYTHON,
-  API_DUMMY_SMART_PROD,
+  API_DUMMY,
+  API_DUMMY_SMART,
 } from "../../../../utils/base_URL";
 
 const rupiah = (number) => {
@@ -51,7 +51,7 @@ function DashboardPanti() {
       }
 
       const response = await axios.get(
-        `${API_DUMMY_SMART_PROD}/api/customer/donation/recap`,
+        `${API_DUMMY_SMART}/api/customer/donation/recap`,
         {
           headers: { "auth-tgh": `jwt ${token}` },
         }
@@ -66,7 +66,7 @@ function DashboardPanti() {
   const fetchTahsin = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/tahsin/minggu`,
+        `${API_DUMMY}/api/admin/tahsin/minggu`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -80,7 +80,7 @@ function DashboardPanti() {
   const fetchPresensi = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/siswa/presensi`,
+        `${API_DUMMY}/api/siswa/presensi`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -98,7 +98,7 @@ function DashboardPanti() {
   const fetchGuestCount = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/guest_book/week`,
+        `${API_DUMMY}/api/admin/guest_book/week`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -111,7 +111,7 @@ function DashboardPanti() {
 
   const fetchAnakAsuhData = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/siswa`, {
+      const response = await axios.get(`${API_DUMMY}/api/admin/siswa`, {
         headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
       });
       // Periksa struktur data respons yang diterima
@@ -127,7 +127,7 @@ function DashboardPanti() {
   const fetchJumlahPostingan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/berita`, // Endpoint API
+        `${API_DUMMY}/api/admin/berita`, // Endpoint API
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Menambahkan token jika diperlukan
@@ -188,7 +188,7 @@ function DashboardPanti() {
   const fetchKondisiBarang = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kondisi_barang`,
+        `${API_DUMMY}/api/admin/kondisi_barang`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -205,7 +205,7 @@ function DashboardPanti() {
   const fetchStokBarang = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/investaris`,
+        `${API_DUMMY}/api/admin/investaris`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }

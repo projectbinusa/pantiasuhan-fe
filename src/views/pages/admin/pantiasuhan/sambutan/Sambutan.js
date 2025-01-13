@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import "../../../../../css/button.css";
 
@@ -26,7 +26,7 @@ function Sambutan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/sambutan`,
+        `${API_DUMMY}/api/admin/sambutan`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -65,7 +65,7 @@ function Sambutan() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/sambutan/` + id, {
+          .delete(`${API_DUMMY}/api/admin/sambutan/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

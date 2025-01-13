@@ -8,7 +8,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
 
 function EditKategoriBarang() {
@@ -20,7 +20,7 @@ function EditKategoriBarang() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/kategori_barang/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/kategori_barang/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -58,7 +58,7 @@ function EditKategoriBarang() {
 
     try {
       await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/kategori_barang/${param.id}`,
+        `${API_DUMMY}/api/admin/kategori_barang/${param.id}`,
         {
           nama_kategori: namaKategori,
           deskripsi: deskripsi,

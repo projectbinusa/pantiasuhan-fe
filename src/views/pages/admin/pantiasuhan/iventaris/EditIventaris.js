@@ -35,7 +35,7 @@ function EditInves() {
     };
 
     axios
-      .put(`${API_DUMMY_PYTHON}/api/admin/investaris/` + param.id, data, {
+      .put(`${API_DUMMY}/api/admin/investaris/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -70,7 +70,7 @@ function EditInves() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/investaris/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/investaris/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },

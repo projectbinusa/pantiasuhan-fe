@@ -7,7 +7,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
 
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
@@ -40,7 +40,7 @@ function EditGalery() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/galery/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/galery/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -70,7 +70,7 @@ function EditGalery() {
         imageUrl = image
       }
       const response = await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/galery/${param.id}`,
+        `${API_DUMMY}/api/admin/galery/${param.id}`,
         {
           judul: judul,
           deskripsi: deskripsi,

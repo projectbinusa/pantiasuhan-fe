@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -95,7 +95,7 @@ function AddVisiMisiPanti() {
         misi: misi,
         tujuan: tujuan,
       };
-      await axios.post(`${API_DUMMY_PYTHON}/api/admin/visi-misi`, data, {
+      await axios.post(`${API_DUMMY}/api/admin/visi-misi`, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },

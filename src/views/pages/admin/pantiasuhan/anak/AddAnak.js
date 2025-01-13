@@ -40,7 +40,7 @@ function AddAnak() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
+          `${API_DUMMY}/api/admin/foster_parent`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -70,7 +70,7 @@ function AddAnak() {
 
     try {
       await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/siswa`,
+        `${API_DUMMY}/api/admin/siswa`,
         {
           name: nama,
           username: username,

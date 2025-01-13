@@ -73,7 +73,7 @@ function EditVisiMisiPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/visi-misi/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/visi-misi/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -100,7 +100,7 @@ function EditVisiMisiPanti() {
     };
 
     await axios
-      .put(`${API_DUMMY_PYTHON}/api/admin/visi-misi/` + param.id, data, {
+      .put(`${API_DUMMY}/api/admin/visi-misi/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },

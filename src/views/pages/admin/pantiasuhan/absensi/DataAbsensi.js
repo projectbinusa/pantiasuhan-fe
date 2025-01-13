@@ -39,7 +39,7 @@ function DataAbsensi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/siswa/absensi`,
+        `${API_DUMMY}/api/siswa/absensi`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

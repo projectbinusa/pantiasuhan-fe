@@ -5,7 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -23,7 +23,7 @@ function DetailSAmbutanPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/sambutan?page=1&limit=1`,
+        `${API_DUMMY}/api/admin/sambutan?page=1&limit=1`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -82,7 +82,7 @@ function DetailSAmbutanPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/sambutan/` + id, {
+          .delete(`${API_DUMMY}/api/admin/sambutan/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

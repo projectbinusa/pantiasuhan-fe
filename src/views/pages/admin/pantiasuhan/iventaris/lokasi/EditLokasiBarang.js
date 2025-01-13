@@ -8,7 +8,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
 
 function EditLokasiBarang() {
@@ -20,7 +20,7 @@ function EditLokasiBarang() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/lokasi_barang/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/lokasi_barang/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -57,7 +57,7 @@ function EditLokasiBarang() {
 
     try {
       await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/lokasi_barang/${param.id}`,
+        `${API_DUMMY}/api/admin/lokasi_barang/${param.id}`,
         {
           lokasi_barang: lokasi,
         },

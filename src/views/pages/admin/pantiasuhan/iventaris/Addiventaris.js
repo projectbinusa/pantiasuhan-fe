@@ -29,7 +29,7 @@ function AddInves() {
     }
     try {
       await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/investaris`, data,
+        `${API_DUMMY}/api/admin/investaris`, data,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

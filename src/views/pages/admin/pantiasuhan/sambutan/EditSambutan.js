@@ -7,7 +7,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
 
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -75,7 +75,7 @@ function EditSambutanPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/sambutan/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/sambutan/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -111,7 +111,7 @@ function EditSambutanPanti() {
         imageUrl = image;
       }
       const response = await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/sambutan/${param.id}`,
+        `${API_DUMMY}/api/admin/sambutan/${param.id}`,
         {
           judul: judulSambutan,
           isi_sambutan: isiSambutan,

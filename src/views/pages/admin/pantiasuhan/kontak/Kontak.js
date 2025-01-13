@@ -22,7 +22,7 @@ function KontakPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kontak-organization/${organization_id}/organization`,
+        `${API_DUMMY}/api/admin/kontak-organization/${organization_id}/organization`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

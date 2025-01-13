@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -39,7 +39,7 @@ function KegiatanPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kegiatan?page=${currentPage}&size=${rowsPerPage}`,
+        `${API_DUMMY}/api/admin/kegiatan?page=${currentPage}&size=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -70,7 +70,7 @@ function KegiatanPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + id, {
+          .delete(`${API_DUMMY}/api/admin/kegiatan/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

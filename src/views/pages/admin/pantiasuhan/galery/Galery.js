@@ -4,7 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import "../../../../../css/button.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
@@ -26,7 +26,7 @@ function Galery() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/galery?page=${currentPage}&size=${rowsPerPage}`,
+        `${API_DUMMY}/api/admin/galery?page=${currentPage}&size=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -57,7 +57,7 @@ function Galery() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/galery/` + id, {
+          .delete(`${API_DUMMY}/api/admin/galery/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

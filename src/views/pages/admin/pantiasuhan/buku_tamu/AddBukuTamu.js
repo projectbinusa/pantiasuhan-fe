@@ -35,7 +35,7 @@ function AddBukuTamu() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
+          `${API_DUMMY}/api/admin/foster_parent`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -70,7 +70,7 @@ function AddBukuTamu() {
         imageUrl = await uploadImageToS3(image);
       }
       await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/guestbook`,
+        `${API_DUMMY}/api/admin/guestbook`,
         {
           foster_parent_id: idOrangTua,
           visit_date: tanggal,
