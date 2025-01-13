@@ -207,7 +207,7 @@ function Home() {
     console.log("origin: ", origin);
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/berita`,
+        `${API_DUMMY}/api/public/berita`,
         {
           headers: {
             "x-origin": window.location.hostname,
@@ -268,7 +268,7 @@ function Home() {
   const getAllGalery = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/galery`,
+        `${API_DUMMY}/api/public/galery`,
         {
           headers: {
             "x-origin": window.location.hostname,
@@ -287,7 +287,7 @@ function Home() {
   const byIdGalery = async (id) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/galery/${id}`,
+        `${API_DUMMY}/api/public/galery/${id}`,
         {
           headers: {
             "x-origin": window.location.hostname,
@@ -311,7 +311,7 @@ function Home() {
 
   const getAllSantri = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/siswa`, {
+      const response = await axios.get(`${API_DUMMY}/api/public/siswa`, {
         headers: {
           "x-origin": window.location.hostname,
         },
@@ -441,7 +441,7 @@ function Home() {
     };
 
     try {
-      await axios.post(`${API_DUMMY_PYTHON}/api/kotak_saran/add`, data);
+      await axios.post(`${API_DUMMY}/api/kotak_saran/add`, data);
       Swal.fire({
         icon: "success",
         title: "Kotak Masuk Berhasil Terkirim",
@@ -475,7 +475,7 @@ function Home() {
   const getAllVisiMisiPanti = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/visimisi`,
+        `${API_DUMMY}/api/public/visimisi`,
         {
           headers: {
             "x-origin": window.location.hostname,
@@ -495,7 +495,7 @@ function Home() {
   const getAllSambutanPanti = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/sambutan?page=1&limit=1`,
+        `${API_DUMMY}/api/public/sambutan?page=1&limit=1`,
         {
           headers: {
             "x-origin": window.location.hostname,
@@ -514,7 +514,7 @@ function Home() {
   const getAllKegiatan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/kegiatan`,
+        `${API_DUMMY}/api/public/kegiatan`,
         {
           headers: {
             "x-origin": window.location.hostname,

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import Swal from "sweetalert2";
 import {
   useHistory,
@@ -83,12 +83,12 @@ function FormBukuTamu() {
         imageUrl = await uploadImageToS3(signature);
       }
 
-      await axios.post(`${API_DUMMY_PYTHON}/api/guestbook`, {
+      await axios.post(`${API_DUMMY}/api/guestbook`, {
         no_wa: noWa,
         address: alamat,
         nama: nama,
         visit_date: tanggal,
-        url_image_donation: imageUrl,
+        signature: imageUrl,
         note: catatan,
         description_donation: tujuan,
         organization_id: param.organization_id,
@@ -96,7 +96,7 @@ function FormBukuTamu() {
 
       Swal.fire({
         icon: "success",
-        title: "Data Berhasil DiTambahkan",
+        title: "Terima Kasih Telah Berkunjung 💕 Kebaikan Anda Membawa Kebahagiaan 🌟",
         showConfirmButton: false,
         timer: 1500,
       });

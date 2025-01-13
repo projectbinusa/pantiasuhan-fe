@@ -5,7 +5,7 @@ import AOS from "aos";
 import "../../../../../css/button.css";
 import { Pagination } from "@mui/material";
 
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 function VisiMisiPanti() {
   const [list, setList] = useState([]);
@@ -38,7 +38,7 @@ function VisiMisiPanti() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/visi-misi`, {
+      const response = await axios.get(`${API_DUMMY}/api/admin/visi-misi`, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -71,7 +71,7 @@ function VisiMisiPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/visi-misi/` + id, {
+          .delete(`${API_DUMMY}/api/admin/visi-misi/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

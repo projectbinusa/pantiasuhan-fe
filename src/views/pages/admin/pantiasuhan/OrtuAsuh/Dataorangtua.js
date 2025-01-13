@@ -41,7 +41,7 @@ function Dataortu() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
+        `${API_DUMMY}/api/admin/foster_parent`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -70,7 +70,7 @@ function Dataortu() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/foster_parent/` + id, {
+          .delete(`${API_DUMMY}/api/admin/foster_parent/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

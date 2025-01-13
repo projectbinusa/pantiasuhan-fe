@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  API_DUMMY_PYTHON,
+  API_DUMMY,
   API_DUMMY_SMART,
 } from "../../../../../utils/base_URL";
 import axios from "axios";

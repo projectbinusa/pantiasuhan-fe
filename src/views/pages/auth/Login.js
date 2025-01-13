@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../../css/login.css";
-import { API_DUMMY, API_DUMMY_SMART, API_DUMMY_SMART_PROD } from "../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import Ikon from "../../../aset/ikon-web.png";
 import Swal from "sweetalert2";

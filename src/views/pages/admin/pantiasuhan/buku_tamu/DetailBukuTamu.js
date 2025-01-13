@@ -19,7 +19,7 @@ function DetailBukuTamu() {
 
     useEffect(() => {
         axios
-          .get(`${API_DUMMY_PYTHON}/api/admin/guestbook/` + param.id, {
+          .get(`${API_DUMMY}/api/admin/guestbook/` + param.id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

@@ -8,7 +8,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
@@ -27,7 +27,7 @@ function EditBukuTamu() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/guestbook/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/guestbook/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -67,7 +67,7 @@ function EditBukuTamu() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
+          `${API_DUMMY}/api/admin/foster_parent`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -96,7 +96,7 @@ function EditBukuTamu() {
       }
 
       await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/guestbook/${param.id}`,
+        `${API_DUMMY}/api/admin/guestbook/${param.id}`,
         {
           foster_parent_id: idOrangTua,
           visit_date: tanggal,

@@ -318,15 +318,18 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           <div className="sidebar-menu1">
             <ul>
               {defaultItems.map((data, index) => (
-                <li key={index} ref={(el) => (defaultRefs.current[index] = el)}>
+                <li key={index} ref={(el) => (defaultRefs.current[index] = el)} className={`body-menu ${location.pathname === data.path ||
+                    data.action.includes(location.pathname)
+                    ? "bactive"
+                    : ""
+                  }`}>
                   <NavLink to={data.path} style={{ background: "none" }}>
                     <i
-                      className={`${data.icon} ${
-                        location.pathname === data.path ||
-                        data.action.includes(location.pathname)
+                      className={`${data.icon} ${location.pathname === data.path ||
+                          data.action.includes(location.pathname)
                           ? "active"
                           : ""
-                      }`}></i>
+                        }`}></i>
                     <span>{data.title}</span>
                   </NavLink>
                 </li>
@@ -340,18 +343,21 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                       </li>
                       {menu.items.map((data, subIndex) => (
                         <li
-                          key={subIndex}
+                          key={subIndex} className={`body-menu ${location.pathname === data.path ||
+                              data.action.includes(location.pathname)
+                              ? "bactive"
+                              : ""
+                            }`}
                           ref={(el) => (menuRefs.current[subIndex] = el)}>
                           <NavLink
                             to={data.path}
                             style={{ background: "none" }}>
                             <i
-                              className={`${data.icon} ${
-                                location.pathname === data.path ||
-                                data.action.includes(location.pathname)
+                              className={`${data.icon} ${location.pathname === data.path ||
+                                  data.action.includes(location.pathname)
                                   ? "active"
                                   : ""
-                              }`}></i>
+                                }`}></i>
                             <span>{data.title}</span>
                           </NavLink>
                         </li>
@@ -363,16 +369,19 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                   </li>
                   {inventarisItems.map((data, index) => (
                     <li
-                      key={index}
+                      key={index} className={`body-menu ${location.pathname === data.path ||
+                          data.action.includes(location.pathname)
+                          ? "bactive"
+                          : ""
+                        }`}
                       ref={(el) => (inventarisRefs.current[index] = el)}>
                       <NavLink to={data.path} style={{ background: "none" }}>
                         <i
-                          className={`${data.icon} ${
-                            location.pathname === data.path ||
-                            data.action.includes(location.pathname)
+                          className={`${data.icon} ${location.pathname === data.path ||
+                              data.action.includes(location.pathname)
                               ? "active"
                               : ""
-                          }`}></i>
+                            }`}></i>
                         <span>{data.title}</span>
                       </NavLink>
                     </li>
@@ -387,18 +396,21 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                       </li>
                       {menu.items.map((data, subIndex) => (
                         <li
-                          key={subIndex}
+                          key={subIndex} className={`body-menu ${location.pathname === data.path ||
+                              data.action.includes(location.pathname)
+                              ? "active"
+                              : ""
+                            }`}
                           ref={(el) => (menuRefs.current[subIndex] = el)}>
                           <NavLink
                             to={data.path}
                             style={{ background: "none" }}>
                             <i
-                              className={`${data.icon} ${
-                                location.pathname === data.path ||
-                                data.action.includes(location.pathname)
+                              className={`${data.icon} ${location.pathname === data.path ||
+                                  data.action.includes(location.pathname)
                                   ? "active"
                                   : ""
-                              }`}></i>
+                                }`}></i>
                             <span>{data.title}</span>
                           </NavLink>
                         </li>
@@ -413,7 +425,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
         <div className="sidebar-footer">
           <button type="button" onClick={logout}>
             <i class="fa-solid fa-right-from-bracket"></i>
-            <span> Logout</span>
+            <span> Keluar</span>
           </button>
         </div>
       </nav>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import {
   useHistory,
   useParams,
@@ -76,7 +76,7 @@ function EditKegiatanPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/kegiatan/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -135,7 +135,7 @@ function EditKegiatanPanti() {
         imageUrl = image
       }
       const response = await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/kegiatan/${param.id}`,
+        `${API_DUMMY}/api/admin/kegiatan/${param.id}`,
         {
           judul: judul,
           isi: isi,

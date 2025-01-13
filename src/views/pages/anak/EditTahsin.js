@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NavbarSiswa from "../../../component/NavbarSiswa";
 import "../../../css/dataabsen.css";
-import { API_DUMMY_PYTHON } from "../../../utils/base_URL";
+import { API_DUMMY } from "../../../utils/base_URL";
 import AOS from "aos";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import Swal from "sweetalert2";
@@ -28,7 +28,7 @@ function EditTahsin() {
     }
     try {
       await axios.put(
-        `${API_DUMMY_PYTHON}/api/siswa/tahsin/${param.id}`, datas,
+        `${API_DUMMY}/api/siswa/tahsin/${param.id}`, datas,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -62,7 +62,7 @@ function EditTahsin() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/siswa/tahsin/` + param.id, {
+      .get(`${API_DUMMY}/api/siswa/tahsin/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },

@@ -17,7 +17,7 @@ function Navbar() {
 
   const getAllKontakPanti = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/kontak`,{
+      const response = await axios.get(`${API_DUMMY}/api/public/kontak`,{
         headers: {
           "x-origin": window.location.hostname
         },

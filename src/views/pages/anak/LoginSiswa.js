@@ -36,7 +36,7 @@ function LoginSiswa() {
           showConfirmButton: false,
           timer: 1500,
         });
-        // const responsepython = await axios.post(`${API_DUMMY_PYTHON}/api/signin/admin`, datapython);
+        // const responsepython = await axios.post(`${API_DUMMY}/api/signin/admin`, datapython);
         // console.log(responsepython);
 
 

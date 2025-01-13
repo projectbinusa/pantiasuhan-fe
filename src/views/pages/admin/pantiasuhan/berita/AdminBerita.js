@@ -25,7 +25,7 @@ function AdminBeritaPanti() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/berita?page=${currentPage}&limit=${rowsPerPage}`, {
+      const response = await axios.get(`${API_DUMMY}/api/admin/berita?page=${currentPage}&limit=${rowsPerPage}`, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -55,7 +55,7 @@ function AdminBeritaPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/berita/` + id, {
+          .delete(`${API_DUMMY}/api/admin/berita/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

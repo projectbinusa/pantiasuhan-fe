@@ -3,7 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
@@ -30,7 +30,7 @@ const AddGalery = () => {
         imageUrl = await uploadImageToS3(foto);
       }
       const response = await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/galery`,
+        `${API_DUMMY}/api/admin/galery`,
         {
           judul: judul,
           deskripsi: deskripsi,

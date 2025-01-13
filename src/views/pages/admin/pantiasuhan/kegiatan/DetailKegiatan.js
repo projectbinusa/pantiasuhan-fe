@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function DetailKegiatanPanti() {
@@ -19,7 +19,7 @@ function DetailKegiatanPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/kegiatan/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },

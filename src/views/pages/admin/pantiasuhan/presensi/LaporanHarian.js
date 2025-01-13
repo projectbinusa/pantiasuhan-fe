@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_PYTHON, API_DUMMY_SMART } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -79,7 +79,7 @@ function LaporanHarianPresensi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/siswa/absensi/` + id, {
+          .delete(`${API_DUMMY}/api/siswa/absensi/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

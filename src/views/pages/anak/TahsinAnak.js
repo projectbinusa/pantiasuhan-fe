@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NavbarSiswa from "../../../component/NavbarSiswa";
 import "../../../css/dataabsen.css";
-import { API_DUMMY_PYTHON } from "../../../utils/base_URL";
+import { API_DUMMY } from "../../../utils/base_URL";
 import Swal from "sweetalert2";
 
 function TahsinAnak() {
@@ -23,7 +23,7 @@ function TahsinAnak() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/siswa/tahsin/` + id, {
+          .delete(`${API_DUMMY}/api/siswa/tahsin/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -56,7 +56,7 @@ function TahsinAnak() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/siswa/tahsin`,
+          `${API_DUMMY}/api/siswa/tahsin`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

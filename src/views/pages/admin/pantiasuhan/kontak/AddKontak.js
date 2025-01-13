@@ -32,7 +32,7 @@ function AddKontakPanti() {
     console.log(data);
 
     try {
-      await axios.post(`${API_DUMMY_PYTHON}/api/admin/kontak`, data, {
+      await axios.post(`${API_DUMMY}/api/admin/kontak`, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../utils/base_URL";
 import Navbar from "../../../../component/Navbar";
 
 const formatTanggal = (tanggalString) => {
@@ -32,7 +32,7 @@ function PublikProgram() {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/kegiatan?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY}/api/public/kegiatan?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

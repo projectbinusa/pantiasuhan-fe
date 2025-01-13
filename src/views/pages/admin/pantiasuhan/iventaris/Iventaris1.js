@@ -39,7 +39,7 @@ function Iventaris() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/investaris`,
+        `${API_DUMMY}/api/admin/investaris`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -69,7 +69,7 @@ function Iventaris() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/investaris` + id, {
+          .delete(`${API_DUMMY}/api/admin/investaris` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

@@ -8,7 +8,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
 
 function EditStokBarang() {
@@ -23,7 +23,7 @@ function EditStokBarang() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/barang`,
+          `${API_DUMMY}/api/admin/barang`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -41,7 +41,7 @@ function EditStokBarang() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/stok_barang/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/stok_barang/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -78,7 +78,7 @@ function EditStokBarang() {
 
     try {
       await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/stok_barang/${param.id}`,
+        `${API_DUMMY}/api/admin/stok_barang/${param.id}`,
         {
           jumlah_stok: stok,
           barang_id: idBarang,

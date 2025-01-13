@@ -23,7 +23,7 @@ function AddOrtu() {
     }
     try {
       await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
+        `${API_DUMMY}/api/admin/foster_parent`,
         datas,
         {
           headers: {
