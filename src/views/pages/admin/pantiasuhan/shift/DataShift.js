@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   API_DUMMY_PYTHON,
-  API_DUMMY_SMART_DEV,
+  API_DUMMY_SMART,
 } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -40,7 +40,7 @@ function DataShift() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/customer/shift?page=${currentPage}&size=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/customer/shift?page=${currentPage}&size=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -70,7 +70,7 @@ function DataShift() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART_DEV}/api/customer/shift/` + id, {
+          .delete(`${API_DUMMY_SMART}/api/customer/shift/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -198,7 +198,7 @@ function DataShift() {
 
     try {
       const response = await axios.post(
-        `${API_DUMMY_SMART_DEV}/api/customer/shift`,
+        `${API_DUMMY_SMART}/api/customer/shift`,
         data,
         {
           headers: {

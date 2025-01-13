@@ -3,7 +3,7 @@ import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 import AOS from "aos";
-import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { Grid, Pagination } from "@mui/material";
 import Swal from "sweetalert2";
 
@@ -33,7 +33,7 @@ function DetailDonasi() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_SMART_DEV}/api/customer/donation/${param.id}`,
+          `${API_DUMMY_SMART}/api/customer/donation/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -76,7 +76,7 @@ function DetailDonasi() {
   const getAllIncome = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx/masuk?donation_id=${param.id}&page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/customer/donation_trx/masuk?donation_id=${param.id}&page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -134,7 +134,7 @@ function DetailDonasi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART_DEV}/api/customer/donation_trx/${id}`, {
+          .delete(`${API_DUMMY_SMART}/api/customer/donation_trx/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -173,7 +173,7 @@ function DetailDonasi() {
   const getAllOutcome = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx/keluar?donation_id=${param.id}&page=${currentPageOutcome}&limit=${rowsPerPageOutcome}`,
+        `${API_DUMMY_SMART}/api/customer/donation_trx/keluar?donation_id=${param.id}&page=${currentPageOutcome}&limit=${rowsPerPageOutcome}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -231,7 +231,7 @@ function DetailDonasi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART_DEV}/api/customer/donation_trx/${id}`, {
+          .delete(`${API_DUMMY_SMART}/api/customer/donation_trx/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -265,7 +265,7 @@ function DetailDonasi() {
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-  
+
   return (
     <div
       className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""

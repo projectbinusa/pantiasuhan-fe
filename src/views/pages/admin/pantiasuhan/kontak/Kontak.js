@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import idLocale from "date-fns/locale/id";
 import { format } from "date-fns";
@@ -30,7 +30,7 @@ function KontakPanti() {
         }
       );
       const res = response.data.data;
-      setList(res)      
+      setList(res)
       console.log(res);
       setEmail(res.email);
       setFax(res.fax);

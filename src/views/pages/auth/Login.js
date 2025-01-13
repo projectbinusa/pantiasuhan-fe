@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../../css/login.css";
-import { API_DUMMY, API_DUMMY_PYTHON, API_DUMMY_SMART_DEV, API_DUMMY_SMART_PROD } from "../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART, API_DUMMY_SMART_PROD } from "../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import Ikon from "../../../aset/ikon-web.png";
 import Swal from "sweetalert2";
@@ -25,7 +25,7 @@ function Login() {
 
     try {
       if (type_token === "Yayasan") {
-        const response = await axios.post(`${API_DUMMY_SMART_DEV}/api/user/login`, datapython);
+        const response = await axios.post(`${API_DUMMY_SMART}/api/user/login`, datapython);
         if (response.status === 200) {
           Swal.fire({
             icon: "success",
@@ -46,7 +46,7 @@ function Login() {
           });
         }
       } else {
-        const resp = await axios.post(`${API_DUMMY_SMART_DEV}/api/customer/login`, datapython);
+        const resp = await axios.post(`${API_DUMMY_SMART}/api/customer/login`, datapython);
         console.log(resp);
 
         if (resp.status === 200) {

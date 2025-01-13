@@ -7,10 +7,10 @@ import {
 } from "../../../../utils/base_URL";
 
 const rupiah = (number) => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
   }).format(number);
 };
 
@@ -224,15 +224,14 @@ function DashboardPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -241,29 +240,31 @@ function DashboardPanti() {
           <div className="box-tabel card1">
             <div>
               <div className="card shadow w-100 border-none cardmenu">
-                <h2 className="">Jumlah Donasi dalam 1 Minggu Terakhir</h2>
-                <h1>{rupiah(fetchWeekly)}</h1>
+                <h2 style={{ fontFamily: "Poppins" }}>
+                  Jumlah Donasi dalam 1 Minggu Terakhir
+                </h2>
+                <h1 style={{ fontFamily: "Poppins" }}>{rupiah(fetchWeekly)}</h1>
                 <div className="info-link">
                   <a href="/donasi">Informasi Selengkapnya</a>
                 </div>
               </div>
               <div className="card shadow w-100 border-none cardmenu">
-                <h2 className="">Jumlah Dana Keluar dalam 1 Minggu Terakhir</h2>
-                <h1>{rupiah(jumlahDanaKeluar)}</h1>
+                <h2 style={{ fontFamily: "Poppins" }}>Jumlah Dana Keluar dalam 1 Minggu Terakhir</h2>
+                <h1 style={{ fontFamily: "Poppins" }}>{rupiah(jumlahDanaKeluar)}</h1>
                 <div className="info-link">
                   <a href="/admin_dana_keluar">Informasi Selengkapnya</a>
                 </div>
               </div>
               <div className="card shadow w-100 border-none cardmenu">
-                <h2 className="">Jumlah Saldo Keuangan Panti</h2>
-                <h1>Rp 500.000</h1>
+                <h2 style={{ fontFamily: "Poppins" }}>Jumlah Saldo Keuangan Panti</h2>
+                <h1 style={{ fontFamily: "Poppins" }}>Rp 0</h1>
                 <div className="info-link">
                   <a href="/admin_keuangan">Informasi Selengkapnya</a>
                 </div>
               </div>
             </div>
             <div className="card shadow w-100 cardmenu">
-              <h2 className="">Jumlah Barang</h2> <br />
+              <h2 style={{ fontFamily: "Poppins" }}>Jumlah Barang</h2> <br />
               <table className="align-middle mb-0 table table-bordered table-striped table-hover tabelbarang">
                 <thead>
                   <tr>
@@ -278,13 +279,13 @@ function DashboardPanti() {
                   {conditions.length > 0 && quantities.length > 0 ? (
                     conditions.map((condition, index) => {
                       const matchingQuantity = quantities.filter(
-                        (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
+                        (quantity) =>
+                          quantity.kondisi_barang_name ===
+                          condition.kondisi_barang
                       );
 
                       let ttl = 0;
-                      matchingQuantity.map((item) => (
-                        ttl += item.stok
-                      ))
+                      matchingQuantity.map((item) => (ttl += item.stok));
                       console.log(matchingQuantity);
                       console.log(ttl);
                       return (
@@ -300,7 +301,7 @@ function DashboardPanti() {
                             {ttl || 0}
                           </td>
                         </tr>
-                      )
+                      );
                     })
                   ) : (
                     <tr>
@@ -320,15 +321,15 @@ function DashboardPanti() {
           </div>
           <div className="box-tabel card2">
             <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Anak Asuh</h2>
+              <h2 style={{ fontFamily: "Poppins" }}>Jumlah Anak Asuh</h2>
               <br /> <br />
-              <h1>{anakAsuhCount}</h1>
+              <h1 style={{ fontFamily: "Poppins" }}>{anakAsuhCount}</h1>
               <div className="info-link">
                 <a href="/admin_anak_asuh">Informasi Selengkapnya</a>
               </div>
             </div>
             <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Setoran Tahsin</h2>
+              <h2 style={{ fontFamily: "Poppins" }}>Jumlah Setoran Tahsin</h2>
               <span>dalam 1 Minggu Terakhir</span> <br />
               <h1>{total_tahsin}</h1>
               {/* <div className="info-link">
@@ -336,7 +337,7 @@ function DashboardPanti() {
               </div> */}
             </div>
             <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Presensi</h2>
+              <h2 style={{ fontFamily: "Poppins" }}>Jumlah Presensi</h2>
               <span>dalam 1 Minggu Terakhir</span> <br />
               <h1>{presensiCount}</h1>
               <div className="info-link">
@@ -346,14 +347,14 @@ function DashboardPanti() {
           </div>
           <div className="box-tabel card1">
             <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Tamu dalam 1 Minggu Terakhir</h2>
+              <h2 style={{ fontFamily: "Poppins" }}>Jumlah Tamu dalam 1 Minggu Terakhir</h2>
               <h1>{guestCount}</h1>
               <div className="info-link">
                 <a href="/admin_buku_tamu">Informasi Selengkapnya</a>
               </div>
             </div>
             <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Postingan Blog Web</h2>
+              <h2 style={{ fontFamily: "Poppins" }}>Jumlah Postingan Blog Web</h2>
               <h1>{jumlahPostingan}</h1>
               <div className="info-link">
                 <a href="/admin_berita">Informasi Selengkapnya</a>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
-import { API_DUMMY_SMART_DEV } from "../../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../../utils/base_URL";
 import Swal from "sweetalert2";
 
 const formatTanggal = (tanggalString) => {
@@ -24,7 +24,7 @@ function DanaMasuk() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_SMART_DEV}/api/public/donation/${param.id}`,
+          `${API_DUMMY_SMART}/api/public/donation/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -65,7 +65,7 @@ function DanaMasuk() {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/public/donation_trx/masuk/donation/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/public/donation_trx/masuk/donation/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             // "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

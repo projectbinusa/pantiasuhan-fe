@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import "../../../../css/button.css";
-import { API_DUMMY_SMART_DEV } from "../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
 function DonasiTrxKeluar() {
@@ -40,7 +40,7 @@ function DonasiTrxKeluar() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/keluar?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/user/donation_trx/keluar?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

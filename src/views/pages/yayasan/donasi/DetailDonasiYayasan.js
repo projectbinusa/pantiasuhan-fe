@@ -4,7 +4,7 @@ import axios from "axios";
 import AOS from "aos";
 import { Grid, Pagination } from "@mui/material";
 import Swal from "sweetalert2";
-import { API_DUMMY_SMART_DEV } from "../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
 function DetailDonasiYayasan() {
@@ -33,7 +33,7 @@ function DetailDonasiYayasan() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_SMART_DEV}/api/user/donation/${param.id}`,
+          `${API_DUMMY_SMART}/api/user/donation/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

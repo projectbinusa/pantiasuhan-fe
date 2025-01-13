@@ -57,7 +57,7 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { uploadImageDonationToS3 } from "../../../../../utils/uploadDonationToS3";
 
 function TambahDonasi() {
@@ -96,7 +96,7 @@ function TambahDonasi() {
         imageUrl = await uploadImageDonationToS3(image);
       }
       await axios.post(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation`,
+        `${API_DUMMY_SMART}/api/customer/donation`,
         {
           name: nama,
           description: deskripsi,
