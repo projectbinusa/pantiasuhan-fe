@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NavbarSiswa from "../../../component/NavbarSiswa";
 import "../../../css/dataabsen.css";
-import { API_DUMMY_PYTHON } from "../../../utils/base_URL";
+import { API_DUMMY } from "../../../utils/base_URL";
 
 function DataAbsen() {
   const [absensiData, setAbsensiData] = useState([]);
@@ -13,7 +13,7 @@ function DataAbsen() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/siswa/presensi`,
+          `${API_DUMMY}/api/siswa/presensi`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

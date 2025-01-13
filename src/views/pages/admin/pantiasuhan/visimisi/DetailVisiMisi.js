@@ -6,7 +6,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { format } from "date-fns";
 import idLocale from "date-fns/locale/id";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
@@ -22,7 +22,7 @@ function DetailVisiPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/visi-misi?page=1&limit=1`, // Perbaiki URL API dengan menyertakan id
+        `${API_DUMMY}/api/admin/visi-misi?page=1&limit=1`, // Perbaiki URL API dengan menyertakan id
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -66,7 +66,7 @@ function DetailVisiPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/visi-misi/` + id, {
+          .delete(`${API_DUMMY}/api/admin/visi-misi/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

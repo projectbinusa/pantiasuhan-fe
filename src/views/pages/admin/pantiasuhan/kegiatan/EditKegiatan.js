@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import {
   useHistory,
   useParams,
@@ -64,6 +64,7 @@ import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 function EditKegiatanPanti() {
   const [judul, setJudul] = useState("");
   const [file, setFile] = useState(null);
+  const [image, setImage] = useState("");
   const [isi, setIsi] = useState("");
   const [penulis, setPenulis] = useState("");
   const [kategori, setKategori] = useState("");
@@ -75,7 +76,7 @@ function EditKegiatanPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/kegiatan/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -86,7 +87,7 @@ function EditKegiatanPanti() {
         setIsi(response.isi);
         setPenulis(response.penulis);
         setKategori(response.category);
-        setFile(response.foto);
+        setImage(response.foto);
         setTanggal(response.tanggal);
         console.log("kegiatan : ", ress.data.data);
       })
@@ -126,13 +127,15 @@ function EditKegiatanPanti() {
     e.persist();
 
     try {
-      let imageUrl = file;
+      let imageUrl;
 
       if (file) {
         imageUrl = await uploadImageToS3(file);
+      } else {
+        imageUrl = image
       }
       const response = await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/kegiatan/${param.id}`,
+        `${API_DUMMY}/api/admin/kegiatan/${param.id}`,
         {
           judul: judul,
           isi: isi,

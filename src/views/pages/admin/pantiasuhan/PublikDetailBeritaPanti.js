@@ -3,7 +3,7 @@ import FooterSekolah from "../../../../component/FooterSekolah";
 import Navbar from "../../../../component/Navbar";
 import axios from "axios";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { API_DUMMY_PYTHON } from "../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../utils/base_URL";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -33,10 +33,11 @@ function PublikDetailBeritaPanti() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/public/berita/${param.id}`,
+          `${API_DUMMY}/api/public/berita/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              "x-origin": window.location.hostname
             },
           }
         );
@@ -54,6 +55,17 @@ function PublikDetailBeritaPanti() {
   return (
     <div style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
       <Navbar />   <br /> <br />     <br /> <br /> <br /> <br />
+      <div className="bg-relative">
+      <img
+        class="shape-left-top top_image_bounce"
+        src="https://solverwp.com/demo/html/itechie/assets/img/shape/3.webp"
+        alt="img"
+      />
+      <img
+        class="shape-right-top top_image_bounce"
+        src="https://solverwp.com/demo/html/itechie/assets/img/shape/4.webp"
+        alt="img"
+      />
       <div className="container" style={{ minHeight: "100vh" }}>
         <img src={berita?.image !== "" ? berita?.image : "https://via.placeholder.com/500x350"} style={{
           width: "100%",
@@ -117,7 +129,7 @@ function PublikDetailBeritaPanti() {
         </p>
         <br />
         <div dangerouslySetInnerHTML={{ __html: berita?.isi_berita }} />
-      </div>
+      </div></div>
       <style>
         {`
           * {

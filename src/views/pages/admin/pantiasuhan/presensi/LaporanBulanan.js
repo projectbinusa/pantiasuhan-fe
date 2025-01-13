@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -39,7 +39,7 @@ function LaporanBulananPresensi() {
       const bln = month || bulan;
       const thn = year || tahun;
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/siswa/absensi/bulanan/${bln}/${thn}?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY}/api/siswa/absensi/bulanan/${bln}/${thn}?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -77,7 +77,7 @@ function LaporanBulananPresensi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/siswa/absensi/` + id, {
+          .delete(`${API_DUMMY}/api/siswa/absensi/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

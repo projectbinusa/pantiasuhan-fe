@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../../css/login.css";
-import { API_DUMMY, API_DUMMY_PYTHON, API_DUMMY_SMART_DEV } from "../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import Ikon from "../../../aset/ikon-web.png";
 import Swal from "sweetalert2";
@@ -27,7 +27,7 @@ function LoginSiswa() {
       password: password,
     };
     try {
-      const response = await axios.post(`${API_DUMMY_SMART_DEV}/api/member/login`, datapython);;
+      const response = await axios.post(`${API_DUMMY_SMART}/api/member/login`, datapython);;
 
       if (response.status === 200) {
         Swal.fire({
@@ -36,7 +36,7 @@ function LoginSiswa() {
           showConfirmButton: false,
           timer: 1500,
         });
-        // const responsepython = await axios.post(`${API_DUMMY_PYTHON}/api/signin/admin`, datapython);
+        // const responsepython = await axios.post(`${API_DUMMY}/api/signin/admin`, datapython);
         // console.log(responsepython);
 
 

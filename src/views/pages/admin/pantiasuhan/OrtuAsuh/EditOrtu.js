@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import {
   useHistory,
   useParams,
@@ -27,7 +27,7 @@ function EditOrtu() {
     };
 
     axios
-      .put(`${API_DUMMY_PYTHON}/api/admin/foster_parent/` + param.id, data, {
+      .put(`${API_DUMMY}/api/admin/foster_parent/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -61,7 +61,7 @@ function EditOrtu() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/foster_parent/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/foster_parent/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },

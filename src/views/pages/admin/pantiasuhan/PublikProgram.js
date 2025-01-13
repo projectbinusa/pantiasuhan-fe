@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../utils/base_URL";
 import Navbar from "../../../../component/Navbar";
 
 const formatTanggal = (tanggalString) => {
@@ -25,23 +25,24 @@ function PublikProgram() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true); // Untuk mendeteksi apakah masih ada data untuk dimuat
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   const getAll = async () => {
     if (isLoading || !hasMore) return; // Hindari pemanggilan ganda jika sudah loading atau tidak ada data lagi
-  
+
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/kegiatan?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY}/api/public/kegiatan?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            "x-origin": window.location.hostname
           },
         }
       );
-  
+
       const { data, pagination } = response.data;
-  
+
       if (data && pagination) {
         // Tambahkan data baru ke daftar yang sudah ada tanpa duplikat
         setList((prevList) => {
@@ -50,7 +51,7 @@ function PublikProgram() {
           );
           return [...prevList, ...uniqueData];
         });
-  
+
         setHasMore(currentPage < pagination.total_page); // Periksa apakah masih ada halaman berikutnya
       } else {
         console.error("Data atau pagination tidak ditemukan dalam response.");
@@ -67,10 +68,10 @@ function PublikProgram() {
       setIsLoading(false);
     }
   };
-  
+
   console.log(list);
   console.log(hasMore);
-  
+
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop >=
@@ -81,11 +82,11 @@ function PublikProgram() {
       setCurrentPage((prevPage) => prevPage + 1); // Naikkan halaman saat scroll mendekati bawah
     }
   };
-  
+
   useEffect(() => {
     getAll(); // Panggil fungsi getAll setiap kali currentPage berubah
   }, [currentPage]);
-  
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {

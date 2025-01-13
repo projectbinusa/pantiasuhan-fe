@@ -7,7 +7,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
 
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -68,13 +68,14 @@ function EditSambutanPanti() {
   const [nip, setNip] = useState("");
   const [nama, setNama] = useState("");
   const [file, setFile] = useState(null);
+  const [image, setImage] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
   const param = useParams();
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/sambutan/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/sambutan/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -85,7 +86,7 @@ function EditSambutanPanti() {
         setJudulSambutan(response.judul);
         setNip(response.nip);
         setNama(response.nama);
-        setFile(response.foto);
+        setImage(response.foto);
         console.log("sambutan : ", ress.data.data);
       })
       .catch((error) => {
@@ -102,13 +103,15 @@ function EditSambutanPanti() {
     e.persist();
 
     try {
-      let imageUrl = file;
+      let imageUrl;
 
       if (file) {
         imageUrl = await uploadImageToS3(file);
+      } else {
+        imageUrl = image;
       }
       const response = await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/sambutan/${param.id}`,
+        `${API_DUMMY}/api/admin/sambutan/${param.id}`,
         {
           judul: judulSambutan,
           isi_sambutan: isiSambutan,
@@ -313,9 +316,8 @@ function EditSambutanPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"

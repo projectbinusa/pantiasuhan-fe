@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../utils/base_URL";
+import { API_DUMMY_ABSEN } from "../../../utils/base_URL";
 import "../../../css/absen.css";
 import logo from "../../../aset/pantiasuhan/logo.png";
 import panti from "../../../aset/pantiasuhan/pantiasuhan.png";
-// import { API_DUMMY } from "../../../../../src/utils/baseURL";
+import { useLocation } from "react-router-dom/cjs/react-router-dom";
 
 const AbsenMasuk = () => {
   const [cardNumber, setCardNumber] = useState("");
@@ -15,16 +15,21 @@ const AbsenMasuk = () => {
   const [description, setDescription] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const shiftId = searchParams.get('shift_id');
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
       rfid_number: cardNumber,
-      type: 1, // Type 1 untuk berangkat
+      type: 1,
+      shift_id: shiftId
     };
 
     try {
       const response = await fetch(
-        `${API_DUMMY_PYTHON}/api/siswa/absen_masuk`,
+        `${API_DUMMY_ABSEN}/api/absensi/submit`,
         {
           method: "POST",
           headers: {
@@ -37,19 +42,18 @@ const AbsenMasuk = () => {
       const result = await response.json();
 
       if (response.ok) {
-        const { name, picture, datetime, description } = result; // Destructuring response
-        setUserName(name || "Default User");
+        setUserName(result.data.name || "Default User");
         setPicture(
-          picture ||
+          result.data.picture ||
             "https://i.pinimg.com/736x/03/eb/d6/03ebd625cc0b9d636256ecc44c0ea324.jpg"
         );
-        setDatetime(datetime || "-");
-        setDescription(description || "-");
+        setDatetime(result.data.datetime || "-");
+        setDescription(result.data.description || "-");
         setSuccessMessage("Berhasil melakukan presensi!");
         setErrorMessage("");
         setCardNumber("");
       } else {
-        setErrorMessage(result.error || "Presensi gagal.");
+        setErrorMessage(result.message || "Presensi gagal.");
         setSuccessMessage("");
         setCardNumber("");
       }
@@ -98,10 +102,10 @@ const AbsenMasuk = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        height: "110vh",
+        minHeight: "100vh",
       }}
     >
-      <div className="container text-white vh-100 py-4">
+      <div className="container text-white py-4">
         <h2 className="text-center fw-bold mb-3">PRESENSI MASUK</h2>
         <div className="row justify-content-center g-4">
           {/* Tanggal */}

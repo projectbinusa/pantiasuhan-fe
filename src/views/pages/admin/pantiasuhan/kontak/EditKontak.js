@@ -6,7 +6,7 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function EditKontakPanti() {
@@ -19,7 +19,7 @@ function EditKontakPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/kontak/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/kontak/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -49,7 +49,7 @@ function EditKontakPanti() {
     }
 
     await axios
-      .put(`${API_DUMMY_PYTHON}/api/admin/kontak/` + param.id, data, {
+      .put(`${API_DUMMY}/api/admin/kontak/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },

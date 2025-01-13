@@ -60,7 +60,7 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { uploadImageDonationToS3 } from "../../../../../utils/uploadDonationToS3";
 
 function EditDonasi() {
@@ -69,6 +69,7 @@ function EditDonasi() {
   const [outcome, setOutcome] = useState("");
   const [domain, setDomain] = useState("");
   const [image, setImage] = useState(null);
+  const [file, setFile] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const history = useHistory();
   const param = useParams();
@@ -88,7 +89,7 @@ function EditDonasi() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_SMART_DEV}/api/customer/donation/${param.id}`,
+          `${API_DUMMY_SMART}/api/customer/donation/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -103,7 +104,7 @@ function EditDonasi() {
         setIncome(resp.total_income);
         setOutcome(resp.total_outcome);
         setDeskripsi(resp.description);
-        setImage(resp.url_image);
+        setFile(resp.url_image);
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -123,10 +124,12 @@ function EditDonasi() {
   const put = async (e) => {
     e.preventDefault();
     e.persist();
-    let imageUrl = image;
+    let imageUrl;
 
     if (image) {
       imageUrl = await uploadImageDonationToS3(image);
+    } else {
+      imageUrl = file
     }
     const data = {
       name: nama,
@@ -144,7 +147,7 @@ function EditDonasi() {
 
     try {
       await axios.put(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation/${param.id}`,
+        `${API_DUMMY_SMART}/api/customer/donation/${param.id}`,
         data,
         {
           headers: {

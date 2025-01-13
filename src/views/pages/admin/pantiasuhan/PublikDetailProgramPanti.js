@@ -3,7 +3,7 @@ import FooterSekolah from "../../../../component/FooterSekolah";
 import Navbar from "../../../../component/Navbar";
 import axios from "axios";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { API_DUMMY_PYTHON } from "../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../utils/base_URL";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -33,10 +33,11 @@ function PublikDetailProgramPanti() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/public/kegiatan/${param.id}`,
+          `${API_DUMMY}/api/public/kegiatan/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              "x-origin": window.location.hostname
             },
           }
         );

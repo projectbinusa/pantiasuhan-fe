@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -34,7 +34,7 @@ function LaporanTahunanPresensi() {
       console.log(tgl);
 
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/siswa/absensi/tahunan/${tgl}?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY}/api/siswa/absensi/tahunan/${tgl}?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -72,7 +72,7 @@ function LaporanTahunanPresensi() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/siswa/absensi/` + id, {
+          .delete(`${API_DUMMY}/api/siswa/absensi/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

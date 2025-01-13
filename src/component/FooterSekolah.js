@@ -2,7 +2,7 @@ import "../css/style.css";
 import "../css/gabung.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../utils/base_URL";
+import { API_DUMMY } from "../utils/base_URL";
 import { Grid, Typography } from "@mui/material";
 
 function FooterSekolah() {
@@ -105,7 +105,11 @@ function FooterSekolah() {
   const getAllVisiMisiPanti = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/visimisi?page=1&limit=1`
+        `${API_DUMMY}/api/public/visimisi?page=1&limit=1`, {
+        headers: {
+          "x-origin": window.location.hostname
+        },
+      }
       );
       console.log(response.data.data[0]);
 
