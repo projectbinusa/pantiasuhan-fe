@@ -43,7 +43,7 @@ function LaporanBulananPresensi() {
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          }
+          },
         }
       );
 
@@ -59,10 +59,10 @@ function LaporanBulananPresensi() {
     }
   };
 
-  // Gunakan useEffect untuk memantau perubahan
-  useEffect(() => {
-    getAll();
-  }, [currentPage, rowsPerPage, year, month]);
+  // // Gunakan useEffect untuk memantau perubahan
+  // useEffect(() => {
+  //   getAll();
+  // }, [currentPage, rowsPerPage, year, month]);
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -145,24 +145,40 @@ function LaporanBulananPresensi() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container d-flex g-3 align-items-center mt-3">
-          <input className="form-control" type="month" onChange={handleMonthChange} />
-          {/* <button className="btn-primary ml-3" type="button" onClick={getTgl}>Pilih</button> */}
+          <input
+            className="form-control"
+            type="month"
+            onChange={handleMonthChange}
+            value={`${year}-${month}`}
+          />
+          <button
+            className="btn btn-primary ml-3"
+            type="button"
+            onClick={getAll}
+          >
+            Pilih
+          </button>
         </div>
+
         <div
           className="container box-table app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -171,7 +187,8 @@ function LaporanBulananPresensi() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -198,7 +215,8 @@ function LaporanBulananPresensi() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -217,7 +235,8 @@ function LaporanBulananPresensi() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -231,47 +250,41 @@ function LaporanBulananPresensi() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length > 0 ?
+                  {filteredList.length > 0 ? (
                     filteredList.map((item, no) => {
                       return (
-                        <tr key={no}  >
+                        <tr key={no}>
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama"> {item.nama_siswa}
-                          </td>
-                          <td data-label="Tanggal">
-                            {item.created_date}
-                          </td>
-                          <td data-label="Jam Masuk">
-                            {item.jam_masuk}
-                          </td>
-                          <td data-label="Jam Pulang">
-                            {item.jam_pulang}
-                          </td>
-                          <td data-label="Keterangan">
-                            {item.description}
-                          </td>
+                          <td data-label="Nama"> {item.nama_siswa}</td>
+                          <td data-label="Tanggal">{item.created_date}</td>
+                          <td data-label="Jam Masuk">{item.jam_masuk}</td>
+                          <td data-label="Jam Pulang">{item.jam_pulang}</td>
+                          <td data-label="Keterangan">{item.description}</td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 onClick={() => deleteData(item.id)}
                                 type="button"
-                                className="btn-danger btn-sm">
+                                className="btn-danger btn-sm"
+                              >
                                 <i className="fa-solid fa-trash"></i>
                               </button>
                             </div>
                           </td>
                         </tr>
                       );
-                    }) :
+                    })
+                  ) : (
                     <tr>
                       <td colSpan="7" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
                       </td>
-                    </tr>}
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
