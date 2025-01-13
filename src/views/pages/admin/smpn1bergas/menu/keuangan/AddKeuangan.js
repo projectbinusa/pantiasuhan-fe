@@ -1,10 +1,7 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../../utils/base_URL";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -60,66 +57,83 @@ import {
 import "ckeditor5/ckeditor5.css";
 import Sidebar1 from "../../../../../../component/Sidebar1";
 
-function AddKeuangan() {
+const AddKeuangan = () => {
   const [judul, setJudul] = useState("");
-  const [image, setImage] = useState(null);
-  const [categoryKeuangan, setCategoryKeuangan] = useState("");
   const [isi, setIsi] = useState("");
+  const [categoryKeuangan, setCategoryKeuangan] = useState("");
+  const [image, setImage] = useState(null);
   const [show, setShow] = useState(false);
+
   const history = useHistory();
 
-  //add
+  // Menggunakan useEffect di dalam komponen, bukan di dalam fungsi add
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   const add = async (e) => {
     e.preventDefault();
     e.persist();
 
-    // const formData = new FormData();
-    // formData.append("judul", judul);
-    // formData.append("isi", isi);
-    // formData.append("categoryKeuangan", categoryKeuangan);
-    // formData.append("file", image);
-
     try {
-      await axios.post(`${API_DUMMY}/smpn1bergas/api/keuangan/add`, {
-        judul: judul,
-        isi: isi,
-        category: categoryKeuangan
-      }, {
-        headers: {
-          // "Content-Type": "multipart/form-data",
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+      await axios.post(
+        `${API_DUMMY}/smpn1bergas/api/keuangan/add`,
+        {
+          judul: judul,
+          isi: isi,
+          category: categoryKeuangan,
         },
-      });
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
       setShow(false);
       Swal.fire({
         icon: "success",
-        title: "Data Berhasil DiTambahkan",
+        title: "Data Berhasil Ditambahkan",
         showConfirmButton: false,
         timer: 1500,
       });
+
       setTimeout(() => {
         history.push("admin-keuangan");
         window.location.reload();
       }, 1500);
     } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
+      console.log("Error response:", error.response); // Menampilkan detail respon error
+
+      if (error.response && error.response.status === 401) {
+        console.log("Error 401: Token tidak valid atau sudah kadaluwarsa.");
         localStorage.clear();
         history.push("/login");
+      } else if (error.response) {
+        console.log("Error data:", error.response.data); // Menampilkan pesan error dari server
+        console.log("Error status:", error.response.status); // Menampilkan status kode HTTP
+        console.log("Error headers:", error.response.headers); // Menampilkan headers dari respon error
+      } else if (error.request) {
+        console.log("No response from server:", error.request); // Jika tidak ada respon dari server
       } else {
-        Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log(error);
+        console.log("Error message:", error.message); // Menampilkan pesan error umum
       }
+
+      Swal.fire({
+        icon: "error",
+        title: "Tambah Data Gagal!",
+        text: error.response?.data?.message || "Terjadi kesalahan.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      console.error(error); // Menampilkan error lengkap di konsol
     }
   };
 
-  useEffect(() => {
-    AOS.init();
-  }, []);
+  // useEffect(() => {
+  //   AOS.init();
+  // }, []);
 
   const REDUCED_MATERIAL_COLORS = [
     { label: "Red 50", color: "#ffebee" },
@@ -250,7 +264,7 @@ function AddKeuangan() {
     setSidebarToggled(!sidebarToggled);
   };
 
-   const handleResize = () => {
+  const handleResize = () => {
     if (window.innerWidth < 800) {
       setSidebarToggled(false);
     }
@@ -258,26 +272,32 @@ function AddKeuangan() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <div  className={`page-wrapper chiller-theme ${
-      sidebarToggled ? "toggled" : ""
-    }`}>
-    <a
-      id="show-sidebar"
-      className="btn1 btn-lg"
-      onClick={toggleSidebar}
-      style={{ color: "white", background: "#3a3f48" }}>
-      <i className="fas fa-bars"></i>
-    </a>
-    {/* <Header toggleSidebar={toggleSidebar} /> */}
-    {/* <div className="app-main"> */}
-    <Sidebar1 toggleSidebar={toggleSidebar} />
-    <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container mt-3 mb-3 app-main__outer" data-aos="fade-left">
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}
+      >
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <Header toggleSidebar={toggleSidebar} /> */}
+      {/* <div className="app-main"> */}
+      <Sidebar1 toggleSidebar={toggleSidebar} />
+      <div className="page-content1" style={{ marginTop: "10px" }}>
+        <div
+          className="container mt-3 mb-3 app-main__outer"
+          data-aos="fade-left"
+        >
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -288,7 +308,7 @@ function AddKeuangan() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label  font-weight-bold ">
+                          <label className="form-label font-weight-bold">
                             Kategori Keuangan
                           </label>
                           <select
@@ -297,7 +317,8 @@ function AddKeuangan() {
                             aria-label="Small select example"
                             onChange={(e) =>
                               setCategoryKeuangan(e.target.value)
-                            }>
+                            }
+                          >
                             <option selected>Pilih Kategori Keuangan</option>
                             <option value="BOS">BOS</option>
                             <option value="APBD">APBD</option>
@@ -316,20 +337,6 @@ function AddKeuangan() {
                             placeholder="Masukkan judul"
                           />
                         </div>
-                        {/* <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Gambar
-                          </label>
-                          <input
-                            onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
-                            }
-                            type="file"
-                            className="form-control"
-                          />
-                        </div> */}
                         <div className="col-lg-12">
                           <label className="form-label font-weight-bold">
                             Isi
@@ -344,16 +351,10 @@ function AddKeuangan() {
                               }}
                               config={{
                                 toolbar: [
-                                  // --- Text alignment ---------------------------------------------------------------------------
                                   "alignment",
                                   "|",
-                                  // --- Document-wide tools ----------------------------------------------------------------------
                                   "undo",
                                   "redo",
-                                  // "|",
-                                  // "alignment:left", // Tambahkan opsi align left
-                                  // "alignment:center", // Tambahkan opsi align center
-                                  // "alignment:right",
                                   "|",
                                   "importWord",
                                   "exportWord",
@@ -368,9 +369,6 @@ function AddKeuangan() {
                                   "insertTemplate",
                                   "tableOfContents",
                                   "|",
-
-                                  // --- "Insertables" ----------------------------------------------------------------------------
-
                                   "link",
                                   "insertImage",
                                   "ckbox",
@@ -382,13 +380,9 @@ function AddKeuangan() {
                                   "horizontalLine",
                                   "specialCharacters",
                                   "-",
-
-                                  // --- Block-level formatting -------------------------------------------------------------------
                                   "heading",
                                   "style",
                                   "|",
-
-                                  // --- Basic styles, font and inline formatting -------------------------------------------------------
                                   "bold",
                                   "italic",
                                   "underline",
@@ -412,8 +406,6 @@ function AddKeuangan() {
                                   },
                                   "removeFormat",
                                   "|",
-
-                                  // --- Lists and indentation --------------------------------------------------------------------
                                   "bulletedList",
                                   "numberedList",
                                   "multilevelList",
@@ -423,14 +415,17 @@ function AddKeuangan() {
                                   "indent",
                                 ],
                                 styles: [
-                                  // "full",    // Gambar mengambil lebar penuh konten
-                                  // "side",    // Gambar sejajar dengan teks
                                   "alignLeft",
                                   "alignCenter",
                                   "alignRight",
                                 ],
                                 alignment: {
-                                  options: ["left", "right", "center", "justify"],
+                                  options: [
+                                    "left",
+                                    "right",
+                                    "center",
+                                    "justify",
+                                  ],
                                 },
                                 plugins: [
                                   GeneralHtmlSupport,
@@ -470,7 +465,6 @@ function AddKeuangan() {
                                   PictureEditing,
                                   RemoveFormat,
                                   SpecialCharacters,
-                                  // SpecialCharactersEmoji,
                                   SpecialCharactersEssentials,
                                   Strikethrough,
                                   Style,
@@ -562,7 +556,6 @@ function AddKeuangan() {
                                     },
                                   ],
                                 },
-                                // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
                               }}
                             />
                           </div>
@@ -571,7 +564,8 @@ function AddKeuangan() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin-keuangan">
+                          href="/admin-keuangan"
+                        >
                           Batal
                         </a>
                       </button>
@@ -588,6 +582,6 @@ function AddKeuangan() {
       </div>
     </div>
   );
-}
+};
 
 export default AddKeuangan;
