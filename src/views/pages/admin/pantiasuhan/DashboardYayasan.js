@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import axios from "axios";
 import {
-  API_DUMMY_ABSEN_DEV,
-  API_DUMMY_ABSEN_PROD,
-  API_DUMMY_SMART_DEV,
-  API_DUMMY_SMART_PROD,
+  API_DUMMY_SMART
 } from "../../../../utils/base_URL";
 
 const rupiah = (number) => {
@@ -46,7 +43,7 @@ function DashboardYayasan() {
   const fetchData = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/user/donation`,
+        `${API_DUMMY_SMART}/api/user/donation`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -62,7 +59,7 @@ function DashboardYayasan() {
   const fetchDonasiTrx = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/user/donation_trx`,
+        `${API_DUMMY_SMART}/api/user/donation_trx`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -79,7 +76,7 @@ function DashboardYayasan() {
   const fetchDonasiRecap = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/user/donation/recap`,
+        `${API_DUMMY_SMART}/api/user/donation/recap`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -95,7 +92,7 @@ function DashboardYayasan() {
   const fetchDonasiRecapTrx = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/recap`,
+        `${API_DUMMY_SMART}/api/user/donation_trx/recap`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -110,7 +107,7 @@ function DashboardYayasan() {
   const fetchDanaMasuk = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/keluar`,
+        `${API_DUMMY_SMART}/api/user/donation_trx/keluar`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -126,7 +123,7 @@ function DashboardYayasan() {
   const fetchDanaKeluar = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/keluar`,
+        `${API_DUMMY_SMART}/api/user/donation_trx/keluar`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }

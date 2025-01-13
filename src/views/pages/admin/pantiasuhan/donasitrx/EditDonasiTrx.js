@@ -8,7 +8,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_PYTHON, API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -89,7 +89,7 @@ function EditDonasiTrx() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_SMART_DEV}/api/customer/donation_trx/${param.id}`,
+          `${API_DUMMY_SMART}/api/customer/donation_trx/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -120,7 +120,7 @@ function EditDonasiTrx() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation`,
+        `${API_DUMMY_SMART}/api/customer/donation`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -147,7 +147,7 @@ function EditDonasiTrx() {
         imageUrl = await uploadImageDonationToS3(image);
       }
       await axios.put(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx/${param.id}`,
+        `${API_DUMMY_SMART}/api/customer/donation_trx/${param.id}`,
         {
           name: nama,
           nominal: parseInt(nominal),

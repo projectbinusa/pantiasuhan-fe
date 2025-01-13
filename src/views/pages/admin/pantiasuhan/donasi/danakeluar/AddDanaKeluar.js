@@ -58,7 +58,7 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import { uploadImageDonationToS3 } from "../../../../../../utils/uploadDonationToS3";
-import { API_DUMMY_SMART_DEV } from "../../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../../utils/base_URL";
 
 function AddDanaKeluar() {
   const [nama, setNama] = useState("");
@@ -90,7 +90,7 @@ function AddDanaKeluar() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation`,
+        `${API_DUMMY_SMART}/api/customer/donation`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -127,9 +127,9 @@ function AddDanaKeluar() {
       }
 
       console.log(datas);
-      
+
       await axios.post(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation_trx`, datas,
+        `${API_DUMMY_SMART}/api/customer/donation_trx`, datas,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

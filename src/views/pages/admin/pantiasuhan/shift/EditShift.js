@@ -6,7 +6,7 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function EditShift() {
@@ -21,7 +21,7 @@ function EditShift() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_SMART_DEV}/api/customer/shift/` + param.id, {
+      .get(`${API_DUMMY_SMART}/api/customer/shift/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -54,7 +54,7 @@ function EditShift() {
     };
 
     await axios
-      .put(`${API_DUMMY_SMART_DEV}/api/customer/shift/` + param.id, data, {
+      .put(`${API_DUMMY_SMART}/api/customer/shift/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },

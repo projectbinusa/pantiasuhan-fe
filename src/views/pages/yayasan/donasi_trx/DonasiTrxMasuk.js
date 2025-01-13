@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import "../../../../css/button.css";
-import { API_DUMMY_SMART_DEV } from "../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
 function DonasiTrxMasuk() {
@@ -40,7 +40,7 @@ function DonasiTrxMasuk() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/user/donation_trx/masuk?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/user/donation_trx/masuk?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -72,7 +72,7 @@ function DonasiTrxMasuk() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART_DEV}/api/user/donation_trx/${id}`, {
+          .delete(`${API_DUMMY_SMART}/api/user/donation_trx/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

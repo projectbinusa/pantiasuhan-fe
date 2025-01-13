@@ -2,7 +2,7 @@ import "../css/style.css";
 import "../css/gabung.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../utils/base_URL";
+import { API_DUMMY } from "../utils/base_URL";
 import { Grid, Typography } from "@mui/material";
 
 function FooterSekolah() {

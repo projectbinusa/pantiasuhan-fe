@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -41,7 +41,7 @@ function LaporanHarianPresensi() {
       console.log(tgl);
 
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/siswa/absensi/harian/${tgl}?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/customer/absen?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

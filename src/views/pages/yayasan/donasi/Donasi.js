@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import "../../../../css/button.css";
-import { API_DUMMY_SMART_DEV } from "../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import { formatRupiah } from "../../../../utils/formating";
 
@@ -44,7 +44,7 @@ function DonasiYayasan() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/user/donation?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/user/donation?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -78,7 +78,7 @@ function DonasiYayasan() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART_DEV}/api/customer/donation/${id}`, {
+          .delete(`${API_DUMMY_SMART}/api/customer/donation/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

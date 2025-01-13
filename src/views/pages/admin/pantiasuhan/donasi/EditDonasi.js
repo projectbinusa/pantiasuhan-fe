@@ -60,7 +60,7 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
-import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { uploadImageDonationToS3 } from "../../../../../utils/uploadDonationToS3";
 
 function EditDonasi() {
@@ -89,7 +89,7 @@ function EditDonasi() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_SMART_DEV}/api/customer/donation/${param.id}`,
+          `${API_DUMMY_SMART}/api/customer/donation/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -147,7 +147,7 @@ function EditDonasi() {
 
     try {
       await axios.put(
-        `${API_DUMMY_SMART_DEV}/api/customer/donation/${param.id}`,
+        `${API_DUMMY_SMART}/api/customer/donation/${param.id}`,
         data,
         {
           headers: {

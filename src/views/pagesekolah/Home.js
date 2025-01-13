@@ -12,7 +12,7 @@ import {
 import "../../css/prestasi/card.css";
 import AOS from "aos";
 import axios from "axios";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../utils/base_URL";
+import { API_DUMMY } from "../../utils/base_URL";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import visimisi from "../../aset/pantiasuhan/visimisi.webp";

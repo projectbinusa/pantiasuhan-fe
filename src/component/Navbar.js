@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../utils/base_URL";
+import { API_DUMMY } from "../utils/base_URL";
 import "../css/gabung.css";
 import "../css/style.css";
 import logo from "../aset/pantiasuhan/logo.png";

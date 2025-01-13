@@ -1,34 +1,34 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pagination } from "@mui/material";
 import axios from "axios";
-import Swal from "sweetalert2";
 import AOS from "aos";
-import { API_DUMMY_SMART_DEV } from "../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../utils/base_URL";
 import Navbar from "../../../component/Navbar";
-import Footer from "../../../component/Footer";
+import FooterSekolah from "../../../component/FooterSekolah";
+// import Footer from "../../component/FooterSekolah";
 
-const formatTanggal = (tanggalString) => {
-  const tanggal = new Date(tanggalString);
-  const bulan = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
-  ];
-  const hari = tanggal.getDate();
-  const bulanNama = bulan[tanggal.getMonth()];
-  const tahun = tanggal.getFullYear();
+// const formatTanggal = (tanggalString) => {
+//   const tanggal = new Date(tanggalString);
+//   const bulan = [
+//     "Januari",
+//     "Februari",
+//     "Maret",
+//     "April",
+//     "Mei",
+//     "Juni",
+//     "Juli",
+//     "Agustus",
+//     "September",
+//     "Oktober",
+//     "November",
+//     "Desember",
+//   ];
+//   const hari = tanggal.getDate();
+//   const bulanNama = bulan[tanggal.getMonth()];
+//   const tahun = tanggal.getFullYear();
 
-  return `${hari} ${bulanNama} ${tahun}`;
-};
+//   return `${hari} ${bulanNama} ${tahun}`;
+// };
 
 function ShiftPublik() {
   const [list, setList] = useState([]);
@@ -43,7 +43,7 @@ function ShiftPublik() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/public/shift?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/public/shift?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -440,7 +440,7 @@ function ShiftPublik() {
           </div>
         ))}
       </div> */}
-      <Footer />
+      <FooterSekolah />
     </div>
   );
 }
