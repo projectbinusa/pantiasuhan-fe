@@ -222,10 +222,12 @@ function Dataortu() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>name</th>
-                    <th scope="col" style={{ minWidth: "150px" }}>
-                      alamat
-                    </th>
+                    <th>nama</th>
+                    <th>TTL</th>
+                    <th>Pekerjaan</th>
+                    <th>No HP</th>
+                    <th>Anak Asuh</th>
+                    <th scope="col" style={{ minWidth: "150px" }}>Alamat</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -238,6 +240,10 @@ function Dataortu() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td data-label="Nama">{row.name}</td>
+                          <td data-label="TTL">{row.birth_place}, {row.birth_date}</td>
+                          <td data-label="Pekerjaan">{row.work}</td>
+                          <td data-label="No HP">{row.phone}</td>
+                          <td data-label="Anak Asuh">{row.address}</td> 
                           <td data-label="Alamat">{row.address}</td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
@@ -273,7 +279,7 @@ function Dataortu() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="4" className="text-center my-3">
+                      <td colSpan="8" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>

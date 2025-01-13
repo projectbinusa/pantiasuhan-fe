@@ -378,7 +378,8 @@ function DashboardPanti() {
           .cardmenu {
             padding: 1rem;
             margin-bottom: 1rem;
-            background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
+            // background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
+            background-color: #ffffff;
           }
           .cardmenu h2{
             font-size: 1.3rem
@@ -394,13 +395,15 @@ function DashboardPanti() {
           .info-link a {
             text-decoration: none;
             color: #ffffff;
-            background-color: #001f54; /* Biru tua */
+            // background-color: #001f54; /* Biru tua */
+            background-color: #0d9c1e;
             padding: 0.5rem 1rem;
             border-radius: 5px;
             font-size: 0.9rem;
           }
           .info-link a:hover {
-            background-color: #00397d;
+            background-color:rgb(11, 128, 24);
+            // background-color: #00397d;
           }
           footer {
             margin-top: auto; /* Mengatur footer selalu di bawah */

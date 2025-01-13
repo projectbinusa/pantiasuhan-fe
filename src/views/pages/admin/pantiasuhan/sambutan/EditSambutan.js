@@ -628,6 +628,7 @@ function EditSambutanPanti() {
                               },
                               // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
                             }}
+                            className="custom-ckeditor"
                           />
                         </div>
                       </div>
@@ -649,6 +650,13 @@ function EditSambutanPanti() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+        .ck-editor__editable {
+          min-height: 400px;
+        }
+        `}
+      </style>
     </div>
   );
 }

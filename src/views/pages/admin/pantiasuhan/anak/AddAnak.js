@@ -14,15 +14,12 @@ function AddAnak() {
   const [password, setPassword] = useState("");
   const [rfidNumber, setRFIDNumber] = useState("");
   const [nik, setNIK] = useState("");
-
-
   const [idOrangTua, setIdOrangTua] = useState("");
+  const [listFosterParent, setListFosterParent] = useState("");
   const [namaOrangTua, setNamaOrangTua] = useState("");
-  const [tanggal, setTanggal] = useState("");
-  const [image, setImage] = useState(null);
-  const [deskripsi, setDeskripsi] = useState("");
-  const [catatan, setCatatan] = useState("");
-  const [foster_parent, setListFosterParent] = useState([]);
+  const [birthPlace, setBirthPlace] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [education, setEducation] = useState("");
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -60,7 +57,6 @@ function AddAnak() {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-    console.log("nama: ", namaOrangTua);
   }, []);
 
   //add
@@ -145,6 +141,48 @@ function AddAnak() {
                             value={nama}
                             onChange={(e) => setNama(e.target.value)}
                             placeholder="Masukkan Nama Anak Asuh" className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Tempat Lahir
+                          </label>
+                          <input
+                            value={birthPlace}
+                            onChange={(e) => setBirthPlace(e.target.value)}
+                            placeholder="Masukkan Nama Tempat Lahir" className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Tanggal Lahir
+                          </label>
+                          <input
+                            value={birthDate}
+                            onChange={(e) => setBirthDate(e.target.value)}
+                            type="date" className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Pendidikan
+                          </label>
+                          <select className="form-control" onChange={(e) => setEducation(e.target.value)}>
+                            <option>Pilih</option>
+                            <option value="SD/MI">SD/MI</option>
+                            <option value="SMP/Mts">SMP/Mts</option>
+                            <option value="SMA/SMK/MA">SMA/SMK/MA</option>
+                            <option value="Kuliah">Kuliah</option>
+                          </select>
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Nama Orang Tua Kandung
+                          </label>
+                          <input
+                            value={namaOrangTua}
+                            onChange={(e) => setNamaOrangTua(e.target.value)}
+                            placeholder="Masukkan Nama Orang Tua Kandung" className="form-control"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
