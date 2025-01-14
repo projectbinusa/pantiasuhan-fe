@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -99,7 +99,7 @@ function AddKegiatanPanti() {
         imageUrl = await uploadImageToS3(foto);
       }
       const response = await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/kegiatan`,
+        `${API_DUMMY}/api/admin/kegiatan`,
         {
           judul: judul,
           isi: isi,
@@ -322,7 +322,7 @@ function AddKegiatanPanti() {
                             placeholder="Masukkan Nama Program"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        {/* <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Kategori Program
                           </label>
@@ -349,7 +349,7 @@ function AddKegiatanPanti() {
                               Bersama Jadi Juara
                             </option>
                           </select>
-                        </div>
+                        </div> */}
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Gambar
@@ -647,6 +647,13 @@ function AddKegiatanPanti() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+        .ck-editor__editable {
+          min-height: 400px;
+        }
+        `}
+      </style>
     </div>
   );
 }

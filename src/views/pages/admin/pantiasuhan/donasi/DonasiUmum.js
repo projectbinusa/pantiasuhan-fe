@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import NavbarSekolah from "../../../../../component/NavbarSekolah";
 import image1 from "../../../../../aset/images.png";
-import { API_DUMMY_SMART_DEV } from "../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import Navbar from "../../../../../component/Navbar";
 
 const formatTanggal = (tanggalString) => {
@@ -35,10 +35,11 @@ function DonasiUmum() {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART_DEV}/api/public/donation?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/public/donation?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            "x-origin": window.location.hostname
           },
         }
       );
@@ -101,7 +102,7 @@ function DonasiUmum() {
   // const getAll = async () => {
   //   try {
   //     const response = await axios.get(
-  //       `${API_DUMMY_SMART_DEV}/api/public/donation?page=${currentPage}&limit=${rowsPerPage}`,
+  //       `${API_DUMMY_SMART}/api/public/donation?page=${currentPage}&limit=${rowsPerPage}`,
   //       {
   //         headers: {
   //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

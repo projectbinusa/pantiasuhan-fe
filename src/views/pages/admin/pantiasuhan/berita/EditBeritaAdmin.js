@@ -57,7 +57,7 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function EditBeritaAdminPanti() {
@@ -67,23 +67,45 @@ function EditBeritaAdminPanti() {
   const [categoryBerita, setCategoryBerita] = useState("");
   const [isiBerita, setIsiBerita] = useState("");
   const [show, setShow] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageurl, setImageUrl] = useState("");
 
   const param = useParams();
   const history = useHistory();
+
+  useEffect(() => {
+    axios
+      .get(`${API_DUMMY}/api/admin/berita/` + param.id, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      })
+      .then((ress) => {
+        const response = ress.data.data;
+        setAuthor(response.author);
+        setJudulBerita(response.judul_berita);
+        setIsiBerita(response.isi_berita);
+        setImageUrl(response.image);
+        setCategoryBerita(response.category);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const updateBerita = async (e) => {
     e.preventDefault();
     e.persist();
 
     try {
-      let imageUrl = image;
+      let imageUrl;
 
       if (image) {
         imageUrl = await uploadImageToS3(image);
+      } else {
+        imageUrl = imageurl
       }
       const response = await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/berita/${param.id}`,
+        `${API_DUMMY}/api/admin/berita/${param.id}`,
         {
           author: author,
           category: categoryBerita,
@@ -139,26 +161,6 @@ function EditBeritaAdminPanti() {
       }
     }
   };
-
-  useEffect(() => {
-    axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/berita/` + param.id, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      })
-      .then((ress) => {
-        const response = ress.data.data;
-        setAuthor(response.author);
-        setJudulBerita(response.judul_berita);
-        setIsiBerita(response.isi_berita);
-        setImageUrl(response.image);
-        setCategoryBerita(response.category);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   useEffect(() => {
     AOS.init();
@@ -658,6 +660,13 @@ function EditBeritaAdminPanti() {
         </div>
       </div>
       {/* </div> */}
+      <style>
+        {`
+        .ck-editor__editable {
+          min-height: 400px;
+        }
+        `}
+      </style>
     </div>
   );
 }

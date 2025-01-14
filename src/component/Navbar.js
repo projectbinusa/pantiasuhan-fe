@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../utils/base_URL";
+import { API_DUMMY } from "../utils/base_URL";
 import "../css/gabung.css";
 import "../css/style.css";
 import logo from "../aset/pantiasuhan/logo.png";
@@ -17,7 +17,11 @@ function Navbar() {
 
   const getAllKontakPanti = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/kontak`);
+      const response = await axios.get(`${API_DUMMY}/api/public/kontak`,{
+        headers: {
+          "x-origin": window.location.hostname
+        },
+      });
       console.log("kontak panti: ", response.data.data);
 
       // Mengatur state dari data API
@@ -166,8 +170,8 @@ function Navbar() {
                 <ul className="social-media">
                   <li>
                     <a
-                      className="facebook"
-                      href="https://www.facebook.com/Bawaslu.Kabupaten.Boyolali"
+                      className="facebook" href="#"
+                      // href="https://www.facebook.com/Bawaslu.Kabupaten.Boyolali"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-facebook-f"></i>
@@ -175,8 +179,8 @@ function Navbar() {
                   </li>
                   <li>
                     <a
-                      className="twitter"
-                      href="https://twitter.com/i/flow/login?redirect_after_login=%2Fbawasluboyolali"
+                      className="twitter" href="#"
+                      // href="https://twitter.com/i/flow/login?redirect_after_login=%2Fbawasluboyolali"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-twitter"></i>
@@ -184,8 +188,8 @@ function Navbar() {
                   </li>
                   <li>
                     <a
-                      className="instagram"
-                      href="https://www.instagram.com/bawaslu_boyolali/"
+                      className="instagram" href="#"
+                      // href="https://www.instagram.com/bawaslu_boyolali/"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-instagram"></i>
@@ -193,8 +197,8 @@ function Navbar() {
                   </li>
                   <li>
                     <a
-                      className="youtube"
-                      href="https://www.youtube.com/channel/UC-OZT-HT_Qg7cUmo-oHfkAw"
+                      className="youtube" href="#"
+                      // href="https://www.youtube.com/channel/UC-OZT-HT_Qg7cUmo-oHfkAw"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-youtube"></i>
@@ -219,6 +223,7 @@ function Navbar() {
             overflow: "hidden",
             position: "relative",
             whiteSpace: "nowrap",
+            width:"100%"
           }}>
           <div
             style={{
@@ -279,38 +284,43 @@ function Navbar() {
                 display: "flex",
               }}>
               <li className="">
-                <a href="/" style={{ paddingLeft: "15px" }}>
+                <a href="/" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Home
                 </a>
               </li>
               <li className="">
-                <a href="#visi-misi" style={{ paddingLeft: "15px" }}>
+                <a href="#visi-misi" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Visi Misi
                 </a>
               </li>
               <li className="">
-                <a href="/programpanti" style={{ paddingLeft: "15px" }}>
+                <a href="/programpanti" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Program
                 </a>
               </li>
               <li className="">
-                <a href="/beritapanti" style={{ paddingLeft: "15px" }}>
+                <a href="/beritapanti" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Berita
                 </a>
               </li>
-              <li className="">
+              {/* <li className="">
                 <a href="#santri" style={{ paddingLeft: "15px" }}>
                   Santri
                 </a>
-              </li>
+              </li> */}
               <li className="">
-                <a href="/bukutamu/form/38" style={{ paddingLeft: "15px" }}>
+                <a href="/bukutamu/form/38" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Buku Tamu
                 </a>
               </li>
               <li className="">
-                <a href="/donasiumum" style={{ paddingLeft: "15px" }}>
+                <a href="/donasiumum" style={{ paddingLeft: "15px", textDecoration:"none" }}>
                   Donasi
+                </a>
+              </li>
+              <li className="">
+                <a href="/presensipanti" style={{ paddingLeft: "15px", textDecoration:"none" }}>
+                  Presensi
                 </a>
               </li>
               <li

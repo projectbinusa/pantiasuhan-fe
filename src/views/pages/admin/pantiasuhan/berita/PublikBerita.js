@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import Navbar from "../../../../../component/Navbar";
 import { debounce } from 'lodash';
 
@@ -32,10 +32,11 @@ function PublikBerita() {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/berita?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY}/api/public/berita?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            "x-origin": window.location.hostname
           },
         }
       );

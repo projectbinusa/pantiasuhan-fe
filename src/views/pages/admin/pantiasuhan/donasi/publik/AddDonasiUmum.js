@@ -5,7 +5,7 @@ import AOS from "aos";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import logo from "../../../../../../aset/BNILogo.png";
 import { Box, Modal, Typography } from "@mui/material";
-import { API_DUMMY_SMART_DEV } from "../../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../../utils/base_URL";
 
 function TambahDonasiUmum() {
   const [name, setName] = useState("");
@@ -21,10 +21,11 @@ function TambahDonasiUmum() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_SMART_DEV}/api/public/donation/${param.id}`,
+          `${API_DUMMY_SMART}/api/public/donation/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              "x-origin": window.location.hostname
             },
           }
         );
@@ -42,7 +43,7 @@ function TambahDonasiUmum() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${API_DUMMY_SMART_DEV}/api/public/donation/${param.id}/proccess`,
+        `${API_DUMMY_SMART}/api/public/donation/${param.id}/proccess`,
         {
           name: name,
           hp: hp,
@@ -51,6 +52,7 @@ function TambahDonasiUmum() {
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            "x-origin": window.location.hostname
           },
         }
       );

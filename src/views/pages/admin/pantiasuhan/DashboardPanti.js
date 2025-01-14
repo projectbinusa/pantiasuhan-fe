@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import axios from "axios";
 import {
-  API_DUMMY_PYTHON,
-  API_DUMMY_SMART_PROD,
+  API_DUMMY,
+  API_DUMMY_SMART,
 } from "../../../../utils/base_URL";
 
 const rupiah = (number) => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
   }).format(number);
 };
 
@@ -51,11 +51,12 @@ function DashboardPanti() {
       }
 
       const response = await axios.get(
-        `${API_DUMMY_SMART_PROD}/api/customer/donation/recap`,
+        `${API_DUMMY_SMART}/api/customer/donation/recap`,
         {
           headers: { "auth-tgh": `jwt ${token}` },
         }
       );
+            
       setFetchWeekly(response.data.data?.total_income || 0);
       setJumlahDanaKeluar(response.data.data?.total_outcome || 0);
     } catch (error) {
@@ -66,7 +67,7 @@ function DashboardPanti() {
   const fetchTahsin = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/tahsin/minggu`,
+        `${API_DUMMY}/api/admin/tahsin/minggu`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -80,7 +81,7 @@ function DashboardPanti() {
   const fetchPresensi = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/siswa/presensi`,
+        `${API_DUMMY}/api/siswa/presensi`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -98,7 +99,7 @@ function DashboardPanti() {
   const fetchGuestCount = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/guest_book/week`,
+        `${API_DUMMY}/api/admin/guest_book/week`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -111,7 +112,7 @@ function DashboardPanti() {
 
   const fetchAnakAsuhData = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/admin/siswa`, {
+      const response = await axios.get(`${API_DUMMY}/api/admin/siswa`, {
         headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
       });
       // Periksa struktur data respons yang diterima
@@ -127,7 +128,7 @@ function DashboardPanti() {
   const fetchJumlahPostingan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/berita`, // Endpoint API
+        `${API_DUMMY}/api/admin/berita`, // Endpoint API
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Menambahkan token jika diperlukan
@@ -188,7 +189,7 @@ function DashboardPanti() {
   const fetchKondisiBarang = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kondisi_barang`,
+        `${API_DUMMY}/api/admin/kondisi_barang`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -205,7 +206,7 @@ function DashboardPanti() {
   const fetchStokBarang = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/investaris`,
+        `${API_DUMMY}/api/admin/investaris`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -224,15 +225,14 @@ function DashboardPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -241,29 +241,31 @@ function DashboardPanti() {
           <div className="box-tabel card1">
             <div>
               <div className="card shadow w-100 border-none cardmenu">
-                <h2 className="">Jumlah Donasi dalam 1 Minggu Terakhir</h2>
-                <h1>{rupiah(fetchWeekly)}</h1>
+                <h2 style={{ fontFamily: "Poppins" }}>
+                  Jumlah Donasi dalam 1 Minggu Terakhir
+                </h2>
+                <h1 style={{ fontFamily: "Poppins" }}>{rupiah(fetchWeekly)}</h1>
                 <div className="info-link">
                   <a href="/donasi">Informasi Selengkapnya</a>
                 </div>
               </div>
               <div className="card shadow w-100 border-none cardmenu">
-                <h2 className="">Jumlah Dana Keluar dalam 1 Minggu Terakhir</h2>
-                <h1>{rupiah(jumlahDanaKeluar)}</h1>
+                <h2 style={{ fontFamily: "Poppins" }}>Jumlah Dana Keluar dalam 1 Minggu Terakhir</h2>
+                <h1 style={{ fontFamily: "Poppins" }}>{rupiah(jumlahDanaKeluar)}</h1>
                 <div className="info-link">
                   <a href="/admin_dana_keluar">Informasi Selengkapnya</a>
                 </div>
               </div>
               <div className="card shadow w-100 border-none cardmenu">
-                <h2 className="">Jumlah Saldo Keuangan Panti</h2>
-                <h1>Rp 500.000</h1>
+                <h2 style={{ fontFamily: "Poppins" }}>Jumlah Saldo Keuangan Panti</h2>
+                <h1 style={{ fontFamily: "Poppins" }}>Rp 0</h1>
                 <div className="info-link">
                   <a href="/admin_keuangan">Informasi Selengkapnya</a>
                 </div>
               </div>
             </div>
             <div className="card shadow w-100 cardmenu">
-              <h2 className="">Jumlah Barang</h2> <br />
+              <h2 style={{ fontFamily: "Poppins" }}>Jumlah Barang</h2> <br />
               <table className="align-middle mb-0 table table-bordered table-striped table-hover tabelbarang">
                 <thead>
                   <tr>
@@ -278,13 +280,13 @@ function DashboardPanti() {
                   {conditions.length > 0 && quantities.length > 0 ? (
                     conditions.map((condition, index) => {
                       const matchingQuantity = quantities.filter(
-                        (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
+                        (quantity) =>
+                          quantity.kondisi_barang_name ===
+                          condition.kondisi_barang
                       );
 
                       let ttl = 0;
-                      matchingQuantity.map((item) => (
-                        ttl += item.stok
-                      ))
+                      matchingQuantity.map((item) => (ttl += item.stok));
                       console.log(matchingQuantity);
                       console.log(ttl);
                       return (
@@ -300,7 +302,7 @@ function DashboardPanti() {
                             {ttl || 0}
                           </td>
                         </tr>
-                      )
+                      );
                     })
                   ) : (
                     <tr>
@@ -320,15 +322,15 @@ function DashboardPanti() {
           </div>
           <div className="box-tabel card2">
             <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Anak Asuh</h2>
+              <h2 style={{ fontFamily: "Poppins" }}>Jumlah Anak Asuh</h2>
               <br /> <br />
-              <h1>{anakAsuhCount}</h1>
+              <h1 style={{ fontFamily: "Poppins" }}>{anakAsuhCount}</h1>
               <div className="info-link">
                 <a href="/admin_anak_asuh">Informasi Selengkapnya</a>
               </div>
             </div>
             <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Setoran Tahsin</h2>
+              <h2 style={{ fontFamily: "Poppins" }}>Jumlah Setoran Tahsin</h2>
               <span>dalam 1 Minggu Terakhir</span> <br />
               <h1>{total_tahsin}</h1>
               {/* <div className="info-link">
@@ -336,7 +338,7 @@ function DashboardPanti() {
               </div> */}
             </div>
             <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Presensi</h2>
+              <h2 style={{ fontFamily: "Poppins" }}>Jumlah Presensi</h2>
               <span>dalam 1 Minggu Terakhir</span> <br />
               <h1>{presensiCount}</h1>
               <div className="info-link">
@@ -346,14 +348,14 @@ function DashboardPanti() {
           </div>
           <div className="box-tabel card1">
             <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Tamu dalam 1 Minggu Terakhir</h2>
+              <h2 style={{ fontFamily: "Poppins" }}>Jumlah Tamu dalam 1 Minggu Terakhir</h2>
               <h1>{guestCount}</h1>
               <div className="info-link">
                 <a href="/admin_buku_tamu">Informasi Selengkapnya</a>
               </div>
             </div>
             <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Postingan Blog Web</h2>
+              <h2 style={{ fontFamily: "Poppins" }}>Jumlah Postingan Blog Web</h2>
               <h1>{jumlahPostingan}</h1>
               <div className="info-link">
                 <a href="/admin_berita">Informasi Selengkapnya</a>
@@ -377,7 +379,8 @@ function DashboardPanti() {
           .cardmenu {
             padding: 1rem;
             margin-bottom: 1rem;
-            background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
+            // background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
+            background-color: #ffffff;
           }
           .cardmenu h2{
             font-size: 1.3rem
@@ -393,13 +396,15 @@ function DashboardPanti() {
           .info-link a {
             text-decoration: none;
             color: #ffffff;
-            background-color: #001f54; /* Biru tua */
+            // background-color: #001f54; /* Biru tua */
+            background-color: #0d9c1e;
             padding: 0.5rem 1rem;
             border-radius: 5px;
             font-size: 0.9rem;
           }
           .info-link a:hover {
-            background-color: #00397d;
+            background-color:rgb(11, 128, 24);
+            // background-color: #00397d;
           }
           footer {
             margin-top: auto; /* Mengatur footer selalu di bawah */

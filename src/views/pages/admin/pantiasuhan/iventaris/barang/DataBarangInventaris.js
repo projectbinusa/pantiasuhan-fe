@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -39,7 +39,7 @@ function DataBarangInventaris() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/investaris?page=${currentPage}&size=${rowsPerPage}`,
+        `${API_DUMMY}/api/admin/investaris?page=${currentPage}&size=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -49,7 +49,7 @@ function DataBarangInventaris() {
       setList(response.data.data);
       console.log("response: ", response.data);
       setPaginationInfo({
-        totalPages: Math.ceil(response.data.pagination.total/rowsPerPage),
+        totalPages: Math.ceil(response.data.pagination.total / rowsPerPage),
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -69,7 +69,7 @@ function DataBarangInventaris() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/investaris/` + id, {
+          .delete(`${API_DUMMY}/api/admin/investaris/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -163,7 +163,7 @@ function DataBarangInventaris() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/status_barang`,
+          `${API_DUMMY}/api/admin/status_barang`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -179,7 +179,7 @@ function DataBarangInventaris() {
     const fetchDataKategori = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/kategori_barang`, // Asumsi endpoint berbeda
+          `${API_DUMMY}/api/admin/kategori_barang`, // Asumsi endpoint berbeda
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -195,7 +195,7 @@ function DataBarangInventaris() {
     const fetchDataLokasi = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/lokasi_barang`,
+          `${API_DUMMY}/api/admin/lokasi_barang`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -211,7 +211,7 @@ function DataBarangInventaris() {
     const fetchDataKegiatan = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/public/kegiatan`
+          `${API_DUMMY}/api/public/kegiatan`
         );
         console.log("kegiatan: ", response.data.data);
       } catch (error) {
@@ -241,7 +241,7 @@ function DataBarangInventaris() {
     };
 
     try {
-      await axios.post(`${API_DUMMY_PYTHON}/api/admin/investaris`, data, {
+      await axios.post(`${API_DUMMY}/api/admin/investaris`, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },

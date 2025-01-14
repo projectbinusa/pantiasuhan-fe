@@ -12,12 +12,13 @@ import {
 import "../../css/prestasi/card.css";
 import AOS from "aos";
 import axios from "axios";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../utils/base_URL";
+import { API_DUMMY } from "../../utils/base_URL";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import visimisi from "../../aset/pantiasuhan/visimisi.webp";
 import NavbarSekolah from "../../component/NavbarSekolah";
 import NavbarSekolah2 from "../../component/NavbarSekolah2";
+import backgroundImage1 from "../../aset/pantiasuhan/pantiasuhan.png";
 import backgroundImage from "../../aset/pantiasuhan/pantiasuhan.png";
 import program1 from "../../aset/pantiasuhan/program1.png";
 import program2 from "../../aset/pantiasuhan/program/program9.png";
@@ -202,8 +203,17 @@ function Home() {
   const [berita, setBerita] = useState([]);
 
   const getAllBerita = async () => {
+    const origin = window.location.hostname;
+    console.log("origin: ", origin);
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/berita`);
+      const response = await axios.get(
+        `${API_DUMMY}/api/public/berita`,
+        {
+          headers: {
+            "x-origin": window.location.hostname,
+          },
+        }
+      );
       setBerita(response.data.data);
       console.log(response.data.data);
     } catch (error) {
@@ -257,7 +267,14 @@ function Home() {
 
   const getAllGalery = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/galery`);
+      const response = await axios.get(
+        `${API_DUMMY}/api/public/galery`,
+        {
+          headers: {
+            "x-origin": window.location.hostname,
+          },
+        }
+      );
       setGalery(response.data.data);
     } catch (error) {
       console.log("get all", error);
@@ -270,7 +287,12 @@ function Home() {
   const byIdGalery = async (id) => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/galery/${id}`
+        `${API_DUMMY}/api/public/galery/${id}`,
+        {
+          headers: {
+            "x-origin": window.location.hostname,
+          },
+        }
       );
       setFoto(response.data.data.foto);
       setJudul(response.data.data.judul);
@@ -289,7 +311,11 @@ function Home() {
 
   const getAllSantri = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_PYTHON}/api/public/siswa`);
+      const response = await axios.get(`${API_DUMMY}/api/public/siswa`, {
+        headers: {
+          "x-origin": window.location.hostname,
+        },
+      });
       setSiswa(response.data.data);
       console.log("siswa: ", response.data.data);
     } catch (error) {
@@ -415,7 +441,7 @@ function Home() {
     };
 
     try {
-      await axios.post(`${API_DUMMY_PYTHON}/api/kotak_saran/add`, data);
+      await axios.post(`${API_DUMMY}/api/kotak_saran/add`, data);
       Swal.fire({
         icon: "success",
         title: "Kotak Masuk Berhasil Terkirim",
@@ -449,7 +475,12 @@ function Home() {
   const getAllVisiMisiPanti = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/visimisi`
+        `${API_DUMMY}/api/public/visimisi`,
+        {
+          headers: {
+            "x-origin": window.location.hostname,
+          },
+        }
       );
       console.log("visi misi: ", response.data.data[0]);
 
@@ -464,7 +495,12 @@ function Home() {
   const getAllSambutanPanti = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/sambutan?page=1&limit=1`
+        `${API_DUMMY}/api/public/sambutan?page=1&limit=1`,
+        {
+          headers: {
+            "x-origin": window.location.hostname,
+          },
+        }
       );
       console.log(response.data.data[0]);
 
@@ -478,7 +514,12 @@ function Home() {
   const getAllKegiatan = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/public/kegiatan`
+        `${API_DUMMY}/api/public/kegiatan`,
+        {
+          headers: {
+            "x-origin": window.location.hostname,
+          },
+        }
       );
       console.log("kegiatan: ", response.data.data);
       setkegiatan(response.data.data);
@@ -554,19 +595,6 @@ function Home() {
             backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
           }}></div>
         <div class="container">
-          {/* <div class="row justify-content-center"> */}
-          {/* <div class="col-lg-6 col-md-7 text-center text-lg-end order-lg-last">
-            <div class="banner-mask-bg-wrap mb-5 mb-lg-0">
-              <img
-                class="shape-image"
-                src="assets/img/banner/6.webp"
-                alt="img"
-              />
-              <div class="thumb">
-                <img src="assets/img/banner/7.webp" alt="img" />
-              </div>
-            </div>
-          </div> */}
           <div class="order-lg-first align-self-center">
             <div
               data-aos="zoom-out-right"
@@ -582,18 +610,6 @@ function Home() {
                 PantiAsuhan Muhammadiyah <br />
                 <span style={{ color: "#00FF9C" }}> Pantinya Sang Juara</span>
               </h2>
-              {/* <h3>
-                Dcidunt eget semper nec quam. Sed hendrerit morbi ac felis. Nunc
-                egestas augue pellentesque
-              </h3>
-              <div class="btn-wrap">
-                <a class="btn btn-base me-2" href="blog.html">
-                  Get Started
-                </a>
-                <a class="btn btn-border-white" href="contact.html">
-                  Contact Us
-                </a>
-              </div> */}
             </div>
           </div>
           {/* </div> */}
@@ -611,10 +627,7 @@ function Home() {
                   data-aos-easing="ease-in-sine"
                   class="col-md-5">
                   <div class="thumb mb-4 mb-md-0">
-                    <img
-                      src={sambutanPanti?.foto}
-                      alt="img"
-                    />
+                    <img src={sambutanPanti?.foto} alt="img" />
                     <div class="quote-wrap">
                       <div class="quote">
                         <img
@@ -769,75 +782,88 @@ function Home() {
       </div>
 
       {/* Kegiatan */}
-      <div id="program" class="project-area bg-black pd-top-115">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-7">
-              <div
-                data-aos="flip-up"
-                class="section-title style-white text-center">
-                <h5 class="sub-title double-line" style={{ color: "#00FF9C" }}>
-                  Kegiatan / Program
-                </h5>
-                <h2 class="title">Program dan Kegiatan Panti Asuhan</h2>
-                <p class="content">
-                  Kami menyediakan berbagai kegiatan dan program untuk mendukung
-                  tumbuh kembang anak-anak, seperti pendidikan formal dan
-                  nonformal, pelatihan keterampilan, kegiatan keagamaan, serta
-                  program pengembangan karakter untuk membentuk generasi yang
-                  mandiri dan berakhlak mulia.
-                </p>
+      <div>
+        <div
+          style={{ backgroundImage: `url(${backgroundImage1})` }}
+          id="program"
+          class="banner-area banner-area-1 project-area bg-black bg-relative pd-top-115">
+          <div
+            className="banner-bg-img"
+            style={{
+              // backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
+              backgroundColor: "rgba(0, 0, 0, 0.7)",
+            }}></div>
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-7">
+                <div
+                  data-aos="flip-up"
+                  class="section-title style-white text-center">
+                  <h5
+                    class="sub-title double-line"
+                    style={{ color: "#00FF9C" }}>
+                    Kegiatan / Program
+                  </h5>
+                  <h2 class="title">Program dan Kegiatan Panti Asuhan</h2>
+                  <p class="content">
+                    Kami menyediakan berbagai kegiatan dan program untuk
+                    mendukung tumbuh kembang anak-anak, seperti pendidikan
+                    formal dan nonformal, pelatihan keterampilan, kegiatan
+                    keagamaan, serta program pengembangan karakter untuk
+                    membentuk generasi yang mandiri dan berakhlak mulia.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <Swiper
-          slidesPerView={4}
-          spaceBetween={30}
-          pagination={{
-            clickable: true,
-          }}
-          breakpoints={{
-            320: {
-              slidesPerView: 1, // 1 slide untuk layar sangat kecil (320px ke bawah)
-              spaceBetween: 10,
-            },
-            480: {
-              slidesPerView: 2, // 2 slide untuk layar sedang (480px ke bawah)
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 3, // 3 slide untuk tablet (768px ke bawah)
-              spaceBetween: 25,
-            },
-            1024: {
-              slidesPerView: 4, // 4 slide untuk layar besar
-              spaceBetween: 30,
-            },
-          }}
-          modules={[Pagination]}
-          className="mySwiper">
-          <div class="project-slider-2 slider-control-square owl-carousel">
-            {kegiatan.map((data) => (
-              <SwiperSlide>
-                <div class="item">
-                  <div
-                    data-aos="flip-down"
-                    class="single-project-inner style-two">
-                    <div class="thumb thumb-img">
-                      <img src={data.foto} alt="img" />
-                    </div>
-                    <div class="details-wrap">
-                      <h3>
-                        <a href={"/programpanti/" + data.id}>{data.judul}</a>
-                      </h3>
+          <Swiper
+            slidesPerView={4}
+            spaceBetween={30}
+            pagination={{
+              clickable: true,
+            }}
+            breakpoints={{
+              320: {
+                slidesPerView: 1, // 1 slide untuk layar sangat kecil (320px ke bawah)
+                spaceBetween: 10,
+              },
+              480: {
+                slidesPerView: 2, // 2 slide untuk layar sedang (480px ke bawah)
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 3, // 3 slide untuk tablet (768px ke bawah)
+                spaceBetween: 25,
+              },
+              1024: {
+                slidesPerView: 4, // 4 slide untuk layar besar
+                spaceBetween: 30,
+              },
+            }}
+            modules={[Pagination]}
+            className="mySwiper">
+            <div class="project-slider-2 slider-control-square owl-carousel">
+              {kegiatan.map((data) => (
+                <SwiperSlide>
+                  <div class="item">
+                    <div
+                      data-aos="flip-down"
+                      class="single-project-inner style-two">
+                      <div class="thumb thumb-img">
+                        <img src={data.foto} alt="img" />
+                      </div>
+                      <div class="details-wrap">
+                        <h3>
+                          <a href={"/programpanti/" + data.id}>{data.judul}</a>
+                        </h3>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </div>{" "}
-        </Swiper>
+                </SwiperSlide>
+              ))}
+            </div>{" "}
+          </Swiper>
+        </div>
       </div>
       {/* <div
         className="about-area pd-top-90 pd-bottom-120"
@@ -1103,7 +1129,10 @@ function Home() {
                   </div>
                   <div class="details shadow">
                     <h4>
-                      <a className="content-preview" href={`/beritapanti/${data.id}`}>
+                      <a
+                        style={{ color: "#0d2f74", textDecoration: "none" }}
+                        className="content-preview"
+                        href={`/beritapanti/${data.id}`}>
                         {data.judul_berita}
                       </a>
                     </h4>
@@ -1182,9 +1211,106 @@ function Home() {
           </div>
         </div>
       </div>
+      {/* Galeri */}
+      <div
+        style={{
+          backgroundImage:
+            "url('https://solverwp.com/demo/html/itechie/assets/img/bg/10.webp')",
+        }}
+        class="project-area half-bg-top pd-top-115">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-10">
+              <div
+                data-aos="zoom-in-down"
+                class="section-title style-white text-center">
+                {/* <h5 class="sub-title double-border">Work Process</h5> */}
+                <h2 class="title text-white">Galery</h2>
+                <p class="content text-white">
+                  Galeri panti asuhan menampilkan momen kebahagiaan,
+                  kreativitas, dan kegiatan sehari-hari anak-anak, mencerminkan
+                  semangat harapan dan kebersamaan yang indah.
+                </p>
+              </div>
+            </div>
+          </div>
+          <Swiper
+            effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            spaceBetween={10}
+            slidesPerView={3}
+            breakpoints={{
+              320: {
+                slidesPerView: 1, // 1 slide untuk layar sangat kecil (320px ke bawah)
+                spaceBetween: 10,
+              },
+              480: {
+                slidesPerView: 2, // 2 slide untuk layar sedang (480px ke bawah)
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 3, // 3 slide untuk tablet (768px ke bawah)
+                spaceBetween: 25,
+              },
+              1024: {
+                slidesPerView: 4, // 4 slide untuk layar besar
+                spaceBetween: 30,
+              },
+            }}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 5,
+              depth: 100,
+              modifier: 1,
+              slideShadows: false,
+            }}
+            pagination={true}
+            modules={[EffectCoverflow, Pagination]}
+            className="mySwiper">
+            <div class="project-slider slider-control-round owl-carousel">
+              <div class="item">
+                {galery.map((data) => (
+                  <SwiperSlide>
+                    <div data-aos="zoom-in" class="single-project-inner">
+                      <div class="thumb">
+                        <button
+                          style={{
+                            justifyContent: "center",
+                            justifyItems: "center",
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                          onClick={() => {
+                            handleOpen();
+                            byIdGalery(data.id);
+                          }}
+                          class="icon swp-readmore-arrow swp-image-popup">
+                          <i class="fas fa-search-minus"></i>
+                        </button>
+                        <img src={data.foto} alt="img" />
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </div>
+            </div>
+          </Swiper>
+        </div>
+      </div>
 
       {/* Santri */}
-      <div id="santri" class="team-area pd-top-115 pd-bottom-90">
+      <div id="santri" class="bg-relative team-area pd-top-115 pd-bottom-90">
+      <img
+        class="shape-left-top top_image_bounce"
+        src="https://solverwp.com/demo/html/itechie/assets/img/shape/3.webp"
+        alt="img"
+      />
+      <img
+        class="shape-right-top top_image_bounce"
+        src="https://solverwp.com/demo/html/itechie/assets/img/shape/4.webp"
+        alt="img"
+      />
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
@@ -1262,90 +1388,6 @@ function Home() {
           <img style={{width:"50px"}} src="https://swiperjs.com/demos/images/nature-9.jpg" />
         </SwiperSlide>
       </Swiper> */}
-      {/* Galeri */}
-      <div
-        style={{ background: "#f0f9f0" }}
-        class="project-area half-bg-top pd-top-115">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-10">
-              <div
-                data-aos="zoom-in-down"
-                class="section-title style-white text-center">
-                {/* <h5 class="sub-title double-border">Work Process</h5> */}
-                <h2 class="title text-black">Galery</h2>
-                <p class="content text-black">
-                  Galeri panti asuhan menampilkan momen kebahagiaan,
-                  kreativitas, dan kegiatan sehari-hari anak-anak, mencerminkan
-                  semangat harapan dan kebersamaan yang indah.
-                </p>
-              </div>
-            </div>
-          </div>
-          <Swiper
-            effect={"coverflow"}
-            grabCursor={true}
-            centeredSlides={true}
-            spaceBetween={10}
-            slidesPerView={3}
-            breakpoints={{
-              320: {
-                slidesPerView: 1, // 1 slide untuk layar sangat kecil (320px ke bawah)
-                spaceBetween: 10,
-              },
-              480: {
-                slidesPerView: 2, // 2 slide untuk layar sedang (480px ke bawah)
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 3, // 3 slide untuk tablet (768px ke bawah)
-                spaceBetween: 25,
-              },
-              1024: {
-                slidesPerView: 4, // 4 slide untuk layar besar
-                spaceBetween: 30,
-              },
-            }}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 5,
-              depth: 100,
-              modifier: 1,
-              slideShadows: false,
-            }}
-            pagination={true}
-            modules={[EffectCoverflow, Pagination]}
-            className="mySwiper">
-            <div class="project-slider slider-control-round owl-carousel">
-              <div class="item">
-                {galery.map((data) => (
-                  <SwiperSlide>
-                    <div data-aos="zoom-in" class="single-project-inner">
-                      <div class="thumb">
-                        <button
-                          style={{
-                            justifyContent: "center",
-                            justifyItems: "center",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                          onClick={() => {
-                            handleOpen();
-                            byIdGalery(data.id);
-                          }}
-                          class="icon swp-readmore-arrow swp-image-popup">
-                          <i class="fas fa-search-minus"></i>
-                        </button>
-                        <img src={data.foto} alt="img" />
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </div>
-            </div>
-          </Swiper>
-        </div>
-      </div>
       {/* <Swiper
         slidesPerView={3}
         spaceBetween={30}

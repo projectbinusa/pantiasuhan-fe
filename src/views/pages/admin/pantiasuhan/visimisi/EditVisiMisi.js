@@ -8,7 +8,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -73,7 +73,7 @@ function EditVisiMisiPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/visi-misi/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/visi-misi/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -100,7 +100,7 @@ function EditVisiMisiPanti() {
     };
 
     await axios
-      .put(`${API_DUMMY_PYTHON}/api/admin/visi-misi/` + param.id, data, {
+      .put(`${API_DUMMY}/api/admin/visi-misi/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -1033,6 +1033,13 @@ function EditVisiMisiPanti() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+        .ck-editor__editable {
+          min-height: 400px;
+        }
+        `}
+      </style>
     </div>
   );
 }

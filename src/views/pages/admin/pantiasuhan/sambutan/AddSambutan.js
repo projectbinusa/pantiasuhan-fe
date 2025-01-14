@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -83,7 +83,7 @@ function AddSambutanPanti() {
         imageUrl = await uploadImageToS3(foto);
       }
       const response = await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/sambutan`,
+        `${API_DUMMY}/api/admin/sambutan`,
         {
           judul: judul,
           isi_sambutan: isi_sambutan,
@@ -624,6 +624,13 @@ function AddSambutanPanti() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+        .ck-editor__editable {
+          min-height: 400px;
+        }
+        `}
+      </style>
     </div>
   );
 }

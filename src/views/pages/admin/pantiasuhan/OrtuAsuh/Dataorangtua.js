@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -8,6 +8,16 @@ import {
 } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import "../../../../../css/button.css";
+
+const formatDate = (value) => {
+  const date = new Date(value);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${day}-${month}-${year}`;
+}
 
 function Dataortu() {
   const [list, setList] = useState([]);
@@ -41,7 +51,7 @@ function Dataortu() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
+        `${API_DUMMY}/api/admin/foster_parent`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -70,7 +80,7 @@ function Dataortu() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/foster_parent/` + id, {
+          .delete(`${API_DUMMY}/api/admin/foster_parent/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -222,10 +232,12 @@ function Dataortu() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>name</th>
-                    <th scope="col" style={{ minWidth: "150px" }}>
-                      alamat
-                    </th>
+                    <th>nama</th>
+                    <th>TTL</th>
+                    <th>Pekerjaan</th>
+                    <th>No HP</th>
+                    <th>Anak Asuh</th>
+                    <th scope="col" style={{ minWidth: "150px" }}>Alamat</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -238,7 +250,11 @@ function Dataortu() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td data-label="Nama">{row.name}</td>
-                          <td data-label="Alamat">{row.address}</td>
+                          <td data-label="TTL">{row.birth_place}, {formatDate(row.birth_date)}</td>
+                          <td data-label="Pekerjaan">{row.work}</td>
+                          <td data-label="No HP">{row.phone}</td>
+                          <td data-label="Anak Asuh">{row.nama_anak}</td> 
+                          <td data-label="Alamat">{row.url_image}</td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                             {userRole !== "yayasan" && (
@@ -273,7 +289,7 @@ function Dataortu() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="4" className="text-center my-3">
+                      <td colSpan="8" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>

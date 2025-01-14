@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
   Image,
@@ -81,7 +81,7 @@ function AddBeritaAdminPanti() {
         imageUrl = await uploadImageToS3(image);
       }
       await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/berita`,
+        `${API_DUMMY}/api/admin/berita`,
         {
           author: author,
           category: categoryBerita,
@@ -593,6 +593,13 @@ function AddBeritaAdminPanti() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+        .ck-editor__editable {
+          min-height: 400px;
+        }
+        `}
+      </style>
     </div>
     // </div>
   );

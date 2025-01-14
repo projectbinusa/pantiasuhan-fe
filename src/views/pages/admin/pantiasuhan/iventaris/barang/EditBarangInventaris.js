@@ -8,7 +8,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY_PYTHON } from "../../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
 
 function EditBarangInventaris() {
@@ -34,7 +34,7 @@ function EditBarangInventaris() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/status_barang`,
+          `${API_DUMMY}/api/admin/status_barang`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -50,7 +50,7 @@ function EditBarangInventaris() {
     const fetchDataKategori = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/kategori_barang`, // Asumsi endpoint berbeda
+          `${API_DUMMY}/api/admin/kategori_barang`, // Asumsi endpoint berbeda
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -66,7 +66,7 @@ function EditBarangInventaris() {
     const fetchDataLokasi = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/lokasi_barang`, // Asumsi endpoint berbeda
+          `${API_DUMMY}/api/admin/lokasi_barang`, // Asumsi endpoint berbeda
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -82,7 +82,7 @@ function EditBarangInventaris() {
     const fetchDataKondisi = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/kondisi_barang`, // Asumsi endpoint berbeda
+          `${API_DUMMY}/api/admin/kondisi_barang`, // Asumsi endpoint berbeda
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -105,7 +105,7 @@ function EditBarangInventaris() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_PYTHON}/api/admin/investaris/` + param.id, {
+      .get(`${API_DUMMY}/api/admin/investaris/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -149,7 +149,7 @@ function EditBarangInventaris() {
 
     try {
       await axios.put(
-        `${API_DUMMY_PYTHON}/api/admin/investaris/${param.id}`,
+        `${API_DUMMY}/api/admin/investaris/${param.id}`,
         {
           name: namaBarang,
           kategori_barang_id: idKategori,

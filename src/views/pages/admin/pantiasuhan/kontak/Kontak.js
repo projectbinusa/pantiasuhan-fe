@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import idLocale from "date-fns/locale/id";
 import { format } from "date-fns";
@@ -22,7 +22,7 @@ function KontakPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kontak-organization/${organization_id}/organization`,
+        `${API_DUMMY}/api/admin/kontak-organization/${organization_id}/organization`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -30,7 +30,7 @@ function KontakPanti() {
         }
       );
       const res = response.data.data;
-      setList(res)      
+      setList(res)
       console.log(res);
       setEmail(res.email);
       setFax(res.fax);
@@ -202,20 +202,6 @@ function KontakPanti() {
                     //   { locale: idLocale }
                     // )}
                     value={createdDate}
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label fw-bold">Tanggal Update</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    disabled
-                    // value={format(
-                    //   new Date(updateDate || new Date()),
-                    //   "dd MMMM yyyy",
-                    //   { locale: idLocale }
-                    // )}
-                    value={updateDate}
                   />
                 </div>
               </div>

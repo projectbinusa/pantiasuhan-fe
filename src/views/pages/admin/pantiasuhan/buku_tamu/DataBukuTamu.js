@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -45,7 +45,7 @@ function DataBukuTamu() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/guestbook?page=${currentPage}&size=${rowsPerPage}`,
+        `${API_DUMMY}/api/admin/guestbook?page=${currentPage}&size=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -76,7 +76,7 @@ function DataBukuTamu() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/guestbook/` + id, {
+          .delete(`${API_DUMMY}/api/admin/guestbook/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -135,7 +135,11 @@ function DataBukuTamu() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -146,13 +150,16 @@ function DataBukuTamu() {
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+        <div
+          className="container box-table mt-3 app-main__outer"
+          data-aos="fade-left"
+        >
           {/* Baris filter dan pagination */}
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Buku Tamu</p>
               {/* ... */}
-              <div className="d-flex ml-auto gap-3">
+              {/* <div className="d-flex ml-auto gap-3">
                 {role !== "yayasan" && (
                   <button
                     className="active btn-focus p-2 rounded"
@@ -161,18 +168,23 @@ function DataBukuTamu() {
                     <a href="/add_buku_tamu">Tambah Tamu</a>
                   </button>
                 )}
-              </div>
+              </div> */}
             </div>
-            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
+            <div
+              className="table-responsive-3"
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama Orang Tua</th>
+                    <th>Nama Tamu</th>
                     <th>Nomor Whatsapp</th>
                     <th>Alamat</th>
                     <th>Tanggal Kunjungan</th>
-                    <th scope="col" style={{ minWidth: "150px" }}>Tujuan Kunjungan</th>
+                    <th scope="col" style={{ minWidth: "150px" }}>
+                      Tujuan Kunjungan
+                    </th>
                     <th>TTD</th>
                     <th>Catatan</th>
                     <th>Aksi</th>
@@ -190,7 +202,7 @@ function DataBukuTamu() {
                         <td>{berita.description_donation}</td>
                         <td>
                           <img
-                            src={berita.url_image_donation || ""}
+                            src={berita.signature ? berita.signature : ""}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>

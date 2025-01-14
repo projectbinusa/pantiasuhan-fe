@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -38,7 +38,7 @@ function KategoriBarangInventaris() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kategori_barang`,
+        `${API_DUMMY}/api/admin/kategori_barang`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -68,7 +68,7 @@ function KategoriBarangInventaris() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/kategori_barang/` + id, {
+          .delete(`${API_DUMMY}/api/admin/kategori_barang/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -161,7 +161,7 @@ function KategoriBarangInventaris() {
     console.log(data);
 
     try {
-      await axios.post(`${API_DUMMY_PYTHON}/api/admin/kategori_barang`, data, {
+      await axios.post(`${API_DUMMY}/api/admin/kategori_barang`, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },

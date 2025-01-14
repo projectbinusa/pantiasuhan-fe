@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -39,7 +39,7 @@ function KegiatanPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_PYTHON}/api/admin/kegiatan?page=${currentPage}&size=${rowsPerPage}`,
+        `${API_DUMMY}/api/admin/kegiatan?page=${currentPage}&size=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -49,7 +49,7 @@ function KegiatanPanti() {
       setList(response.data.data);
       console.log(response.data);
       setPaginationInfo({
-        totalPages: response.data.pagination.total_pages,
+        totalPages: Math.ceil(response.data.pagination.total/rowsPerPage),
         totalElements: response.data.pagination.total,
       });
     } catch (error) {
@@ -70,7 +70,7 @@ function KegiatanPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/kegiatan/` + id, {
+          .delete(`${API_DUMMY}/api/admin/kegiatan/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -222,7 +222,7 @@ function KegiatanPanti() {
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th style={{ maxWidth: "350px" }}>Program</th>
+                    <th>Program</th>
                     <th>Penulis</th>
                     <th>Tanggal Dibuat</th>
                     <th>Tanggal Update</th>
@@ -237,10 +237,7 @@ function KegiatanPanti() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td
-                            data-label="Program"
-                            style={{ maxWidth: "350px" }}
-                          >
+                          <td data-label="Program">
                             <p className="isiBerita">{kegiatan.judul}</p>
                           </td>
                           <td data-label="Penulis">{kegiatan.penulis}</td>

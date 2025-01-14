@@ -5,8 +5,9 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function AddAnak() {
   const [nama, setNama] = useState("");
@@ -14,15 +15,13 @@ function AddAnak() {
   const [password, setPassword] = useState("");
   const [rfidNumber, setRFIDNumber] = useState("");
   const [nik, setNIK] = useState("");
-
-
   const [idOrangTua, setIdOrangTua] = useState("");
+  const [listFosterParent, setListFosterParent] = useState("");
   const [namaOrangTua, setNamaOrangTua] = useState("");
-  const [tanggal, setTanggal] = useState("");
-  const [image, setImage] = useState(null);
-  const [deskripsi, setDeskripsi] = useState("");
-  const [catatan, setCatatan] = useState("");
-  const [foster_parent, setListFosterParent] = useState([]);
+  const [birthPlace, setBirthPlace] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [education, setEducation] = useState("");
+  const [foto, setFoto] = useState(null);
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -40,7 +39,7 @@ function AddAnak() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_PYTHON}/api/admin/foster_parent`,
+          `${API_DUMMY}/api/admin/foster_parent`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -60,7 +59,6 @@ function AddAnak() {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-    console.log("nama: ", namaOrangTua);
   }, []);
 
   //add
@@ -69,8 +67,13 @@ function AddAnak() {
     e.persist();
 
     try {
+      let imageUrl = foto;
+
+      if (foto) {
+        imageUrl = await uploadImageToS3(foto);
+      }
       await axios.post(
-        `${API_DUMMY_PYTHON}/api/admin/siswa`,
+        `${API_DUMMY}/api/admin/siswa`,
         {
           name: nama,
           username: username,
@@ -148,6 +151,48 @@ function AddAnak() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Tempat Lahir
+                          </label>
+                          <input
+                            value={birthPlace}
+                            onChange={(e) => setBirthPlace(e.target.value)}
+                            placeholder="Masukkan Nama Tempat Lahir" className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Tanggal Lahir
+                          </label>
+                          <input
+                            value={birthDate}
+                            onChange={(e) => setBirthDate(e.target.value)}
+                            type="date" className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Pendidikan
+                          </label>
+                          <select className="form-control" onChange={(e) => setEducation(e.target.value)}>
+                            <option>Pilih</option>
+                            <option value="SD/MI">SD/MI</option>
+                            <option value="SMP/Mts">SMP/Mts</option>
+                            <option value="SMA/SMK/MA">SMA/SMK/MA</option>
+                            <option value="Kuliah">Kuliah</option>
+                          </select>
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label  font-weight-bold ">
+                            Nama Orang Tua Kandung
+                          </label>
+                          <input
+                            value={namaOrangTua}
+                            onChange={(e) => setNamaOrangTua(e.target.value)}
+                            placeholder="Masukkan Nama Orang Tua Kandung" className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Username
                           </label>
@@ -186,6 +231,17 @@ function AddAnak() {
                             onChange={(e) => setNIK(e.target.value)}
                             placeholder="Masukkan NIK Anak Asuh" className="form-control"
                           />                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Foto
+                          </label>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setFoto(e.target.files[0])}
+                            className="form-control"
+                          />
+                        </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
