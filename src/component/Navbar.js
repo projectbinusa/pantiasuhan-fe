@@ -170,8 +170,8 @@ function Navbar() {
                 <ul className="social-media">
                   <li>
                     <a
-                      className="facebook"
-                      href="https://www.facebook.com/Bawaslu.Kabupaten.Boyolali"
+                      className="facebook" href="#"
+                      // href="https://www.facebook.com/Bawaslu.Kabupaten.Boyolali"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-facebook-f"></i>
@@ -179,8 +179,8 @@ function Navbar() {
                   </li>
                   <li>
                     <a
-                      className="twitter"
-                      href="https://twitter.com/i/flow/login?redirect_after_login=%2Fbawasluboyolali"
+                      className="twitter" href="#"
+                      // href="https://twitter.com/i/flow/login?redirect_after_login=%2Fbawasluboyolali"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-twitter"></i>
@@ -188,8 +188,8 @@ function Navbar() {
                   </li>
                   <li>
                     <a
-                      className="instagram"
-                      href="https://www.instagram.com/bawaslu_boyolali/"
+                      className="instagram" href="#"
+                      // href="https://www.instagram.com/bawaslu_boyolali/"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-instagram"></i>
@@ -197,8 +197,8 @@ function Navbar() {
                   </li>
                   <li>
                     <a
-                      className="youtube"
-                      href="https://www.youtube.com/channel/UC-OZT-HT_Qg7cUmo-oHfkAw"
+                      className="youtube" href="#"
+                      // href="https://www.youtube.com/channel/UC-OZT-HT_Qg7cUmo-oHfkAw"
                       target="_blank"
                       rel="noreferrer">
                       <i className="fab fa-youtube"></i>

@@ -322,7 +322,7 @@ function AddKegiatanPanti() {
                             placeholder="Masukkan Nama Program"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        {/* <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Kategori Program
                           </label>
@@ -349,7 +349,7 @@ function AddKegiatanPanti() {
                               Bersama Jadi Juara
                             </option>
                           </select>
-                        </div>
+                        </div> */}
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Gambar

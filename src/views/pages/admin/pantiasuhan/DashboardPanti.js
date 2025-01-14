@@ -56,6 +56,7 @@ function DashboardPanti() {
           headers: { "auth-tgh": `jwt ${token}` },
         }
       );
+            
       setFetchWeekly(response.data.data?.total_income || 0);
       setJumlahDanaKeluar(response.data.data?.total_outcome || 0);
     } catch (error) {
