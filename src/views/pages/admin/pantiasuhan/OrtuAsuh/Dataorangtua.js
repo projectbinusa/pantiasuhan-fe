@@ -9,6 +9,16 @@ import {
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import "../../../../../css/button.css";
 
+const formatDate = (value) => {
+  const date = new Date(value);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${day}-${month}-${year}`;
+}
+
 function Dataortu() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
@@ -240,11 +250,11 @@ function Dataortu() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td data-label="Nama">{row.name}</td>
-                          <td data-label="TTL">{row.birth_place}, {row.birth_date}</td>
+                          <td data-label="TTL">{row.birth_place}, {formatDate(row.birth_date)}</td>
                           <td data-label="Pekerjaan">{row.work}</td>
                           <td data-label="No HP">{row.phone}</td>
-                          <td data-label="Anak Asuh">{row.address}</td> 
-                          <td data-label="Alamat">{row.address}</td>
+                          <td data-label="Anak Asuh">{row.nama_anak}</td> 
+                          <td data-label="Alamat">{row.url_image}</td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                             {userRole !== "yayasan" && (

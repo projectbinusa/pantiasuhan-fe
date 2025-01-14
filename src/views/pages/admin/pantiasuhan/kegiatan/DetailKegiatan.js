@@ -146,7 +146,7 @@ function DetailKegiatanPanti() {
               </div>
               <button
                 type="submit"
-                className="btn-kembali btn-danger mt-3 mr-3"
+                className="btn-kembali btn-danger px-0"
               >
                 <a
                   href="/admin_program"

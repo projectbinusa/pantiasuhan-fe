@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function AddAnak() {
   const [nama, setNama] = useState("");
@@ -20,6 +21,7 @@ function AddAnak() {
   const [birthPlace, setBirthPlace] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [education, setEducation] = useState("");
+  const [foto, setFoto] = useState(null);
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -65,6 +67,11 @@ function AddAnak() {
     e.persist();
 
     try {
+      let imageUrl = foto;
+
+      if (foto) {
+        imageUrl = await uploadImageToS3(foto);
+      }
       await axios.post(
         `${API_DUMMY}/api/admin/siswa`,
         {
@@ -224,6 +231,17 @@ function AddAnak() {
                             onChange={(e) => setNIK(e.target.value)}
                             placeholder="Masukkan NIK Anak Asuh" className="form-control"
                           />                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Foto
+                          </label>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setFoto(e.target.files[0])}
+                            className="form-control"
+                          />
+                        </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a

@@ -20,9 +20,9 @@ function EditOrtu() {
   const [birthDate, setBirthDate] = useState("");
   const [pekerjaan, setPekerjaan] = useState("");
   const [penghasilan, setPenghasilan] = useState("");
-  const [status, setStatus] = useState("");
   const [nohp, setNoHp] = useState("");
   const [foto, setFoto] = useState("");
+  const [image, setImage] = useState("");
 
   const param = useParams();
   const history = useHistory();
@@ -50,16 +50,9 @@ function EditOrtu() {
     e.preventDefault();
     e.persist();
   
-    let imageUrl = foto;
-  
-    if (foto) {
-      imageUrl = await uploadImageToS3(foto); // Menggunakan await untuk menunggu proses async
-    }
-  
     const datas = {
       name: nama,
       address: alamat,
-      url_image: imageUrl,
       phone: nohp,
       birth_place: birthPlace,
       birth_date: birthDate,
@@ -111,8 +104,18 @@ function EditOrtu() {
       })
       .then((ress) => {
         const response = ress.data.data;
+        console.log(response);
+        
         setNama(response.name);
         setAlamat(response.address);
+        setBirthDate(response.birth_date);
+        setBirthPlace(response.birth_place);
+        setPekerjaan(response.work);
+        setPenghasilan(response.income);
+        setIDAnak(response.id_anak);
+        setNamaAnak(response.nama_anak)
+        setNoHp(response.phone);
+        // setImage(response)
       })
       .catch((error) => {
         console.log(error);
@@ -248,21 +251,6 @@ function EditOrtu() {
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold "
                     >
-                      Status Saat Ini
-                    </label>
-                    <input
-                      value={status}
-                      onChange={(e) => setStatus(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      placeholder="Masukkan Status Saat Ini"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-6">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label  font-weight-bold "
-                    >
                       No HP
                     </label>
                     <input
@@ -301,7 +289,7 @@ function EditOrtu() {
                       ))}
                     </select>
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  {/* <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
                       Gambar
                     </label>
@@ -311,7 +299,7 @@ function EditOrtu() {
                       onChange={(e) => setFoto(e.target.files[0])}
                       className="form-control"
                     />
-                  </div>
+                  </div> */}
                 </div>
                 <button type="button" className="btn-danger mt-3">
                   <a

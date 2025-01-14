@@ -19,7 +19,6 @@ function AddOrtu() {
   const [birthDate, setBirthDate] = useState("");
   const [pekerjaan, setPekerjaan] = useState("");
   const [penghasilan, setPenghasilan] = useState("");
-  const [status, setStatus] = useState("");
   const [nohp, setNoHp] = useState("");
   const [foto, setFoto] = useState("");
 
@@ -28,16 +27,16 @@ function AddOrtu() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
-    let imageUrl = foto;
+    // let imageUrl = foto;
 
-    if (foto) {
-      imageUrl = await uploadImageToS3(foto);
-    }
+    // if (foto) {
+    //   imageUrl = await uploadImageToS3(foto);
+    // }
 
     const datas = {
       name: nama,
       address: alamat,
-      url_image: imageUrl,
+      // url_image: imageUrl,
       phone: nohp,
       birth_place: birthPlace,
       birth_date: birthDate,
@@ -227,7 +226,7 @@ function AddOrtu() {
                           placeholder="Masukkan Penghasilan"
                         />
                       </div>
-                      <div className="mb-3 col-lg-6">
+                      {/* <div className="mb-3 col-lg-6">
                         <label
                           for="exampleInputEmail1"
                           className="form-label  font-weight-bold "
@@ -241,7 +240,7 @@ function AddOrtu() {
                           className="form-control"
                           placeholder="Masukkan Status Saat Ini"
                         />
-                      </div>
+                      </div> */}
                       <div className="mb-3 col-lg-6">
                         <label
                           for="exampleInputEmail1"
@@ -285,7 +284,7 @@ function AddOrtu() {
                           ))}
                         </select>
                       </div>
-                      <div className="mb-3 col-lg-6">
+                      {/* <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
                           Gambar
                         </label>
@@ -295,7 +294,7 @@ function AddOrtu() {
                           onChange={(e) => setFoto(e.target.files[0])}
                           className="form-control"
                         />
-                      </div>
+                      </div> */}
                     </div>
                     <button type="button" className="btn-danger mt-3 mr-3">
                       <a
