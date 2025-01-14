@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -26,6 +26,26 @@ function LaporanTahunanPresensi() {
 
   const getTgl = () => {
     setDate2(date);
+  };
+
+  const exportTahunan = async () => {
+    try {
+      const response = await axios({
+        url: `${API_DUMMY_SMART}/api/absensi/export-tahunan`,
+        method: "GET",
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "laporan-tahunan.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Gagal mengekspor absensi tahunan:", error);
+    }
   };
 
   const getAll = async () => {
@@ -164,6 +184,13 @@ function LaporanTahunanPresensi() {
           <button className="btn-primary ml-3" type="button" onClick={getTgl}>
             Pilih
           </button>
+          <button
+            className="btn-primary ml-3"
+            type="button"
+            onClick={exportTahunan}
+          >
+            Export
+          </button>
         </div>
         <div
           className="container box-table app-main__outer"
@@ -231,12 +258,10 @@ function LaporanTahunanPresensi() {
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Bulan</th>
-                    <th>Hadir</th>
-                    <th>Sakit</th>
-                    <th>Izin</th>
-                    <th>Alpha</th>
-                    <th>% Kehadiran</th>
+                    <th>Nama</th>
+                    <th>Jam Masuk</th>
+                    <th>Jam Pulang</th>
+                    <th>Keterangan</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -46,7 +46,6 @@ function LaporanBulananPresensi() {
           },
         }
       );
-
       const { data, pagination } = response.data;
       console.log(response);
       setList(data);
@@ -56,6 +55,26 @@ function LaporanBulananPresensi() {
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
+    }
+  };
+
+  const exportBulanan = async () => {
+    try {
+      const response = await axios({
+        url: `${API_DUMMY}/api/absensi/export-bulanan`,
+        method: "GET",
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "laporan-bulanan.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Gagal mengekspor absensi bulanan:", error);
     }
   };
 
@@ -172,6 +191,13 @@ function LaporanBulananPresensi() {
             onClick={getAll}
           >
             Pilih
+          </button>
+          <button
+            className="btn-primary ml-3"
+            type="button"
+            onClick={exportBulanan}
+          >
+            Export
           </button>
         </div>
 
