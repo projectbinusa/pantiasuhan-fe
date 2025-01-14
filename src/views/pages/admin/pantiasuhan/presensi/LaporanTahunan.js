@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_ABSEN, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -31,8 +31,11 @@ function LaporanTahunanPresensi() {
   const exportTahunan = async () => {
     try {
       const response = await axios({
-        url: `${API_DUMMY_SMART}/api/absensi/export-tahunan`,
+        url: `${API_DUMMY_ABSEN}/api/absensi/export-tahunan?tahun=${tahun}`,
         method: "GET",
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
         responseType: "blob",
       });
 
@@ -54,7 +57,7 @@ function LaporanTahunanPresensi() {
       console.log(tgl);
 
       const response = await axios.get(
-        `${API_DUMMY}/api/siswa/absensi/tahunan/${tgl}?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/customer/absen?page=${currentPage}&limit=${rowsPerPage}&year=${tgl}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -272,22 +275,11 @@ function LaporanTahunanPresensi() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama"> {item.nama_siswa}</td>
+                          <td data-label="Nama"> {item.name }</td>
                           <td data-label="Tanggal">{item.created_date}</td>
                           <td data-label="Jam Masuk">{item.jam_masuk}</td>
                           <td data-label="Jam Pulang">{item.jam_pulang}</td>
                           <td data-label="Keterangan">{item.description}</td>
-                          <td data-label="Aksi" className="action">
-                            <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                onClick={() => deleteData(item.id)}
-                                type="button"
-                                className="btn-danger btn-sm"
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                            </div>
-                          </td>
                         </tr>
                       );
                     })
