@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY, API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
+import { API_DUMMY_PYTHON } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
-// import kegiatan from "../../../../../aset/smpn1bergas/kegiatan.png";
 import "../../../../../css/button.css";
+
 function Iventaris() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const userRole = localStorage.getItem("role");
   const [paginationInfo, setPaginationInfo] = useState({
     totalPages: 1,
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const organizationId = localStorage.getItem("organization_id");
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -46,13 +46,23 @@ function Iventaris() {
           },
         }
       );
-      setList(response.data.data);
-      console.log(response.data.data);
-      setPaginationInfo({
-        totalPages: response.data.pagination.total_pages,
-      });
+
+      console.log("Response dari API:", response);
+
+      if (response.data && response.data.data) {
+        const filteredData = response.data.data.filter(
+          (item) => item.organization_id === organizationId
+        );
+        setList(filteredData);
+        setPaginationInfo({
+          totalPages: Math.ceil(filteredData.length / rowsPerPage),
+          totalElements: filteredData.length,
+        });
+      } else {
+        console.log("Data kosong atau tidak ditemukan", response);
+      }
     } catch (error) {
-      console.error("Terjadi Kesalahan", error);
+      console.error("Terjadi kesalahan:", error);
     }
   };
 
@@ -69,7 +79,7 @@ function Iventaris() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_PYTHON}/api/admin/investaris` + id, {
+          .delete(`${API_DUMMY_PYTHON}/api/admin/investaris/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -81,10 +91,7 @@ function Iventaris() {
               showConfirmButton: false,
               timer: 1500,
             });
-            getAll();
-            setTimeout(() => {
-              window.location.reload();
-            }, 1500);
+            getAll(); 
           })
           .catch((err) => {
             Swal.fire({
@@ -100,7 +107,7 @@ function Iventaris() {
   };
 
   useEffect(() => {
-    getAll(currentPage);
+    getAll();
   }, [currentPage, rowsPerPage]);
 
   useEffect(() => {
@@ -109,21 +116,24 @@ function Iventaris() {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setCurrentPage(1); 
   };
 
+  
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
-    setCurrentPage(1);
+    setCurrentPage(1); 
   };
 
+  
   const filteredList = list.filter((item) =>
-    Object.values(item).some(
-      (value) =>
-        typeof value === "string" &&
-        value.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    searchTerm === ""
+      ? true
+      : Object.values(item).some(
+          (value) =>
+            typeof value === "string" &&
+            value.toLowerCase().includes(searchTerm.toLowerCase())
+        )
   );
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
@@ -222,103 +232,52 @@ function Iventaris() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>nama</th>
+                    <th>Nama</th>
                     <th scope="col" style={{ minWidth: "150px" }}>
-                      tanggal pembelian
+                      Tanggal Pembelian
                     </th>
-                    <th>harga pembelian</th>
-                    <th>Image</th>
+                    <th>Harga Pembelian</th>
+                    <th>Kategori</th>
                     <th>Keterangan</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredList.length > 0 ? (
-                    filteredList.map((row, no) => {
-                      return (
-                        <tr key={no}>
-                          <td data-label="No" className="">
-                            {no + 1 + (currentPage - 1) * rowsPerPage}
-                          </td>
-                          <td data-label="Nama">{row.name}</td>
-                          <td data-label="Tanggal Pembelian">
-                            {row.purchase_date}
-                          </td>
-                          <td data-label="Harga Pembelian">
-                            {row.purchase_price}
-                          </td>
-                          <td data-label="Image" className="">
-                            <img
-                              src={row.url_image ? row.url_image : ""}
-                              style={{
-                                height: "4.5rem",
-                                width: "4.5rem",
-                                marginLeft: "auto",
-                                marginRight: "auto",
-                                display: "flex",
-                              }}
-                            />
-                          </td>
-                          <td data-label="Keterangan">{row.url_note}</td>
-                          <td data-label="Aksi" className="action">
-                            <div className="d-flex justify-content-center align-items-center">
-                            {userRole !== "yayasan" && (
-                              <>
-                              <button
-                                type="button"
-                                className="btn-primary btn-sm mr-2"
-                              >
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/edit_iventaris/${row.id}`}
-                                >
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
-                              </button>
-                              <button
-                                onClick={() => deleteData(row.id)}
-                                type="button"
-                                className="btn-danger btn-sm"
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                              </>
-                              )}
-                            </div>
+                    filteredList
+                      .slice(
+                        (currentPage - 1) * rowsPerPage,
+                        currentPage * rowsPerPage
+                      )
+                      .map((row, id) => (
+                        <tr key={id}>
+                          <td>{id + 1 + (currentPage - 1) * rowsPerPage}</td>
+                          <td>{row.kategori_barang_name}</td>
+                          <td>{row.tanggal_masuk}</td>
+                          <td>{row.purchase_price}</td>
+                          <td>{row.kategori_barang_name}</td>
+                          <td>
+                            <button onClick={() => deleteData(row.id)}>
+                              Delete
+                            </button>
                           </td>
                         </tr>
-                      );
-                    })
+                      ))
                   ) : (
                     <tr>
-                      <td colSpan="7" className="text-center my-3">
-                        <div style={{ padding: "10px", color: "#555" }}>
-                          Tidak ada data yang tersedia.
-                        </div>
-                      </td>
+                      <td colSpan="7">Tidak ada data</td>
                     </tr>
                   )}
                 </tbody>
               </table>
-            </div>
-            <div className="card-header mt-3 d-flex justify-content-center">
               <Pagination
-                count={paginationInfo.totalPages}
+                count={totalPages}
                 page={currentPage}
-                onChange={(event, value) => {
-                  setCurrentPage(value);
-                  setPage(value);
-                }}
-                showFirstButton
-                showLastButton
+                onChange={(_, pageNumber) => setCurrentPage(pageNumber)}
                 color="primary"
               />
             </div>
           </div>
-          {/* <FotoKegiatan></FotoKegiatan> */}
         </div>
       </div>
     </div>

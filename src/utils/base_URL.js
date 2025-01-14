@@ -11,5 +11,5 @@ export const API_DUMMY_SMART_DEV = "https://dev-api.byrtagihan.com";
 export const API_DUMMY_SMART_PROD = "https://dev-api.byrtagihan.com";
 export const API_DUMMY_ABSEN_DEV = "https://dev-api-absen.byrtagihan.com";
 export const API_DUMMY_ABSEN_PROD = "https://dev-api-absen.byrtagihan.com";
-// export const API_DUMMY_PYTHON = "http://localhost:2051";
-export const API_DUMMY_PYTHON = "https://dev-api-panti.byrtagihan.com";
+export const API_DUMMY_PYTHON = "http://localhost:2051";
+// export const API_DUMMY_PYTHON = "https://dev-api-panti.byrtagihan.com";
