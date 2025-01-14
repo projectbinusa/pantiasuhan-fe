@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_ABSEN, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -29,17 +29,14 @@ function LaporanBulananPresensi() {
 
   const handleMonthChange = (event) => {
     const inputValue = event.target.value; // Format: "YYYY-MM"
-    const [selectedYear, selectedMonth] = inputValue.split("-"); // Pisahkan tahun dan bulan
-    setYear(selectedYear);
-    setMonth(selectedMonth);
+    setMonth(inputValue);
   };
 
   const getAll = async () => {
     try {
       const bln = month || bulan;
-      const thn = year || tahun;
-      const response = await axios.get(
-        `${API_DUMMY}/api/siswa/absensi/bulanan/${bln}/${thn}?page=${currentPage}&limit=${rowsPerPage}`,
+      const thn = year || tahun;const response = await axios.get(
+        `${API_DUMMY_SMART}/api/customer/absen?page=${currentPage}&limit=${rowsPerPage}&month=${bln}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -60,23 +57,33 @@ function LaporanBulananPresensi() {
 
   const exportBulanan = async () => {
     try {
+      // Gunakan nilai bulan dan tahun dari state atau fallback ke nilai default
+      const [selectedYear, selectedMonth] = (month || `${tahun}-${bulan}`).split("-");
+      const currentYear = year || selectedYear;
+      const currentMonth = selectedMonth;
+
       const response = await axios({
-        url: `${API_DUMMY}/api/absensi/export-bulanan`,
+        url: `${API_DUMMY_ABSEN}/api/absensi/export-bulanan?bulan=${currentMonth}&tahun=${currentYear}`,
         method: "GET",
-        responseType: "blob",
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+        responseType: "blob", // Pastikan respons diterima sebagai blob
       });
 
+      // Buat URL untuk mendownload file
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "laporan-bulanan.xlsx");
+      link.setAttribute("download", `laporan-bulanan-${currentYear}-${currentMonth}.xlsx`); // Nama file dinamis
       document.body.appendChild(link);
       link.click();
-      link.remove();
+      link.remove(); // Bersihkan elemen setelah digunakan
     } catch (error) {
       console.error("Gagal mengekspor absensi bulanan:", error);
     }
   };
+
 
   // // Gunakan useEffect untuk memantau perubahan
   // useEffect(() => {
@@ -157,9 +164,11 @@ function LaporanBulananPresensi() {
   };
 
   useEffect(() => {
+    console.log("bulan: ", month);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+
   }, []);
 
   return (
@@ -183,7 +192,7 @@ function LaporanBulananPresensi() {
             className="form-control"
             type="month"
             onChange={handleMonthChange}
-            value={`${year}-${month}`}
+            value={`${month}`}
           />
           <button
             className="btn btn-primary ml-3"
@@ -272,7 +281,6 @@ function LaporanBulananPresensi() {
                     <th>Jam Masuk</th>
                     <th>Jam Pulang</th>
                     <th>Keterangan</th>
-                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -283,22 +291,11 @@ function LaporanBulananPresensi() {
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama"> {item.nama_siswa}</td>
+                          <td data-label="Nama"> {item.name}</td>
                           <td data-label="Tanggal">{item.created_date}</td>
                           <td data-label="Jam Masuk">{item.jam_masuk}</td>
                           <td data-label="Jam Pulang">{item.jam_pulang}</td>
                           <td data-label="Keterangan">{item.description}</td>
-                          <td data-label="Aksi" className="action">
-                            <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                onClick={() => deleteData(item.id)}
-                                type="button"
-                                className="btn-danger btn-sm"
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                            </div>
-                          </td>
                         </tr>
                       );
                     })

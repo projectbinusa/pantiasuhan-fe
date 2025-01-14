@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_ABSEN, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -40,7 +40,7 @@ function LaporanHarianPresensi() {
       console.log(tgl);
 
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/absen?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/customer/absen?page=${currentPage}&limit=${rowsPerPage}&date=${tgl}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -60,10 +60,36 @@ function LaporanHarianPresensi() {
     }
   };
 
+  const exportHarian = async () => {
+    try {
+      const tgl = date2 || formatTanggal;
+      const response = await axios({
+        url: `${API_DUMMY_ABSEN}/api/absensi/export-harian?date=${tgl}`,
+        method: "GET",
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "laporan-harian.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Gagal mengekspor absensi harian:", error);
+    }
+  };
+
   // Gunakan useEffect untuk memantau perubahan
   useEffect(() => {
     getAll();
-  }, [currentPage, rowsPerPage, date2]);
+    console.log("date: ", date);
+
+  }, [currentPage, rowsPerPage, date2, date]);
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -166,6 +192,13 @@ function LaporanHarianPresensi() {
           <button className="btn-primary ml-3" type="button" onClick={getTgl}>
             Pilih
           </button>
+          <button
+            className="btn-primary ml-3"
+            type="button"
+            onClick={exportHarian}
+          >
+            Export
+          </button>
         </div>
         <div
           className="container box-table app-main__outer"
@@ -238,7 +271,6 @@ function LaporanHarianPresensi() {
                     <th>Jam Masuk</th>
                     <th>Jam Pulang</th>
                     <th>Keterangan</th>
-                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -254,17 +286,6 @@ function LaporanHarianPresensi() {
                           <td data-label="Jam Masuk">{item.jam_masuk}</td>
                           <td data-label="Jam Pulang">{item.jam_pulang}</td>
                           <td data-label="Keterangan">{item.description}</td>
-                          <td data-label="Aksi" className="action">
-                            <div className="d-flex justify-content-center align-items-center">
-                              <button
-                                onClick={() => deleteData(item.id)}
-                                type="button"
-                                className="btn-danger btn-sm"
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                            </div>
-                          </td>
                         </tr>
                       );
                     })
