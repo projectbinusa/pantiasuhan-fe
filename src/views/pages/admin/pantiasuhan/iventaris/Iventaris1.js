@@ -11,10 +11,6 @@ function Iventaris() {
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [paginationInfo, setPaginationInfo] = useState({
-    totalPages: 1,
-    totalElements: 0,
-  });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -38,31 +34,26 @@ function Iventaris() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY}/api/admin/investaris`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+      const response = await axios.get(`${API_DUMMY}/api/admin/investaris`, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      });
 
-      console.log("Response dari API:", response);
+      console.log("Data dari API:", response.data);
 
       if (response.data && response.data.data) {
         const filteredData = response.data.data.filter(
-          (item) => item.organization_id === organizationId
+          (item) => String(item.organization_id) === organizationId
         );
-        setList(filteredData);
-        setPaginationInfo({
-          totalPages: Math.ceil(filteredData.length / rowsPerPage),
-          totalElements: filteredData.length,
-        });
+        setList(filteredData.length > 0 ? filteredData : response.data.data);
       } else {
-        console.log("Data kosong atau tidak ditemukan", response);
+        console.log("Data kosong atau tidak ditemukan");
+        setList([]);
       }
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
+      setList([]);
     }
   };
 
@@ -91,7 +82,7 @@ function Iventaris() {
               showConfirmButton: false,
               timer: 1500,
             });
-            getAll(); 
+            getAll();
           })
           .catch((err) => {
             Swal.fire({
@@ -100,7 +91,7 @@ function Iventaris() {
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(err);
+            console.error(err);
           });
       }
     });
@@ -114,22 +105,15 @@ function Iventaris() {
     AOS.init();
   }, []);
 
-  const handleRowsPerPageChange = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setCurrentPage(1); 
-  };
-
-  
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
-  
   const filteredList = list.filter((item) =>
     searchTerm === ""
       ? true
-      : Object.values(item).some(
+      : Object.values(item || {}).some(
           (value) =>
             typeof value === "string" &&
             value.toLowerCase().includes(searchTerm.toLowerCase())
@@ -158,70 +142,27 @@ function Iventaris() {
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left"
         >
-          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
-            <div className="col-auto">
-              <label className="form-label mt-2">Rows per page:</label>
-            </div>
-            <div className="col-auto">
-              <select
-                className="form-select form-select-xl w-auto"
-                onChange={handleRowsPerPageChange}
-                value={rowsPerPage}
-              >
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-              </select>
-            </div>
-          </div>
           <div className="search">
             <input
               type="search"
-              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
+              className="form-control widget-content-right w-100 mt-2 mb-2"
               placeholder="Search..."
               value={searchTerm}
               onChange={handleSearchChange}
             />
           </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Iventaris</p>
-              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-                <div className="col-auto">
-                  <label className="form-label mt-2">Rows per page:</label>
-                </div>
-                <div className="col-auto">
-                  <select
-                    className="form-select form-select-sm"
-                    onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                  </select>
-                </div>
-              </div>
+            <div className="card-header">
+              <h5 className="mt-2">Iventaris</h5>
               <div className="d-flex ml-auto gap-3">
-                <input
-                  type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/add_iventaris"
-                      >
-                        Tambah Investaris
-                      </a>
-                    </button>
-                  </div>
-                </div>
+                <button className="btn btn-success btn-sm">
+                  <a
+                    style={{ color: "white", textDecoration: "none" }}
+                    href="/add_iventaris"
+                  >
+                    Tambah Investaris
+                  </a>
+                </button>
               </div>
             </div>
             <div
@@ -231,14 +172,11 @@ function Iventaris() {
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
+                    <th>No</th>
                     <th>Nama</th>
-                    <th scope="col" style={{ minWidth: "150px" }}>
-                      Tanggal Pembelian
-                    </th>
+                    <th>Tanggal Pembelian</th>
                     <th>Harga Pembelian</th>
                     <th>Kategori</th>
-                    <th>Keterangan</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -249,23 +187,26 @@ function Iventaris() {
                         (currentPage - 1) * rowsPerPage,
                         currentPage * rowsPerPage
                       )
-                      .map((row, id) => (
-                        <tr key={id}>
-                          <td>{id + 1 + (currentPage - 1) * rowsPerPage}</td>
-                          <td>{row.kategori_barang_name}</td>
-                          <td>{row.tanggal_masuk}</td>
-                          <td>{row.purchase_price}</td>
-                          <td>{row.kategori_barang_name}</td>
+                      .map((row, index) => (
+                        <tr key={row.id}>
+                          <td>{index + 1 + (currentPage - 1) * rowsPerPage}</td>
+                          <td>{row.name || "-"}</td>
+                          <td>{row.tanggal_masuk || "-"}</td>
+                          <td>{row.purchase_price || "-"}</td>
+                          <td>{row.kategori_barang_name || "-"}</td>
                           <td>
-                            <button onClick={() => deleteData(row.id)}>
-                              Delete
+                            <button
+                              onClick={() => deleteData(row.id)}
+                              className="btn btn-danger btn-sm"
+                            >
+                              Hapus
                             </button>
                           </td>
                         </tr>
                       ))
                   ) : (
                     <tr>
-                      <td colSpan="7">Tidak ada data</td>
+                      <td colSpan="6">Tidak ada data</td>
                     </tr>
                   )}
                 </tbody>
