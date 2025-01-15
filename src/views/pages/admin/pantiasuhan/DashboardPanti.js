@@ -25,7 +25,8 @@ function DashboardPanti() {
   const [conditions, setConditions] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [jumlahPostingan, setJumlahPostingan] = useState(0);
-  const [jumlahDanaKeluar, setJumlahDanaKeluar] = useState(0); // Menyimpan jumlah dana keluar
+  const [jumlahDanaKeluar, setJumlahDanaKeluar] = useState(0); 
+  const [saldoKeuangan, setSaldoKeuangan] = useState(0);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -176,14 +177,30 @@ function DashboardPanti() {
   //   }
   // };
 
+  const fetchSaldoKeuangan = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/customer/donation_trx/recap/monthly`,
+        {
+          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+        }
+      );
+
+      // Mengambil saldo keuangan dari respons API
+      setSaldoKeuangan(response.data?.data?.total_saldo || 0);
+    } catch (error) {
+      console.error("Gagal mengambil data saldo keuangan:", error.message);
+    }
+  };
+
   useEffect(() => {
     fetchData();
     fetchTahsin();
     fetchPresensi();
     fetchGuestCount();
     fetchAnakAsuhData();
+    fetchSaldoKeuangan();
     fetchJumlahPostingan();
-    // fetchJumlahDanaKeluar();
   }, []);
 
   const fetchKondisiBarang = async () => {
@@ -258,7 +275,7 @@ function DashboardPanti() {
               </div>
               <div className="card shadow w-100 border-none cardmenu">
                 <h2 style={{ fontFamily: "Poppins" }}>Jumlah Saldo Keuangan Panti</h2>
-                <h1 style={{ fontFamily: "Poppins" }}>Rp 0</h1>
+                <h1 style={{ fontFamily: "Poppins" }}>{rupiah(saldoKeuangan)}</h1>
                 <div className="info-link">
                   <a href="/admin_keuangan">Informasi Selengkapnya</a>
                 </div>
