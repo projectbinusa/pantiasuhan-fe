@@ -991,7 +991,7 @@ function App() {
             <Route path="/iventaris" component={Iventaris} exact />
             <Route path="/add-iventaris" component={AddInves} exact />
             <Route
-              path="/edit-iventaris:id"
+              path="/edit-iventaris/:id"
               component={EditInves}
               exact
             />

@@ -13,7 +13,7 @@ function EditInves() {
   const [nama, setNama] = useState("");
   const [purchasePrice, setPurchasePrice] = useState("");
   const [urlNote, setUrlNote] = useState("");
-  const [image, setImage] = useState([]);
+  const [keterangan, setKeterangan] = useState([]);
   const [imageUrl, setImageUrl] = useState([]);
   const [tanggal, setTanggal] = useState("");
 
@@ -28,10 +28,10 @@ function EditInves() {
 
     const data = {
       name: nama,
-      purchase_date: tanggal,
-      purchase_price: purchasePrice,
-      url_note: urlNote,
-      url_image: ''
+      tanggal_masuk: tanggal,
+      harga_pembelian: purchasePrice,
+      kategori_barang_id: urlNote,
+      keterangan: keterangan,
     };
 
     axios
@@ -80,10 +80,10 @@ function EditInves() {
         console.log(response);
 
         setNama(response.name);
-        setPurchasePrice(response.purchase_price);
-        setTanggal(response.purchase_date);
-        setImageUrl(response.url_image);
-        setUrlNote(response.url_note);
+        setPurchasePrice(response.harga_pembelian);
+        setTanggal(response.tanggal_masuk);
+        setKeterangan(response.keterangan);
+        setUrlNote(response.kategori_barang_id);
       })
       .catch((error) => {
         console.log(error);
