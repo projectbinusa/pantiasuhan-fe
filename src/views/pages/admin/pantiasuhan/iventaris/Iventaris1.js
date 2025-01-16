@@ -40,19 +40,15 @@ function Iventaris() {
         },
       });
 
-      console.log("Data dari API:", response.data);
-
       if (response.data && response.data.data) {
         const filteredData = response.data.data.filter(
           (item) => String(item.organization_id) === organizationId
         );
         setList(filteredData.length > 0 ? filteredData : response.data.data);
       } else {
-        console.log("Data kosong atau tidak ditemukan");
         setList([]);
       }
     } catch (error) {
-      console.error("Terjadi kesalahan:", error);
       setList([]);
     }
   };
@@ -84,14 +80,13 @@ function Iventaris() {
             });
             getAll();
           })
-          .catch((err) => {
+          .catch(() => {
             Swal.fire({
               icon: "error",
               title: "Hapus Data Gagal!",
               showConfirmButton: false,
               timer: 1500,
             });
-            console.error(err);
           });
       }
     });
@@ -142,27 +137,70 @@ function Iventaris() {
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left"
         >
+          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
+            <div className="col-auto">
+              <label className="form-label mt-2">Rows per page:</label>
+            </div>
+            <div className="col-auto">
+              <select
+                className="form-select form-select-xl w-auto"
+                onChange={(e) => setRowsPerPage(Number(e.target.value))}
+                value={rowsPerPage}
+              >
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+              </select>
+            </div>
+          </div>
           <div className="search">
             <input
               type="search"
-              className="form-control widget-content-right w-100 mt-2 mb-2"
+              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
               placeholder="Search..."
               value={searchTerm}
               onChange={handleSearchChange}
             />
           </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header">
-              <h5 className="mt-2">Iventaris</h5>
-              <div className="d-flex ml-auto gap-3">
-                <button className="btn btn-success btn-sm">
-                  <a
-                    style={{ color: "white", textDecoration: "none" }}
-                    href="/add_iventaris"
+            <div className="card-header" style={{ display: "flex" }}>
+              <p className="mt-3">Iventaris</p>
+              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
+                <div className="col-auto">
+                  <label className="form-label mt-2">Rows per page:</label>
+                </div>
+                <div className="col-auto">
+                  <select
+                    className="form-select form-select-sm"
+                    onChange={(e) => setRowsPerPage(Number(e.target.value))}
+                    value={rowsPerPage}
                   >
-                    Tambah Investaris
-                  </a>
-                </button>
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                  </select>
+                </div>
+              </div>
+              <div className="d-flex ml-auto gap-3">
+                <input
+                  type="search"
+                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+                <div className="btn-actions-pane-right">
+                  <div role="group" className="btn-group-sm btn-group">
+                    <button className="active btn-focus p-2 rounded">
+                      <a
+                        style={{ color: "white", textDecoration: "none" }}
+                        href="/add_iventaris"
+                      >
+                        Tambah Investaris
+                      </a>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             <div
@@ -172,11 +210,14 @@ function Iventaris() {
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th>No</th>
+                    <th scope="col">No</th>
                     <th>Nama</th>
-                    <th>Tanggal Pembelian</th>
+                    <th scope="col" style={{ minWidth: "150px" }}>
+                      Tanggal Pembelian
+                    </th>
                     <th>Harga Pembelian</th>
                     <th>Kategori</th>
+                    <th>Keterangan</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -187,34 +228,53 @@ function Iventaris() {
                         (currentPage - 1) * rowsPerPage,
                         currentPage * rowsPerPage
                       )
-                      .map((row, index) => (
-                        <tr key={row.id}>
-                          <td>{index + 1 + (currentPage - 1) * rowsPerPage}</td>
-                          <td>{row.name || "-"}</td>
-                          <td>{row.tanggal_masuk || "-"}</td>
-                          <td>{row.purchase_price || "-"}</td>
+                      .map((row, id) => (
+                        <tr key={id}>
+                          <td>{id + 1 + (currentPage - 1) * rowsPerPage}</td>
                           <td>{row.kategori_barang_name || "-"}</td>
-                          <td>
-                            <button
-                              onClick={() => deleteData(row.id)}
-                              className="btn btn-danger btn-sm"
-                            >
-                              Hapus
-                            </button>
+                          <td>{row.tanggal_masuk || "-"}</td>
+                          <td>{row.harga_pembelian || "-"}</td>
+                          <td>{row.kategori_barang_id || "-"}</td>
+                          <td>{row.keterangan || "-"}</td>
+                         <td data-label="Aksi" className="action">
+                            <div className="d-flex justify-content-center align-items-center">
+                              <button
+                                type="button"
+                                className="btn-primary btn-sm mr-2">
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/edit-iventaris/${row.id}`}>
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                onClick={() => deleteData(row.id)}
+                                type="button"
+                                className="btn-danger btn-sm">
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))
                   ) : (
                     <tr>
-                      <td colSpan="6">Tidak ada data</td>
+                      <td colSpan="7" className="text-center">
+                        Data tidak ditemukan
+                      </td>
                     </tr>
                   )}
                 </tbody>
               </table>
+            </div>
+            <div className="d-flex justify-content-center mt-3">
               <Pagination
                 count={totalPages}
                 page={currentPage}
-                onChange={(_, pageNumber) => setCurrentPage(pageNumber)}
+                onChange={(event, value) => setCurrentPage(value)}
                 color="primary"
               />
             </div>

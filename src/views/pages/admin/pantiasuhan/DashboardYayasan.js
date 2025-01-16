@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import axios from "axios";
-import {
-  API_DUMMY_SMART
-} from "../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../utils/base_URL";
 
 const rupiah = (number) => {
   return new Intl.NumberFormat("id-ID", {
@@ -23,6 +21,7 @@ function DashboardYayasan() {
   const [quantitie, setQuantitie] = useState([]);
   const [rekapdonasi, setRekapDonasi] = useState([]);
   const [rekapDonasiTrx, setRekapDonasiTrx] = useState([]);
+  const [monthlyDonasiTrx, setMonthlyDonasiTrx] = useState(0);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -42,12 +41,9 @@ function DashboardYayasan() {
 
   const fetchData = async () => {
     try {
-      const respons = await axios.get(
-        `${API_DUMMY_SMART}/api/user/donation`,
-        {
-          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-        }
-      );
+      const respons = await axios.get(`${API_DUMMY_SMART}/api/user/donation`, {
+        headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+      });
       console.log("data donasi: ", respons.data.data);
 
       setConditions(respons.data.data || []);
@@ -107,7 +103,7 @@ function DashboardYayasan() {
   const fetchDanaMasuk = async () => {
     try {
       const respons = await axios.get(
-        `${API_DUMMY_SMART}/api/user/donation_trx/keluar`,
+        `${API_DUMMY_SMART}/api/user/donation_trx/recap/daily`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -136,24 +132,45 @@ function DashboardYayasan() {
     }
   };
 
+  const fetchMonthlyDonasiTrx = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/api/customer/donation_trx/recap/monthly`,
+        {
+          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+        }
+      );
+      console.log("donasi trx bulanan: ", response.data.data);
+      setMonthlyDonasiTrx(response.data.data.total_nominal || 0);
+    } catch (error) {
+      console.error(
+        "Error fetching monthly donation trx data: ",
+        error.message
+      );
+    }
+  };
+
   useEffect(() => {
     fetchData();
     fetchDonasiTrx();
+    fetchDanaMasuk();
     fetchDonasiRecap();
     fetchDonasiRecapTrx();
-    fetchDanaMasuk();
+    fetchMonthlyDonasiTrx();
   }, []);
 
   return (
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -172,6 +189,10 @@ function DashboardYayasan() {
               <h2 className="">Jumlah Donasi Keluar</h2>
               <h1>{rupiah(total_outcome)}</h1>
             </div>
+            <div className="col card shadow w-100 border-none cardmenu">
+              <h2 className="">Jumlah Donasi Trx Bulanan</h2>
+              <h1>{rupiah(monthlyDonasiTrx)}</h1>
+            </div>
           </div>
           <div className="box-tabel d-lg-none">
             <div className="card shadow w-100 border-none cardmenu">
@@ -185,6 +206,10 @@ function DashboardYayasan() {
             <div className="card shadow w-100 border-none cardmenu">
               <h2 className="">Jumlah Donasi Keluar</h2>
               <h1>{rupiah(total_outcome)}</h1>
+            </div>
+            <div className="card shadow w-100 border-none cardmenu">
+              <h2 className="">Jumlah Donasi Trx Bulanan</h2>
+              <h1>{rupiah(monthlyDonasiTrx)}</h1>
             </div>
           </div>
           <div className="box-tabel card1">
