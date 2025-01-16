@@ -6,6 +6,7 @@ import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import "../../../../../css/button.css";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function Donasi() {
   const [list, setList] = useState([]);
@@ -18,6 +19,8 @@ function Donasi() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [userRole, setUserRole] = useState(null);
+  const { id } = useParams(); 
+  const [donasiDetail, setDonasiDetail] = useState(null);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -132,6 +135,26 @@ function Donasi() {
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
+  useEffect(() => {
+    const getDonasiDetail = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_SMART}/api/customer/donation/${id}`,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        setDonasiDetail(response.data.data);
+      } catch (error) {
+        console.error("Error fetching donation details:", error);
+      }
+    };
+
+    getDonasiDetail();
+  }, [id]);
+
   return (
     <div
       className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
@@ -147,6 +170,7 @@ function Donasi() {
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+          
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
