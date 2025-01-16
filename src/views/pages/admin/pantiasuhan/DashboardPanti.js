@@ -25,7 +25,7 @@ function DashboardPanti() {
   const [conditions, setConditions] = useState([]);
   const [quantities, setQuantities] = useState([]);
   const [jumlahPostingan, setJumlahPostingan] = useState(0);
-  const [jumlahDanaKeluar, setJumlahDanaKeluar] = useState(0); 
+  const [jumlahDanaKeluar, setJumlahDanaKeluar] = useState(0); // Menyimpan jumlah dana keluar
   const [saldoKeuangan, setSaldoKeuangan] = useState(0);
 
   const toggleSidebar = () => {
@@ -52,7 +52,7 @@ function DashboardPanti() {
       }
 
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/donation/recap`,
+        `${API_DUMMY_SMART}/api/customer/donation/recap/weekly`,
         {
           headers: { "auth-tgh": `jwt ${token}` },
         }
@@ -145,62 +145,37 @@ function DashboardPanti() {
     }
   };
 
-  // const fetchJumlahDanaKeluar = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "https://dev-api.byrtagihan.com/api/customer/donation_trx/recap", // Endpoint API
-  //       {
-  //         headers: {
-  //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Menambahkan token jika diperlukan
-  //         },
-  //       }
-  //     );
-
-  //     console.log("Response data:", response.data); // Melihat struktur data API
-
-  //     // Pastikan `data` adalah array sebelum menggunakan reduce
-  //     if (Array.isArray(response.data?.data)) {
-  //       const totalNominal = response.data.data.reduce((total, item) => {
-  //         console.log("Nominal item:", item.nominal); // Melihat setiap nominal
-  //         return total + (item.nominal || 0);
-  //       }, 0);
-
-  //       console.log("Total nominal dana keluar:", totalNominal); // Melihat total nominal
-  //       setJumlahDanaKeluar(totalNominal || 0); // Set total nominal ke state
-  //     } else {
-  //       console.error("Unexpected data format:", response.data?.data);
-  //       setJumlahDanaKeluar(0); // Jika data tidak sesuai, set ke 0
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching jumlah dana keluar: ", error.message);
-  //     setJumlahDanaKeluar(0); // Jika error, tampilkan 0
-  //   }
-  // };
-
-  const fetchSaldoKeuangan = async () => {
+  const fetchJumlahDana = async () => {
     try {
+      const token = localStorage.getItem("tokenpython");
+      if (!token) {
+        throw new Error("Token tidak ditemukan. Harap login ulang.");
+      }
+  
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/donation_trx/recap/monthly`,
+        `${API_DUMMY_SMART}/api/customer/donation/recap`,
         {
-          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+          headers: { "auth-tgh": `jwt ${token}` },
         }
       );
-
-      // Mengambil saldo keuangan dari respons API
-      setSaldoKeuangan(response.data?.data?.total_saldo || 0);
+  
+      const totalIncome = response.data.data?.total_income || 0;
+      const totalOutcome = response.data.data?.total_outcome || 0;
+      setFetchWeekly(totalIncome); // Jumlah Donasi Mingguan
+      setJumlahDanaKeluar(totalOutcome); // Jumlah Dana Keluar
+      setSaldoKeuangan(totalIncome - totalOutcome); // Hitung saldo keuangan
     } catch (error) {
-      console.error("Gagal mengambil data saldo keuangan:", error.message);
+      console.error("Error fetching donation data: ", error.message);
     }
   };
-
   useEffect(() => {
     fetchData();
     fetchTahsin();
     fetchPresensi();
     fetchGuestCount();
     fetchAnakAsuhData();
-    fetchSaldoKeuangan();
     fetchJumlahPostingan();
+    fetchJumlahDana();
   }, []);
 
   const fetchKondisiBarang = async () => {
