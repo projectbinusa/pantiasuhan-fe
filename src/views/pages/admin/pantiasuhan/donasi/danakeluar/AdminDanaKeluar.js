@@ -116,45 +116,34 @@ function AdminDanaKeluar() {
 
   const getRecapData = async () => {
     try {
-      const dailyResponse = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/donation_trx/recap/daily`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
-      setTotalDaily(dailyResponse.data.total);
+      const token = localStorage.getItem("tokenpython");
+      if (!token) {
+        console.error("Token tidak ditemukan di localStorage.");
+        return;
+      }
 
-      const weeklyResponse = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/donation_trx/recap/weekly`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
-      setTotalWeekly(weeklyResponse.data.total);
+      const headers = { "auth-tgh": `jwt ${token}` };
 
-      const monthlyResponse = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/donation_trx/recap/monthly`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
-      setTotalMonthly(monthlyResponse.data.total);
+      const [dailyResponse, weeklyResponse, monthlyResponse] = await Promise.all([
+        axios.get(`${API_DUMMY_SMART}/api/customer/donation_trx/recap/daily`, { headers }),
+        axios.get(`${API_DUMMY_SMART}/api/customer/donation_trx/recap/weekly`, { headers }),
+        axios.get(`${API_DUMMY_SMART}/api/customer/donation_trx/recap/monthly`, { headers }),
+      ]);
+
+      console.log("Daily Response:", dailyResponse.data);
+      console.log("Weekly Response:", weeklyResponse.data);
+      console.log("Monthly Response:", monthlyResponse.data);
+
+      setTotalDaily(dailyResponse.data.total || 0);
+      setTotalWeekly(weeklyResponse.data.total || 0);
+      setTotalMonthly(monthlyResponse.data.total || 0);
     } catch (error) {
       console.error("Gagal mengambil data recap:", error);
+
       if (error.code === "ERR_NETWORK") {
-        alert(
-          "Terjadi masalah jaringan. Pastikan Anda terhubung ke internet dan coba lagi."
-        );
+        alert("Terjadi masalah jaringan. Pastikan Anda terhubung ke internet dan coba lagi.");
       } else if (error.response) {
-        alert(
-          `Terjadi kesalahan server: ${error.response.status} - ${error.response.statusText}`
-        );
+        alert(`Terjadi kesalahan server: ${error.response.status} - ${error.response.statusText}`);
       } else {
         alert("Terjadi kesalahan yang tidak diketahui.");
       }
