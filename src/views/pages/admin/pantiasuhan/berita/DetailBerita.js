@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function DetailBeritaPantiAdmin() {
@@ -19,7 +19,7 @@ function DetailBeritaPantiAdmin() {
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/api/admin/berita/` + param.id, {
+      .get(`${API_DUMMY_SMART}/api/admin/berita/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
