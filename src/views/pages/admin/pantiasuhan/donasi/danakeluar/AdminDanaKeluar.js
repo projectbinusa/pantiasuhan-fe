@@ -5,6 +5,15 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
+import * as XLSX from "xlsx";
+
+const rupiah = (number) => {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+  }).format(number);
+};
 
 function AdminDanaKeluar() {
   const [list, setList] = useState([]);
@@ -16,6 +25,12 @@ function AdminDanaKeluar() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [totalDaily, setTotalDaily] = useState(0);
+  const [totalWeekly, setTotalWeekly] = useState(0);
+  const [totalMonthly, setTotalMonthly] = useState(0);
+
+  const jenisPengeluaran = ["Operasional", "Perawatan", "Program", "Lainnya"];
+  const bidang = ["Tata Usaha", "Santri", "Kepegawaian", "Sarana", "Prasarana"];
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -48,7 +63,6 @@ function AdminDanaKeluar() {
       const { data, pagination } = response.data;
       console.log(data);
 
-
       // Set data dan pagination
       setList(data);
       setPaginationInfo({
@@ -59,7 +73,6 @@ function AdminDanaKeluar() {
       console.error("Terjadi kesalahan:", error.response || error.message);
     }
   };
-
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -101,8 +114,45 @@ function AdminDanaKeluar() {
     });
   };
 
+  const getRecapData = async () => {
+    try {
+      const token = localStorage.getItem("tokenpython");
+      if (!token) {
+        console.error("Token tidak ditemukan di localStorage.");
+        return;
+      }
+
+      const headers = { "auth-tgh": `jwt ${token}` };
+
+      const [dailyResponse, weeklyResponse, monthlyResponse] = await Promise.all([
+        axios.get(`${API_DUMMY_SMART}/api/customer/donation_trx/recap/daily`, { headers }),
+        axios.get(`${API_DUMMY_SMART}/api/customer/donation_trx/recap/weekly`, { headers }),
+        axios.get(`${API_DUMMY_SMART}/api/customer/donation_trx/recap/monthly`, { headers }),
+      ]);
+
+      console.log("Daily Response:", dailyResponse.data);
+      console.log("Weekly Response:", weeklyResponse.data);
+      console.log("Monthly Response:", monthlyResponse.data);
+
+      setTotalDaily(dailyResponse.data.total || 0);
+      setTotalWeekly(weeklyResponse.data.total || 0);
+      setTotalMonthly(monthlyResponse.data.total || 0);
+    } catch (error) {
+      console.error("Gagal mengambil data recap:", error);
+
+      if (error.code === "ERR_NETWORK") {
+        alert("Terjadi masalah jaringan. Pastikan Anda terhubung ke internet dan coba lagi.");
+      } else if (error.response) {
+        alert(`Terjadi kesalahan server: ${error.response.status} - ${error.response.statusText}`);
+      } else {
+        alert("Terjadi kesalahan yang tidak diketahui.");
+      }
+    }
+  };
+
   useEffect(() => {
-    getAll(currentPage);
+    getAll();
+    getRecapData();
   }, [currentPage, rowsPerPage]);
 
   useEffect(() => {
@@ -129,10 +179,26 @@ function AdminDanaKeluar() {
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
+  const handleExportToExcel = () => {
+    const formattedData = list.map((item, index) => ({
+      No: (currentPage - 1) * rowsPerPage + index + 1,
+      Keperluan: item.name,
+      Nominal: item.nominal,
+      Deskripsi: item.description.replace(/<[^>]*>?/gm, ""), // Hilangkan HTML
+      Image: item.url_image,
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "DanaKeluar");
+    XLSX.writeFile(workbook, "DanaKeluar.xlsx");
+  };
+
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -144,7 +210,16 @@ function AdminDanaKeluar() {
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+        <div
+          className="container box-table mt-3 app-main__outer"
+          data-aos="fade-left"
+        >
+          <h3>Informasi Total Pengeluaran</h3>
+          <div className="summary-box">
+            {/* <p>🔹 Total Harian: {rupiah(totalDaily)}</p> */}
+            <p>🔹 Total Mingguan: {rupiah(totalWeekly)}</p>
+            <p>🔹 Total Bulanan: {rupiah(totalMonthly)}</p>
+          </div>
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -229,11 +304,23 @@ function AdminDanaKeluar() {
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                      <td data-label="No">
+                        {(currentPage - 1) * rowsPerPage + index + 1}
+                      </td>
                       <td data-label="Keperluan">{item.name}</td>
                       <td data-label="Nominal">{item.nominal}</td>
-                      <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
-                      <td data-label="Image"><img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /></td>
+                      <td data-label="Deskripsi">
+                        <div
+                          dangerouslySetInnerHTML={{ __html: item.description }}
+                        />
+                      </td>
+                      <td data-label="Image">
+                        <img
+                          src={item.url_image}
+                          alt="image"
+                          style={{ width: 50, height: 50 }}
+                        />
+                      </td>
                       <td data-label="Aksi">
                         <button
                           type="button"
@@ -255,6 +342,14 @@ function AdminDanaKeluar() {
                           onClick={() => deleteData(item.id)}
                         >
                           <i className="fa-solid fa-trash"></i>
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-success btn-sm"
+                          onClick={handleExportToExcel}
+                          style={{ marginLeft: "12px" }}
+                        >
+                          <i class="fa-solid fa-file-arrow-down"></i>
                         </button>
                       </td>
                     </tr>

@@ -67,6 +67,9 @@ function TambahDonasi() {
 
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [jenisPemasukan, setJenisPemasukan] = useState(""); 
+  const [jenisDonasi, setJenisDonasi] = useState(""); 
+  const [kategoriDonatur, setKategoriDonatur] = useState("");
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -88,19 +91,21 @@ function TambahDonasi() {
   //add
   const add = async (e) => {
     e.preventDefault();
-    e.persist();
-
     try {
       let imageUrl = image;
       if (image) {
         imageUrl = await uploadImageDonationToS3(image);
       }
+
       await axios.post(
         `${API_DUMMY_SMART}/api/customer/donation`,
         {
           name: nama,
           description: deskripsi,
           url_image: imageUrl,
+          income_type: jenisPemasukan,
+          donation_type: jenisDonasi || null,
+          donor_category: kategoriDonatur,
         },
         {
           headers: {
@@ -119,7 +124,7 @@ function TambahDonasi() {
         history.push("/donasi");
       }, 1500);
     } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         localStorage.clear();
         history.push("/login");
       } else {
@@ -129,7 +134,7 @@ function TambahDonasi() {
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(error);
+        console.error(error);
       }
     }
   };
@@ -265,12 +270,14 @@ function TambahDonasi() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -285,6 +292,62 @@ function TambahDonasi() {
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Jenis Pemasukan
+                          </label>
+                          <select
+                            className="form-control"
+                            value={jenisPemasukan}
+                            onChange={(e) => setJenisPemasukan(e.target.value)}
+                            required
+                          >
+                            <option value="">Pilih Jenis Pemasukan</option>
+                            <option value="Donasi Offline">
+                              Donasi Offline
+                            </option>
+                            <option value="Donasi Online">Donasi Online</option>
+                          </select>
+                        </div>
+
+                        {jenisPemasukan === "Donasi Online" && (
+                          <div className="mb-3 col-lg-12">
+                            <label className="form-label font-weight-bold">
+                              Jenis Donasi
+                            </label>
+                            <select
+                              className="form-control"
+                              value={jenisDonasi}
+                              onChange={(e) => setJenisDonasi(e.target.value)}
+                              required
+                            >
+                              <option value="">Pilih Jenis Donasi</option>
+                              <option value="Uang">Uang</option>
+                              <option value="Barang">Barang</option>
+                            </select>
+                          </div>
+                        )}
+
+                        {jenisPemasukan === "Donasi Offline" && (
+                          <div className="mb-3 col-lg-12">
+                            <label className="form-label font-weight-bold">
+                              Kategori Donatur
+                            </label>
+                            <select
+                              className="form-control"
+                              value={kategoriDonatur}
+                              onChange={(e) =>
+                                setKategoriDonatur(e.target.value)
+                              }
+                              required
+                            >
+                              <option value="">Pilih Kategori Donatur</option>
+                              <option value="Individu">Individu</option>
+                              <option value="Perusahaan">Perusahaan</option>
+                              <option value="Lembaga">Lembaga</option>
+                            </select>
+                          </div>
+                        )}
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Nama
@@ -544,7 +607,8 @@ function TambahDonasi() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/donasi">
+                          href="/donasi"
+                        >
                           Batal
                         </a>
                       </button>
