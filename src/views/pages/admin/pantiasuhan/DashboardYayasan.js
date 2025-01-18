@@ -135,7 +135,7 @@ function DashboardYayasan() {
   const fetchMonthlyDonasiTrx = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/customer/donation_trx/recap/monthly`,
+        `${API_DUMMY_SMART}/api/customer/donation_trx/recap/monthly`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }

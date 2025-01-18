@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY_BYRTGHN } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -39,7 +39,7 @@ function DataAnak() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/admin/siswa?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_BYRTGHN}/api/customer/member?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -60,7 +60,7 @@ function DataAnak() {
     }
   };
 
-  const deleteData = async (id) => {
+  const deleteData = async (member_id) => {
     Swal.fire({
       title: "Apakah Anda Ingin Menghapus?",
       text: "Perubahan data tidak bisa dikembalikan!",
@@ -73,7 +73,7 @@ function DataAnak() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/api/admin/siswa/` + id, {
+          .delete(`${API_DUMMY_BYRTGHN}/api/customer/member/` + member_id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -227,7 +227,6 @@ function DataAnak() {
                   <tr>
                     <th scope="col">No</th>
                     <th>nama</th>
-                    <th>Username</th>
                     <th>RFID Number</th>
                     <th>NIK</th>
                     <th>Aksi</th>
@@ -242,9 +241,8 @@ function DataAnak() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td data-label="Nama">{row.name}</td>
-                          <td data-label="Username">{row.username}</td>
                           <td data-label="RFID Number">{row.rfid_number}</td>
-                          <td data-label="NIK">{row.nik}</td>
+                          <td data-label="NIK">{row.unique_id}</td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
