@@ -261,6 +261,20 @@ function DataAnak() {
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
                               </button>
+                              <button
+                                type="button"
+                                className="btn-warning btn-sm mr-2"
+                              >
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/detail_anak_asuh/${row.id}`}
+                                >
+                                  <i className="fa-solid fa-info-circle"></i>
+                                </a>
+                              </button>
                               {userRole !== "yayasan" && (
                                 <button
                                   onClick={() => deleteData(row.id)}

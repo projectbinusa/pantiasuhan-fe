@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "axios";
 import AOS from "aos";
 import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
-import { Grid, Pagination } from "@mui/material";
+import { Box, Grid, Modal, Pagination } from "@mui/material";
 import Swal from "sweetalert2";
 
 function DetailDonasi() {
@@ -266,6 +266,35 @@ function DetailDonasi() {
     )
   );
 
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "90%", // Persentase untuk fleksibilitas
+    maxWidth: "800px",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 3,
+    borderRadius: "10px",
+    backgroundColor: "#f5f5f5",
+    overflowY: "auto",
+    maxHeight: "90vh",
+    textAlign: "center", // Menempatkan konten di tengah
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imageSrc, setImageSrc] = useState(""); // Untuk menyimpan URL gambar
+
+  const openModal = (image) => {
+    setImageSrc(image); // Simpan URL gambar
+    setIsModalOpen(true); // Buka modal
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // Tutup modal
+    setImageSrc(""); // Reset URL gambar
+  };
+
   return (
     <div
       className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
@@ -434,29 +463,37 @@ function DetailDonasi() {
                         <td data-label="Nama Donatur">{item.name}</td>
                         <td data-label="Nominal">{item.nominal}</td>
                         <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
-                        <td data-label="Image"><img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /></td>
+                        <td data-label="Image">
+                          <button
+                            onClick={() => openModal(item.url_image)}
+                            type="button"
+                            className="btn-success btn-sm">Tampilkan Gambar
+                          </button>
+                          {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
+                        </td>
                         <td data-label="Aksi">
-                          <button
-                            type="button"
-                            className="btn-primary btn-sm mr-2"
-                          >
-                            <a
-                              style={{
-                                color: "white",
-                                textDecoration: "none",
-                              }}
-                              href={`/edit_donasi_trx/${item.id}`}
+                          <div style={{ display: "flex" }}>
+                            <button
+                              type="button"
+                              className="btn-primary btn-sm mr-2"
                             >
-                              <i className="fa-solid fa-pen-to-square"></i>
-                            </a>
-                          </button>
-                          <button
-                            type="button"
-                            className="btn-danger btn-sm"
-                            onClick={() => deleteData(item.id)}
-                          >
-                            <i className="fa-solid fa-trash"></i>
-                          </button>
+                              <a
+                                style={{
+                                  color: "white",
+                                  textDecoration: "none",
+                                }}
+                                href={`/edit_donasi_trx/${item.id}`}
+                              >
+                                <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn-danger btn-sm"
+                              onClick={() => deleteData(item.id)}
+                            >
+                              <i className="fa-solid fa-trash"></i>
+                            </button> </div>
                         </td>
                       </tr>
                     ))}
@@ -564,29 +601,38 @@ function DetailDonasi() {
                         <td data-label="Keperluan">{item.name}</td>
                         <td data-label="Nominal">{item.nominal}</td>
                         <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
-                        <td data-label="Image"><img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /></td>
+                        <td data-label="Image">
+                          <button
+                            onClick={() => openModal(item.url_image)}
+                            type="button"
+                            className="btn-success btn-sm">Tampilkan Gambar
+                          </button>
+                          {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
+                        </td>
                         <td data-label="Aksi">
-                          <button
-                            type="button"
-                            className="btn-primary btn-sm mr-2"
-                          >
-                            <a
-                              style={{
-                                color: "white",
-                                textDecoration: "none",
-                              }}
-                              href={`/admin_dana_keluar/put/${item.id}`}
+                          <div style={{ display: "flex" }}>
+                            <button
+                              type="button"
+                              className="btn-primary btn-sm mr-2"
                             >
-                              <i className="fa-solid fa-pen-to-square"></i>
-                            </a>
-                          </button>
-                          <button
-                            type="button"
-                            className="btn-danger btn-sm"
-                            onClick={() => deleteDataOutcome(item.id)}
-                          >
-                            <i className="fa-solid fa-trash"></i>
-                          </button>
+                              <a
+                                style={{
+                                  color: "white",
+                                  textDecoration: "none",
+                                }}
+                                href={`/admin_dana_keluar/put/${item.id}`}
+                              >
+                                <i className="fa-solid fa-pen-to-square"></i>
+                              </a>
+                            </button>
+                            <button
+                              type="button"
+                              className="btn-danger btn-sm"
+                              onClick={() => deleteDataOutcome(item.id)}
+                            >
+                              <i className="fa-solid fa-trash"></i>
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -607,6 +653,39 @@ function DetailDonasi() {
           </div>
         </div>
       </div>
+      <Modal
+        open={isModalOpen}
+        onClose={closeModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <button
+            onClick={closeModal}
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              background: "transparent",
+              border: "none",
+              fontSize: "20px",
+              cursor: "pointer",
+              color: "black"
+            }}
+            aria-label="Close"
+          >
+            ✖
+          </button> <br />
+          {/* Gambar */}
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              alt="Preview"
+              style={{ maxWidth: "100%", maxHeight: "70vh", borderRadius: "8px" }}
+            />
+          )}
+        </Box>
+      </Modal>
     </div>
   );
 }

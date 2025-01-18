@@ -7,7 +7,7 @@ import AOS from "aos";
 import "../../../../../css/button.css"
 // import news from "../../../../../aset/smpn1bergas/News-rafiki.png";
 
-import { Pagination } from "@mui/material";
+import { Box, Modal, Pagination } from "@mui/material";
 import Sidebar1 from "../../../../../component/Sidebar1";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
@@ -126,6 +126,34 @@ function AdminBeritaPanti() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "90%", // Persentase untuk fleksibilitas
+    maxWidth: "800px",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 3,
+    borderRadius: "10px",
+    backgroundColor: "#f5f5f5",
+    overflowY: "auto",
+    maxHeight: "90vh",
+    textAlign: "center", // Menempatkan konten di tengah
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imageSrc, setImageSrc] = useState(""); // Untuk menyimpan URL gambar
+
+  const openModal = (image) => {
+    setImageSrc(image); // Simpan URL gambar
+    setIsModalOpen(true); // Buka modal
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // Tutup modal
+    setImageSrc(""); // Reset URL gambar
+  };
   return (
     <div
       className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
@@ -234,10 +262,15 @@ function AdminBeritaPanti() {
                             {berita.author}
                           </td>
                           <td data-label="Thumbnail">
-                            <img
+                            <button
+                              onClick={() => openModal(berita.image)}
+                              type="button"
+                              className="btn-success btn-sm">Tampilkan Gambar
+                            </button>
+                            {/* <img
                               src={berita.image ? berita.image : ""}
                               style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
-                            />
+                            /> */}
                           </td>
                           <td data-label="Kategori Berita">
                             {berita.category}
@@ -303,6 +336,39 @@ function AdminBeritaPanti() {
           </div>
         </div>
       </div>
+      <Modal
+        open={isModalOpen}
+        onClose={closeModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <button
+            onClick={closeModal}
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              background: "transparent",
+              border: "none",
+              fontSize: "20px",
+              cursor: "pointer",
+              color: "black"
+            }}
+            aria-label="Close"
+          >
+            ✖
+          </button> <br />
+          {/* Gambar */}
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              alt="Preview"
+              style={{ maxWidth: "100%", maxHeight: "70vh", borderRadius: "8px" }}
+            />
+          )}
+        </Box>
+      </Modal>
     </div>
   );
 }

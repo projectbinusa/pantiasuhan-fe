@@ -212,7 +212,7 @@ function DataBukuTamu() {
                             <button
                               className="btn-success  mr-2 btn-sm"
                               onClick={() => {
-                                const phone = encodeURIComponent(berita.no_wa);
+                                const phone = encodeURIComponent(berita.no_wa.replace(/^0/, "62"));
                                 const message = encodeURIComponent(
                                   `Terima kasih atas kunjungannya, semoga amal bapak/ibu ${berita.nama} bermanfaat bagi kami semua`
                                 );
