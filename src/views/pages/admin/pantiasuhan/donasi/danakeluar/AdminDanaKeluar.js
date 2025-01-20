@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY, API_DUMMY_SMART } from "../../../../../../utils/base_URL";
+import {
+  API_DUMMY,
+  API_DUMMY_ABSEN,
+  API_DUMMY_SMART,
+} from "../../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -29,8 +33,19 @@ function AdminDanaKeluar() {
   const [totalWeekly, setTotalWeekly] = useState(0);
   const [totalMonthly, setTotalMonthly] = useState(0);
 
+  const [date, setDate] = useState("");
+  const [date2, setDate2] = useState("");
+  const tanggal = new Date();
+  const hari = tanggal.getDate();
+  const bulan = String(tanggal.getMonth() + 1).padStart(2, "0");
+  const tahun = tanggal.getFullYear();
+  const formatTanggal = `${tahun}-${bulan}-${hari}`;
   const jenisPengeluaran = ["Operasional", "Perawatan", "Program", "Lainnya"];
   const bidang = ["Tata Usaha", "Santri", "Kepegawaian", "Sarana", "Prasarana"];
+
+  const getTgl = () => {
+    setDate2(date);
+  };
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -114,45 +129,55 @@ function AdminDanaKeluar() {
     });
   };
 
-  const getRecapData = async () => {
-    try {
-      const token = localStorage.getItem("tokenpython");
-      if (!token) {
-        console.error("Token tidak ditemukan di localStorage.");
-        return;
-      }
+  // const getRecapData = async () => {
+  //   try {
+  //     const token = localStorage.getItem("tokenpython");
+  //     if (!token) {
+  //       console.error("Token tidak ditemukan di localStorage.");
+  //       return;
+  //     }
 
-      const headers = { "auth-tgh": `jwt ${token}` };
+  //     const headers = { "auth-tgh": `jwt ${token}` };
 
-      const [dailyResponse, weeklyResponse, monthlyResponse] = await Promise.all([
-        axios.get(`${API_DUMMY_SMART}/api/customer/donation_trx/recap/daily`, { headers }),
-        axios.get(`${API_DUMMY_SMART}/api/customer/donation_trx/recap/weekly`, { headers }),
-        axios.get(`${API_DUMMY_SMART}/api/customer/donation_trx/recap/monthly`, { headers }),
-      ]);
+  //     const [dailyResponse, weeklyResponse, monthlyResponse] =
+  //       await Promise.all([
+  //         axios.get(
+  //           `${API_DUMMY_SMART}/api/customer/donation_trx/recap/daily`,
+  //           { headers }
+  //         ),
+  //         axios.get(
+  //           `${API_DUMMY_SMART}/api/customer/donation_trx/recap/weekly`,
+  //           { headers }
+  //         ),
+  //         axios.get(
+  //           `${API_DUMMY_SMART}/api/customer/donation_trx/recap/monthly`,
+  //           { headers }
+  //         ),
+  //       ]);
 
-      console.log("Daily Response:", dailyResponse.data);
-      console.log("Weekly Response:", weeklyResponse.data);
-      console.log("Monthly Response:", monthlyResponse.data);
+  //     console.log("Daily Response:", dailyResponse.data);
+  //     console.log("Weekly Response:", weeklyResponse.data);
+  //     console.log("Monthly Response:", monthlyResponse.data);
 
-      setTotalDaily(dailyResponse.data.total || 0);
-      setTotalWeekly(weeklyResponse.data.total || 0);
-      setTotalMonthly(monthlyResponse.data.total || 0);
-    } catch (error) {
-      console.error("Gagal mengambil data recap:", error);
+  //     setTotalDaily(dailyResponse.data.total || 0);
+  //     setTotalWeekly(weeklyResponse.data.total || 0);
+  //     setTotalMonthly(monthlyResponse.data.total || 0);
+  //   } catch (error) {
+  //     console.error("Gagal mengambil data recap:", error);
 
-      if (error.code === "ERR_NETWORK") {
-        alert("Terjadi masalah jaringan. Pastikan Anda terhubung ke internet dan coba lagi.");
-      } else if (error.response) {
-        alert(`Terjadi kesalahan server: ${error.response.status} - ${error.response.statusText}`);
-      } else {
-        alert("Terjadi kesalahan yang tidak diketahui.");
-      }
-    }
-  };
+  //     if (error.code === "ERR_NETWORK") {
+  //       alert(
+  //         "Terjadi masalah"
+  //       );
+  //     } else {
+  //       alert("Terjadi kesalahan yang tidak diketahui.");
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     getAll();
-    getRecapData();
+    // getRecapData();
   }, [currentPage, rowsPerPage]);
 
   useEffect(() => {
@@ -179,19 +204,40 @@ function AdminDanaKeluar() {
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
-  const handleExportToExcel = () => {
-    const formattedData = list.map((item, index) => ({
-      No: (currentPage - 1) * rowsPerPage + index + 1,
-      Keperluan: item.name,
-      Nominal: item.nominal,
-      Deskripsi: item.description.replace(/<[^>]*>?/gm, ""), // Hilangkan HTML
-      Image: item.url_image,
-    }));
+  const exportLaporanKeuangan = async () => {
+    try {
+      const tgl = date2 || formatTanggal;
+      const response = await axios({
+        url: `${API_DUMMY_SMART}/api/user/export/donation_trx`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        responseType: "blob",
+      });
 
-    const worksheet = XLSX.utils.json_to_sheet(formattedData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "DanaKeluar");
-    XLSX.writeFile(workbook, "DanaKeluar.xlsx");
+      if (!response || response.status !== 200) {
+        throw new Error("Gagal mengunduh laporan. Silakan coba lagi.");
+      }
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "laporan_keuangan.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Hapus URL setelah diunduh
+      setTimeout(() => window.URL.revokeObjectURL(url), 100);
+
+      alert("Export berhasil! File laporan keuangan telah diunduh.");
+    } catch (error) {
+      console.error("Gagal mengekspor laporan keuangan:", error);
+      alert(
+        error.message || "Terjadi kesalahan saat mengekspor laporan keuangan."
+      );
+    }
   };
 
   return (
@@ -210,16 +256,27 @@ function AdminDanaKeluar() {
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
+        <div className="container d-flex g-3 align-items-center mt-3">
+          <input
+            className="form-control"
+            type="date"
+            onChange={(e) => setDate(e.target.value)}
+          />
+          {/* <button className="btn-primary ml-3" type="button" onClick={getTgl}>
+            Pilih
+          </button> */}
+          <button
+            className="btn-primary ml-3"
+            type="button"
+            onClick={exportLaporanKeuangan}
+          >
+            Export
+          </button>
+        </div>
         <div
           className="container box-table mt-3 app-main__outer"
           data-aos="fade-left"
         >
-          <h3>Informasi Total Pengeluaran</h3>
-          <div className="summary-box">
-            {/* <p>🔹 Total Harian: {rupiah(totalDaily)}</p> */}
-            <p>🔹 Total Mingguan: {rupiah(totalWeekly)}</p>
-            <p>🔹 Total Bulanan: {rupiah(totalMonthly)}</p>
-          </div>
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -342,14 +399,6 @@ function AdminDanaKeluar() {
                           onClick={() => deleteData(item.id)}
                         >
                           <i className="fa-solid fa-trash"></i>
-                        </button>
-                        <button
-                          type="button"
-                          className="btn-success btn-sm"
-                          onClick={handleExportToExcel}
-                          style={{ marginLeft: "12px" }}
-                        >
-                          <i class="fa-solid fa-file-arrow-down"></i>
                         </button>
                       </td>
                     </tr>
