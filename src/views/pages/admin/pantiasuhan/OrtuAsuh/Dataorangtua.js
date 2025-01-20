@@ -254,7 +254,7 @@ function Dataortu() {
                           <td data-label="Pekerjaan">{row.work}</td>
                           <td data-label="No HP">{row.phone}</td>
                           <td data-label="Anak Asuh">{row.nama_anak}</td> 
-                          <td data-label="Alamat">{row.url_image}</td>
+                          <td data-label="Alamat">{row.address}</td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                             {userRole !== "yayasan" && (
@@ -271,6 +271,20 @@ function Dataortu() {
                                   href={`/edit_ortu_asuh/${row.id}`}
                                 >
                                   <i className="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                type="button"
+                                className="btn-warning btn-sm mr-2"
+                              >
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/detail_ortu_asuh/${row.id}`}
+                                >
+                                  <i className="fa-solid fa-info-circle"></i>
                                 </a>
                               </button>
                               <button

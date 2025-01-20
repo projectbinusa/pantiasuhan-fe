@@ -2,17 +2,19 @@ import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY_BYRTGHN } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function EditAnak() {
   const [nama, setNama] = useState("");
-  const [username, setUsername] = useState("");
   const [rfidNumber, setRFIDNumber] = useState("");
-  const [nik, setNIK] = useState("");
+  const [uniqueId, setUniqueId] = useState("");
   const [lits, setLists] = useState(null);
   const [namaOrangTua, setNamaOrangTua] = useState("");
   const [birthPlace, setBirthPlace] = useState("");
@@ -37,7 +39,7 @@ function EditAnak() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY}/api/admin/siswa/${param.id}`,
+          `${API_DUMMY_BYRTGHN}/api/customer/member/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -45,10 +47,9 @@ function EditAnak() {
           }
         );
         const resp = response.data.data;
-        setNama(resp.name)
-        setUsername(resp.username)
-        setRFIDNumber(resp.rfid_number)
-        setNIK(resp.nik)
+        setNama(resp.name);
+        setRFIDNumber(resp.rfid_number);
+        setUniqueId(resp.unique_id);
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -71,12 +72,11 @@ function EditAnak() {
 
     try {
       await axios.put(
-        `${API_DUMMY}/api/admin/siswa/${param.id}`,
+        `${API_DUMMY_BYRTGHN}/api/customer/member/${param.id}`,
         {
           name: nama,
-          username: username,
           rfid_number: rfidNumber,
-          nik: nik
+          unique_id: uniqueId,
         },
         {
           headers: {
@@ -116,13 +116,16 @@ function EditAnak() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -144,7 +147,8 @@ function EditAnak() {
                           <input
                             value={nama}
                             onChange={(e) => setNama(e.target.value)}
-                            placeholder="Masukkan Nama Anak Asuh" className="form-control"
+                            placeholder="Masukkan Nama Anak Asuh"
+                            className="form-control"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
@@ -154,7 +158,8 @@ function EditAnak() {
                           <input
                             value={birthPlace}
                             onChange={(e) => setBirthPlace(e.target.value)}
-                            placeholder="Masukkan Nama Tempat Lahir" className="form-control"
+                            placeholder="Masukkan Nama Tempat Lahir"
+                            className="form-control"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
@@ -164,14 +169,18 @@ function EditAnak() {
                           <input
                             value={birthDate}
                             onChange={(e) => setBirthDate(e.target.value)}
-                            type="date" className="form-control"
+                            type="date"
+                            className="form-control"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Pendidikan
                           </label>
-                          <select className="form-control" onChange={(e) => setEducation(e.target.value)}>
+                          <select
+                            className="form-control"
+                            onChange={(e) => setEducation(e.target.value)}
+                          >
                             <option>Pilih</option>
                             <option value="SD/MI">SD/MI</option>
                             <option value="SMP/Mts">SMP/Mts</option>
@@ -186,17 +195,8 @@ function EditAnak() {
                           <input
                             value={namaOrangTua}
                             onChange={(e) => setNamaOrangTua(e.target.value)}
-                            placeholder="Masukkan Nama Orang Tua Kandung" className="form-control"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Username
-                          </label>
-                          <input
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Masukkan Username Anak Asuh" className="form-control"
+                            placeholder="Masukkan Nama Orang Tua Kandung"
+                            className="form-control"
                           />
                         </div>
                         <div className="mb-3 co-lg-12">
@@ -206,7 +206,8 @@ function EditAnak() {
                           <input
                             value={rfidNumber}
                             onChange={(e) => setRFIDNumber(e.target.value)}
-                            placeholder="Masukkan RFID Number Anak Asuh" className="form-control"
+                            placeholder="Masukkan RFID Number Anak Asuh"
+                            className="form-control"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
@@ -214,15 +215,18 @@ function EditAnak() {
                             NIK
                           </label>
                           <input
-                            value={nik}
-                            onChange={(e) => setNIK(e.target.value)}
-                            placeholder="Masukkan NIK Anak Asuh" className="form-control"
-                          />                        </div>
+                            value={uniqueId}
+                            onChange={(e) => setUniqueId(e.target.value)}
+                            placeholder="Masukkan uniqueId Anak Asuh"
+                            className="form-control"
+                          />{" "}
+                        </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_anak_asuh">
+                          href="/admin_anak_asuh"
+                        >
                           Batal
                         </a>
                       </button>

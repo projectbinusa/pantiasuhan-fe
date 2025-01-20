@@ -151,6 +151,7 @@ import EditInves from "./views/pages/admin/pantiasuhan/iventaris/EditIventaris";
 import Dataortu from "./views/pages/admin/pantiasuhan/OrtuAsuh/Dataorangtua";
 import AddOrtu from "./views/pages/admin/pantiasuhan/OrtuAsuh/AddOrtu";
 import EditOrtu from "./views/pages/admin/pantiasuhan/OrtuAsuh/EditOrtu";
+import DetailOrtu from "./views/pages/admin/pantiasuhan/OrtuAsuh/DetailOrtu";
 import DetailSAmbutanPanti from "./views/pages/admin/pantiasuhan/sambutan/DetailSambutan";
 import AddSambutanPanti from "./views/pages/admin/pantiasuhan/sambutan/AddSambutan";
 import EditSambutanPanti from "./views/pages/admin/pantiasuhan/sambutan/EditSambutan";
@@ -185,6 +186,7 @@ import EditTahsin from "./views/pages/anak/EditTahsin";
 import DataAnak from "./views/pages/admin/pantiasuhan/anak/DataAnak";
 import AddAnak from "./views/pages/admin/pantiasuhan/anak/AddAnak";
 import EditAnak from "./views/pages/admin/pantiasuhan/anak/EditAnak";
+import DetailAnak from "./views/pages/admin/pantiasuhan/anak/DetailAnak";
 import FormBukuTamu from "./views/pages/admin/pantiasuhan/buku_tamu/FormBukuTamu";
 import DataBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/barang/DataBarangInventaris";
 import KategoriBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/kategori/KategoriBarang";
@@ -395,6 +397,11 @@ function App() {
               component={EditOrtu}
               exact
             />
+            <Route
+              path="/detail_ortu_asuh/:id"
+              component={DetailOrtu}
+              exact
+            />
             <Route path="/admin_absensi" component={DataAbsensi} exact />
             <Route
               path="/siswa_absensi"
@@ -419,6 +426,11 @@ function App() {
             <Route
               path="/edit_anak_asuh/:id"
               component={EditAnak}
+              exact
+            />
+            <Route
+              path="/detail_anak_asuh/:id"
+              component={DetailAnak}
               exact
             />
             <Route
@@ -999,6 +1011,7 @@ function App() {
             <Route path="/data-ortu" component={Dataortu} exact />
             <Route path="/add-ortu" component={AddOrtu} exact />
             <Route path="/edit-ortu" component={EditOrtu} exact />
+            <Route path="/detail-ortu" component={DetailOrtu} exact />
             {/* Absensi */}
             <Route path="/absen-masuk" component={AbsenMasuk} exact />
             <Route path="/absen-pulang" component={AbsenPulang} exact />

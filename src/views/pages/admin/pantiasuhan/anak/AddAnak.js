@@ -5,19 +5,19 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
+import { API_DUMMY_BYRTGHN } from "../../../../../utils/base_URL";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function AddAnak() {
-  const [nama, setNama] = useState("");
-  const [username, setUsername] = useState("");
+  const [name, setNama] = useState("");
   const [password, setPassword] = useState("");
   const [rfidNumber, setRFIDNumber] = useState("");
-  const [nik, setNIK] = useState("");
+  const [unique_id, setUniqueId] = useState("");
   const [idOrangTua, setIdOrangTua] = useState("");
   const [listFosterParent, setListFosterParent] = useState("");
-  const [namaOrangTua, setNamaOrangTua] = useState("");
+  const [parentName, setParentName] = useState("");
   const [birthPlace, setBirthPlace] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [education, setEducation] = useState("");
@@ -65,53 +65,63 @@ function AddAnak() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
-
+  
     try {
       let imageUrl = foto;
-
+  
       if (foto) {
         imageUrl = await uploadImageToS3(foto);
+        console.log('URL Gambar berhasil di-upload:', imageUrl);
       }
-      await axios.post(
-        `${API_DUMMY}/api/admin/siswa`,
-        {
-          name: nama,
-          username: username,
-          password: password,
-          rfid_number: rfidNumber,
-          nik: nik
+  
+      const payload = {
+        name,
+        password,
+        rfid_number: rfidNumber,
+        unique_id,
+        imageUrl,
+      };
+  
+      console.log('Payload yang dikirim ke backend:', payload);
+  
+      // Mengirim data ke API
+      const response = await axios.post(`${API_DUMMY_BYRTGHN}/api/customer/member`, payload, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
-
-      Swal.fire({
-        icon: "success",
-        title: "Data Berhasil DiTambahkan",
-        showConfirmButton: false,
-        timer: 1500,
       });
-      setTimeout(() => {
-        history.push("/admin_anak_asuh");
-      }, 1500);
-    } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
-        localStorage.clear();
-        history.push("/login");
-      } else {
+  
+      console.log('Respons dari backend:', response.data);
+  
+      if (response.data.success) {
         Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
+          icon: "success",
+          title: "Data Berhasil Ditambahkan",
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(error);
+  
+        // Redirect setelah data berhasil ditambahkan
+        setTimeout(() => {
+          history.push("/admin_anak_asuh");
+        }, 1500);
+      } else {
+        throw new Error('Tambah Data Gagal');
       }
+  
+    } catch (error) {
+      console.error('Error respons:', error.response || error);
+  
+      // Menampilkan pesan error yang lebih spesifik
+      Swal.fire({
+        icon: "error",
+        title: error.response?.data?.message || "Tambah Data Gagal!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
+  
 
   useEffect(() => {
     AOS.init();
@@ -145,7 +155,7 @@ function AddAnak() {
                             Anak Asuh
                           </label>
                           <input
-                            value={nama}
+                            value={name}
                             onChange={(e) => setNama(e.target.value)}
                             placeholder="Masukkan Nama Anak Asuh" className="form-control"
                           />
@@ -187,19 +197,9 @@ function AddAnak() {
                             Nama Orang Tua Kandung
                           </label>
                           <input
-                            value={namaOrangTua}
-                            onChange={(e) => setNamaOrangTua(e.target.value)}
+                            value={parentName}
+                            onChange={(e) => setParentName(e.target.value)}
                             placeholder="Masukkan Nama Orang Tua Kandung" className="form-control"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Username
-                          </label>
-                          <input
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Masukkan Username Anak Asuh" className="form-control"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
@@ -227,8 +227,8 @@ function AddAnak() {
                             NIK
                           </label>
                           <input
-                            value={nik}
-                            onChange={(e) => setNIK(e.target.value)}
+                            value={unique_id}
+                            onChange={(e) => setUniqueId(e.target.value)}
                             placeholder="Masukkan NIK Anak Asuh" className="form-control"
                           />                        </div>
                         <div className="mb-3 col-lg-6">
