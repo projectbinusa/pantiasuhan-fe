@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -25,7 +25,7 @@ function AdminBeritaPanti() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY}/api/admin/berita?page=${currentPage}&limit=${rowsPerPage}`, {
+      const response = await axios.get(`${API_DUMMY_SMART}/api/admin/berita?page=${currentPage}&limit=${rowsPerPage}`, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -55,7 +55,7 @@ function AdminBeritaPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/api/admin/berita/` + id, {
+          .delete(`${API_DUMMY_SMART}/api/admin/berita/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

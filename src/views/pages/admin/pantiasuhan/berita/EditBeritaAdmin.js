@@ -57,7 +57,7 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function EditBeritaAdminPanti() {
@@ -74,7 +74,7 @@ function EditBeritaAdminPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY}/api/admin/berita/` + param.id, {
+      .get(`${API_DUMMY_SMART}/api/admin/berita/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -105,7 +105,7 @@ function EditBeritaAdminPanti() {
         imageUrl = imageurl
       }
       const response = await axios.put(
-        `${API_DUMMY}/api/admin/berita/${param.id}`,
+        `${API_DUMMY_SMART}/api/admin/berita/${param.id}`,
         {
           author: author,
           category: categoryBerita,
