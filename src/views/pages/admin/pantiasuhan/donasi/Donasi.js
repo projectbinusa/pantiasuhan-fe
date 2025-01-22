@@ -7,6 +7,27 @@ import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import "../../../../../css/button.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function Donasi() {
   const [list, setList] = useState([]);
@@ -19,7 +40,7 @@ function Donasi() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [userRole, setUserRole] = useState(null);
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [donasiDetail, setDonasiDetail] = useState(null);
 
   const toggleSidebar = () => {
@@ -55,12 +76,36 @@ function Donasi() {
       );
 
       const { data, pagination } = response.data;
-      console.log(data);
 
       setList(data);
       setPaginationInfo({
         totalPages: pagination.total_page,
         totalElements: pagination.total,
+      });
+
+      // Ambil data untuk chart
+      const labels = data.map((item) => item.name);
+      const incomeData = data.map((item) => item.total_income);
+      const outcomeData = data.map((item) => item.total_outcome);
+
+      setChartData({
+        labels: labels,
+        datasets: [
+          {
+            label: "Total Income",
+            data: incomeData,
+            borderColor: "rgb(75, 192, 192)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            tension: 0.4,
+          },
+          {
+            label: "Total Outcome",
+            data: outcomeData,
+            borderColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
+            tension: 0.4,
+          },
+        ],
       });
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
@@ -155,9 +200,31 @@ function Donasi() {
     getDonasiDetail();
   }, [id]);
 
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Total Income",
+        data: [],
+        borderColor: "rgb(75, 192, 192)",
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        tension: 0.4,
+      },
+      {
+        label: "Total Outcome",
+        data: [],
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        tension: 0.4,
+      },
+    ],
+  });
+
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -169,8 +236,14 @@ function Donasi() {
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
-          
+        <div
+          className="container box-table mt-3 app-main__outer"
+          data-aos="fade-left"
+        >
+          <div className="card p-3 mb-4">
+            <h5>Grafik Donasi</h5>
+            <Line data={chartData} />
+          </div>
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -259,7 +332,11 @@ function Donasi() {
                     <tr key={index}>
                       <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
                       <td>{item.name}</td>
-                      <td><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
+                      <td>
+                        <div
+                          dangerouslySetInnerHTML={{ __html: item.description }}
+                        />
+                      </td>
                       <td>{item.total_income}</td>
                       <td>{item.total_outcome}</td>
                       <td>

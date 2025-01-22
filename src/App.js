@@ -237,6 +237,7 @@ import DetailDonasiYayasan from "./views/pages/yayasan/donasi/DetailDonasiYayasa
 import DonasiTrxYayasan from "./views/pages/yayasan/donasi_trx/DonasiTrxYayasan.js";
 import DonasiTrxMasuk from "./views/pages/yayasan/donasi_trx/DonasiTrxMasuk.js";
 import DonasiTrxKeluar from "./views/pages/yayasan/donasi_trx/DonasiTrxKeluar.js";
+import LaporanKeuangan from "./views/pages/admin/pantiasuhan/donasi/LaporanKeuangan.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1048,6 +1049,11 @@ function App() {
             <Route
               path="/donasiumum/danamasuk/:id"
               component={DanaMasuk}
+              exact
+            />
+            <Route
+              path="/laporan_keuangan"
+              component={LaporanKeuangan}
               exact
             />
             <Route
