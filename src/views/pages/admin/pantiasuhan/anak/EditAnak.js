@@ -50,6 +50,10 @@ function EditAnak() {
         setNama(resp.name);
         setRFIDNumber(resp.rfid_number);
         setUniqueId(resp.unique_id);
+        setBirthPlace(resp.birth_place); // Update for birth place
+        setBirthDate(resp.birth_date); // Update for birth date
+        setEducation(resp.education); // Update for education
+        setNamaOrangTua(resp.parent_name); // Update for parent's name
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -65,47 +69,71 @@ function EditAnak() {
     // console.log("nama: ", namaOrangTua);
   }, []);
 
-  //add
-  const add = async (e) => {
-    e.preventDefault();
-    e.persist();
+  const put = async (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior.
+
+    // Prepare the payload
+    const payload = {
+      name: nama,
+      rfid_number: rfidNumber,
+      unique_id: uniqueId,
+      birth_place: birthPlace,
+      birth_date: birthDate,
+      education: education,
+      nama_orang_tua: namaOrangTua,
+    };
 
     try {
+      // Make the PUT request
       await axios.put(
         `${API_DUMMY_BYRTGHN}/api/customer/member/${param.id}`,
-        {
-          name: nama,
-          rfid_number: rfidNumber,
-          unique_id: uniqueId,
-        },
+        payload,
         {
           headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Include auth header.
           },
         }
       );
 
+      // Success feedback
       Swal.fire({
         icon: "success",
         title: "Data Berhasil DiPerbarui",
         showConfirmButton: false,
         timer: 1500,
       });
+
+      // Redirect after success
       setTimeout(() => {
         history.push("/admin_anak_asuh");
       }, 1500);
     } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
-        localStorage.clear();
-        history.push("/login");
+      // Check for specific error responses
+      if (error.response) {
+        console.error("Error Response Data:", error.response.data); // Log server error details.
+
+        if (error.response.status === 401) {
+          localStorage.clear(); // Clear invalid token.
+          history.push("/login"); // Redirect to login.
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Edit Data Gagal!",
+            text: error.response.data?.message || "Terjadi kesalahan.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       } else {
+        // General error fallback
+        console.error("Error Details:", error);
         Swal.fire({
           icon: "error",
           title: "Edit Data Gagal!",
+          text: "Tidak dapat terhubung ke server.",
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(error);
       }
     }
   };
@@ -138,7 +166,7 @@ function EditAnak() {
                   <div className="card-body">
                     <h1 className="fs-4">Form Edit Data</h1>
                     <hr />
-                    <form onSubmit={add}>
+                    <form onSubmit={put}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
@@ -179,9 +207,10 @@ function EditAnak() {
                           </label>
                           <select
                             className="form-control"
+                            value={education || "Pilih"}
                             onChange={(e) => setEducation(e.target.value)}
                           >
-                            <option>Pilih</option>
+                            <option value="Pilih">Pilih</option>
                             <option value="SD/MI">SD/MI</option>
                             <option value="SMP/Mts">SMP/Mts</option>
                             <option value="SMA/SMK/MA">SMA/SMK/MA</option>
