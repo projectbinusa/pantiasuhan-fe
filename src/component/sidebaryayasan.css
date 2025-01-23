@@ -1,0 +1,121 @@
+/* Global Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background-color: #f8f9fa; /* Light background */
+  color: black;
+  height: 100vh;
+  padding: 15px; /* Reduced padding */
+  overflow-y: auto; /* Enable vertical scrolling */
+  box-sizing: border-box; /* To include padding in the element's total width/height */
+}
+
+/* Sidebar Header */
+.sidebar h2 {
+  text-align: center;
+  padding-bottom: 8px; /* Reduced padding */
+  margin-bottom: 15px; /* Reduced margin */
+  border-bottom: 2px solid #ddd;
+  color: #28a745; /* Bright green */
+  font-weight: bold;
+}
+
+/* Sidebar Menu */
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Sidebar Items */
+.sidebar ul li {
+  padding: 5px; /* Reduced padding */
+  border-radius: 12px; /* Adjusted radius */
+  margin-bottom: 8px; /* Reduced spacing between items */
+  transition: background-color 0.3s ease;
+  font:bold
+}
+
+/* Sidebar Links */
+.sidebar ul li a {
+  color: #28a745; /* Darker green text for non-submenu items */
+  text-decoration: none;
+  display: block;
+  padding: 8px; /* Reduced padding */
+  border-radius: 10px; /* Adjusted radius */
+  background-color: #e7f7e7; /* Lighter background */
+  font-size: 16px;
+  font-weight: 600; /* Slightly thicker text */
+  transition: background-color 0.3s ease, padding 0.2s ease; /* Hover effect */
+}
+
+.sidebar ul li a:hover {
+  background-color: #c3e6cb; /* Slightly darker green */
+  padding-left: 12px; /* Reduced sliding effect on hover */
+}
+
+/* Dropdown Styles */
+.sidebar .dropdown {
+  position: relative;
+}
+
+.sidebar .dropdown .submenu {
+  display: none; /* Initially hidden */
+  list-style-type: none;
+  padding-left: 15px; /* Reduced padding */
+  margin-top: 5px; /* Space between parent item and submenu */
+  background-color: #d1f2d3; /* Light green background for submenu */
+}
+
+.sidebar .dropdown.active .submenu {
+  display: block; /* Display submenu when active */
+}
+
+.sidebar .dropdown .submenu li {
+  padding: 8px; /* Reduced padding */
+  border-radius: 10px; /* Adjusted radius */
+  transition: background-color 0.3s ease;
+}
+
+.sidebar .dropdown .submenu li a {
+  color: #1d6e2d; /* Darker green text for submenu items */
+  text-decoration: none;
+  background-color: #d1f2d3; /* Keep the same light green background */
+}
+
+.sidebar .dropdown .submenu li a:hover {
+  background-color: #a9e0a0; /* Slightly darker green when hovering */
+}
+
+/* Active Dropdown Styles */
+.sidebar .dropdown > a {
+  font-weight: bold;
+  color: #28a745; /* Bright green for dropdown title */
+}
+
+.sidebar .dropdown.active > a {
+  background-color: #d4edda; /* Lighter background when active */
+  border-radius: 10px; /* Adjusted radius */
+  padding-left: 12px; /* Reduced padding */
+}
+
+/* Adjust submenu behavior to push items below */
+.sidebar .dropdown.active .submenu {
+  margin-top: 8px; /* Reduced spacing */
+}
+
+/* Menambahkan flexbox pada sidebar-link */
+.sidebar .sidebar-item .sidebar-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Memindahkan ikon dropdown ke ujung kanan */
+.sidebar .sidebar-item .dropdown-icon {
+  margin-left: auto;  /* Memastikan ikon berada di ujung kanan */
+}
