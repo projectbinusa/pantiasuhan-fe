@@ -1,27 +1,59 @@
 import React, { useEffect, useState } from "react";
-import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import axios from "axios";
-import { API_DUMMY, API_DUMMY_SMART } from "../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../utils/base_URL";
+import SidebarYayasan from "../../../../component/SidebarYayasan";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import "../../../../css/dashboardyayasan.css";
 
-const rupiah = (number) => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  }).format(number);
-};
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function DashboardYayasan() {
+  const [list, setList] = useState([]);
   const [sidebarToggled, setSidebarToggled] = useState(true);
-  const [conditions, setConditions] = useState([]);
-  const [quantities, setQuantities] = useState([]);
-  const [jumlahDanaKeluar, setJumlahDanaKeluar] = useState(0);
-  const [fetchWeekly, setFetchWeekly] = useState();
-  const [condition, setCondition] = useState([]);
-  const [quantitie, setQuantitie] = useState([]);
-  const [rekapdonasi, setRekapDonasi] = useState([]);
-  const [rekapDonasiTrx, setRekapDonasiTrx] = useState([]);
-  const [monthlyDonasiTrx, setMonthlyDonasiTrx] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [userRole, setUserRole] = useState(null);
+  const [paginationInfo, setPaginationInfo] = useState({
+    totalPages: 1,
+    totalElements: 0,
+  });
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Total Income",
+        data: [],
+        borderColor: "rgb(75, 192, 192)",
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        tension: 0.4,
+      },
+      {
+        label: "Total Outcome",
+        data: [],
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        tension: 0.4,
+      },
+    ],
+  });
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -36,128 +68,64 @@ function DashboardYayasan() {
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
+
+    const role = localStorage.getItem("role"); // Retrieve role from localStorage
+    setUserRole(role);
+
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const respons = await axios.get(`${API_DUMMY_SMART}/api/user/donation`, {
-        headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-      });
-      console.log("data donasi: ", respons.data.data);
-
-      setConditions(respons.data.data || []);
-    } catch (error) {
-      console.error("Error fetcing donation data: ", error.message);
-    }
-  };
-
-  const fetchDonasiTrx = async () => {
-    try {
-      const respons = await axios.get(
-        `${API_DUMMY_SMART}/api/user/donation_trx`,
-        {
-          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-        }
-      );
-      console.log("donasi trx: ", respons.data.data);
-      setCondition(respons.data.data || []);
-    } catch (error) {
-      console.error("Error fetcing donation data: ", error.message);
-    }
-  };
-
-  const [total_income, setTotalIncome] = useState();
-  const [total_outcome, setTotalOutcome] = useState();
-  const fetchDonasiRecap = async () => {
-    try {
-      const respons = await axios.get(
-        `${API_DUMMY_SMART}/api/user/donation/recap`,
-        {
-          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-        }
-      );
-      console.log("donasi recap: ", respons.data.data);
-      setTotalIncome(respons.data.data.total_income || 0);
-      setTotalOutcome(respons.data.data.total_outcome || 0);
-    } catch (error) {
-      console.error("Error fetcing donation data: ", error.message);
-    }
-  };
-
-  const fetchDonasiRecapTrx = async () => {
-    try {
-      const respons = await axios.get(
-        `${API_DUMMY_SMART}/api/user/donation_trx/recap`,
-        {
-          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-        }
-      );
-      console.log("donation trx recap: ", respons.data.data);
-      setRekapDonasiTrx(respons.data.data.total_nominal);
-    } catch (error) {
-      console.error("Error fetcing donation data: ", error.message);
-    }
-  };
-
-  const fetchDanaMasuk = async () => {
-    try {
-      const respons = await axios.get(
-        `${API_DUMMY_SMART}/api/user/donation_trx/recap/daily`,
-        {
-          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-        }
-      );
-      console.log("donation trx keluar: ", respons.data.data);
-
-      setFetchWeekly(respons.data.data.nominal || 0);
-    } catch (error) {
-      console.error("Error fetcing donation data: ", error.message);
-    }
-  };
-
-  const fetchDanaKeluar = async () => {
-    try {
-      const respons = await axios.get(
-        `${API_DUMMY_SMART}/api/user/donation_trx/keluar`,
-        {
-          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-        }
-      );
-      console.log(respons.data.data);
-
-      setJumlahDanaKeluar(respons.data?.total_recap_donasi_keluar || 0);
-    } catch (error) {
-      console.error("Error fetcing donation data: ", error.message);
-    }
-  };
-
-  const fetchMonthlyDonasiTrx = async () => {
+  const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/donation_trx/recap/monthly`,
+        `${API_DUMMY_SMART}/api/customer/donation?page=${currentPage}&limit=${rowsPerPage}`,
         {
-          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
         }
       );
-      console.log("donasi trx bulanan: ", response.data.data);
-      setMonthlyDonasiTrx(response.data.data.total_nominal || 0);
+
+      const { data, pagination } = response.data;
+
+      setList(data);
+      setPaginationInfo({
+        totalPages: pagination.total_page,
+        totalElements: pagination.total,
+      });
+
+      // Update chart data
+      const labels = data.map((item) => item.name);
+      const incomeData = data.map((item) => item.total_income);
+      const outcomeData = data.map((item) => item.total_outcome);
+
+      setChartData({
+        labels: labels,
+        datasets: [
+          {
+            label: "Total Income",
+            data: incomeData,
+            borderColor: "rgb(75, 192, 192)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            tension: 0.4,
+          },
+          {
+            label: "Total Outcome",
+            data: outcomeData,
+            borderColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
+            tension: 0.4,
+          },
+        ],
+      });
     } catch (error) {
-      console.error(
-        "Error fetching monthly donation trx data: ",
-        error.message
-      );
+      console.error("Terjadi kesalahan:", error.response || error.message);
     }
   };
 
   useEffect(() => {
-    fetchData();
-    fetchDonasiTrx();
-    fetchDanaMasuk();
-    fetchDonasiRecap();
-    fetchDonasiRecapTrx();
-    fetchMonthlyDonasiTrx();
-  }, []);
+    getAll(currentPage);
+  }, [currentPage, rowsPerPage]);
 
   return (
     <div
@@ -165,344 +133,167 @@ function DashboardYayasan() {
         sidebarToggled ? "toggled" : ""
       }`}
     >
-      <a
-        id="show-sidebar"
-        className="btn1 btn-lg"
-        onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
-        <i className="fas fa-bars"></i>
-      </a>
-      <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
-      <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container mt-3 mb-3 app-main__outer">
-          <div className="box-tabel row gap-3 d-none d-md-flex">
-            <div className="col card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Donasi Masuk</h2>
-              <h1>{rupiah(total_income)}</h1>
-            </div>
-            <div className="col card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Donasi Trx</h2>
-              <h1>{rupiah(rekapDonasiTrx)}</h1>
-            </div>
-            <div className="col card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Donasi Keluar</h2>
-              <h1>{rupiah(total_outcome)}</h1>
-            </div>
-            <div className="col card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Donasi Trx Bulanan</h2>
-              <h1>{rupiah(monthlyDonasiTrx)}</h1>
-            </div>
-          </div>
-          <div className="box-tabel d-lg-none">
-            <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Donasi Masuk</h2>
-              <h1>{rupiah(total_income)}</h1>
-            </div>
-            <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Donasi Trx</h2>
-              <h1>{rupiah(rekapDonasiTrx)}</h1>
-            </div>
-            <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Donasi Keluar</h2>
-              <h1>{rupiah(total_outcome)}</h1>
-            </div>
-            <div className="card shadow w-100 border-none cardmenu">
-              <h2 className="">Jumlah Donasi Trx Bulanan</h2>
-              <h1>{rupiah(monthlyDonasiTrx)}</h1>
-            </div>
-          </div>
-          <div className="box-tabel card1">
-            <div className="card shadow w-100 cardmenu">
-              <h2 className="">Donasi</h2> <br />
-              <table className="align-middle mb-0 table table-bordered table-striped table-hover tabelbarang">
-                <thead>
-                  <tr>
-                    <th scope="col" className="text-center">
-                      No
-                    </th>
-                    <th className="text-center">Nama</th>
-                    <th className="text-center">Deskripsi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {conditions.length > 0 ? (
-                    conditions.map((condition, index) => {
-                      // const matchingQuantity = quantities.filter(
-                      //   (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
-                      // );
+      {/* Sidebar */}
+      <div className={`sidebar ${sidebarToggled ? "toggled" : ""}`}>
+        <SidebarYayasan toggleSidebar={toggleSidebar} />
+      </div>
 
-                      // let ttl = 0;
-                      // matchingQuantity.forEach((quantity) => {
-                      //   ttl += quantity.stok;
-                      // });
+      {/* Konten Utama */}
+      <div className="container py-4">
+        <a
+          id="show-sidebar"
+          className="btn1 btn-lg toggle-sidebar-btn"
+          onClick={toggleSidebar}
+        >
+          <i className="fas fa-bars"></i>
+        </a>
+        <div className="row">
+          <div className="col-lg-4 col-md-12 mb-4">
+            <div className="row g-3">
+              <div className="col-md-6 col-12 mb-3">
+                <div
+                  className="card p-3 shadow-sm rounded-3 financial-card"
+                  style={{ width: "100%" }}
+                >
+                  <div className="fw-bold text-xs text-success text-start">
+                    <i
+                      className="fas fa-donate"
+                      style={{ fontSize: "0.6rem", marginRight: "0.5rem" }}
+                    ></i>
+                    <span style={{ fontSize: "0.6rem" }}>Donasi Bulan Ini</span>
+                  </div>
+                  <h3
+                    className="display-6"
+                    style={{
+                      fontSize: "1.5rem",
+                      textAlign: "left",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    40.000.000
+                  </h3>
 
-                      // console.log(matchingQuantity);
-                      return (
-                        <tr key={index}>
-                          <td data-label="No" className="text-center">
-                            {index + 1}
-                          </td>
-                          <td data-label="Nama" className="text-center">
-                            {condition.name || "Tidak Diketahui"}
-                          </td>
-                          <td data-label="Deskripsi" className="text-center">
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html:
-                                  condition.description ||
-                                  "Tidak Ada Deskripsi",
-                              }}
-                            />
-                          </td>
-                        </tr>
-                      );
-                    })
-                  ) : (
-                    <tr>
-                      <td colSpan="3" className="text-center">
-                        Data tidak tersedia
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-              <footer>
-                <div className="info-link">
-                  <a href="/yayasan_donasi">Informasi Selengkapnya</a>
+                  <p
+                    className="text-muted"
+                    style={{ fontSize: "0.9rem", textAlign: "left" }}
+                  >
+                    <span className="text-success">+10%</span> dari bulan lalu
+                  </p>
                 </div>
-              </footer>
-            </div>
-            <div className="card shadow w-100 cardmenu">
-              <h2 className="">Donasi Trx</h2> <br />
-              <table className="align-middle mb-0 table table-bordered table-striped table-hover tabelbarang">
-                <thead>
-                  <tr>
-                    <th scope="col" className="text-center">
-                      No
-                    </th>
-                    <th className="text-center">Nama Donatur</th>
-                    <th className="text-center">Deskripsi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {condition.length > 0 ? (
-                    condition.map((condition, index) => {
-                      const matchingQuantity = quantitie.filter(
-                        (quantity) =>
-                          quantity.kondisi_barang_name ===
-                          condition.kondisi_barang
-                      );
-
-                      let ttl = 0;
-                      matchingQuantity.forEach((quantity) => {
-                        ttl += quantity.stok;
-                      });
-
-                      console.log(matchingQuantity);
-                      return (
-                        <tr key={index}>
-                          <td data-label="No" className="text-center">
-                            {index + 1}
-                          </td>
-                          <td data-label="Nama Donatur" className="text-center">
-                            {condition.name || "Tidak Diketahui"}
-                          </td>
-                          <td data-label="Deskripsi" className="text-center">
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html:
-                                  condition.description ||
-                                  "Tidak Ada Deskripsi",
-                              }}
-                            />
-                          </td>
-                        </tr>
-                      );
-                    })
-                  ) : (
-                    <tr>
-                      <td colSpan="3" className="text-center">
-                        Data tidak tersedia
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-              <footer>
-                <div className="info-link">
-                  <a href="/donasitrx_yayasan">Informasi Selengkapnya</a>
+              </div>
+              <div className="col-md-6 col-12 mb-3">
+                <div
+                  className="card p-3 shadow-sm rounded-3 financial-card"
+                  style={{ width: "110%" }}
+                >
+                  <div
+                    className="fw-bold text-xs text-success text-start"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    <i
+                      className="fas fa-building"
+                      style={{ fontSize: "0.6rem", marginRight: "0.5rem" }}
+                    ></i>
+                    <span style={{ fontSize: "0.6rem" }}>Total Cabang</span>
+                  </div>
+                  <h3
+                    className="display-6"
+                    style={{
+                      fontSize: "1.5rem",
+                      textAlign: "left",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    200
+                  </h3>
+                  <button
+                    className="btn btn-success btn-sm mt-3"
+                    style={{ fontSize: "0.8rem", textAlign: "left" }}
+                  >
+                    Lihat Selengkapnya
+                  </button>
                 </div>
-              </footer>
+              </div>
+              <div className="row g-3">
+                <div className="col-md-6 col-12 mb-3">
+                  <div
+                    className="card p-3 shadow-sm rounded-3 financial-card"
+                    style={{ width: "100%" }}
+                  >
+                    <div className="fw-bold text-xs text-success text-start">
+                      <i
+                        className="fas fa-users"
+                        style={{ fontSize: "0.6rem", marginRight: "0.5rem" }}
+                      ></i>
+                      <span style={{ fontSize: "0.6rem" }}>Total Pegawai</span>
+                    </div>
+                    <h3
+                      className="display-6"
+                      style={{
+                        fontSize: "1.5rem",
+                        textAlign: "left",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      100
+                    </h3>
+                    <button
+                      className="btn btn-success btn-sm mt-3"
+                      style={{ fontSize: "0.8rem", textAlign: "left" }}
+                    >
+                      Lihat Selengkapnya
+                    </button>
+                  </div>
+                </div>
+                <div className="col-md-6 col-12 mb-3">
+                  <div
+                    className="card p-3 shadow-sm rounded-3 financial-card"
+                    style={{ width: "110%" }}
+                  >
+                    <div
+                      className="fw-bold text-xs text-success text-start"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      <i
+                        className="fas fa-child"
+                        style={{ fontSize: "0.6rem", marginRight: "0.5rem" }}
+                      ></i>
+                      <span style={{ fontSize: "0.6rem" }}>
+                        Total Anak Asuh
+                      </span>
+                    </div>
+                    <h3
+                      className="display-6"
+                      style={{
+                        fontSize: "1.5rem",
+                        textAlign: "left",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      1.000
+                    </h3>
+                    <button
+                      className="btn btn-success btn-sm mt-3"
+                      style={{ fontSize: "0.8rem", textAlign: "left" }}
+                    >
+                      Lihat Selengkapnya
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="box-tabel card1">
-            {/* <div className="card shadow w-100 cardmenu">
-              <h2 className="">Data Donasi</h2> <br />
-              <table className="align-middle mb-0 table table-bordered table-striped table-hover tabelbarang">
-                <thead>
-                  <tr>
-                    <th scope="col" className="text-center">
-                      No
-                    </th>
-                    <th className="text-center">Nama</th>
-                    <th className="text-center">Deskripsi</th>
-                    <th className="text-center">Total Income</th>
-                    <th className="text-center">Total Outcome</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rekapdonasi.length > 0 ? (
-                    rekapdonasi.map((condition, index) => {
-                      const matchingQuantity = quantities.filter(
-                        (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
-                      );
 
-                      let ttl = 0;
-                      matchingQuantity.map((item) => (
-                        ttl += item.stok
-                      ))
-                      console.log(matchingQuantity);
-                      return (
-                        <tr key={index}>
-                          <td data-label="No" className="text-center">
-                            {index + 1}
-                          </td>
-                          <td data-label="Nama" className="text-center">
-                            {condition.name || "Tidak Diketahui"}
-                          </td>
-                          <td data-label="Deskripsi" className="text-center">
-                            <div dangerouslySetInnerHTML={{ __html: conditions.description }} />
-                          </td>
-                          <td data-label="Total Income" className="text-center">
-                            {condition.total_income || "Tidak Diketahui"}
-                          </td>
-                          <td data-label="Total Outcome" className="text-center">
-                            {condition.total_outcome || "Tidak Diketahui"}
-                          </td>
-                        </tr>
-                      )
-                    })
-                  ) : (
-                    <tr>
-                      <td colSpan="6" className="text-center">
-                        Data tidak tersedia
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div> */}
-            {/* <div className="card shadow w-100 cardmenu">
-              <h2 className="">Data Donasi Trx</h2> <br />
-              <table className="align-middle mb-0 table table-bordered table-striped table-hover tabelbarang">
-                <thead>
-                  <tr>
-                    <th scope="col" className="text-center">
-                      No
-                    </th>
-                    <th className="text-center">Donatur</th>
-                    <th className="text-center">Nominal</th>
-                    <th className="text-center">Deskripsi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rekapDonasiTrx.length > 0 ? (
-                    rekapDonasiTrx.map((condition, index) => {
-                      const matchingQuantity = quantities.filter(
-                        (quantity) => quantity.kondisi_barang_name === condition.kondisi_barang
-                      );
-
-                      let ttl = 0;
-                      matchingQuantity.map((item) => (
-                        ttl += item.stok
-                      ))
-                      console.log(matchingQuantity);
-                      return (
-                        <tr key={index}>
-                          <td data-label="No" className="text-center">
-                            {index + 1}
-                          </td>
-                          <td data-label="Donatur" className="text-center">
-                            {condition.name || "Tidak Diketahui"}
-                          </td>
-                          <td data-label="Nominal" className="text-center">
-                            {condition.nominal || "Tidak Diketahui"}
-                          </td>
-                          <td data-label="Deskripsi" className="text-center">
-                            <div dangerouslySetInnerHTML={{ __html: condition.description }} />
-                          </td>
-                        </tr>
-                      )
-                    })
-                  ) : (
-                    <tr>
-                      <td colSpan="5" className="text-center">
-                        Data tidak tersedia
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div> */}
+          <div className="col-lg-8 col-md-12">
+            <div className="card p-4 shadow-sm rounded-3 chart-card">
+              <h5 className="fw-bold">Data Tren Keuangan Panti</h5>
+              <div style={{ position: "relative", height: "400px" }}>
+                <Line data={chartData} options={{ responsive: true }} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <style>
-        {`
-          .card1{
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1rem;
-          }
-          .card2{
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1rem;
-          }
-          .cardmenu {
-            padding: 1rem;
-            margin-bottom: 1rem;
-            background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
-          }
-          .cardmenu h2{
-            font-size: 1.3rem
-          }
-          .cardmenu table thead tr th,
-          .cardmenu table tbody tr td {
-            font-family: "Poppins", sans-serif
-          }
-          .info-link {
-            margin-top: 2rem;
-            text-align: left;
-          }
-          .info-link a {
-            text-decoration: none;
-            color: #ffffff;
-            background-color: #001f54; /* Biru tua */
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            font-size: 0.9rem;
-          }
-          .info-link a:hover {
-            background-color: #00397d;
-          }
-          footer {
-            margin-top: auto; /* Mengatur footer selalu di bawah */
-          }
-          @media (max-width: 1024px) {
-            .card1, .card2 {
-            grid-template-columns: 1fr;
-            }
-          }
-          @media (max-width: 800px) {
-            .box-tabel {
-              width: 100%;
-              margin-left: 0;
-            }
-          }
-        `}
-      </style>
     </div>
   );
 }

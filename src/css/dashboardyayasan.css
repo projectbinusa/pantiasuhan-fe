@@ -1,0 +1,24 @@
+.body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.page-wrapper {
+    display: flex;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  
+  .page-wrapper .container {
+    width: 100%;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  
+  .page-wrapper.toggled .container {
+    margin-left: 100px; /* Sesuaikan dengan lebar sidebar */
+  }
+
+.financial-card,
+.chart-card {
+  border: none; 
+  box-shadow: none; 
+}
+  
