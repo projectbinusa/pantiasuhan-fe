@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -11,6 +12,7 @@ import {
   Legend,
 } from "chart.js";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 
 ChartJS.register(
   CategoryScale,
@@ -25,86 +27,59 @@ ChartJS.register(
 function LaporanKeuangan() {
   const [date, setDate] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(false);
-
   const toggleSidebar = () => setSidebarToggled(!sidebarToggled);
   const getTgl = () => console.log("Tanggal Dipilih:", date);
+  const [date2, setDate2] = useState("");
 
-  // Dummy Data Keuangan
-  const totalPendapatanHariIni = 500000;
-  const totalPengeluaranHariIni = 200000;
-  const totalPendapatanKeseluruhan = 10000000;
-  const totalPengeluaranBulanTerakhir = 1500000;
-  const pendapatanPerbulan = [
-    1000000, 1500000, 1200000, 1800000, 2000000, 2200000, 2500000, 2700000,
-    2900000, 3100000, 3300000, 3500000,
-  ];
+  // ✅ Tambahkan state untuk menyimpan data agar tidak undefined
+  const [totalPendapatanHariIni, setTotalPendapatanHariIni] = useState(0);
+  const [totalPengeluaranHariIni, setTotalPengeluaranHariIni] = useState(0);
+  const [totalPendapatanKeseluruhan, setTotalPendapatanKeseluruhan] = useState(0);
+  const [totalPengeluaranBulanTerakhir, setTotalPengeluaranBulanTerakhir] = useState(0);
 
-  const chartDataMingguan = {
-    labels: ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"],
-    datasets: [
-      {
-        label: "Pemasukan",
-        data: [200000, 250000, 220000, 300000, 320000, 400000, 500000],
-        borderColor: "#4CAF50",
-        backgroundColor: "rgba(76, 175, 80, 0.2)",
-      },
-      {
-        label: "Pengeluaran",
-        data: [100000, 120000, 130000, 140000, 160000, 180000, 200000],
-        borderColor: "#FF5733",
-        backgroundColor: "rgba(255, 87, 51, 0.2)",
-      },
-    ],
-  };
+  // ✅ Tambahkan state untuk data chart agar tidak undefined
+  const [chartDataMingguan, setChartDataMingguan] = useState({
+    labels: [],
+    datasets: [],
+  });
 
-  const chartDataBulanan = {
-    labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "Mei",
-      "Jun",
-      "Jul",
-      "Agu",
-      "Sep",
-      "Okt",
-      "Nov",
-      "Des",
-    ],
-    datasets: [
-      {
-        label: "Pendapatan Perbulan",
-        data: pendapatanPerbulan,
-        borderColor: "#4CAF50",
-        backgroundColor: "rgba(76, 175, 80, 0.2)",
-      },
-    ],
-  };
+  const [chartDataBulanan, setChartDataBulanan] = useState({
+    labels: [],
+    datasets: [],
+  });
 
-  const exportHarian = () => {
-    const csvContent = [
-      ["Tanggal", "Pendapatan", "Pengeluaran"],
-      [date, totalPendapatanHariIni, totalPengeluaranHariIni],
-    ]
-      .map((e) => e.join(","))
-      .join("\n");
+  const tanggal = new Date();
+  const hari = tanggal.getDate();
+  const bulan = String(tanggal.getMonth() + 1).padStart(2, "0");
+  const tahun = tanggal.getFullYear();
+  const formatTanggal = `${tahun}-${bulan}-${hari}`;
 
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute("download", `laporan_keuangan_${date}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const exportHarian = async () => {
+    try {
+      const tgl = date2 || formatTanggal;
+      const response = await axios({
+        url: `${API_DUMMY_SMART}/api/customer/export/donation?date=${tgl}`,
+        method: "GET",
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "laporan-harian.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Gagal mengekspor laporan keuangan:", error);
+    }
   };
 
   return (
-    <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
-    >
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -121,10 +96,10 @@ function LaporanKeuangan() {
             type="date"
             onChange={(e) => setDate(e.target.value)}
           />
-          <button className="btn btn-primary ml-3" onClick={getTgl}>
+          <button className="btn-primary ml-3" onClick={getTgl}>
             Pilih
           </button>
-          <button className="btn btn-primary ml-3" onClick={exportHarian}>
+          <button className="btn-primary ml-3" onClick={exportHarian}>
             Export
           </button>
         </div>
@@ -178,9 +153,7 @@ function LaporanKeuangan() {
 
           <div className="card flex-fill">
             <div className="card-body">
-              <h5 className="card-title">
-                Total Pendapatan Perbulan (1 Tahun)
-              </h5>
+              <h5 className="card-title">Total Pendapatan Perbulan (1 Tahun)</h5>
               <Line data={chartDataBulanan} />
             </div>
           </div>
