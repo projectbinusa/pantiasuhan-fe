@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
-import "../../../../../css/button.css";
 import SidebarYayasan from "../../../../../../component/SidebarYayasan";
 
 function DetailAnakAsuh() {
