@@ -16,7 +16,7 @@ function SidebarYayasan({ toggleSidebar }) {
           <h2>LKSA JATENG</h2>
           <ul>
             <li>
-              <a href="#">
+              <a href="/dashboard_yayasan">
                 <i className="fa-solid fa-home"></i> DASHBOARD
               </a>
             </li>
@@ -159,12 +159,12 @@ function SidebarYayasan({ toggleSidebar }) {
                 style={{ display: activeDropdown === 4 ? "block" : "none" }}
               >
                 <li>
-                  <a href="#">
+                  <a href="/laporan-inventaris">
                     <i className="fa-solid fa-list-alt"></i> Laporan Inventaris
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="/detail-inventaris">
                     <i className="fa-solid fa-file-alt"></i> Inventaris Detail
                   </a>
                 </li>

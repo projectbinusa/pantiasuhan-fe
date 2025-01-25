@@ -242,6 +242,8 @@ import AnakAsuhCabang from "./views/pages/admin/yayasan/personalia/anakasuhcaban
 import DetailAnakAsuh from "./views/pages/admin/yayasan/personalia/anakasuhcabang/DetailAnakAsuh.js";
 import DataPegawaiCabang from "./views/pages/admin/yayasan/personalia/pegawai/DataPegawaiCabang.js";
 import DetailPegawai from "./views/pages/admin/yayasan/personalia/pegawai/DetailPegawai.js";
+import LaporanInventaris from "./views/pages/admin/yayasan/inventaris/LaporanInventaris.js";
+import DetailInventaris from "./views/pages/admin/yayasan/inventaris/DetailInventaris.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -938,6 +940,17 @@ function App() {
             <Route
               path="/detail-pegawai-cabang/:id"
               component={DetailPegawai}
+              exact
+            />
+            {/* INVENTARIS YAYASAN */}
+            <Route
+              path="/laporan-inventaris"
+              component={LaporanInventaris}
+              exact
+            />
+            <Route
+              path="/detail-inventaris"
+              component={DetailInventaris}
               exact
             />
           </Switch>
