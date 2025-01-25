@@ -194,14 +194,13 @@ function SidebarYayasan({ toggleSidebar }) {
                 style={{ display: activeDropdown === 5 ? "block" : "none" }}
               >
                 <li>
-                  <a href="#">
+                  <a href="/data-anak-asuh-cabang">
                     <i className="fa-solid fa-user"></i> Data Anak Asuh
                   </a>
                 </li>
                 <li>
-                  <a href="#">
-                    <i className="fa-solid fa-briefcase"></i> Data
-                    Kepenagakerjaan
+                  <a href="/data-pegawai-cabang">
+                    <i className="fa-solid fa-briefcase"></i> Data Kepegawaian
                   </a>
                 </li>
               </ul>

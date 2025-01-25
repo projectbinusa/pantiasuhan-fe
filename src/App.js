@@ -238,6 +238,10 @@ import DonasiTrxYayasan from "./views/pages/yayasan/donasi_trx/DonasiTrxYayasan.
 import DonasiTrxMasuk from "./views/pages/yayasan/donasi_trx/DonasiTrxMasuk.js";
 import DonasiTrxKeluar from "./views/pages/yayasan/donasi_trx/DonasiTrxKeluar.js";
 import LaporanKeuangan from "./views/pages/admin/pantiasuhan/donasi/LaporanKeuangan.js";
+import AnakAsuhCabang from "./views/pages/admin/yayasan/personalia/anakasuhcabang/AnakAsuhCabang.js";
+import DetailAnakAsuh from "./views/pages/admin/yayasan/personalia/anakasuhcabang/DetailAnakAsuh.js";
+import DataPegawaiCabang from "./views/pages/admin/yayasan/personalia/pegawai/DataPegawaiCabang.js";
+import DetailPegawai from "./views/pages/admin/yayasan/personalia/pegawai/DetailPegawai.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -278,11 +282,7 @@ function App() {
               component={DetailSAmbutanPanti}
               exact
             />
-            <Route
-              path="/add_sambutan"
-              component={AddSambutanPanti}
-              exact
-            />
+            <Route path="/add_sambutan" component={AddSambutanPanti} exact />
             <Route
               path="/edit_sambutan/:id"
               component={EditSambutanPanti}
@@ -293,16 +293,8 @@ function App() {
               component={DetailSAmbutanPanti}
               exact
             />
-            <Route
-              path="/admin_visimisi"
-              component={DetailVisiPanti}
-              exact
-            />
-            <Route
-              path="/add_visimisi"
-              component={AddVisiMisiPanti}
-              exact
-            />
+            <Route path="/admin_visimisi" component={DetailVisiPanti} exact />
+            <Route path="/add_visimisi" component={AddVisiMisiPanti} exact />
             <Route
               path="/edit_visimisi/:id"
               component={EditVisiMisiPanti}
@@ -313,16 +305,8 @@ function App() {
               component={DetailVisiPanti}
               exact
             />
-            <Route
-              path="/admin_program"
-              component={KegiatanPanti}
-              exact
-            />
-            <Route
-              path="/add_program"
-              component={AddKegiatanPanti}
-              exact
-            />
+            <Route path="/admin_program" component={KegiatanPanti} exact />
+            <Route path="/add_program" component={AddKegiatanPanti} exact />
             <Route
               path="/admin_detail_program/:id"
               component={DetailKegiatanPanti}
@@ -350,34 +334,18 @@ function App() {
             />
             <Route path="/admin_galeri" component={Galery} exact />
             <Route path="/add_galeri" component={AddGalery} exact />
-            <Route
-              path="/edit_galeri/:id"
-              component={EditGalery}
-              exact
-            />
+            <Route path="/edit_galeri/:id" component={EditGalery} exact />
             <Route path="/admin_kontak" component={KontakPanti} exact />
             <Route path="/add_kontak" component={AddKontakPanti} exact />
-            <Route
-              path="/edit_kontak/:id"
-              component={EditKontakPanti}
-              exact
-            />
+            <Route path="/edit_kontak/:id" component={EditKontakPanti} exact />
             <Route
               path="/admin_kotak_saran"
               component={KotakMasukPanti}
               exact
             />
-            <Route
-              path="/admin_buku_tamu"
-              component={DataBukuTamu}
-              exact
-            />
+            <Route path="/admin_buku_tamu" component={DataBukuTamu} exact />
             <Route path="/add_buku_tamu" component={AddBukuTamu} exact />
-            <Route
-              path="/edit_buku_tamu/:id"
-              component={EditBukuTamu}
-              exact
-            />
+            <Route path="/edit_buku_tamu/:id" component={EditBukuTamu} exact />
             <Route
               path="/admin_detail_buku_tamu/:id"
               component={DetailBukuTamu}
@@ -386,54 +354,22 @@ function App() {
             <Route path="/admin_tahsin" component={DataTahsin} exact />
             <Route path="/admin_iventaris" component={Iventaris} exact />
             <Route path="/add_iventaris" component={AddInves} exact />
-            <Route
-              path="/edit_iventaris/:id"
-              component={EditInves}
-              exact
-            />
+            <Route path="/edit_iventaris/:id" component={EditInves} exact />
             <Route path="/admin_ortu_asuh" component={Dataortu} exact />
             <Route path="/add_ortu_asuh" component={AddOrtu} exact />
-            <Route
-              path="/edit_ortu_asuh/:id"
-              component={EditOrtu}
-              exact
-            />
-            <Route
-              path="/detail_ortu_asuh/:id"
-              component={DetailOrtu}
-              exact
-            />
+            <Route path="/edit_ortu_asuh/:id" component={EditOrtu} exact />
+            <Route path="/detail_ortu_asuh/:id" component={DetailOrtu} exact />
             <Route path="/admin_absensi" component={DataAbsensi} exact />
-            <Route
-              path="/siswa_absensi"
-              component={DataAbsensiSiswa}
-              exact
-            />
-            <Route
-              path="/siswa/data-absen"
-              component={DataAbsen}
-              exact
-            />
+            <Route path="/siswa_absensi" component={DataAbsensiSiswa} exact />
+            <Route path="/siswa/data-absen" component={DataAbsen} exact />
             <Route path="/anak_tahsin" component={TahsinAnak} exact />
             <Route path="/add_anak_tahsin" component={AddTahsin} exact />
-            <Route
-              path="/edit_anak_tahsin/:id"
-              component={EditTahsin}
-              exact
-            />
+            <Route path="/edit_anak_tahsin/:id" component={EditTahsin} exact />
             <Route path="/admin_anak_asuh" component={DataAnak} exact />
             <Route path="/add_anak_asuh" component={AddAnak} exact />
             <Route path="/add_anak_asuh" component={AddAnak} exact />
-            <Route
-              path="/edit_anak_asuh/:id"
-              component={EditAnak}
-              exact
-            />
-            <Route
-              path="/detail_anak_asuh/:id"
-              component={DetailAnak}
-              exact
-            />
+            <Route path="/edit_anak_asuh/:id" component={EditAnak} exact />
+            <Route path="/detail_anak_asuh/:id" component={DetailAnak} exact />
             <Route
               path="/bukutamu/form/:organization_id"
               component={FormBukuTamu}
@@ -527,21 +463,9 @@ function App() {
             <Route path="/ruang-kantor" component={RuangKantor} exact />
             <Route path="/ruang-kelas" component={RuangKelas} exact />
             <Route path="/ruang-lab" component={RuangLab} exact />
-            <Route
-              path="/sarana-olahraga"
-              component={SaranaOlahraga}
-              exact
-            />
-            <Route
-              path="/sarana-ibadah"
-              component={SaranaIbadah}
-              exact
-            />
-            <Route
-              path="/sarana-kesehatan"
-              component={SaranaKesehatan}
-              exact
-            />
+            <Route path="/sarana-olahraga" component={SaranaOlahraga} exact />
+            <Route path="/sarana-ibadah" component={SaranaIbadah} exact />
+            <Route path="/sarana-kesehatan" component={SaranaKesehatan} exact />
             <Route
               path="/sarana-protokol-kesehatan"
               component={SaranaProtokolKesehatan}
@@ -558,11 +482,7 @@ function App() {
             {/* alumni */}
             <Route path="/admin-alumni" component={Alumni} exact />
             <Route path="/add-alumni" component={AddAlumni} exact />
-            <Route
-              path="/edit-alumni/:id"
-              component={EditAlumni}
-              exact
-            />
+            <Route path="/edit-alumni/:id" component={EditAlumni} exact />
             <Route
               path="/detail-alumni/:id"
               component={DetailAlumniAdmin}
@@ -572,24 +492,12 @@ function App() {
             {/* kontak */}
             <Route path="/admin-kontak" component={Kontak} exact />
             <Route path="/add-kontak" component={AddKontak} exact />
-            <Route
-              path="/edit-kontak/:id"
-              component={EditKontak}
-              exact
-            />
+            <Route path="/edit-kontak/:id" component={EditKontak} exact />
             {/* end kontak */}
             {/* sambutan */}
-            <Route
-              path="/admin-sambutan"
-              component={DetailSambutan}
-              exact
-            />
+            <Route path="/admin-sambutan" component={DetailSambutan} exact />
             <Route path="/add-sambutan" component={AddSambutan} exact />
-            <Route
-              path="/edit-sambutan/:id"
-              component={EditSambutan}
-              exact
-            />
+            <Route path="/edit-sambutan/:id" component={EditSambutan} exact />
             <Route
               path="/detail-sambutan/:id"
               component={DetailSambutan}
@@ -597,17 +505,9 @@ function App() {
             />
             {/* end sambutan */}
             {/* sejarah */}
-            <Route
-              path="/admin-sejarah"
-              component={DetailSejarah}
-              exact
-            />
+            <Route path="/admin-sejarah" component={DetailSejarah} exact />
             <Route path="/add-sejarah" component={AddSejarah} exact />
-            <Route
-              path="/edit-sejarah/:id"
-              component={EditSejarah}
-              exact
-            />
+            <Route path="/edit-sejarah/:id" component={EditSejarah} exact />
             {/* end Sejarah */}
             {/* tenaga kependidikan */}
             <Route
@@ -629,16 +529,8 @@ function App() {
             {/* VisiMisi */}
             <Route path="/admin-visimisi" component={DetailVisi} exact />
             <Route path="/add-visimisi" component={AddVisiMisi} exact />
-            <Route
-              path="/edit-visimisi/:id"
-              component={EditVisiMisi}
-              exact
-            />
-            <Route
-              path="/detail-visimisi/:id"
-              component={DetailVisi}
-              exact
-            />
+            <Route path="/edit-visimisi/:id" component={EditVisiMisi} exact />
+            <Route path="/detail-visimisi/:id" component={DetailVisi} exact />
             {/* end visimisi */}
             <Route
               path="/admin-tenaga-pendidikan"
@@ -648,16 +540,8 @@ function App() {
             {/* sarana */}
             <Route path="/admin-sarana" component={Sarana} exact />
             <Route path="/add-sarana" component={AddSarana} exact />
-            <Route
-              path="/edit-sarana/:id"
-              component={EditSarana}
-              exact
-            />
-            <Route
-              path="/detail-sarana/:id"
-              component={DetailSarana}
-              exact
-            />
+            <Route path="/edit-sarana/:id" component={EditSarana} exact />
+            <Route path="/detail-sarana/:id" component={DetailSarana} exact />
             {/* end sarana */}
             {/* kegiatan */}
             <Route path="/admin-kegiatan" component={Kegiatan} exact />
@@ -667,25 +551,13 @@ function App() {
               component={DetailKegiatanAdmin}
               exact
             />
-            <Route
-              path="/edit-kegiatan/:id"
-              component={EditKegiatan}
-              exact
-            />
+            <Route path="/edit-kegiatan/:id" component={EditKegiatan} exact />
             {/* end kegiatan */}
             {/* program */}
             <Route path="/admin-program" component={Program} exact />
             <Route path="/add-program" component={AddProgram} exact />
-            <Route
-              path="/detail-program/:id"
-              component={DetailProgram}
-              exact
-            />
-            <Route
-              path="/edit-program/:id"
-              component={EditProgram}
-              exact
-            />
+            <Route path="/detail-program/:id" component={DetailProgram} exact />
+            <Route path="/edit-program/:id" component={EditProgram} exact />
             {/* end program */}
             {/* kategori program */}
             <Route
@@ -707,11 +579,7 @@ function App() {
               component={DetailPrestasiAdmin}
               exact
             />
-            <Route
-              path="/edit-prestasi/:id"
-              component={EditPrestasi}
-              exact
-            />
+            <Route path="/edit-prestasi/:id" component={EditPrestasi} exact />
             <Route
               path="/detail-prestasi/:id"
               component={DetailPrestasiAdmin}
@@ -721,18 +589,10 @@ function App() {
             {/* struktur */}
             <Route path="/admin-struktur" component={Struktur} exact />
             <Route path="/add-struktur" component={AddStructur} exact />
-            <Route
-              path="/edit-struktur/:id"
-              component={EditStruktur}
-              exact
-            />
+            <Route path="/edit-struktur/:id" component={EditStruktur} exact />
             {/* end prestasi */}
             {/* foto-kegiatan */}
-            <Route
-              path="/admin-foto-kegiatan"
-              component={FotoKegiatan}
-              exact
-            />
+            <Route path="/admin-foto-kegiatan" component={FotoKegiatan} exact />
             <Route
               path="/add-foto-kegiatan"
               component={AddFotoKegiatan}
@@ -745,16 +605,8 @@ function App() {
             />
             {/* end foto sarana */}
             {/* foto-sarana */}
-            <Route
-              path="/admin-foto-sarana"
-              component={FotoSarana}
-              exact
-            />
-            <Route
-              path="/add-foto-sarana"
-              component={AddFotoSarana}
-              exact
-            />
+            <Route path="/admin-foto-sarana" component={FotoSarana} exact />
+            <Route path="/add-foto-sarana" component={AddFotoSarana} exact />
             <Route
               path="/edit-foto-sarana/:id"
               component={EditFotoSarana}
@@ -779,40 +631,24 @@ function App() {
             />
             {/* end category berita */}
             {/* berita */}
-            <Route
-              path="/add-berita-admin"
-              component={AddBeritaAdmin}
-              exact
-            />
+            <Route path="/add-berita-admin" component={AddBeritaAdmin} exact />
             <Route
               path="/edit-berita-admin/:id"
               component={EditBeritaAdmin}
               exact
             />
             <Route path="/admin-berita" component={AdminBerita} exact />
-            <Route
-              path="/detail/berita/:id"
-              component={DetailBerita}
-              exact
-            />
+            <Route path="/detail/berita/:id" component={DetailBerita} exact />
             {/* end berita */}
             {/* galery */}
             <Route path="/admin-galery" component={Galery} exact />
             <Route path="/add-galery" component={AddGalery} exact />
-            <Route
-              path="/edit-galery/:id"
-              component={EditGalery}
-              exact
-            />
+            <Route path="/edit-galery/:id" component={EditGalery} exact />
             {/* end galery */}
             {/* keuangan */}
             <Route path="/admin-keuangan" component={Keuangan} exact />
             <Route path="/add-keuangan" component={AddKeuangan} exact />
-            <Route
-              path="/edit-keuangan/:id"
-              component={EditKeuangan}
-              exact
-            />
+            <Route path="/edit-keuangan/:id" component={EditKeuangan} exact />
             {/* end keuangan */}
             {/* category keuangan */}
             {/* <Route
@@ -827,16 +663,8 @@ function App() {
           /> */}
             {/* end category keuangan */}
             {/* ekskul */}
-            <Route
-              path="/admin-ekstrakulikuler"
-              component={Ekskul}
-              exact
-            />
-            <Route
-              path="/add-ekstrakulikuler"
-              component={AddEkskul}
-              exact
-            />
+            <Route path="/admin-ekstrakulikuler" component={Ekskul} exact />
+            <Route path="/add-ekstrakulikuler" component={AddEkskul} exact />
             <Route
               path="/edit-ekstrakulikuler/:id"
               component={EditEkskul}
@@ -871,32 +699,12 @@ function App() {
             />
             {/* end kondisi sekolah */}
             {/* perpus*/}
-            <Route
-              path="/admin-perpustakaan"
-              component={AdminPerpus}
-              exact
-            />
-            <Route
-              path="/add-perpustakaan"
-              component={AddPerpus}
-              exact
-            />
-            <Route
-              path="/edit-perpustakaan/:id"
-              component={EditPerpus}
-              exact
-            />
+            <Route path="/admin-perpustakaan" component={AdminPerpus} exact />
+            <Route path="/add-perpustakaan" component={AddPerpus} exact />
+            <Route path="/edit-perpustakaan/:id" component={EditPerpus} exact />
             {/* end perpus*/} {/* materi ajar*/}
-            <Route
-              path="/admin-materi-ajar"
-              component={MateriAjar}
-              exact
-            />
-            <Route
-              path="/add-materi-ajar"
-              component={AddMateriAjar}
-              exact
-            />
+            <Route path="/admin-materi-ajar" component={MateriAjar} exact />
+            <Route path="/add-materi-ajar" component={AddMateriAjar} exact />
             <Route
               path="/edit-materi-ajar/:id"
               component={EditMateriAjar}
@@ -918,17 +726,9 @@ function App() {
               component={KonsidisiSekolahView}
               exact
             />
-            <Route
-              path="/admin-kotak-saran"
-              component={KotakMasuk}
-              exact
-            />
+            <Route path="/admin-kotak-saran" component={KotakMasuk} exact />
             {/* end admin smpn1bergas */}
-            <Route
-              path="/add-berita-admin"
-              component={AddBeritaAdmin}
-              exact
-            />
+            <Route path="/add-berita-admin" component={AddBeritaAdmin} exact />
             <Route
               path="/edit-berita-admin/:id"
               component={EditBeritaAdmin}
@@ -937,58 +737,30 @@ function App() {
             {/* <Route path="/admin-berita" component={AdminBerita} exact /> */}
             {/* KEUANGAN */}
             <Route path="/keuangan-apbd" component={AllAPBD} exact />
-            <Route
-              path="/detail-apbd-:id"
-              component={DetailAPBD}
-              exact
-            />
+            <Route path="/detail-apbd-:id" component={DetailAPBD} exact />
             <Route path="/keuangan-bos" component={AllBOS} exact />
             <Route path="/detail-bos-:id" component={DetailBOS} exact />
             <Route path="/keuangan-komite" component={AllKomite} exact />
-            <Route
-              path="/detail-komite-:id"
-              component={DetailKomite}
-              exact
-            />
+            <Route path="/detail-komite-:id" component={DetailKomite} exact />
             {/* PRESTASI */}
             <Route
               path="/detail-prestasi-:id"
               component={DetailPrestasi}
               exact
             />
-            <Route
-              path="/detail-alumni-:id"
-              component={DetailAlumni}
-              exact
-            />
+            <Route path="/detail-alumni-:id" component={DetailAlumni} exact />
             <Route path="/all-alumni" component={AlumniAll} exact />
             <Route path="/osis" component={Osis} exact />
             {/* Berita */}
             <Route path="/galery" component={GalerySekolah} exact />
             {/* <Route path="/news" component={beritaNews} exact /> */}
-            <Route
-              path="/detail-news-:id"
-              component={DetailNews}
-              exact
-            />
+            <Route path="/detail-news-:id" component={DetailNews} exact />
             <Route path="/info" component={Info} exact />
-            <Route
-              path="/detail-info-:id"
-              component={DetailInfo}
-              exact
-            />
+            <Route path="/detail-info-:id" component={DetailInfo} exact />
             <Route path="/agenda" component={agenda} exact />
-            <Route
-              path="/detail-agenda-:id"
-              component={DetailAgenda}
-              exact
-            />
+            <Route path="/detail-agenda-:id" component={DetailAgenda} exact />
             <Route path="/perpustakaan" component={Perpustakaan} exact />
-            <Route
-              path="/detail-buku-:id"
-              component={DetailPerpus}
-              exact
-            />
+            <Route path="/detail-buku-:id" component={DetailPerpus} exact />
             {/* Kondisi Sekolah */}
             <Route
               path="/kondisi-sekolah-view"
@@ -1003,11 +775,7 @@ function App() {
             {/* Iventaris */}
             <Route path="/iventaris" component={Iventaris} exact />
             <Route path="/add-iventaris" component={AddInves} exact />
-            <Route
-              path="/edit-iventaris/:id"
-              component={EditInves}
-              exact
-            />
+            <Route path="/edit-iventaris/:id" component={EditInves} exact />
             {/* Orangtua Asuh */}
             <Route path="/data-ortu" component={Dataortu} exact />
             <Route path="/add-ortu" component={AddOrtu} exact />
@@ -1020,11 +788,7 @@ function App() {
             {/* Donasi */}
             <Route path="/donasi" component={Donasi} exact />
             <Route path="/donasi/put/:id" component={EditDonasi} exact />
-            <Route
-              path="/donasi/detail/:id"
-              component={DetailDonasi}
-              exact
-            />
+            <Route path="/donasi/detail/:id" component={DetailDonasi} exact />
             <Route path="/donasi/add" component={TambahDonasi} exact />
             <Route path="/donasi_trx" component={DonasiTrx} exact />
             <Route path="/add_donasi_trx" component={TambahDonasiTrx} exact />
@@ -1051,11 +815,7 @@ function App() {
               component={DanaMasuk}
               exact
             />
-            <Route
-              path="/laporan_keuangan"
-              component={LaporanKeuangan}
-              exact
-            />
+            <Route path="/laporan_keuangan" component={LaporanKeuangan} exact />
             <Route
               path="/donasiumum/danakeluar/:id"
               component={DanaKeluar}
@@ -1127,18 +887,13 @@ function App() {
             <Route path="/beritapanti" component={PublikBerita} exact />
             <Route path="/programpanti" component={PublikProgram} exact />
             <Route path="/presensipanti" component={ShiftPublik} exact />
-
             {/* yayasan */}
             <Route
               path="/dashboard_yayasan"
               component={DashboardYayasan}
               exact
             />
-            <Route
-              path="/yayasan_donasi"
-              component={DonasiYayasan}
-              exact
-            />
+            <Route path="/yayasan_donasi" component={DonasiYayasan} exact />
             <Route
               path="/detail_donasi_yayasan/:id"
               component={DetailDonasiYayasan}
@@ -1162,6 +917,27 @@ function App() {
             <Route
               path="/detail_donasitrx_yayasan/:id"
               component={DetailDonasiYayasan}
+              exact
+            />
+            {/* PERSONALIA YAYASAN */}
+            <Route
+              path="/data-anak-asuh-cabang"
+              component={AnakAsuhCabang}
+              exact
+            />
+            <Route
+              path="/detail-anak-asuh-cabang/:id"
+              component={DetailAnakAsuh}
+              exact
+            />
+            <Route
+              path="/data-pegawai-cabang"
+              component={DataPegawaiCabang}
+              exact
+            />
+            <Route
+              path="/detail-pegawai-cabang/:id"
+              component={DetailPegawai}
               exact
             />
           </Switch>
