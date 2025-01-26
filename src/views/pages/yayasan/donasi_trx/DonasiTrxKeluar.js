@@ -168,7 +168,7 @@ function DonasiTrxKeluar() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama Donatur</th>
+                    <th>Nama Donasi</th>
                     <th>Nominal</th>
                     <th>Deskripsi</th>
                     <th>Image</th>

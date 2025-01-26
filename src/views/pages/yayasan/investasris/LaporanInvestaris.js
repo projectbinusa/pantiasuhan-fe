@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../utils/base_URL";
 // import SidebarYayasan from "../../../../../component/SidebarYayasan";
 
 function LaporanInventaris() {
@@ -35,35 +36,35 @@ function LaporanInventaris() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  //   const getAll = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${API_DUMMY_SMART}/api/customer/member?page=${currentPage}&limit=${rowsPerPage}`,
-  //         {
-  //           headers: {
-  //             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-  //           },
-  //         }
-  //       );
+  const getAll = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/api/admin/investaris/organization_ids?page=${currentPage}&limit=${rowsPerPage}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
 
-  //       console.log(response);
+      console.log(response);
 
-  //       const { data, pagination } = response.data;
-  //       setList(data);
-  //       setPaginationInfo({
-  //         totalPages: pagination.total_page,
-  //         totalElements: pagination.total,
-  //       });
-  //     } catch (error) {
-  //       console.error("Terjadi Kesalahan", error);
-  //     }
-  //   };
+      const { data, pagination } = response.data;
+      setList(data);
+      setPaginationInfo({
+        totalPages: pagination.total_page,
+        totalElements: pagination.total,
+      });
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+    }
+  };
 
-  //   useEffect(() => {
-  //     getAll(currentPage);
-  //     const role = localStorage.getItem("userRole"); // Get role from localStorage
-  //     setUserRole(role); // Set role in state
-  //   }, [currentPage, rowsPerPage]);
+  useEffect(() => {
+    getAll(currentPage);
+    const role = localStorage.getItem("userRole"); // Get role from localStorage
+    setUserRole(role); // Set role in state
+  }, [currentPage, rowsPerPage]);
 
   useEffect(() => {
     AOS.init();
@@ -93,22 +94,19 @@ function LaporanInventaris() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left"
-        >
+          data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -117,8 +115,7 @@ function LaporanInventaris() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}
-              >
+                value={rowsPerPage}>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -145,8 +142,7 @@ function LaporanInventaris() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
+                    value={rowsPerPage}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -179,40 +175,35 @@ function LaporanInventaris() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}
-            >
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Lokasi Cabang</th>
+                    <th>Nama Barang</th>
+                    <th>Lokasi Barang</th>
                     <th>Kondisi Barang</th>
                     <th>Jumlah Barang</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {filteredList.length > 0 ? (
-                    filteredList.map((row, no) => {
-                      return ( */}
-                  <tr>
-                    <td data-label="No" className="">
-                      {/* {no + 1 + (currentPage - 1) * rowsPerPage} */}1
-                    </td>
-                    <td data-label="Lokasi Cabang">Semarang</td>
-                    <td data-label="Kondisi">Baik</td>
-                    <td data-label="Jumlah Barang">200</td>
-                  </tr>
-                  {/* );
-                    })
-                  ) : (
-                    <tr>
-                      <td colSpan="6" className="text-center my-3">
-                        <div style={{ padding: "10px", color: "#555" }}>
-                          Tidak ada data yang tersedia.
-                        </div>
-                      </td>
-                    </tr>
-                  )} */}
+                  {filteredList.map((row, index) => {
+                    return (
+                      <tr>
+                        <td data-label="No" className="">
+                          {index + 1}
+                        </td>
+                        <td data-label="Nama Barang">{row.name}</td>
+                        <td data-label="Lokasi Barang">
+                          {row.lokasi_barang_name}
+                        </td>
+                        <td data-label="Kondisi Barang">
+                          {row.kondisi_barang_name}
+                        </td>
+                        <td data-label="Jumlah Barang">{row.stok}</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

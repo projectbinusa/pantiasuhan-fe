@@ -601,13 +601,13 @@ function Home() {
               class="banner-inner style-white text-center text-lg-start">
               {/* <h4 class="sub-title">Best it solution</h4> */}
               <h2 class="title d-none d-lg-inline-block">
-                PantiAsuhan Muhammadiyah <br />
+                Panti Asuhan Muhammadiyah <br />
                 <span style={{ color: "#00FF9C" }}> Pantinya Sang Juara</span>
               </h2>
               <h2
                 style={{ fonrSize: "30px", color: "white" }}
                 class="d-inline-block d-lg-none">
-                PantiAsuhan Muhammadiyah <br />
+                Panti Asuhan Muhammadiyah <br />
                 <span style={{ color: "#00FF9C" }}> Pantinya Sang Juara</span>
               </h2>
             </div>
