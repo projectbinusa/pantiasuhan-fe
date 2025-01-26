@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../src/component/sidebar.css";
 import Swal from "sweetalert2";
 import {
@@ -9,10 +9,16 @@ import {
 
 function SidebarPantiAdmin({ toggleSidebar }) {
   const history = useHistory();
-  const location = useLocation();
   const menuRefs = useRef([]);
   const inventarisRefs = useRef([]);
   const defaultRefs = useRef([]);
+  const [activeMenu, setActiveMenu] = useState(null); // State untuk melacak menu aktif
+  const location = useLocation();
+
+  const toggleMenu = (index) => {
+    // Jika menu yang diklik sudah aktif, tutup menu; jika tidak, buka menu
+    setActiveMenu(activeMenu === index ? null : index);
+  };
 
   useEffect(() => {
     const activeIndex = menuItems.findIndex(
@@ -233,33 +239,106 @@ function SidebarPantiAdmin({ toggleSidebar }) {
 
   const menuItemsYayasan = [
     {
-      header: "Donaasi",
+      header: "CABANG",
       items: [
         {
-          title: "Donasi",
+          title: "Daftar Cabang",
           icon: "fa-solid fa-book-open",
-          path: "/yayasan_donasi",
+          path: "/daftar-cabang",
           action: [""],
         },
         {
-          title: "Donasi Trx",
+          title: "Detail Cabang",
           icon: "fa-solid fa-book-open",
-          path: "/donasitrx_yayasan",
+          path: "",
           action: [""],
         },
         {
-          title: "Donasi Trx Masuk",
+          title: "Buat Cabang Baru",
           icon: "fa-solid fa-list",
+          path: "/add-cabang",
+          action: [""],
+        },
+      ],
+      icon: <i class="fa-solid fa-angle-down"></i>,
+    },
+    {
+      header: "KEUANGAN",
+      items: [
+        {
+          title: "Data Keuangan",
+          icon: "fa-solid fa-book-open",
+          path: "",
+          action: [""],
+        },
+        {
+          title: "Laporan Keuangan",
+          icon: "fa-solid fa-book-open",
+          path: "",
+          action: [""],
+        },
+      ],
+      icon: <i class="fa-solid fa-angle-down"></i>,
+    },
+    {
+      header: "Donasi",
+      items: [
+        {
+          title: "Donasi Masuk",
+          icon: "fa-solid fa-book-open",
           path: "/donasitrx_masuk_yayasan",
           action: [""],
         },
         {
-          title: "Donasi Trx Keluar",
-          icon: "fas fa-calendar-alt",
-          path: "/donasitrx_keluar_yayasan",
+          title: "Donasi Keluar",
+          icon: "fa-solid fa-book-open",
+          path: "donasitrx_keluar_yayasan",
           action: [""],
-        }
+        },
+        {
+          title: "Laporan Donasi",
+          icon: "fa-solid fa-list",
+          path: "/laporan-donasi",
+          action: [""],
+        },
       ],
+      icon: <i class="fa-solid fa-angle-down"></i>,
+    },
+    {
+      header: "INVESTARIS",
+      items: [
+        {
+          title: "Laporan Investaris",
+          icon: "fa-solid fa-book-open",
+          path: "/laporan-investariss",
+          action: [""],
+        },
+        {
+          title: "Investaris Detail",
+          icon: "fa-solid fa-book-open",
+          path: "",
+          action: [""],
+        },
+      ],
+      icon: <i class="fa-solid fa-angle-down"></i>,
+    },
+    {
+      header: "PERSONALIA",
+      items: [
+        {
+          title: "Data Anak Asuh",
+          icon: "fa-solid fa-book-open",
+          path: "/cabang",
+          action: [""],
+        },
+        {
+          title: "DATA KEPEGAWAIAN",
+          icon: "fa-solid fa-book-open",
+          path: "",
+          action: [""],
+        },
+      ],
+      icon: <i class="fa-solid fa-angle-down"></i>,
     },
   ];
 
@@ -307,120 +386,235 @@ function SidebarPantiAdmin({ toggleSidebar }) {
     <>
       <nav id="sidebar" className="sidebar-wrapper">
         <div className="sidebar-content">
-          <div className="sidebar-brand">
-            <a href="#" style={{ textAlign: "center" }}>
-              PANTI ASUHAN
-            </a>
-            <div id="close-sidebar" onClick={toggleSidebar}>
-              <i className="fas fa-times"></i>
-            </div>
-          </div>
-          <div className="sidebar-menu1">
-            <ul>
-              {defaultItems.map((data, index) => (
-                <li key={index} ref={(el) => (defaultRefs.current[index] = el)} className={`body-menu ${location.pathname === data.path ||
-                    data.action.includes(location.pathname)
-                    ? "bactive"
-                    : ""
-                  }`}>
-                  <NavLink to={data.path} style={{ background: "none" }}>
-                    <i
-                      className={`${data.icon} ${location.pathname === data.path ||
-                          data.action.includes(location.pathname)
-                          ? "active"
-                          : ""
-                        }`}></i>
-                    <span>{data.title}</span>
-                  </NavLink>
-                </li>
-              ))}
-              {localStorage.getItem("rolename") != "Yayasan" ? (
-                <>
-                  {menuItems.map((menu, index) => (
-                    <React.Fragment key={index}>
-                      <li className="header-menu1">
-                        <span>{menu.header}</span>
-                      </li>
-                      {menu.items.map((data, subIndex) => (
-                        <li
-                          key={subIndex} className={`body-menu ${location.pathname === data.path ||
-                              data.action.includes(location.pathname)
-                              ? "bactive"
-                              : ""
-                            }`}
-                          ref={(el) => (menuRefs.current[subIndex] = el)}>
-                          <NavLink
-                            to={data.path}
-                            style={{ background: "none" }}>
-                            <i
-                              className={`${data.icon} ${location.pathname === data.path ||
-                                  data.action.includes(location.pathname)
-                                  ? "active"
-                                  : ""
-                                }`}></i>
-                            <span>{data.title}</span>
-                          </NavLink>
-                        </li>
-                      ))}
-                    </React.Fragment>
-                  ))}
-                  <li className="header-menu1">
-                    <span>Inventaris</span>
-                  </li>
-                  {inventarisItems.map((data, index) => (
+          {localStorage.getItem("rolename") == "customer" ? (
+            <>
+              {" "}
+              <div className="sidebar-brand">
+                <a href="#" style={{ textAlign: "center" }}>
+                  PANTI ASUHAN
+                </a>
+                <div id="close-sidebar" onClick={toggleSidebar}>
+                  <i className="fas fa-times"></i>
+                </div>
+              </div>
+              <div className="sidebar-menu1">
+                <ul>
+                  {defaultItems.map((data, index) => (
                     <li
-                      key={index} className={`body-menu ${location.pathname === data.path ||
-                          data.action.includes(location.pathname)
+                      key={index}
+                      ref={(el) => (defaultRefs.current[index] = el)}
+                      className={`body-menu ${
+                        location.pathname === data.path ||
+                        data.action.includes(location.pathname)
                           ? "bactive"
                           : ""
-                        }`}
-                      ref={(el) => (inventarisRefs.current[index] = el)}>
+                      }`}>
                       <NavLink to={data.path} style={{ background: "none" }}>
                         <i
-                          className={`${data.icon} ${location.pathname === data.path ||
-                              data.action.includes(location.pathname)
+                          className={`${data.icon} ${
+                            location.pathname === data.path ||
+                            data.action.includes(location.pathname)
                               ? "active"
                               : ""
-                            }`}></i>
+                          }`}></i>
                         <span>{data.title}</span>
                       </NavLink>
                     </li>
                   ))}
-                </>
-              ) : (
-                <>
-                  {menuItemsYayasan.map((menu, index) => (
-                    <React.Fragment key={index}>
+                  {localStorage.getItem("rolename") != "Yayasan" ? (
+                    <>
+                      {menuItems.map((menu, index) => (
+                        <React.Fragment key={index}>
+                          <li className="header-menu1">
+                            <span>{menu.header}</span>
+                          </li>
+                          {menu.items.map((data, subIndex) => (
+                            <li
+                              key={subIndex}
+                              className={`body-menu ${
+                                location.pathname === data.path ||
+                                data.action.includes(location.pathname)
+                                  ? "bactive"
+                                  : ""
+                              }`}
+                              ref={(el) => (menuRefs.current[subIndex] = el)}>
+                              <NavLink
+                                to={data.path}
+                                style={{ background: "none" }}>
+                                <i
+                                  className={`${data.icon} ${
+                                    location.pathname === data.path ||
+                                    data.action.includes(location.pathname)
+                                      ? "active"
+                                      : ""
+                                  }`}></i>
+                                <span>{data.title}</span>
+                              </NavLink>
+                            </li>
+                          ))}
+                        </React.Fragment>
+                      ))}
                       <li className="header-menu1">
-                        <span>{menu.header}</span>
+                        <span>Inventaris</span>
                       </li>
-                      {menu.items.map((data, subIndex) => (
+                      {inventarisItems.map((data, index) => (
                         <li
-                          key={subIndex} className={`body-menu ${location.pathname === data.path ||
-                              data.action.includes(location.pathname)
-                              ? "active"
+                          key={index}
+                          className={`body-menu ${
+                            location.pathname === data.path ||
+                            data.action.includes(location.pathname)
+                              ? "bactive"
                               : ""
-                            }`}
-                          ref={(el) => (menuRefs.current[subIndex] = el)}>
+                          }`}
+                          ref={(el) => (inventarisRefs.current[index] = el)}>
                           <NavLink
                             to={data.path}
                             style={{ background: "none" }}>
                             <i
-                              className={`${data.icon} ${location.pathname === data.path ||
-                                  data.action.includes(location.pathname)
+                              className={`${data.icon} ${
+                                location.pathname === data.path ||
+                                data.action.includes(location.pathname)
                                   ? "active"
                                   : ""
-                                }`}></i>
+                              }`}></i>
                             <span>{data.title}</span>
                           </NavLink>
                         </li>
                       ))}
+                    </>
+                  ) : (
+                    <>
+                      {menuItemsYayasan.map((menu, index) => (
+                        <React.Fragment key={index}>
+                          <li className="header-menu1">
+                            <span>{menu.header}</span>
+                          </li>
+                          {menu.items.map((data, subIndex) => (
+                            <li
+                              key={subIndex}
+                              className={`body-menu ${
+                                location.pathname === data.path ||
+                                data.action.includes(location.pathname)
+                                  ? "active"
+                                  : ""
+                              }`}
+                              ref={(el) => (menuRefs.current[subIndex] = el)}>
+                              <NavLink
+                                to={data.path}
+                                style={{ background: "none" }}>
+                                <i
+                                  className={`${data.icon} ${
+                                    location.pathname === data.path ||
+                                    data.action.includes(location.pathname)
+                                      ? "active"
+                                      : ""
+                                  }`}></i>
+                                <span>{data.title}</span>
+                              </NavLink>
+                            </li>
+                          ))}
+                        </React.Fragment>
+                      ))}
+                    </>
+                  )}
+                </ul>
+              </div>
+            </>
+          ) : localStorage.getItem("rolename") == "Yayasan" ? (
+            <>
+              {" "}
+              <div className="sidebar-brand">
+                <a
+                  href="#"
+                  style={{
+                    textAlign: "center",
+                    color: "#0d9c1e",
+                    fontSize: "25px",
+                  }}>
+                  LKSA JATENG
+                </a>
+                <div id="close-sidebar" onClick={toggleSidebar}>
+                  <i className="fas fa-times"></i>
+                </div>
+              </div>
+              <div className="sidebar-menu1" style={{ marginBottom: "30px" }}>
+                <ul>
+                  <br />
+                  <div
+                    style={{
+                      paddingLeft: "25px",
+                      paddingRight: "25px",
+                    }}>
+                    {defaultItems.map((data, index) => (
+                      <li
+                        key={index}
+                        ref={(el) => (defaultRefs.current[index] = el)}
+                        className={`body-menu ${
+                          location.pathname === data.path ||
+                          data.action.includes(location.pathname)
+                            ? "bactive"
+                            : ""
+                        }`}>
+                        <NavLink to={data.path} style={{ background: "none" }}>
+                          <i
+                            className={`${data.icon} ${
+                              location.pathname === data.path ||
+                              data.action.includes(location.pathname)
+                                ? "active"
+                                : ""
+                            }`}></i>
+                          <span>{data.title}</span>
+                        </NavLink>
+                      </li>
+                    ))}
+                  </div>
+                  {menuItemsYayasan.map((menu, index) => (
+                    <React.Fragment key={index}>
+                      <div
+                        style={{ paddingLeft: "25px", paddingRight: "25px" }}>
+                        <li
+                          onClick={() => toggleMenu(index)}
+                          className="header-menu1">
+                          <span>{menu.header}</span>
+                          <span>{menu.icon}</span>
+                        </li>
+                        {activeMenu === index && menu.items.map((data, subIndex) => (
+                          <div className="menu">
+                            <li
+                              key={subIndex}
+                              className={`body-menu ${
+                                location.pathname === data.path ||
+                                data.action.includes(location.pathname)
+                                  ? "active"
+                                  : ""
+                              }`}
+                              ref={(el) => (menuRefs.current[subIndex] = el)}>
+                              <NavLink
+                                to={data.path}
+                                style={{ background: "none" }}>
+                                {/* <i
+                                  className={`${data.icon} ${
+                                    location.pathname === data.path ||
+                                    data.action.includes(location.pathname)
+                                      ? "active"
+                                      : ""
+                                  }`}></i> */}
+                                <span className="title-sidebar">
+                                  {data.title}
+                                </span>
+                              </NavLink>
+                            </li>
+                          </div>
+                        ))}
+                      </div>
                     </React.Fragment>
                   ))}
-                </>
-              )}
-            </ul>
-          </div>
+                </ul>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="sidebar-footer">
           <button type="button" onClick={logout}>

@@ -243,7 +243,12 @@ import DetailAnakAsuh from "./views/pages/admin/yayasan/personalia/anakasuhcaban
 import DataPegawaiCabang from "./views/pages/admin/yayasan/personalia/pegawai/DataPegawaiCabang.js";
 import DetailPegawai from "./views/pages/admin/yayasan/personalia/pegawai/DetailPegawai.js";
 import LaporanInventaris from "./views/pages/admin/yayasan/inventaris/LaporanInventaris.js";
+import LaporanInventaris1 from "./views/pages/yayasan/investasris/LaporanInvestaris.js";
 import DetailInventaris from "./views/pages/admin/yayasan/inventaris/DetailInventaris.js";
+import DaftarCabang from "./views/pages/yayasan/cabang/DaftarCabang.js";
+import LaporanDonasi from "./views/pages/yayasan/donasi/LaporanDonasi.js";
+import CabangAnakAsuh from "./views/pages/yayasan/anakasuh/CabangAnakAsuh.js";
+import DataAnakAsuh from "./views/pages/yayasan/anakasuh/DataAnakAsuh.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -951,6 +956,32 @@ function App() {
             <Route
               path="/detail-inventaris"
               component={DetailInventaris}
+              exact
+            />
+            {/* yayasan */}
+            <Route
+              path="/daftar-cabang"
+              component={DaftarCabang}
+              exact
+            />
+            <Route
+              path="/laporan-donasi"
+              component={LaporanDonasi}
+              exact
+            />
+            <Route
+              path="/laporan-investariss"
+              component={LaporanInventaris1}
+              exact
+            />
+            <Route
+              path="/cabang"
+              component={CabangAnakAsuh}
+              exact
+            />
+            <Route
+              path="/cabang-anak-asuh/:id"
+              component={DataAnakAsuh}
               exact
             />
           </Switch>
