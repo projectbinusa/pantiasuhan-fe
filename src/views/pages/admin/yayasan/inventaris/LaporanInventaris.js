@@ -37,7 +37,7 @@ function LaporanInventaris() {
   //   const getAll = async () => {
   //     try {
   //       const response = await axios.get(
-  //         `${API_DUMMY_BYRTGHN}/api/customer/member?page=${currentPage}&limit=${rowsPerPage}`,
+  //         `${API_DUMMY_SMART}/api/customer/member?page=${currentPage}&limit=${rowsPerPage}`,
   //         {
   //           headers: {
   //             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Grid, Box, Typography, Card, CardContent } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { useParams } from "react-router-dom";
-import { API_DUMMY_BYRTGHN } from "../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import axios from "axios";
 import AOS from "aos";
 
@@ -23,7 +23,7 @@ function DetailAnak() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_BYRTGHN}/api/customer/member/${param.id}`,
+          `${API_DUMMY_SMART}/api/customer/member/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

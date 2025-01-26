@@ -3,7 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
 import AOS from "aos";
-import { API_DUMMY_BYRTGHN } from "../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
@@ -69,17 +69,17 @@ function AddAnak() {
 
   const add = async (e) => {
     e.preventDefault();
-  
+
     if (!validateForm()) return;
-  
+
     try {
       let imageUrl = foto;
-  
+
       if (foto) {
         imageUrl = await uploadImageToS3(foto);
         console.log("URL Gambar berhasil di-upload:", imageUrl);
       }
-  
+
       const payload = {
         name,
         password,
@@ -91,17 +91,17 @@ function AddAnak() {
         education,
         picture: imageUrl,
       };
-  
+
       console.log("Payload yang dikirim ke backend:", payload);
-  
-      const response = await axios.post(`${API_DUMMY_BYRTGHN}/api/customer/member`, payload, {
+
+      const response = await axios.post(`${API_DUMMY_SMART}/api/customer/member`, payload, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       });
-  
+
       console.log("Respons dari backend:", response.data);
-  
+
       if (response.data && response.data.status === "200 OK" && response.data.message === "success") {
         Swal.fire({
           icon: "success",
@@ -109,10 +109,10 @@ function AddAnak() {
           showConfirmButton: false,
           timer: 1500,
         });
-  
+
         // Ensure the response data is correct
         console.log("Data yang diterima:", response.data);
-  
+
         setTimeout(() => {
           history.push("/admin_anak_asuh");
         }, 1500);
@@ -122,7 +122,7 @@ function AddAnak() {
       }
     } catch (error) {
       console.error("Error respons:", error.response?.data || error.message);
-  
+
       Swal.fire({
         icon: "error",
         title: error.response?.data?.message || error.message || "Tambah Data Gagal!",
@@ -131,7 +131,7 @@ function AddAnak() {
       });
     }
   };
-  
+
   return (
     <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
       <a id="show-sidebar" className="btn1 btn-lg" onClick={toggleSidebar} style={{ color: "white", background: "#3a3f48" }}>
