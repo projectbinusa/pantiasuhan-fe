@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { API_DUMMY_BYRTGHN } from "../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
 function DataAnakAsuh() {
@@ -40,7 +40,7 @@ function DataAnakAsuh() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_BYRTGHN}/api/user/customer/member/${param.id}page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/user/customer/member/${param.id}page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

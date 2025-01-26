@@ -8,7 +8,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY_BYRTGHN } from "../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function EditAnak() {
@@ -39,7 +39,7 @@ function EditAnak() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_BYRTGHN}/api/customer/member/${param.id}`,
+          `${API_DUMMY_SMART}/api/customer/member/${param.id}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -86,7 +86,7 @@ function EditAnak() {
     try {
       // Make the PUT request
       await axios.put(
-        `${API_DUMMY_BYRTGHN}/api/customer/member/${param.id}`,
+        `${API_DUMMY_SMART}/api/customer/member/${param.id}`,
         payload,
         {
           headers: {

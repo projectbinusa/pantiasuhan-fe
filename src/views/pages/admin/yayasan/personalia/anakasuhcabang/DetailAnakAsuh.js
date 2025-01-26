@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_BYRTGHN } from "../../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -39,7 +39,7 @@ function DetailAnakAsuh() {
   //   const getAll = async () => {
   //     try {
   //       const response = await axios.get(
-  //         `${API_DUMMY_BYRTGHN}/api/customer/member?page=${currentPage}&limit=${rowsPerPage}`,
+  //         `${API_DUMMY_SMART}/api/customer/member?page=${currentPage}&limit=${rowsPerPage}`,
   //         {
   //           headers: {
   //             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
