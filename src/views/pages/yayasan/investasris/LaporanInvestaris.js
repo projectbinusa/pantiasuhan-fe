@@ -3,12 +3,12 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
-import "../../../../css/button.css";
-import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
+// import SidebarYayasan from "../../../../../component/SidebarYayasan";
 
-function DonasiTrxMasuk() {
+function LaporanInventaris() {
   const [list, setList] = useState([]);
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -17,9 +17,7 @@ function DonasiTrxMasuk() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
-
-  // Mendapatkan role pengguna
-  const userRole = localStorage.getItem("role"); // Menyimpan role saat login
+  const [userRole, setUserRole] = useState("");
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -37,101 +35,57 @@ function DonasiTrxMasuk() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const getAll = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY_SMART}/api/user/donation_trx/masuk?page=${currentPage}&limit=${rowsPerPage}`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+  //   const getAll = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${API_DUMMY_BYRTGHN}/api/customer/member?page=${currentPage}&limit=${rowsPerPage}`,
+  //         {
+  //           headers: {
+  //             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+  //           },
+  //         }
+  //       );
 
-      const { data, pagination } = response.data;
-      setList(data);
-      setPaginationInfo({
-        totalPages: pagination.total_page,
-        totalElements: pagination.total,
-      });
-    } catch (error) {
-      console.error("Terjadi kesalahan:", error.response || error.message);
-    }
-  };
+  //       console.log(response);
 
-  const deleteData = async (id) => {
-    Swal.fire({
-      title: "Apakah Anda Ingin Menghapus?",
-      text: "Perubahan data tidak bisa dikembalikan!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Hapus",
-      cancelButtonText: "Batal",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`${API_DUMMY_SMART}/api/user/donation_trx/${id}`, {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          })
-          .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Dihapus!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            getAll();
-          })
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Hapus Data Gagal!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            console.log(err);
-          });
-      }
-    });
-  };
+  //       const { data, pagination } = response.data;
+  //       setList(data);
+  //       setPaginationInfo({
+  //         totalPages: pagination.total_page,
+  //         totalElements: pagination.total,
+  //       });
+  //     } catch (error) {
+  //       console.error("Terjadi Kesalahan", error);
+  //     }
+  //   };
 
-  useEffect(() => {
-    getAll(currentPage);
-  }, [currentPage, rowsPerPage]);
+  //   useEffect(() => {
+  //     getAll(currentPage);
+  //     const role = localStorage.getItem("userRole"); // Get role from localStorage
+  //     setUserRole(role); // Set role in state
+  //   }, [currentPage, rowsPerPage]);
 
   useEffect(() => {
     AOS.init();
   }, []);
 
-  useEffect(() => {
-    if (currentPage > paginationInfo.totalPages) {
-      setCurrentPage(paginationInfo.totalPages || 1);
-    }
-  }, [paginationInfo.totalPages, currentPage]);
-
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset ke halaman pertama
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset ke halaman pertama setelah pencarian
   };
 
-  const filteredList = searchTerm
-    ? list.filter((item) =>
-        Object.values(item).some(
-          (value) =>
-            typeof value === "string" &&
-            value.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      )
-    : list;
+  const filteredList = list.filter((item) =>
+    Object.values(item).some(
+      (value) =>
+        typeof value === "string" &&
+        value.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
@@ -139,19 +93,22 @@ function DonasiTrxMasuk() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -160,7 +117,8 @@ function DonasiTrxMasuk() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -178,7 +136,7 @@ function DonasiTrxMasuk() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Donasi Trx Masuk</p>
+              <p className="mt-3">Laporan Inventaris</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -187,7 +145,8 @@ function DonasiTrxMasuk() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -202,50 +161,58 @@ function DonasiTrxMasuk() {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-                {/* Tombol Tambah hanya ditampilkan jika bukan role 'yayasan' */}
+                {/* <div className="btn-actions-pane-right">
+                  <div role="group" className="btn-group-sm btn-group">
+                    {userRole !== "yayasan" && (
+                      <button className="active btn-focus p-2 rounded">
+                        <a
+                          style={{ color: "white", textDecoration: "none" }}
+                          href="/add_anak_asuh"
+                        >
+                          Tambah Anak Asuh
+                        </a>
+                      </button>
+                    )}
+                  </div>
+                </div> */}
               </div>
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama Donatur</th>
-                    <th>Nominal</th>
-                    <th>Deskripsi</th>
-                    <th>Image</th>
+                    <th>Lokasi Cabang</th>
+                    <th>Kondisi Barang</th>
+                    <th>Jumlah Barang</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((item, index) => (
-                    <tr key={index}>
-                      <td style={{ textAlign: "left" }} data-label="No">
-                        {(currentPage - 1) * rowsPerPage + index + 1}
-                      </td>
-                      <td
-                        style={{ textAlign: "left" }}
-                        data-label="Nama Donatur">
-                        {item.name}
-                      </td>
-                      <td style={{ textAlign: "left" }} data-label="Nominal">
-                        {item.nominal}
-                      </td>
-                      <td style={{ textAlign: "left" }} data-label="Deskripsi">
-                        <div
-                          dangerouslySetInnerHTML={{ __html: item.description }}
-                        />
-                      </td>
-                      <td style={{ textAlign: "left" }} data-label="Image">
-                        <img
-                          src={item.url_image}
-                          alt="image"
-                          style={{ width: 50, height: 50 }}
-                        />
+                  {/* {filteredList.length > 0 ? (
+                    filteredList.map((row, no) => {
+                      return ( */}
+                  <tr>
+                    <td data-label="No" className="">
+                      {/* {no + 1 + (currentPage - 1) * rowsPerPage} */}1
+                    </td>
+                    <td data-label="Lokasi Cabang">Semarang</td>
+                    <td data-label="Kondisi">Baik</td>
+                    <td data-label="Jumlah Barang">200</td>
+                  </tr>
+                  {/* );
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan="6" className="text-center my-3">
+                        <div style={{ padding: "10px", color: "#555" }}>
+                          Tidak ada data yang tersedia.
+                        </div>
                       </td>
                     </tr>
-                  ))}
+                  )} */}
                 </tbody>
               </table>
             </div>
@@ -257,7 +224,6 @@ function DonasiTrxMasuk() {
                 showFirstButton
                 showLastButton
                 color="primary"
-                disabled={paginationInfo.totalPages === 0}
               />
             </div>
           </div>
@@ -267,4 +233,4 @@ function DonasiTrxMasuk() {
   );
 }
 
-export default DonasiTrxMasuk;
+export default LaporanInventaris;

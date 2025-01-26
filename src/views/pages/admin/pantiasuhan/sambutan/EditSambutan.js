@@ -65,6 +65,7 @@ import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 function EditSambutanPanti() {
   const [judulSambutan, setJudulSambutan] = useState("");
   const [isiSambutan, setIsiSambutan] = useState("");
+  const [attachments, setAttachments] = useState([]);
   const [nip, setNip] = useState("");
   const [nama, setNama] = useState("");
   const [file, setFile] = useState(null);
@@ -316,8 +317,9 @@ function EditSambutanPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -401,10 +403,14 @@ function EditSambutanPanti() {
                           </label>
                           <CKEditor
                             editor={ClassicEditor}
-                            data={isiSambutan} // Gunakan 'data' untuk set initial value
+                            data={
+                              Array.isArray(isiSambutan)
+                                ? isiSambutan.join(", ")
+                                : isiSambutan || ""
+                            } // Konversi array ke string
                             onChange={(event, editor) => {
-                              const data = editor.getData(); // Ambil data dari editor
-                              setIsiSambutan(data); // Set state dengan data dari editor
+                              const data = editor.getData();
+                              setIsiSambutan(data); 
                             }}
                             config={{
                               toolbar: [

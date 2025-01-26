@@ -7,7 +7,7 @@ import "../../../../css/button.css";
 import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
-function DonasiTrxMasuk() {
+function LaporanDonasi() {
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -19,7 +19,7 @@ function DonasiTrxMasuk() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   // Mendapatkan role pengguna
-  const userRole = localStorage.getItem("role"); // Menyimpan role saat login
+  const userRole = localStorage.getItem('role'); // Menyimpan role saat login
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -40,7 +40,7 @@ function DonasiTrxMasuk() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/user/donation_trx/masuk?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/user/donation_trx/keluar?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -57,46 +57,6 @@ function DonasiTrxMasuk() {
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
     }
-  };
-
-  const deleteData = async (id) => {
-    Swal.fire({
-      title: "Apakah Anda Ingin Menghapus?",
-      text: "Perubahan data tidak bisa dikembalikan!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Hapus",
-      cancelButtonText: "Batal",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`${API_DUMMY_SMART}/api/user/donation_trx/${id}`, {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          })
-          .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Dihapus!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            getAll();
-          })
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Hapus Data Gagal!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            console.log(err);
-          });
-      }
-    });
   };
 
   useEffect(() => {
@@ -136,22 +96,18 @@ function DonasiTrxMasuk() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div
-          className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -160,7 +116,8 @@ function DonasiTrxMasuk() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -178,7 +135,7 @@ function DonasiTrxMasuk() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Donasi Trx Masuk</p>
+              <p className="mt-3">Donasi Trx Keluar</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -187,7 +144,8 @@ function DonasiTrxMasuk() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -205,9 +163,7 @@ function DonasiTrxMasuk() {
                 {/* Tombol Tambah hanya ditampilkan jika bukan role 'yayasan' */}
               </div>
             </div>
-            <div
-              className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -221,28 +177,16 @@ function DonasiTrxMasuk() {
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td style={{ textAlign: "left" }} data-label="No">
+                      <td data-label="No">
                         {(currentPage - 1) * rowsPerPage + index + 1}
                       </td>
-                      <td
-                        style={{ textAlign: "left" }}
-                        data-label="Nama Donatur">
-                        {item.name}
+                      <td data-label="Nama Donatur">{item.name}</td>
+                      <td data-label="Nominal">{item.nominal}</td>
+                      <td data-label="Deskripsi">
+                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
                       </td>
-                      <td style={{ textAlign: "left" }} data-label="Nominal">
-                        {item.nominal}
-                      </td>
-                      <td style={{ textAlign: "left" }} data-label="Deskripsi">
-                        <div
-                          dangerouslySetInnerHTML={{ __html: item.description }}
-                        />
-                      </td>
-                      <td style={{ textAlign: "left" }} data-label="Image">
-                        <img
-                          src={item.url_image}
-                          alt="image"
-                          style={{ width: 50, height: 50 }}
-                        />
+                      <td data-label="Image">
+                        <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} />
                       </td>
                     </tr>
                   ))}
@@ -267,4 +211,4 @@ function DonasiTrxMasuk() {
   );
 }
 
-export default DonasiTrxMasuk;
+export default LaporanDonasi;

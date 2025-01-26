@@ -4,11 +4,24 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import Navbar from "../../../../../component/Navbar";
-import { debounce } from 'lodash';
+import { debounce } from "lodash";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
-  const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+  const bulan = [
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
+  ];
   const hari = tanggal.getDate();
   const bulanNama = bulan[tanggal.getMonth()];
   const tahun = tanggal.getFullYear();
@@ -36,7 +49,7 @@ function PublikBerita() {
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            "x-origin": window.location.hostname
+            "x-origin": window.location.hostname,
           },
         }
       );
@@ -58,7 +71,11 @@ function PublikBerita() {
       }
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
-      Swal.fire("Error!", error.response?.data?.message || "Gagal memuat data.", "error");
+      Swal.fire(
+        "Error!",
+        error.response?.data?.message || "Gagal memuat data.",
+        "error"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -67,7 +84,7 @@ function PublikBerita() {
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop >=
-      document.documentElement.offsetHeight - 200 &&
+        document.documentElement.offsetHeight - 200 &&
       !isLoading &&
       hasMore
     ) {
@@ -117,9 +134,10 @@ function PublikBerita() {
           backgroundColor: "#f9f9f9",
           fontFamily: "'Poppins', sans-serif",
           padding: "40px 20px",
-        }}
-      >
-        <div className="container" style={{ maxWidth: "1200px", margin: "0 auto" }}>
+        }}>
+        <div
+          className="container"
+          style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <br />
           <br />
           <br />
@@ -134,8 +152,7 @@ function PublikBerita() {
                     fontSize: "1.5em",
                     fontWeight: "bold",
                     marginBottom: "20px",
-                  }}
-                >
+                  }}>
                   Panti dalam Sorotan
                 </h5>
               </div>
@@ -155,8 +172,7 @@ function PublikBerita() {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               gap: "20px",
-            }}
-          >
+            }}>
             {filteredList.map((item, index) => (
               <div
                 className="card"
@@ -170,15 +186,20 @@ function PublikBerita() {
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.transform = "scale(1.05)";
-                  e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+                  e.currentTarget.style.boxShadow =
+                    "0 8px 16px rgba(0, 0, 0, 0.2)";
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-                }}
-              >
+                  e.currentTarget.style.boxShadow =
+                    "0 4px 8px rgba(0, 0, 0, 0.1)";
+                }}>
                 <img
-                  src={item.image !== "" ? item.image : "https://via.placeholder.com/300x200"}
+                  src={
+                    item.image !== ""
+                      ? item.image
+                      : "https://via.placeholder.com/300x200"
+                  }
                   alt="Foto Donasi"
                   style={{
                     width: "100%",
@@ -193,8 +214,7 @@ function PublikBerita() {
                       fontWeight: "bold",
                       color: "#004080",
                       marginBottom: "10px",
-                    }}
-                  >
+                    }}>
                     {item.judul_berita}
                   </h4>
                   <p
@@ -204,8 +224,7 @@ function PublikBerita() {
                       marginBottom: "5px",
                       display: "flex",
                       alignItems: "center",
-                    }}
-                  >
+                    }}>
                     <svg
                       className="svg-inline--fa fa-calendar-alt fa-w-14"
                       aria-hidden="true"
@@ -220,12 +239,10 @@ function PublikBerita() {
                         height: "16px",
                         color: "#004080",
                         marginRight: "5px",
-                      }}
-                    >
+                      }}>
                       <path
                         fill="currentColor"
-                        d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-72V64zm0 96h72c8.84 0 16-7.16 16-16V64h16c8.84 0 16 7.16 16 16v48h72c8.84 0 16 7.16 16 16v320c0 8.84-7.16 16-16 16H48c-8.84 0-16-7.16-16-16V160c0-8.84 7.16-16 16-16h72v-48c0-8.84 7.16-16 16-16h16c8.84 0 16 7.16 16 16v48z"
-                      ></path>
+                        d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-72V64zm0 96h72c8.84 0 16-7.16 16-16V64h16c8.84 0 16 7.16 16 16v48h72c8.84 0 16 7.16 16 16v320c0 8.84-7.16 16-16 16H48c-8.84 0-16-7.16-16-16V160c0-8.84 7.16-16 16-16h72v-48c0-8.84 7.16-16 16-16h16c8.84 0 16 7.16 16 16v48z"></path>
                     </svg>
                     {formatTanggal(item.tanggal_berita)}
                   </p>
@@ -243,7 +260,9 @@ function PublikBerita() {
                         border: "none",
                         cursor: "pointer",
                       }}
-                    >
+                      onClick={() =>
+                        (window.location.href = "/beritapanti/" + item.id)
+                      }>
                       Button Example
                     </button>
                   )}

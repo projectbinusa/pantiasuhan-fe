@@ -13,7 +13,8 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import "../../../../css/dashboardyayasan.css";
+import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
+// import "../../../../css/dashboardyayasan.css";
 
 ChartJS.register(
   CategoryScale,
@@ -131,155 +132,234 @@ function DashboardYayasan() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       {/* Sidebar */}
-      <div className={`sidebar ${sidebarToggled ? "toggled" : ""}`}>
-        <SidebarYayasan toggleSidebar={toggleSidebar} />
-      </div>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#" }}>
+        <i className="fas fa-bars"></i>
+      </a>
+      {/* <div className={`sidebar ${sidebarToggled ? "toggled" : ""}`}> */}
+        <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
+      {/* </div> */}
 
       {/* Konten Utama */}
-      <div className="container py-4">
+      <div className="page-content1">
+      <div className="container py-4 app-main__outer">
         <a
           id="show-sidebar"
           className="btn1 btn-lg toggle-sidebar-btn"
-          onClick={toggleSidebar}
-        >
+          onClick={toggleSidebar}>
           <i className="fas fa-bars"></i>
         </a>
         <div className="row">
           <div className="col-lg-4 col-md-12 mb-4">
             <div className="row g-3">
-              <div className="col-md-6 col-12 mb-3">
+            <div className="col-md-12 col-12 mb-3">
                 <div
-                  className="card p-3 shadow-sm rounded-3 financial-card"
-                  style={{ width: "100%" }}
-                >
-                  <div className="fw-bold text-xs text-success text-start">
-                    <i
-                      className="fas fa-donate"
-                      style={{ fontSize: "0.6rem", marginRight: "0.5rem" }}
-                    ></i>
-                    <span style={{ fontSize: "0.6rem" }}>Donasi Bulan Ini</span>
-                  </div>
-                  <h3
-                    className="display-6"
-                    style={{
-                      fontSize: "1.5rem",
-                      textAlign: "left",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    40.000.000
-                  </h3>
-
-                  <p
-                    className="text-muted"
-                    style={{ fontSize: "0.9rem", textAlign: "left" }}
-                  >
-                    <span className="text-success">+10%</span> dari bulan lalu
-                  </p>
-                </div>
-              </div>
-              <div className="col-md-6 col-12 mb-3">
-                <div
-                  className="card p-3 shadow-sm rounded-3 financial-card"
-                  style={{ width: "110%" }}
-                >
-                  <div
-                    className="fw-bold text-xs text-success text-start"
-                    style={{ whiteSpace: "nowrap" }}
-                  >
-                    <i
-                      className="fas fa-building"
-                      style={{ fontSize: "0.6rem", marginRight: "0.5rem" }}
-                    ></i>
-                    <span style={{ fontSize: "0.6rem" }}>Total Cabang</span>
-                  </div>
-                  <h3
-                    className="display-6"
-                    style={{
-                      fontSize: "1.5rem",
-                      textAlign: "left",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    200
-                  </h3>
-                  <button
-                    className="btn btn-success btn-sm mt-3"
-                    style={{ fontSize: "0.8rem", textAlign: "left" }}
-                  >
-                    Lihat Selengkapnya
-                  </button>
-                </div>
-              </div>
-              <div className="row g-3">
-                <div className="col-md-6 col-12 mb-3">
-                  <div
-                    className="card p-3 shadow-sm rounded-3 financial-card"
-                    style={{ width: "100%" }}
-                  >
+                  className="card shadow-sm rounded-3 financial-card"
+                  style={{ width: "100%" }}>
+                  <div className="p-3">
                     <div className="fw-bold text-xs text-success text-start">
                       <i
-                        className="fas fa-users"
-                        style={{ fontSize: "0.6rem", marginRight: "0.5rem" }}
-                      ></i>
-                      <span style={{ fontSize: "0.6rem" }}>Total Pegawai</span>
-                    </div>
-                    <h3
-                      className="display-6"
-                      style={{
-                        fontSize: "1.5rem",
-                        textAlign: "left",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      100
-                    </h3>
-                    <button
-                      className="btn btn-success btn-sm mt-3"
-                      style={{ fontSize: "0.8rem", textAlign: "left" }}
-                    >
-                      Lihat Selengkapnya
-                    </button>
-                  </div>
-                </div>
-                <div className="col-md-6 col-12 mb-3">
-                  <div
-                    className="card p-3 shadow-sm rounded-3 financial-card"
-                    style={{ width: "110%" }}
-                  >
-                    <div
-                      className="fw-bold text-xs text-success text-start"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
-                      <i
-                        className="fas fa-child"
-                        style={{ fontSize: "0.6rem", marginRight: "0.5rem" }}
-                      ></i>
-                      <span style={{ fontSize: "0.6rem" }}>
-                        Total Anak Asuh
+                        className="fas fa-donate"
+                        style={{
+                          fontSize: "0.6rem",
+                          marginRight: "0.5rem",
+                        }}></i>
+                      <span style={{ fontSize: "0.9rem" }}>
+                        Donasi Bulan Ini
                       </span>
                     </div>
                     <h3
                       className="display-6"
                       style={{
                         fontSize: "1.5rem",
-                        textAlign: "left",
+                        textAlign: "center",
+                        marginTop: "5px",
                         fontWeight: "bold",
-                      }}
-                    >
-                      1.000
+                      }}>
+                      40.000.000
                     </h3>
-                    <button
-                      className="btn btn-success btn-sm mt-3"
-                      style={{ fontSize: "0.8rem", textAlign: "left" }}
-                    >
-                      Lihat Selengkapnya
-                    </button>
+                  </div>
+                  <div
+                    style={{
+                      background: "#d1f2d3",
+                      padding: "5px 0",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}>
+                    <p
+                      className="text-success"
+                      style={{
+                        fontSize: "0.9rem",
+                        textAlign: "center",
+                        margin: "0",
+                      }}>
+                      +10% dari bulan lalu
+                    </p>
                   </div>
                 </div>
+              </div>
+              <div className="col-md-12 col-12 mb-3">
+                <div
+                  className="card shadow-sm rounded-3 financial-card"
+                  style={{ width: "100%" }}>
+                  <div className="p-3">
+                    <div className="fw-bold text-xs text-success text-start">
+                      <i
+                        className="fas fa-donate"
+                        style={{
+                          fontSize: "0.6rem",
+                          marginRight: "0.5rem",
+                        }}></i>
+                      <span style={{ fontSize: "0.9rem" }}>
+                        Donasi Bulan Ini
+                      </span>
+                    </div>
+                    <h3
+                      className="display-6"
+                      style={{
+                        fontSize: "1.5rem",
+                        textAlign: "center",
+                        marginTop: "5px",
+                        fontWeight: "bold",
+                      }}>
+                      40.000.000
+                    </h3>
+                  </div>
+                  <div
+                    style={{
+                      background: "#d1f2d3",
+                      padding: "5px 0",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}>
+                    <p
+                      className="text-success"
+                      style={{
+                        fontSize: "0.9rem",
+                        textAlign: "center",
+                        margin: "0",
+                      }}>
+                      +10% dari bulan lalu
+                    </p>
+                  </div>
+                </div>
+                {/* <span
+                  style={{
+                    fontSize: "0.9rem",
+                    textAlign: "left",
+                    marginBottom: "0px",
+                  }}>
+                  +10% dari bulan lalu{" "}
+                </span> */}
+              </div>
+              <div className="col-md-12 col-12 mb-3">
+                <div
+                  className="card shadow-sm rounded-3 financial-card"
+                  style={{ width: "100%" }}>
+                  <div className="p-3">
+                    <div className="fw-bold text-xs text-success text-start">
+                      <i
+                        className="fas fa-donate"
+                        style={{
+                          fontSize: "0.6rem",
+                          marginRight: "0.5rem",
+                        }}></i>
+                      <span style={{ fontSize: "0.9rem" }}>
+                        Donasi Bulan Ini
+                      </span>
+                    </div>
+                    <h3
+                      className="display-6"
+                      style={{
+                        fontSize: "1.5rem",
+                        textAlign: "center",
+                        marginTop: "5px",
+                        fontWeight: "bold",
+                      }}>
+                      40.000.000
+                    </h3>
+                  </div>
+                  <div
+                    style={{
+                      background: "#d1f2d3",
+                      padding: "5px 0",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}>
+                    <p
+                      className="text-success"
+                      style={{
+                        fontSize: "0.9rem",
+                        textAlign: "center",
+                        margin: "0",
+                      }}>
+                      +10% dari bulan lalu
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-12 col-12 mb-3">
+                <div
+                  className="card shadow-sm rounded-3 financial-card"
+                  style={{ width: "100%" }}>
+                  <div className="p-3">
+                    <div className="fw-bold text-xs text-success text-start">
+                      <i
+                        className="fas fa-donate"
+                        style={{
+                          fontSize: "0.6rem",
+                          marginRight: "0.5rem",
+                        }}></i>
+                      <span style={{ fontSize: "0.9rem" }}>
+                        Donasi Bulan Ini
+                      </span>
+                    </div>
+                    <h3
+                      className="display-6"
+                      style={{
+                        fontSize: "1.5rem",
+                        textAlign: "center",
+                        marginTop: "5px",
+                        fontWeight: "bold",
+                      }}>
+                      40.000.000
+                    </h3>
+                  </div>
+                  <div
+                    style={{
+                      background: "#d1f2d3",
+                      padding: "5px 0",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}>
+                    <p
+                      className="text-success"
+                      style={{
+                        fontSize: "0.9rem",
+                        textAlign: "center",
+                        margin: "0",
+                      }}>
+                      +10% dari bulan lalu
+                    </p>
+                  </div>
+                </div>
+                {/* <span
+                  style={{
+                    fontSize: "0.9rem",
+                    textAlign: "left",
+                    marginBottom: "0px",
+                  }}>
+                  +10% dari bulan lalu{" "}
+                </span> */}
               </div>
             </div>
           </div>
@@ -293,7 +373,7 @@ function DashboardYayasan() {
             </div>
           </div>
         </div>
-      </div>
+      </div></div>
     </div>
   );
 }
