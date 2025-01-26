@@ -249,6 +249,11 @@ import DaftarCabang from "./views/pages/yayasan/cabang/DaftarCabang.js";
 import LaporanDonasi from "./views/pages/yayasan/donasi/LaporanDonasi.js";
 import CabangAnakAsuh from "./views/pages/yayasan/anakasuh/CabangAnakAsuh.js";
 import DataAnakAsuh from "./views/pages/yayasan/anakasuh/DataAnakAsuh.js";
+import AddCabang from "./views/pages/yayasan/cabang/AddCabang.js";
+import Organization from "./views/pages/yayasan/organization/Organization.js";
+import AddOrganization from "./views/pages/yayasan/cabang/AddOrganization.js";
+import TambahOrganization from "./views/pages/yayasan/organization/TambahOrganization.js";
+import EditCabang from "./views/pages/yayasan/cabang/EditCabang.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -980,8 +985,28 @@ function App() {
               exact
             />
             <Route
+              path="/add-cabang"
+              component={AddCabang}
+              exact
+            />
+            <Route
               path="/cabang-anak-asuh/:id"
               component={DataAnakAsuh}
+              exact
+            />
+            <Route
+              path="/user-organization"
+              component={Organization}
+              exact
+            />
+            <Route
+              path="/add-organization"
+              component={TambahOrganization}
+              exact
+            />
+            <Route
+              path="/edit-cabang/:id"
+              component={EditCabang}
               exact
             />
           </Switch>

@@ -206,35 +206,35 @@ function SidebarPantiAdmin({ toggleSidebar }) {
         },
       ],
     },
-    {
-      header: "Keuangan",
-      items: [
-        {
-          title: "Donasi",
-          icon: "fas fa-hand-holding-heart",
-          path: "/donasi",
-          action: ["/donasi/add", "/donasi/put"],
-        },
-        {
-          title: "Dana Masuk",
-          icon: "fas fa-plus",
-          path: "/donasi_trx",
-          action: ["/add_donasi_trx", "/edit_donasi_trx"],
-        },
-        {
-          title: "Dana Keluar",
-          icon: "fas fa-minus",
-          path: "/admin_dana_keluar",
-          action: ["/add_dana_keluar", "/edit_dana_keluar"],
-        },
-        {
-          title: "Laporan Keuangan",
-          icon: "fa-solid fa-file-invoice-dollar",
-          path: "/laporan_keuangan",
-          action: [],
-        },
-      ],
-    },
+    // {
+    //   header: "Keuangan",
+    //   items: [
+    //     {
+    //       title: "Donasi",
+    //       icon: "fas fa-hand-holding-heart",
+    //       path: "/donasi",
+    //       action: ["/donasi/add", "/donasi/put"],
+    //     },
+    //     {
+    //       title: "Dana Masuk",
+    //       icon: "fas fa-plus",
+    //       path: "/donasi_trx",
+    //       action: ["/add_donasi_trx", "/edit_donasi_trx"],
+    //     },
+    //     {
+    //       title: "Dana Keluar",
+    //       icon: "fas fa-minus",
+    //       path: "/admin_dana_keluar",
+    //       action: ["/add_dana_keluar", "/edit_dana_keluar"],
+    //     },
+    //     {
+    //       title: "Laporan Keuangan",
+    //       icon: "fa-solid fa-file-invoice-dollar",
+    //       path: "/laporan_keuangan",
+    //       action: [],
+    //     },
+    //   ],
+    // },
   ];
 
   const menuItemsYayasan = [
@@ -247,39 +247,39 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           path: "/daftar-cabang",
           action: [""],
         },
-        {
-          title: "Detail Cabang",
-          icon: "fa-solid fa-book-open",
-          path: "",
-          action: [""],
-        },
-        {
-          title: "Buat Cabang Baru",
-          icon: "fa-solid fa-list",
-          path: "/add-cabang",
-          action: [""],
-        },
+        // {
+        //   title: "Organization",
+        //   icon: "fa-solid fa-book-open",
+        //   path: "/user-organization",
+        //   action: [""],
+        // },
+        // {
+        //   title: "Buat Cabang Baru",
+        //   icon: "fa-solid fa-list",
+        //   path: "/add-cabang",
+        //   action: [""],
+        // },
       ],
       icon: <i class="fa-solid fa-angle-down"></i>,
     },
-    {
-      header: "KEUANGAN",
-      items: [
-        {
-          title: "Data Keuangan",
-          icon: "fa-solid fa-book-open",
-          path: "",
-          action: [""],
-        },
-        {
-          title: "Laporan Keuangan",
-          icon: "fa-solid fa-book-open",
-          path: "",
-          action: [""],
-        },
-      ],
-      icon: <i class="fa-solid fa-angle-down"></i>,
-    },
+    // {
+    //   header: "KEUANGAN",
+    //   items: [
+    //     {
+    //       title: "Data Keuangan",
+    //       icon: "fa-solid fa-book-open",
+    //       path: "",
+    //       action: [""],
+    //     },
+    //     {
+    //       title: "Laporan Keuangan",
+    //       icon: "fa-solid fa-book-open",
+    //       path: "",
+    //       action: [""],
+    //     },
+    //   ],
+    //   icon: <i class="fa-solid fa-angle-down"></i>,
+    // },
     {
       header: "Donasi",
       items: [
@@ -305,7 +305,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       icon: <i class="fa-solid fa-angle-down"></i>,
     },
     {
-      header: "INVESTARIS",
+      header: "INVENTARIS",
       items: [
         {
           title: "Laporan Investaris",
@@ -313,12 +313,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           path: "/laporan-investariss",
           action: [""],
         },
-        {
-          title: "Investaris Detail",
-          icon: "fa-solid fa-book-open",
-          path: "",
-          action: [""],
-        },
+        // {
+        //   title: "Investaris Detail",
+        //   icon: "fa-solid fa-book-open",
+        //   path: "",
+        //   action: [""],
+        // },
       ],
       icon: <i class="fa-solid fa-angle-down"></i>,
     },
@@ -329,12 +329,6 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           title: "Data Anak Asuh",
           icon: "fa-solid fa-book-open",
           path: "/cabang",
-          action: [""],
-        },
-        {
-          title: "DATA KEPEGAWAIAN",
-          icon: "fa-solid fa-book-open",
-          path: "",
           action: [""],
         },
       ],
@@ -386,7 +380,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
     <>
       <nav id="sidebar" className="sidebar-wrapper">
         <div className="sidebar-content">
-          {localStorage.getItem("rolename") == "customer" ? (
+          {localStorage.getItem("rolename") == "Admin" ? (
             <>
               {" "}
               <div className="sidebar-brand">

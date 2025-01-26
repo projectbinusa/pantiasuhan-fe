@@ -7,6 +7,7 @@ import "../../../../css/button.css";
 import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import { formatRupiah } from "../../../../utils/formating";
+import { Link } from "react-router-dom/cjs/react-router-dom";
 
 function DaftarCabang() {
   const [list, setList] = useState([]);
@@ -44,8 +45,12 @@ function DaftarCabang() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/user/donation?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/user/customer/organization_ids`,
         {
+          params: {
+            page: currentPage,
+            limit: rowsPerPage,
+          },
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
@@ -53,7 +58,7 @@ function DaftarCabang() {
       );
 
       const { data, pagination } = response.data;
-      console.log("donasi: ", response.data);
+      console.log("Response data:", response.data);
 
       setList(data);
       setPaginationInfo({
@@ -63,46 +68,6 @@ function DaftarCabang() {
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
     }
-  };
-
-  const deleteData = async (id) => {
-    Swal.fire({
-      title: "Apakah Anda Ingin Menghapus?",
-      text: "Perubahan data tidak bisa dikembalikan!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Hapus",
-      cancelButtonText: "Batal",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`${API_DUMMY_SMART}/api/customer/donation/${id}`, {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          })
-          .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Dihapus!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            getAll();
-          })
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Hapus Data Gagal!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            console.log(err);
-          });
-      }
-    });
   };
 
   useEffect(() => {
@@ -132,6 +97,49 @@ function DaftarCabang() {
   );
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
+
+  const deleteData = async (id) => {
+    Swal.fire({
+      title: "Apakah Anda Ingin Menghapus?",
+      text: "Perubahan data tidak bisa dikembalikan!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Hapus",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${API_DUMMY_SMART}/api/user/customer/` + id, {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          })
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Dihapus!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            getAll();
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err);
+          });
+      }
+    });
+  };
 
   return (
     <div
@@ -176,7 +184,7 @@ function DaftarCabang() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Donasi </p>
+              <p className="mt-3">Cabang </p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -192,6 +200,26 @@ function DaftarCabang() {
                   </select>
                 </div>
               </div>
+              <div className="d-flex ml-auto gap-3">
+                <input
+                  type="search"
+                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+                {/* <div className="btn-actions-pane-right">
+                  <div role="group" className="btn-group-sm btn-group">
+                    <button className="active btn-focus p-2 rounded">
+                      <Link
+                        style={{ color: "white", textDecoration: "none" }}
+                        to="/add-cabang">
+                        Tambah
+                      </Link>
+                    </button>
+                  </div>
+                </div> */}
+              </div>
             </div>
             <div
               className="table-responsive-3"
@@ -201,61 +229,44 @@ function DaftarCabang() {
                   <tr>
                     <th scope="col">No</th>
                     <th>Nama Cabang</th>
-                    <th>Lokasi</th>
-                    <th>Jumlah Anak Asuh</th>
-                    <th>jumlah Pegawai</th>
-                    <th>jumlah Pengeluaran</th>
-                    <th>Saldo Terakhir</th>
+                    <th>Email</th>
+                    <th>HP</th>
+                    <th>Address</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {filteredList.map((item, index) => (
+                  {filteredList.map((item, index) => (
                     <tr key={index}>
                       <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
                       <td>{item.name}</td>
+                      <td>{item.email}</td>
+                      <td>{item.hp}</td>
+                      <td>{item.address}</td>
                       <td>
-                        <div
-                          dangerouslySetInnerHTML={{ __html: item.description }}
-                        />
-                      </td>
-                      <td>{formatRupiah(item.total_income)}</td>
-                      <td>{formatRupiah(item.total_outcome)}</td>
-                      <td>
-                        {userRole !== "Yayasan" && (
-                          <>
-                            <button
-                              type="button"
-                              className="btn-primary btn-sm mr-2">
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/donasi/put/${item.id}`}>
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              type="button"
-                              className="btn-warning mr-2 btn-sm">
-                              <a
-                                className="text-light"
-                                href={"/detail_donasi_yayasan/" + item.id}>
-                                <i className="fas fa-info-circle"></i>
-                              </a>
-                            </button>
-                            <button
-                              type="button"
-                              className="btn-danger btn-sm"
-                              onClick={() => deleteData(item.id)}>
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </>
-                        )}
+                        <div className="d-flex justify-content-center align-items-center">
+                          <button
+                            type="button"
+                            className="btn-primary btn-sm mr-2">
+                            <a
+                              style={{
+                                color: "white",
+                                textDecoration: "none",
+                              }}
+                              href={`/edit-cabang/${item.id}`}>
+                              <i class="fa-solid fa-circle-info"></i>
+                            </a>
+                          </button>
+                          <button
+                            onClick={() => deleteData(item.id)}
+                            type="button"
+                            className="btn-danger btn-sm">
+                            <i className="fa-solid fa-trash"></i>
+                          </button>
+                        </div>
                       </td>
                     </tr>
-                  ))} */}
+                  ))}
                 </tbody>
               </table>
             </div>

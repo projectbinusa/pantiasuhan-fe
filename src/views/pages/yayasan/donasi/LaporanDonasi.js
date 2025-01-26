@@ -40,7 +40,7 @@ function LaporanDonasi() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/user/donation_trx/keluar?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/user/donation?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -168,8 +168,9 @@ function LaporanDonasi() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama Donatur</th>
-                    <th>Nominal</th>
+                    <th>Nama DOnasi</th>
+                    <th>Donasi Masuk</th>
+                    <th>Donasi Keluar</th>
                     <th>Deskripsi</th>
                     <th>Image</th>
                   </tr>
@@ -181,7 +182,8 @@ function LaporanDonasi() {
                         {(currentPage - 1) * rowsPerPage + index + 1}
                       </td>
                       <td data-label="Nama Donatur">{item.name}</td>
-                      <td data-label="Nominal">{item.nominal}</td>
+                      <td data-label="Donasi Masuj">{item.total_income}</td>
+                      <td data-label="Donasi Keluar">{item.total_outcome}</td>
                       <td data-label="Deskripsi">
                         <div dangerouslySetInnerHTML={{ __html: item.description }} />
                       </td>

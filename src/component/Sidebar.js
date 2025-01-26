@@ -106,7 +106,7 @@ function Sidebar({ isOpen }) {
                   }>
                   <i class="metismenu-icon fa-solid fa-list"></i> Visi Misi
                 </a>
-              </li>
+              </li> 
               <li>
                 <a
                   style={{ textDecoration: "none" }}
