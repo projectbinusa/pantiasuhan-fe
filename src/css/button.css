@@ -1,3 +1,15 @@
 /* button {
     pointer-events: none;
   } */
+
+.suggestions {
+  position: absolute;
+}
+
+@media (min-width: 991) {
+  .suggestions {
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import "../../../../css/button.css";
@@ -17,9 +16,11 @@ function DonasiTrxMasuk() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
-
-  // Mendapatkan role pengguna
-  const userRole = localStorage.getItem("role"); // Menyimpan role saat login
+  const [suggestions, setSuggestions] = useState([]);
+  const [suggestionIndex, setSuggestionIndex] = useState(0);
+  const [suggestionsActive, setSuggestionsActive] = useState(false);
+  const [value, setValue] = useState("");
+  const [organization_id, setOrganization_id] = useState(0);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -32,6 +33,7 @@ function DonasiTrxMasuk() {
   };
 
   useEffect(() => {
+    console.log("organization_id", organization_id);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -39,14 +41,17 @@ function DonasiTrxMasuk() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY_SMART}/api/user/donation_trx/masuk?page=${currentPage}&limit=${rowsPerPage}`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+      let url = `${API_DUMMY_SMART}/api/user/donation_trx/masuk?page=${currentPage}&limit=${rowsPerPage}`;
+
+      if (organization_id) {
+        url += `&organization_id=${organization_id}`;
+      }
+
+      const response = await axios.get(url, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      });
 
       const { data, pagination } = response.data;
       setList(data);
@@ -54,49 +59,10 @@ function DonasiTrxMasuk() {
         totalPages: pagination.total_page,
         totalElements: pagination.total,
       });
+      console.log("data donasi masuk: ", response.data.data);
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
     }
-  };
-
-  const deleteData = async (id) => {
-    Swal.fire({
-      title: "Apakah Anda Ingin Menghapus?",
-      text: "Perubahan data tidak bisa dikembalikan!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Hapus",
-      cancelButtonText: "Batal",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`${API_DUMMY_SMART}/api/user/donation_trx/${id}`, {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          })
-          .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Dihapus!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            getAll();
-          })
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Hapus Data Gagal!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            console.log(err);
-          });
-      }
-    });
   };
 
   useEffect(() => {
@@ -134,6 +100,80 @@ function DonasiTrxMasuk() {
     : list;
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
+
+  const Suggestions = () => {
+    return (
+      <div
+        className="card suggestions border-secondary border-top-0"
+        style={{
+          borderTopRightRadius: 0,
+          borderTopLeftRadius: 0
+        }}>
+        <ul className="list-group list-group-flush">
+          {suggestions.length != 0 ? (
+            <>
+              {suggestions.map((data, index) => (
+                <li
+                  className={
+                    index === suggestionIndex
+                      ? "list-group-item  list-group-item-action active"
+                      : "list-group-item  list-group-item-action"
+                  }
+                  key={index}
+                  onClick={(e) => handleClick(e, data.id)}>
+                  {data.name}
+                </li>
+              ))}
+            </>
+          ) : (
+            <>
+              <li className="list-group-item ">Cabang Tidak Ditemukan</li>
+            </>
+          )}
+        </ul>
+      </div>
+    );
+  };
+
+  const onKeyDown = (keyEvent) => {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
+  };
+
+  const handleClick = (e, id) => {
+    setSuggestions([]);
+    setValue(e.target.innerText);
+    setOrganization_id(id);
+    setSuggestionsActive(false);
+  };
+
+  const handleChange = async (e) => {
+    const query = e.target.value;
+    setValue(query);
+
+    try {
+      const response = await fetch(
+        `${API_DUMMY_SMART}/api/user/organization?name=${query}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
+      if (query.length > 0 && response.ok) {
+        const res = await response.json();
+        setSuggestions(res.data);
+        console.log("response: ", res.data);
+        setSuggestionsActive(true);
+      } else {
+        setSuggestionsActive(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div
@@ -176,13 +216,17 @@ function DonasiTrxMasuk() {
               onChange={handleSearchChange}
             />
           </div>
+          <input
+            type="search"
+            className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
+            placeholder="Tulis Nama Cabang..."
+            onChange={handleChange}
+            value={value}
+          />
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Donasi Trx Masuk</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
-                <div className="col-auto">
-                  <label className="form-label mt-2">Rows per page:</label>
-                </div>
                 <div className="col-auto">
                   <select
                     className="form-select form-select-sm"
@@ -202,7 +246,14 @@ function DonasiTrxMasuk() {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-                {/* Tombol Tambah hanya ditampilkan jika bukan role 'yayasan' */}
+                <div>
+                  <input
+                    className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
+                    onChange={handleChange}
+                    value={value}
+                  />
+                  {suggestionsActive && <Suggestions />}
+                </div>
               </div>
             </div>
             <div
