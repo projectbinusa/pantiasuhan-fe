@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import { Pagination } from "@mui/material";
+import { Box, Modal, Pagination } from "@mui/material";
 import "../../../../css/button.css";
 import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
@@ -85,15 +85,43 @@ function LaporanDonasi() {
 
   const filteredList = searchTerm
     ? list.filter((item) =>
-        Object.values(item).some(
-          (value) =>
-            typeof value === "string" &&
-            value.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+      Object.values(item).some(
+        (value) =>
+          typeof value === "string" &&
+          value.toLowerCase().includes(searchTerm.toLowerCase())
       )
+    )
     : list;
 
-  const totalPages = Math.ceil(filteredList.length / rowsPerPage);
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "90%", // Persentase untuk fleksibilitas
+    maxWidth: "800px",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 3,
+    borderRadius: "10px",
+    backgroundColor: "#f5f5f5",
+    overflowY: "auto",
+    maxHeight: "90vh",
+    textAlign: "center", // Menempatkan konten di tengah
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imageSrc, setImageSrc] = useState(""); // Untuk menyimpan URL gambar
+
+  const openModal = (image) => {
+    setImageSrc(image); // Simpan URL gambar
+    setIsModalOpen(true); // Buka modal
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // Tutup modal
+    setImageSrc(""); // Reset URL gambar
+  };
+
 
   return (
     <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
@@ -135,7 +163,7 @@ function LaporanDonasi() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Donasi Trx Keluar</p>
+              <p className="mt-3">Donasi</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -188,7 +216,12 @@ function LaporanDonasi() {
                         <div dangerouslySetInnerHTML={{ __html: item.description }} />
                       </td>
                       <td data-label="Image">
-                        <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} />
+                        <button
+                          onClick={() => openModal(item.url_image)}
+                          type="button"
+                          className="btn-success btn-sm">Tampilkan Gambar
+                        </button>
+                        {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
                       </td>
                     </tr>
                   ))}
@@ -209,6 +242,39 @@ function LaporanDonasi() {
           </div>
         </div>
       </div>
+      <Modal
+        open={isModalOpen}
+        onClose={closeModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <button
+            onClick={closeModal}
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              background: "transparent",
+              border: "none",
+              fontSize: "20px",
+              cursor: "pointer",
+              color: "black"
+            }}
+            aria-label="Close"
+          >
+            ✖
+          </button> <br />
+          {/* Gambar */}
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              alt="Preview"
+              style={{ maxWidth: "100%", maxHeight: "70vh", borderRadius: "8px" }}
+            />
+          )}
+        </Box>
+      </Modal>
     </div>
   );
 }

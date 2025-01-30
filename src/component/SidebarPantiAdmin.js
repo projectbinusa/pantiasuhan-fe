@@ -253,12 +253,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
         //   path: "/user-organization",
         //   action: [""],
         // },
-        // {
-        //   title: "Buat Cabang Baru",
-        //   icon: "fa-solid fa-list",
-        //   path: "/add-cabang",
-        //   action: [""],
-        // },
+        {
+          title: "Buat Cabang Baru",
+          icon: "fa-solid fa-plus",
+          path: "/form-cabang-baru",
+          action: [""],
+        },
       ],
       icon: <i class="fa-solid fa-angle-down"></i>,
     },
@@ -380,12 +380,9 @@ function SidebarPantiAdmin({ toggleSidebar }) {
     <>
       <nav id="sidebar" className="sidebar-wrapper">
         <div className="sidebar-content">
-          {localStorage.getItem("rolename") == "Admin" ? (
-            <>
-              {" "}
               <div className="sidebar-brand">
                 <a href="#" style={{ textAlign: "center" }}>
-                  PANTI ASUHAN
+                  {localStorage.getItem("rolename") == "Admin" ? "PANTI ASUHAN" : "LKSA"}
                 </a>
                 <div id="close-sidebar" onClick={toggleSidebar}>
                   <i className="fas fa-times"></i>
@@ -513,32 +510,22 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                   )}
                 </ul>
               </div>
+          {/* {localStorage.getItem("rolename") == "Admin" ? (
+            <>
             </>
           ) : localStorage.getItem("rolename") == "Yayasan" ? (
             <>
-              {" "}
               <div className="sidebar-brand">
-                <a
-                  href="#"
-                  style={{
-                    textAlign: "center",
-                    color: "#0d9c1e",
-                    fontSize: "25px",
-                  }}>
-                  LKSA JATENG
+                <a href="#" style={{ textAlign: "center" }}>
+                  LKSA
                 </a>
                 <div id="close-sidebar" onClick={toggleSidebar}>
                   <i className="fas fa-times"></i>
                 </div>
               </div>
-              <div className="sidebar-menu1" style={{ marginBottom: "30px" }}>
+              <div className="sidebar-menu1">
                 <ul>
-                  <br />
-                  <div
-                    style={{
-                      paddingLeft: "25px",
-                      paddingRight: "25px",
-                    }}>
+                  <div>
                     {defaultItems.map((data, index) => (
                       <li
                         key={index}
@@ -564,11 +551,10 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                   </div>
                   {menuItemsYayasan.map((menu, index) => (
                     <React.Fragment key={index}>
-                      <div
-                        style={{ paddingLeft: "25px", paddingRight: "25px" }}>
+                      <div>
                         <li
                           onClick={() => toggleMenu(index)}
-                          className="header-menu1">
+                          className="header-menu1" style={{padding: "8px 10px"}}>
                           <span>{menu.header}</span>
                           <span>{menu.icon}</span>
                         </li>
@@ -576,7 +562,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                           <div className="menu">
                             <li
                               key={subIndex}
-                              className={`body-menu ${
+                              className={`body-menus ${
                                 location.pathname === data.path ||
                                 data.action.includes(location.pathname)
                                   ? "active"
@@ -586,14 +572,14 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                               <NavLink
                                 to={data.path}
                                 style={{ background: "none" }}>
-                                {/* <i
+                                <i
                                   className={`${data.icon} ${
                                     location.pathname === data.path ||
                                     data.action.includes(location.pathname)
                                       ? "active"
                                       : ""
-                                  }`}></i> */}
-                                <span className="title-sidebar">
+                                  }`}></i>
+                                <span className="submenu-nav">
                                   {data.title}
                                 </span>
                               </NavLink>
@@ -608,7 +594,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
             </>
           ) : (
             <></>
-          )}
+          )} */}
         </div>
         <div className="sidebar-footer">
           <button type="button" onClick={logout}>
