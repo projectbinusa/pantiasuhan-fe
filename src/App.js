@@ -254,6 +254,8 @@ import Organization from "./views/pages/yayasan/organization/Organization.js";
 import AddOrganization from "./views/pages/yayasan/cabang/AddOrganization.js";
 import TambahOrganization from "./views/pages/yayasan/organization/TambahOrganization.js";
 import EditCabang from "./views/pages/yayasan/cabang/EditCabang.js";
+import FormCabangBaru from "./views/pages/yayasan/cabang/FormCabangBaru.js";
+import DetailCabang from "./views/pages/yayasan/cabang/DetailCabang.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -990,6 +992,11 @@ function App() {
               exact
             />
             <Route
+              path="/form-cabang-baru"
+              component={FormCabangBaru}
+              exact
+            />
+            <Route
               path="/cabang-anak-asuh/:id"
               component={DataAnakAsuh}
               exact
@@ -1007,6 +1014,11 @@ function App() {
             <Route
               path="/edit-cabang/:id"
               component={EditCabang}
+              exact
+            />
+            <Route
+              path="/detail_cabang/:id"
+              component={DetailCabang}
               exact
             />
           </Switch>

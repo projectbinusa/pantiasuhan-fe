@@ -57,13 +57,21 @@ body {
 }
 
 .sidebar-wrapper ul li.body-menu:hover {
-  background: #d2e6d4;
+  background: #0d9c1e;
+  color: white;
+}
+.sidebar-wrapper ul li.body-menus:hover {
+  background: #e4f2e6;
+  /* color: white; */
+}
+.sidebar-wrapper ul li:hover {
+  background: #0d9c1e;
   color: white;
 }
 
 .sidebar-wrapper ul li.bactive{
   background: #0d9c1e;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   font-weight: bold;
 }
 
@@ -254,8 +262,8 @@ body {
 .sidebar-wrapper .sidebar-menu1 ul .header-menu1 {
   background-color: #D9FBDD;
   font-weight: bold;
-  margin-top: 10px;
-  border-radius: 5px;
+  /* margin-top: 10px; */
+  /* border-radius: 5px; */
   display: flex;
   justify-content: space-between;
 }

@@ -41,19 +41,19 @@ function DashboardYayasan() {
     labels: [],
     datasets: [
       {
-        label: "Total Income",
+        label: "Keuangan Total Cabang",
         data: [],
-        borderColor: "rgb(75, 192, 192)",
+        borderColor: "#0d9c1e",
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         tension: 0.4,
       },
-      {
-        label: "Total Outcome",
-        data: [],
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        tension: 0.4,
-      },
+      // {
+      //   label: "Total Outcome",
+      //   data: [],
+      //   borderColor: "rgb(255, 99, 132)",
+      //   backgroundColor: "rgba(255, 99, 132, 0.2)",
+      //   tension: 0.4,
+      // },
     ],
   });
 
@@ -80,6 +80,9 @@ function DashboardYayasan() {
   const [income, setIncome] = useState();
   const [outcome, setOutcome] = useState();
   const [nominal, setNominal] = useState();
+  const [member, setMember] = useState();
+  const [cabang, setCabang] = useState();
+  const [donasi, setDonasi] = useState();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -124,6 +127,71 @@ function DashboardYayasan() {
       }
     };
 
+    const fetchDataMember = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_SMART}/api/user/count/member`,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        if (response.data.code === 200) {
+          setMember(response.data.data.total_member)
+          console.log("data: ", response.data.data);
+        } else {
+          console.error("Failed to fetch data:", response.data.message);
+        }
+      } catch (err) {
+        console.log("error: ", err);
+      }
+    };
+
+    const fetchDataCabang = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_SMART}/api/user/customer/organizationids`,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        if (response.data.code === 200) {
+          setCabang(response.data.data.total_cabang)
+          console.log("data: ", response.data.data);
+        } else {
+          console.error("Failed to fetch data:", response.data.message);
+        }
+      } catch (err) {
+        console.log("error: ", err);
+      }
+    };
+    const fetchDataDonasi = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_SMART}/api/user/count/donation`,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        if (response.data.code === 200) {
+          setDonasi(response.data.data.total_income)
+          console.log("donasi: ", response.data.data);
+        } else {
+          console.error("Failed to fetch data:", response.data.message);
+        }
+      } catch (err) {
+        console.log("error: ", err);
+      }
+    };
+
+    fetchDataDonasi()
+    fetchDataCabang()
+    fetchDataMember()
     fetchData();
     fetchDataTrx();
   }, []);
@@ -148,27 +216,28 @@ function DashboardYayasan() {
       });
 
       // Update chart data
-      const labels = data.map((item) => item.name);
+      const datas = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"]
+      const labels = datas.map((item) => item);
       const incomeData = data.map((item) => item.total_income);
-      const outcomeData = data.map((item) => item.total_outcome);
+      // const outcomeData = data.map((item) => item.total_outcome);
 
       setChartData({
         labels: labels,
         datasets: [
           {
-            label: "Total Income",
+            label: "Keuangan Total Cabang",
             data: incomeData,
-            borderColor: "rgb(75, 192, 192)",
+            borderColor: "#0d9c1e",
             backgroundColor: "rgba(75, 192, 192, 0.2)",
             tension: 0.4,
           },
-          {
-            label: "Total Outcome",
-            data: outcomeData,
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.2)",
-            tension: 0.4,
-          },
+          // {
+          //   label: "Total Outcome",
+          //   data: outcomeData,
+          //   borderColor: "rgb(255, 99, 132)",
+          //   backgroundColor: "rgba(255, 99, 132, 0.2)",
+          //   tension: 0.4,
+          // },
         ],
       });
     } catch (error) {
@@ -182,9 +251,8 @@ function DashboardYayasan() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       {/* Sidebar */}
       <a
         id="show-sidebar"
@@ -207,7 +275,7 @@ function DashboardYayasan() {
             <i className="fas fa-bars"></i>
           </a>
           <div className="row">
-            <div className="col-lg-4 col-md-12 mb-4">
+            <div className="col-lg-4 col-md-12">
               <div className="row g-3">
                 <div className="col-md-12 col-12 mb-3">
                   <div
@@ -216,23 +284,21 @@ function DashboardYayasan() {
                     <div className="p-3">
                       <div className="fw-bold text-xs text-success text-start">
                         <i
-                          className="fas fa-donate"
+                          className="fas fa-code-branch"
                           style={{
                             fontSize: "0.6rem",
                             marginRight: "0.5rem",
                           }}></i>
-                        <span style={{ fontSize: "0.9rem" }}>Dana Masuk</span>
+                        <span style={{ fontSize: "0.9rem" }}>Total Cabang</span>
                       </div>
                       <h3
                         className="display-6"
                         style={{
                           fontSize: "1.5rem",
-                          textAlign: "center",
+                          textAlign: "left",
                           marginTop: "5px",
                           fontWeight: "bold",
-                        }}>
-                        {formatRupiah(income)}
-                      </h3>
+                        }}>{cabang}</h3>
                     </div>
                   </div>
                 </div>
@@ -243,23 +309,21 @@ function DashboardYayasan() {
                     <div className="p-3">
                       <div className="fw-bold text-xs text-success text-start">
                         <i
-                          className="fas fa-donate"
+                          className="fas fa-users"
                           style={{
                             fontSize: "0.6rem",
                             marginRight: "0.5rem",
                           }}></i>
-                        <span style={{ fontSize: "0.9rem" }}>Donasi Trx</span>
+                        <span style={{ fontSize: "0.9rem" }}>Total Anak Asuh</span>
                       </div>
                       <h3
                         className="display-6"
                         style={{
                           fontSize: "1.5rem",
-                          textAlign: "center",
+                          textAlign: "left",
                           marginTop: "5px",
                           fontWeight: "bold",
-                        }}>
-                        {formatRupiah(nominal)}
-                      </h3>
+                        }}>{member}</h3>
                     </div>
                   </div>
                   {/* <span
@@ -284,29 +348,28 @@ function DashboardYayasan() {
                             marginRight: "0.5rem",
                           }}></i>
                         <span style={{ fontSize: "0.9rem" }}>
-                          Donasi Keluar
+                          Total Donasi
                         </span>
                       </div>
                       <h3
                         className="display-6"
                         style={{
                           fontSize: "1.5rem",
-                          textAlign: "center",
+                          textAlign: "left",
                           marginTop: "5px",
                           fontWeight: "bold",
                         }}>
-                        {formatRupiah(outcome)}
+                        {formatRupiah(donasi)}
                       </h3>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
             <div className="col-lg-8 col-md-12">
               <div className="card p-4 shadow-sm rounded-3 chart-card">
                 <h5 className="fw-bold">Data Tren Keuangan Panti</h5>
-                <div style={{ position: "relative", height: "400px" }}>
+                <div style={{ position: "relative", height: "300px" }}>
                   <Line data={chartData} options={{ responsive: true }} />
                 </div>
               </div>

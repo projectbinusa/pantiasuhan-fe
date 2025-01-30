@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import { API_DUMMY, API_DUMMY_SMART } from "../../../../utils/base_URL";
-// import SidebarYayasan from "../../../../../component/SidebarYayasan";
 
 function LaporanInventaris() {
   const [list, setList] = useState([]);
@@ -39,7 +37,7 @@ function LaporanInventaris() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/admin/investaris/organization_ids?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY}/api/admin/investaris/organization_ids?page=${currentPage}&size=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -52,7 +50,7 @@ function LaporanInventaris() {
       const { data, pagination } = response.data;
       setList(data);
       setPaginationInfo({
-        totalPages: pagination.total_page,
+        totalPages: Math.ceil(pagination.total/rowsPerPage),
         totalElements: pagination.total,
       });
     } catch (error) {
@@ -92,9 +90,8 @@ function LaporanInventaris() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -157,20 +154,6 @@ function LaporanInventaris() {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-                {/* <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    {userRole !== "yayasan" && (
-                      <button className="active btn-focus p-2 rounded">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/add_anak_asuh"
-                        >
-                          Tambah Anak Asuh
-                        </a>
-                      </button>
-                    )}
-                  </div>
-                </div> */}
               </div>
             </div>
             <div
@@ -181,8 +164,9 @@ function LaporanInventaris() {
                   <tr>
                     <th scope="col">No</th>
                     <th>Nama Barang</th>
-                    <th>Lokasi Barang</th>
+                    <th>Lokasi Cabang</th>
                     <th>Kondisi Barang</th>
+                    <th>Kategori Barang</th>
                     <th>Jumlah Barang</th>
                   </tr>
                 </thead>
@@ -194,11 +178,14 @@ function LaporanInventaris() {
                           {index + 1}
                         </td>
                         <td data-label="Nama Barang">{row.name}</td>
-                        <td data-label="Lokasi Barang">
-                          {row.lokasi_barang_name}
+                        <td data-label="Lokasi Cabang">
+                          {row.nama_organization}
                         </td>
                         <td data-label="Kondisi Barang">
                           {row.kondisi_barang_name}
+                        </td>
+                        <td data-label="Kategori Barang">
+                          {row.kategori_barang_name}
                         </td>
                         <td data-label="Jumlah Barang">{row.stok}</td>
                       </tr>
