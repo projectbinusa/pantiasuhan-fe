@@ -1,207 +1,44 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { API_DUMMY, API_DUMMY_SMART } from "../../../../utils/base_URL";
+import SidebarYayasan from "../../../../component/SidebarYayasan";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
-
-const rupiah = (number) => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  }).format(number);
-};
+import axios from "axios";
+import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 
 function DetailCabang() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
-  const [fetchWeekly, setFetchWeekly] = useState();
-  const [total_tahsin, setTotalTahsin] = useState();
-  const [presensiCount, setPresensiCount] = useState();
-  const [guestCount, setGuestCount] = useState();
-  const [donationData, setDonationData] = useState();
-  const [anakAsuhCount, setAnakAsuhCount] = useState(0);
-  const [conditions, setConditions] = useState([]);
-  const [quantities, setQuantities] = useState([]);
-  const [jumlahPostingan, setJumlahPostingan] = useState(0);
-  const [jumlahDanaKeluar, setJumlahDanaKeluar] = useState(0); // Menyimpan jumlah dana keluar
-  const [saldoKeuangan, setSaldoKeuangan] = useState(0);
+  const [data, setData] = useState(null);
+
+  const getAll = async () => {
+    try {
+      const organizationId = localStorage.getItem("organization_id");
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/user/lksa/organization/${organizationId}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
+      console.log("Response dari API:", response.data);
+
+      if (response.data.data.length > 0) {
+        setData(response.data.data[0]);
+      } else {
+        setData(null);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAll();
+  }, []);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
-
-  const handleResize = () => {
-    if (window.innerWidth < 800) {
-      setSidebarToggled(false);
-    }
-  };
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const token = localStorage.getItem("tokenpython");
-      if (!token) {
-        throw new Error("Token tidak ditemukan. Harap login ulang.");
-      }
-
-      const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/donation/recap/weekly`,
-        {
-          headers: { "auth-tgh": `jwt ${token}` },
-        }
-      );
-
-      setFetchWeekly(response.data.data?.total_income || 0);
-      setJumlahDanaKeluar(response.data.data?.total_outcome || 0);
-    } catch (error) {
-      console.error("Error fetching donation data: ", error.message);
-    }
-  };
-
-  const fetchTahsin = async () => {
-    try {
-      const response = await axios.get(`${API_DUMMY}/api/admin/tahsin/minggu`, {
-        headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-      });
-      setTotalTahsin(response.data?.data?.total_tahsin || 0);
-    } catch (error) {
-      console.error("Gagal mengambil data tahsin:", error.message);
-    }
-  };
-
-  const fetchPresensi = async () => {
-    try {
-      const response = await axios.get(`${API_DUMMY}/api/siswa/presensi`, {
-        headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-      });
-      const totalPresensi = response.data?.data.reduce(
-        (acc, item) => acc + (item.jumlah || 0),
-        0
-      );
-      setPresensiCount(totalPresensi || 0);
-    } catch (error) {
-      console.error("Gagal mengambil data presensi:", error.message);
-    }
-  };
-
-  const fetchGuestCount = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/api/admin/guest_book/week`,
-        {
-          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-        }
-      );
-      setGuestCount(response.data?.data?.total_tamu || 0);
-    } catch (error) {
-      console.error("Gagal mengambil data tamu:", error.message);
-    }
-  };
-
-  const fetchAnakAsuhData = async () => {
-    try {
-      const response = await axios.get(`${API_DUMMY}/api/admin/siswa`, {
-        headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-      });
-      // Periksa struktur data respons yang diterima
-      console.log("Jumlah siswa = ", response.data?.data); // Mencetak data siswa yang diterima dari API
-
-      // Mengambil jumlah siswa berdasarkan array yang ada di response.data.data
-      setAnakAsuhCount(response.data?.data?.length || 0); // Asumsi response.data.data adalah array siswa
-    } catch (error) {
-      console.error("Gagal mengambil data anak asuh:", error.message);
-    }
-  };
-
-  const fetchJumlahPostingan = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/api/admin/berita`, // Endpoint API
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`, // Menambahkan token jika diperlukan
-          },
-        }
-      );
-      console.log(response.data); // Memeriksa struktur respons
-
-      // Pastikan 'organization_id' ada dalam respons yang sesuai
-      setJumlahPostingan(response.data?.data?.length || 0);
-    } catch (error) {
-      console.error("Error fetching jumlah postingan: ", error);
-    }
-  };
-
-  const fetchJumlahDana = async () => {
-    try {
-      const token = localStorage.getItem("tokenpython");
-      if (!token) {
-        throw new Error("Token tidak ditemukan. Harap login ulang.");
-      }
-
-      const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/donation/recap`,
-        {
-          headers: { "auth-tgh": `jwt ${token}` },
-        }
-      );
-
-      const totalIncome = response.data.data?.total_income || 0;
-      const totalOutcome = response.data.data?.total_outcome || 0;
-      setFetchWeekly(totalIncome); // Jumlah Donasi Mingguan
-      setJumlahDanaKeluar(totalOutcome); // Jumlah Dana Keluar
-      setSaldoKeuangan(totalIncome - totalOutcome); // Hitung saldo keuangan
-    } catch (error) {
-      console.error("Error fetching donation data: ", error.message);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-    fetchTahsin();
-    fetchPresensi();
-    fetchGuestCount();
-    fetchAnakAsuhData();
-    fetchJumlahPostingan();
-    fetchJumlahDana();
-  }, []);
-
-  const fetchKondisiBarang = async () => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/api/admin/kondisi_barang`,
-        {
-          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-        }
-      );
-      console.log(response.data?.data);
-
-      setConditions(response.data?.data || []);
-    } catch (error) {
-      console.error("Gagal mengambil kondisi barang:", error.message);
-    }
-  };
-
-  // Fetch stok barang
-  const fetchStokBarang = async () => {
-    try {
-      const response = await axios.get(`${API_DUMMY}/api/admin/investaris`, {
-        headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-      });
-      console.log(response.data?.data);
-      setQuantities(response.data?.data || []);
-    } catch (error) {
-      console.error("Gagal mengambil stok barang:", error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchKondisiBarang();
-    fetchStokBarang();
-  }, []);
 
   return (
     <div
@@ -217,7 +54,7 @@ function DetailCabang() {
       >
         <i className="fas fa-bars"></i>
       </a>
-      <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
+      <SidebarYayasan toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer">
           <div className="ktp-card card1">
@@ -226,41 +63,45 @@ function DetailCabang() {
                 <div className="ktp-header">
                   <h2 className="ktp-title">Detail Cabang</h2>
                 </div>
-                <div className="ktp-details">
-                  <div className="ktp-row">
-                    <div className="ktp-info">
-                      <h4>Nama Panti</h4>
-                      <p>Panti Asuhan Muhammadiyah</p>
+                {data ? (
+                  <div className="ktp-details">
+                    <div className="ktp-row">
+                      <div className="ktp-info">
+                        <h4>Nama Panti</h4>
+                        <p>{data?.nama_cabang}</p>
+                      </div>
+                      <div className="ktp-info">
+                        <h4>Lokasi</h4>
+                        <p>{data?.lokasi}</p>
+                      </div>
                     </div>
-                    <div className="ktp-info">
-                      <h4>Kepala Panti</h4>
-                      <p>Contoh</p>
+                    <div className="ktp-row">
+                      <div className="ktp-info">
+                        <h4>Jumlah Anak Asuh</h4>
+                        <p>{data?.jumlah_anak_asuh}</p>
+                      </div>
+                      <div className="ktp-info">
+                        <h4>No. HP</h4>
+                        <p>{data?.hp}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="ktp-row">
-                    <div className="ktp-info">
-                      <h4>Alamat</h4>
-                      <p>Jl. Contoh No. 123, Kota XYZ</p>
+                    <div className="ktp-row">
+                      <div className="ktp-info">
+                        <h4>Email</h4>
+                        <p>{data?.email}</p>
+                      </div>
+                      <div className="ktp-info">
+                        <h4>Saldo</h4>
+                        <p>Rp {data?.saldo}</p>
+                      </div>
                     </div>
-                    <div className="ktp-info">
-                      <h4>Jumlah Anak Asuh</h4>
-                      <p>102</p>
-                    </div>
-                  </div>
-                  <div className="ktp-row">
-                    <div className="ktp-info">
-                      <h4>Jumlah Pegawai</h4>
-                      <p>10</p>
-                    </div>
-                    <div className="ktp-info">
-                      <h4>Jumlah Aset</h4>
-                      <p>1223</p>
-                    </div>
-                  </div>
-                  <div className="ktp-row">
-                    <div className="ktp-info">
-                      <h4>Informasi Rekening</h4>
-                      <h1>{rupiah(fetchWeekly)}</h1>
+                    <div className="ktp-row">
+                      <div className="ktp-info">
+                        <h4>Informasi Rekening</h4>
+                        <p>
+                          {data?.nama_bank} - {data?.nomor_rekening}
+                        </p>
+                      </div>
                     </div>
                     <div className="ktp-info">
                       <h4>Maps</h4>
@@ -273,7 +114,9 @@ function DetailCabang() {
                       ></iframe>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <p>Loading...</p>
+                )}
               </div>
             </div>
           </div>
