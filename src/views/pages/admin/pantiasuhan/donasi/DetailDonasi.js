@@ -467,7 +467,7 @@ function DetailDonasi() {
                           <button
                             onClick={() => openModal(item.url_image)}
                             type="button"
-                            className="btn-success btn-sm">Tampilkan Gambar
+                            className="btn-info btn-sm">Tampilkan Gambar
                           </button>
                           {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
                         </td>
@@ -605,7 +605,7 @@ function DetailDonasi() {
                           <button
                             onClick={() => openModal(item.url_image)}
                             type="button"
-                            className="btn-success btn-sm">Tampilkan Gambar
+                            className="btn-info btn-sm">Tampilkan Gambar
                           </button>
                           {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
                         </td>

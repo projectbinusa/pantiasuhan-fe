@@ -14,7 +14,7 @@ const formatDate = (value) => {
   return `${day}-${month}-${year}`;
 };
 
-function DonasiTrxMasuk() {
+function DonasiTrxMasukMingguan() {
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -42,12 +42,37 @@ function DonasiTrxMasuk() {
   const [tanggalValid, setTanggalValid] = useState("");
   const [idCabangValid, setIdCabangValid] = useState(0);
 
+  const getLastDayOfWeek = (weekValue) => {
+    if (!weekValue) return "";
+
+    const [year, week] = weekValue.split("-W").map(Number);
+
+    // Cek jika nilai tidak valid
+    if (isNaN(year) || isNaN(week) || week < 1 || week > 53) {
+      console.error("Format minggu tidak valid:", weekValue);
+      return "";
+    }
+
+    // Cari hari Senin dari minggu yang dipilih
+    const firstDayOfYear = new Date(year, 0, 1);
+    const daysOffset = (week - 1) * 7;
+    const firstMonday = new Date(firstDayOfYear.setDate(firstDayOfYear.getDate() - firstDayOfYear.getDay() + 1 + daysOffset));
+
+    // Cari hari Minggu dalam minggu tersebut
+    const lastDayOfWeek = new Date(firstMonday);
+    lastDayOfWeek.setDate(firstMonday.getDate() + 7);
+
+    return lastDayOfWeek.toISOString().split("T")[0]; // Format YYYY-MM-DD
+  };
+
   const handleFilter = (tgl, id) => {
-    setTanggalValid(tgl);
+    let tgls = getLastDayOfWeek(tgl)
+    setTanggalValid(tgls);
     setIdCabangValid(id);
     getAll();
     closeModalForm()
   };
+
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
@@ -68,7 +93,7 @@ function DonasiTrxMasuk() {
   const getAll = async () => {
     try {
       let todays = tanggalValid || today;
-      let url = `${API_DUMMY_SMART}/api/user/donation_trx/masuk?date=${todays}&page=${currentPage}&limit=${rowsPerPage}`;
+      let url = `${API_DUMMY_SMART}/api/user/donation_trx/masuk?weekly=${todays}&page=${currentPage}&limit=${rowsPerPage}`;
 
       if (idCabangValid) {
         url += `&organization_id=${idCabangValid}`;
@@ -279,6 +304,7 @@ function DonasiTrxMasuk() {
     fetchDataOrganization()
   }, [])
 
+  console.log(tanggalValid);
 
   return (
     <div
@@ -329,7 +355,7 @@ function DonasiTrxMasuk() {
           /> */}
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Donasi Harian {tanggalValid ? formatDate(tanggalValid) : formatDate(today)}</p>
+              <p className="mt-3">Donasi Mingguan {tanggalValid ? formatDate(tanggalValid) : formatDate(today)}</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -495,7 +521,7 @@ function DonasiTrxMasuk() {
               <input
                 value={tanggal}
                 onChange={(e) => setTanggal(e.target.value)}
-                type="date" className="form-control"
+                type="week" className="form-control"
               />
             </div>
             <div className="mb-3 col-lg-12">
@@ -518,4 +544,4 @@ function DonasiTrxMasuk() {
   );
 }
 
-export default DonasiTrxMasuk;
+export default DonasiTrxMasukMingguan;
