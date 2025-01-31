@@ -239,7 +239,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
 
   const menuItemsYayasan = [
     {
-      header: "CABANG",
+      header: "Cabang",
       items: [
         {
           title: "Daftar Cabang",
@@ -247,12 +247,6 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           path: "/daftar-cabang",
           action: [""],
         },
-        // {
-        //   title: "Organization",
-        //   icon: "fa-solid fa-book-open",
-        //   path: "/user-organization",
-        //   action: [""],
-        // },
         {
           title: "Buat Cabang Baru",
           icon: "fa-solid fa-plus",
@@ -281,31 +275,61 @@ function SidebarPantiAdmin({ toggleSidebar }) {
     //   icon: <i class="fa-solid fa-angle-down"></i>,
     // },
     {
-      header: "Donasi",
+      header: "Donasi Masuk",
       items: [
         {
-          title: "Donasi Masuk",
-          icon: "fa-solid fa-book-open",
+          title: "Donasi Harian",
+          icon: "fa-solid fa-arrow-down",
           path: "/donasitrx_masuk_yayasan",
           action: [""],
         },
         {
-          title: "Donasi Keluar",
-          icon: "fa-solid fa-book-open",
-          path: "donasitrx_keluar_yayasan",
+          title: "Donasi Mingguan",
+          icon: "fa-solid fa-arrow-down",
+          path: "/donasitrx_masuk_mingguan_yayasan",
           action: [""],
         },
         {
-          title: "Laporan Donasi",
-          icon: "fa-solid fa-list",
-          path: "/laporan-donasi",
+          title: "Donasi Bulanan",
+          icon: "fa-solid fa-arrow-down",
+          path: "/donasitrx_masuk_bulanan_yayasan",
           action: [""],
         },
       ],
       icon: <i class="fa-solid fa-angle-down"></i>,
     },
     {
-      header: "INVENTARIS",
+      header: "Biaya",
+      items: [
+        {
+          title: "Biaya Harian",
+          icon: "fa-solid fa-arrow-up",
+          path: "donasitrx_keluar_yayasan",
+          action: [""],
+        },
+        {
+          title: "Biaya Mingguan",
+          icon: "fa-solid fa-arrow-up",
+          path: "donasitrx_keluar_yayasan",
+          action: [""],
+        },
+        {
+          title: "Biaya Bulanan",
+          icon: "fa-solid fa-arrow-up",
+          path: "donasitrx_keluar_yayasan",
+          action: [""],
+        },
+        // {
+        //   title: "Laporan Donasi",
+        //   icon: "fa-solid fa-list",
+        //   path: "/laporan-donasi",
+        //   action: [""],
+        // },
+      ],
+      icon: <i class="fa-solid fa-angle-down"></i>,
+    },
+    {
+      header: "Inventaris",
       items: [
         {
           title: "Laporan Investaris",
@@ -323,7 +347,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       icon: <i class="fa-solid fa-angle-down"></i>,
     },
     {
-      header: "PERSONALIA",
+      header: "Personalia",
       items: [
         {
           title: "Data Anak Asuh",
@@ -380,136 +404,128 @@ function SidebarPantiAdmin({ toggleSidebar }) {
     <>
       <nav id="sidebar" className="sidebar-wrapper">
         <div className="sidebar-content">
-              <div className="sidebar-brand">
-                <a href="#" style={{ textAlign: "center" }}>
-                  {localStorage.getItem("rolename") == "Admin" ? "PANTI ASUHAN" : "LKSA"}
-                </a>
-                <div id="close-sidebar" onClick={toggleSidebar}>
-                  <i className="fas fa-times"></i>
-                </div>
-              </div>
-              <div className="sidebar-menu1">
-                <ul>
-                  {defaultItems.map((data, index) => (
-                    <li
-                      key={index}
-                      ref={(el) => (defaultRefs.current[index] = el)}
-                      className={`body-menu ${
-                        location.pathname === data.path ||
-                        data.action.includes(location.pathname)
-                          ? "bactive"
+          <div className="sidebar-brand">
+            <a href="#" style={{ textAlign: "center" }}>
+              {localStorage.getItem("rolename") == "Admin" ? "PANTI ASUHAN" : "LKSA"}
+            </a>
+            <div id="close-sidebar" onClick={toggleSidebar}>
+              <i className="fas fa-times"></i>
+            </div>
+          </div>
+          <div className="sidebar-menu1">
+            <ul>
+              {defaultItems.map((data, index) => (
+                <li
+                  key={index}
+                  ref={(el) => (defaultRefs.current[index] = el)}
+                  className={`body-menu ${location.pathname === data.path ||
+                      data.action.includes(location.pathname)
+                      ? "bactive"
+                      : ""
+                    }`}>
+                  <NavLink to={data.path} style={{ background: "none" }}>
+                    <i
+                      className={`${data.icon} ${location.pathname === data.path ||
+                          data.action.includes(location.pathname)
+                          ? "active"
                           : ""
-                      }`}>
-                      <NavLink to={data.path} style={{ background: "none" }}>
-                        <i
-                          className={`${data.icon} ${
-                            location.pathname === data.path ||
-                            data.action.includes(location.pathname)
-                              ? "active"
-                              : ""
-                          }`}></i>
-                        <span>{data.title}</span>
-                      </NavLink>
-                    </li>
-                  ))}
-                  {localStorage.getItem("rolename") != "Yayasan" ? (
-                    <>
-                      {menuItems.map((menu, index) => (
-                        <React.Fragment key={index}>
-                          <li className="header-menu1">
-                            <span>{menu.header}</span>
-                          </li>
-                          {menu.items.map((data, subIndex) => (
-                            <li
-                              key={subIndex}
-                              className={`body-menu ${
-                                location.pathname === data.path ||
-                                data.action.includes(location.pathname)
-                                  ? "bactive"
-                                  : ""
-                              }`}
-                              ref={(el) => (menuRefs.current[subIndex] = el)}>
-                              <NavLink
-                                to={data.path}
-                                style={{ background: "none" }}>
-                                <i
-                                  className={`${data.icon} ${
-                                    location.pathname === data.path ||
-                                    data.action.includes(location.pathname)
-                                      ? "active"
-                                      : ""
-                                  }`}></i>
-                                <span>{data.title}</span>
-                              </NavLink>
-                            </li>
-                          ))}
-                        </React.Fragment>
-                      ))}
+                        }`}></i>
+                    <span>{data.title}</span>
+                  </NavLink>
+                </li>
+              ))}
+              {localStorage.getItem("rolename") != "Yayasan" ? (
+                <>
+                  {menuItems.map((menu, index) => (
+                    <React.Fragment key={index}>
                       <li className="header-menu1">
-                        <span>Inventaris</span>
+                        <span>{menu.header}</span>
                       </li>
-                      {inventarisItems.map((data, index) => (
+                      {menu.items.map((data, subIndex) => (
                         <li
-                          key={index}
-                          className={`body-menu ${
-                            location.pathname === data.path ||
-                            data.action.includes(location.pathname)
+                          key={subIndex}
+                          className={`body-menu ${location.pathname === data.path ||
+                              data.action.includes(location.pathname)
                               ? "bactive"
                               : ""
-                          }`}
-                          ref={(el) => (inventarisRefs.current[index] = el)}>
+                            }`}
+                          ref={(el) => (menuRefs.current[subIndex] = el)}>
                           <NavLink
                             to={data.path}
                             style={{ background: "none" }}>
                             <i
-                              className={`${data.icon} ${
-                                location.pathname === data.path ||
-                                data.action.includes(location.pathname)
+                              className={`${data.icon} ${location.pathname === data.path ||
+                                  data.action.includes(location.pathname)
                                   ? "active"
                                   : ""
-                              }`}></i>
+                                }`}></i>
                             <span>{data.title}</span>
                           </NavLink>
                         </li>
                       ))}
-                    </>
-                  ) : (
-                    <>
-                      {menuItemsYayasan.map((menu, index) => (
-                        <React.Fragment key={index}>
-                          <li className="header-menu1">
-                            <span>{menu.header}</span>
-                          </li>
-                          {menu.items.map((data, subIndex) => (
-                            <li
-                              key={subIndex}
-                              className={`body-menu ${
-                                location.pathname === data.path ||
-                                data.action.includes(location.pathname)
+                    </React.Fragment>
+                  ))}
+                  <li className="header-menu1">
+                    <span>Inventaris</span>
+                  </li>
+                  {inventarisItems.map((data, index) => (
+                    <li
+                      key={index}
+                      className={`body-menu ${location.pathname === data.path ||
+                          data.action.includes(location.pathname)
+                          ? "bactive"
+                          : ""
+                        }`}
+                      ref={(el) => (inventarisRefs.current[index] = el)}>
+                      <NavLink
+                        to={data.path}
+                        style={{ background: "none" }}>
+                        <i
+                          className={`${data.icon} ${location.pathname === data.path ||
+                              data.action.includes(location.pathname)
+                              ? "active"
+                              : ""
+                            }`}></i>
+                        <span>{data.title}</span>
+                      </NavLink>
+                    </li>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {menuItemsYayasan.map((menu, index) => (
+                    <React.Fragment key={index}>
+                      <li className="header-menu1">
+                        <span>{menu.header}</span>
+                      </li>
+                      {menu.items.map((data, subIndex) => (
+                        <li
+                          key={subIndex}
+                          className={`body-menu ${location.pathname === data.path ||
+                              data.action.includes(location.pathname)
+                              ? "active"
+                              : ""
+                            }`}
+                          ref={(el) => (menuRefs.current[subIndex] = el)}>
+                          <NavLink
+                            to={data.path}
+                            style={{ background: "none" }}>
+                            <i
+                              className={`${data.icon} ${location.pathname === data.path ||
+                                  data.action.includes(location.pathname)
                                   ? "active"
                                   : ""
-                              }`}
-                              ref={(el) => (menuRefs.current[subIndex] = el)}>
-                              <NavLink
-                                to={data.path}
-                                style={{ background: "none" }}>
-                                <i
-                                  className={`${data.icon} ${
-                                    location.pathname === data.path ||
-                                    data.action.includes(location.pathname)
-                                      ? "active"
-                                      : ""
-                                  }`}></i>
-                                <span>{data.title}</span>
-                              </NavLink>
-                            </li>
-                          ))}
-                        </React.Fragment>
+                                }`}></i>
+                            <span>{data.title}</span>
+                          </NavLink>
+                        </li>
                       ))}
-                    </>
-                  )}
-                </ul>
-              </div>
+                    </React.Fragment>
+                  ))}
+                </>
+              )}
+            </ul>
+          </div>
           {/* {localStorage.getItem("rolename") == "Admin" ? (
             <>
             </>

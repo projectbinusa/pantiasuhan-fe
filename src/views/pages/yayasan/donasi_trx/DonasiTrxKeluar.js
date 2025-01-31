@@ -47,6 +47,8 @@ function DonasiTrxKeluar() {
           },
         }
       );
+      console.log(response);
+      
 
       const { data, pagination } = response.data;
       setList(data);
@@ -162,7 +164,7 @@ function DonasiTrxKeluar() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Donasi Trx Keluar</p>
+              <p className="mt-3">Biaya Harian</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -195,7 +197,7 @@ function DonasiTrxKeluar() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama Donasi</th>
+                    <th>Nama</th>
                     <th>Nominal</th>
                     <th>Deskripsi</th>
                     <th>Image</th>
@@ -207,7 +209,7 @@ function DonasiTrxKeluar() {
                       <td data-label="No">
                         {(currentPage - 1) * rowsPerPage + index + 1}
                       </td>
-                      <td data-label="Nama Donatur">{item.name}</td>
+                      <td data-label="Nama">{item.name}</td>
                       <td data-label="Nominal">{item.nominal}</td>
                       <td data-label="Deskripsi">
                         <div dangerouslySetInnerHTML={{ __html: item.description }} />
@@ -216,7 +218,7 @@ function DonasiTrxKeluar() {
                         <button
                           onClick={() => openModal(item.url_image)}
                           type="button"
-                          className="btn-success btn-sm">Tampilkan Gambar
+                          className="btn-info btn-sm">Tampilkan Gambar
                         </button>
                         {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
                       </td>

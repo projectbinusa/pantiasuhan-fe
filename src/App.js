@@ -256,6 +256,8 @@ import TambahOrganization from "./views/pages/yayasan/organization/TambahOrganiz
 import EditCabang from "./views/pages/yayasan/cabang/EditCabang.js";
 import FormCabangBaru from "./views/pages/yayasan/cabang/FormCabangBaru.js";
 import DetailCabang from "./views/pages/yayasan/cabang/DetailCabang.js";
+import DonasiTrxMasukMingguan from "./views/pages/yayasan/donasi_trx/DonasiTrxMasukMingguan.js";
+import DonasiTrxMasukBulanan from "./views/pages/yayasan/donasi_trx/DonasiTrxMasukBulanan.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -921,6 +923,16 @@ function App() {
             <Route
               path="/donasitrx_masuk_yayasan"
               component={DonasiTrxMasuk}
+              exact
+            />
+            <Route
+              path="/donasitrx_masuk_mingguan_yayasan"
+              component={DonasiTrxMasukMingguan}
+              exact
+            />
+            <Route
+              path="/donasitrx_masuk_bulanan_yayasan"
+              component={DonasiTrxMasukBulanan}
               exact
             />
             <Route

@@ -259,7 +259,7 @@ function Galery() {
                             <button
                               onClick={() => openModal(galery.foto)}
                               type="button"
-                              className="btn-success btn-sm">Tampilkan Gambar
+                              className="btn-info btn-sm">Tampilkan Gambar
                             </button>
                             {/* <img
                               src={galery.foto}

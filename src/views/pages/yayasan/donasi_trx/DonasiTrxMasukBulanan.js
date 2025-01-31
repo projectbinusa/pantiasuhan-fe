@@ -6,15 +6,14 @@ import "../../../../css/button.css";
 import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
-const formatDate = (value) => {
+const formatMonth = (value) => {
   const date = new Date(value);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${day}-${month}-${year}`;
+  return `${month}-${year}`;
 };
 
-function DonasiTrxMasuk() {
+function DonasiTrxMasukBulanan() {
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -33,8 +32,7 @@ function DonasiTrxMasuk() {
   const date = new Date();
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  const today = `${year}-${month}-${day}`;
+  const months = `${year}-${month}`;
 
   const [cabang, setCabang] = useState([]);
   const [tanggal, setTanggal] = useState("");
@@ -67,8 +65,8 @@ function DonasiTrxMasuk() {
 
   const getAll = async () => {
     try {
-      let todays = tanggalValid || today;
-      let url = `${API_DUMMY_SMART}/api/user/donation_trx/masuk?date=${todays}&page=${currentPage}&limit=${rowsPerPage}`;
+      let bulan = tanggalValid || months;
+      let url = `${API_DUMMY_SMART}/api/user/donation_trx/masuk?month=${bulan}&page=${currentPage}&limit=${rowsPerPage}`;
 
       if (idCabangValid) {
         url += `&organization_id=${idCabangValid}`;
@@ -329,7 +327,7 @@ function DonasiTrxMasuk() {
           /> */}
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Donasi Harian {tanggalValid ? formatDate(tanggalValid) : formatDate(today)}</p>
+              <p className="mt-3">Donasi Bulanan {tanggalValid ? formatMonth(tanggalValid) : formatMonth(months)}</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -495,7 +493,7 @@ function DonasiTrxMasuk() {
               <input
                 value={tanggal}
                 onChange={(e) => setTanggal(e.target.value)}
-                type="date" className="form-control"
+                type="month" className="form-control"
               />
             </div>
             <div className="mb-3 col-lg-12">
@@ -518,4 +516,4 @@ function DonasiTrxMasuk() {
   );
 }
 
-export default DonasiTrxMasuk;
+export default DonasiTrxMasukBulanan;
