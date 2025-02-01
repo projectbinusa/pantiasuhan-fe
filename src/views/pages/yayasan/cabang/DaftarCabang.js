@@ -36,7 +36,7 @@
 //     window.addEventListener("resize", handleResize);
 
 //     // Mengambil role pengguna dari localStorage atau sumber lainnya
-//     const role = localStorage.getItem("role"); // Misalnya disimpan dalam localStorage
+//     const role = localStorage.getItem("rolename"); // Misalnya disimpan dalam localStorage
 //     setUserRole(role);
 
 //     return () => window.removeEventListener("resize", handleResize);
@@ -326,7 +326,7 @@ function DaftarCabang() {
     window.addEventListener("resize", handleResize);
 
     // Mengambil role pengguna dari localStorage atau sumber lainnya
-    const role = localStorage.getItem("role"); // Misalnya disimpan dalam localStorage
+    const role = localStorage.getItem("rolename"); // Misalnya disimpan dalam localStorage
     setUserRole(role);
 
     return () => window.removeEventListener("resize", handleResize);
@@ -478,11 +478,11 @@ function DaftarCabang() {
                     <th scope="col">No</th>
                     <th>Nama LKSA</th>
                     <th>Lokasi</th>
-                    <th>Jml Anak Asuh</th>
+                    <th>Email</th>
                     {/* <th>Jml Pegawai</th> */}
                     {/* <th>Jml Donasi 1 bulan terakhir</th>
                     <th>Jml Pengeluaran 1 bulan terakhir</th> */}
-                    <th>Saldo Terakhir</th>
+                    <th>No Hp</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -492,25 +492,23 @@ function DaftarCabang() {
                       <td data-label="No" className="md:text-right">{(currentPage - 1) * rowsPerPage + index + 1}</td>
                       <td data-label="Nama LKSA" className="md:text-right">{item.name}</td>
                       <td data-label="Lokasi" className="md:text-right">{item.address}</td>
-                      <td data-label="Jml ANAK ASUH" className="md:text-right">{formatRupiah(item.total_income)}</td>
+                      <td data-label="Email" className="md:text-right">{item.email}</td>
                       {/* <td data-label="JML PEGAWAI" className="md:text-right">{formatRupiah(item.total_outcome)}</td> */}
                       {/* <td data-label="Jml Donasi 1 bulan terakhir" className="md:text-right">{formatRupiah(item.total_income)}</td>
                       <td data-label="Jml Pengeluaran 1 bulan terakhir" className="md:text-right">{formatRupiah(item.total_outcome)}</td> */}
-                      <td data-label="Saldo Terakhir" className="md:text-right">{formatRupiah(item.total_income)}</td>
+                      <td data-label="No Hp" className="md:text-right">{item.hp}</td>
                       <td data-label="Aksi" className="md:text-right">
-                        {userRole !== "Yayasan" && (
-                          <>
-                            <button
-                              type="button"
-                              className="btn-warning mr-2 btn-sm">
-                              <a
-                                className="text-light"
-                                href={"/detail_cabang/" + item.id}>
-                                <i className="fas fa-info-circle"></i>
-                              </a>
-                            </button>
-                          </>
-                        )}
+                        <>
+                          <button
+                            type="button"
+                            className="btn-warning mr-2 btn-sm">
+                            <a
+                              className="text-light"
+                              href={"/detail_cabang/" + item.id}>
+                              <i className="fas fa-info-circle"></i>
+                            </a>
+                          </button>
+                        </>
                       </td>
                     </tr>
                   ))}

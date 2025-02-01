@@ -71,7 +71,7 @@ function DashboardYayasan() {
     handleResize();
     window.addEventListener("resize", handleResize);
 
-    const role = localStorage.getItem("role"); // Retrieve role from localStorage
+    const role = localStorage.getItem("rolename"); // Retrieve role from localStorage
     setUserRole(role);
 
     return () => window.removeEventListener("resize", handleResize);

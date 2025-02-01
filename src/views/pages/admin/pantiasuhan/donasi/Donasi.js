@@ -58,7 +58,7 @@ function Donasi() {
     window.addEventListener("resize", handleResize);
 
     // Mengambil role pengguna dari localStorage atau sumber lainnya
-    const role = localStorage.getItem("role"); // Misalnya disimpan dalam localStorage
+    const role = localStorage.getItem("rolename"); // Misalnya disimpan dalam localStorage
     setUserRole(role);
 
     return () => window.removeEventListener("resize", handleResize);
@@ -222,9 +222,8 @@ function Donasi() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -288,15 +287,15 @@ function Donasi() {
                   </select>
                 </div>
               </div>
-              {userRole !== "Yayasan" && (
-                <div className="d-flex ml-auto gap-3">
-                  <input
-                    type="search"
-                    className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                  />
+              <div className="d-flex ml-auto gap-3">
+                <input
+                  type="search"
+                  className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+                {userRole !== "Yayasan" && (
                   <div className="btn-actions-pane-right">
                     <div role="group" className="btn-group-sm btn-group">
                       <button className="active btn-focus p-2 rounded">
@@ -309,8 +308,8 @@ function Donasi() {
                       </button>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
             <div
               className="table-responsive-3"
@@ -320,65 +319,74 @@ function Donasi() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama</th>
+                    <th>Nama Donasi</th>
                     <th>Deskripsi</th>
-                    <th>Total Income</th>
-                    <th>Total Outcome</th>
+                    <th>Dana Masuk (RP)</th>
+                    <th>Dana Keluar (rp)</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((item, index) => (
-                    <tr key={index}>
-                      <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                      <td>{item.name}</td>
-                      <td>
-                        <div
-                          dangerouslySetInnerHTML={{ __html: item.description }}
-                        />
-                      </td>
-                      <td>{item.total_income}</td>
-                      <td>{item.total_outcome}</td>
-                      <td>
-                        {userRole !== "Yayasan" && (
-                          <>
-                            <button
-                              type="button"
-                              className="btn-primary btn-sm mr-2"
-                            >
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/donasi/put/${item.id}`}
+                  {filteredList.length > 0 ? (
+                    filteredList.map((item, index) => (
+                      <tr key={index}>
+                        <td className="text-lg-start text-md-end text-sm-end" data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                        <td className="text-lg-start text-md-end text-sm-end" data-label="Nama Donasi">{item.name}</td>
+                        <td className="text-lg-start text-md-end text-sm-end" data-label="Deskripsi">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: item.description }}
+                          />
+                        </td>
+                        <td className="text-end" data-label="Dana Masuk (RP)">{item.total_income}</td>
+                        <td className="text-end" data-label="Dana Keluar (rp)">{item.total_outcome}</td>
+                        <td className="text-lg-center text-md-end text-sm-end" data-label="Aksi">
+                          {userRole !== "Yayasan" && (
+                            <>
+                              <button
+                                type="button"
+                                className="btn-primary btn-sm mr-2"
                               >
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
-                            </button>
-                            <button
-                              type="button"
-                              className="btn-warning mr-2 btn-sm"
-                            >
-                              <a
-                                className="text-light"
-                                href={"/donasi/detail/" + item.id}
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/donasi/put/${item.id}`}
+                                >
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                type="button"
+                                className="btn-danger btn-sm mr-2"
+                                onClick={() => deleteData(item.id)}
                               >
-                                <i className="fas fa-info-circle"></i>
-                              </a>
-                            </button>
-                            <button
-                              type="button"
-                              className="btn-danger btn-sm"
-                              onClick={() => deleteData(item.id)}
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </>
+                          )}
+                          <button
+                            type="button"
+                            className="btn-warning btn-sm"
+                          >
+                            <a
+                              className="text-light"
+                              href={"/donasi/detail/" + item.id}
                             >
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
-                          </>
-                        )}
+                              <i className="fas fa-info-circle"></i>
+                            </a>
+                          </button>
+                        </td>
+                      </tr>
+                    ))) : (
+                    <tr>
+                      <td colSpan="6" className="text-center my-3">
+                        <div style={{ padding: "10px", color: "#555" }}>
+                          Tidak ada data yang tersedia.
+                        </div>
                       </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>

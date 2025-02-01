@@ -21,7 +21,7 @@ function Galery() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   // Periksa peran user, jika 'yayasan', maka sembunyikan tombol
-  const userRole = localStorage.getItem("role"); // atau dari state setelah login
+  const userRole = localStorage.getItem("rolename"); // atau dari state setelah login
 
   const getAll = async () => {
     try {

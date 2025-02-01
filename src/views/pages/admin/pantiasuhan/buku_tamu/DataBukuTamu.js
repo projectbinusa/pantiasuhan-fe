@@ -38,7 +38,7 @@ function DataBukuTamu() {
 
   useEffect(() => {
     // Cek role pengguna di localStorage atau dari API
-    const userRole = localStorage.getItem("role"); // Misalnya role disimpan di localStorage
+    const userRole = localStorage.getItem("rolename"); // Misalnya role disimpan di localStorage
     setRole(userRole);
   }, []);
 

@@ -24,7 +24,7 @@ function Dataortu() {
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const userRole = localStorage.getItem("role");
+  const userRole = localStorage.getItem("rolename");
   const [paginationInfo, setPaginationInfo] = useState({
     totalPages: 1,
     totalElements: 0,
