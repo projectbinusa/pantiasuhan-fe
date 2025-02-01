@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
 import AOS from "aos";
 import { Box, Modal, Pagination } from "@mui/material";
 import "../../../../css/button.css";
 import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
-const formatDate = (value) => {
+const formatMonth = (value) => {
   const date = new Date(value);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${day}-${month}-${year}`;
+  return `${month}-${year}`;
 };
 
-function DonasiTrxKeluar() {
+function DonasiTrxKeluarBulanan() {
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -25,12 +23,16 @@ function DonasiTrxKeluar() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [suggestions, setSuggestions] = useState([]);
+  const [suggestionIndex, setSuggestionIndex] = useState(0);
+  const [suggestionsActive, setSuggestionsActive] = useState(false);
+  const [value, setValue] = useState("");
+  const [organization_id, setOrganization_id] = useState(0);
 
   const date = new Date();
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  const today = `${year}-${month}-${day}`;
+  const months = `${year}-${month}`;
 
   const [cabang, setCabang] = useState([]);
   const [tanggal, setTanggal] = useState("");
@@ -44,10 +46,6 @@ function DonasiTrxKeluar() {
     getAll();
     closeModalForm()
   };
-
-  // Mendapatkan role pengguna
-  const userRole = localStorage.getItem('role'); // Menyimpan role saat login
-
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
@@ -59,6 +57,7 @@ function DonasiTrxKeluar() {
   };
 
   useEffect(() => {
+    console.log("organization_id", organization_id);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -66,16 +65,8 @@ function DonasiTrxKeluar() {
 
   const getAll = async () => {
     try {
-      // const response = await axios.get(
-      //   `${API_DUMMY_SMART}/api/user/donation_trx/keluar?page=${currentPage}&limit=${rowsPerPage}`,
-      //   {
-      //     headers: {
-      //       "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-      //     },
-      //   }
-      // );
-      let todays = tanggalValid || today;
-      let url = `${API_DUMMY_SMART}/api/user/donation_trx/keluar?date=${todays}&page=${currentPage}&limit=${rowsPerPage}`;
+      let bulan = tanggalValid || months;
+      let url = `${API_DUMMY_SMART}/api/user/donation_trx/keluar?month=${bulan}&page=${currentPage}&limit=${rowsPerPage}`;
 
       if (idCabangValid) {
         url += `&organization_id=${idCabangValid}`;
@@ -86,7 +77,6 @@ function DonasiTrxKeluar() {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       });
-      console.log(response);
 
       const { data, pagination } = response.data;
       setList(data);
@@ -94,6 +84,7 @@ function DonasiTrxKeluar() {
         totalPages: pagination.total_page,
         totalElements: pagination.total,
       });
+      console.log("data donasi keluar: ", response.data.data);
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
     }
@@ -101,7 +92,7 @@ function DonasiTrxKeluar() {
 
   useEffect(() => {
     getAll(currentPage);
-  }, [currentPage, rowsPerPage]);
+  }, [currentPage, rowsPerPage, tanggalValid, idCabangValid]);
 
   useEffect(() => {
     AOS.init();
@@ -132,6 +123,8 @@ function DonasiTrxKeluar() {
       )
     )
     : list;
+
+  const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   const style = {
     position: "absolute",
@@ -211,18 +204,21 @@ function DonasiTrxKeluar() {
   }, [])
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
+    <div
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+        <div
+          className="container box-table mt-3 app-main__outer"
+          data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -231,8 +227,7 @@ function DonasiTrxKeluar() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}
-              >
+                value={rowsPerPage}>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -250,7 +245,7 @@ function DonasiTrxKeluar() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Biaya Harian {tanggalValid ? formatDate(tanggalValid) : formatDate(today)}</p>
+              <p className="mt-3">Biaya Bulanan {tanggalValid ? formatMonth(tanggalValid) : formatMonth(months)}</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -259,18 +254,17 @@ function DonasiTrxKeluar() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
+                    value={rowsPerPage}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
                   </select>
                 </div>
               </div>
-              <div className="d-flex ml-auto gap-3">
+              <div className="d-flex ml-auto gap-2">
                 <input
                   type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
+                  className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
                   placeholder="Search..."
                   value={searchTerm}
                   onChange={handleSearchChange}
@@ -278,10 +272,11 @@ function DonasiTrxKeluar() {
                 <button type="button" onClick={() => openModalForm()}
                   className="btn-success btn-sm">Filter
                 </button>
-                {/* Tombol Tambah hanya ditampilkan jika bukan role 'yayasan' */}
               </div>
             </div>
-            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
+            <div
+              className="table-responsive-3"
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -300,19 +295,33 @@ function DonasiTrxKeluar() {
                         <td className="text-lg-start text-md-end" data-label="No">
                           {(currentPage - 1) * rowsPerPage + index + 1}
                         </td>
-                        <td className="text-lg-start text-md-end" data-label="Tanggal">{item.created_date}</td>
-                        <td className="text-lg-start text-md-end" data-label="Nama Biaya">{item.name}</td>
-                        <td className="text-lg-start text-md-end" data-label="Nominal">{item.nominal}</td>
-                        <td className="text-lg-start text-md-end" data-label="Deskripsi">
-                          <div dangerouslySetInnerHTML={{ __html: item.description }} />
+                        <td className="text-lg-start text-md-end"
+                          data-label="Tanggal">
+                          {item.created_date}
                         </td>
-                        <td className="text-lg-start text-md-end" data-label="Image">
+                        <td className="text-lg-start text-md-end"
+                          data-label="Nama Biaya">
+                          {item.name}
+                        </td>
+                        <td className="text-lg-start text-md-end" data-label="Nominal">
+                          {item.nominal}
+                        </td>
+                        <td className="text-lg-start text-md-end" data-label="Deskripsi">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: item.description }}
+                          />
+                        </td>
+                        <td className="text-lg-center text-md-end" data-label="Image">
                           <button
                             onClick={() => openModal(item.url_image)}
                             type="button"
                             className="btn-info btn-sm">Tampilkan Gambar
                           </button>
-                          {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
+                          {/* <img
+                          src={item.url_image}
+                          alt="image"
+                          style={{ width: 50, height: 50 }}
+                        /> */}
                         </td>
                       </tr>
                     ))) : (
@@ -403,7 +412,7 @@ function DonasiTrxKeluar() {
               <input
                 value={tanggal}
                 onChange={(e) => setTanggal(e.target.value)}
-                type="date" className="form-control"
+                type="month" className="form-control"
               />
             </div>
             <div className="mb-3 col-lg-12">
@@ -426,4 +435,4 @@ function DonasiTrxKeluar() {
   );
 }
 
-export default DonasiTrxKeluar;
+export default DonasiTrxKeluarBulanan;

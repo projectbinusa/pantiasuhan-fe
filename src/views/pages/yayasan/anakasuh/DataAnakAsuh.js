@@ -40,7 +40,7 @@ function DataAnakAsuh() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/user/customer/member/${param.id}page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/user/customer/member/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -93,9 +93,8 @@ function DataAnakAsuh() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -153,7 +152,7 @@ function DataAnakAsuh() {
               <div className="d-flex ml-auto gap-3">
                 <input
                   type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
+                  className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
                   placeholder="Search..."
                   value={searchTerm}
                   onChange={handleSearchChange}
@@ -176,12 +175,7 @@ function DataAnakAsuh() {
             </div>
             <div
               className="table-responsive-3"
-              style={{
-                overflowX: "auto",
-                maxWidth: "100%",
-                whiteSpace: "nowrap",
-                border: "1px solid #ddd", // Opsional, untuk memberikan batas di sekeliling tabel
-              }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -189,9 +183,8 @@ function DataAnakAsuh() {
                     <th>Nama Anak</th>
                     <th>Email</th>
                     <th>Pendidikan</th>
-                    <th>Nama Orangtua</th>
-                    <th>Tempat Lahir</th>
-                    <th>Tanggal Lahir</th>
+                    <th>Orangtua</th>
+                    <th>Tempat, Tgl Lahir</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -199,46 +192,39 @@ function DataAnakAsuh() {
                     filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
-                          <td
-                            style={{ textAlign: "left" }}
-                            data-label="No"
-                            className="">
+                          <td className="text-lg-start text-md-end"
+                            data-label="No">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td
-                            style={{ textAlign: "left" }}
+                          <td className="text-lg-start text-md-end"
                             data-label="Nama Anak">
                             {row.name}
                           </td>
                           <td style={{ textAlign: "left" }} data-label="Email">
                             {row.email}
                           </td>
-                          <td
-                            style={{ textAlign: "left" }}
+                          <td className="text-lg-start text-md-end"
                             data-label="Pendidikan">
                             {row.education}
                           </td>
-                          <td
-                            style={{ textAlign: "left" }}
-                            data-label="Nama Orangtua">
+                          <td className="text-lg-start text-md-end"
+                            data-label="Orangtua">
                             {row.parent_name}
                           </td>
-                          <td
-                            style={{ textAlign: "left" }}
+                          {/* <td className="text-lg-start text-md-end"
                             data-label="Tempat Lahir">
                             {row.birth_place}
-                          </td>
-                          <td
-                            style={{ textAlign: "left" }}
-                            data-label="Tanggal Lahir">
-                            {row.birth_date}
+                          </td> */}
+                          <td className="text-lg-start text-md-end"
+                            data-label="Tempat, Tgl Lahir">
+                            {row.birth_place}, {row.birth_date}
                           </td>
                         </tr>
                       );
                     })
                   ) : (
                     <tr>
-                      <td colSpan="7" className="text-center my-3">
+                      <td colSpan="6" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>

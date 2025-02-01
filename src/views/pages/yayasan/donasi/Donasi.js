@@ -35,7 +35,7 @@ function DonasiYayasan() {
     window.addEventListener("resize", handleResize);
 
     // Mengambil role pengguna dari localStorage atau sumber lainnya
-    const role = localStorage.getItem("role"); // Misalnya disimpan dalam localStorage
+    const role = localStorage.getItem("rolename"); // Misalnya disimpan dalam localStorage
     setUserRole(role);
 
     return () => window.removeEventListener("resize", handleResize);

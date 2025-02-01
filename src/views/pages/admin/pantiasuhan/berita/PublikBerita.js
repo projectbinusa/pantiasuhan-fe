@@ -94,7 +94,7 @@ function PublikBerita() {
 
   useEffect(() => {
     // Ambil role pengguna dari localStorage atau tempat penyimpanan lain
-    const role = localStorage.getItem("role"); // Misalnya role disimpan di localStorage dengan key 'role'
+    const role = localStorage.getItem("rolename"); // Misalnya role disimpan di localStorage dengan key 'role'
     setUserRole(role);
 
     getAll();

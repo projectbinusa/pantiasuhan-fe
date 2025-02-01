@@ -6,6 +6,7 @@ import AOS from "aos";
 import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { Box, Grid, Modal, Pagination } from "@mui/material";
 import Swal from "sweetalert2";
+import { formatRupiah } from "../../../../../utils/formating";
 
 function DetailDonasi() {
   const [datas, setDatas] = useState(null);
@@ -26,6 +27,7 @@ function DetailDonasi() {
     totalElements: 0,
   });
   const [searchTermOutcome, setSearchTermOutcome] = useState("");
+  const [userRole, setUserRole] = useState(null);
 
   const param = useParams();
 
@@ -65,6 +67,8 @@ function DetailDonasi() {
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
+    const role = localStorage.getItem("rolename"); // Misalnya disimpan dalam localStorage
+    setUserRole(role);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -360,17 +364,17 @@ function DetailDonasi() {
                       fontSize: "1rem",
                       fontWeight: "700",
                     }}>
-                    Total Hasil:
+                    Total Dana Masuk:
                   </h2>
-                  <p>{datas?.total_income}</p>
+                  <p>{formatRupiah(datas?.total_income)}</p>
                   <h2
                     style={{
                       fontSize: "1rem",
                       fontWeight: "700",
                     }}>
-                    Total Pendapatan:
+                    Total Dana Keluar:
                   </h2>
-                  <p>{datas?.total_outcome}</p>
+                  <p>{formatRupiah(datas?.total_outcome)}</p>
                 </Grid>
               </Grid>
             </div>
@@ -423,23 +427,24 @@ function DetailDonasi() {
                 <div className="d-flex ml-auto gap-3">
                   <input
                     type="search"
-                    className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
+                    className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
                     placeholder="Search..."
                     value={searchTerm}
                     onChange={handleSearchChange}
                   />
-                  <div className="btn-actions-pane-right">
-                    <div role="group" className="btn-group-sm btn-group">
-                      <button className="active btn-focus p-2 rounded">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/add_donasi_trx"
-                        >
-                          Tambah
-                        </a>
-                      </button>
-                    </div>
-                  </div>
+                  {userRole !== "Yayasan" ?
+                    <div className="btn-actions-pane-right">
+                      <div role="group" className="btn-group-sm btn-group">
+                        <button className="active btn-focus p-2 rounded">
+                          <a
+                            style={{ color: "white", textDecoration: "none" }}
+                            href="/add_donasi_trx"
+                          >
+                            Tambah
+                          </a>
+                        </button>
+                      </div>
+                    </div> : <></>}
                 </div>
               </div>
               <div
@@ -450,53 +455,64 @@ function DetailDonasi() {
                     <tr>
                       <th scope="col">No</th>
                       <th>Nama Donatur</th>
-                      <th>Nominal</th>
+                      <th>Nominal (Rp)</th>
                       <th>Deskripsi</th>
                       <th>Image</th>
-                      <th>Aksi</th>
+                      {userRole !== "Yayasan" ?
+                        <th>Aksi</th> : <></>}
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredList.map((item, index) => (
-                      <tr key={index}>
-                        <td data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                        <td data-label="Nama Donatur">{item.name}</td>
-                        <td data-label="Nominal">{item.nominal}</td>
-                        <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
-                        <td data-label="Image">
-                          <button
-                            onClick={() => openModal(item.url_image)}
-                            type="button"
-                            className="btn-info btn-sm">Tampilkan Gambar
-                          </button>
-                          {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
-                        </td>
-                        <td data-label="Aksi">
-                          <div style={{ display: "flex" }}>
+                    {filteredList.length > 0 ? (
+                      filteredList.map((item, index) => (
+                        <tr key={index}>
+                          <td data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                          <td data-label="Nama Donatur">{item.name}</td>
+                          <td data-label="Nominal (Rp)">{item.nominal}</td>
+                          <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
+                          <td data-label="Image">
                             <button
+                              onClick={() => openModal(item.url_image)}
                               type="button"
-                              className="btn-primary btn-sm mr-2"
-                            >
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/edit_donasi_trx/${item.id}`}
-                              >
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
+                              className="btn-info btn-sm">Tampilkan Gambar
                             </button>
-                            <button
-                              type="button"
-                              className="btn-danger btn-sm"
-                              onClick={() => deleteData(item.id)}
-                            >
-                              <i className="fa-solid fa-trash"></i>
-                            </button> </div>
+                            {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
+                          </td>
+                          {userRole !== "Yayasan" ?
+                            <td data-label="Aksi">
+                              <div style={{ display: "flex" }}>
+                                <button
+                                  type="button"
+                                  className="btn-primary btn-sm mr-2"
+                                >
+                                  <a
+                                    style={{
+                                      color: "white",
+                                      textDecoration: "none",
+                                    }}
+                                    href={`/edit_donasi_trx/${item.id}`}
+                                  >
+                                    <i className="fa-solid fa-pen-to-square"></i>
+                                  </a>
+                                </button>
+                                <button
+                                  type="button"
+                                  className="btn-danger btn-sm"
+                                  onClick={() => deleteData(item.id)}
+                                >
+                                  <i className="fa-solid fa-trash"></i>
+                                </button> </div>
+                            </td> : <></>}
+                        </tr>
+                      ))) : (
+                      <tr>
+                        <td colSpan={userRole !== "Yayasan" ? "6" : "5"} className="text-center my-3">
+                          <div style={{ padding: "10px", color: "#555" }}>
+                            Tidak ada data yang tersedia.
+                          </div>
                         </td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -561,23 +577,24 @@ function DetailDonasi() {
                 <div className="d-flex ml-auto gap-3">
                   <input
                     type="search"
-                    className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
+                    className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
                     placeholder="Search..."
                     value={searchTermOutcome}
                     onChange={handleSearchChangeOutcome}
                   />
-                  <div className="btn-actions-pane-right">
-                    <div role="group" className="btn-group-sm btn-group">
-                      <button className="active btn-focus p-2 rounded">
-                        <a
-                          style={{ color: "white", textDecoration: "none" }}
-                          href="/add_donasi_trx"
-                        >
-                          Tambah
-                        </a>
-                      </button>
-                    </div>
-                  </div>
+                  {userRole !== "Yayasan" ?
+                    <div className="btn-actions-pane-right">
+                      <div role="group" className="btn-group-sm btn-group">
+                        <button className="active btn-focus p-2 rounded">
+                          <a
+                            style={{ color: "white", textDecoration: "none" }}
+                            href="/add_donasi_trx"
+                          >
+                            Tambah
+                          </a>
+                        </button>
+                      </div>
+                    </div> : <></>}
                 </div>
               </div>
               <div
@@ -588,54 +605,65 @@ function DetailDonasi() {
                     <tr>
                       <th scope="col">No</th>
                       <th>Keperluan</th>
-                      <th>Nominal</th>
+                      <th>Nominal (Rp)</th>
                       <th>Deskripsi</th>
                       <th>Image</th>
-                      <th>Aksi</th>
+                      {userRole !== "Yayasan" ?
+                        <th>Aksi</th> : <></>}
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredListOutcome.map((item, index) => (
-                      <tr key={index}>
-                        <td data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                        <td data-label="Keperluan">{item.name}</td>
-                        <td data-label="Nominal">{item.nominal}</td>
-                        <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
-                        <td data-label="Image">
-                          <button
-                            onClick={() => openModal(item.url_image)}
-                            type="button"
-                            className="btn-info btn-sm">Tampilkan Gambar
-                          </button>
-                          {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
-                        </td>
-                        <td data-label="Aksi">
-                          <div style={{ display: "flex" }}>
+                    {filteredListOutcome.length > 0 ? (
+                      filteredListOutcome.map((item, index) => (
+                        <tr key={index}>
+                          <td data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                          <td data-label="Keperluan">{item.name}</td>
+                          <td data-label="Nominal (Rp)">{item.nominal}</td>
+                          <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
+                          <td data-label="Image">
                             <button
+                              onClick={() => openModal(item.url_image)}
                               type="button"
-                              className="btn-primary btn-sm mr-2"
-                            >
-                              <a
-                                style={{
-                                  color: "white",
-                                  textDecoration: "none",
-                                }}
-                                href={`/admin_dana_keluar/put/${item.id}`}
-                              >
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </a>
+                              className="btn-info btn-sm">Tampilkan Gambar
                             </button>
-                            <button
-                              type="button"
-                              className="btn-danger btn-sm"
-                              onClick={() => deleteDataOutcome(item.id)}
-                            >
-                              <i className="fa-solid fa-trash"></i>
-                            </button>
+                            {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
+                          </td>
+                          {userRole !== "Yayasan" ?
+                            <td data-label="Aksi">
+                              <div style={{ display: "flex" }}>
+                                <button
+                                  type="button"
+                                  className="btn-primary btn-sm mr-2"
+                                >
+                                  <a
+                                    style={{
+                                      color: "white",
+                                      textDecoration: "none",
+                                    }}
+                                    href={`/admin_dana_keluar/put/${item.id}`}
+                                  >
+                                    <i className="fa-solid fa-pen-to-square"></i>
+                                  </a>
+                                </button>
+                                <button
+                                  type="button"
+                                  className="btn-danger btn-sm"
+                                  onClick={() => deleteDataOutcome(item.id)}
+                                >
+                                  <i className="fa-solid fa-trash"></i>
+                                </button>
+                              </div>
+                            </td> : <></>}
+                        </tr>
+                      ))) : (
+                      <tr>
+                        <td colSpan={userRole !== "Yayasan" ? "6" : "5"} className="text-center my-3">
+                          <div style={{ padding: "10px", color: "#555" }}>
+                            Tidak ada data yang tersedia.
                           </div>
                         </td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>

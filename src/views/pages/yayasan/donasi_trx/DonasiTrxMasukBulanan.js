@@ -379,41 +379,50 @@ function DonasiTrxMasukBulanan() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((item, index) => (
-                    <tr key={index}>
-                      <td className="text-lg-start text-md-end" data-label="No">
-                        {(currentPage - 1) * rowsPerPage + index + 1}
-                      </td>
-                      <td className="text-lg-start text-md-end"
-                        data-label="Tanggal">
-                        {item.created_date}
-                      </td>
-                      <td className="text-lg-start text-md-end"
-                        data-label="Nama Donatur">
-                        {item.name}
-                      </td>
-                      <td className="text-lg-start text-md-end" data-label="Nominal">
-                        {item.nominal}
-                      </td>
-                      <td className="text-lg-start text-md-end" data-label="Deskripsi">
-                        <div
-                          dangerouslySetInnerHTML={{ __html: item.description }}
-                        />
-                      </td>
-                      <td className="text-lg-center text-md-end" data-label="Image">
-                        <button
-                          onClick={() => openModal(item.url_image)}
-                          type="button"
-                          className="btn-info btn-sm">Tampilkan Gambar
-                        </button>
-                        {/* <img
+                  {filteredList.length > 0 ? (
+                    filteredList.map((item, index) => (
+                      <tr key={index}>
+                        <td className="text-lg-start text-md-end" data-label="No">
+                          {(currentPage - 1) * rowsPerPage + index + 1}
+                        </td>
+                        <td className="text-lg-start text-md-end"
+                          data-label="Tanggal">
+                          {item.created_date}
+                        </td>
+                        <td className="text-lg-start text-md-end"
+                          data-label="Nama Donatur">
+                          {item.name}
+                        </td>
+                        <td className="text-lg-start text-md-end" data-label="Nominal">
+                          {item.nominal}
+                        </td>
+                        <td className="text-lg-start text-md-end" data-label="Deskripsi">
+                          <div
+                            dangerouslySetInnerHTML={{ __html: item.description }}
+                          />
+                        </td>
+                        <td className="text-lg-center text-md-end" data-label="Image">
+                          <button
+                            onClick={() => openModal(item.url_image)}
+                            type="button"
+                            className="btn-info btn-sm">Tampilkan Gambar
+                          </button>
+                          {/* <img
                           src={item.url_image}
                           alt="image"
                           style={{ width: 50, height: 50 }}
                         /> */}
+                        </td>
+                      </tr>
+                    ))) : (
+                    <tr>
+                      <td colSpan="6" className="text-center my-3">
+                        <div style={{ padding: "10px", color: "#555" }}>
+                          Tidak ada data yang tersedia.
+                        </div>
                       </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>

@@ -206,35 +206,35 @@ function SidebarPantiAdmin({ toggleSidebar }) {
         },
       ],
     },
-    // {
-    //   header: "Keuangan",
-    //   items: [
-    //     {
-    //       title: "Donasi",
-    //       icon: "fas fa-hand-holding-heart",
-    //       path: "/donasi",
-    //       action: ["/donasi/add", "/donasi/put"],
-    //     },
-    //     {
-    //       title: "Dana Masuk",
-    //       icon: "fas fa-plus",
-    //       path: "/donasi_trx",
-    //       action: ["/add_donasi_trx", "/edit_donasi_trx"],
-    //     },
-    //     {
-    //       title: "Dana Keluar",
-    //       icon: "fas fa-minus",
-    //       path: "/admin_dana_keluar",
-    //       action: ["/add_dana_keluar", "/edit_dana_keluar"],
-    //     },
-    //     {
-    //       title: "Laporan Keuangan",
-    //       icon: "fa-solid fa-file-invoice-dollar",
-    //       path: "/laporan_keuangan",
-    //       action: [],
-    //     },
-    //   ],
-    // },
+    {
+      header: "Keuangan",
+      items: [
+        {
+          title: "Donasi",
+          icon: "fas fa-hand-holding-heart",
+          path: "/donasi",
+          action: ["/donasi/add", "/donasi/put"],
+        },
+        {
+          title: "Dana Masuk",
+          icon: "fas fa-plus",
+          path: "/donasi_trx",
+          action: ["/add_donasi_trx", "/edit_donasi_trx"],
+        },
+        {
+          title: "Dana Keluar",
+          icon: "fas fa-minus",
+          path: "/admin_dana_keluar",
+          action: ["/add_dana_keluar", "/edit_dana_keluar"],
+        },
+        // {
+        //   title: "Laporan Keuangan",
+        //   icon: "fa-solid fa-file-invoice-dollar",
+        //   path: "/laporan_keuangan",
+        //   action: [],
+        // },
+      ],
+    },
   ];
 
   const menuItemsYayasan = [
@@ -257,19 +257,25 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       icon: <i class="fa-solid fa-angle-down"></i>,
     },
     // {
-    //   header: "KEUANGAN",
+    //   header: "Keuangan",
     //   items: [
     //     {
-    //       title: "Data Keuangan",
-    //       icon: "fa-solid fa-book-open",
-    //       path: "",
-    //       action: [""],
+    //       title: "Donasi",
+    //       icon: "fas fa-hand-holding-heart",
+    //       path: "/donasi",
+    //       action: ["/donasi/add", "/donasi/put"],
     //     },
     //     {
-    //       title: "Laporan Keuangan",
-    //       icon: "fa-solid fa-book-open",
-    //       path: "",
-    //       action: [""],
+    //       title: "Dana Masuk",
+    //       icon: "fas fa-plus",
+    //       path: "/donasi_trx",
+    //       action: ["/add_donasi_trx", "/edit_donasi_trx"],
+    //     },
+    //     {
+    //       title: "Dana Keluar",
+    //       icon: "fas fa-minus",
+    //       path: "/admin_dana_keluar",
+    //       action: ["/add_dana_keluar", "/edit_dana_keluar"],
     //     },
     //   ],
     //   icon: <i class="fa-solid fa-angle-down"></i>,
@@ -304,19 +310,19 @@ function SidebarPantiAdmin({ toggleSidebar }) {
         {
           title: "Biaya Harian",
           icon: "fa-solid fa-arrow-up",
-          path: "donasitrx_keluar_yayasan",
+          path: "/donasitrx_keluar_yayasan",
           action: [""],
         },
         {
           title: "Biaya Mingguan",
           icon: "fa-solid fa-arrow-up",
-          path: "donasitrx_keluar_yayasan",
+          path: "/donasitrx_keluar_mingguan_yayasan",
           action: [""],
         },
         {
           title: "Biaya Bulanan",
           icon: "fa-solid fa-arrow-up",
-          path: "donasitrx_keluar_yayasan",
+          path: "/donasitrx_keluar_bulanan_yayasan",
           action: [""],
         },
         // {
@@ -419,16 +425,16 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                   key={index}
                   ref={(el) => (defaultRefs.current[index] = el)}
                   className={`body-menu ${location.pathname === data.path ||
-                      data.action.includes(location.pathname)
-                      ? "bactive"
-                      : ""
+                    data.action.includes(location.pathname)
+                    ? "bactive"
+                    : ""
                     }`}>
                   <NavLink to={data.path} style={{ background: "none" }}>
                     <i
                       className={`${data.icon} ${location.pathname === data.path ||
-                          data.action.includes(location.pathname)
-                          ? "active"
-                          : ""
+                        data.action.includes(location.pathname)
+                        ? "active"
+                        : ""
                         }`}></i>
                     <span>{data.title}</span>
                   </NavLink>
@@ -445,9 +451,9 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                         <li
                           key={subIndex}
                           className={`body-menu ${location.pathname === data.path ||
-                              data.action.includes(location.pathname)
-                              ? "bactive"
-                              : ""
+                            data.action.includes(location.pathname)
+                            ? "bactive"
+                            : ""
                             }`}
                           ref={(el) => (menuRefs.current[subIndex] = el)}>
                           <NavLink
@@ -455,9 +461,9 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                             style={{ background: "none" }}>
                             <i
                               className={`${data.icon} ${location.pathname === data.path ||
-                                  data.action.includes(location.pathname)
-                                  ? "active"
-                                  : ""
+                                data.action.includes(location.pathname)
+                                ? "active"
+                                : ""
                                 }`}></i>
                             <span>{data.title}</span>
                           </NavLink>
@@ -472,9 +478,9 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                     <li
                       key={index}
                       className={`body-menu ${location.pathname === data.path ||
-                          data.action.includes(location.pathname)
-                          ? "bactive"
-                          : ""
+                        data.action.includes(location.pathname)
+                        ? "bactive"
+                        : ""
                         }`}
                       ref={(el) => (inventarisRefs.current[index] = el)}>
                       <NavLink
@@ -482,9 +488,9 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                         style={{ background: "none" }}>
                         <i
                           className={`${data.icon} ${location.pathname === data.path ||
-                              data.action.includes(location.pathname)
-                              ? "active"
-                              : ""
+                            data.action.includes(location.pathname)
+                            ? "active"
+                            : ""
                             }`}></i>
                         <span>{data.title}</span>
                       </NavLink>
@@ -502,9 +508,9 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                         <li
                           key={subIndex}
                           className={`body-menu ${location.pathname === data.path ||
-                              data.action.includes(location.pathname)
-                              ? "active"
-                              : ""
+                            data.action.includes(location.pathname)
+                            ? "active"
+                            : ""
                             }`}
                           ref={(el) => (menuRefs.current[subIndex] = el)}>
                           <NavLink
@@ -512,9 +518,9 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                             style={{ background: "none" }}>
                             <i
                               className={`${data.icon} ${location.pathname === data.path ||
-                                  data.action.includes(location.pathname)
-                                  ? "active"
-                                  : ""
+                                data.action.includes(location.pathname)
+                                ? "active"
+                                : ""
                                 }`}></i>
                             <span>{data.title}</span>
                           </NavLink>

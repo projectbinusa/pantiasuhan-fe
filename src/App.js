@@ -258,6 +258,8 @@ import FormCabangBaru from "./views/pages/yayasan/cabang/FormCabangBaru.js";
 import DetailCabang from "./views/pages/yayasan/cabang/DetailCabang.js";
 import DonasiTrxMasukMingguan from "./views/pages/yayasan/donasi_trx/DonasiTrxMasukMingguan.js";
 import DonasiTrxMasukBulanan from "./views/pages/yayasan/donasi_trx/DonasiTrxMasukBulanan.js";
+import DonasiTrxKeluarMingguan from "./views/pages/yayasan/donasi_trx/DonasiTrxKeluarMingguan.js";
+import DonasiTrxKeluarBulanan from "./views/pages/yayasan/donasi_trx/DonasiTrxKeluarBulanan.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -938,6 +940,16 @@ function App() {
             <Route
               path="/donasitrx_keluar_yayasan"
               component={DonasiTrxKeluar}
+              exact
+            />
+            <Route
+              path="/donasitrx_keluar_mingguan_yayasan"
+              component={DonasiTrxKeluarMingguan}
+              exact
+            />
+            <Route
+              path="/donasitrx_keluar_bulanan_yayasan"
+              component={DonasiTrxKeluarBulanan}
               exact
             />
             <Route
