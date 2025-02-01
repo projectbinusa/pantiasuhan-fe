@@ -251,7 +251,6 @@ import CabangAnakAsuh from "./views/pages/yayasan/anakasuh/CabangAnakAsuh.js";
 import DataAnakAsuh from "./views/pages/yayasan/anakasuh/DataAnakAsuh.js";
 import AddCabang from "./views/pages/yayasan/cabang/AddCabang.js";
 import Organization from "./views/pages/yayasan/organization/Organization.js";
-import AddOrganization from "./views/pages/yayasan/cabang/AddOrganization.js";
 import TambahOrganization from "./views/pages/yayasan/organization/TambahOrganization.js";
 import EditCabang from "./views/pages/yayasan/cabang/EditCabang.js";
 import FormCabangBaru from "./views/pages/yayasan/cabang/FormCabangBaru.js";
@@ -260,6 +259,7 @@ import DonasiTrxMasukMingguan from "./views/pages/yayasan/donasi_trx/DonasiTrxMa
 import DonasiTrxMasukBulanan from "./views/pages/yayasan/donasi_trx/DonasiTrxMasukBulanan.js";
 import DonasiTrxKeluarMingguan from "./views/pages/yayasan/donasi_trx/DonasiTrxKeluarMingguan.js";
 import DonasiTrxKeluarBulanan from "./views/pages/yayasan/donasi_trx/DonasiTrxKeluarBulanan.js";
+import EditOrganization from "./views/pages/yayasan/organization/EditOrganization.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -990,61 +990,34 @@ function App() {
               exact
             />
             {/* yayasan */}
-            <Route
-              path="/daftar-cabang"
-              component={DaftarCabang}
-              exact
-            />
-            <Route
-              path="/laporan-donasi"
-              component={LaporanDonasi}
-              exact
-            />
+            <Route path="/daftar-cabang" component={DaftarCabang} exact />
+            <Route path="/laporan-donasi" component={LaporanDonasi} exact />
             <Route
               path="/laporan-investariss"
               component={LaporanInventaris1}
               exact
             />
-            <Route
-              path="/cabang"
-              component={CabangAnakAsuh}
-              exact
-            />
-            <Route
-              path="/add-cabang"
-              component={AddCabang}
-              exact
-            />
-            <Route
-              path="/form-cabang-baru"
-              component={FormCabangBaru}
-              exact
-            />
+            <Route path="/cabang" component={CabangAnakAsuh} exact />
+            <Route path="/add-cabang" component={AddCabang} exact />
+            <Route path="/form-cabang-baru" component={FormCabangBaru} exact />
             <Route
               path="/cabang-anak-asuh/:id"
               component={DataAnakAsuh}
               exact
             />
-            <Route
-              path="/user-organization"
-              component={Organization}
-              exact
-            />
+            <Route path="/user-organization" component={Organization} exact />
             <Route
               path="/add-organization"
               component={TambahOrganization}
               exact
             />
             <Route
-              path="/edit-cabang/:id"
-              component={EditCabang}
+              path="/edit-organization/:id"
+              component={EditOrganization}
               exact
             />
-            <Route
-              path="/detail_cabang/:id"
-              component={DetailCabang}
-              exact
-            />
+            <Route path="/edit-cabang/:id" component={EditCabang} exact />
+            <Route path="/detail_cabang/:id" component={DetailCabang} exact />
           </Switch>
         </main>
         <LogPageView />

@@ -54,7 +54,7 @@ function DetailCabang() {
       >
         <i className="fas fa-bars"></i>
       </a>
-      <SidebarYayasan toggleSidebar={toggleSidebar} />
+      <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container mt-3 mb-3 app-main__outer">
           <div className="ktp-card card1">
@@ -128,21 +128,22 @@ function DetailCabang() {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1rem;
-            max-width: 600px;
+            max-width: 650px;
             margin: auto;
-            border: 2px solid #333;
-            border-radius: 10px;
-            padding: 20px;
-            background-color: #fff;
+            border: 2px solid #28a745;
+            border-radius: 15px;
+            padding: 25px;
+            background-color: #f8f9fa;
           }
           .ktp-header {
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
           }
           .ktp-title {
             font-family: "Poppins", sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
+            color: #28a745;
           }
           .ktp-details {
             font-family: "Poppins", sans-serif;
@@ -150,17 +151,32 @@ function DetailCabang() {
           .ktp-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
           }
           .ktp-info {
             width: 48%;
           }
           .ktp-info h4 {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
+            color: #3c763d;
           }
-          .ktp-info p, .ktp-info h1 {
+          .ktp-info p {
             font-size: 1rem;
+            color: #555;
+          }
+          .ktp-info p, .ktp-info h4 {
+            padding: 0.5rem;
+            border-radius: 8px;
+          }
+          .ktp-info h4 {
+            background-color: #e9f7e3;
+          }
+          .ktp-info p {
+            background-color: #f1f8f4;
+          }
+          iframe {
+            border-radius: 8px;
           }
           .ktp-footer {
             text-align: center;
