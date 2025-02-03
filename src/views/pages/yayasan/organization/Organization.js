@@ -109,7 +109,8 @@ function Organization() {
         <li
           key={page}
           onClick={() => handlePageChange(page)}
-          className={"page-item" + (currentPage === page ? " active" : "")}>
+          className={"page-item" + (currentPage === page ? " active" : "")}
+        >
           <a className="page-link">{page}</a>
         </li>
       )
@@ -153,13 +154,15 @@ function Organization() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       {/* Sidebar */}
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#" }}>
+        style={{ color: "white", background: "#" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       {/* <div className={`sidebar ${sidebarToggled ? "toggled" : ""}`}> */}
@@ -170,7 +173,8 @@ function Organization() {
           <a
             id="show-sidebar"
             className="btn1 btn-lg toggle-sidebar-btn"
-            onClick={toggleSidebar}>
+            onClick={toggleSidebar}
+          >
             <i className="fas fa-bars"></i>
           </a>
           <div className="row">
@@ -195,7 +199,8 @@ function Organization() {
                         <button className="active btn-focus p-2 rounded">
                           <a
                             style={{ color: "white", textDecoration: "none" }}
-                            href="/add-organization">
+                            href="/add-organization"
+                          >
                             Tambah
                           </a>
                         </button>
@@ -212,7 +217,8 @@ function Organization() {
                           <select
                             className="shows form-select"
                             value={limit}
-                            onChange={handleLimit}>
+                            onChange={handleLimit}
+                          >
                             <option value="1">Show 1 Entries</option>
                             <option value="10">Show 10 Entries</option>
                             <option value="100">Show 100 Entries</option>
@@ -235,7 +241,8 @@ function Organization() {
                   <div className="table-responsive">
                     <table
                       stripedColumns
-                      className="tabel-organization table responsive-3 table1">
+                      className="tabel-organization table responsive-3 table1"
+                    >
                       <thead>
                         <tr>
                           <th scope="col">No</th>
@@ -276,23 +283,27 @@ function Organization() {
                                   <button
                                     style={{ background: "blue" }}
                                     onClick={() =>
-                                      history(`/editOrganization/${data.id}`)
+                                      (window.location.href = `/edit-organization/${data.id}`)
                                     }
                                     type="button"
-                                    className="edit1">
+                                    className="edit1"
+                                  >
                                     <i
-                                      class="fa-solid fa-pencil"
-                                      style={{ color: "white" }}></i>
+                                      className="fa-solid fa-pencil"
+                                      style={{ color: "white" }}
+                                    ></i>
                                   </button>
 
                                   <button
                                     style={{ background: "red" }}
                                     onClick={() => Delete(data.id)}
                                     type="button"
-                                    className="edit1">
+                                    className="edit1"
+                                  >
                                     <i
                                       class="fa-solid fa-trash"
-                                      style={{ color: "white" }}></i>
+                                      style={{ color: "white" }}
+                                    ></i>
                                   </button>
                                 </div>
                               </td>
@@ -310,10 +321,12 @@ function Organization() {
                         className={
                           "page-item " + (currentPage === 1 ? "disabled" : "")
                         }
-                        disabled={currentPage === 1}>
+                        disabled={currentPage === 1}
+                      >
                         <a
                           className="page-link"
-                          onClick={() => handlePageChange(currentPage - 1)}>
+                          onClick={() => handlePageChange(currentPage - 1)}
+                        >
                           Previous
                         </a>
                       </li>
@@ -323,10 +336,12 @@ function Organization() {
                           "page-item " +
                           (currentPage === totalPages ? "disabled" : "")
                         }
-                        disabled={currentPage === totalPages}>
+                        disabled={currentPage === totalPages}
+                      >
                         <a
                           className="page-link"
-                          onClick={() => handlePageChange(currentPage + 1)}>
+                          onClick={() => handlePageChange(currentPage + 1)}
+                        >
                           Next
                         </a>
                       </li>
