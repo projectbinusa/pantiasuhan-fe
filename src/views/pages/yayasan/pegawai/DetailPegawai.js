@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY_SMART } from "../../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
-import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
-import SidebarYayasan from "../../../../../../component/SidebarYayasan";
+import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
+import SidebarYayasan from "../../../../component/SidebarYayasan";
 
-function DataPegawaiCabang() {
+function DetailPegawai() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -104,7 +104,7 @@ function DataPegawaiCabang() {
       >
         <i className="fas fa-bars"></i>
       </a>
-      <SidebarYayasan toggleSidebar={toggleSidebar} />
+      <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
@@ -137,7 +137,7 @@ function DataPegawaiCabang() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Data Pegawai Cabang</p>
+              <p className="mt-3">Data Pegawai</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -186,9 +186,9 @@ function DataPegawaiCabang() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama Cabang</th>
-                    <th>Jumlah Pegawai</th>
-                    <th>Aksi</th>
+                    <th>Nama</th>
+                    <th>TTL</th>
+                    {/* <th>Aksi</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -199,9 +199,9 @@ function DataPegawaiCabang() {
                     <td data-label="No" className="">
                       {/* {no + 1 + (currentPage - 1) * rowsPerPage} */}1
                     </td>
-                    <td data-label="Nama Cabang">Semarang</td>
-                    <td data-label="Jumlah Pegawai">100</td>
-                    <td data-label="Aksi" className="action">
+                    <td data-label="Nama">Andini</td>
+                    <td data-label="TTL">25 Januari 1990</td>
+                    {/* <td data-label="Aksi" className="action">
                       <div className="d-flex justify-content-center align-items-center">
                         <button
                           type="button"
@@ -212,7 +212,7 @@ function DataPegawaiCabang() {
                               color: "white",
                               textDecoration: "none",
                             }}
-                            href={`/detail_pegawai`}
+                            href={`/detail_anak_asuh}`}
                           >
                             <i className="fa-solid fa-info-circle"></i>
                           </a>
@@ -226,23 +226,13 @@ function DataPegawaiCabang() {
                               color: "white",
                               textDecoration: "none",
                             }}
-                            href={`/export-pegawai-cabang/:id`}
+                            href={`/export-anak-asuh-cabang/id`}
                           >
                             <i className="fa-solid fa-download"></i>
                           </a>
                         </button>
-
-                        {/* {userRole !== "yayasan" && (
-                                <button
-                                  onClick={() => deleteData(row.id)}
-                                  type="button"
-                                  className="btn-danger btn-sm"
-                                >
-                                  <i className="fa-solid fa-trash"></i>
-                                </button>
-                              )} */}
                       </div>
-                    </td>
+                    </td> */}
                   </tr>
                   {/* );
                     })
@@ -275,4 +265,4 @@ function DataPegawaiCabang() {
   );
 }
 
-export default DataPegawaiCabang;
+export default DetailPegawai;

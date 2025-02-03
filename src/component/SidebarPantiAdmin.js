@@ -6,6 +6,9 @@ import {
   useHistory,
   useLocation,
 } from "react-router-dom/cjs/react-router-dom.min";
+import { Box, Modal } from "@mui/material";
+import { API_DUMMY_SMART } from "../utils/base_URL";
+import axios from "axios";
 
 function SidebarPantiAdmin({ toggleSidebar }) {
   const history = useHistory();
@@ -14,6 +17,79 @@ function SidebarPantiAdmin({ toggleSidebar }) {
   const defaultRefs = useRef([]);
   const [activeMenu, setActiveMenu] = useState(null); // State untuk melacak menu aktif
   const location = useLocation();
+  const [cabang, setCabang] = useState([]);
+  const [idCabang, setIdCabang] = useState(0);
+  const [cabangValid, setCabangValid] = useState("");
+  const [idCabangValid, setIdCabangValid] = useState(0);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState("");
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleModal = (idCabang) => {
+    if (idCabang) {
+      console.log("ID Organisasi yang dipilih:", idCabang);
+
+      // Tentukan URL berdasarkan menu yang dipilih
+      let url = "";
+      if (selectedMenu === "Daftar Cabang") {
+        url = `/daftar-cabang/${idCabang}`;
+      } else if (selectedMenu === "Data Anak Asuh") {
+        url = `/cabang/${idCabang}`;
+      }
+
+      // Navigasi ke halaman yang sesuai
+      history.push(url);
+    } else {
+      alert("Silakan pilih organisasi terlebih dahulu");
+    }
+    closeModal();
+  };
+
+  const styleForm = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "90%", // Persentase untuk fleksibilitas
+    maxWidth: "500px",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 3,
+    borderRadius: "10px",
+    backgroundColor: "#f5f5f5",
+    overflowY: "auto",
+    maxHeight: "90vh",
+    // textAlign: "center", // Menempatkan konten di tengah
+  };
+
+  useEffect(() => {
+    const fetchDataOrganization = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_SMART}/api/user/customer/organization_ids`,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+        console.log("datas: ", response.data);
+        setCabang(response.data.data);
+      } catch (error) {
+        console.error("Terjadi kesalahan:", error.response || error.message);
+      }
+    };
+
+    fetchDataOrganization();
+  }, []);
 
   const toggleMenu = (index) => {
     // Jika menu yang diklik sudah aktif, tutup menu; jika tidak, buka menu
@@ -543,6 +619,16 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                           <NavLink
                             to={data.path}
                             style={{ background: "none" }}
+                            onClick={(e) => {
+                              if (
+                                data.title === "Daftar Cabang" ||
+                                data.title === "Data Anak Asuh"
+                              ) {
+                                e.preventDefault(); // Mencegah navigasi langsung
+                                setSelectedMenu(data.title); // Simpan menu yang dipilih
+                                openModal(); // Buka modal untuk memilih organisasi
+                              }
+                            }}
                           >
                             <i
                               className={`${data.icon} ${
@@ -654,6 +740,58 @@ function SidebarPantiAdmin({ toggleSidebar }) {
             <span> Keluar</span>
           </button>
         </div>
+        <Modal
+          open={isModalOpen}
+          onClose={closeModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={styleForm}>
+            <button
+              onClick={closeModal}
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                background: "transparent",
+                border: "none",
+                fontSize: "20px",
+                cursor: "pointer",
+                color: "black",
+              }}
+              aria-label="Close"
+            >
+              ✖
+            </button>{" "}
+            <br />
+            <div className="row">
+              <div className="mb-3 col-lg-12">
+                <label className="form-label font-weight-bold text-start">
+                  Organisasi
+                </label>
+                <select
+                  className="form-control"
+                  value={idCabang}
+                  onChange={(e) => setIdCabang(e.target.value)}
+                >
+                  <option>Pilih</option>
+                  {cabang.map((item, idx) => (
+                    <option value={item.organization_id} key={idx}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => handleModal(idCabang)}
+              className="btn-success btn-md"
+            >
+              Simpan
+            </button>
+          </Box>
+        </Modal>
       </nav>
     </>
   );
