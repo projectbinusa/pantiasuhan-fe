@@ -181,10 +181,10 @@ function Donasi() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   useEffect(() => {
-    const getDonasiDetail = async () => {
+    const getDonasiDetail = async (donationId) => {
       try {
         const response = await axios.get(
-          `${API_DUMMY_SMART}/api/customer/donation/${id}`,
+          `${API_DUMMY_SMART}/api/customer/donation/${donationId}`,
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -197,7 +197,9 @@ function Donasi() {
       }
     };
 
-    getDonasiDetail();
+    if (id) {
+      getDonasiDetail(id);
+    }
   }, [id]);
 
   const [chartData, setChartData] = useState({
@@ -222,8 +224,9 @@ function Donasi() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -330,16 +333,38 @@ function Donasi() {
                   {filteredList.length > 0 ? (
                     filteredList.map((item, index) => (
                       <tr key={index}>
-                        <td className="text-lg-start text-md-end text-sm-end" data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                        <td className="text-lg-start text-md-end text-sm-end" data-label="Nama Donasi">{item.name}</td>
-                        <td className="text-lg-start text-md-end text-sm-end" data-label="Deskripsi">
+                        <td
+                          className="text-lg-start text-md-end text-sm-end"
+                          data-label="No"
+                        >
+                          {(currentPage - 1) * rowsPerPage + index + 1}
+                        </td>
+                        <td
+                          className="text-lg-start text-md-end text-sm-end"
+                          data-label="Nama Donasi"
+                        >
+                          {item.name}
+                        </td>
+                        <td
+                          className="text-lg-start text-md-end text-sm-end"
+                          data-label="Deskripsi"
+                        >
                           <div
-                            dangerouslySetInnerHTML={{ __html: item.description }}
+                            dangerouslySetInnerHTML={{
+                              __html: item.description,
+                            }}
                           />
                         </td>
-                        <td className="text-end" data-label="Dana Masuk (RP)">{item.total_income}</td>
-                        <td className="text-end" data-label="Dana Keluar (rp)">{item.total_outcome}</td>
-                        <td className="text-lg-center text-md-end text-sm-end" data-label="Aksi">
+                        <td className="text-end" data-label="Dana Masuk (RP)">
+                          {item.total_income}
+                        </td>
+                        <td className="text-end" data-label="Dana Keluar (rp)">
+                          {item.total_outcome}
+                        </td>
+                        <td
+                          className="text-lg-center text-md-end text-sm-end"
+                          data-label="Aksi"
+                        >
                           {userRole !== "Yayasan" && (
                             <>
                               <button
@@ -365,10 +390,7 @@ function Donasi() {
                               </button>
                             </>
                           )}
-                          <button
-                            type="button"
-                            className="btn-warning btn-sm"
-                          >
+                          <button type="button" className="btn-warning btn-sm">
                             <a
                               className="text-light"
                               href={"/donasi/detail/" + item.id}
@@ -378,7 +400,8 @@ function Donasi() {
                           </button>
                         </td>
                       </tr>
-                    ))) : (
+                    ))
+                  ) : (
                     <tr>
                       <td colSpan="6" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>

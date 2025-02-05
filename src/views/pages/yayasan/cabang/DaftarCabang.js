@@ -289,7 +289,6 @@
 
 // export default DaftarCabang;
 
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AOS from "aos";
@@ -298,6 +297,7 @@ import "../../../../css/button.css";
 import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import { formatRupiah } from "../../../../utils/formating";
+import Swal from "sweetalert2";
 
 function DaftarCabang() {
   const [list, setList] = useState([]);
@@ -360,6 +360,46 @@ function DaftarCabang() {
     }
   };
 
+  const deleteData = async (id) => {
+    Swal.fire({
+      title: "Apakah Anda Ingin Menghapus?",
+      text: "Perubahan data tidak bisa dikembalikan!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Hapus",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${API_DUMMY_SMART}/api/customer/${id}`, {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          })
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Dihapus!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            getAll();
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Hapus Data Gagal!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(err);
+          });
+      }
+    });
+  };
+
   useEffect(() => {
     getAll(currentPage);
   }, [currentPage, rowsPerPage]);
@@ -399,7 +439,6 @@ function DaftarCabang() {
         }
       );
       console.log(response);
-
     } catch (error) {
       console.error("Error fetching donation data: ", error.message);
       return "";
@@ -407,25 +446,29 @@ function DaftarCabang() {
   };
 
   useEffect(() => {
-    getAnakAsuh(38)
-  }, [])
+    getAnakAsuh(38);
+  }, []);
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -434,7 +477,8 @@ function DaftarCabang() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -461,7 +505,8 @@ function DaftarCabang() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -471,7 +516,8 @@ function DaftarCabang() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -489,24 +535,57 @@ function DaftarCabang() {
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td data-label="No" className="md:text-right">{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                      <td data-label="Nama LKSA" className="md:text-right">{item.name}</td>
-                      <td data-label="Lokasi" className="md:text-right">{item.address}</td>
-                      <td data-label="Email" className="md:text-right">{item.email}</td>
+                      <td data-label="No" className="md:text-right">
+                        {(currentPage - 1) * rowsPerPage + index + 1}
+                      </td>
+                      <td data-label="Nama LKSA" className="md:text-right">
+                        {item.name}
+                      </td>
+                      <td data-label="Lokasi" className="md:text-right">
+                        {item.address}
+                      </td>
+                      <td data-label="Email" className="md:text-right">
+                        {item.email}
+                      </td>
                       {/* <td data-label="JML PEGAWAI" className="md:text-right">{formatRupiah(item.total_outcome)}</td> */}
                       {/* <td data-label="Jml Donasi 1 bulan terakhir" className="md:text-right">{formatRupiah(item.total_income)}</td>
                       <td data-label="Jml Pengeluaran 1 bulan terakhir" className="md:text-right">{formatRupiah(item.total_outcome)}</td> */}
-                      <td data-label="No Hp" className="md:text-right">{item.hp}</td>
+                      <td data-label="No Hp" className="md:text-right">
+                        {item.hp}
+                      </td>
                       <td data-label="Aksi" className="md:text-right">
                         <>
                           <button
                             type="button"
-                            className="btn-warning mr-2 btn-sm">
+                            className="btn-warning mr-2 btn-sm"
+                          >
                             <a
                               className="text-light"
-                              href={"/detail_cabang/" + item.id}>
+                              href={"/detail_cabang/" + item.id}
+                            >
                               <i className="fas fa-info-circle"></i>
                             </a>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-primary btn-sm mr-2"
+                          >
+                            <a
+                              style={{
+                                color: "white",
+                                textDecoration: "none",
+                              }}
+                              href={`/edit-cabang/${item.id}`}
+                            >
+                              <i className="fa-solid fa-pen-to-square"></i>
+                            </a>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-danger btn-sm mr-2"
+                            onClick={() => deleteData(item.id)}
+                          >
+                            <i className="fa-solid fa-trash"></i>
                           </button>
                         </>
                       </td>

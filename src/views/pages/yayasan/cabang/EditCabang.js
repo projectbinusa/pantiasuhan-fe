@@ -2,7 +2,10 @@ import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
-import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useParams,
+} from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import "ckeditor5/ckeditor5.css";
@@ -18,7 +21,6 @@ function EditCabang() {
   const [active, setActive] = useState("");
   const [organization_id, setOrganization_id] = useState("");
   const param = useParams();
-  const history = useHistory();
 
   const update = async (e) => {
     e.preventDefault();
@@ -47,8 +49,7 @@ function EditCabang() {
           timer: 1500,
         });
         setTimeout(() => {
-          history("/userCustomer");
-          window.location.reload();
+          window.location.href = `/daftar-cabang`;
         }, 1500);
       })
       .catch((error) => {
@@ -161,7 +162,8 @@ function EditCabang() {
     return (
       <div
         className="card border-secondary border-top-0"
-        style={{ borderTopRightRadius: 0, borderTopLeftRadius: 0, width: 200 }}>
+        style={{ borderTopRightRadius: 0, borderTopLeftRadius: 0, width: 200 }}
+      >
         <ul className="list-group list-group-flush" style={{ width: 300 }}>
           {suggestions.length != 0 ? (
             <>
@@ -173,7 +175,8 @@ function EditCabang() {
                       : "list-group-item  list-group-item-action"
                   }
                   key={index}
-                  onClick={(e) => handleClick(e, data.id)}>
+                  onClick={(e) => handleClick(e, data.id)}
+                >
                   Id = {data.id}, Email = {data.email}, Nama = {data.name}
                 </li>
               ))}
@@ -188,23 +191,24 @@ function EditCabang() {
     );
   };
 
-//   useEffect(() => {
-//     handleResize();
-//     window.addEventListener("resize", handleResize);
-//     return () => window.removeEventListener("resize", handleResize);
-//   }, []);
-
+  //   useEffect(() => {
+  //     handleResize();
+  //     window.addEventListener("resize", handleResize);
+  //     return () => window.removeEventListener("resize", handleResize);
+  //   }, []);
 
   return (
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
@@ -214,9 +218,7 @@ function EditCabang() {
         style={{ marginTop: "10px" }}
         className="page-content1 mb-3 app-main__outer"
       >
-        <div
-          className="container mt-3 mb-3 app-main__outer"
-          >
+        <div className="container mt-3 mb-3 app-main__outer">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -254,25 +256,23 @@ function EditCabang() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Organisasi
+                            Alamat
                           </label>
                           <input
-                            className="form-control"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
                             type="text"
-                            autoComplete="off"
-                            value={value}
-                            onKeyDown={handleKeyDown}
-                            onChange={handleChange}
-                            label="Organization_id"
+                            className="form-control"
                             required
+                            placeholder="Masukkan No HP"
                           />
-                          {suggestionsActive && <Suggestions />}
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/daftar-sambutan">
+                          href="/daftar-sambutan"
+                        >
                           Batal
                         </a>
                       </button>
