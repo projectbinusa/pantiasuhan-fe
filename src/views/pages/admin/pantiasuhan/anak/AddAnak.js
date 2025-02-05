@@ -25,11 +25,14 @@ function AddAnak() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_DUMMY}/api/admin/foster_parent`, {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        });
+        const response = await axios.get(
+          `${API_DUMMY}/api/admin/foster_parent`,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
         setListFosterParent(response.data.data);
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
@@ -48,7 +51,16 @@ function AddAnak() {
   };
 
   const validateForm = () => {
-    if (!name || !password || !rfidNumber || !unique_id || !parentName || !birthPlace || !birthDate || !education) {
+    if (
+      !name ||
+      !password ||
+      !rfidNumber ||
+      !unique_id ||
+      !parentName ||
+      !birthPlace ||
+      !birthDate ||
+      !education
+    ) {
       Swal.fire({
         icon: "error",
         title: "Semua kolom wajib diisi!",
@@ -94,15 +106,23 @@ function AddAnak() {
 
       console.log("Payload yang dikirim ke backend:", payload);
 
-      const response = await axios.post(`${API_DUMMY_SMART}/api/customer/member`, payload, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      });
+      const response = await axios.post(
+        `${API_DUMMY_SMART}/api/customer/member`,
+        payload,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
 
       console.log("Respons dari backend:", response.data);
 
-      if (response.data && response.data.status === "200 OK" && response.data.message === "success") {
+      if (
+        response.data &&
+        response.data.status === "200 OK" &&
+        response.data.message === "success"
+      ) {
         Swal.fire({
           icon: "success",
           title: "Data Berhasil Ditambahkan",
@@ -125,7 +145,10 @@ function AddAnak() {
 
       Swal.fire({
         icon: "error",
-        title: error.response?.data?.message || error.message || "Tambah Data Gagal!",
+        title:
+          error.response?.data?.message ||
+          error.message ||
+          "Tambah Data Gagal!",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -133,8 +156,17 @@ function AddAnak() {
   };
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
-      <a id="show-sidebar" className="btn1 btn-lg" onClick={toggleSidebar} style={{ color: "white", background: "#3a3f48" }}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -150,7 +182,9 @@ function AddAnak() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Anak Asuh</label>
+                          <label className="form-label font-weight-bold">
+                            Anak Asuh
+                          </label>
                           <input
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -159,7 +193,9 @@ function AddAnak() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Tempat Lahir</label>
+                          <label className="form-label font-weight-bold">
+                            Tempat Lahir
+                          </label>
                           <input
                             value={birthPlace}
                             onChange={(e) => setBirthPlace(e.target.value)}
@@ -168,7 +204,9 @@ function AddAnak() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Tanggal Lahir</label>
+                          <label className="form-label font-weight-bold">
+                            Tanggal Lahir
+                          </label>
                           <input
                             value={birthDate}
                             onChange={(e) => setBirthDate(e.target.value)}
@@ -177,8 +215,14 @@ function AddAnak() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Pendidikan</label>
-                          <select className="form-control" value={education} onChange={(e) => setEducation(e.target.value)}>
+                          <label className="form-label font-weight-bold">
+                            Pendidikan
+                          </label>
+                          <select
+                            className="form-control"
+                            value={education}
+                            onChange={(e) => setEducation(e.target.value)}
+                          >
                             <option>Pilih</option>
                             <option value="SD/MI">SD/MI</option>
                             <option value="SMP/Mts">SMP/Mts</option>
@@ -187,7 +231,9 @@ function AddAnak() {
                           </select>
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Nama Orang Tua Kandung</label>
+                          <label className="form-label font-weight-bold">
+                            Nama Orang Tua Kandung
+                          </label>
                           <input
                             value={parentName}
                             onChange={(e) => setParentName(e.target.value)}
@@ -196,7 +242,9 @@ function AddAnak() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Password</label>
+                          <label className="form-label font-weight-bold">
+                            Password
+                          </label>
                           <input
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -205,7 +253,9 @@ function AddAnak() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">RFID Number</label>
+                          <label className="form-label font-weight-bold">
+                            RFID Number
+                          </label>
                           <input
                             value={rfidNumber}
                             onChange={(e) => setRFIDNumber(e.target.value)}
@@ -214,7 +264,9 @@ function AddAnak() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">NIK</label>
+                          <label className="form-label font-weight-bold">
+                            NIK
+                          </label>
                           <input
                             value={unique_id}
                             onChange={(e) => setUniqueId(e.target.value)}
@@ -223,7 +275,9 @@ function AddAnak() {
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
-                          <label className="form-label font-weight-bold">Foto</label>
+                          <label className="form-label font-weight-bold">
+                            Foto
+                          </label>
                           <input
                             type="file"
                             accept="image/*"
@@ -233,7 +287,10 @@ function AddAnak() {
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
-                        <a style={{ color: "white", textDecoration: "none" }} href="/admin_anak_asuh">
+                        <a
+                          style={{ color: "white", textDecoration: "none" }}
+                          href="/admin_anak_asuh"
+                        >
                           Batal
                         </a>
                       </button>
