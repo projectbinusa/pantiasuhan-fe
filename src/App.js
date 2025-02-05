@@ -980,14 +980,14 @@ function App() {
               exact
             />
             {/* yayasan */}
-            <Route path="/daftar-cabang/:id" component={DaftarCabang} exact />
+            <Route path="/daftar-cabang" component={DaftarCabang} exact />
             <Route path="/laporan-donasi" component={LaporanDonasi} exact />
             <Route
               path="/laporan-investariss"
               component={LaporanInventaris1}
               exact
             />
-            <Route path="/cabang/:id" component={CabangAnakAsuh} exact />
+            <Route path="/cabang" component={CabangAnakAsuh} exact />
             <Route path="/add-cabang" component={AddCabang} exact />
             <Route path="/form-cabang-baru" component={FormCabangBaru} exact />
             <Route

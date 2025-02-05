@@ -619,16 +619,16 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                           <NavLink
                             to={data.path}
                             style={{ background: "none" }}
-                            onClick={(e) => {
-                              if (
-                                data.title === "Daftar Cabang" ||
-                                data.title === "Data Anak Asuh"
-                              ) {
-                                e.preventDefault(); // Mencegah navigasi langsung
-                                setSelectedMenu(data.title); // Simpan menu yang dipilih
-                                openModal(); // Buka modal untuk memilih organisasi
-                              }
-                            }}
+                            // onClick={(e) => {
+                            //   if (
+                            //     data.title === "Daftar Cabang" ||
+                            //     data.title === "Data Anak Asuh"
+                            //   ) {
+                            //     e.preventDefault();
+                            //     setSelectedMenu(data.title);
+                            //     openModal();
+                            //   }
+                            // }}
                           >
                             <i
                               className={`${data.icon} ${
