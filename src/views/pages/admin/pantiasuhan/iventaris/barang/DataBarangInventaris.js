@@ -242,6 +242,7 @@ function DataBarangInventaris() {
       status_barang_id: idStatus,
       lokasi_barang_id: idLokasi,
       tanggal_masuk: tanggal,
+      kondisi_barang_id: idKondisi,
       // purchase_date: purchase_date,
       // purchase_price: purchase_price,
       stok: stok,
@@ -575,6 +576,30 @@ function DataBarangInventaris() {
                       {status.map((data, index) => (
                         <option key={index} value={data.id}>
                           {data.nama_status}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="mb-3 col-md-6">
+                    <label
+                      for="exampleInputEmail1"
+                      className="form-label font-weight-bold "
+                    >
+                      Kondisi Barang
+                    </label>
+                    <select
+                      required
+                      className="form-control"
+                      aria-label="Small select example"
+                      onChange={(e) => {
+                        const selectedId = e.target.value;
+                        setIdKondisi(selectedId);
+                      }}
+                    >
+                      <option value="">Pilih Kondisi</option>
+                      {kondisi.map((data, index) => (
+                        <option key={index} value={data.id}>
+                          {data.kondisi_barang}
                         </option>
                       ))}
                     </select>

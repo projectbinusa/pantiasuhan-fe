@@ -7,6 +7,7 @@ import NavbarSekolah from "../../../../../component/NavbarSekolah";
 import image1 from "../../../../../aset/images.png";
 import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import Navbar from "../../../../../component/Navbar";
+import { formatRupiah } from "../../../../../utils/formating";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -290,6 +291,21 @@ function DonasiUmum() {
                   >
                     <div dangerouslySetInnerHTML={{ __html: item?.description }} />
                   </p>
+                  <p style={{
+                      fontSize: "0.9rem",
+                      color: "#777", fontWeight: "500",marginTop: "1rem"
+                    }} className="content-isi"
+                  >Total Donasi</p>
+                  <h4
+                    style={{
+                      fontSize: "1.3rem",
+                      fontWeight: "bold",
+                      color: "#004080",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {formatRupiah(item.total_income)}
+                  </h4>
                   <a
                     className="read-more-text"
                     href={"/donasiumum/preview/" + item.id}
