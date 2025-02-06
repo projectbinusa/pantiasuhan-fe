@@ -29,6 +29,7 @@ function FormCabangBaru() {
     setSidebarToggled(!sidebarToggled);
   };
 
+  const userId = localStorage.getItem("id")
   const add = async (e) => {
     e.preventDefault();
 
@@ -77,27 +78,41 @@ function FormCabangBaru() {
         const organizationId = responseOrganization.data.data.id;
         console.log(responseOrganization.data.data.id);
         if (responseOrganization.data && responseOrganization.data.status === "200 OK" && responseOrganization.data.message === "success") {
-          const responseCustomer = await axios.put(`${API_DUMMY_SMART}/api/user/customer/${customerId}`, { organization_id: organizationId }, {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          });
-          console.log(responseCustomer);
+          try {
+            const responseCustomer = await axios.put(`${API_DUMMY_SMART}/api/user/customer/${customerId}`, { organization_id: organizationId }, {
+              headers: {
+                "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              },
+            });
+            console.log(responseCustomer);
+            try {
+              const res = await axios.put(`${API_DUMMY_SMART}/api/user/organization_ids/${userId}`, { organization_ids: `${organizationId}` }, {
+                headers: {
+                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+                },
+              });
+              console.log(res);
+              
+              Swal.fire({
+                icon: "success",
+                title: "Data Berhasil Ditambahkan",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+
+              console.log("Data yang diterima:", response.data);
+
+              setTimeout(() => {
+                history.push("/daftar-cabang");
+              }, 1500);
+            } catch (err) {
+              console.error("Error respons:", err);
+            }
+
+          } catch (err) {
+            console.error("Error respons:", err);
+          }
         }
-
-        Swal.fire({
-          icon: "success",
-          title: "Data Berhasil Ditambahkan",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-
-        // Ensure the response data is correct
-        console.log("Data yang diterima:", response.data);
-
-        // setTimeout(() => {
-        //   history.push("/admin_anak_asuh");
-        // }, 1500);
       } else {
         const errorMessage = response.data?.message || "Tambah Data Gagal";
         throw new Error(errorMessage);

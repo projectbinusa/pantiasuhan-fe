@@ -3,14 +3,16 @@ import SidebarYayasan from "../../../../component/SidebarYayasan";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import axios from "axios";
 import { API_DUMMY_SMART } from "../../../../utils/base_URL";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function DetailCabang() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [data, setData] = useState(null);
+  const param = useParams()
 
   const getAll = async () => {
     try {
-      const organizationId = localStorage.getItem("organization_id");
+      const organizationId = param.id;
       const response = await axios.get(
         `${API_DUMMY_SMART}/api/user/lksa/organization/${organizationId}`,
         {
