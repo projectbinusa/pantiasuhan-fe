@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import Swal from "sweetalert2";
 import {
@@ -23,6 +23,23 @@ function FormBukuTamu() {
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
 
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    const ratio = window.devicePixelRatio || 1;
+    const width = canvas.offsetWidth;
+    const height = canvas.offsetHeight;
+
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+    ctx.scale(ratio, ratio);
+
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "black";
+  }, []);
+
   const handleMouseDown = (e) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -30,7 +47,10 @@ function FormBukuTamu() {
 
     setIsDrawing(true);
     ctx.beginPath();
-    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    ctx.moveTo(
+      (e.clientX - rect.left) * (canvas.width / rect.width),
+      (e.clientY - rect.top) * (canvas.height / rect.height)
+    );
   };
 
   const handleDraw = (e) => {
@@ -40,24 +60,17 @@ function FormBukuTamu() {
     const ctx = canvas.getContext("2d");
     const rect = canvas.getBoundingClientRect();
 
-    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    ctx.lineTo(
+      (e.clientX - rect.left) * (canvas.width / rect.width),
+      (e.clientY - rect.top) * (canvas.height / rect.height)
+    );
     ctx.stroke();
   };
-
-  // const handleMouseUp = () => {
-  //   setIsDrawing(false);
-
-  //   const canvas = canvasRef.current;
-  //   // Mengonversi canvas menjadi data URL dan menyimpannya ke state
-  //   const dataURL = canvas.toDataURL("image/png");
-  //   setSignature(dataURL);
-  // };
 
   const handleMouseUp = () => {
     setIsDrawing(false);
 
     const canvas = canvasRef.current;
-    // Mengonversi canvas menjadi file image
     canvas.toBlob((blob) => {
       const file = new File([blob], "signature.png", { type: "image/png" });
       setSignature(file);
@@ -69,7 +82,7 @@ function FormBukuTamu() {
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
-    setSignature(""); // Reset data URL
+    setSignature("");
   };
   console.log(signature);
 
@@ -96,7 +109,8 @@ function FormBukuTamu() {
 
       Swal.fire({
         icon: "success",
-        title: "Terima Kasih Telah Berkunjung 💕 Kebaikan Anda Membawa Kebahagiaan 🌟",
+        title:
+          "Terima Kasih Telah Berkunjung 💕 Kebaikan Anda Membawa Kebahagiaan 🌟",
         showConfirmButton: false,
         timer: 1500,
       });
