@@ -14,6 +14,7 @@ function FormCabangBaru() {
   const [noHp, setNoHp] = useState("");
   const [address, setAddress] = useState("");
   const [bankName, setBankName] = useState("");
+  const [domain, setDomain] = useState("");
   const [bankAccountName, setBankAccountName] = useState(null);
   const [bankAccountNumber, setBankAccountNumber] = useState(null);
   const [provinsi, setProvinsi] = useState(null);
@@ -66,7 +67,8 @@ function FormCabangBaru() {
           balance: 0.0,
           bank_account_number: bankAccountNumber,
           bank_account_name: bankAccountName,
-          bank_name: bankName
+          bank_name: bankName,
+          domain: domain
         }
         console.log(payloadorganization);
 
@@ -179,6 +181,15 @@ function FormCabangBaru() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Masukkan Password"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">Domain Website</label>
+                          <input
+                            value={domain}
+                            onChange={(e) => setDomain(e.target.value)}
+                            placeholder="Masukkan Domain Website"
                             className="form-control"
                           />
                         </div>

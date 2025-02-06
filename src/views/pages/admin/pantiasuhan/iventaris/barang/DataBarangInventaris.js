@@ -387,49 +387,49 @@ function DataBarangInventaris() {
                       return (
                         <tr key={no}>
                           <td
-                            className="text-sm-start text-end"
+                            className="text-md-start text-end"
                             data-label="No"
                           >
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td
-                            className="text-sm-start text-end"
+                            className="text-md-start text-end"
                             data-label="Nama Barang"
                           >
                             {row.name}
                           </td>
                           <td
-                            className="text-sm-start text-end"
+                            className="text-md-start text-end"
                             data-label="Kategori"
                           >
                             {row.kategori_barang_name}
                           </td>
                           <td
-                            className="text-sm-start text-end"
+                            className="text-md-start text-end"
                             data-label="Status"
                           >
                             {row.status_barang_name}
                           </td>
                           <td
-                            className="text-sm-start text-end"
+                            className="text-md-start text-end"
                             data-label="Tanggal Masuk"
                           >
                             {row.tanggal_masuk}
                           </td>
                           <td
-                            className="text-sm-start text-end"
+                            className="text-md-start text-end"
                             data-label="Lokasi"
                           >
                             {row.lokasi_barang_name}
                           </td>
                           <td
-                            className="text-sm-start text-end"
+                            className="text-md-start text-end"
                             data-label="Kondisi"
                           >
                             {row.kondisi_barang_name}
                           </td>
                           <td
-                            className="text-sm-start text-end"
+                            className="text-md-start text-end"
                             data-label="Stok"
                           >
                             {row.stok}

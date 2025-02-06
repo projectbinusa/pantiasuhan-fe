@@ -23,7 +23,8 @@ function EditBarangInventaris() {
   const [idKondisi, setIdKondisi] = useState("");
   const [idLokasi, setIdLokasi] = useState("");
   const [namaStatus, setNamaStatus] = useState("");
-  const [NamaKondisi, setNamaKondisi] = useState("");
+  const [namaKondisi, setNamaKondisi] = useState("");
+  const [namaLokasi, setNamaLokasi] = useState("");
   const [stok, setSTok] = useState("");
   const [kategori, setKategori] = useState([]);
   const [kondisi, setKondisi] = useState([]);
@@ -297,28 +298,28 @@ function EditBarangInventaris() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
-                            Status Barang
+                            Lokasi Barang
                           </label>
                           <select
-                            value={idStatus}
+                            value={idLokasi}
                             className="form-control"
                             aria-label="Small select example"
                             onChange={(e) => {
                               const selectedId = e.target.value;
-                              setIdStatus(selectedId);
+                              setIdLokasi(selectedId);
                               const selected = status.find(
                                 (data) => String(data.id) === String(selectedId)
                               );
-                              setNamaStatus(
-                                selected ? selected.nama_status : ""
+                              setNamaLokasi(
+                                selected ? selected.lokasi_barang_name : ""
                               );
                             }}>
                             <option value="">
-                              Pilih Status
+                              Pilih Lokasi
                             </option>
-                            {status.map((data, index) => (
+                            {lokasi.map((data, index) => (
                               <option key={index} value={data.id}>
-                                {data.nama_status}
+                                {data.lokasi_barang}
                               </option>
                             ))}
                           </select>
@@ -334,7 +335,7 @@ function EditBarangInventaris() {
                             onChange={(e) => {
                               const selectedId = e.target.value;
                               setIdKondisi(selectedId);
-                              const selected = status.find(
+                              const selected = kondisi.find(
                                 (data) => String(data.id) === String(selectedId)
                               );
                               setNamaKondisi(
