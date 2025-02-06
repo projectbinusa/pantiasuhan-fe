@@ -8,6 +8,14 @@ import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
+const formatDate = (value) => {
+  const date = new Date(value);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${day}-${month}-${year}`;
+};
+
 function LaporanBulananPresensi() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
@@ -292,7 +300,7 @@ function LaporanBulananPresensi() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td data-label="Nama"> {item.name}</td>
-                          <td data-label="Tanggal">{item.created_date}</td>
+                          <td data-label="Tanggal">{formatDate(item.created_date)}</td>
                           <td data-label="Jam Masuk">{item.jam_masuk}</td>
                           <td data-label="Jam Pulang">{item.jam_pulang}</td>
                           <td data-label="Keterangan">{item.description}</td>
