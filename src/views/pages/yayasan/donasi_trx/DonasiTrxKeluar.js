@@ -42,7 +42,7 @@ function DonasiTrxKeluar() {
     setTanggalValid(tgl);
     setIdCabangValid(id);
     getAll();
-    closeModalForm()
+    closeModalForm();
   };
 
   // Mendapatkan role pengguna
@@ -74,7 +74,7 @@ function DonasiTrxKeluar() {
       //     },
       //   }
       // );
-      let todays = tanggalValid || today;
+      let todays = tanggalValid ? tanggalValid : today;
       let url = `${API_DUMMY_SMART}/api/user/donation_trx/keluar?date=${todays}&page=${currentPage}&limit=${rowsPerPage}`;
 
       if (idCabangValid) {
@@ -101,7 +101,7 @@ function DonasiTrxKeluar() {
 
   useEffect(() => {
     getAll(currentPage);
-  }, [currentPage, rowsPerPage]);
+  }, [currentPage, rowsPerPage, tanggalValid, idCabangValid]);
 
   useEffect(() => {
     AOS.init();

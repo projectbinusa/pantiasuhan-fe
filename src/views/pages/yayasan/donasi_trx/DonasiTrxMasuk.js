@@ -67,7 +67,7 @@ function DonasiTrxMasuk() {
 
   const getAll = async () => {
     try {
-      let todays = tanggalValid || today;
+      let todays = tanggalValid ? tanggalValid : today;
       let url = `${API_DUMMY_SMART}/api/user/donation_trx/masuk?date=${todays}&page=${currentPage}&limit=${rowsPerPage}`;
 
       if (idCabangValid) {

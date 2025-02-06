@@ -55,6 +55,8 @@ function PublikBerita() {
       );
 
       const { data, pagination } = response.data;
+      console.log(data);
+
 
       if (data && pagination) {
         setList((prevList) => {
@@ -84,7 +86,7 @@ function PublikBerita() {
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.offsetHeight - 200 &&
+      document.documentElement.offsetHeight - 200 &&
       !isLoading &&
       hasMore
     ) {
@@ -244,10 +246,16 @@ function PublikBerita() {
                         fill="currentColor"
                         d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-72V64zm0 96h72c8.84 0 16-7.16 16-16V64h16c8.84 0 16 7.16 16 16v48h72c8.84 0 16 7.16 16 16v320c0 8.84-7.16 16-16 16H48c-8.84 0-16-7.16-16-16V160c0-8.84 7.16-16 16-16h72v-48c0-8.84 7.16-16 16-16h16c8.84 0 16 7.16 16 16v48z"></path>
                     </svg>
-                    {formatTanggal(item.tanggal_berita)}
+                    {formatTanggal(item.created_date)}
                   </p>
-                  <p style={{ fontSize: "0.9rem", color: "#555" }}>
-                    {item.isi_berita.slice(0, 100)}...
+                  <p style={{
+                    fontSize: "0.9rem",
+                    color: "#555",
+                    lineHeight: "1.5",
+                    marginBottom: "15px", marginTop: "1rem"
+                  }} className="content-isi">
+                    <div dangerouslySetInnerHTML={{ __html: item.isi_berita }} />
+                    {/* {item.isi_berita.slice(0, 100)}... */}
                   </p>
                   {/* Hide button if role is 'yayasan' */}
                   {userRole !== "yayasan" && (
@@ -262,9 +270,7 @@ function PublikBerita() {
                       }}
                       onClick={() =>
                         (window.location.href = "/beritapanti/" + item.id)
-                      }>
-                      Button Example
-                    </button>
+                      }>Selengkapnya</button>
                   )}
                 </div>
               </div>
