@@ -19,7 +19,7 @@ function DetailBeritaPantiAdmin() {
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_SMART}/api/admin/berita/` + param.id, {
+      .get(`${API_DUMMY_SMART}/api/customer/berita/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -61,18 +61,21 @@ function DetailBeritaPantiAdmin() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div
         style={{ marginTop: "10px" }}
-        className="page-content1 mt-3 mb-3 app-main__outer">
+        className="page-content1 mt-3 mb-3 app-main__outer"
+      >
         <div className="container box-tabel">
           <div className="card shadow w-100">
             <h1 className="title card-header fw-bold fs-3">Detail</h1>
@@ -120,7 +123,8 @@ function DetailBeritaPantiAdmin() {
                 <div className="mb-3 col-lg-12">
                   <label
                     for="exampleInputEmail1"
-                    className="form-label  font-weight-bold ">
+                    className="form-label  font-weight-bold "
+                  >
                     Penulis Berita
                   </label>
                   <input
@@ -135,14 +139,23 @@ function DetailBeritaPantiAdmin() {
                   <label className="form-label font-weight-bold">
                     Isi Berita
                   </label>
-                  <div style={{background:"#E9EFEC", borderRadius:"8px", padding:"4px", paddingLeft:"5px"}} dangerouslySetInnerHTML={{ __html: isiBerita }} />
+                  <div
+                    style={{
+                      background: "#E9EFEC",
+                      borderRadius: "8px",
+                      padding: "4px",
+                      paddingLeft: "5px",
+                    }}
+                    dangerouslySetInnerHTML={{ __html: isiBerita }}
+                  />
                 </div>
               </div>
             </div>
             <button type="button" className="btn-kembali btn-danger mt-3 px-0">
               <a
                 href="/admin_berita"
-                style={{ color: "white", textDecoration: "none" }}>
+                style={{ color: "white", textDecoration: "none" }}
+              >
                 Kembali
               </a>
             </button>

@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import "../../../../../css/button.css"
+import "../../../../../css/button.css";
 // import news from "../../../../../aset/smpn1bergas/News-rafiki.png";
 
 import { Box, Modal, Pagination } from "@mui/material";
@@ -25,14 +25,17 @@ function AdminBeritaPanti() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY_SMART}/api/admin/berita?page=${currentPage}&limit=${rowsPerPage}`, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      });
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/customer/berita?page=${currentPage}&limit=${rowsPerPage}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
       const { data, pagination } = response.data;
       console.log(response);
-      setList(data);
+      setList(data); // Set the list of news articles
       setPaginationInfo({
         totalPages: pagination.total_page || 1,
         totalElements: pagination.total || 0,
@@ -55,7 +58,7 @@ function AdminBeritaPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART}/api/admin/berita/` + id, {
+          .delete(`${API_DUMMY_SMART}/api/customer/berita/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -156,20 +159,24 @@ function AdminBeritaPanti() {
   };
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -178,7 +185,8 @@ function AdminBeritaPanti() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -205,7 +213,8 @@ function AdminBeritaPanti() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -225,7 +234,8 @@ function AdminBeritaPanti() {
                     <button className="active btn-focus p-2 rounded">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin_berita/add">
+                        href="/admin_berita/add"
+                      >
                         Tambah
                       </a>
                     </button>
@@ -235,7 +245,8 @@ function AdminBeritaPanti() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -248,24 +259,27 @@ function AdminBeritaPanti() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length > 0 ?
+                  {filteredList.length > 0 ? (
                     filteredList.map((berita, no) => {
                       return (
-                        <tr key={no}  >
+                        <tr key={no}>
                           <td data-label="No" className="">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Judul Berita" style={{ maxWidth: "300px" }}>
+                          <td
+                            data-label="Judul Berita"
+                            style={{ maxWidth: "300px" }}
+                          >
                             <p className="isiBerita">{berita.judul_berita}</p>
                           </td>
-                          <td data-label="Penulis Berita">
-                            {berita.author}
-                          </td>
+                          <td data-label="Penulis Berita">{berita.author}</td>
                           <td data-label="Thumbnail">
                             <button
                               onClick={() => openModal(berita.image)}
                               type="button"
-                              className="btn-info btn-sm">Tampilkan Gambar
+                              className="btn-info btn-sm"
+                            >
+                              Tampilkan Gambar
                             </button>
                             {/* <img
                               src={berita.image ? berita.image : ""}
@@ -280,43 +294,50 @@ function AdminBeritaPanti() {
                               <button
                                 type="button"
                                 className="btn-primary btn-sm mr-2"
-                                style={{ height: '100%' }}>
+                                style={{ height: "100%" }}
+                              >
                                 <a
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/admin_berita/edit/${berita.id}`}>
+                                  href={`/admin_berita/edit/${berita.id}`}
+                                >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
                               </button>
                               <button
                                 type="button"
-                                className="btn-warning mr-2 btn-sm">
+                                className="btn-warning mr-2 btn-sm"
+                              >
                                 <a
                                   className="text-light"
-                                  href={"/admin_berita/detail/" + berita.id}>
+                                  href={"/admin_berita/detail/" + berita.id}
+                                >
                                   <i className="fas fa-info-circle"></i>
                                 </a>
                               </button>
                               <button
                                 onClick={() => deleteData(berita.id)}
                                 type="button"
-                                className="btn-danger btn-sm">
+                                className="btn-danger btn-sm"
+                              >
                                 <i className="fa-solid fa-trash"></i>
                               </button>
                             </div>
                           </td>
                         </tr>
                       );
-                    }) :
+                    })
+                  ) : (
                     <tr>
                       <td colSpan="6" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
                       </td>
-                    </tr>}
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -353,18 +374,23 @@ function AdminBeritaPanti() {
               border: "none",
               fontSize: "20px",
               cursor: "pointer",
-              color: "black"
+              color: "black",
             }}
             aria-label="Close"
           >
             ✖
-          </button> <br />
+          </button>{" "}
+          <br />
           {/* Gambar */}
           {imageSrc && (
             <img
               src={imageSrc}
               alt="Preview"
-              style={{ maxWidth: "100%", maxHeight: "70vh", borderRadius: "8px" }}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "70vh",
+                borderRadius: "8px",
+              }}
             />
           )}
         </Box>

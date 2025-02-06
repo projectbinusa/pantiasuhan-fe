@@ -8,13 +8,12 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 function DetailCabang() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [data, setData] = useState(null);
-  const param = useParams()
+  const param = useParams();
 
   const getAll = async () => {
     try {
-      const organizationId = param.id;
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/user/lksa/organization/${organizationId}`,
+        `${API_DUMMY_SMART}/api/user/lksa/organization/` + param.id,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
