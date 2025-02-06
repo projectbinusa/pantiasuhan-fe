@@ -373,7 +373,7 @@ function DaftarCabang() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART}/api/customer/${id}`, {
+          .delete(`${API_DUMMY_SMART}/api/user/customer/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
