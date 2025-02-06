@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { API_DUMMY_SMART } from "../../../../../../utils/base_URL";
+import { formatRupiah } from "../../../../../../utils/formating";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -78,7 +79,7 @@ function PreviewDonasi() {
           </div>
           <div className="content-donasi">
             <h2>{datas?.name}</h2>
-            <p className="donation-amount">Rp{datas?.total_income}</p>
+            <p className="donation-amount">{formatRupiah(datas?.total_income)}</p>
             <div className="info-box">
               Semakin banyak donasi yang tersedia, semakin besar bantuan yang bisa disalurkan oleh gerakan ini.
             </div>

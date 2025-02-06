@@ -159,7 +159,7 @@ function TambahDonasiUmum() {
             </a>
           </button> */}
           <button type="button" onClick={add} className="btn-primary">
-            Lanjut pembayaran
+            Lanjut Donasi
           </button>
         </div>
       </section>
