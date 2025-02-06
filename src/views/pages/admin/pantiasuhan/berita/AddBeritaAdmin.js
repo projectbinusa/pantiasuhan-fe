@@ -81,13 +81,13 @@ function AddBeritaAdminPanti() {
         imageUrl = await uploadImageToS3(image);
       }
       await axios.post(
-        `${API_DUMMY_SMART}/api/admin/berita`,
+        `${API_DUMMY_SMART}/api/customer/berita`,
         {
           author: author,
           category: categoryBerita,
           image: imageUrl,
           isi_berita: isiBerita,
-          judul_berita: judulBerita
+          judul_berita: judulBerita,
         },
         {
           headers: {
@@ -96,7 +96,7 @@ function AddBeritaAdminPanti() {
         }
       );
       setShow(false);
-      Swal.fire({
+      await Swal.fire({
         icon: "success",
         title: "Data Berhasil DiTambahkan",
         showConfirmButton: false,
@@ -104,10 +104,11 @@ function AddBeritaAdminPanti() {
       });
       history.push("/admin_berita");
       setTimeout(() => {
+        history.push("/admin_berita");
         window.location.reload();
-      }, 1500);
+      }, 1000);
     } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         localStorage.clear();
         history.push("/login");
       } else {
@@ -268,20 +269,24 @@ function AddBeritaAdminPanti() {
   }, []);
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div
         style={{ marginTop: "50px" }}
         className="page-content1 mb-3 app-main__outer"
-        data-aos="fade-left">
+        data-aos="fade-left"
+      >
         <div className="container">
           <div className="row">
             <div className="col-md-12">
@@ -318,7 +323,8 @@ function AddBeritaAdminPanti() {
                       <div className="mb-3 col-lg-6">
                         <label
                           for="exampleInputEmail1"
-                          className="form-label  font-weight-bold ">
+                          className="form-label  font-weight-bold "
+                        >
                           Penulis Berita
                         </label>
                         <input
@@ -332,7 +338,8 @@ function AddBeritaAdminPanti() {
                       <div className="mb-3 col-lg-6">
                         <label
                           for="exampleInputEmail1"
-                          className="form-label  font-weight-bold ">
+                          className="form-label  font-weight-bold "
+                        >
                           Thumbnail
                         </label>
                         <input
@@ -579,7 +586,8 @@ function AddBeritaAdminPanti() {
                     <button type="button" className="btn-danger mt-3 mr-3">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin_berita">
+                        href="/admin_berita"
+                      >
                         Batal
                       </a>
                     </button>

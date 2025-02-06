@@ -74,7 +74,7 @@ function EditBeritaAdminPanti() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_SMART}/api/admin/berita/` + param.id, {
+      .get(`${API_DUMMY_SMART}/api/customer/berita/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
@@ -102,16 +102,16 @@ function EditBeritaAdminPanti() {
       if (image) {
         imageUrl = await uploadImageToS3(image);
       } else {
-        imageUrl = imageurl
+        imageUrl = imageurl;
       }
       const response = await axios.put(
-        `${API_DUMMY_SMART}/api/admin/berita/${param.id}`,
+        `${API_DUMMY_SMART}/api/customer/berita/${param.id}`,
         {
           author: author,
           category: categoryBerita,
           image: imageUrl,
           isi_berita: isiBerita,
-          judul_berita: judulBerita
+          judul_berita: judulBerita,
         },
         {
           headers: {
@@ -309,20 +309,24 @@ function EditBeritaAdminPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div style={{ marginTop: "10px" }} className="page-content1 absolute">
         <div
           className=" container mt-3 mb-3 app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           <div className="card shadow">
             <div className="card-body">
               <h1 className="fs-4">Form Edit Data</h1>
@@ -356,7 +360,8 @@ function EditBeritaAdminPanti() {
                   <div className="mb-3 col-lg-6">
                     <label
                       for="exampleInputEmail1"
-                      className="form-label font-weight-bold">
+                      className="form-label font-weight-bold"
+                    >
                       Penulis Berita
                     </label>
                     <input
@@ -370,7 +375,8 @@ function EditBeritaAdminPanti() {
                   <div className="mb-3 col-lg-6">
                     <label
                       for="exampleInputEmail1"
-                      className="form-label  font-weight-bold ">
+                      className="form-label  font-weight-bold "
+                    >
                       Thumbnail
                     </label>
                     <input
@@ -644,10 +650,11 @@ function EditBeritaAdminPanti() {
                           /> */}
                   </div>
                 </div>
-                <button type="button" className="btn-danger mt-3">
+                <button type="button" className="btn-danger mt-3 mr-3">
                   <a
                     style={{ color: "white", textDecoration: "none" }}
-                    href="/admin_berita">
+                    href="/admin_berita"
+                  >
                     Batal
                   </a>
                 </button>

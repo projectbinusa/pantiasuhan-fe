@@ -561,7 +561,7 @@ function DaftarCabang() {
                           >
                             <a
                               className="text-light"
-                              href={"/detail_cabang/" + item.id}
+                              href={"/detail_cabang/" + item.organization_id}
                             >
                               <i className="fas fa-info-circle"></i>
                             </a>
