@@ -151,6 +151,7 @@ function DataBarangInventaris() {
   const [idKategori, setIdKategori] = useState("");
   const [idStatus, setIdStatus] = useState("");
   const [idLokasi, setIdLokasi] = useState("");
+  const [idKondisi, setIdKondisi] = useState("");
   const [stok, setStok] = useState("");
   const [purchase_price, setPurchasePrice] = useState("");
   const [purchase_date, setPurchaseDate] = useState("");
@@ -158,6 +159,7 @@ function DataBarangInventaris() {
   const [kategori, setKategori] = useState([]);
   const [status, setStatus] = useState([]);
   const [lokasi, setLokasi] = useState([]);
+  const [kondisi, setKondisi] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -208,18 +210,23 @@ function DataBarangInventaris() {
       }
     };
 
-    const fetchDataKegiatan = async () => {
+    const fetchDataKondisi = async () => {
       try {
         const response = await axios.get(
-          `${API_DUMMY}/api/public/kegiatan`
+          `${API_DUMMY}/api/admin/kondisi_barang`, {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
         );
+        setKondisi(response.data.data)
         console.log("kegiatan: ", response.data.data);
       } catch (error) {
         console.error("Terjadi Kesalahan saat mengambil data lokasi:", error);
       }
     };
 
-    fetchDataKegiatan();
+    fetchDataKondisi();
     fetchDataLokasi();
     fetchData();
     fetchDataKategori();
@@ -274,9 +281,8 @@ function DataBarangInventaris() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -432,31 +438,31 @@ function DataBarangInventaris() {
                             data-label="Aksi"
                           >
                             <div className="d-flex justify-content-center align-items-center">
-                            {userRole !== "yayasan" && (
-                              <>
-                              <button
-                                type="button"
-                                className="btn-primary btn-sm mr-2"
-                              >
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/edit_barang_inventaris/${row.id}`}
-                                >
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
-                              </button>
-                              <button
-                                onClick={() => deleteData(row.id)}
-                                type="button"
-                                className="btn-danger btn-sm"
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                              </>
-                               )}
+                              {userRole !== "yayasan" && (
+                                <>
+                                  <button
+                                    type="button"
+                                    className="btn-primary btn-sm mr-2"
+                                  >
+                                    <a
+                                      style={{
+                                        color: "white",
+                                        textDecoration: "none",
+                                      }}
+                                      href={`/edit_barang_inventaris/${row.id}`}
+                                    >
+                                      <i className="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                  </button>
+                                  <button
+                                    onClick={() => deleteData(row.id)}
+                                    type="button"
+                                    className="btn-danger btn-sm"
+                                  >
+                                    <i className="fa-solid fa-trash"></i>
+                                  </button>
+                                </>
+                              )}
                             </div>
                           </td>
                         </tr>
