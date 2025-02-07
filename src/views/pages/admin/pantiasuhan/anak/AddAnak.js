@@ -17,6 +17,10 @@ function AddAnak() {
   const [birthPlace, setBirthPlace] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [education, setEducation] = useState("");
+  const [email, setEmail] = useState("");
+  const [hp, setHp] = useState("");
+  const [address, setAddress] = useState("");
+  const [parent_id, setParentId] = useState(0);
   const [foto, setFoto] = useState(null);
   const [listFosterParent, setListFosterParent] = useState([]);
   const [sidebarToggled, setSidebarToggled] = useState(true);
@@ -100,6 +104,10 @@ function AddAnak() {
         parent_name: parentName,
         birth_place: birthPlace,
         birth_date: birthDate,
+        email: email,
+        address: address,
+        hp: hp,
+        parent_id: parent_id,
         education,
         picture: imageUrl,
       };
@@ -159,14 +167,12 @@ function AddAnak() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -221,8 +227,7 @@ function AddAnak() {
                           <select
                             className="form-control"
                             value={education}
-                            onChange={(e) => setEducation(e.target.value)}
-                          >
+                            onChange={(e) => setEducation(e.target.value)}>
                             <option>Pilih</option>
                             <option value="SD/MI">SD/MI</option>
                             <option value="SMP/Mts">SMP/Mts</option>
@@ -234,12 +239,31 @@ function AddAnak() {
                           <label className="form-label font-weight-bold">
                             Nama Orang Tua Kandung
                           </label>
-                          <input
+                          <select
+                            value={parent_id}
+                            className="form-control"
+                            aria-label="Small select example"
+                            onChange={(e) => {
+                              const selectedId = e.target.value;
+                              setParentId(selectedId);
+                              const selected = listFosterParent.find(
+                                (data) => String(data.id) === String(selectedId)
+                              );
+                              setParentName(selected ? selected.name : "");
+                            }}>
+                            <option value="">Pilih</option>
+                            {listFosterParent.map((data, index) => (
+                              <option key={index} value={data.id}>
+                                {data.name}
+                              </option>
+                            ))}
+                          </select>
+                          {/* <input
                             value={parentName}
                             onChange={(e) => setParentName(e.target.value)}
                             placeholder="Masukkan Nama Orang Tua Kandung"
                             className="form-control"
-                          />
+                          /> */}
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
@@ -270,7 +294,44 @@ function AddAnak() {
                           <input
                             value={unique_id}
                             onChange={(e) => setUniqueId(e.target.value)}
+                            type="number"
                             placeholder="Masukkan NIK Anak Asuh"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            No Handphone
+                          </label>
+                          <input
+                            value={hp}
+                            onChange={(e) => setHp(e.target.value)}
+                            type="number"
+                            placeholder="Masukkan No Handphone Anak Asuh"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Alamat
+                          </label>
+                          <textarea
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            type="text"
+                            placeholder="Masukkan Alamat Anak Asuh"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Email
+                          </label>
+                          <input
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="email"
+                            placeholder="Masukkan Email Anak Asuh"
                             className="form-control"
                           />
                         </div>
@@ -289,8 +350,7 @@ function AddAnak() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_anak_asuh"
-                        >
+                          href="/admin_anak_asuh">
                           Batal
                         </a>
                       </button>

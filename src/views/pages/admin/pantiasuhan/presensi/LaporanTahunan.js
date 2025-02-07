@@ -195,13 +195,13 @@ function LaporanTahunanPresensi() {
           <button className="btn-primary ml-3" type="button" onClick={getTgl}>
             Pilih
           </button>
-          <button
+          {/* <button
             className="btn-primary ml-3"
             type="button"
             onClick={exportTahunan}
           >
             Export
-          </button>
+          </button> */}
         </div>
         <div
           className="container box-table app-main__outer"

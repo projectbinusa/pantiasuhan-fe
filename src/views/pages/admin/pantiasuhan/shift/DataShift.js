@@ -209,7 +209,7 @@ function DataShift() {
       waktu_pulang: formattedWaktuPulang, // Example: "15:00:00"
       active: parseInt(active), // Ensure active is an integer (1 or 0)
       description: deskripsi,
-      level: "santri",
+      level: level,
     };
 
     try {
@@ -507,6 +507,21 @@ function DataShift() {
                       onChange={(e) => setDeskripsi(e.target.value)}
                     />
                   </div>
+                  <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Level
+                          </label>
+                          <select
+                            className="form-control"
+                            value={level}
+                            onChange={(e) => setLevel(e.target.value)}
+                          >
+                            <option>Pilih</option>
+                            <option value="santri">Santri</option>
+                            <option value="siswa">Siswa</option>
+                            <option value="guru">Guru</option>
+                          </select>
+                        </div>
                   <div style={{ display: "flex", gap: "1rem" }}>
                     <button onClick={closeModal} className="btn-danger ">
                       TUTUP

@@ -12,7 +12,7 @@ import {
 import "../../css/prestasi/card.css";
 import AOS from "aos";
 import axios from "axios";
-import { API_DUMMY } from "../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../utils/base_URL";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import visimisi from "../../aset/pantiasuhan/visimisi.webp";
@@ -311,7 +311,7 @@ function Home() {
 
   const getAllSantri = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY}/api/public/siswa`, {
+      const response = await axios.get(`${API_DUMMY_SMART}/api/public/siswa`, {
         headers: {
           "x-origin": window.location.hostname,
         },
@@ -628,14 +628,14 @@ function Home() {
                   class="col-md-5">
                   <div class="thumb mb-4 mb-md-0">
                     <img src={sambutanPanti?.foto} alt="img" />
-                    <div class="quote-wrap">
+                    {/* <div class="quote-wrap">
                       <div class="quote">
                         <img
                           src="https://solverwp.com/demo/html/itechie/assets/img/quote.webp"
                           alt="img"
                         />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div

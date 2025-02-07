@@ -95,7 +95,7 @@ function EditGalery() {
 
         // Redirect setelah berhasil
         setTimeout(() => {
-          history.push("/admin_galery");
+          history.push("/admin_galeri");
         }, 1500);
       } else {
         // Handle respons lain dengan pesan error

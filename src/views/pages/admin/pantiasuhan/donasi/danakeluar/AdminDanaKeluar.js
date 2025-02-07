@@ -285,21 +285,21 @@ function AdminDanaKeluar() {
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container d-flex g-3 align-items-center mt-3">
-          <input
+          {/* <input
             className="form-control"
             type="date"
             onChange={(e) => setDate(e.target.value)}
-          />
+          /> */}
           {/* <button className="btn-primary ml-3" type="button" onClick={getTgl}>
             Pilih
           </button> */}
-          <button
+          {/* <button
             className="btn-primary ml-3"
             type="button"
             onClick={exportLaporanKeuangan}
           >
             Export
-          </button>
+          </button> */}
         </div>
         <div
           className="container box-table mt-3 app-main__outer"

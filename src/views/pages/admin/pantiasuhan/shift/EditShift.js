@@ -111,14 +111,12 @@ function EditShift() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
@@ -154,7 +152,7 @@ function EditShift() {
                         <input
                           value={waktuMasuk}
                           onChange={(e) => setWaktuMasuk(e.target.value)}
-                          type="text"
+                          type="time"
                           className="form-control"
                           required
                           placeholder="Masukkan Waktu Masuk"
@@ -164,14 +162,13 @@ function EditShift() {
                         <label className="form-label font-weight-bold">
                           Waktu Pulang
                         </label>
-                        <textarea
+                        <input
                           value={waktuPulang}
                           onChange={(e) => setWaktuPulang(e.target.value)}
-                          type="text"
+                          type="time"
                           className="form-control"
                           required
-                          placeholder="Masukkan Waktu Pulang"
-                        ></textarea>
+                          placeholder="Masukkan Waktu Pulang"/>
                       </div>
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
@@ -190,21 +187,21 @@ function EditShift() {
                         <label className="form-label font-weight-bold">
                           Level
                         </label>
-                        <input
-                          value={level}
-                          onChange={(e) => setLevel(e.target.value)}
-                          type="text"
+                        <select
                           className="form-control"
-                          required
-                          placeholder="Masukkan Level"
-                        />
+                          value={level}
+                          onChange={(e) => setLevel(e.target.value)}>
+                          <option>Pilih</option>
+                          <option value="santri">Santri</option>
+                          <option value="siswa">Siswa</option>
+                          <option value="guru">Guru</option>
+                        </select>
                       </div>
                     </div>
                     <button type="button" className="btn-danger mt-3 mr-3">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin_shift"
-                      >
+                        href="/admin_shift">
                         Batal
                       </a>
                     </button>
