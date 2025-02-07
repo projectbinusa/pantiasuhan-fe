@@ -385,7 +385,7 @@ function App() {
             <Route path="/edit_anak_tahsin/:id" component={EditTahsin} exact />
             <Route path="/admin_anak_asuh" component={DataAnak} exact />
             <Route path="/add_anak_asuh" component={AddAnak} exact />
-            <Route path="/add_anak_asuh" component={AddAnak} exact />
+            {/* <Route path="/add_anak_asuh" component={AddAnak} exact /> */}
             <Route path="/edit_anak_asuh/:id" component={EditAnak} exact />
             <Route path="/detail_anak_asuh/:id" component={DetailAnak} exact />
             <Route

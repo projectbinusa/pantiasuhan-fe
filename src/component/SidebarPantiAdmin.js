@@ -440,18 +440,18 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       ],
       icon: <i class="fa-solid fa-angle-down"></i>,
     },
-    {
-      header: "Organization",
-      items: [
-        {
-          title: "Organization",
-          icon: "fa-solid fa-book-open",
-          path: "/user-organization",
-          action: [""],
-        },
-      ],
-      icon: <i class="fa-solid fa-angle-down"></i>,
-    },
+    // {
+    //   header: "Organization",
+    //   items: [
+    //     {
+    //       title: "Organization",
+    //       icon: "fa-solid fa-book-open",
+    //       path: "/user-organization",
+    //       action: [""],
+    //     },
+    //   ],
+    //   icon: <i class="fa-solid fa-angle-down"></i>,
+    // },
   ];
 
   const inventarisItems = [

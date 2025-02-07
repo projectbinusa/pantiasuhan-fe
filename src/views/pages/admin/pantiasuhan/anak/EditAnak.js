@@ -8,7 +8,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function EditAnak() {
@@ -20,6 +20,11 @@ function EditAnak() {
   const [birthPlace, setBirthPlace] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [education, setEducation] = useState("");
+  const [address, setAddress] = useState("");
+  const [hp, setHp] = useState("");
+  const [listFosterParent, setListFosterParent] = useState([]);
+  const [parent_id, setParentId] = useState(0);
+  const [email, setEmail] = useState("");
 
   const history = useHistory();
   const param = useParams();
@@ -54,6 +59,9 @@ function EditAnak() {
         setBirthDate(resp.birth_date); // Update for birth date
         setEducation(resp.education); // Update for education
         setNamaOrangTua(resp.parent_name); // Update for parent's name
+        setAddress(resp.address);
+        setHp(resp.hp);
+        setParentId(resp.parent_id);
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -80,7 +88,11 @@ function EditAnak() {
       birth_place: birthPlace,
       birth_date: birthDate,
       education: education,
-      nama_orang_tua: namaOrangTua,
+      hp: hp,
+      address: address,
+      parent_name: namaOrangTua,
+      parent_id: parent_id,
+      education: education,
     };
 
     try {
@@ -142,18 +154,37 @@ function EditAnak() {
     AOS.init();
   }, []);
 
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            `${API_DUMMY}/api/admin/foster_parent`,
+            {
+              headers: {
+                "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              },
+            }
+          );
+          setListFosterParent(response.data.data);
+        } catch (error) {
+          console.error("Terjadi Kesalahan", error);
+        }
+      };
+
+      fetchData();
+    }, []);
+
   return (
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -208,9 +239,8 @@ function EditAnak() {
                           <select
                             className="form-control"
                             value={education || "Pilih"}
-                            onChange={(e) => setEducation(e.target.value)}
-                          >
-                            <option value="Pilih">Pilih</option>
+                            onChange={(e) => setEducation(e.target.value)}>
+                            <option>Pilih</option>
                             <option value="SD/MI">SD/MI</option>
                             <option value="SMP/Mts">SMP/Mts</option>
                             <option value="SMA/SMK/MA">SMA/SMK/MA</option>
@@ -221,12 +251,25 @@ function EditAnak() {
                           <label className="form-label  font-weight-bold ">
                             Nama Orang Tua Kandung
                           </label>
-                          <input
-                            value={namaOrangTua}
-                            onChange={(e) => setNamaOrangTua(e.target.value)}
-                            placeholder="Masukkan Nama Orang Tua Kandung"
+                          <select
+                            value={parent_id}
                             className="form-control"
-                          />
+                            aria-label="Small select example"
+                            onChange={(e) => {
+                              const selectedId = e.target.value;
+                              setParentId(selectedId);
+                              const selected = listFosterParent.find(
+                                (data) => String(data.id) === String(selectedId)
+                              );
+                              setNamaOrangTua(selected ? selected.name : "");
+                            }}>
+                            <option value="">Pilih</option>
+                            {listFosterParent.map((data, index) => (
+                              <option key={index} value={data.id}>
+                                {data.name}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                         <div className="mb-3 co-lg-12">
                           <label className="form-label font-weight-bold">
@@ -239,6 +282,18 @@ function EditAnak() {
                             className="form-control"
                           />
                         </div>
+                        <div className="mb-3 co-lg-12">
+                          <label className="form-label font-weight-bold">
+                            No Handphone
+                          </label>
+                          <input
+                            type="number"
+                            value={hp}
+                            onChange={(e) => setHp(e.target.value)}
+                            placeholder="Masukan No Hp"
+                            className="form-control"
+                          />
+                        </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             NIK
@@ -247,6 +302,18 @@ function EditAnak() {
                             value={uniqueId}
                             onChange={(e) => setUniqueId(e.target.value)}
                             placeholder="Masukkan uniqueId Anak Asuh"
+                            disabled
+                            className="form-control"
+                          />{" "}
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Alamat
+                          </label>
+                          <textarea
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            placeholder="Masukkan alamat"
                             className="form-control"
                           />{" "}
                         </div>
@@ -254,8 +321,7 @@ function EditAnak() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_anak_asuh"
-                        >
+                          href="/admin_anak_asuh">
                           Batal
                         </a>
                       </button>

@@ -106,61 +106,61 @@ function AddDanaKeluar() {
   };
 
   //add
-  const add = async (e) => {
-    e.preventDefault();
-    e.persist();
+   const add = async (e) => {
+      e.preventDefault();
+      e.persist();
 
-    try {
-      let imageUrl = image;
+      try {
+        let imageUrl = image;
 
-      if (image) {
-        imageUrl = await uploadImageDonationToS3(image);
-      }
-
-      const datas = {
-        name: nama,
-        nominal: parseInt(nominal),
-        description: deskripsi,
-        url_image: imageUrl,
-        donation_id: idDonasi,
-        is_income: false
-      }
-
-      console.log(datas);
-
-      await axios.post(
-        `${API_DUMMY_SMART}/api/customer/donation_trx`, datas,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
+        if (image) {
+          imageUrl = await uploadImageDonationToS3(image);
         }
-      );
 
-      Swal.fire({
-        icon: "success",
-        title: "Data Berhasil Ditambahkan",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        history.push("/admin_dana_keluar");
-      }, 1500);
-    } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
-        localStorage.clear();
-        history.push("/login");
-      } else {
+        const datas = {
+          name: nama,
+          nominal: parseInt(nominal),
+          description: deskripsi,
+          url_image: imageUrl,
+          donation_id: idDonasi,
+          is_income: false
+        }
+
+        console.log(datas);
+
+        await axios.post(
+          `${API_DUMMY_SMART}/api/customer/donation_trx`, datas,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+
         Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
+          icon: "success",
+          title: "Data Berhasil Ditambahkan",
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(error);
+        setTimeout(() => {
+          history.push("/admin_dana_keluar");
+        }, 1500);
+      } catch (error) {
+        if (error.ressponse && error.response.status === 401) {
+          localStorage.clear();
+          history.push("/login");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Tambah Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          console.log(error);
+        }
       }
-    }
-  };
+    };
 
   useEffect(() => {
     AOS.init();
