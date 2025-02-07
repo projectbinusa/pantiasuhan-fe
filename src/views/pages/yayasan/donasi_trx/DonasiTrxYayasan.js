@@ -19,7 +19,7 @@ function DonasiTrxYayasan() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   // Mendapatkan role pengguna
-  const userRole = localStorage.getItem('role'); // Menyimpan role saat login
+  const userRole = localStorage.getItem("role"); // Menyimpan role saat login
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -136,7 +136,11 @@ function DonasiTrxYayasan() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -147,7 +151,10 @@ function DonasiTrxYayasan() {
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+        <div
+          className="container box-table mt-3 app-main__outer"
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -202,7 +209,10 @@ function DonasiTrxYayasan() {
                 />
               </div>
             </div>
-            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
+            <div
+              className="table-responsive-3"
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -216,16 +226,26 @@ function DonasiTrxYayasan() {
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td data-label="No">
+                      <td className="text-left" data-label="No">
                         {(currentPage - 1) * rowsPerPage + index + 1}
                       </td>
-                      <td data-label="Nama Donatur">{item.name}</td>
-                      <td data-label="Nominal">{item.nominal}</td>
-                      <td data-label="Deskripsi">
-                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
+                      <td className="text-left" data-label="Nama Donatur">
+                        {item.name}
                       </td>
-                      <td data-label="Image">
-                        <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} />
+                      <td className="text-left" data-label="Nominal">
+                        {item.nominal}
+                      </td>
+                      <td className="text-left" data-label="Deskripsi">
+                        <div
+                          dangerouslySetInnerHTML={{ __html: item.description }}
+                        />
+                      </td>
+                      <td className="text-left" data-label="Image">
+                        <img
+                          src={item.url_image}
+                          alt="image"
+                          style={{ width: 50, height: 50 }}
+                        />
                       </td>
                     </tr>
                   ))}
@@ -246,6 +266,13 @@ function DonasiTrxYayasan() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+          td {
+                text-align: left !important;
+              }
+        `}
+      </style>
     </div>
   );
 }

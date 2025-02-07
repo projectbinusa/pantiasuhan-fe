@@ -125,65 +125,74 @@ function DetailCabang() {
       </div>
       <style>
         {`
-          .ktp-card {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            max-width: 650px;
-            margin: auto;
-            border: 2px solid #28a745;
-            border-radius: 15px;
-            padding: 25px;
-            background-color: #f8f9fa;
-          }
-          .ktp-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-          }
-          .ktp-title {
-            font-family: "Poppins", sans-serif;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #28a745;
-          }
-          .ktp-details {
-            font-family: "Poppins", sans-serif;
-          }
-          .ktp-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-          }
-          .ktp-info {
-            width: 48%;
-          }
-          .ktp-info h4 {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #3c763d;
-          }
-          .ktp-info p {
-            font-size: 1rem;
-            color: #555;
-          }
-          .ktp-info p, .ktp-info h4 {
-            padding: 0.5rem;
-            border-radius: 8px;
-          }
-          .ktp-info h4 {
-            background-color: #e9f7e3;
-          }
-          .ktp-info p {
-            background-color: #f1f8f4;
-          }
-          iframe {
-            border-radius: 8px;
-          }
-          .ktp-footer {
-            text-align: center;
-            margin-top: 2rem;
-          }
-        `}
+    .ktp-card {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 25px;
+      border: 2px solid #28a745;
+      border-radius: 15px;
+      background-color: #f8f9fa;
+      box-sizing: border-box;
+    }
+    .container {
+      width: 100%;
+      max-width: none;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+    .ktp-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .ktp-title {
+      font-family: "Poppins", sans-serif;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #28a745;
+    }
+    .ktp-details {
+      font-family: "Poppins", sans-serif;
+    }
+    .ktp-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .ktp-info {
+      width: 48%;
+    }
+    .ktp-info h4 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #3c763d;
+    }
+    .ktp-info p {
+      font-size: 1rem;
+      color: #555;
+    }
+    .ktp-info p, .ktp-info h4 {
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+    .ktp-info h4 {
+      background-color: #e9f7e3;
+    }
+    .ktp-info p {
+      background-color: #f1f8f4;
+    }
+    iframe {
+      border-radius: 8px;
+      width: 100%;
+    }
+    .ktp-footer {
+      text-align: center;
+      margin-top: 2rem;
+    }
+  `}
       </style>
     </div>
   );

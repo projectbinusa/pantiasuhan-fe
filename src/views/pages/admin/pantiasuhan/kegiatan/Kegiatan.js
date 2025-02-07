@@ -267,7 +267,7 @@ function KegiatanPanti() {
                                   </button>
                                   <button
                                     type="button"
-                                    class="btn-warning  mr-2 btn-sm"
+                                    class="btn-warning mr-2 btn-sm"
                                   >
                                     <a
                                       className="text-light"
