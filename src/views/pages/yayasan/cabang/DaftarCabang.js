@@ -555,9 +555,9 @@ function DaftarCabang() {
                       </td>
                       <td
                         data-label="Aksi"
-                        className="d-flex justify-content-center align-items-center"
+                        className="d-flex justify-content-center align-items-center py-5"
                       >
-                        <>
+                        {/* <> */}
                           <button
                             type="button"
                             className="btn-warning mr-2 btn-sm"
@@ -571,7 +571,7 @@ function DaftarCabang() {
                           </button>
                           <button
                             type="button"
-                            className="btn-primary btn-sm mr-2"
+                            className="btn-primary btn-sm mr-2 w-25"
                           >
                             <a
                               style={{
@@ -585,12 +585,12 @@ function DaftarCabang() {
                           </button>
                           <button
                             type="button"
-                            className="btn-danger btn-sm "
+                            className="btn-danger btn-sm mr-2 w-25" 
                             onClick={() => deleteData(item.id)}
                           >
                             <i className="fa-solid fa-trash"></i>
                           </button>
-                        </>
+                        {/* </> */}
                       </td>
                     </tr>
                   ))}
