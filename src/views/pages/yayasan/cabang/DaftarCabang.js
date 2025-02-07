@@ -451,9 +451,8 @@ function DaftarCabang() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -535,29 +534,26 @@ function DaftarCabang() {
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td data-label="No" className="text-left">
+                      <td data-label="No" className="text-md-start text-end">
                         {(currentPage - 1) * rowsPerPage + index + 1}
                       </td>
-                      <td data-label="Nama LKSA" className="text-left">
+                      <td data-label="Nama LKSA" className="text-md-start text-end">
                         {item.name}
                       </td>
-                      <td data-label="Lokasi" className="text-left">
+                      <td data-label="Lokasi" className="text-md-start text-end">
                         {item.address}
                       </td>
-                      <td data-label="Email" className="text-left">
+                      <td data-label="Email" className="text-md-start text-end">
                         {item.email}
                       </td>
-                      {/* <td data-label="JML PEGAWAI" className="text-left">{formatRupiah(item.total_outcome)}</td> */}
-                      {/* <td data-label="Jml Donasi 1 bulan terakhir" className="text-left">{formatRupiah(item.total_income)}</td>
-                      <td data-label="Jml Pengeluaran 1 bulan terakhir" className="text-left">{formatRupiah(item.total_outcome)}</td> */}
-                      <td data-label="No Hp" className="text-left">
+                      {/* <td data-label="JML PEGAWAI" className="text-md-start text-end">{formatRupiah(item.total_outcome)}</td> */}
+                      {/* <td data-label="Jml Donasi 1 bulan terakhir" className="text-md-start text-end">{formatRupiah(item.total_income)}</td>
+                      <td data-label="Jml Pengeluaran 1 bulan terakhir" className="text-md-start text-end">{formatRupiah(item.total_outcome)}</td> */}
+                      <td data-label="No Hp" className="text-md-start text-end">
                         {item.hp}
                       </td>
-                      <td
-                        data-label="Aksi"
-                        className="d-flex justify-content-center align-items-center py-5"
-                      >
-                        {/* <> */}
+                      <td data-label="Aksi" className="action">
+                        <div className="d-flex justify-content-center align-items-center">
                           <button
                             type="button"
                             className="btn-warning mr-2 btn-sm"
@@ -571,7 +567,7 @@ function DaftarCabang() {
                           </button>
                           <button
                             type="button"
-                            className="btn-primary btn-sm mr-2 w-25"
+                            className="btn-primary btn-sm mr-2"
                           >
                             <a
                               style={{
@@ -585,12 +581,12 @@ function DaftarCabang() {
                           </button>
                           <button
                             type="button"
-                            className="btn-danger btn-sm mr-2 w-25" 
+                            className="btn-danger btn-sm"
                             onClick={() => deleteData(item.id)}
                           >
                             <i className="fa-solid fa-trash"></i>
                           </button>
-                        {/* </> */}
+                        </div>
                       </td>
                     </tr>
                   ))}

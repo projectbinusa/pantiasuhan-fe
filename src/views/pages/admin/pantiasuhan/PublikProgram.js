@@ -52,7 +52,7 @@ function PublikProgram() {
           return [...prevList, ...uniqueData];
         });
 
-        setHasMore(currentPage < pagination.total_page); // Periksa apakah masih ada halaman berikutnya
+        setHasMore(currentPage < pagination); // Periksa apakah masih ada halaman berikutnya
       } else {
         console.error("Data atau pagination tidak ditemukan dalam response.");
         setHasMore(false);

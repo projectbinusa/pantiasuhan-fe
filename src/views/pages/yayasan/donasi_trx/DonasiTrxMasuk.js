@@ -399,19 +399,19 @@ function DonasiTrxMasuk() {
                   {filteredList.length > 0 ? (
                     filteredList.map((item, index) => (
                       <tr key={index}>
-                        <td className="text-left" data-label="No">
+                        <td className="text-md-start text-end" data-label="No">
                           {(currentPage - 1) * rowsPerPage + index + 1}
                         </td>
-                        <td className="text-left" data-label="Tanggal">
+                        <td className="text-md-start text-end" data-label="Tanggal">
                           {item.created_date}
                         </td>
-                        <td className="text-left" data-label="Nama Donatur">
+                        <td className="text-md-start text-end" data-label="Nama Donatur">
                           {item.name}
                         </td>
-                        <td className="text-left" data-label="Nominal">
+                        <td className="text-md-start text-end" data-label="Nominal">
                           {item.nominal}
                         </td>
-                        <td className="text-left" data-label="Deskripsi">
+                        <td className="text-md-start text-end" data-label="Deskripsi">
                           <div
                             dangerouslySetInnerHTML={{
                               __html: item.description,
@@ -419,7 +419,7 @@ function DonasiTrxMasuk() {
                           />
                         </td>
                         <td
-                          className="text-lg-center text-md-end"
+                          className="text-lg-center text-end"
                           data-label="Image"
                         >
                           <button

@@ -51,73 +51,84 @@ function FormCabangBaru() {
       });
 
       // console.log("Respons dari backend:", response.data);
-      const id = response.data.data.id;
-      console.log(id);
-      const customerId = response.data.data.id
+      if (response.data && response.data.data) {
+        const id = response.data.data.id;
+        console.log(response.data.data.id);
+        console.log(response.data.data);
+        const customerId = response.data.data.id
 
-      if (response.data && response.data.status === "200 OK" && response.data.message === "success") {
-        const payloadorganization = {
-          name: name,
-          customer_id: customerId,
-          address: address,
-          hp: noHp,
-          email: email,
-          city: kota,
-          provinsi: provinsi,
-          balance: 0.0,
-          bank_account_number: bankAccountNumber,
-          bank_account_name: bankAccountName,
-          bank_name: bankName,
-          domain: domain
-        }
-        console.log(payloadorganization);
+        if (response.data && response.data.status === "200 OK" && response.data.message === "success") {
+          const payloadorganization = {
+            name: name,
+            customer_id: customerId,
+            address: address,
+            hp: noHp,
+            email: email,
+            city: kota,
+            provinsi: provinsi,
+            balance: 0.0,
+            bank_account_number: bankAccountNumber,
+            bank_account_name: bankAccountName,
+            bank_name: bankName,
+            domain: domain
+          }
+          console.log(payloadorganization);
 
-        const responseOrganization = await axios.post(`${API_DUMMY_SMART}/api/user/organization`, payloadorganization, {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        });
-        const organizationId = responseOrganization.data.data.id;
-        console.log(responseOrganization.data.data.id);
-        if (responseOrganization.data && responseOrganization.data.status === "200 OK" && responseOrganization.data.message === "success") {
-          try {
-            const responseCustomer = await axios.put(`${API_DUMMY_SMART}/api/user/customer/${customerId}`, { organization_id: organizationId }, {
-              headers: {
-                "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-              },
-            });
-            console.log(responseCustomer);
+          const responseOrganization = await axios.post(`${API_DUMMY_SMART}/api/user/organization`, payloadorganization, {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          });
+          const organizationId = responseOrganization.data.data.id;
+          console.log(responseOrganization.data.data.id);
+          if (responseOrganization.data && responseOrganization.data.status === "200 OK" && responseOrganization.data.message === "success") {
             try {
-              const res = await axios.put(`${API_DUMMY_SMART}/api/user/organization_ids/${userId}`, { organization_ids: `${organizationId}` }, {
+              const responseCustomer = await axios.put(`${API_DUMMY_SMART}/api/user/customer/${customerId}`, { organization_id: organizationId }, {
                 headers: {
                   "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
                 },
               });
-              console.log(res);
-              
-              Swal.fire({
-                icon: "success",
-                title: "Data Berhasil Ditambahkan",
-                showConfirmButton: false,
-                timer: 1500,
-              });
+              console.log(responseCustomer);
+              try {
+                const res = await axios.put(`${API_DUMMY_SMART}/api/user/organization_ids/${userId}`, { organization_ids: `${organizationId}` }, {
+                  headers: {
+                    "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+                  },
+                });
+                console.log(res);
+                const ress = await axios.post(`${API_DUMMY_SMART}/api/user/refresh_token`, {
+                  headers: {
+                    "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+                  },
+                });
 
-              console.log("Data yang diterima:", response.data);
+                console.log(ress);
+                
 
-              setTimeout(() => {
-                history.push("/daftar-cabang");
-              }, 1500);
+                Swal.fire({
+                  icon: "success",
+                  title: "Data Berhasil Ditambahkan",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+
+                console.log("Data yang diterima:", response.data);
+
+                // setTimeout(() => {
+                //   history.push("/daftar-cabang");
+                // }, 1500);
+              } catch (err) {
+                console.error("Error respons:", err);
+              }
+
             } catch (err) {
               console.error("Error respons:", err);
             }
-
-          } catch (err) {
-            console.error("Error respons:", err);
           }
+        } else {
+          const errorMessage = response.data?.message || "Tambah Data Gagal";
+          throw new Error(errorMessage);
         }
-      } else {
-        const errorMessage = response.data?.message || "Tambah Data Gagal";
-        throw new Error(errorMessage);
       }
     } catch (error) {
       console.error("Error respons:", error.response?.data || error.message);

@@ -261,15 +261,15 @@ function DonasiTrx() {
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td data-label="No">
+                      <td data-label="No" className="text-md-start text-end">
                         {(currentPage - 1) * rowsPerPage + index + 1}
                       </td>
-                      <td data-label="Nama Donatur">{item.name}</td>
-                      <td data-label="Nominal">{item.nominal}</td>
-                      <td data-label="Deskripsi">
-                        <div dangerouslySetInnerHTML={{ __html: item.description }} />
+                      <td data-label="Nama Donatur" className="text-md-start text-end">{item.name}</td>
+                      <td data-label="Nominal" className="text-end">{item.nominal}</td>
+                      <td data-label="Deskripsi" className="text-md-start text-end">
+                        <div className="isiBerita" dangerouslySetInnerHTML={{ __html: item.description }} />
                       </td>
-                      <td data-label="Image">
+                      <td data-label="Image" className="text-md-center text-end">
                         <button
                           onClick={() => openModal(item.url_image)}
                           type="button"
@@ -277,7 +277,7 @@ function DonasiTrx() {
                         </button>
                         {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
                       </td>
-                      <td data-label="Aksi">
+                      <td data-label="Aksi" className="action">
                         {/* Tombol hanya tampil jika role bukan 'yayasan' */}
                         {userRole !== 'yayasan' && (
                           <div style={{display: "flex"}}>

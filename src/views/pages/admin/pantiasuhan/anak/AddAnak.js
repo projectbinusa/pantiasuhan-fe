@@ -17,6 +17,7 @@ function AddAnak() {
   const [birthPlace, setBirthPlace] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [education, setEducation] = useState("");
+  const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
   const [hp, setHp] = useState("");
   const [address, setAddress] = useState("");
@@ -54,39 +55,39 @@ function AddAnak() {
     setSidebarToggled(!sidebarToggled);
   };
 
-  const validateForm = () => {
-    if (
-      !name ||
-      !password ||
-      !rfidNumber ||
-      !unique_id ||
-      !parentName ||
-      !birthPlace ||
-      !birthDate ||
-      !education
-    ) {
-      Swal.fire({
-        icon: "error",
-        title: "Semua kolom wajib diisi!",
-        showConfirmButton: true,
-      });
-      return false;
-    }
-    if (education === "Pilih") {
-      Swal.fire({
-        icon: "error",
-        title: "Pilih pendidikan yang valid!",
-        showConfirmButton: true,
-      });
-      return false;
-    }
-    return true;
-  };
+  // const validateForm = () => {
+  //   if (
+  //     !name ||
+  //     !password ||
+  //     !rfidNumber ||
+  //     !unique_id ||
+  //     !parentName ||
+  //     !birthPlace ||
+  //     !birthDate ||
+  //     !education
+  //   ) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Semua kolom wajib diisi!",
+  //       showConfirmButton: true,
+  //     });
+  //     return false;
+  //   }
+  //   if (education === "Pilih") {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Pilih pendidikan yang valid!",
+  //       showConfirmButton: true,
+  //     });
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
   const add = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) return;
+    // if (!validateForm()) return;
 
     try {
       let imageUrl = foto;
@@ -110,6 +111,7 @@ function AddAnak() {
         parent_id: parent_id,
         education,
         picture: imageUrl,
+        gender: gender
       };
 
       console.log("Payload yang dikirim ke backend:", payload);
@@ -165,9 +167,8 @@ function AddAnak() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -237,7 +238,7 @@ function AddAnak() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Nama Orang Tua Kandung
+                            Nama Orang Tua 
                           </label>
                           <select
                             value={parent_id}
@@ -261,7 +262,7 @@ function AddAnak() {
                           {/* <input
                             value={parentName}
                             onChange={(e) => setParentName(e.target.value)}
-                            placeholder="Masukkan Nama Orang Tua Kandung"
+                            placeholder="Masukkan Nama Orang Tua "
                             className="form-control"
                           /> */}
                         </div>
@@ -345,6 +346,21 @@ function AddAnak() {
                             onChange={(e) => setFoto(e.target.files[0])}
                             className="form-control"
                           />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Jenis Kelamin
+                          </label>
+                          <div className="d-flex">
+                            <div className="mr-5">
+                              <input type="radio" value="Laki-laki" checked={gender === "Laki-laki"} name="gender" onChange={(e) => setGender(e.target.value)} />
+                              <label className="ml-2">Laki-laki</label>
+                            </div>
+                            <div className="mr-5">
+                              <input type="radio" value="Perempuan" checked={gender === "Perempuan"} name="gender" onChange={(e) => setGender(e.target.value)} />
+                              <label className="ml-2">Perempuan</label>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">

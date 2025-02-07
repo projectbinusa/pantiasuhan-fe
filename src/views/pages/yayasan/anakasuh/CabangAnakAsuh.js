@@ -99,9 +99,8 @@ function CabangAnakAsuh() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -180,28 +179,29 @@ function CabangAnakAsuh() {
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td className="text-left">
+                      <td className="text-md-start text-end">
                         {(currentPage - 1) * rowsPerPage + index + 1}
                       </td>
-                      <td className="text-left">{item.name}</td>
-                      <td className="text-left">{item.email}</td>
-                      <td className="text-left">{item.hp}</td>
-                      <td className="text-left">{item.address}</td>
-                      <td className="d-flex justify-content-center align-items-center">
-                        <button
-                          type="button"
-                          className="btn-warning btn-sm mr-2"
-                        >
-                          <a
-                            style={{
-                              color: "white",
-                              textDecoration: "none",
-                            }}
-                            href={`/cabang-anak-asuh/${item.id}`}
+                      <td className="text-md-start text-end">{item.name}</td>
+                      <td className="text-md-start text-end">{item.email}</td>
+                      <td className="text-md-start text-end">{item.hp}</td>
+                      <td className="text-md-start text-end">{item.address}</td>
+                      <td className="action">
+                        <div className="d-flex justify-content-center align-items-center">
+                          <button
+                            type="button"
+                            className="btn-warning btn-sm mr-2"
                           >
-                            <i class="fa-solid fa-circle-info"></i>
-                          </a>
-                        </button>
+                            <a
+                              style={{
+                                color: "white",
+                                textDecoration: "none",
+                              }}
+                              href={`/cabang-anak-asuh/${item.id}`}
+                            >
+                              <i class="fa-solid fa-circle-info"></i>
+                            </a>
+                          </button> </div>
                       </td>
                     </tr>
                   ))}

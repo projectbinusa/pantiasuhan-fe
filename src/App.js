@@ -389,7 +389,7 @@ function App() {
             <Route path="/edit_anak_asuh/:id" component={EditAnak} exact />
             <Route path="/detail_anak_asuh/:id" component={DetailAnak} exact />
             <Route
-              path="/bukutamu/form/:organization_id"
+              path="/bukutamu/form"
               component={FormBukuTamu}
               exact
             />

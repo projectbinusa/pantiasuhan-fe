@@ -246,15 +246,15 @@ function Dataortu() {
                     filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="">
+                          <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama">{row.name}</td>
-                          <td data-label="TTL">{row.birth_place}, {formatDate(row.birth_date)}</td>
-                          <td data-label="Pekerjaan">{row.work}</td>
-                          <td data-label="No HP">{row.phone}</td>
-                          <td data-label="Anak Asuh">{row.nama_anak}</td> 
-                          <td data-label="Alamat">{row.address}</td>
+                          <td data-label="Nama" className="text-md-start text-end">{row.name}</td>
+                          <td data-label="TTL" className="text-md-start text-end">{row.birth_place}, {formatDate(row.birth_date)}</td>
+                          <td data-label="Pekerjaan" className="text-md-start text-end">{row.work}</td>
+                          <td data-label="No HP" className="text-md-start text-end">{row.phone}</td>
+                          <td data-label="Anak Asuh" className="text-md-start text-end">{row.nama_anak}</td> 
+                          <td data-label="Alamat" className="text-md-start text-end">{row.address}</td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                             {userRole !== "yayasan" && (

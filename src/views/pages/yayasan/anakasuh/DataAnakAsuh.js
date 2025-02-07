@@ -199,27 +199,27 @@ function DataAnakAsuh() {
                     filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
-                          <td className="text-left" data-label="No">
+                          <td className="text-md-start text-end" data-label="No">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td className="text-left" data-label="Nama Anak">
+                          <td className="text-md-start text-end" data-label="Nama Anak">
                             {row.name}
                           </td>
                           <td style={{ textAlign: "left" }} data-label="Email">
                             {row.email}
                           </td>
-                          <td className="text-left" data-label="Pendidikan">
+                          <td className="text-md-start text-end" data-label="Pendidikan">
                             {row.education}
                           </td>
-                          <td className="text-left" data-label="Orangtua">
+                          <td className="text-md-start text-end" data-label="Orangtua">
                             {row.parent_name}
                           </td>
-                          {/* <td className="text-left"
+                          {/* <td className="text-md-start text-end"
                             data-label="Tempat Lahir">
                             {row.birth_place}
                           </td> */}
                           <td
-                            className="text-left"
+                            className="text-md-start text-end"
                             data-label="Tempat, Tgl Lahir"
                           >
                             {row.birth_place}, {row.birth_date}

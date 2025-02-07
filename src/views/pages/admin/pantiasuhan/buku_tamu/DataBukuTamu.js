@@ -194,20 +194,20 @@ function DataBukuTamu() {
                   {filteredList.length > 0 ? (
                     filteredList.map((berita, no) => (
                       <tr key={no}>
-                        <td>{no + 1 + (currentPage - 1) * rowsPerPage}</td>
-                        <td>{berita.nama}</td>
-                        <td>{berita.no_wa}</td>
-                        <td>{berita.address}</td>
-                        <td>{berita.visit_date}</td>
-                        <td>{berita.description_donation}</td>
-                        <td>
+                        <td className="text-md-start text-end" data-label="No">{no + 1 + (currentPage - 1) * rowsPerPage}</td>
+                        <td className="text-md-start text-end" data-label="Nama Tamu">{berita.nama}</td>
+                        <td className="text-md-start text-end" data-label="Nomor Whatsapp">{berita.no_wa}</td>
+                        <td className="text-md-start text-end" data-label="Alamat">{berita.address}</td>
+                        <td className="text-md-start text-end" data-label="Tanggal Kunjungan">{berita.visit_date}</td>
+                        <td className="text-md-start text-end" data-label="Tujuan Kunjungan">{berita.description_donation}</td>
+                        <td className="text-md-center text-end" data-label="TTD">
                           <img
                             src={berita.signature ? berita.signature : ""}
                             style={{ height: "4.5rem", width: "4.5rem" }}
                           />
                         </td>
-                        <td>{berita.note}</td>
-                        <td>
+                        <td className="text-md-start text-end" data-label="Catatan">{berita.note !== "" ? berita.note : "-"}</td>
+                        <td className="action" data-label="Aksi">
                           <div className="d-flex justify-content-center align-items-center">
                             <button
                               className="btn-success  mr-2 btn-sm"

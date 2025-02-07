@@ -286,14 +286,14 @@ function LaporanHarianPresensi() {
                     filteredList.map((item, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="">
+                          <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama"> {item.name}</td>
-                          <td data-label="Tanggal">{formatDate(item.created_date)}</td>
-                          <td data-label="Jam Masuk">{item.jam_masuk}</td>
-                          <td data-label="Jam Pulang">{item.jam_pulang}</td>
-                          <td data-label="Keterangan">{item.description}</td>
+                          <td data-label="Nama" className="text-md-start text-end"> {item.name}</td>
+                          <td data-label="Tanggal" className="text-md-start text-end">{formatDate(item.created_date)}</td>
+                          <td data-label="Jam Masuk" className="text-md-start text-end">{item.jam_masuk}</td>
+                          <td data-label="Jam Pulang" className="text-md-start text-end">{item.jam_pulang}</td>
+                          <td data-label="Keterangan" className="text-md-start text-end">{item.description}</td>
                         </tr>
                       );
                     })

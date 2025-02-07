@@ -237,12 +237,12 @@ function DataAnak() {
                     filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="">
+                          <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama">{row.name}</td>
-                          <td data-label="RFID Number">{row.rfid_number}</td>
-                          <td data-label="NIK">{row.unique_id}</td>
+                          <td data-label="Nama" className="text-md-start text-end">{row.name}</td>
+                          <td data-label="RFID Number" className="text-md-start text-end">{row.rfid_number}</td>
+                          <td data-label="NIK" className="text-md-start text-end">{row.unique_id}</td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
@@ -289,7 +289,7 @@ function DataAnak() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="6" className="text-center my-3">
+                      <td colSpan="5" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>

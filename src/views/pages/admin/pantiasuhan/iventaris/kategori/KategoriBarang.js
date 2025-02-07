@@ -294,17 +294,17 @@ function KategoriBarangInventaris() {
                     filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="">
+                          <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td
-                            className="text-sm-start text-end"
+                            className="text-md-start text-end"
                             data-label="Nama Kategori"
                           >
                             {row.nama_kategori}
                           </td>
                           <td
-                            className="text-sm-start text-end"
+                            className="text-md-start text-end"
                             data-label="Deskripsi"
                           >
                             {row.deskripsi}

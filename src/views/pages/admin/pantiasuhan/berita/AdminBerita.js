@@ -263,17 +263,17 @@ function AdminBeritaPanti() {
                     filteredList.map((berita, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="">
+                          <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td
                             data-label="Judul Berita"
-                            style={{ maxWidth: "300px" }}
+                            className="text-md-start text-end"
                           >
                             <p className="isiBerita">{berita.judul_berita}</p>
                           </td>
-                          <td data-label="Penulis Berita">{berita.author}</td>
-                          <td data-label="Thumbnail">
+                          <td data-label="Penulis Berita" className="text-md-start text-end">{berita.author}</td>
+                          <td data-label="Thumbnail" className="text-md-center text-end">
                             <button
                               onClick={() => openModal(berita.image)}
                               type="button"
@@ -286,7 +286,7 @@ function AdminBeritaPanti() {
                               style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
                             /> */}
                           </td>
-                          <td data-label="Kategori Berita">
+                          <td data-label="Kategori Berita" className="text-md-start text-end">
                             {berita.category}
                           </td>
                           <td data-label="Aksi" className="action">
