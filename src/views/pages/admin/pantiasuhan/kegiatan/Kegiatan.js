@@ -6,6 +6,7 @@ import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import "../../../../../css/button.css";
+import "../../../../../App.css";
 
 function KegiatanPanti() {
   const [list, setList] = useState([]);

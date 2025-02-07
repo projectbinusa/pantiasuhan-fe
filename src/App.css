@@ -1,0 +1,16 @@
+td {
+  text-align: left !important;
+}
+
+@media (max-width: 768px) {
+  td {
+    text-align: right !important;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+  th {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+}
