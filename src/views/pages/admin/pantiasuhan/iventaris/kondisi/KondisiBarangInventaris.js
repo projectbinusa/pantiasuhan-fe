@@ -295,17 +295,17 @@ function KondisiBarangInventaris() {
                     filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="">
+                          <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td
-                            className="text-sm-start text-end"
+                            className="text-md-start text-end"
                             data-label="Kondisi"
                           >
                             {row.kondisi_barang}
                           </td>
                           <td
-                            className="text-sm-start text-end"
+                            className="text-md-start text-end"
                             data-label="Deskripsi"
                           >
                             {row.deskripsi}

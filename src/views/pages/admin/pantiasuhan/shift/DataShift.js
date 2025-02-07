@@ -351,35 +351,35 @@ function DataShift() {
                   {filteredList.length > 0 ? (
                     filteredList.map((row, no) => (
                       <tr key={row.id}>
-                        <td className="text-sm-start text-end" data-label="No">
+                        <td className="text-md-start text-end" data-label="No">
                           {no + 1 + (currentPage - 1) * rowsPerPage}
                         </td>
                         <td
-                          className="text-sm-start text-end"
+                          className="text-md-start text-end"
                           data-label="Shift"
                         >
                           {row.name}
                         </td>
                         <td
-                          className="text-sm-start text-end"
+                          className="text-md-start text-end"
                           data-label="Waktu Masuk"
                         >
                           {row.waktu_masuk}
                         </td>
                         <td
-                          className="text-sm-start text-end"
+                          className="text-md-start text-end"
                           data-label="Waktu Pulang"
                         >
                           {row.waktu_pulang}
                         </td>
                         <td
-                          className="text-sm-start text-end"
+                          className="text-md-start text-end"
                           data-label="Level"
                         >
                           {row.level}
                         </td>
                         <td
-                          className="text-sm-start text-end"
+                          className="text-md-start text-end"
                           data-label="Deskripsi"
                         >
                           {row.description}

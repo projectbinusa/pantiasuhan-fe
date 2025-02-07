@@ -66,56 +66,6 @@ function DataTahsin() {
   const [member_id, setMemberId] = useState("");
   const [status, setStatus] = useState("");
 
-  const add = async (e) => {
-    e.preventDefault();
-    e.persist();
-
-    const data = {
-      start_juz,
-      end_juz,
-      start_pojok,
-      end_pojok,
-      description,
-      member_id,
-      status,
-    };
-
-    try {
-      const response = await axios.post(
-        `${API_DUMMY_SMART}/api/customer/tahsin`,
-        data,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
-
-      setIsModalOpen(false);
-      Swal.fire({
-        icon: "success",
-        title: "Data Berhasil DiTambahkan",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      window.location.reload();
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        localStorage.clear();
-        window.location.reload(); // Redirect to login or perform other actions
-      } else {
-        setIsModalOpen(false);
-        Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log("Error:", error.response ? error.response.data : error);
-      }
-    }
-  };
-
   const edit = async (e) => {
     e.preventDefault();
 
@@ -183,7 +133,7 @@ function DataTahsin() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/tahsin`,
+        `${API_DUMMY_SMART}/api/customer/tahsin?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -192,9 +142,10 @@ function DataTahsin() {
       );
       setList(response.data.data);
       console.log("data: ", response.data.data);
+      console.log("data: ", response.data.pagination);
       setPaginationInfo({
-        totalPages: response.data.data.totalPages,
-        totalElements: response.data.data.totalElements,
+        totalPages: response.data.pagination.total_page,
+        // totalElements: response.data.data.totalElements,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -227,6 +178,9 @@ function DataTahsin() {
       if (response.data && response.data.data) {
         setUserData(response.data.data);
         setMemberName(response.data.data.name);
+        setMemberId(response.data.data.id)
+        console.log(response.data.data);
+        
 
         // Tutup modal terlebih dahulu
         closeModal2();
@@ -282,6 +236,56 @@ function DataTahsin() {
   const handleManualRFID = (e) => {
     const manualRfid = e.target.value;
     setRfidNumber(manualRfid);
+  };
+
+  const add = async (e) => {
+    e.preventDefault();
+    e.persist();
+
+    const data = {
+      start_juz,
+      end_juz,
+      start_pojok,
+      end_pojok,
+      description,
+      member_id,
+      status,
+    };
+
+    try {
+      const response = await axios.post(
+        `${API_DUMMY_SMART}/api/customer/tahsin`,
+        data,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
+      setIsModalOpen(false);
+      Swal.fire({
+        icon: "success",
+        title: "Data Berhasil DiTambahkan",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      window.location.reload();
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        localStorage.clear();
+        window.location.reload(); // Redirect to login or perform other actions
+      } else {
+        setIsModalOpen(false);
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log("Error:", error.response ? error.response.data : error);
+      }
+    }
   };
 
   const deleteData = async (id) => {
@@ -463,24 +467,21 @@ function DataTahsin() {
                     filteredList.map((tahsin, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="">
+                          <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama">{tahsin.member_id}</td>
-                          <td data-label="Nama">{tahsin.member_name}</td>
-                          <td data-label="Tanggal">{tahsin.created_date}</td>
-                          <td data-label="Pojok Awal - Pojok Akhir">
+                          <td data-label="Member ID" className="text-md-start text-end">{tahsin.member_id}</td>
+                          <td data-label="Nama" className="text-md-start text-end">{tahsin.member_name}</td>
+                          <td data-label="Tanggal" className="text-md-start text-end">{tahsin.created_date}</td>
+                          <td data-label="Pojok Awal - Pojok Akhir" className="text-md-start text-end">
                             {tahsin.start_pojok} - {tahsin.end_pojok}
                           </td>
-                          <td data-label="Juz Awal - Juz Akhir">
+                          <td data-label="Juz Awal - Juz Akhir" className="text-md-start text-end">
                             {tahsin.start_juz} - {tahsin.end_juz}
                           </td>
-                          <td data-label="Deskripsi">{tahsin.description}</td>
-                          <td data-label="Status">{tahsin.status}</td>
-                          <td
-                            className="text-sm-start text-end action"
-                            data-label="Aksi"
-                          >
+                          <td data-label="Deskripsi" className="text-md-start text-end">{tahsin.description}</td>
+                          <td data-label="Status" className="text-md-start text-end">{tahsin.status !== "" ? tahsin.status : "Pending"}</td>
+                          <td className="action" data-label="Aksi">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 type="button"

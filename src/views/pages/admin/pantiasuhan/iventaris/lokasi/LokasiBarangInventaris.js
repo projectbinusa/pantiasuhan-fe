@@ -322,10 +322,10 @@ function LokasiBarangInventaris() {
                     filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="">
+                          <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama Barang">{row.lokasi_barang}</td>
+                          <td data-label="Nama Barang" className="text-md-start text-end">{row.lokasi_barang}</td>
                           {/* <td data-label="Lokasi Barang">{row.name}</td> */}
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">

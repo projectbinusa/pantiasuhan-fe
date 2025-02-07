@@ -389,17 +389,17 @@ function AdminDanaKeluar() {
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td data-label="No">
+                      <td data-label="No" className="text-md-start text-end">
                         {(currentPage - 1) * rowsPerPage + index + 1}
                       </td>
-                      <td data-label="Keperluan">{item.name}</td>
-                      <td data-label="Nominal">{item.nominal}</td>
-                      <td data-label="Deskripsi">
-                        <div
+                      <td data-label="Keperluan" className="text-md-start text-end">{item.name}</td>
+                      <td data-label="Nominal" className="text-end">{item.nominal}</td>
+                      <td data-label="Deskripsi" className="text-md-start text-end">
+                        <div className="isiBerita"
                           dangerouslySetInnerHTML={{ __html: item.description }}
                         />
                       </td>
-                      <td data-label="Image">
+                      <td data-label="Image" className="text-md-center text-end">
                         <button
                           onClick={() => openModal(item.url_image)}
                           type="button"
@@ -411,28 +411,30 @@ function AdminDanaKeluar() {
                           style={{ width: 50, height: 50 }}
                         /> */}
                       </td>
-                      <td data-label="Aksi">
-                        <button
-                          type="button"
-                          className="btn-primary btn-sm mr-2"
-                        >
-                          <a
-                            style={{
-                              color: "white",
-                              textDecoration: "none",
-                            }}
-                            href={`/admin_dana_keluar/put/${item.id}`}
+                      <td data-label="Aksi" className="action">
+                        <div style={{ display: "flex" }}>
+                          <button
+                            type="button"
+                            className="btn-primary btn-sm mr-2"
                           >
-                            <i className="fa-solid fa-pen-to-square"></i>
-                          </a>
-                        </button>
-                        <button
-                          type="button"
-                          className="btn-danger btn-sm"
-                          onClick={() => deleteData(item.id)}
-                        >
-                          <i className="fa-solid fa-trash"></i>
-                        </button>
+                            <a
+                              style={{
+                                color: "white",
+                                textDecoration: "none",
+                              }}
+                              href={`/admin_dana_keluar/put/${item.id}`}
+                            >
+                              <i className="fa-solid fa-pen-to-square"></i>
+                            </a>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-danger btn-sm"
+                            onClick={() => deleteData(item.id)}
+                          >
+                            <i className="fa-solid fa-trash"></i>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}

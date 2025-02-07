@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import Swal from "sweetalert2";
 import {
   useHistory,
@@ -8,6 +8,7 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 import pantiasuhan from "../../../../../aset/pantiasuhan/pantiasuhan.png";
+import Select from "react-select";
 
 function FormBukuTamu() {
   const [nama, setNama] = useState("");
@@ -17,11 +18,20 @@ function FormBukuTamu() {
   const [image, setImage] = useState(null);
   const [tanggal, setTanggal] = useState("");
   const [catatan, setCatatan] = useState("");
+  const [organization, setOrganization] = useState([]);
+  const [organizationId, setOrganizationId] = useState("");
   const [signature, setSignature] = useState(""); // State to store signature
   const history = useHistory();
   const param = useParams();
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
+
+  const convertToInternational = (phoneNumber) => {
+    if (phoneNumber.startsWith("0")) {
+      return "+62" + phoneNumber.slice(1);
+    }
+    return phoneNumber;
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -84,7 +94,114 @@ function FormBukuTamu() {
     ctx.beginPath();
     setSignature("");
   };
-  console.log(signature);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${API_DUMMY_SMART}/api/public/customercabang`, {
+  //         headers: {
+  //           "x-origin": window.location.hostname,
+  //         },
+  //       });
+  //       console.log(response.data.data);
+  //       console.log(response.data.pagination);
+  //       setOrganization(response.data.data);
+  //     } catch (error) {
+  //       console.error("Terjadi Kesalahan saat mengambil data barang:", error);
+  //     }
+  //   };
+  //   fetchData()
+  // }, [])
+  console.log(organizationId);
+
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // const fetchData = async (pageNum) => {
+  //   if (isLoading || !hasMore) return;
+
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY_SMART}/api/public/organization?page=${pageNum}`,
+  //       {
+  //         headers: {
+  //           "x-origin": window.location.hostname,
+  //         },
+  //       }
+  //     );
+
+  //     const newData = response.data.data;
+  //     const pagination = response.data.pagination;
+  //     const hasNextPage = pagination.page < pagination.total_page;
+
+  //     setOrganization((prev) => [...prev, ...newData]); // Tambah data baru
+  //     setHasMore(hasNextPage); // Periksa apakah masih ada data
+
+  //     console.log("Fetched Page:", pageNum);
+  //     console.log("Next Page Exists:", hasNextPage);
+
+  //     if (hasNextPage) {
+  //       setPage((prev) => prev + 1); // Pakai fungsi callback agar nilai terbaru
+  //     }
+  //     // if (hasNextPage) {
+  //     //   setPage(pageNum + 1);
+  //     //   console.log(page);
+  //     // }
+
+  //     // console.log(pagination);
+  //     // console.log(hasNextPage);
+  //   } catch (error) {
+  //     console.error("Terjadi Kesalahan saat mengambil data:", error);
+  //   }
+  //   setIsLoading(false);
+  // };
+
+  const isFetching = useRef(false); // Gunakan useRef agar tidak memicu re-render
+
+const fetchData = async (pageNum) => {
+  if (isFetching.current || !hasMore) return; // Mencegah pemanggilan ganda
+
+  isFetching.current = true; // Set fetching agar tidak double request
+  setIsLoading(true);
+
+  try {
+    const response = await axios.get(
+      `${API_DUMMY_SMART}/api/public/organization?page=${pageNum}`,
+      {
+        headers: {
+          "x-origin": window.location.hostname,
+        },
+      }
+    );
+
+    const newData = response.data.data;
+    const pagination = response.data.pagination;
+    const hasNextPage = pagination.page < pagination.total_page;
+
+    setOrganization((prev) => [...prev, ...newData]);
+    setHasMore(hasNextPage);
+
+    console.log("Fetched Page:", pageNum);
+    console.log("Next Page Exists:", hasNextPage);
+
+    if (hasNextPage) {
+      setPage(pageNum + 1);
+    }
+
+  } catch (error) {
+    console.error("Terjadi Kesalahan saat mengambil data:", error);
+  }
+
+  isFetching.current = false; // Reset fetching flag
+  setIsLoading(false);
+};
+
+  useEffect(() => {
+    fetchData(page); // Ambil data pertama kali
+  }, [page]);
 
   const add = async (e) => {
     e.preventDefault();
@@ -97,14 +214,14 @@ function FormBukuTamu() {
       }
 
       await axios.post(`${API_DUMMY}/api/guestbook`, {
-        no_wa: noWa,
+        no_wa: convertToInternational(noWa),
         address: alamat,
         nama: nama,
         visit_date: tanggal,
         signature: imageUrl,
         note: catatan,
         description_donation: tujuan,
-        organization_id: param.organization_id,
+        organization_id: organizationId,
       });
 
       Swal.fire({
@@ -119,31 +236,14 @@ function FormBukuTamu() {
         history.push("/");
       }, 1500);
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        localStorage.clear();
-        history.push("/login");
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log(error);
-      }
+      Swal.fire({
+        icon: "error",
+        title: "Tambah Data Gagal!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      console.log(error);
     }
-  };
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
   };
 
   return (
@@ -194,6 +294,49 @@ function FormBukuTamu() {
                   placeholder="Masukkan Alamat"
                   rows={4}
                 ></textarea>
+              </div>
+              <div className="mb-3 col-lg-12">
+                <label
+                  for="exampleInputEmail1"
+                  className="form-label font-weight-bold "
+                >
+                  Panti Asuhan
+                </label>
+                {/* <Select
+                  className="basic-single"
+                  classNamePrefix="select"
+                  options={organization.map((data) => ({
+                    value: data.organization_id,
+                    label: data.name
+                  }))}
+                  onChange={(e) => setOrganizationId(e.value)}
+                /> */}
+                <Select
+                  className="basic-single"
+                  classNamePrefix="select"
+                  options={organization.map((data) => ({
+                    value: data.id,
+                    label: data.name,
+                  }))}
+                  onChange={(e) => setOrganizationId(e.value)}
+                  isLoading={isLoading}
+                />
+                {/* <select
+                  required
+                  className="form-control"
+                  aria-label="Small select example"
+                  onChange={(e) => {
+                    const selectedId = e.target.value;
+                    setOrganizationId(selectedId);
+                  }}
+                >
+                  <option value="">Pilih Panti Asuhan</option>
+                  {organization.map((data, index) => (
+                    <option key={index} value={data.id}>
+                      {data.name}
+                    </option>
+                  ))}
+                </select> */}
               </div>
               <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">

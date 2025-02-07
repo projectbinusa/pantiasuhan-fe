@@ -278,12 +278,12 @@ function Galery() {
                     filteredList.map((galery, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="">
+                          <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Judul">{galery.judul}</td>
-                          <td data-label="Deskripsi">{galery.deskripsi}</td>
-                          <td data-label="Image">
+                          <td data-label="Judul" className="text-md-start text-end">{galery.judul}</td>
+                          <td data-label="Deskripsi" className="text-md-start text-end">{galery.deskripsi}</td>
+                          <td data-label="Image" className="text-md-center text-end">
                             <button
                               onClick={() => openModal(galery.foto)}
                               type="button"

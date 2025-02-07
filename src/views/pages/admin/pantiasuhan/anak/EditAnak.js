@@ -25,6 +25,7 @@ function EditAnak() {
   const [listFosterParent, setListFosterParent] = useState([]);
   const [parent_id, setParentId] = useState(0);
   const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
 
   const history = useHistory();
   const param = useParams();
@@ -62,6 +63,7 @@ function EditAnak() {
         setAddress(resp.address);
         setHp(resp.hp);
         setParentId(resp.parent_id);
+        setGender(resp.gender)
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -93,6 +95,7 @@ function EditAnak() {
       parent_name: namaOrangTua,
       parent_id: parent_id,
       education: education,
+      gender: gender
     };
 
     try {
@@ -249,7 +252,7 @@ function EditAnak() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
-                            Nama Orang Tua Kandung
+                            Nama Orang Tua
                           </label>
                           <select
                             value={parent_id}
@@ -316,6 +319,21 @@ function EditAnak() {
                             placeholder="Masukkan alamat"
                             className="form-control"
                           />{" "}
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Jenis Kelamin
+                          </label>
+                          <div className="d-flex">
+                            <div className="mr-5">
+                              <input type="radio" value="Laki-laki" checked={gender === "Laki-laki"} name="gender" onChange={(e) => setGender(e.target.value)} />
+                              <label className="ml-2">Laki-laki</label>
+                            </div>
+                            <div className="mr-5">
+                              <input type="radio" value="Perempuan" checked={gender === "Perempuan"} name="gender" onChange={(e) => setGender(e.target.value)} />
+                              <label className="ml-2">Perempuan</label>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">

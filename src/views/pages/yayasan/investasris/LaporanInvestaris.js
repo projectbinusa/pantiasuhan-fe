@@ -181,22 +181,22 @@ function LaporanInventaris() {
                   {filteredList.map((row, index) => {
                     return (
                       <tr>
-                        <td data-label="No" className="text-left">
+                        <td data-label="No" className="text-md-start text-end">
                           {index + 1}
                         </td>
-                        <td data-label="Nama Barang" className="text-left">
+                        <td data-label="Nama Barang" className="text-md-start text-end">
                           {row.name}
                         </td>
-                        <td data-label="Lokasi Cabang" className="text-left">
+                        <td data-label="Lokasi Cabang" className="text-md-start text-end">
                           {row.nama_organization}
                         </td>
-                        <td data-label="Kondisi Barang" className="text-left">
+                        <td data-label="Kondisi Barang" className="text-md-start text-end">
                           {row.kondisi_barang_name}
                         </td>
-                        <td data-label="Kategori Barang" className="text-left">
+                        <td data-label="Kategori Barang" className="text-md-start text-end">
                           {row.kategori_barang_name}
                         </td>
-                        <td data-label="Jumlah Barang" className="text-left">
+                        <td data-label="Jumlah Barang" className="text-sm-end text-end">
                           {row.stok}
                         </td>
                       </tr>

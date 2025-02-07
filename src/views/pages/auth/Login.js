@@ -38,6 +38,7 @@ function Login() {
             localStorage.setItem("tokenpython", response.data.data.token);
             localStorage.setItem("rolename", response.data.data.role_name);
             localStorage.setItem("roleid", response.data.data.role_id);
+            localStorage.setItem("organizationids", response.data.data.organization_ids);
             if (response.data.data.role_name === "Yayasan") {
               history.push("/dashboard_yayasan");
             } else {

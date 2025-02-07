@@ -466,11 +466,11 @@ function DetailDonasi() {
                     {filteredList.length > 0 ? (
                       filteredList.map((item, index) => (
                         <tr key={index}>
-                          <td data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                          <td data-label="Nama Donatur">{item.name}</td>
-                          <td data-label="Nominal (Rp)">{item.nominal}</td>
-                          <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
-                          <td data-label="Image">
+                          <td data-label="No" className="text-md-start text-end">{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                          <td data-label="Nama Donatur" className="text-md-start text-end">{item.name}</td>
+                          <td data-label="Nominal (Rp)" className="text-end">{item.nominal}</td>
+                          <td data-label="Deskripsi" className="text-md-start text-end"><div className="isiBerita" dangerouslySetInnerHTML={{ __html: item.description }} /></td>
+                          <td data-label="Image" className="text-md-center text-end">
                             <button
                               onClick={() => openModal(item.url_image)}
                               type="button"
@@ -479,7 +479,7 @@ function DetailDonasi() {
                             {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
                           </td>
                           {userRole !== "Yayasan" ?
-                            <td data-label="Aksi">
+                            <td data-label="Aksi" className="action">
                               <div style={{ display: "flex" }}>
                                 <button
                                   type="button"
@@ -616,11 +616,11 @@ function DetailDonasi() {
                     {filteredListOutcome.length > 0 ? (
                       filteredListOutcome.map((item, index) => (
                         <tr key={index}>
-                          <td data-label="No">{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                          <td data-label="Keperluan">{item.name}</td>
-                          <td data-label="Nominal (Rp)">{item.nominal}</td>
-                          <td data-label="Deskripsi"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
-                          <td data-label="Image">
+                          <td data-label="No" className="text-md-start text-end">{(currentPage - 1) * rowsPerPage + index + 1}</td>
+                          <td data-label="Keperluan" className="text-md-start text-end">{item.name}</td>
+                          <td data-label="Nominal (Rp)" className="text-end">{item.nominal}</td>
+                          <td data-label="Deskripsi" className="text-md-start text-end"><div dangerouslySetInnerHTML={{ __html: item.description }} /></td>
+                          <td data-label="Image" className="text-md-center text-end">
                             <button
                               onClick={() => openModal(item.url_image)}
                               type="button"
@@ -629,7 +629,7 @@ function DetailDonasi() {
                             {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
                           </td>
                           {userRole !== "Yayasan" ?
-                            <td data-label="Aksi">
+                            <td data-label="Aksi" className="action">
                               <div style={{ display: "flex" }}>
                                 <button
                                   type="button"

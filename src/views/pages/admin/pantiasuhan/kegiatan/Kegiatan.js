@@ -235,17 +235,17 @@ function KegiatanPanti() {
                     filteredList.map((kegiatan, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="">
+                          <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Program">
+                          <td data-label="Program" className="text-md-start text-end">
                             <p className="isiBerita">{kegiatan.judul}</p>
                           </td>
-                          <td data-label="Penulis">{kegiatan.penulis}</td>
-                          <td data-label="Tanggal Dibuat">
+                          <td data-label="Penulis" className="text-md-start text-end">{kegiatan.penulis}</td>
+                          <td data-label="Tanggal Dibuat" className="text-md-start text-end">
                             {kegiatan.created_date}
                           </td>
-                          <td data-label="Tanggal Update">
+                          <td data-label="Tanggal Update" className="text-md-start text-end">
                             {kegiatan.updated_date}
                           </td>
                           <td data-label="Aksi" className="action">
