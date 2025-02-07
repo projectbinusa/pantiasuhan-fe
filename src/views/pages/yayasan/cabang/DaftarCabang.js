@@ -535,25 +535,28 @@ function DaftarCabang() {
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td data-label="No" className="md:text-right">
+                      <td data-label="No" className="text-left">
                         {(currentPage - 1) * rowsPerPage + index + 1}
                       </td>
-                      <td data-label="Nama LKSA" className="md:text-right">
+                      <td data-label="Nama LKSA" className="text-left">
                         {item.name}
                       </td>
-                      <td data-label="Lokasi" className="md:text-right">
+                      <td data-label="Lokasi" className="text-left">
                         {item.address}
                       </td>
-                      <td data-label="Email" className="md:text-right">
+                      <td data-label="Email" className="text-left">
                         {item.email}
                       </td>
-                      {/* <td data-label="JML PEGAWAI" className="md:text-right">{formatRupiah(item.total_outcome)}</td> */}
-                      {/* <td data-label="Jml Donasi 1 bulan terakhir" className="md:text-right">{formatRupiah(item.total_income)}</td>
-                      <td data-label="Jml Pengeluaran 1 bulan terakhir" className="md:text-right">{formatRupiah(item.total_outcome)}</td> */}
-                      <td data-label="No Hp" className="md:text-right">
+                      {/* <td data-label="JML PEGAWAI" className="text-left">{formatRupiah(item.total_outcome)}</td> */}
+                      {/* <td data-label="Jml Donasi 1 bulan terakhir" className="text-left">{formatRupiah(item.total_income)}</td>
+                      <td data-label="Jml Pengeluaran 1 bulan terakhir" className="text-left">{formatRupiah(item.total_outcome)}</td> */}
+                      <td data-label="No Hp" className="text-left">
                         {item.hp}
                       </td>
-                      <td data-label="Aksi" className="md:text-right">
+                      <td
+                        data-label="Aksi"
+                        className="d-flex justify-content-center align-items-center"
+                      >
                         <>
                           <button
                             type="button"
@@ -582,7 +585,7 @@ function DaftarCabang() {
                           </button>
                           <button
                             type="button"
-                            className="btn-danger btn-sm mr-2"
+                            className="btn-danger btn-sm "
                             onClick={() => deleteData(item.id)}
                           >
                             <i className="fa-solid fa-trash"></i>
@@ -607,6 +610,13 @@ function DaftarCabang() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+          td {
+                text-align: left !important;
+              }
+        `}
+      </style>
     </div>
   );
 }

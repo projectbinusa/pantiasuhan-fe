@@ -44,7 +44,7 @@ function DonasiTrxKeluarBulanan() {
     setTanggalValid(tgl);
     setIdCabangValid(id);
     getAll();
-    closeModalForm()
+    closeModalForm();
   };
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -116,12 +116,12 @@ function DonasiTrxKeluarBulanan() {
 
   const filteredList = searchTerm
     ? list.filter((item) =>
-      Object.values(item).some(
-        (value) =>
-          typeof value === "string" &&
-          value.toLowerCase().includes(searchTerm.toLowerCase())
+        Object.values(item).some(
+          (value) =>
+            typeof value === "string" &&
+            value.toLowerCase().includes(searchTerm.toLowerCase())
+        )
       )
-    )
     : list;
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
@@ -194,31 +194,35 @@ function DonasiTrxKeluarBulanan() {
           }
         );
         console.log("datas: ", response.data);
-        setCabang(response.data.data)
+        setCabang(response.data.data);
       } catch (error) {
         console.error("Terjadi kesalahan:", error.response || error.message);
       }
     };
 
-    fetchDataOrganization()
-  }, [])
+    fetchDataOrganization();
+  }, []);
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -227,7 +231,8 @@ function DonasiTrxKeluarBulanan() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -245,7 +250,10 @@ function DonasiTrxKeluarBulanan() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Biaya Bulanan {tanggalValid ? formatMonth(tanggalValid) : formatMonth(months)}</p>
+              <p className="mt-3">
+                Biaya Bulanan{" "}
+                {tanggalValid ? formatMonth(tanggalValid) : formatMonth(months)}
+              </p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -254,7 +262,8 @@ function DonasiTrxKeluarBulanan() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -269,14 +278,19 @@ function DonasiTrxKeluarBulanan() {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-                <button type="button" onClick={() => openModalForm()}
-                  className="btn-success btn-sm">Filter
+                <button
+                  type="button"
+                  onClick={() => openModalForm()}
+                  className="btn-success btn-sm"
+                >
+                  Filter
                 </button>
               </div>
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -292,30 +306,35 @@ function DonasiTrxKeluarBulanan() {
                   {filteredList.length > 0 ? (
                     filteredList.map((item, index) => (
                       <tr key={index}>
-                        <td className="text-lg-start text-md-end" data-label="No">
+                        <td className="text-left" data-label="No">
                           {(currentPage - 1) * rowsPerPage + index + 1}
                         </td>
-                        <td className="text-lg-start text-md-end"
-                          data-label="Tanggal">
+                        <td className="text-left" data-label="Tanggal">
                           {item.created_date}
                         </td>
-                        <td className="text-lg-start text-md-end"
-                          data-label="Nama Biaya">
+                        <td className="text-left" data-label="Nama Biaya">
                           {item.name}
                         </td>
-                        <td className="text-lg-start text-md-end" data-label="Nominal">
+                        <td className="text-left" data-label="Nominal">
                           {item.nominal}
                         </td>
-                        <td className="text-lg-start text-md-end" data-label="Deskripsi">
+                        <td className="text-left" data-label="Deskripsi">
                           <div
-                            dangerouslySetInnerHTML={{ __html: item.description }}
+                            dangerouslySetInnerHTML={{
+                              __html: item.description,
+                            }}
                           />
                         </td>
-                        <td className="text-lg-center text-md-end" data-label="Image">
+                        <td
+                          className="text-lg-center text-md-end"
+                          data-label="Image"
+                        >
                           <button
                             onClick={() => openModal(item.url_image)}
                             type="button"
-                            className="btn-info btn-sm">Tampilkan Gambar
+                            className="btn-info btn-sm"
+                          >
+                            Tampilkan Gambar
                           </button>
                           {/* <img
                           src={item.url_image}
@@ -324,7 +343,8 @@ function DonasiTrxKeluarBulanan() {
                         /> */}
                         </td>
                       </tr>
-                    ))) : (
+                    ))
+                  ) : (
                     <tr>
                       <td colSpan="6" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
@@ -349,6 +369,13 @@ function DonasiTrxKeluarBulanan() {
             </div>
           </div>
         </div>
+        <style>
+          {`
+          td {
+                text-align: left !important;
+              }
+        `}
+        </style>
       </div>
       <Modal
         open={isModalOpen}
@@ -367,18 +394,23 @@ function DonasiTrxKeluarBulanan() {
               border: "none",
               fontSize: "20px",
               cursor: "pointer",
-              color: "black"
+              color: "black",
             }}
             aria-label="Close"
           >
             ✖
-          </button> <br />
+          </button>{" "}
+          <br />
           {/* Gambar */}
           {imageSrc && (
             <img
               src={imageSrc}
               alt="Preview"
-              style={{ maxWidth: "100%", maxHeight: "70vh", borderRadius: "8px" }}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "70vh",
+                borderRadius: "8px",
+              }}
             />
           )}
         </Box>
@@ -400,34 +432,47 @@ function DonasiTrxKeluarBulanan() {
               border: "none",
               fontSize: "20px",
               cursor: "pointer",
-              color: "black"
+              color: "black",
             }}
             aria-label="Close"
           >
             ✖
-          </button> <br />
+          </button>{" "}
+          <br />
           <div className="row">
             <div className="mb-3 col-lg-12">
               <label className="form-label font-weight-bold">Tanggal</label>
               <input
                 value={tanggal}
                 onChange={(e) => setTanggal(e.target.value)}
-                type="month" className="form-control"
+                type="month"
+                className="form-control"
               />
             </div>
             <div className="mb-3 col-lg-12">
-              <label className="form-label font-weight-bold text-start">Cabang</label>
-              <select className="form-control"
-                value={idCabang} onChange={(e) => setIdCabang(e.target.value)}
+              <label className="form-label font-weight-bold text-start">
+                Cabang
+              </label>
+              <select
+                className="form-control"
+                value={idCabang}
+                onChange={(e) => setIdCabang(e.target.value)}
               >
                 <option>Pilih</option>
                 {cabang.map((item, idx) => (
-                  <option value={item.organization_id} key={idx}>{item.name}</option>
+                  <option value={item.organization_id} key={idx}>
+                    {item.name}
+                  </option>
                 ))}
               </select>
             </div>
           </div>
-          <button type="button" onClick={() => handleFilter(tanggal, idCabang)} className="btn-success btn-md">Filter
+          <button
+            type="button"
+            onClick={() => handleFilter(tanggal, idCabang)}
+            className="btn-success btn-md"
+          >
+            Filter
           </button>
         </Box>
       </Modal>

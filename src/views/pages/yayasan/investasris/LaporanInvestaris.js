@@ -50,7 +50,7 @@ function LaporanInventaris() {
       const { data, pagination } = response.data;
       setList(data);
       setPaginationInfo({
-        totalPages: Math.ceil(pagination.total/rowsPerPage),
+        totalPages: Math.ceil(pagination.total / rowsPerPage),
         totalElements: pagination.total,
       });
     } catch (error) {
@@ -90,20 +90,24 @@ function LaporanInventaris() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -112,7 +116,8 @@ function LaporanInventaris() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -139,7 +144,8 @@ function LaporanInventaris() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -158,7 +164,8 @@ function LaporanInventaris() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -174,20 +181,24 @@ function LaporanInventaris() {
                   {filteredList.map((row, index) => {
                     return (
                       <tr>
-                        <td data-label="No" className="">
+                        <td data-label="No" className="text-left">
                           {index + 1}
                         </td>
-                        <td data-label="Nama Barang">{row.name}</td>
-                        <td data-label="Lokasi Cabang">
+                        <td data-label="Nama Barang" className="text-left">
+                          {row.name}
+                        </td>
+                        <td data-label="Lokasi Cabang" className="text-left">
                           {row.nama_organization}
                         </td>
-                        <td data-label="Kondisi Barang">
+                        <td data-label="Kondisi Barang" className="text-left">
                           {row.kondisi_barang_name}
                         </td>
-                        <td data-label="Kategori Barang">
+                        <td data-label="Kategori Barang" className="text-left">
                           {row.kategori_barang_name}
                         </td>
-                        <td data-label="Jumlah Barang">{row.stok}</td>
+                        <td data-label="Jumlah Barang" className="text-left">
+                          {row.stok}
+                        </td>
                       </tr>
                     );
                   })}
@@ -207,6 +218,13 @@ function LaporanInventaris() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+          td {
+                text-align: left !important;
+              }
+        `}
+      </style>
     </div>
   );
 }

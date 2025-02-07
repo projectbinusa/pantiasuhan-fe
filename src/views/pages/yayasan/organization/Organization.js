@@ -263,21 +263,39 @@ function Organization() {
                         {sortedList.map((data, index) => {
                           return (
                             <tr key={index}>
-                              <td data-cell="Id">{index + 1}</td>
-                              <td data-cell="Name">{data.name}</td>
-                              <td data-cell="Address">{data.address}</td>
-                              <td data-cell="HP">{data.hp}</td>
-                              <td data-cell="Email">{data.email}</td>
-                              <td data-cell="City">{data.city}</td>
-                              <td data-cell="Provinsi">{data.provinsi}</td>
-                              <td data-cell="Provinsi">{data.balance}</td>
-                              <td data-cell="Create Date">
+                              <td className="text-left" data-cell="Id">
+                                {index + 1}
+                              </td>
+                              <td className="text-left" data-cell="Name">
+                                {data.name}
+                              </td>
+                              <td className="text-left" data-cell="Address">
+                                {data.address}
+                              </td>
+                              <td className="text-left" data-cell="HP">
+                                {data.hp}
+                              </td>
+                              <td className="text-left" data-cell="Email">
+                                {data.email}
+                              </td>
+                              <td className="text-left" data-cell="City">
+                                {data.city}
+                              </td>
+                              <td className="text-left" data-cell="Provinsi">
+                                {data.provinsi}
+                              </td>
+                              <td className="text-left" data-cell="Provinsi">
+                                {data.balance}
+                              </td>
+                              <td className="text-left" data-cell="Create Date">
                                 {data.bank_account_number}
                               </td>
-                              <td data-cell="Update Date">
+                              <td className="text-left" data-cell="Update Date">
                                 {data.bank_account_name}
                               </td>
-                              <td data-cell="Update Date">{data.bank_name}</td>
+                              <td className="text-left" data-cell="Update Date">
+                                {data.bank_name}
+                              </td>
                               <td data-cell="Action">
                                 <div className="tdd">
                                   <button
@@ -353,6 +371,13 @@ function Organization() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+          td {
+                text-align: left !important;
+              }
+        `}
+      </style>
     </div>
   );
 }

@@ -69,7 +69,6 @@ function CabangAnakAsuh() {
     }
   };
 
-
   useEffect(() => {
     getAll(currentPage);
   }, [currentPage, rowsPerPage]);
@@ -102,19 +101,22 @@ function CabangAnakAsuh() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -123,7 +125,8 @@ function CabangAnakAsuh() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -150,7 +153,8 @@ function CabangAnakAsuh() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -160,7 +164,8 @@ function CabangAnakAsuh() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -175,22 +180,26 @@ function CabangAnakAsuh() {
                 <tbody>
                   {filteredList.map((item, index) => (
                     <tr key={index}>
-                      <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
-                      <td>{item.name}</td>
-                      <td>{item.email}</td>
-                      <td>{item.hp}</td>
-                      <td>{item.address}</td>
-                      <td>
+                      <td className="text-left">
+                        {(currentPage - 1) * rowsPerPage + index + 1}
+                      </td>
+                      <td className="text-left">{item.name}</td>
+                      <td className="text-left">{item.email}</td>
+                      <td className="text-left">{item.hp}</td>
+                      <td className="text-left">{item.address}</td>
+                      <td className="d-flex justify-content-center align-items-center">
                         <button
                           type="button"
-                          className="btn-warning btn-sm mr-2">
+                          className="btn-warning btn-sm mr-2"
+                        >
                           <a
                             style={{
                               color: "white",
                               textDecoration: "none",
                             }}
-                            href={`/cabang-anak-asuh/${item.id}`}>
-                          <i class="fa-solid fa-circle-info"></i>
+                            href={`/cabang-anak-asuh/${item.id}`}
+                          >
+                            <i class="fa-solid fa-circle-info"></i>
                           </a>
                         </button>
                       </td>
@@ -212,6 +221,13 @@ function CabangAnakAsuh() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+          td {
+                text-align: left !important;
+              }
+        `}
+      </style>
     </div>
   );
 }

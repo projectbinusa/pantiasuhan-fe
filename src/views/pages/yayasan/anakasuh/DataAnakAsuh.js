@@ -93,20 +93,24 @@ function DataAnakAsuh() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -115,7 +119,8 @@ function DataAnakAsuh() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}>
+                value={rowsPerPage}
+              >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -142,7 +147,8 @@ function DataAnakAsuh() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -175,7 +181,8 @@ function DataAnakAsuh() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -192,31 +199,29 @@ function DataAnakAsuh() {
                     filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
-                          <td className="text-lg-start text-md-end"
-                            data-label="No">
+                          <td className="text-left" data-label="No">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td className="text-lg-start text-md-end"
-                            data-label="Nama Anak">
+                          <td className="text-left" data-label="Nama Anak">
                             {row.name}
                           </td>
                           <td style={{ textAlign: "left" }} data-label="Email">
                             {row.email}
                           </td>
-                          <td className="text-lg-start text-md-end"
-                            data-label="Pendidikan">
+                          <td className="text-left" data-label="Pendidikan">
                             {row.education}
                           </td>
-                          <td className="text-lg-start text-md-end"
-                            data-label="Orangtua">
+                          <td className="text-left" data-label="Orangtua">
                             {row.parent_name}
                           </td>
-                          {/* <td className="text-lg-start text-md-end"
+                          {/* <td className="text-left"
                             data-label="Tempat Lahir">
                             {row.birth_place}
                           </td> */}
-                          <td className="text-lg-start text-md-end"
-                            data-label="Tempat, Tgl Lahir">
+                          <td
+                            className="text-left"
+                            data-label="Tempat, Tgl Lahir"
+                          >
                             {row.birth_place}, {row.birth_date}
                           </td>
                         </tr>
@@ -248,6 +253,13 @@ function DataAnakAsuh() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+          td {
+                text-align: left !important;
+              }
+        `}
+      </style>
     </div>
   );
 }
