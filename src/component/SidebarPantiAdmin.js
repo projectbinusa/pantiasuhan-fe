@@ -283,6 +283,17 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       ],
     },
     {
+      header: "Tahsin",
+      items: [
+        {
+          title: "Tahsin",
+          icon: "fa-solid fa-book",
+          path: "/admin_tahsin",
+          action: ["/add_buku_tamu", "/edit_buku_tamu"],
+        },
+      ],
+    },
+    {
       header: "Keuangan",
       items: [
         {
