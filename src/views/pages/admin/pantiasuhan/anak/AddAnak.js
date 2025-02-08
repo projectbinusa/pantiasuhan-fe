@@ -238,7 +238,7 @@ function AddAnak() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Nama Orang Tua 
+                            Nama Orang Tua
                           </label>
                           <select
                             value={parent_id}
@@ -353,11 +353,11 @@ function AddAnak() {
                           </label>
                           <div className="d-flex">
                             <div className="mr-5">
-                              <input type="radio" value="Laki-laki" checked={gender === "Laki-laki"} name="gender" onChange={(e) => setGender(e.target.value)} />
+                              <input type="radio" value="laki-laki" checked={gender === "laki-laki"} name="gender" onChange={(e) => setGender(e.target.value)} />
                               <label className="ml-2">Laki-laki</label>
                             </div>
                             <div className="mr-5">
-                              <input type="radio" value="Perempuan" checked={gender === "Perempuan"} name="gender" onChange={(e) => setGender(e.target.value)} />
+                              <input type="radio" value="perempuan" checked={gender === "perempuan"} name="gender" onChange={(e) => setGender(e.target.value)} />
                               <label className="ml-2">Perempuan</label>
                             </div>
                           </div>
