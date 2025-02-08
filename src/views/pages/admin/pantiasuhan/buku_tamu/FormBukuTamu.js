@@ -173,7 +173,7 @@ function FormBukuTamu() {
         no_wa: convertToInternational(noWa),
         address: alamat,
         nama: nama,
-        visit_date: tanggal,
+        // visit_date: tanggal,
         signature: imageUrl,
         note: catatan,
         description_donation: tujuan,
@@ -268,7 +268,7 @@ function FormBukuTamu() {
                   isLoading={isLoading}
                 />
               </div> */}
-              <div className="mb-3 col-lg-12">
+              {/* <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">
                   Tanggal Kunjungan
                 </label>
@@ -277,7 +277,7 @@ function FormBukuTamu() {
                   onChange={(e) => setTanggal(e.target.value)}
                   className="form-control"
                 />
-              </div>
+              </div> */}
               <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">Tujuan</label>
                 <textarea
