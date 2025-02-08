@@ -89,37 +89,66 @@ function FormCabangBaru() {
                 },
               });
               console.log(responseCustomer);
-              try {
-                const res = await axios.put(`${API_DUMMY_SMART}/api/user/organization_ids/${userId}`, { organization_ids: `${organizationId}` }, {
+              await axios.put(`${API_DUMMY_SMART}/api/user/organization_ids/${userId}`, { organization_ids: `${organizationId}` }, {
+                headers: {
+                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+                },
+              }).then((res) => {
+                axios.post(`${API_DUMMY_SMART}/api/user/refresh_token`, {}, {
                   headers: {
                     "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
                   },
-                });
+                }).then((resp) => {
+                  console.log(resp);
+                  console.log(resp.data.data.token);
+                  const respon = resp.data.data;
+                  localStorage.setItem("tokenpython", respon.token)
+                  localStorage.setItem("organizationids", respon.organization_ids)
+                  Swal.fire({
+                    icon: "success",
+                    title: "Data Berhasil Ditambahkan",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                  setTimeout(() => {
+                    history.push("/daftar-cabang");
+                  }, 1500);
+                }).catch((err) => {
+                  console.log(err);
+                })
                 console.log(res);
-                const ress = await axios.post(`${API_DUMMY_SMART}/api/user/refresh_token`, {
-                  headers: {
-                    "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-                  },
-                });
+              }).catch((err) => {
+                console.log(err);
+              })
+              // try {
+              //   const res = await axios.put(`${API_DUMMY_SMART}/api/user/organization_ids/${userId}`, { organization_ids: `${organizationId}` }, {
+              //     headers: {
+              //       "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              //     },
+              //   });
+              //   console.log(res);
+              //   const ress = await axios.post(`${API_DUMMY_SMART}/api/user/refresh_token`, {
+              //     headers: {
+              //       "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              //     },
+              //   });
+              //   console.log(ress);
 
-                console.log(ress);
-                
+              //   Swal.fire({
+              //     icon: "success",
+              //     title: "Data Berhasil Ditambahkan",
+              //     showConfirmButton: false,
+              //     timer: 1500,
+              //   });
 
-                Swal.fire({
-                  icon: "success",
-                  title: "Data Berhasil Ditambahkan",
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
+              //   console.log("Data yang diterima:", response.data);
 
-                console.log("Data yang diterima:", response.data);
-
-                // setTimeout(() => {
-                //   history.push("/daftar-cabang");
-                // }, 1500);
-              } catch (err) {
-                console.error("Error respons:", err);
-              }
+              //   // setTimeout(() => {
+              //   //   history.push("/daftar-cabang");
+              //   // }, 1500);
+              // } catch (err) {
+              //   console.error("Error respons:", err);
+              // }
 
             } catch (err) {
               console.error("Error respons:", err);
