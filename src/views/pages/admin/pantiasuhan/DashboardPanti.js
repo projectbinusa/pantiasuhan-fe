@@ -57,7 +57,7 @@ function DashboardPanti() {
           headers: { "auth-tgh": `jwt ${token}` },
         }
       );
-            
+
       setFetchWeekly(response.data.data?.total_income || 0);
       setJumlahDanaKeluar(response.data.data?.total_outcome || 0);
     } catch (error) {
@@ -113,14 +113,12 @@ function DashboardPanti() {
 
   const fetchAnakAsuhData = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY}/api/admin/siswa`, {
+      const response = await axios.get(`${API_DUMMY_SMART}/api/customer/member/get-all-member-count`, {
         headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
       });
-      // Periksa struktur data respons yang diterima
-      console.log("Jumlah siswa = ", response.data?.data); // Mencetak data siswa yang diterima dari API
+      console.log("Jumlah siswa = ", response.data.member_count);
 
-      // Mengambil jumlah siswa berdasarkan array yang ada di response.data.data
-      setAnakAsuhCount(response.data?.data?.length || 0); // Asumsi response.data.data adalah array siswa
+      setAnakAsuhCount(response.data.member_count || 0);
     } catch (error) {
       console.error("Gagal mengambil data anak asuh:", error.message);
     }
@@ -151,14 +149,14 @@ function DashboardPanti() {
       if (!token) {
         throw new Error("Token tidak ditemukan. Harap login ulang.");
       }
-  
+
       const response = await axios.get(
         `${API_DUMMY_SMART}/api/customer/donation/recap`,
         {
           headers: { "auth-tgh": `jwt ${token}` },
         }
       );
-  
+
       const totalIncome = response.data.data?.total_income || 0;
       const totalOutcome = response.data.data?.total_outcome || 0;
       setFetchWeekly(totalIncome); // Jumlah Donasi Mingguan
