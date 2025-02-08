@@ -203,7 +203,7 @@ function FormBukuTamu() {
         signature: imageUrl,
         note: catatan,
         description_donation: tujuan,
-        organization_id: organizationId,
+        // organization_id: organizationId,
       });
 
       Swal.fire({
@@ -214,9 +214,9 @@ function FormBukuTamu() {
         timer: 1500,
       });
 
-      setTimeout(() => {
-        history.push("/");
-      }, 1500);
+      // setTimeout(() => {
+      //   history.push("/");
+      // }, 1500);
     } catch (error) {
       Swal.fire({
         icon: "error",
