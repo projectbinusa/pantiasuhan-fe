@@ -8,7 +8,6 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 import pantiasuhan from "../../../../../aset/pantiasuhan/pantiasuhan.png";
-import Select from "react-select";
 
 function FormBukuTamu() {
   const [nama, setNama] = useState("");
@@ -37,6 +36,7 @@ function FormBukuTamu() {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
+    // Mengatur resolusi tinggi untuk menghindari blur
     const ratio = window.devicePixelRatio || 1;
     const width = canvas.offsetWidth;
     const height = canvas.offsetHeight;
@@ -44,26 +44,43 @@ function FormBukuTamu() {
     canvas.width = width * ratio;
     canvas.height = height * ratio;
     ctx.scale(ratio, ratio);
-
     ctx.lineWidth = 2;
     ctx.lineCap = "round";
     ctx.strokeStyle = "black";
   }, []);
 
+  const getCoordinates = (e) => {
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    let clientX, clientY;
+
+    if (e.touches) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    return {
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY,
+    };
+  };
+
   const handleStart = (e) => {
-    e.preventDefault(); // Mencegah scrolling saat menggambar di HP
+    e.preventDefault();
+    setIsDrawing(true);
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    const rect = canvas.getBoundingClientRect();
-    const touch = e.touches ? e.touches[0] : e;
+    const { x, y } = getCoordinates(e);
 
-    setIsDrawing(true);
     ctx.beginPath();
-    ctx.moveTo(
-      (touch.clientX - rect.left) * (canvas.width / rect.width),
-      (touch.clientY - rect.top) * (canvas.height / rect.height)
-    );
+    ctx.moveTo(x, y);
   };
 
   const handleMove = (e) => {
@@ -72,13 +89,9 @@ function FormBukuTamu() {
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    const rect = canvas.getBoundingClientRect();
-    const touch = e.touches ? e.touches[0] : e;
+    const { x, y } = getCoordinates(e);
 
-    ctx.lineTo(
-      (touch.clientX - rect.left) * (canvas.width / rect.width),
-      (touch.clientY - rect.top) * (canvas.height / rect.height)
-    );
+    ctx.lineTo(x, y);
     ctx.stroke();
   };
 
@@ -92,51 +105,12 @@ function FormBukuTamu() {
     }, "image/png");
   };
 
-  const handleMouseDown = (e) => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    const rect = canvas.getBoundingClientRect();
-
-    setIsDrawing(true);
-    ctx.beginPath();
-    ctx.moveTo(
-      (e.clientX - rect.left) * (canvas.width / rect.width),
-      (e.clientY - rect.top) * (canvas.height / rect.height)
-    );
-  };
-
-  const handleDraw = (e) => {
-    if (!isDrawing) return;
-
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    const rect = canvas.getBoundingClientRect();
-
-    ctx.lineTo(
-      (e.clientX - rect.left) * (canvas.width / rect.width),
-      (e.clientY - rect.top) * (canvas.height / rect.height)
-    );
-    ctx.stroke();
-  };
-
-  const handleMouseUp = () => {
-    setIsDrawing(false);
-
-    const canvas = canvasRef.current;
-    canvas.toBlob((blob) => {
-      const file = new File([blob], "signature.png", { type: "image/png" });
-      setSignature(file);
-    }, "image/png");
-  };
-
   const clearSignature = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    setSignature("");
+    setSignature(null);
   };
-  console.log(organizationId);
 
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -274,7 +248,8 @@ function FormBukuTamu() {
                   className="form-control"
                   onChange={(e) => setAlamat(e.target.value)}
                   placeholder="Masukkan Alamat"
-                  rows={4}></textarea>
+                  rows={4}
+                ></textarea>
               </div>
               {/* <div className="mb-3 col-lg-12">
                 <label
@@ -309,7 +284,8 @@ function FormBukuTamu() {
                   className="form-control"
                   onChange={(e) => setTujuan(e.target.value)}
                   placeholder="Masukkan Tujuan"
-                  rows={4}></textarea>
+                  rows={4}
+                ></textarea>
               </div>
               <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">
@@ -322,6 +298,7 @@ function FormBukuTamu() {
                     marginBottom: "10px",
                     width: "100%",
                     height: "10rem",
+                    touchAction: "none", // Mencegah scroll saat menggambar di HP
                   }}
                   onMouseDown={handleStart}
                   onMouseMove={handleMove}
@@ -329,12 +306,14 @@ function FormBukuTamu() {
                   onMouseLeave={handleEnd}
                   onTouchStart={handleStart}
                   onTouchMove={handleMove}
-                  onTouchEnd={handleEnd}></canvas>
+                  onTouchEnd={handleEnd}
+                ></canvas>
                 <br />
                 <button
                   type="button"
                   onClick={clearSignature}
-                  className="btn-secondary">
+                  className="btn-secondary"
+                >
                   Bersihkan Tanda Tangan
                 </button>
               </div>
