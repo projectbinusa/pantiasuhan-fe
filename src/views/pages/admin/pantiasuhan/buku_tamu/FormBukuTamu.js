@@ -276,7 +276,7 @@ function FormBukuTamu() {
                   placeholder="Masukkan Alamat"
                   rows={4}></textarea>
               </div>
-              <div className="mb-3 col-lg-12">
+              {/* <div className="mb-3 col-lg-12">
                 <label
                   for="exampleInputEmail1"
                   className="form-label font-weight-bold ">
@@ -292,7 +292,7 @@ function FormBukuTamu() {
                   onChange={(e) => setOrganizationId(e.value)}
                   isLoading={isLoading}
                 />
-              </div>
+              </div> */}
               <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">
                   Tanggal Kunjungan
