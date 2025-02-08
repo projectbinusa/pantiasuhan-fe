@@ -50,6 +50,48 @@ function FormBukuTamu() {
     ctx.strokeStyle = "black";
   }, []);
 
+  const handleStart = (e) => {
+    e.preventDefault(); // Mencegah scrolling saat menggambar di HP
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches ? e.touches[0] : e;
+
+    setIsDrawing(true);
+    ctx.beginPath();
+    ctx.moveTo(
+      (touch.clientX - rect.left) * (canvas.width / rect.width),
+      (touch.clientY - rect.top) * (canvas.height / rect.height)
+    );
+  };
+
+  const handleMove = (e) => {
+    if (!isDrawing) return;
+    e.preventDefault();
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches ? e.touches[0] : e;
+
+    ctx.lineTo(
+      (touch.clientX - rect.left) * (canvas.width / rect.width),
+      (touch.clientY - rect.top) * (canvas.height / rect.height)
+    );
+    ctx.stroke();
+  };
+
+  const handleEnd = () => {
+    setIsDrawing(false);
+
+    const canvas = canvasRef.current;
+    canvas.toBlob((blob) => {
+      const file = new File([blob], "signature.png", { type: "image/png" });
+      setSignature(file);
+    }, "image/png");
+  };
+
   const handleMouseDown = (e) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -94,110 +136,50 @@ function FormBukuTamu() {
     ctx.beginPath();
     setSignature("");
   };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${API_DUMMY_SMART}/api/public/customercabang`, {
-  //         headers: {
-  //           "x-origin": window.location.hostname,
-  //         },
-  //       });
-  //       console.log(response.data.data);
-  //       console.log(response.data.pagination);
-  //       setOrganization(response.data.data);
-  //     } catch (error) {
-  //       console.error("Terjadi Kesalahan saat mengambil data barang:", error);
-  //     }
-  //   };
-  //   fetchData()
-  // }, [])
   console.log(organizationId);
 
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const fetchData = async (pageNum) => {
-  //   if (isLoading || !hasMore) return;
-
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await axios.get(
-  //       `${API_DUMMY_SMART}/api/public/organization?page=${pageNum}`,
-  //       {
-  //         headers: {
-  //           "x-origin": window.location.hostname,
-  //         },
-  //       }
-  //     );
-
-  //     const newData = response.data.data;
-  //     const pagination = response.data.pagination;
-  //     const hasNextPage = pagination.page < pagination.total_page;
-
-  //     setOrganization((prev) => [...prev, ...newData]); // Tambah data baru
-  //     setHasMore(hasNextPage); // Periksa apakah masih ada data
-
-  //     console.log("Fetched Page:", pageNum);
-  //     console.log("Next Page Exists:", hasNextPage);
-
-  //     if (hasNextPage) {
-  //       setPage((prev) => prev + 1); // Pakai fungsi callback agar nilai terbaru
-  //     }
-  //     // if (hasNextPage) {
-  //     //   setPage(pageNum + 1);
-  //     //   console.log(page);
-  //     // }
-
-  //     // console.log(pagination);
-  //     // console.log(hasNextPage);
-  //   } catch (error) {
-  //     console.error("Terjadi Kesalahan saat mengambil data:", error);
-  //   }
-  //   setIsLoading(false);
-  // };
-
   const isFetching = useRef(false); // Gunakan useRef agar tidak memicu re-render
 
-const fetchData = async (pageNum) => {
-  if (isFetching.current || !hasMore) return; // Mencegah pemanggilan ganda
+  const fetchData = async (pageNum) => {
+    if (isFetching.current || !hasMore) return; // Mencegah pemanggilan ganda
 
-  isFetching.current = true; // Set fetching agar tidak double request
-  setIsLoading(true);
+    isFetching.current = true; // Set fetching agar tidak double request
+    setIsLoading(true);
 
-  try {
-    const response = await axios.get(
-      `${API_DUMMY_SMART}/api/public/organization?page=${pageNum}`,
-      {
-        headers: {
-          "x-origin": window.location.hostname,
-        },
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/public/organization?page=${pageNum}`,
+        {
+          headers: {
+            "x-origin": window.location.hostname,
+          },
+        }
+      );
+
+      const newData = response.data.data;
+      const pagination = response.data.pagination;
+      const hasNextPage = pagination.page < pagination.total_page;
+
+      setOrganization((prev) => [...prev, ...newData]);
+      setHasMore(hasNextPage);
+
+      console.log("Fetched Page:", pageNum);
+      console.log("Next Page Exists:", hasNextPage);
+
+      if (hasNextPage) {
+        setPage(pageNum + 1);
       }
-    );
-
-    const newData = response.data.data;
-    const pagination = response.data.pagination;
-    const hasNextPage = pagination.page < pagination.total_page;
-
-    setOrganization((prev) => [...prev, ...newData]);
-    setHasMore(hasNextPage);
-
-    console.log("Fetched Page:", pageNum);
-    console.log("Next Page Exists:", hasNextPage);
-
-    if (hasNextPage) {
-      setPage(pageNum + 1);
+    } catch (error) {
+      console.error("Terjadi Kesalahan saat mengambil data:", error);
     }
 
-  } catch (error) {
-    console.error("Terjadi Kesalahan saat mengambil data:", error);
-  }
-
-  isFetching.current = false; // Reset fetching flag
-  setIsLoading(false);
-};
+    isFetching.current = false; // Reset fetching flag
+    setIsLoading(false);
+  };
 
   useEffect(() => {
     fetchData(page); // Ambil data pertama kali
@@ -292,25 +274,14 @@ const fetchData = async (pageNum) => {
                   className="form-control"
                   onChange={(e) => setAlamat(e.target.value)}
                   placeholder="Masukkan Alamat"
-                  rows={4}
-                ></textarea>
+                  rows={4}></textarea>
               </div>
               <div className="mb-3 col-lg-12">
                 <label
                   for="exampleInputEmail1"
-                  className="form-label font-weight-bold "
-                >
+                  className="form-label font-weight-bold ">
                   Panti Asuhan
                 </label>
-                {/* <Select
-                  className="basic-single"
-                  classNamePrefix="select"
-                  options={organization.map((data) => ({
-                    value: data.organization_id,
-                    label: data.name
-                  }))}
-                  onChange={(e) => setOrganizationId(e.value)}
-                /> */}
                 <Select
                   className="basic-single"
                   classNamePrefix="select"
@@ -321,22 +292,6 @@ const fetchData = async (pageNum) => {
                   onChange={(e) => setOrganizationId(e.value)}
                   isLoading={isLoading}
                 />
-                {/* <select
-                  required
-                  className="form-control"
-                  aria-label="Small select example"
-                  onChange={(e) => {
-                    const selectedId = e.target.value;
-                    setOrganizationId(selectedId);
-                  }}
-                >
-                  <option value="">Pilih Panti Asuhan</option>
-                  {organization.map((data, index) => (
-                    <option key={index} value={data.id}>
-                      {data.name}
-                    </option>
-                  ))}
-                </select> */}
               </div>
               <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">
@@ -354,8 +309,7 @@ const fetchData = async (pageNum) => {
                   className="form-control"
                   onChange={(e) => setTujuan(e.target.value)}
                   placeholder="Masukkan Tujuan"
-                  rows={4}
-                ></textarea>
+                  rows={4}></textarea>
               </div>
               <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">
@@ -369,26 +323,21 @@ const fetchData = async (pageNum) => {
                     width: "100%",
                     height: "10rem",
                   }}
-                  onMouseDown={handleMouseDown}
-                  onMouseMove={handleDraw}
-                  onMouseUp={handleMouseUp}
-                  onMouseLeave={handleMouseUp}
-                ></canvas>
+                  onMouseDown={handleStart}
+                  onMouseMove={handleMove}
+                  onMouseUp={handleEnd}
+                  onMouseLeave={handleEnd}
+                  onTouchStart={handleStart}
+                  onTouchMove={handleMove}
+                  onTouchEnd={handleEnd}></canvas>
                 <br />
                 <button
                   type="button"
                   onClick={clearSignature}
-                  className="btn-secondary"
-                >
+                  className="btn-secondary">
                   Bersihkan Tanda Tangan
                 </button>
               </div>
-              {/* {signature && (
-                <div style={{ marginTop: "10px" }}>
-                  <p>Generated Signature:</p>
-                  <img src={signature} alt="Signature" style={{ maxWidth: "100%" }} />
-                </div>
-              )} */}
             </div>
           </div>
           <br /> <br />
@@ -504,107 +453,6 @@ const fetchData = async (pageNum) => {
       </style>
     </main>
   );
-  // return (
-  //   <div className="app-main__inner m-4">
-  //     <div className="row">
-  //       <div className="col-md-12">
-  //         <div className="card shadow">
-  //           <div className="card-body">
-  //             <h1 className="fs-4">Form Buku Tamu</h1>
-  //             <hr />
-  //             <form onSubmit={add}>
-  //               <div className="row">
-  //                 <div className="mb-3 col-lg-12">
-  //                   <label className="form-label font-weight-bold">Nama</label>
-  //                   <input
-  //                     value={nama}
-  //                     onChange={(e) => setNama(e.target.value)}
-  //                     type="text"
-  //                     placeholder="Masukkan Nama"
-  //                     className="form-control"
-  //                   />
-  //                 </div>
-  //                 <div className="mb-3 col-lg-12">
-  //                   <label className="form-label font-weight-bold">
-  //                     No Whatsapp
-  //                   </label>
-  //                   <input
-  //                     value={noWa}
-  //                     onChange={(e) => setNoWa(e.target.value)}
-  //                     type="number"
-  //                     placeholder="Masukkan No Whatsapp"
-  //                     className="form-control"
-  //                   />
-  //                 </div>
-  //                 <div className="mb-3 col-lg-12">
-  //                   <label className="form-label font-weight-bold">
-  //                     Alamat
-  //                   </label>
-  //                   <textarea
-  //                     rows={3}
-  //                     className="form-control"
-  //                     placeholder="Masukkan Alamat"
-  //                     value={alamat}
-  //                     onChange={(e) => setAlamat(e.target.value)}
-  //                   ></textarea>
-  //                 </div>
-  //                 <div className="mb-3 col-lg-12">
-  //                   <label className="form-label font-weight-bold">
-  //                     Tujuan Kunjungan
-  //                   </label>
-  //                   <textarea
-  //                     rows={3}
-  //                     className="form-control"
-  //                     placeholder="Masukkan Tujuan Kunjungan"
-  //                     value={tujuan}
-  //                     onChange={(e) => setTujuan(e.target.value)}
-  //                   ></textarea>
-  //                 </div>
-  //                 <div className="mb-3 col-lg-12">
-  //                   <label className="form-label font-weight-bold">
-  //                     Tanggal Kunjungan
-  //                   </label>
-  //                   <input
-  //                     className="form-control"
-  //                     type="date"
-  //                     value={tanggal}
-  //                     onChange={(e) => setTanggal(e.target.value)}
-  //                   />
-  //                 </div>
-  //                 {/* <div className="mb-3 col-lg-12">
-  //                   <label className="form-label font-weight-bold">
-  //                     Bukti Donasi
-  //                   </label>
-  //                   <input
-  //                     type="file"
-  //                     accept="image/*"
-  //                     onChange={(e) => setImage(e.target.files[0])}
-  //                     className="form-control"
-  //                   />
-  //                 </div> */}
-  //                 <div className="mb-3 col-lg-12">
-  //                   <label className="form-label font-weight-bold">
-  //                     Catatan
-  //                   </label>
-  //                   <textarea
-  //                     rows={3}
-  //                     className="form-control"
-  //                     placeholder="Masukkan Catatan"
-  //                     value={catatan}
-  //                     onChange={(e) => setCatatan(e.target.value)}
-  //                   ></textarea>
-  //                 </div>
-  //               </div>
-  //               <button type="submit" className="btn-primary mt-3">
-  //                 Kirim
-  //               </button>
-  //             </form>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
 }
 
 export default FormBukuTamu;

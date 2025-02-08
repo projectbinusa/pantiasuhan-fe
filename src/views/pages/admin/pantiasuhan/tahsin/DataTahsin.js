@@ -178,23 +178,22 @@ function DataTahsin() {
       if (response.data && response.data.data) {
         setUserData(response.data.data);
         setMemberName(response.data.data.name);
-        setMemberId(response.data.data.id)
+        setMemberId(response.data.data.id);
         console.log(response.data.data);
-        
 
         // Tutup modal terlebih dahulu
         closeModal2();
 
         // Tunggu modal benar-benar tertutup sebelum menampilkan alert
-        setTimeout(async () => {
-          await Swal.fire({
-            title: "Berhasil!",
-            text: "Data RFID berhasil ditemukan.",
-            icon: "success",
-          });
+        // setTimeout(async () => {
+        //   await Swal.fire({
+        //     title: "Berhasil!",
+        //     text: "Data RFID berhasil ditemukan.",
+        //     icon: "success",
+        //   });
+        // }, 500);
 
-          openModal();
-        }, 500);
+        openModal();
       }
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -364,22 +363,19 @@ function DataTahsin() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left"
-        >
+          data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -388,8 +384,7 @@ function DataTahsin() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}
-              >
+                value={rowsPerPage}>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -416,8 +411,7 @@ function DataTahsin() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
+                    value={rowsPerPage}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -436,8 +430,7 @@ function DataTahsin() {
                   <div role="group" className="btn-group-sm btn-group">
                     <button
                       className="active btn-focus p-2 rounded"
-                      onClick={openModal2}
-                    >
+                      onClick={openModal2}>
                       Tambah
                     </button>
                   </div>
@@ -446,8 +439,7 @@ function DataTahsin() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}
-            >
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -467,20 +459,46 @@ function DataTahsin() {
                     filteredList.map((tahsin, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="text-md-start text-end">
+                          <td
+                            data-label="No"
+                            className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Member ID" className="text-md-start text-end">{tahsin.member_id}</td>
-                          <td data-label="Nama" className="text-md-start text-end">{tahsin.member_name}</td>
-                          <td data-label="Tanggal" className="text-md-start text-end">{tahsin.created_date}</td>
-                          <td data-label="Pojok Awal - Pojok Akhir" className="text-md-start text-end">
+                          <td
+                            data-label="Member ID"
+                            className="text-md-start text-end">
+                            {tahsin.member_id}
+                          </td>
+                          <td
+                            data-label="Nama"
+                            className="text-md-start text-end">
+                            {tahsin.member_name}
+                          </td>
+                          <td
+                            data-label="Tanggal"
+                            className="text-md-start text-end">
+                            {tahsin.created_date}
+                          </td>
+                          <td
+                            data-label="Pojok Awal - Pojok Akhir"
+                            className="text-md-start text-end">
                             {tahsin.start_pojok} - {tahsin.end_pojok}
                           </td>
-                          <td data-label="Juz Awal - Juz Akhir" className="text-md-start text-end">
+                          <td
+                            data-label="Juz Awal - Juz Akhir"
+                            className="text-md-start text-end">
                             {tahsin.start_juz} - {tahsin.end_juz}
                           </td>
-                          <td data-label="Deskripsi" className="text-md-start text-end">{tahsin.description}</td>
-                          <td data-label="Status" className="text-md-start text-end">{tahsin.status !== "" ? tahsin.status : "Pending"}</td>
+                          <td
+                            data-label="Deskripsi"
+                            className="text-md-start text-end">
+                            {tahsin.description}
+                          </td>
+                          <td
+                            data-label="Status"
+                            className="text-md-start text-end">
+                            {tahsin.status !== "" ? tahsin.status : "Pending"}
+                          </td>
                           <td className="action" data-label="Aksi">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
@@ -524,8 +542,7 @@ function DataTahsin() {
               open={isModalOpen}
               onClose={closeModal}
               aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
+              aria-describedby="modal-modal-description">
               <Box sx={style}>
                 {/* Title Modal */}
                 <h4 style={{ textAlign: "center", marginBottom: "1rem" }}>
@@ -544,8 +561,7 @@ function DataTahsin() {
             "startPojok endPojok"
             "deskripsi ."
           `,
-                    }}
-                  >
+                    }}>
                     {/* Start Juz */}
                     <div className="mb-3" style={{ gridArea: "startJuz" }}>
                       <label className="form-label font-weight-bold">
@@ -619,8 +635,7 @@ function DataTahsin() {
                       justifyContent: "flex-end",
                       gap: "1rem",
                       marginTop: "1rem",
-                    }}
-                  >
+                    }}>
                     <button onClick={closeModal} className="btn btn-danger">
                       TUTUP
                     </button>
@@ -636,8 +651,7 @@ function DataTahsin() {
               open={isModalOpen1}
               onClose={closeModal1}
               aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
+              aria-describedby="modal-modal-description">
               <Box
                 sx={{
                   width: 400,
@@ -647,8 +661,7 @@ function DataTahsin() {
                   borderRadius: "10px",
                   mx: "auto",
                   mt: "10%",
-                }}
-              >
+                }}>
                 <form onSubmit={edit}>
                   <h4 style={{ marginBottom: "1rem", textAlign: "center" }}>
                     Edit Status
@@ -661,8 +674,7 @@ function DataTahsin() {
                     <select
                       className="form-control"
                       required
-                      onChange={(e) => setStatus(e.target.value)}
-                    >
+                      onChange={(e) => setStatus(e.target.value)}>
                       <option value="">Pilih Status</option>
                       <option value="Approved">Approved</option>
                       <option value="Rejected">Rejected</option>
@@ -674,13 +686,11 @@ function DataTahsin() {
                       display: "flex",
                       justifyContent: "space-between",
                       marginTop: "1rem",
-                    }}
-                  >
+                    }}>
                     <button
                       onClick={closeModal1}
                       className="btn btn-danger"
-                      type="button"
-                    >
+                      type="button">
                       TUTUP
                     </button>
                     <button type="submit" className="btn btn-primary">
@@ -695,8 +705,7 @@ function DataTahsin() {
               open={isModalOpen2}
               onClose={closeModal2}
               aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
+              aria-describedby="modal-modal-description">
               <Box
                 sx={{
                   width: 400,
@@ -706,8 +715,7 @@ function DataTahsin() {
                   borderRadius: "10px",
                   mx: "auto",
                   mt: "10%",
-                }}
-              >
+                }}>
                 <form onSubmit={tabrfid}>
                   <h4 style={{ marginBottom: "1rem", textAlign: "center" }}>
                     Tab Kartu
@@ -732,13 +740,11 @@ function DataTahsin() {
                       display: "flex",
                       justifyContent: "space-between",
                       marginTop: "1rem",
-                    }}
-                  >
+                    }}>
                     <button
                       onClick={closeModal2}
                       className="btn btn-danger"
-                      type="button"
-                    >
+                      type="button">
                       TUTUP
                     </button>
                     <button type="submit" className="btn btn-primary">
