@@ -169,16 +169,24 @@ function FormBukuTamu() {
         imageUrl = await uploadImageToS3(signature);
       }
 
-      await axios.post(`${API_DUMMY}/api/guestbook`, {
-        no_wa: convertToInternational(noWa),
-        address: alamat,
-        nama: nama,
-        // visit_date: tanggal,
-        signature: imageUrl,
-        note: catatan,
-        description_donation: tujuan,
-        // organization_id: organizationId,
-      });
+      await axios.post(
+        `${API_DUMMY}/api/guestbook`,
+        {
+          no_wa: convertToInternational(noWa),
+          address: alamat,
+          nama: nama,
+          // visit_date: tanggal,
+          signature: imageUrl,
+          note: catatan,
+          description_donation: tujuan,
+          // organization_id: organizationId,
+        },
+        {
+          headers: {
+            "x-origin": window.location.hostname,
+          },
+        }
+      );
 
       Swal.fire({
         icon: "success",
@@ -248,8 +256,7 @@ function FormBukuTamu() {
                   className="form-control"
                   onChange={(e) => setAlamat(e.target.value)}
                   placeholder="Masukkan Alamat"
-                  rows={4}
-                ></textarea>
+                  rows={4}></textarea>
               </div>
               {/* <div className="mb-3 col-lg-12">
                 <label
@@ -284,8 +291,7 @@ function FormBukuTamu() {
                   className="form-control"
                   onChange={(e) => setTujuan(e.target.value)}
                   placeholder="Masukkan Tujuan"
-                  rows={4}
-                ></textarea>
+                  rows={4}></textarea>
               </div>
               <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">
@@ -306,14 +312,12 @@ function FormBukuTamu() {
                   onMouseLeave={handleEnd}
                   onTouchStart={handleStart}
                   onTouchMove={handleMove}
-                  onTouchEnd={handleEnd}
-                ></canvas>
+                  onTouchEnd={handleEnd}></canvas>
                 <br />
                 <button
                   type="button"
                   onClick={clearSignature}
-                  className="btn-secondary"
-                >
+                  className="btn-secondary">
                   Bersihkan Tanda Tangan
                 </button>
               </div>
