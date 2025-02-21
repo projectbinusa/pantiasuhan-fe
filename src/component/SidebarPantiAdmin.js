@@ -451,6 +451,18 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       ],
       icon: <i class="fa-solid fa-angle-down"></i>,
     },
+    {
+      header: "Domain",
+      items: [
+        {
+          title: "Domain",
+          icon: "fa-solid fa-book-open",
+          path: "/domain",
+          action: [""],
+        },
+      ],
+      icon: <i class="fa-solid fa-angle-down"></i>,
+    },
     // {
     //   header: "Organization",
     //   items: [
