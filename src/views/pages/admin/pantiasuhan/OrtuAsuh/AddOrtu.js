@@ -221,7 +221,7 @@ function AddOrtu() {
                         <input
                           value={penghasilan}
                           onChange={(e) => setPenghasilan(e.target.value)}
-                          type="text"
+                          type="number"
                           className="form-control"
                           placeholder="Masukkan Penghasilan"
                         />

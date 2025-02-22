@@ -260,6 +260,9 @@ import DonasiTrxMasukBulanan from "./views/pages/yayasan/donasi_trx/DonasiTrxMas
 import DonasiTrxKeluarMingguan from "./views/pages/yayasan/donasi_trx/DonasiTrxKeluarMingguan.js";
 import DonasiTrxKeluarBulanan from "./views/pages/yayasan/donasi_trx/DonasiTrxKeluarBulanan.js";
 import EditOrganization from "./views/pages/yayasan/organization/EditOrganization.js";
+import Domain from "./views/pages/yayasan/domain/Domain.js";
+import AddDomain from "./views/pages/yayasan/domain/AddDomain.js";
+import EditDomain from "./views/pages/yayasan/domain/EditDomain.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -790,6 +793,10 @@ function App() {
               component={StrukturOrganisasi}
               exact
             />
+            {/* Domain */}
+            <Route path="/domain" component={Domain} exact />
+            <Route path="/add-domain" component={AddDomain} exact />
+            <Route path="/edit-domain/:name" component={EditDomain} exact />
             {/* Iventaris */}
             <Route path="/iventaris" component={Iventaris} exact />
             <Route path="/add-iventaris" component={AddInves} exact />
