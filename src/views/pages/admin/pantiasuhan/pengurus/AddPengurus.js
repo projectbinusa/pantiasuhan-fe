@@ -60,7 +60,7 @@ import "ckeditor5/ckeditor5.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
-function AddBeritaAdminPanti() {
+function AddPengurus() {
   const [author, setAuthor] = useState("");
   const [judulBerita, setJudulBerita] = useState("");
   const [image, setImage] = useState(null);
@@ -613,4 +613,4 @@ function AddBeritaAdminPanti() {
   );
 }
 
-export default AddBeritaAdminPanti;
+export default AddPengurus;

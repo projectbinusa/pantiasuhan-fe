@@ -38,6 +38,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { EffectCoverflow, Pagination } from "swiper/modules";
+import { formatRupiah } from "../../utils/formating";
+
+const formatTanggal = (tanggalString) => {
+  const tanggal = new Date(tanggalString);
+  const bulan = [
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+  ];
+  const hari = tanggal.getDate();
+  const bulanNama = bulan[tanggal.getMonth()];
+  const tahun = tanggal.getFullYear();
+
+  return `${hari} ${bulanNama} ${tahun}`;
+};
 
 function Home() {
   const [scrollY, setScrollY] = useState(0);
@@ -49,6 +63,11 @@ function Home() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [anakAsuhData, setAnakAsuhData] = useState({
+    total_anak_asuh: 0,
+    per_jenis_kelamin: { laki_laki: 0, perempuan: 0 },
+    per_tingkat_pendidikan: {},
+  });
 
   const style = {
     position: "absolute",
@@ -528,6 +547,44 @@ function Home() {
     }
   };
 
+  // DONASI UMUM
+  const [donasi, setdonasi] = useState([]);
+  const getAllDonasi = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/public/donation?page=1&limit=6`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            "x-origin": window.location.hostname
+          },
+        }
+      );
+      console.log("donasi: ", response.data.data);
+      setdonasi(response.data.data);
+    } catch (error) {
+      console.log("get kegiatan", error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch data jumlah anak asuh dari API
+    axios
+      .get(`${API_DUMMY_SMART}/api/customer/jumlah_siswa`, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      })
+      .then((response) => {
+        const data = response.data.data;
+        console.log(data);
+        // setAnakAsuhData(data); // Simpan data ke state
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
   useEffect(() => {
     getAllVisiMisiPanti();
     getAllSambutanPanti();
@@ -536,6 +593,7 @@ function Home() {
     getAllBerita();
     getAllSantri();
     getAllGalery();
+    getAllDonasi();
   }, []);
 
   return (
@@ -1091,6 +1149,160 @@ function Home() {
         </div>
       </div> */}
 
+      {/* DONASI SECTION */}
+      {/* <div
+        id="donasi"
+        class="blog-area pd-top-115 pd-bottom-60"
+        style={{ background: "#F8FCFB" }}> */}
+      <div id="donasi" class="bg-relative team-area pd-top-115 pd-bottom-90">
+        <img
+          class="shape-left-top top_image_bounce"
+          src="https://solverwp.com/demo/html/itechie/assets/img/shape/3.webp"
+          alt="img"
+        />
+        <img
+          class="shape-right-top top_image_bounce"
+          src="https://solverwp.com/demo/html/itechie/assets/img/shape/4.webp"
+          alt="img"
+        />
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-7 col-md-10">
+              <div class="section-title text-center" data-aos="fade-down">
+                {/* <h5 class="sub-title double-line">Blog Post</h5> */}
+                <h2 class="title">Ayo Donasi!</h2>
+                <p class="content">Bersama Kita Berbagi, Sekecil Apapun Berarti!</p>
+              </div>
+            </div>
+          </div>
+          <div
+            className="grid-container"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gap: "20px",
+            }}
+          >
+            {donasi.map((item, index) => (
+              <div
+                className="card" key={index}
+                style={{
+                  backgroundColor: "#fff",
+                  borderRadius: "15px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  overflow: "hidden",
+                  transition: "transform 0.3s, box-shadow 0.3s",
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = "scale(1.05)";
+                  e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                  e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+                }}
+              >
+                <img
+                  src={item.url_image !== "" ? item.url_image : "https://via.placeholder.com/300x200"}
+                  alt="Foto Donasi"
+                  style={{
+                    width: "100%",
+                    height: "200px",
+                    objectFit: "cover",
+                  }}
+                />
+                <div style={{ padding: "20px" }}>
+                  <h4
+                    style={{
+                      fontSize: "1.5rem",
+                      fontWeight: "bold",
+                      color: "#004080",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {item.name}
+                  </h4>
+                  <p
+                    style={{
+                      fontSize: "0.9rem",
+                      color: "#555",
+                      marginBottom: "5px",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <svg
+                      className="svg-inline--fa fa-calendar-alt fa-w-14"
+                      aria-hidden="true"
+                      focusable="false"
+                      data-prefix="far"
+                      data-icon="calendar-alt"
+                      role="img"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                      style={{
+                        width: "16px",
+                        height: "16px",
+                        color: "#004080",
+                        marginRight: "5px",
+                      }}
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-56V64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H152V64zM32 192h384v272c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V192zm96 100c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40z"
+                      />
+                    </svg>
+                    {formatTanggal(item.created_date)}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "0.9rem",
+                      color: "#777",
+                      lineHeight: "1.5",
+                      marginBottom: "15px", marginTop: "1rem"
+                    }} className="content-isi"
+                  >
+                    <div dangerouslySetInnerHTML={{ __html: item?.description }} />
+                  </p>
+                  <p style={{
+                    fontSize: "0.9rem",
+                    color: "#777", fontWeight: "500", marginTop: "1rem"
+                  }} className="content-isi"
+                  >Total Donasi</p>
+                  <h4
+                    style={{
+                      fontSize: "1.3rem",
+                      fontWeight: "bold",
+                      color: "#004080",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {formatRupiah(item.total_income)}
+                  </h4>
+                  <a
+                    className="read-more-text"
+                    href={"/donasiumum/preview/" + item.id}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      fontSize: "0.9rem",
+                      fontWeight: "bold",
+                      color: "#004080",
+                      textDecoration: "none",
+                      transition: "color 0.3s ease",
+                    }}
+                    onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
+                    onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}
+                  >
+                    <span style={{ marginRight: "8px" }}>Selengkapnya</span>
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Berita */}
       <div
         id="berita"
@@ -1234,7 +1446,132 @@ function Home() {
               </div>
             </div>
           </div>
-          <Swiper
+          <div
+            className="grid-container"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gap: "20px",
+            }}
+          >
+            {galery.map((item, index) => (
+              <div
+                className="card" key={index}
+                style={{
+                  backgroundColor: "#fff",
+                  borderRadius: "15px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  overflow: "hidden",
+                  transition: "transform 0.3s, box-shadow 0.3s",
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = "scale(1.05)";
+                  e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                  e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+                }}
+              >
+                <img
+                  src={item.foto !== "" ? item.foto : "https://via.placeholder.com/300x200"}
+                  alt="Foto Donasi"
+                  style={{
+                    width: "100%",
+                    height: "200px",
+                    objectFit: "cover",
+                  }}
+                />
+                {/* <div style={{ padding: "20px" }}>
+                  <h4
+                    style={{
+                      fontSize: "1.5rem",
+                      fontWeight: "bold",
+                      color: "#004080",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {item.name}
+                  </h4>
+                  <p
+                    style={{
+                      fontSize: "0.9rem",
+                      color: "#555",
+                      marginBottom: "5px",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <svg
+                      className="svg-inline--fa fa-calendar-alt fa-w-14"
+                      aria-hidden="true"
+                      focusable="false"
+                      data-prefix="far"
+                      data-icon="calendar-alt"
+                      role="img"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                      style={{
+                        width: "16px",
+                        height: "16px",
+                        color: "#004080",
+                        marginRight: "5px",
+                      }}
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-56V64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H152V64zM32 192h384v272c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V192zm96 100c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40z"
+                      />
+                    </svg>
+                    {formatTanggal(item.created_date)}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "0.9rem",
+                      color: "#777",
+                      lineHeight: "1.5",
+                      marginBottom: "15px", marginTop: "1rem"
+                    }} className="content-isi"
+                  >
+                    <div dangerouslySetInnerHTML={{ __html: item?.description }} />
+                  </p>
+                  <p style={{
+                    fontSize: "0.9rem",
+                    color: "#777", fontWeight: "500", marginTop: "1rem"
+                  }} className="content-isi"
+                  >Total Donasi</p>
+                  <h4
+                    style={{
+                      fontSize: "1.3rem",
+                      fontWeight: "bold",
+                      color: "#004080",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    {formatRupiah(item.total_income)}
+                  </h4>
+                  <a
+                    className="read-more-text"
+                    href={"/donasiumum/preview/" + item.id}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      fontSize: "0.9rem",
+                      fontWeight: "bold",
+                      color: "#004080",
+                      textDecoration: "none",
+                      transition: "color 0.3s ease",
+                    }}
+                    onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
+                    onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}
+                  >
+                    <span style={{ marginRight: "8px" }}>Selengkapnya</span>
+                  </a>
+                </div> */}
+              </div>
+            ))}
+          </div>
+          {/* <Swiper
             effect={"coverflow"}
             grabCursor={true}
             centeredSlides={true}
@@ -1295,28 +1632,28 @@ function Home() {
                 ))}
               </div>
             </div>
-          </Swiper>
+          </Swiper> */}
         </div>
       </div>
 
       {/* Santri */}
       <div id="santri" class="bg-relative team-area pd-top-115 pd-bottom-90">
-      <img
-        class="shape-left-top top_image_bounce"
-        src="https://solverwp.com/demo/html/itechie/assets/img/shape/3.webp"
-        alt="img"
-      />
-      <img
-        class="shape-right-top top_image_bounce"
-        src="https://solverwp.com/demo/html/itechie/assets/img/shape/4.webp"
-        alt="img"
-      />
+        <img
+          class="shape-left-top top_image_bounce"
+          src="https://solverwp.com/demo/html/itechie/assets/img/shape/3.webp"
+          alt="img"
+        />
+        <img
+          class="shape-right-top top_image_bounce"
+          src="https://solverwp.com/demo/html/itechie/assets/img/shape/4.webp"
+          alt="img"
+        />
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6">
               <div class="section-title text-center" data-aos="fade-down">
                 {/* <h5 class="sub-title double-line">Santri Panti</h5> */}
-                <h2 class="title">Anggota atau Santri Panti</h2>
+                <h2 class="title">Jumlah Anak Asuh</h2>
                 {/* <p class="content">
                   Dcidunt eget semper nec quam. Sed hendrerit. acfelis Nunc
                   egestas augue atpellentesque laoreet
@@ -1325,7 +1662,55 @@ function Home() {
             </div>
           </div>
           <div class="row" data-aos="fade-up">
-            {siswa.map((data) => (
+            <div class="col-lg-2 col-md-4 col-sm-6" style={{ textAlign: "center" }}>
+              <div>
+                <i class="fas fa-male" style={{ fontSize: "32px" }}></i>
+                <Typography variant="h4" style={{ fontWeight: "bold", marginTop: "30px" }}>31</Typography>
+                <h5 style={{ fontWeight: "bold" }}>PRIA</h5>
+              </div>
+              <hr />
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6" style={{ textAlign: "center" }}>
+              <div>
+                <i class="fas fa-female" style={{ fontSize: "32px" }}></i>
+                <Typography variant="h4" style={{ fontWeight: "bold", marginTop: "30px" }}>31</Typography>
+                <h5 style={{ fontWeight: "bold" }}>WANITA</h5>
+              </div>
+              <hr />
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6" style={{ textAlign: "center" }}>
+              <div>
+                <i class="fas fa-graduation-cap" style={{ fontSize: "32px" }}></i>
+                <Typography variant="h4" style={{ fontWeight: "bold", marginTop: "30px" }}>31</Typography>
+                <h5 style={{ fontWeight: "bold" }}>SD</h5>
+              </div>
+              <hr />
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6" style={{ textAlign: "center" }}>
+              <div>
+                <i class="fas fa-graduation-cap" style={{ fontSize: "32px" }}></i>
+                <Typography variant="h4" style={{ fontWeight: "bold", marginTop: "30px" }}>31</Typography>
+                <h5 style={{ fontWeight: "bold" }}>SMP</h5>
+              </div>
+              <hr />
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6" style={{ textAlign: "center" }}>
+              <div>
+                <i class="fas fa-graduation-cap" style={{ fontSize: "32px" }}></i>
+                <Typography variant="h4" style={{ fontWeight: "bold", marginTop: "30px" }}>31</Typography>
+                <h5 style={{ fontWeight: "bold" }}>SMA</h5>
+              </div>
+              <hr />
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6" style={{ textAlign: "center" }}>
+              <div>
+                <i class="fas fa-graduation-cap" style={{ fontSize: "32px" }}></i>
+                <Typography variant="h4" style={{ fontWeight: "bold", marginTop: "30px" }}>31</Typography>
+                <h5 style={{ fontWeight: "bold" }}>KULIAH</h5>
+              </div>
+              <hr />
+            </div>
+            {/* {siswa.map((data) => (
               <div class="col-lg-3 col-md-6">
                 <div class="single-team-inner style-1 text-center">
                   <div class="thumb">
@@ -1334,12 +1719,11 @@ function Home() {
                   <div class="details-wrap">
                     <div class="details-inner">
                       <h4>{data.name}</h4>
-                      {/* <p>Founder</p> */}
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
       </div>
@@ -2322,7 +2706,7 @@ function Home() {
           </Typography>
         </Box>
       </Modal>
-    </div>
+    </div >
   );
 }
 
