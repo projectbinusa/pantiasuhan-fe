@@ -181,7 +181,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
 
   const menuItems = [
     {
-      header: "Admin",
+      header: "Tentang",
       items: [
         {
           title: "Sambutan",
@@ -228,6 +228,18 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           icon: "fa-solid fa-clock",
           path: "/admin_shift",
           action: ["/add_shift", "/edit_shift"],
+        },
+        {
+          title: "Fasilitas",
+          icon: "fa-solid fa-building",
+          path: "/admin_fasilitas",
+          action: ["/admin_fasilitas/add", "/admin_fasilitas/edit"],
+        },
+        {
+          title: "Profile",
+          icon: "fa-solid fa-user-circle",
+          path: "/profile",
+          action: ["/profile/edit"],
         },
       ],
     },

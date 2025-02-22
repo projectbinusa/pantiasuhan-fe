@@ -263,6 +263,14 @@ import EditOrganization from "./views/pages/yayasan/organization/EditOrganizatio
 import Domain from "./views/pages/yayasan/domain/Domain.js";
 import AddDomain from "./views/pages/yayasan/domain/AddDomain.js";
 import EditDomain from "./views/pages/yayasan/domain/EditDomain.js";
+import AdminFasilitas from "./views/pages/admin/pantiasuhan/fasilitas/Fasilitas.js";
+import AddFasilitas from "./views/pages/admin/pantiasuhan/fasilitas/AddFasilitas.js";
+import EditFasilitas from "./views/pages/admin/pantiasuhan/fasilitas/EditFasilitas.js";
+import Profile from "./views/pages/admin/pantiasuhan/profile/Profile.js";
+import EditProfile from "./views/pages/admin/pantiasuhan/profile/EditProfile.js";
+import AddPengurus from "./views/pages/admin/pantiasuhan/pengurus/AddPengurus.js";
+import EditPengurus from "./views/pages/admin/pantiasuhan/pengurus/EditPengurus.js";
+import AdminPengurus from "./views/pages/admin/pantiasuhan/pengurus/AdminPengurus.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1025,6 +1033,15 @@ function App() {
               component={DetailPegawai}
               exact
             />
+            {/* FASILITAS */}
+            <PrivateRoute path="/admin_fasilitas" component={AdminFasilitas} exact />
+            <PrivateRoute path="/admin_fasilitas/add" component={AddFasilitas} exact />
+            <PrivateRoute path="/admin_fasilitas/edit/:id" component={EditFasilitas} exact />
+            <PrivateRoute path="/admin_pengurus" component={AdminPengurus} exact />
+            <PrivateRoute path="/admin_pengurus/add" component={AddPengurus} exact />
+            <PrivateRoute path="/admin_pengurus/edit/:id" component={EditPengurus} exact />
+            <PrivateRoute path="/profile" component={Profile} exact />
+            <PrivateRoute path="/profile/edit/:id" component={EditProfile} exact />
           </Switch>
         </main>
         <LogPageView />
