@@ -4,7 +4,9 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import Navbar from "../../../../component/Navbar";
-
+import FooterSekolah from "../../../../component/FooterSekolah";
+import charity from "../../../../aset/pantiasuhan/charity.jpg"
+import { removeImages } from "../../../../utils/removeImages";
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
   const bulan = [
@@ -149,7 +151,7 @@ function PublikProgram() {
           <input
             type="search"
             className="form-control widget-content-right w-100"
-            placeholder="Cari Donasi..."
+            placeholder="Cari Program..."
             value={searchTerm}
             onChange={handleSearchChange}
           /> <br />
@@ -161,113 +163,113 @@ function PublikProgram() {
               gap: "20px",
             }}
           >
-            {filteredList.map((item, index) => (
-              <div
-                className="card" key={index}
-                style={{
-                  backgroundColor: "#fff",
-                  borderRadius: "15px",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                  overflow: "hidden",
-                  transition: "transform 0.3s, box-shadow 0.3s",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = "scale(1.05)";
-                  e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-                }}
-              >
-                <img
-                  src={item.foto !== "" ? item.foto : "https://via.placeholder.com/300x200"}
-                  alt="Foto Donasi"
+            {filteredList.length > 0 ?
+              filteredList.map((item, index) => (
+                <div
+                  className="card" key={index}
                   style={{
-                    width: "100%",
-                    height: "200px",
-                    objectFit: "cover",
+                    backgroundColor: "#fff",
+                    borderRadius: "15px",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                    overflow: "hidden",
+                    transition: "transform 0.3s, box-shadow 0.3s",
                   }}
-                />
-                <div style={{ padding: "20px" }}>
-                  <h4
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "scale(1.05)";
+                    e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+                  }}
+                >
+                  <img src={item.foto == null || item.foto == "" ? charity : item.foto}
+                    alt="Foto Program"
                     style={{
-                      fontSize: "1.5rem",
-                      fontWeight: "bold",
-                      color: "#004080",
-                      marginBottom: "10px",
+                      width: "100%",
+                      height: "200px",
+                      objectFit: "cover",
                     }}
-                  >
-                    {item.judul}
-                  </h4>
-                  <p
-                    style={{
-                      fontSize: "0.9rem",
-                      color: "#555",
-                      marginBottom: "5px",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <svg
-                      className="svg-inline--fa fa-calendar-alt fa-w-14"
-                      aria-hidden="true"
-                      focusable="false"
-                      data-prefix="far"
-                      data-icon="calendar-alt"
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 448 512"
+                  />
+                  <div style={{ padding: "20px" }}>
+                    <h4
                       style={{
-                        width: "16px",
-                        height: "16px",
+                        fontSize: "1.5rem",
+                        fontWeight: "bold",
                         color: "#004080",
-                        marginRight: "5px",
+                        marginBottom: "10px",
                       }}
                     >
-                      <path
-                        fill="currentColor"
-                        d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-56V64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H152V64zM32 192h384v272c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V192zm96 100c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40z"
-                      />
-                    </svg>
-                    {formatTanggal(item.created_date)}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "0.9rem",
-                      color: "#777",
-                      lineHeight: "1.5",
-                      marginBottom: "15px", marginTop: "1rem"
-                    }} className="content-isi"
-                  >
-                    <div dangerouslySetInnerHTML={{ __html: item?.isi }} />
-                  </p>
-                  <a
-                    className="read-more-text"
-                    href={"/programpanti/" + item.id}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      fontSize: "0.9rem",
-                      fontWeight: "bold",
-                      color: "#004080",
-                      textDecoration: "none",
-                      transition: "color 0.3s ease",
-                    }}
-                    onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
-                    onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}
-                  >
-                    <span style={{ marginRight: "8px" }}>Selengkapnya</span>
-                  </a>
+                      {item.judul}
+                    </h4>
+                    <p
+                      style={{
+                        fontSize: "0.9rem",
+                        color: "#555",
+                        marginBottom: "5px",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <svg
+                        className="svg-inline--fa fa-calendar-alt fa-w-14"
+                        aria-hidden="true"
+                        focusable="false"
+                        data-prefix="far"
+                        data-icon="calendar-alt"
+                        role="img"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 448 512"
+                        style={{
+                          width: "16px",
+                          height: "16px",
+                          color: "#004080",
+                          marginRight: "5px",
+                        }}
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-56V64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H152V64zM32 192h384v272c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V192zm96 100c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40z"
+                        />
+                      </svg>
+                      {formatTanggal(item.created_date)}
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "0.9rem",
+                        color: "#777",
+                        lineHeight: "1.5",
+                        marginBottom: "15px", marginTop: "1rem"
+                      }} className="content-isi"
+                    >
+                      <div dangerouslySetInnerHTML={{ __html: removeImages(item?.isi) }} />
+                    </p>
+                    <a
+                      className="read-more-text"
+                      href={"/programpanti/" + item.id}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        fontSize: "0.9rem",
+                        fontWeight: "bold",
+                        color: "#004080",
+                        textDecoration: "none",
+                        transition: "color 0.3s ease",
+                      }}
+                      onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
+                      onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}
+                    >
+                      <span style={{ marginRight: "8px" }}>Selengkapnya</span>
+                    </a>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )) : <div><p>Data tidak ditemukan...</p></div>}
           </div>
-
-          {/* {isLoading && <p>Memuat data...</p>}
-          {!hasMore && <p>Tidak ada data lagi.</p>} */}
+          {isLoading && <p>Memuat data...</p>}
+          {/* {!hasMore && <p>Tidak ada data lagi.</p>} */}
         </div>
       </div>
+      <FooterSekolah />
       {/* <div
         className="container"
         style={{

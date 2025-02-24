@@ -6652,17 +6652,34 @@ a {
   padding: 0 30px;
 }
 
-.single-blog-inner.style-3 {
+/* .single-blog-inner.style-3 {
   border-bottom: 0;
   margin-bottom: 60px;
-}
+} */
 
 .single-blog-inner.style-3 .thumb {
   margin-bottom: 0;
 }
 
-.single-blog-inner.style-3 .details {
+/* .single-blog-inner.style-3 .details {
   background: #F4F8FF;
+  padding: 20px 30px 30px 30px;
+  margin: 0 30px;
+} */
+
+.single-blog-inner.style-3 {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  border-bottom: 0;
+  height: 100%; /* Memastikan tinggi sama */
+}
+
+.single-blog-inner.style-3 .details {
+  flex-grow: 1; /* Memastikan bagian details mengisi ruang tersisa */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; Meratakan isi */
   padding: 20px 30px 30px 30px;
   margin: 0 30px;
 }
@@ -8908,22 +8925,21 @@ a {
 
 .single-blog-inner .details .content-preview {
   overflow: hidden;
-  white-space: nowrap;
-  /* Tampilkan hanya satu baris teks */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   text-overflow: ellipsis;
-  /* Tambahkan titik tiga jika teks terlalu panjang */
-  display: block;
+  white-space: normal;
 }
 
-@media (min-width: 768px) {
-  .single-blog-inner .details .content-preview {
-    white-space: normal;
-    /* Untuk perangkat besar, biarkan multi-baris */
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    /* Batas maksimum 3 baris teks */
-    -webkit-box-orient: vertical;
-  }
+.content-isi {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 
 .single-blog-inner .thumb img {
