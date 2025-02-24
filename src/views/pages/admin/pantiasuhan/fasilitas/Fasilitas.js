@@ -23,19 +23,22 @@ function AdminFasilitas() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/berita?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/customer/fasilitas?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
+
       const { data, pagination } = response.data;
       console.log(response);
-      setList(data); // Set the list of news articles
+
+      setList(data || []); // Pastikan data selalu berupa array
+
       setPaginationInfo({
-        totalPages: pagination.total_page || 1,
-        totalElements: pagination.total || 0,
+        totalPages: pagination?.total_page || 1,
+        totalElements: pagination?.total || 0,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -55,7 +58,7 @@ function AdminFasilitas() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART}/api/customer/berita/` + id, {
+          .delete(`${API_DUMMY_SMART}/api/customer/fasilitas/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -246,35 +249,48 @@ function AdminFasilitas() {
                   <tr>
                     <th>No</th>
                     <th>Nama Fasilitas</th>
-                    <th style={{ maxWidth: "300px" }}>Deskripsi</th>
-                    <th>Gambar</th>
+                    <th>Deskripsi</th>
+                    {/* <th>Gambar</th> */}
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredList.length > 0 ? (
-                    filteredList.map((berita, no) => {
+                    filteredList.map((fasilitas, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="text-md-start text-end">
+                          <td
+                            data-label="No"
+                            className="text-md-start text-end"
+                          >
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama Fasilitas" className="text-md-start text-end">{berita.author}</td>
+                          <td
+                            data-label="Nama Fasilitas"
+                            className="text-md-start text-end"
+                          >
+                            {fasilitas.name}
+                          </td>
                           <td
                             data-label="Deskripsi"
                             className="text-md-start text-end"
                           >
-                            <p className="isiBerita">{berita.judul_berita}</p>
+                            <p className="isiFasilitas">
+                              {fasilitas.description}
+                            </p>
                           </td>
-                          <td data-label="Gambar" className="text-md-center text-end">
+                          {/* <td
+                            data-label="Gambar"
+                            className="text-md-center text-end"
+                          >
                             <button
-                              onClick={() => openModal(berita.image)}
+                              onClick={() => openModal(fasilitas.image)}
                               type="button"
                               className="btn-info btn-sm"
                             >
                               Tampilkan Gambar
                             </button>
-                          </td>
+                          </td> */}
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
@@ -287,13 +303,13 @@ function AdminFasilitas() {
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/admin_fasilitas/edit/${berita.id}`}
+                                  href={`/admin_fasilitas/edit/${fasilitas.id}`}
                                 >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
                               </button>
                               <button
-                                onClick={() => deleteData(berita.id)}
+                                onClick={() => deleteData(fasilitas.id)}
                                 type="button"
                                 className="btn-danger btn-sm"
                               >

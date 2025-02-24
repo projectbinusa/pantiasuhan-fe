@@ -5,67 +5,13 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import {
-  Image,
-  TableCellProperties,
-  TableColumnResize,
-  TableProperties,
-  TableToolbar,
-  TextPartLanguage,
-  TextTransformation,
-  TodoList,
-  Underline,
-  WordCount,
-  ImageCaption,
-  ImageInsert,
-  ImageResize,
-  ImageStyle,
-  ImageToolbar,
-  ImageUpload,
-  Base64UploadAdapter,
-  Indent,
-  IndentBlock,
-  Italic,
-  Link,
-  LinkImage,
-  List,
-  ListProperties,
-  MediaEmbed,
-  Mention,
-  PageBreak,
-  Paragraph,
-  PasteFromOffice,
-  PictureEditing,
-  RemoveFormat,
-  SpecialCharacters,
-  // SpecialCharactersEmoji,
-  SpecialCharactersEssentials,
-  Strikethrough,
-  Style,
-  Subscript,
-  Superscript,
-  Table,
-  TableCaption,
-  Bold,
-  Essentials,
-  Heading,
-  ClassicEditor,
-  Undo,
-  GeneralHtmlSupport,
-  Alignment,
-} from "ckeditor5";
+import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import "ckeditor5/ckeditor5.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
-import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function AddFasilitas() {
-  const [author, setAuthor] = useState("");
-  const [judulBerita, setJudulBerita] = useState("");
-  const [image, setImage] = useState(null);
-  const [categoryBerita, setCategoryBerita] = useState("");
-  const [isiBerita, setIsiBerita] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
 
@@ -75,19 +21,12 @@ function AddFasilitas() {
     e.persist();
 
     try {
-      let imageUrl = image;
-
-      if (image) {
-        imageUrl = await uploadImageToS3(image);
-      }
       await axios.post(
-        `${API_DUMMY_SMART}/api/customer/berita`,
+        `${API_DUMMY_SMART}/api/customer/fasilitas`,
         {
-          author: author,
-          category: categoryBerita,
-          image: imageUrl,
-          isi_berita: isiBerita,
-          judul_berita: judulBerita,
+          name: name,
+          description: description,
+          organization_id: localStorage.getItem("organization_id"),
         },
         {
           headers: {
@@ -102,9 +41,9 @@ function AddFasilitas() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin_berita");
+      history.push("/admin_fasilitas");
       setTimeout(() => {
-        history.push("/admin_berita");
+        history.push("/admin_fasilitas");
         window.location.reload();
       }, 1000);
     } catch (error) {
@@ -298,295 +237,33 @@ function AddFasilitas() {
                     <div className="row">
                       <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
-                          Judul Berita
+                          Nama Fasilitas
                         </label>
                         <input
-                          value={judulBerita}
-                          onChange={(e) => setJudulBerita(e.target.value)}
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                           type="text"
                           className="form-control"
-                          placeholder="Masukkan Judul Berita"
+                          placeholder="Masukkan Nama Fasilitas"
                         />
                       </div>
                       <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
-                          Kategori Berita
+                          Deskripsi Fasilitas
                         </label>
                         <input
-                          value={categoryBerita}
-                          onChange={(e) => setCategoryBerita(e.target.value)}
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
                           type="text"
                           className="form-control"
-                          placeholder="Masukkan Kategori Berita"
-                        />
-                      </div>
-                      <div className="mb-3 col-lg-6">
-                        <label
-                          for="exampleInputEmail1"
-                          className="form-label  font-weight-bold "
-                        >
-                          Penulis Berita
-                        </label>
-                        <input
-                          value={author}
-                          onChange={(e) => setAuthor(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          placeholder="Masukkan Penulis Berita"
-                        />
-                      </div>
-                      <div className="mb-3 col-lg-6">
-                        <label
-                          for="exampleInputEmail1"
-                          className="form-label  font-weight-bold "
-                        >
-                          Thumbnail
-                        </label>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => setImage(e.target.files[0])}
-                          className="form-control"
-                        />
-                      </div>
-                      <div className="mb-3 col-lg-12">
-                        <label className="form-label font-weight-bold">
-                          Isi Berita
-                        </label>
-                        <CKEditor
-                          editor={ClassicEditor}
-                          data={isiBerita} // Gunakan 'data' untuk set initial value
-                          onChange={(event, editor) => {
-                            const data = editor.getData(); // Ambil data dari editor
-                            setIsiBerita(data); // Set state dengan data dari editor
-                          }}
-                          config={{
-                            toolbar: [
-                              // --- Text alignment ---------------------------------------------------------------------------
-                              "alignment",
-                              "|",
-                              // --- Document-wide tools ----------------------------------------------------------------------
-                              "undo",
-                              "redo",
-                              // "|",
-                              // "alignment:left", // Tambahkan opsi align left
-                              // "alignment:center", // Tambahkan opsi align center
-                              // "alignment:right",
-                              "|",
-                              "importWord",
-                              "exportWord",
-                              "exportPdf",
-                              "|",
-                              "formatPainter",
-                              "caseChange",
-                              "findAndReplace",
-                              "selectAll",
-                              "wproofreader",
-                              "|",
-                              "insertTemplate",
-                              "tableOfContents",
-                              "|",
-
-                              // --- "Insertables" ----------------------------------------------------------------------------
-
-                              "link",
-                              "insertImage",
-                              "ckbox",
-                              "insertTable",
-                              "blockQuote",
-                              "mediaEmbed",
-                              "codeBlock",
-                              "pageBreak",
-                              "horizontalLine",
-                              "specialCharacters",
-                              "-",
-
-                              // --- Block-level formatting -------------------------------------------------------------------
-                              "heading",
-                              "style",
-                              "|",
-
-                              // --- Basic styles, font and inline formatting -------------------------------------------------------
-                              "bold",
-                              "italic",
-                              "underline",
-                              "strikethrough",
-                              {
-                                label: "Basic styles",
-                                icon: "text",
-                                items: [
-                                  "fontSize",
-                                  "fontFamily",
-                                  "fontColor",
-                                  "fontBackgroundColor",
-                                  "highlight",
-                                  "superscript",
-                                  "subscript",
-                                  "code",
-                                  "|",
-                                  "textPartLanguage",
-                                  "|",
-                                ],
-                              },
-                              "removeFormat",
-                              "|",
-
-                              // --- Lists and indentation --------------------------------------------------------------------
-                              "bulletedList",
-                              "numberedList",
-                              "multilevelList",
-                              "todoList",
-                              "|",
-                              "outdent",
-                              "indent",
-                            ],
-                            styles: [
-                              // "full",    // Gambar mengambil lebar penuh konten
-                              // "side",    // Gambar sejajar dengan teks
-                              "alignLeft",
-                              "alignCenter",
-                              "alignRight",
-                            ],
-                            alignment: {
-                              options: ["left", "right", "center", "justify"],
-                            },
-                            plugins: [
-                              GeneralHtmlSupport,
-                              Bold,
-                              Alignment,
-                              Essentials,
-                              Heading,
-                              Indent,
-                              IndentBlock,
-                              Italic,
-                              Link,
-                              List,
-                              MediaEmbed,
-                              Paragraph,
-                              Table,
-                              Undo,
-                              Image,
-                              ImageCaption,
-                              ImageInsert,
-                              ImageResize,
-                              ImageStyle,
-                              ImageToolbar,
-                              ImageUpload,
-                              Base64UploadAdapter,
-                              Indent,
-                              IndentBlock,
-                              Italic,
-                              Link,
-                              LinkImage,
-                              List,
-                              ListProperties,
-                              MediaEmbed,
-                              Mention,
-                              PageBreak,
-                              Paragraph,
-                              PasteFromOffice,
-                              PictureEditing,
-                              RemoveFormat,
-                              SpecialCharacters,
-                              SpecialCharactersEssentials,
-                              Strikethrough,
-                              Style,
-                              Subscript,
-                              Superscript,
-                              Table,
-                              TableCaption,
-                              TableCellProperties,
-                              TableColumnResize,
-                              TableProperties,
-                              TableToolbar,
-                              TextPartLanguage,
-                              TextTransformation,
-                              TodoList,
-                              Underline,
-                              WordCount,
-                            ],
-                            image: {
-                              toolbar: [
-                                "imageTextAlternative",
-                                "toggleImageCaption",
-                                "|",
-                                "imageStyle:inline",
-                                "imageStyle:wrapText",
-                                "imageStyle:breakText",
-                                "|",
-                                "resizeImage",
-                                "|",
-                                "linkImage",
-                              ],
-                            },
-                            fontFamily: {
-                              supportAllValues: true,
-                            },
-                            fontSize: {
-                              options: [10, 12, 14, "default", 18, 20, 22],
-                              supportAllValues: true,
-                            },
-                            fontColor: {
-                              columns: 12,
-                              colors: REDUCED_MATERIAL_COLORS,
-                            },
-                            fontBackgroundColor: {
-                              columns: 12,
-                              colors: REDUCED_MATERIAL_COLORS,
-                            },
-                            heading: {
-                              options: [
-                                {
-                                  model: "paragraph",
-                                  title: "Paragraph",
-                                  class: "ck-heading_paragraph",
-                                },
-                                {
-                                  model: "heading1",
-                                  view: "h1",
-                                  title: "Heading 1",
-                                  class: "ck-heading_heading1",
-                                },
-                                {
-                                  model: "heading2",
-                                  view: "h2",
-                                  title: "Heading 2",
-                                  class: "ck-heading_heading2",
-                                },
-                                {
-                                  model: "heading3",
-                                  view: "h3",
-                                  title: "Heading 3",
-                                  class: "ck-heading_heading3",
-                                },
-                                {
-                                  model: "heading4",
-                                  view: "h4",
-                                  title: "Heading 4",
-                                  class: "ck-heading_heading4",
-                                },
-                                {
-                                  model: "heading5",
-                                  view: "h5",
-                                  title: "Heading 5",
-                                  class: "ck-heading_heading5",
-                                },
-                                {
-                                  model: "heading6",
-                                  view: "h6",
-                                  title: "Heading 6",
-                                  class: "ck-heading_heading6",
-                                },
-                              ],
-                            },
-                          }}
+                          placeholder="Masukkan Deskripsi Fasilitas"
                         />
                       </div>
                     </div>
                     <button type="button" className="btn-danger mt-3 mr-3">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin_berita"
+                        href="/admin_fasilitas"
                       >
                         Batal
                       </a>
