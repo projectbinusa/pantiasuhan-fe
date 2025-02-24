@@ -61,57 +61,40 @@ import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function EditFasilitas() {
-  const [author, setAuthor] = useState("");
-  const [judulBerita, setJudulBerita] = useState("");
-  const [image, setImage] = useState("");
-  const [categoryBerita, setCategoryBerita] = useState("");
-  const [isiBerita, setIsiBerita] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [show, setShow] = useState(false);
-  const [imageurl, setImageUrl] = useState("");
-
   const param = useParams();
   const history = useHistory();
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_SMART}/api/customer/berita/` + param.id, {
+      .get(`${API_DUMMY_SMART}/api/customer/fasilitas/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
         const response = ress.data.data;
-        setAuthor(response.author);
-        setJudulBerita(response.judul_berita);
-        setIsiBerita(response.isi_berita);
-        setImageUrl(response.image);
-        setCategoryBerita(response.category);
+        setName(response.name);
+        setDescription(response.description);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
-  const updateBerita = async (e) => {
+  const update = async (e) => {
     e.preventDefault();
     e.persist();
 
     try {
-      let imageUrl;
-
-      if (image) {
-        imageUrl = await uploadImageToS3(image);
-      } else {
-        imageUrl = imageurl;
-      }
       const response = await axios.put(
-        `${API_DUMMY_SMART}/api/customer/berita/${param.id}`,
+        `${API_DUMMY_SMART}/api/customer/fasilitas/${param.id}`,
         {
-          author: author,
-          category: categoryBerita,
-          image: imageUrl,
-          isi_berita: isiBerita,
-          judul_berita: judulBerita,
+          name: name,
+          description: description,
+          organization_id: localStorage.getItem("organization_id"),
         },
         {
           headers: {
@@ -125,14 +108,14 @@ function EditFasilitas() {
         setShow(false); // Hide modal atau reset form
         Swal.fire({
           icon: "success",
-          title: "Berhasil Mengedit Data Berita",
+          title: "Berhasil Mengedit Data Fasilitas",
           showConfirmButton: false,
           timer: 1500,
         });
 
         // Redirect setelah berhasil
         setTimeout(() => {
-          history.push("/admin_berita");
+          history.push("/admin_fasilitas");
         }, 1500);
       } else {
         // Handle respons lain dengan pesan error
@@ -331,329 +314,37 @@ function EditFasilitas() {
             <div className="card-body">
               <h1 className="fs-4">Form Edit Data</h1>
               <hr />
-              <form onSubmit={updateBerita}>
+              <form onSubmit={update}>
                 <div className="row">
                   <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
-                      Judul Berita
+                      Nama Fasilitas
                     </label>
                     <input
-                      value={judulBerita}
-                      onChange={(e) => setJudulBerita(e.target.value)}
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan Judul Berita"
+                      placeholder="Masukkan Nama Fasilitas"
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
-                      Kategori Berita
+                      Deskripsi Fasilitas
                     </label>
                     <input
-                      value={categoryBerita}
-                      onChange={(e) => setCategoryBerita(e.target.value)}
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan Kategori Berita"
+                      placeholder="Masukkan Deskripsi Fasilitas"
                     />
-                  </div>
-                  <div className="mb-3 col-lg-6">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label font-weight-bold"
-                    >
-                      Penulis Berita
-                    </label>
-                    <input
-                      value={author}
-                      onChange={(e) => setAuthor(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      placeholder="Masukkan Penulis Berita"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-6">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label  font-weight-bold "
-                    >
-                      Thumbnail
-                    </label>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => setImage(e.target.files[0])}
-                      className="form-control"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-12">
-                    <label className="form-label font-weight-bold">
-                      Isi Berita
-                    </label>
-                    <CKEditor
-                      editor={ClassicEditor}
-                      data={isiBerita} // Gunakan 'data' untuk set initial value
-                      onChange={(event, editor) => {
-                        const data = editor.getData(); // Ambil data dari editor
-                        setIsiBerita(data); // Set state dengan data dari editor
-                      }}
-                      config={{
-                        toolbar: [
-                          // --- Text alignment ---------------------------------------------------------------------------
-                          "alignment",
-                          "|",
-                          // --- Document-wide tools ----------------------------------------------------------------------
-                          "undo",
-                          "redo",
-                          // "|",
-                          // "alignment:left", // Tambahkan opsi align left
-                          // "alignment:center", // Tambahkan opsi align center
-                          // "alignment:right",
-                          "|",
-                          "importWord",
-                          "exportWord",
-                          "exportPdf",
-                          "|",
-                          "formatPainter",
-                          "caseChange",
-                          "findAndReplace",
-                          "selectAll",
-                          "wproofreader",
-                          "|",
-                          "insertTemplate",
-                          "tableOfContents",
-                          "|",
-
-                          // --- "Insertables" ----------------------------------------------------------------------------
-
-                          "link",
-                          "insertImage",
-                          "ckbox",
-                          "insertTable",
-                          "blockQuote",
-                          "mediaEmbed",
-                          "codeBlock",
-                          "pageBreak",
-                          "horizontalLine",
-                          "specialCharacters",
-                          "-",
-
-                          // --- Block-level formatting -------------------------------------------------------------------
-                          "heading",
-                          "style",
-                          "|",
-
-                          // --- Basic styles, font and inline formatting -------------------------------------------------------
-                          "bold",
-                          "italic",
-                          "underline",
-                          "strikethrough",
-                          {
-                            label: "Basic styles",
-                            icon: "text",
-                            items: [
-                              "fontSize",
-                              "fontFamily",
-                              "fontColor",
-                              "fontBackgroundColor",
-                              "highlight",
-                              "superscript",
-                              "subscript",
-                              "code",
-                              "|",
-                              "textPartLanguage",
-                              "|",
-                            ],
-                          },
-                          "removeFormat",
-                          "|",
-
-                          // --- Lists and indentation --------------------------------------------------------------------
-                          "bulletedList",
-                          "numberedList",
-                          "multilevelList",
-                          "todoList",
-                          "|",
-                          "outdent",
-                          "indent",
-                        ],
-                        styles: [
-                          // "full",    // Gambar mengambil lebar penuh konten
-                          // "side",    // Gambar sejajar dengan teks
-                          "alignLeft",
-                          "alignCenter",
-                          "alignRight",
-                        ],
-                        alignment: {
-                          options: ["left", "right", "center", "justify"],
-                        },
-                        plugins: [
-                          GeneralHtmlSupport,
-                          Bold,
-                          Alignment,
-                          Essentials,
-                          Heading,
-                          Indent,
-                          IndentBlock,
-                          Italic,
-                          Link,
-                          List,
-                          MediaEmbed,
-                          Paragraph,
-                          Table,
-                          Undo,
-                          Image,
-                          ImageCaption,
-                          ImageInsert,
-                          ImageResize,
-                          ImageStyle,
-                          ImageToolbar,
-                          ImageUpload,
-                          Base64UploadAdapter,
-                          Indent,
-                          IndentBlock,
-                          Italic,
-                          Link,
-                          LinkImage,
-                          List,
-                          ListProperties,
-                          MediaEmbed,
-                          Mention,
-                          PageBreak,
-                          Paragraph,
-                          PasteFromOffice,
-                          PictureEditing,
-                          RemoveFormat,
-                          SpecialCharacters,
-                          // SpecialCharactersEmoji,
-                          SpecialCharactersEssentials,
-                          Strikethrough,
-                          Style,
-                          Subscript,
-                          Superscript,
-                          Table,
-                          TableCaption,
-                          TableCellProperties,
-                          TableColumnResize,
-                          TableProperties,
-                          TableToolbar,
-                          TextPartLanguage,
-                          TextTransformation,
-                          TodoList,
-                          Underline,
-                          WordCount,
-                        ],
-                        image: {
-                          toolbar: [
-                            "imageTextAlternative",
-                            "toggleImageCaption",
-                            "|",
-                            "imageStyle:inline",
-                            "imageStyle:wrapText",
-                            "imageStyle:breakText",
-                            "|",
-                            "resizeImage",
-                            "|",
-                            "linkImage",
-                          ],
-                        },
-                        fontFamily: {
-                          supportAllValues: true,
-                        },
-                        fontSize: {
-                          options: [10, 12, 14, "default", 18, 20, 22],
-                          supportAllValues: true,
-                        },
-                        fontColor: {
-                          columns: 12,
-                          colors: REDUCED_MATERIAL_COLORS,
-                        },
-                        fontBackgroundColor: {
-                          columns: 12,
-                          colors: REDUCED_MATERIAL_COLORS,
-                        },
-                        heading: {
-                          options: [
-                            {
-                              model: "paragraph",
-                              title: "Paragraph",
-                              class: "ck-heading_paragraph",
-                            },
-                            {
-                              model: "heading1",
-                              view: "h1",
-                              title: "Heading 1",
-                              class: "ck-heading_heading1",
-                            },
-                            {
-                              model: "heading2",
-                              view: "h2",
-                              title: "Heading 2",
-                              class: "ck-heading_heading2",
-                            },
-                            {
-                              model: "heading3",
-                              view: "h3",
-                              title: "Heading 3",
-                              class: "ck-heading_heading3",
-                            },
-                            {
-                              model: "heading4",
-                              view: "h4",
-                              title: "Heading 4",
-                              class: "ck-heading_heading4",
-                            },
-                            {
-                              model: "heading5",
-                              view: "h5",
-                              title: "Heading 5",
-                              class: "ck-heading_heading5",
-                            },
-                            {
-                              model: "heading6",
-                              view: "h6",
-                              title: "Heading 6",
-                              class: "ck-heading_heading6",
-                            },
-                          ],
-                        },
-                        // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
-                      }}
-                    />
-                    {/* <Editor
-                            apiKey="9wwwxape64nujah8uedbwphp3hquyrcgyankbwa7wvcxokpf" // Optional, but recommended for production
-                            value={isiBerita}
-                            init={{
-                              height: 500,
-                              menubar: false,
-                              plugins: [
-                                "advlist",
-                                "anchor",
-                                "autolink",
-                                "help",
-                                "image",
-                                "link",
-                                "lists",
-                                "searchreplace",
-                                "table",
-                                "wordcount",
-                              ],
-                              toolbar:
-                                "undo redo | blocks | " +
-                                "bold italic forecolor | alignleft aligncenter " +
-                                "alignright alignjustify | bullist numlist outdent indent | " +
-                                "removeformat | help | image",
-                              content_style:
-                                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                            }}
-                            onEditorChange={handleEditorChange}
-                          /> */}
                   </div>
                 </div>
                 <button type="button" className="btn-danger mt-3 mr-3">
                   <a
                     style={{ color: "white", textDecoration: "none" }}
-                    href="/admin_berita"
+                    href="/admin_fasilitas"
                   >
                     Batal
                   </a>
