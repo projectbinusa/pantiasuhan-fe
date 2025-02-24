@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import Navbar from "../../../../../component/Navbar";
 import { debounce } from "lodash";
+import charity from "../../../../../aset/pantiasuhan/charity.jpg"
+import FooterSekolah from "../../../../../component/FooterSekolah";
+import { removeImages } from "../../../../../utils/removeImages";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -48,7 +51,7 @@ function PublikBerita() {
         `${API_DUMMY_SMART}/api/public/berita?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            // "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             "x-origin": window.location.hostname,
           },
         }
@@ -109,6 +112,16 @@ function PublikBerita() {
     };
   }, []);
 
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+    // setPage(0);
+    // setCurrentPage(1);
+  };
+
   const filteredList = list.filter((item) =>
     Object.values(item).some(
       (value) =>
@@ -116,15 +129,6 @@ function PublikBerita() {
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-
-  useEffect(() => {
-    AOS.init();
-  }, []);
-
-  const handleSearchChange = debounce((event) => {
-    setSearchTerm(event.target.value);
-    setCurrentPage(1); // Reset to page 1 on search
-  }, 500); // Delay of 500ms after typing before performing search
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -175,90 +179,85 @@ function PublikBerita() {
               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               gap: "20px",
             }}>
-            {filteredList.map((item, index) => (
-              <div
-                className="card"
-                key={index}
-                style={{
-                  backgroundColor: "#fff",
-                  borderRadius: "15px",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                  overflow: "hidden",
-                  transition: "transform 0.3s, box-shadow 0.3s",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = "scale(1.05)";
-                  e.currentTarget.style.boxShadow =
-                    "0 8px 16px rgba(0, 0, 0, 0.2)";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 8px rgba(0, 0, 0, 0.1)";
-                }}>
-                <img
-                  src={
-                    item.image !== ""
-                      ? item.image
-                      : "https://via.placeholder.com/300x200"
-                  }
-                  alt="Foto Donasi"
+            {filteredList.length > 0 ?
+              filteredList.map((item, index) => (
+                <div
+                  className="card"
+                  key={index}
                   style={{
-                    width: "100%",
-                    height: "200px",
-                    objectFit: "cover",
+                    backgroundColor: "#fff",
+                    borderRadius: "15px",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                    overflow: "hidden",
+                    transition: "transform 0.3s, box-shadow 0.3s",
                   }}
-                />
-                <div style={{ padding: "20px" }}>
-                  <h4
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "scale(1.05)";
+                    e.currentTarget.style.boxShadow =
+                      "0 8px 16px rgba(0, 0, 0, 0.2)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 8px rgba(0, 0, 0, 0.1)";
+                  }}>
+                  <img src={item.image == null || item.image == "" ? charity : item.image}
+                    alt="Foto Donasi"
                     style={{
-                      fontSize: "1.5rem",
-                      fontWeight: "bold",
-                      color: "#004080",
-                      marginBottom: "10px",
-                    }}>
-                    {item.judul_berita}
-                  </h4>
-                  <p
-                    style={{
+                      width: "100%",
+                      height: "200px",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <div style={{ padding: "20px" }}>
+                    <h4
+                      style={{
+                        fontSize: "1.5rem",
+                        fontWeight: "bold",
+                        color: "#004080",
+                        marginBottom: "10px",
+                      }}>
+                      {item.judul_berita}
+                    </h4>
+                    <p
+                      style={{
+                        fontSize: "0.9rem",
+                        color: "#555",
+                        marginBottom: "5px",
+                        display: "flex",
+                        alignItems: "center",
+                      }}>
+                      <svg
+                        className="svg-inline--fa fa-calendar-alt fa-w-14"
+                        aria-hidden="true"
+                        focusable="false"
+                        data-prefix="far"
+                        data-icon="calendar-alt"
+                        role="img"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 448 512"
+                        style={{
+                          width: "16px",
+                          height: "16px",
+                          color: "#004080",
+                          marginRight: "5px",
+                        }}>
+                        <path
+                          fill="currentColor"
+                          d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-72V64zm0 96h72c8.84 0 16-7.16 16-16V64h16c8.84 0 16 7.16 16 16v48h72c8.84 0 16 7.16 16 16v320c0 8.84-7.16 16-16 16H48c-8.84 0-16-7.16-16-16V160c0-8.84 7.16-16 16-16h72v-48c0-8.84 7.16-16 16-16h16c8.84 0 16 7.16 16 16v48z"></path>
+                      </svg>
+                      {formatTanggal(item.created_date)}
+                    </p>
+                    <p style={{
                       fontSize: "0.9rem",
                       color: "#555",
-                      marginBottom: "5px",
-                      display: "flex",
-                      alignItems: "center",
-                    }}>
-                    <svg
-                      className="svg-inline--fa fa-calendar-alt fa-w-14"
-                      aria-hidden="true"
-                      focusable="false"
-                      data-prefix="far"
-                      data-icon="calendar-alt"
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 448 512"
-                      style={{
-                        width: "16px",
-                        height: "16px",
-                        color: "#004080",
-                        marginRight: "5px",
-                      }}>
-                      <path
-                        fill="currentColor"
-                        d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-72V64zm0 96h72c8.84 0 16-7.16 16-16V64h16c8.84 0 16 7.16 16 16v48h72c8.84 0 16 7.16 16 16v320c0 8.84-7.16 16-16 16H48c-8.84 0-16-7.16-16-16V160c0-8.84 7.16-16 16-16h72v-48c0-8.84 7.16-16 16-16h16c8.84 0 16 7.16 16 16v48z"></path>
-                    </svg>
-                    {formatTanggal(item.created_date)}
-                  </p>
-                  <p style={{
-                    fontSize: "0.9rem",
-                    color: "#555",
-                    lineHeight: "1.5",
-                    marginBottom: "15px", marginTop: "1rem"
-                  }} className="content-isi">
-                    <div dangerouslySetInnerHTML={{ __html: item.isi_berita }} />
-                    {/* {item.isi_berita.slice(0, 100)}... */}
-                  </p>
-                  {/* Hide button if role is 'yayasan' */}
-                  {userRole !== "yayasan" && (
+                      lineHeight: "1.5",
+                      marginBottom: "15px", marginTop: "1rem"
+                    }} className="content-isi">
+                      <div dangerouslySetInnerHTML={{ __html: removeImages(item.isi_berita) }} />
+                      {/* {item.isi_berita.slice(0, 100)}... */}
+                    </p>
+                    {/* Hide button if role is 'yayasan' */}
                     <button
                       style={{
                         backgroundColor: "#004080",
@@ -271,14 +270,16 @@ function PublikBerita() {
                       onClick={() =>
                         (window.location.href = "/beritapanti/" + item.id)
                       }>Selengkapnya</button>
-                  )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              )) : <div>
+                <p>Data tidak ditemukan...</p>
+              </div>}
           </div>
           {isLoading && <p>Memuat data...</p>}
         </div>
       </div>
+      <FooterSekolah />
     </div>
   );
 }

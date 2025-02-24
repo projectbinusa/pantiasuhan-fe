@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../../css/login.css";
 import { API_DUMMY_SMART } from "../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
@@ -14,6 +14,16 @@ function Login() {
   const history = useHistory();
   const [showPassword, setShowPassword] = useState(false);
   const [type_token, setType_token] = useState("Admin");
+
+  useEffect(() => {
+    const token = localStorage.getItem("tokenpython");
+    const rolename = localStorage.getItem("rolename");
+    if (token && rolename === "Admin") {
+      window.location.href = "/dashboard_panti"; // Redirect langsung
+    } else if (token && rolename === "Yayasan") {
+      window.location.href = "/dashboard_yayasan"; // Redirect langsung
+    }
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();

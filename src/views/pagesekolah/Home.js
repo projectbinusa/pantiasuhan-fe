@@ -39,6 +39,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { EffectCoverflow, Pagination } from "swiper/modules";
 import { formatRupiah } from "../../utils/formating";
+import { removeImages } from "../../utils/removeImages";
+import charity from "../../aset/pantiasuhan/charity.jpg"
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -226,7 +228,7 @@ function Home() {
     console.log("origin: ", origin);
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/public/berita`,
+        `${API_DUMMY_SMART}/api/public/berita`,
         {
           headers: {
             "x-origin": window.location.hostname,
@@ -234,6 +236,7 @@ function Home() {
         }
       );
       setBerita(response.data.data);
+      console.log("berita");
       console.log(response.data.data);
     } catch (error) {
       console.log("get all", error);
@@ -1326,13 +1329,14 @@ function Home() {
             data-aos="fade-up"
             data-aos-easing="linear">
             {berita.map((data) => (
-              <div class="col-lg-4 col-md-6">
+              <div class="col-lg-4 col-md-6 mb-4">
                 <div class="single-blog-inner style-3">
                   <div class="thumb">
-                    <img src={data.image} alt="img" />
+                    <img src={data.image == null || data.image == "" ? charity : data.image}
+                      alt="img" />
                     <ul class="blog-meta">
                       <li>
-                        <i class="far fa-user"></i> {data.outhor}
+                        <i class="far fa-user"></i> {data.author}
                       </li>
                       <li>
                         <i class="far fa-calendar-alt"></i> {data.created_date}
@@ -1353,7 +1357,7 @@ function Home() {
                       style={{
                         color: "black",
                       }}
-                      dangerouslySetInnerHTML={{ __html: data.isi_berita }}
+                      dangerouslySetInnerHTML={{ __html: removeImages(data.isi_berita) }}
                     />
                     <a class="read-more-btn" href={`/beritapanti/${data.id}`}>
                       <i class="fa fa-arrow-right"></i>
