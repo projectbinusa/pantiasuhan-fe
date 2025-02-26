@@ -241,6 +241,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           path: "/profile",
           action: ["/profile/edit"],
         },
+        {
+          title: "Pengurus",
+          icon: "fa-solid fa-user-circle",
+          path: "/admin_pengurus",
+          action: ["/pengurus/edit"],
+        },
       ],
     },
     {
