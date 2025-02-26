@@ -23,7 +23,7 @@ function AdminPengurus() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/berita?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/customer/member?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -55,7 +55,7 @@ function AdminPengurus() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART}/api/customer/berita/` + id, {
+          .delete(`${API_DUMMY_SMART}/api/customer/member/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -69,7 +69,7 @@ function AdminPengurus() {
             });
 
             setTimeout(() => {
-              history.push("/admin_fasilitas");
+              history.push("/admin_pengurus");
               window.location.reload();
             }, 1500);
           });
@@ -228,7 +228,7 @@ function AdminPengurus() {
                     <button className="active btn-focus p-2 rounded">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/admin_fasilitas/add"
+                        href="/admin_pengurus/add"
                       >
                         Tambah
                       </a>
@@ -245,55 +245,66 @@ function AdminPengurus() {
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama Fasilitas</th>
-                    <th style={{ maxWidth: "300px" }}>Deskripsi</th>
-                    <th>Gambar</th>
+                    <th>Nama Pengurus</th>
+                    <th style={{ maxWidth: "300px" }}>No HP</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredList.length > 0 ? (
-                    filteredList.map((berita, no) => {
+                    filteredList.map((member, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="text-md-start text-end">
+                          <td
+                            data-label="No"
+                            className="text-md-start text-end"
+                          >
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama Fasilitas" className="text-md-start text-end">{berita.author}</td>
+                          <td
+                            data-label="Nama Pengurus"
+                            className="text-md-start text-end"
+                          >
+                            {member.name}
+                          </td>
                           <td
                             data-label="Deskripsi"
                             className="text-md-start text-end"
                           >
-                            <p className="isiBerita">{berita.judul_berita}</p>
-                          </td>
-                          <td data-label="Gambar" className="text-md-center text-end">
-                            <button
-                              onClick={() => openModal(berita.image)}
-                              type="button"
-                              className="btn-info btn-sm"
-                            >
-                              Tampilkan Gambar
-                            </button>
+                            <p className="isiMember">{member.hp}</p>
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 type="button"
                                 className="btn-primary btn-sm mr-2"
-                                style={{ height: "100%" }}
                               >
                                 <a
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/admin_fasilitas/edit/${berita.id}`}
+                                  href={`/admin_pengurus/edit/${member.id}`}
                                 >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
                               </button>
                               <button
-                                onClick={() => deleteData(berita.id)}
+                                type="button"
+                                className="btn-warning btn-sm mr-2"
+                              >
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/admin_pengurus/detail/${member.id}`}
+                                >
+                                  <i className="fa-solid fa-info-circle"></i>
+                                </a>
+                              </button>
+                              <button
+                                onClick={() => deleteData(member.id)}
                                 type="button"
                                 className="btn-danger btn-sm"
                               >
