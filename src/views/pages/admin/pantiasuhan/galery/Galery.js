@@ -40,7 +40,7 @@ function Galery() {
         totalElements: pagination.total || 0,
       });
       console.log(pagination);
-      
+
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
     }
@@ -212,7 +212,7 @@ function Galery() {
             />
           </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex" }}>
+            <div className="card-header">
               <p className="mt-3">Galery</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
@@ -230,7 +230,7 @@ function Galery() {
                   </select>
                 </div>
               </div>
-              <div className="d-flex ml-auto gap-3">
+              <div className=" ml-auto gap-3">
                 <input
                   type="search"
                   className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"

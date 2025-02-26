@@ -20,19 +20,19 @@ import NavbarSekolah from "../../component/NavbarSekolah";
 import NavbarSekolah2 from "../../component/NavbarSekolah2";
 import backgroundImage1 from "../../aset/pantiasuhan/pantiasuhan.png";
 import backgroundImage from "../../aset/pantiasuhan/pantiasuhan.png";
-import program1 from "../../aset/pantiasuhan/program1.png";
-import program2 from "../../aset/pantiasuhan/program/program9.png";
-import program3 from "../../aset/pantiasuhan/program/program10.png";
-import program4 from "../../aset/pantiasuhan/program/program11.png";
-import program5 from "../../aset/pantiasuhan/program/program12.png";
-import program6 from "../../aset/pantiasuhan/program/program13.png";
-import program7 from "../../aset/pantiasuhan/program/program14.png";
-import program8 from "../../aset/pantiasuhan/program/program15.png";
-import program9 from "../../aset/pantiasuhan/program/program16.png";
-import program10 from "../../aset/pantiasuhan/program/program18.png";
-import program11 from "../../aset/pantiasuhan/program/program19.png";
-import program12 from "../../aset/pantiasuhan/program/program20.png";
-import program13 from "../../aset/pantiasuhan/program/program22.png";
+// import program1 from "../../aset/pantiasuhan/program1.png";
+// import program2 from "../../aset/pantiasuhan/program/program9.png";
+// import program3 from "../../aset/pantiasuhan/program/program10.png";
+// import program4 from "../../aset/pantiasuhan/program/program11.png";
+// import program5 from "../../aset/pantiasuhan/program/program12.png";
+// import program6 from "../../aset/pantiasuhan/program/program13.png";
+// import program7 from "../../aset/pantiasuhan/program/program14.png";
+// import program8 from "../../aset/pantiasuhan/program/program15.png";
+// import program9 from "../../aset/pantiasuhan/program/program16.png";
+// import program10 from "../../aset/pantiasuhan/program/program18.png";
+// import program11 from "../../aset/pantiasuhan/program/program19.png";
+// import program12 from "../../aset/pantiasuhan/program/program20.png";
+// import program13 from "../../aset/pantiasuhan/program/program22.png";
 import Navbar from "../../component/Navbar";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -40,13 +40,23 @@ import "swiper/css/pagination";
 import { EffectCoverflow, Pagination } from "swiper/modules";
 import { formatRupiah } from "../../utils/formating";
 import { removeImages } from "../../utils/removeImages";
-import charity from "../../aset/pantiasuhan/charity.jpg"
+import charity from "../../aset/pantiasuhan/charity.jpg";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
   const bulan = [
-    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
   ];
   const hari = tanggal.getDate();
   const bulanNama = bulan[tanggal.getMonth()];
@@ -227,14 +237,11 @@ function Home() {
     const origin = window.location.hostname;
     console.log("origin: ", origin);
     try {
-      const response = await axios.get(
-        `${API_DUMMY_SMART}/api/public/berita`,
-        {
-          headers: {
-            "x-origin": window.location.hostname,
-          },
-        }
-      );
+      const response = await axios.get(`${API_DUMMY_SMART}/api/public/berita`, {
+        headers: {
+          "x-origin": window.location.hostname,
+        },
+      });
       setBerita(response.data.data);
       console.log("berita");
       console.log(response.data.data);
@@ -289,14 +296,11 @@ function Home() {
 
   const getAllGalery = async () => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY}/api/public/galery`,
-        {
-          headers: {
-            "x-origin": window.location.hostname,
-          },
-        }
-      );
+      const response = await axios.get(`${API_DUMMY}/api/public/galery`, {
+        headers: {
+          "x-origin": window.location.hostname,
+        },
+      });
       setGalery(response.data.data);
     } catch (error) {
       console.log("get all", error);
@@ -308,14 +312,11 @@ function Home() {
   const [deskripsi, setDeskripsi] = useState("");
   const byIdGalery = async (id) => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY}/api/public/galery/${id}`,
-        {
-          headers: {
-            "x-origin": window.location.hostname,
-          },
-        }
-      );
+      const response = await axios.get(`${API_DUMMY}/api/public/galery/${id}`, {
+        headers: {
+          "x-origin": window.location.hostname,
+        },
+      });
       setFoto(response.data.data.foto);
       setJudul(response.data.data.judul);
       setDeskripsi(response.data.data.deskripsi);
@@ -496,14 +497,11 @@ function Home() {
 
   const getAllVisiMisiPanti = async () => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY}/api/public/visimisi`,
-        {
-          headers: {
-            "x-origin": window.location.hostname,
-          },
-        }
-      );
+      const response = await axios.get(`${API_DUMMY}/api/public/visimisi`, {
+        headers: {
+          "x-origin": window.location.hostname,
+        },
+      });
       console.log("visi misi: ", response.data.data[0]);
 
       setVisiPanti(response.data.data[0]);
@@ -535,14 +533,11 @@ function Home() {
 
   const getAllKegiatan = async () => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY}/api/public/kegiatan`,
-        {
-          headers: {
-            "x-origin": window.location.hostname,
-          },
-        }
-      );
+      const response = await axios.get(`${API_DUMMY}/api/public/kegiatan`, {
+        headers: {
+          "x-origin": window.location.hostname,
+        },
+      });
       console.log("kegiatan: ", response.data.data);
       setkegiatan(response.data.data);
     } catch (error) {
@@ -559,7 +554,7 @@ function Home() {
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            "x-origin": window.location.hostname
+            "x-origin": window.location.hostname,
           },
         }
       );
@@ -911,7 +906,13 @@ function Home() {
                       data-aos="flip-down"
                       class="single-project-inner style-two">
                       <div class="thumb thumb-img">
-                        <img src={data.foto} alt="img" />
+                        <img
+                          src={
+                            data.foto ||
+                            "https://blog-asset.jakartanotebook.com/blog/content/images/2020/03/cewek-kerja-cover.jpg"
+                          }
+                          alt="img"
+                        />
                       </div>
                       <div class="details-wrap">
                         <h3>
@@ -1174,7 +1175,9 @@ function Home() {
               <div class="section-title text-center" data-aos="fade-down">
                 {/* <h5 class="sub-title double-line">Blog Post</h5> */}
                 <h2 class="title">Ayo Donasi!</h2>
-                <p class="content">Bersama Kita Berbagi, Sekecil Apapun Berarti!</p>
+                <p class="content">
+                  Bersama Kita Berbagi, Sekecil Apapun Berarti!
+                </p>
               </div>
             </div>
           </div>
@@ -1184,11 +1187,11 @@ function Home() {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               gap: "20px",
-            }}
-          >
+            }}>
             {donasi.map((item, index) => (
               <div
-                className="card" key={index}
+                className="card"
+                key={index}
                 style={{
                   backgroundColor: "#fff",
                   borderRadius: "15px",
@@ -1198,15 +1201,20 @@ function Home() {
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.transform = "scale(1.05)";
-                  e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+                  e.currentTarget.style.boxShadow =
+                    "0 8px 16px rgba(0, 0, 0, 0.2)";
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-                }}
-              >
+                  e.currentTarget.style.boxShadow =
+                    "0 4px 8px rgba(0, 0, 0, 0.1)";
+                }}>
                 <img
-                  src={item.url_image !== "" ? item.url_image : "https://via.placeholder.com/300x200"}
+                  src={
+                    item.url_image !== ""
+                      ? item.url_image
+                      : "https://via.placeholder.com/300x200"
+                  }
                   alt="Foto Donasi"
                   style={{
                     width: "100%",
@@ -1221,8 +1229,7 @@ function Home() {
                       fontWeight: "bold",
                       color: "#004080",
                       marginBottom: "10px",
-                    }}
-                  >
+                    }}>
                     {item.name}
                   </h4>
                   <p
@@ -1232,8 +1239,7 @@ function Home() {
                       marginBottom: "5px",
                       display: "flex",
                       alignItems: "center",
-                    }}
-                  >
+                    }}>
                     <svg
                       className="svg-inline--fa fa-calendar-alt fa-w-14"
                       aria-hidden="true"
@@ -1248,8 +1254,7 @@ function Home() {
                         height: "16px",
                         color: "#004080",
                         marginRight: "5px",
-                      }}
-                    >
+                      }}>
                       <path
                         fill="currentColor"
                         d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-56V64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H152V64zM32 192h384v272c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V192zm96 100c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40z"
@@ -1262,24 +1267,31 @@ function Home() {
                       fontSize: "0.9rem",
                       color: "#777",
                       lineHeight: "1.5",
-                      marginBottom: "15px", marginTop: "1rem"
-                    }} className="content-isi"
-                  >
-                    <div dangerouslySetInnerHTML={{ __html: item?.description }} />
+                      marginBottom: "15px",
+                      marginTop: "1rem",
+                    }}
+                    className="content-isi">
+                    <div
+                      dangerouslySetInnerHTML={{ __html: item?.description }}
+                    />
                   </p>
-                  <p style={{
-                    fontSize: "0.9rem",
-                    color: "#777", fontWeight: "500", marginTop: "1rem"
-                  }} className="content-isi"
-                  >Total Donasi</p>
+                  <p
+                    style={{
+                      fontSize: "0.9rem",
+                      color: "#777",
+                      fontWeight: "500",
+                      marginTop: "1rem",
+                    }}
+                    className="content-isi">
+                    Total Donasi
+                  </p>
                   <h4
                     style={{
                       fontSize: "1.3rem",
                       fontWeight: "bold",
                       color: "#004080",
                       marginBottom: "10px",
-                    }}
-                  >
+                    }}>
                     {formatRupiah(item.total_income)}
                   </h4>
                   <a
@@ -1294,9 +1306,12 @@ function Home() {
                       textDecoration: "none",
                       transition: "color 0.3s ease",
                     }}
-                    onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
-                    onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}
-                  >
+                    onMouseOver={(e) =>
+                      (e.currentTarget.style.color = "#0066cc")
+                    }
+                    onMouseOut={(e) =>
+                      (e.currentTarget.style.color = "#004080")
+                    }>
                     <span style={{ marginRight: "8px" }}>Selengkapnya</span>
                   </a>
                 </div>
@@ -1332,8 +1347,14 @@ function Home() {
               <div class="col-lg-4 col-md-6 mb-4">
                 <div class="single-blog-inner style-3">
                   <div class="thumb">
-                    <img src={data.image == null || data.image == "" ? charity : data.image}
-                      alt="img" />
+                    <img
+                      src={
+                        data.image == null || data.image == ""
+                          ? charity
+                          : data.image
+                      }
+                      alt="img"
+                    />
                     <ul class="blog-meta">
                       <li>
                         <i class="far fa-user"></i> {data.author}
@@ -1357,7 +1378,9 @@ function Home() {
                       style={{
                         color: "black",
                       }}
-                      dangerouslySetInnerHTML={{ __html: removeImages(data.isi_berita) }}
+                      dangerouslySetInnerHTML={{
+                        __html: removeImages(data.isi_berita),
+                      }}
                     />
                     <a class="read-more-btn" href={`/beritapanti/${data.id}`}>
                       <i class="fa fa-arrow-right"></i>
@@ -1456,11 +1479,11 @@ function Home() {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               gap: "20px",
-            }}
-          >
+            }}>
             {galery.map((item, index) => (
               <div
-                className="card" key={index}
+                className="card"
+                key={index}
                 style={{
                   backgroundColor: "#fff",
                   borderRadius: "15px",
@@ -1470,15 +1493,20 @@ function Home() {
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.transform = "scale(1.05)";
-                  e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+                  e.currentTarget.style.boxShadow =
+                    "0 8px 16px rgba(0, 0, 0, 0.2)";
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-                }}
-              >
+                  e.currentTarget.style.boxShadow =
+                    "0 4px 8px rgba(0, 0, 0, 0.1)";
+                }}>
                 <img
-                  src={item.foto !== "" ? item.foto : "https://via.placeholder.com/300x200"}
+                  src={
+                    item.foto !== ""
+                      ? item.foto
+                      : "https://via.placeholder.com/300x200"
+                  }
                   alt="Foto Donasi"
                   style={{
                     width: "100%",
@@ -1666,50 +1694,94 @@ function Home() {
             </div>
           </div>
           <div class="row" data-aos="fade-up">
-            <div class="col-lg-2 col-md-4 col-sm-6" style={{ textAlign: "center" }}>
+            <div
+              class="col-lg-2 col-md-4 col-sm-6"
+              style={{ textAlign: "center" }}>
               <div>
                 <i class="fas fa-male" style={{ fontSize: "32px" }}></i>
-                <Typography variant="h4" style={{ fontWeight: "bold", marginTop: "30px" }}>31</Typography>
+                <Typography
+                  variant="h4"
+                  style={{ fontWeight: "bold", marginTop: "30px" }}>
+                  31
+                </Typography>
                 <h5 style={{ fontWeight: "bold" }}>PRIA</h5>
               </div>
               <hr />
             </div>
-            <div class="col-lg-2 col-md-4 col-sm-6" style={{ textAlign: "center" }}>
+            <div
+              class="col-lg-2 col-md-4 col-sm-6"
+              style={{ textAlign: "center" }}>
               <div>
                 <i class="fas fa-female" style={{ fontSize: "32px" }}></i>
-                <Typography variant="h4" style={{ fontWeight: "bold", marginTop: "30px" }}>31</Typography>
+                <Typography
+                  variant="h4"
+                  style={{ fontWeight: "bold", marginTop: "30px" }}>
+                  31
+                </Typography>
                 <h5 style={{ fontWeight: "bold" }}>WANITA</h5>
               </div>
               <hr />
             </div>
-            <div class="col-lg-2 col-md-4 col-sm-6" style={{ textAlign: "center" }}>
+            <div
+              class="col-lg-2 col-md-4 col-sm-6"
+              style={{ textAlign: "center" }}>
               <div>
-                <i class="fas fa-graduation-cap" style={{ fontSize: "32px" }}></i>
-                <Typography variant="h4" style={{ fontWeight: "bold", marginTop: "30px" }}>31</Typography>
+                <i
+                  class="fas fa-graduation-cap"
+                  style={{ fontSize: "32px" }}></i>
+                <Typography
+                  variant="h4"
+                  style={{ fontWeight: "bold", marginTop: "30px" }}>
+                  31
+                </Typography>
                 <h5 style={{ fontWeight: "bold" }}>SD</h5>
               </div>
               <hr />
             </div>
-            <div class="col-lg-2 col-md-4 col-sm-6" style={{ textAlign: "center" }}>
+            <div
+              class="col-lg-2 col-md-4 col-sm-6"
+              style={{ textAlign: "center" }}>
               <div>
-                <i class="fas fa-graduation-cap" style={{ fontSize: "32px" }}></i>
-                <Typography variant="h4" style={{ fontWeight: "bold", marginTop: "30px" }}>31</Typography>
+                <i
+                  class="fas fa-graduation-cap"
+                  style={{ fontSize: "32px" }}></i>
+                <Typography
+                  variant="h4"
+                  style={{ fontWeight: "bold", marginTop: "30px" }}>
+                  31
+                </Typography>
                 <h5 style={{ fontWeight: "bold" }}>SMP</h5>
               </div>
               <hr />
             </div>
-            <div class="col-lg-2 col-md-4 col-sm-6" style={{ textAlign: "center" }}>
+            <div
+              class="col-lg-2 col-md-4 col-sm-6"
+              style={{ textAlign: "center" }}>
               <div>
-                <i class="fas fa-graduation-cap" style={{ fontSize: "32px" }}></i>
-                <Typography variant="h4" style={{ fontWeight: "bold", marginTop: "30px" }}>31</Typography>
+                <i
+                  class="fas fa-graduation-cap"
+                  style={{ fontSize: "32px" }}></i>
+                <Typography
+                  variant="h4"
+                  style={{ fontWeight: "bold", marginTop: "30px" }}>
+                  31
+                </Typography>
                 <h5 style={{ fontWeight: "bold" }}>SMA</h5>
               </div>
               <hr />
             </div>
-            <div class="col-lg-2 col-md-4 col-sm-6" style={{ textAlign: "center" }}>
+            <div
+              class="col-lg-2 col-md-4 col-sm-6"
+              style={{ textAlign: "center" }}>
               <div>
-                <i class="fas fa-graduation-cap" style={{ fontSize: "32px" }}></i>
-                <Typography variant="h4" style={{ fontWeight: "bold", marginTop: "30px" }}>31</Typography>
+                <i
+                  class="fas fa-graduation-cap"
+                  style={{ fontSize: "32px" }}></i>
+                <Typography
+                  variant="h4"
+                  style={{ fontWeight: "bold", marginTop: "30px" }}>
+                  31
+                </Typography>
                 <h5 style={{ fontWeight: "bold" }}>KULIAH</h5>
               </div>
               <hr />
@@ -2710,7 +2782,7 @@ function Home() {
           </Typography>
         </Box>
       </Modal>
-    </div >
+    </div>
   );
 }
 

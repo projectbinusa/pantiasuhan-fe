@@ -52,7 +52,7 @@ function AddCabang() {
       // //console.log(data);
       setTimeout(() => {
         window.location.reload();
-        history("/cabang")
+        history("/cabang");
       }, 1500);
     } catch (error) {
       console.log(error);
@@ -80,7 +80,6 @@ function AddCabang() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
   return (
     <div
       className={`page-wrapper chiller-theme ${
@@ -106,7 +105,7 @@ function AddCabang() {
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
-                <div className="card shadow"> 
+                <div className="card shadow">
                   <div className="card-body">
                     <h1 className="fs-4">Form Tambah Data</h1>
                     <hr />

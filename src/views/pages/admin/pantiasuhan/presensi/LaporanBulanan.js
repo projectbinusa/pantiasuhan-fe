@@ -247,6 +247,7 @@ function LaporanBulananPresensi() {
               onChange={handleSearchChange}
             />
           </div>
+          <br />
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Presensi Bulanan</p>

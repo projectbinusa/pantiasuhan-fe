@@ -181,14 +181,12 @@ function EditPengurus() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -243,8 +241,7 @@ function EditPengurus() {
                           <select
                             className="form-control"
                             value={education || "Pilih"}
-                            onChange={(e) => setEducation(e.target.value)}
-                          >
+                            onChange={(e) => setEducation(e.target.value)}>
                             <option>Pilih</option>
                             <option value="SD/MI">SD/MI</option>
                             <option value="SMP/Mts">SMP/Mts</option>
@@ -252,7 +249,7 @@ function EditPengurus() {
                             <option value="Kuliah">Kuliah</option>
                           </select>
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        {/* <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Nama Orang Tua
                           </label>
@@ -276,7 +273,7 @@ function EditPengurus() {
                               </option>
                             ))}
                           </select>
-                        </div>
+                        </div> */}
                         <div className="mb-3 co-lg-12">
                           <label className="form-label font-weight-bold">
                             RFID Number
@@ -327,35 +324,38 @@ function EditPengurus() {
                           <label className="form-label font-weight-bold">
                             Jenis Kelamin
                           </label>
-                          <div className="d-flex">
-                            <div className="mr-5">
-                              <input
-                                type="radio"
-                                value="Laki-laki"
-                                checked={gender === "Laki-laki"}
-                                name="gender"
-                                onChange={(e) => setGender(e.target.value)}
-                              />
-                              <label className="ml-2">Laki-laki</label>
-                            </div>
-                            <div className="mr-5">
-                              <input
-                                type="radio"
-                                value="Perempuan"
-                                checked={gender === "Perempuan"}
-                                name="gender"
-                                onChange={(e) => setGender(e.target.value)}
-                              />
-                              <label className="ml-2">Perempuan</label>
-                            </div>
+                          <div className="form-check">
+                            <input
+                              type="radio"
+                              name="gender"
+                              value="laki-laki"
+                              checked={gender === "laki-laki"}
+                              onChange={(e) => setGender(e.target.value)}
+                              className="form-check-input"
+                            />
+                            <label className="form-check-label">
+                              Laki-laki
+                            </label>
+                          </div>
+                          <div className="form-check">
+                            <input
+                              type="radio"
+                              name="gender"
+                              value="perempuan"
+                              checked={gender === "perempuan"}
+                              onChange={(e) => setGender(e.target.value)}
+                              className="form-check-input"
+                            />
+                            <label className="form-check-label">
+                              Perempuan
+                            </label>
                           </div>
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_pengurus"
-                        >
+                          href="/admin_pengurus">
                           Batal
                         </a>
                       </button>

@@ -113,7 +113,7 @@ function DetailPengurus() {
                   <>
                     {" "}
                     <Grid item>
-                      <Card variant="outlined" sx={{ padding: 2 }}>
+                      {/* <Card variant="outlined" sx={{ padding: 2 }}> */}
                         <CardContent>
                           <Typography
                             variant="h5"
@@ -209,14 +209,14 @@ function DetailPengurus() {
                             {/* Parent Name */}
                           </Grid>
                         </CardContent>
-                      </Card>
+                      {/* </Card> */}
                     </Grid>
                   </>
                 ) : (
                   <>
                     {/* Details Section */}
                     <Grid item xs={12} md={6}>
-                      <Card variant="outlined" sx={{ padding: 2 }}>
+                      {/* <Card variant="outlined" sx={{ padding: 2 }}> */}
                         <CardContent>
                           <Typography
                             variant="h5"
@@ -310,7 +310,7 @@ function DetailPengurus() {
                             </Grid>
                           </Grid>
                         </CardContent>
-                      </Card>
+                      {/* </Card> */}
                     </Grid>
                   </>
                 )}

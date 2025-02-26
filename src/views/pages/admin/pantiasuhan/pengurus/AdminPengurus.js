@@ -22,25 +22,37 @@ function AdminPengurus() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/member?page=${currentPage}&limit=${rowsPerPage}`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
-      const { data, pagination } = response.data;
-      console.log(response);
-      setList(data); // Set the list of news articles
+      const [pengurusResponse, guruResponse] = await Promise.all([
+        axios.get(`${API_DUMMY_SMART}/api/customer/member?page=${currentPage}&limit=${rowsPerPage}&level=pengurus`, {
+          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+        }),
+        axios.get(`${API_DUMMY_SMART}/api/customer/member?page=${currentPage}&limit=${rowsPerPage}&level=guru`, {
+          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+        }),
+      ]);
+
+      const combinedData = [
+        ...pengurusResponse.data.data.filter(pengurus =>
+          !guruResponse.data.data.some(guru => guru.id === pengurus.id)
+        ),
+        ...guruResponse.data.data
+      ];
+
+      setList(combinedData);
       setPaginationInfo({
-        totalPages: pagination.total_page || 1,
-        totalElements: pagination.total || 0,
+        totalPages: Math.max(
+          pengurusResponse.data.pagination.total_page || 1,
+          guruResponse.data.pagination.total_page || 1
+        ),
+        totalElements:
+          (pengurusResponse.data.pagination.total || 0) +
+          (guruResponse.data.pagination.total || 0),
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
     }
   };
+
 
   const deleteData = async (id) => {
     Swal.fire({

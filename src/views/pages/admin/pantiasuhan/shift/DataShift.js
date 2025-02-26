@@ -518,7 +518,7 @@ function DataShift() {
                           >
                             <option>Pilih</option>
                             <option value="santri">Santri</option>
-                            <option value="siswa">Siswa</option>
+                            <option value="pengurus">Pengurus</option>
                             <option value="guru">Guru</option>
                           </select>
                         </div>

@@ -70,9 +70,14 @@ function LaporanHarianPresensi() {
 
   const exportHarian = async () => {
     try {
-      const tgl = date2 || formatTanggal;
+      const [year, month, day] = date.split("-");
+
+      if (!year || !month || !day) {
+        Swal.fire("Error", "Tanggal tidak valid!", "error");
+        return;
+      }
       const response = await axios({
-        url: `${API_DUMMY_ABSEN}/api/absensi/export-harian?date=${tgl}`,
+        url: `${API_DUMMY_SMART}/api/customer/absen/daily?year=${year}&month=${month}&day=${day}&as_file=true`,
         method: "GET",
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -237,6 +242,7 @@ function LaporanHarianPresensi() {
               onChange={handleSearchChange}
             />
           </div>
+          <br />
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Presensi Harian</p>
