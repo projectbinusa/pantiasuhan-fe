@@ -25,6 +25,7 @@ function AddPengurus() {
   const [foto, setFoto] = useState(null);
   const [listFosterParent, setListFosterParent] = useState([]);
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [level, setLevel] = useState("");
   const history = useHistory();
 
   useEffect(() => {
@@ -112,6 +113,7 @@ function AddPengurus() {
         education,
         picture: imageUrl,
         gender: gender,
+        level: level,
       };
 
       console.log("Payload yang dikirim ke backend:", payload);
@@ -169,14 +171,12 @@ function AddPengurus() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -231,8 +231,7 @@ function AddPengurus() {
                           <select
                             className="form-control"
                             value={education}
-                            onChange={(e) => setEducation(e.target.value)}
-                          >
+                            onChange={(e) => setEducation(e.target.value)}>
                             <option>Pilih</option>
                             <option value="SD/MI">SD/MI</option>
                             <option value="SMP/Mts">SMP/Mts</option>
@@ -310,6 +309,19 @@ function AddPengurus() {
                             className="form-control"
                           />
                         </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Level
+                          </label>
+                          <select
+                            className="form-control"
+                            value={level}
+                            onChange={(e) => setLevel(e.target.value)}>
+                            <option>Pilih</option>
+                            <option value="pengurus">Pengurus</option>
+                            <option value="guru">Guru</option>
+                          </select>
+                        </div>
                         <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Foto
@@ -352,8 +364,7 @@ function AddPengurus() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_pengurus"
-                        >
+                          href="/admin_pengurus">
                           Batal
                         </a>
                       </button>

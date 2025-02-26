@@ -211,7 +211,7 @@ function FormCabangBaru() {
                           <input
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Masukkan Email" type="email"
+                            placeholder="Masukkan Email"
                             className="form-control"
                           />
                         </div>
