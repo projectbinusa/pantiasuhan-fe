@@ -19,7 +19,7 @@ function DonasiTrx() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   // Mendapatkan role pengguna
-  const userRole = localStorage.getItem('role'); // Menyimpan role saat login
+  const userRole = localStorage.getItem("role"); // Menyimpan role saat login
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -49,7 +49,12 @@ function DonasiTrx() {
       );
 
       const { data, pagination } = response.data;
-      setList(data);
+
+      const sortedData = data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      setList(sortedData);
       setPaginationInfo({
         totalPages: pagination.total_page,
         totalElements: pagination.total,
@@ -125,12 +130,12 @@ function DonasiTrx() {
 
   const filteredList = searchTerm
     ? list.filter((item) =>
-      Object.values(item).some(
-        (value) =>
-          typeof value === "string" &&
-          value.toLowerCase().includes(searchTerm.toLowerCase())
+        Object.values(item).some(
+          (value) =>
+            typeof value === "string" &&
+            value.toLowerCase().includes(searchTerm.toLowerCase())
+        )
       )
-    )
     : list;
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
@@ -165,7 +170,11 @@ function DonasiTrx() {
   };
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -176,7 +185,10 @@ function DonasiTrx() {
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+        <div
+          className="container box-table mt-3 app-main__outer"
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -230,7 +242,7 @@ function DonasiTrx() {
                   onChange={handleSearchChange}
                 />
                 {/* Tombol Tambah hanya ditampilkan jika bukan role 'yayasan' */}
-                {userRole !== 'yayasan' && (
+                {userRole !== "yayasan" && (
                   <div className="btn-actions-pane-right">
                     <div role="group" className="btn-group-sm btn-group">
                       <button className="active btn-focus p-2 rounded">
@@ -246,7 +258,10 @@ function DonasiTrx() {
                 )}
               </div>
             </div>
-            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
+            <div
+              className="table-responsive-3"
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -264,24 +279,45 @@ function DonasiTrx() {
                       <td data-label="No" className="text-md-start text-end">
                         {(currentPage - 1) * rowsPerPage + index + 1}
                       </td>
-                      <td data-label="Nama Donatur" className="text-md-start text-end">{item.name}</td>
-                      <td data-label="Nominal" className="text-end">{item.nominal}</td>
-                      <td data-label="Deskripsi" className="text-md-start text-end">
-                        <div className="isiBerita" dangerouslySetInnerHTML={{ __html: item.description }} />
+                      <td
+                        data-label="Nama Donatur"
+                        className="text-md-start text-end"
+                      >
+                        {item.name}
                       </td>
-                      <td data-label="Image" className="text-md-center text-end">
+                      <td data-label="Nominal" className="text-end">
+                        {item.nominal}
+                      </td>
+                      <td
+                        data-label="Deskripsi"
+                        className="text-md-start text-end"
+                      >
+                        <div
+                          className="isiBerita"
+                          dangerouslySetInnerHTML={{ __html: item.description }}
+                        />
+                      </td>
+                      <td
+                        data-label="Image"
+                        className="text-md-center text-end"
+                      >
                         <button
                           onClick={() => openModal(item.url_image)}
                           type="button"
-                          className="btn-info btn-sm">Tampilkan Gambar
+                          className="btn-info btn-sm"
+                        >
+                          Tampilkan Gambar
                         </button>
                         {/* <img src={item.url_image} alt="image" style={{ width: 50, height: 50 }} /> */}
                       </td>
                       <td data-label="Aksi" className="action">
                         {/* Tombol hanya tampil jika role bukan 'yayasan' */}
-                        {userRole !== 'yayasan' && (
-                          <div style={{display: "flex"}}>
-                            <button type="button" className="btn-primary btn-sm mr-2">
+                        {userRole !== "yayasan" && (
+                          <div style={{ display: "flex" }}>
+                            <button
+                              type="button"
+                              className="btn-primary btn-sm mr-2"
+                            >
                               <a
                                 style={{
                                   color: "white",
@@ -338,18 +374,23 @@ function DonasiTrx() {
               border: "none",
               fontSize: "20px",
               cursor: "pointer",
-              color: "black"
+              color: "black",
             }}
             aria-label="Close"
           >
             ✖
-          </button> <br />
+          </button>{" "}
+          <br />
           {/* Gambar */}
           {imageSrc && (
             <img
               src={imageSrc}
               alt="Preview"
-              style={{ maxWidth: "100%", maxHeight: "70vh", borderRadius: "8px" }}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "70vh",
+                borderRadius: "8px",
+              }}
             />
           )}
         </Box>
