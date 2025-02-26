@@ -1348,6 +1348,8 @@ function App() {
               component={EditProfile}
               exact
             />
+            {/* GURU LEVEL */}
+            <PrivateRoute path="/guru/tahsin" component={GuruDataTahsin} exact />
           </Switch>
         </main>
         <LogPageView />
