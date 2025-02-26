@@ -206,6 +206,7 @@ function TambahDonasiUmum() {
                 akan membawa perubahan positif bagi mereka yang membutuhkan.
                 ❤️🙏
               </p>
+              <button type="button" onClick={() => history.goBack()} className="btn-primary">Kembali</button>
             </div>
           </Box>
         </Modal>
