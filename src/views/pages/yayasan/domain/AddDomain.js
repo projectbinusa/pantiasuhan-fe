@@ -8,10 +8,12 @@ import AOS from "aos";
 import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import { uploadImageToS3 } from "../../../../utils/uploadToS3";
+import AsyncSelect from "react-select/async";
 
 function AddDomain() {
   const [nama, setNama] = useState("");
   const [organization, setOrganization] = useState("");
+  const [idOrganization, setIdOrganization] = useState(null);
 
   const history = useHistory();
 
@@ -26,18 +28,14 @@ function AddDomain() {
 
     const datas = {
       name: nama,
-      organization_id: organization,
-    }
+      organization_id: Number(idOrganization),
+    };
     try {
-      await axios.post(
-        `${API_DUMMY_SMART}/api/user/domain`,
-        datas,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+      await axios.post(`${API_DUMMY_SMART}/api/user/domain`, datas, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      });
       Swal.fire({
         icon: "success",
         title: "Data Berhasil DiTambahkan",
@@ -63,28 +61,59 @@ function AddDomain() {
     }
   };
 
+  const fetchOrganization = async (inputValue) => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/user/organization/organization_ids?filter=${inputValue}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
+      return response.data.data.map((member) => ({
+        value: member.id,
+        label: member.name,
+      }));
+    } catch (error) {
+      console.error("Error searching members:", error);
+      return [];
+    }
+  };
+
+  const handleChange = (selectedOption) => {
+    if (selectedOption) {
+      setIdOrganization(selectedOption.value);
+      setOrganization(selectedOption.label);
+    } else {
+      setIdOrganization(null);
+      setOrganization("");
+    }
+  };
+
   useEffect(() => {
     AOS.init();
   }, []);
 
-//   useEffect(() => {
-//     const fetchDataAnak = async () => {
-//       try {
-//         const response = await axios.get(
-//           `${API_DUMMY_SMART}/api/user/domain`,
-//           {
-//             headers: {
-//               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-//             },
-//           }
-//         );
-//         setListAnak(response.data.data);
-//       } catch (error) {
-//         console.error("Terjadi Kesalahan saat mengambil data lokasi:", error);
-//       }
-//     };
-//     fetchDataAnak()
-//   }, [])
+  //   useEffect(() => {
+  //     const fetchDataAnak = async () => {
+  //       try {
+  //         const response = await axios.get(
+  //           `${API_DUMMY_SMART}/api/user/domain`,
+  //           {
+  //             headers: {
+  //               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+  //             },
+  //           }
+  //         );
+  //         setListAnak(response.data.data);
+  //       } catch (error) {
+  //         console.error("Terjadi Kesalahan saat mengambil data lokasi:", error);
+  //       }
+  //     };
+  //     fetchDataAnak()
+  //   }, [])
 
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -107,8 +136,9 @@ function AddDomain() {
   return (
     <div
       c
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -144,7 +174,7 @@ function AddDomain() {
                           placeholder="Masukkan Nama"
                         />
                       </div>
-                      <div className="mb-3 col-lg-6">
+                      {/* <div className="mb-3 col-lg-6">
                         <label
                           for="exampleInputEmail1"
                           className="form-label  font-weight-bold "
@@ -158,8 +188,32 @@ function AddDomain() {
                           className="form-control"
                           placeholder="Masukkan Organization"
                         />
+                      </div> */}
+                      <div className="mb-3 col-lg-6">
+                        <label className="form-label font-weight-bold">
+                          Organization
+                        </label>
+                        <AsyncSelect
+                          cacheOptions
+                          defaultOptions
+                          loadOptions={fetchOrganization}
+                          onChange={handleChange}
+                          placeholder="Cari Organisasi..."
+                          noOptionsMessage={() => "Organisasi tidak ditemukan"}
+                          menuPortalTarget={document.body}
+                          styles={{
+                            menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                            menu: (base) => ({
+                              ...base,
+                              position: "absolute",
+                              zIndex: 9999,
+                              backgroundColor: "white",
+                            }),
+                          }}
+                        />
                       </div>
                     </div>
+
                     <button type="button" className="btn-danger mt-3 mr-3">
                       <a
                         style={{ color: "white", textDecoration: "none" }}

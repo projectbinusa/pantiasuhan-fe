@@ -18,6 +18,7 @@ function Domain() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [userRole, setUserRole] = useState("");
+  const [organizations, setOrganizations] = useState([]);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -57,6 +58,34 @@ function Domain() {
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
     }
+  };
+
+  useEffect(() => {
+    const fetchOrganizations = async () => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY_SMART}/api/user/organization/organization_ids`,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+
+        // Simpan data organisasi dalam state
+        setOrganizations(response.data.data);
+      } catch (error) {
+        console.error("Error fetching organizations:", error);
+      }
+    };
+
+    fetchOrganizations();
+  }, []);
+
+  // Fungsi untuk mendapatkan nama organisasi berdasarkan organization_id
+  const getOrganizationName = (id) => {
+    const organization = organizations.find((org) => org.id === id);
+    return organization ? organization.name : "Tidak Diketahui";
   };
 
   useEffect(() => {
@@ -226,7 +255,7 @@ function Domain() {
                   <tr>
                     <th scope="col">No</th>
                     <th>Nama Domain</th>
-                    <th>Organization_id</th>
+                    <th>Organization</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -251,7 +280,8 @@ function Domain() {
                             data-label="Nama Barang"
                             className="text-md-start text-end"
                           >
-                            {row.organization_id}
+                            {getOrganizationName(row.organization_id)}
+                            {/* {row.organization_id} */}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
