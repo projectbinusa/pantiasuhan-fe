@@ -56,8 +56,8 @@ function PublikDetailBeritaPanti() {
           {
             headers: {
               // "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-              // "ORIGIN": window.location.hostname,
-              "ORIGIN": "https://staging.mccsemarang.com",
+              "ORIGIN": window.location.hostname,
+              // "ORIGIN": "https://staging.mccsemarang.com",
             },
           }
         );
