@@ -111,7 +111,8 @@ function AddAnak() {
         parent_id: parent_id,
         education,
         picture: imageUrl,
-        gender: gender
+        gender: gender,
+        level: "santri"
       };
 
       console.log("Payload yang dikirim ke backend:", payload);

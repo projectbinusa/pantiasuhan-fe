@@ -40,7 +40,7 @@ function DataAnakAsuh() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/user/customer/member/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/user/customer/member/${param.id}?page=${currentPage}&limit=${rowsPerPage}&level=santri`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
