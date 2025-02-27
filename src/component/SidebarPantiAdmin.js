@@ -567,7 +567,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           </div>
           <div className="sidebar-menu1">
             <ul>
-              {localStorage.getItem("rolename") != "Pengurus" ? (
+              {localStorage.getItem("rolename") != "Pengurus" || localStorage.getItem("rolename") != "Guru"? (
                 defaultItems.map((data, index) => (
                   <li
                     key={index}
