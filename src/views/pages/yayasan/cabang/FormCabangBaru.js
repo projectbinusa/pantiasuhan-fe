@@ -70,7 +70,7 @@ function FormCabangBaru() {
             bank_account_number: bankAccountNumber,
             bank_account_name: bankAccountName,
             bank_name: bankName,
-            domain: domain
+            // domain: domain
           }
           console.log(payloadorganization);
 
@@ -81,6 +81,7 @@ function FormCabangBaru() {
           });
           const organizationId = responseOrganization.data.data.id;
           console.log(responseOrganization.data.data.id);
+          
           if (responseOrganization.data && responseOrganization.data.status === "200 OK" && responseOrganization.data.message === "success") {
             try {
               const responseCustomer = await axios.put(`${API_DUMMY_SMART}/api/user/customer/${customerId}`, { organization_id: organizationId }, {
@@ -89,6 +90,14 @@ function FormCabangBaru() {
                 },
               });
               console.log(responseCustomer);
+
+              const payloadDomain = { name: domain, organization_id: organizationId }
+              const responseDomain = await axios.put(`${API_DUMMY_SMART}/api/user/domain`, { payloadDomain }, {
+                headers: {
+                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+                },
+              });
+              console.log(responseDomain);
               await axios.put(`${API_DUMMY_SMART}/api/user/organization_ids/${userId}`, { organization_ids: `${organizationId}` }, {
                 headers: {
                   "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
