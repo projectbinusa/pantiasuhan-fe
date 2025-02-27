@@ -22,7 +22,7 @@ function Login() {
       window.location.href = "/dashboard_panti"; // Redirect langsung
     } else if (token && rolename === "Yayasan") {
       window.location.href = "/dashboard_yayasan"; // Redirect langsung
-    } else if (token && rolename === "Pengurus") {
+    } else if (token && rolename === "Guru") {
       window.location.href = "/guru/tahsin"; // Redirect langsung
     }
   }, []);
@@ -81,21 +81,21 @@ function Login() {
             history.push("/dashboard_panti");
           });
         }
-      } else if (type_token === "Pengurus") {
+      } else if (type_token === "Guru") {
         const resp = await axios.post(`${API_DUMMY_SMART}/api/member/login`, datapengurus);
         console.log(resp);
 
         if (resp.status === 200) {
           Swal.fire({
             icon: "success",
-            title: `Berhasil Login Sebagai Pengurus`,
+            title: `Berhasil Login Sebagai Guru`,
             showConfirmButton: false,
             timer: 1500,
           }).then(() => {
             localStorage.setItem("id", resp.data.data.id);
             localStorage.setItem("typetoken", resp.data.data.type_token);
             localStorage.setItem("tokenpython", resp.data.data.token);
-            localStorage.setItem("rolename", "Pengurus");
+            localStorage.setItem("rolename", "Guru");
             localStorage.setItem("organization_id", resp.data.data.organization_id);
             history.push("/guru/tahsin");
           });
@@ -152,12 +152,12 @@ function Login() {
                   id="radio3"
                   name="selector"
                   className="selector-item_radio"
-                  checked={type_token === "Pengurus"}
-                  value="Pengurus"
+                  checked={type_token === "Guru"}
+                  value="Guru"
                   onChange={handleOptionChange}
                 />
                 <label htmlFor="radio3" className="selector-item_label">
-                  Pengurus
+                  Guru
                 </label>
               </div>
               <div className="selector-item">
@@ -190,7 +190,7 @@ function Login() {
               </div>
             </div>
             <div className="input-group mb-3">
-              {type_token == "Pengurus" ?
+              {type_token == "Guru" ?
                 <input
                   type="text"
                   className="form-control form-control-lg bg-light fs-6"
