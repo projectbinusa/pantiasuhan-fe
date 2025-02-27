@@ -25,7 +25,7 @@ function AddPengurus() {
   const [foto, setFoto] = useState(null);
   const [listFosterParent, setListFosterParent] = useState([]);
   const [sidebarToggled, setSidebarToggled] = useState(true);
-  const [level, setLevel] = useState("Pengurus");
+  const [level, setLevel] = useState("");
   const history = useHistory();
 
   useEffect(() => {
@@ -56,39 +56,39 @@ function AddPengurus() {
     setSidebarToggled(!sidebarToggled);
   };
 
-  const validateForm = () => {
-    if (
-      !name ||
-      !password ||
-      !rfidNumber ||
-      !unique_id ||
-      !parentName ||
-      !birthPlace ||
-      !birthDate ||
-      !education
-    ) {
-      Swal.fire({
-        icon: "error",
-        title: "Semua kolom wajib diisi!",
-        showConfirmButton: true,
-      });
-      return false;
-    }
-    if (education === "Pilih") {
-      Swal.fire({
-        icon: "error",
-        title: "Pilih pendidikan yang valid!",
-        showConfirmButton: true,
-      });
-      return false;
-    }
-    return true;
-  };
+  // const validateForm = () => {
+  //   if (
+  //     !name ||
+  //     !password ||
+  //     !rfidNumber ||
+  //     !unique_id ||
+  //     !parentName ||
+  //     !birthPlace ||
+  //     !birthDate ||
+  //     !education
+  //   ) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Semua kolom wajib diisi!",
+  //       showConfirmButton: true,
+  //     });
+  //     return false;
+  //   }
+  //   if (education === "Pilih") {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Pilih pendidikan yang valid!",
+  //       showConfirmButton: true,
+  //     });
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
   const add = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) return;
+    // if (!validateForm()) return;
 
     try {
       let imageUrl = foto;
@@ -118,40 +118,40 @@ function AddPengurus() {
 
       console.log("Payload yang dikirim ke backend:", payload);
 
-      // const response = await axios.post(
-      //   `${API_DUMMY_SMART}/api/customer/member`,
-      //   payload,
-      //   {
-      //     headers: {
-      //       "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-      //     },
-      //   }
-      // );
+      const response = await axios.post(
+        `${API_DUMMY_SMART}/api/customer/member`,
+        payload,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
 
-      // console.log("Respons dari backend:", response.data);
+      console.log("Respons dari backend:", response.data);
 
-      // if (
-      //   response.data &&
-      //   response.data.status === "200 OK" &&
-      //   response.data.message === "success"
-      // ) {
-      //   Swal.fire({
-      //     icon: "success",
-      //     title: "Data Berhasil Ditambahkan",
-      //     showConfirmButton: false,
-      //     timer: 1500,
-      //   });
+      if (
+        response.data &&
+        response.data.status === "200 OK" &&
+        response.data.message === "success"
+      ) {
+        Swal.fire({
+          icon: "success",
+          title: "Data Berhasil Ditambahkan",
+          showConfirmButton: false,
+          timer: 1500,
+        });
 
-      //   // Ensure the response data is correct
-      //   console.log("Data yang diterima:", response.data);
+        // Ensure the response data is correct
+        console.log("Data yang diterima:", response.data);
 
-      //   setTimeout(() => {
-      //     history.push("/admin_pengurus");
-      //   }, 1500);
-      // } else {
-      //   const errorMessage = response.data?.message || "Tambah Data Gagal";
-      //   throw new Error(errorMessage);
-      // }
+        setTimeout(() => {
+          history.push("/admin_pengurus");
+        }, 1500);
+      } else {
+        const errorMessage = response.data?.message || "Tambah Data Gagal";
+        throw new Error(errorMessage);
+      }
     } catch (error) {
       console.error("Error respons:", error.response?.data || error.message);
 
@@ -308,6 +308,19 @@ function AddPengurus() {
                             placeholder="Masukkan Email Pengurus"
                             className="form-control"
                           />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Level
+                          </label>
+                          <select
+                            className="form-control"
+                            value={level}
+                            onChange={(e) => setLevel(e.target.value)}>
+                            <option>Pilih</option>
+                            <option value="pengurus">Pengurus</option>
+                            <option value="guru">Guru</option>
+                          </select>
                         </div>
                         <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
