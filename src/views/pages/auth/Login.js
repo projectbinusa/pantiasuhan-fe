@@ -22,6 +22,8 @@ function Login() {
       window.location.href = "/dashboard_panti"; // Redirect langsung
     } else if (token && rolename === "Yayasan") {
       window.location.href = "/dashboard_yayasan"; // Redirect langsung
+    } else if (token && rolename === "Pengurus") {
+      window.location.href = "/guru/tahsin"; // Redirect langsung
     }
   }, []);
 
@@ -30,6 +32,10 @@ function Login() {
 
     const datapython = {
       email: email,
+      password: password,
+    };
+    const datapengurus = {
+      unique_id: email,
       password: password,
     };
 
@@ -56,7 +62,7 @@ function Login() {
             }
           });
         }
-      } else {
+      } else if (type_token === "Admin") {
         const resp = await axios.post(`${API_DUMMY_SMART}/api/customer/login`, datapython);
         console.log(resp);
 
@@ -73,6 +79,25 @@ function Login() {
             localStorage.setItem("rolename", "Admin");
             localStorage.setItem("organization_id", resp.data.data.organization_id);
             history.push("/dashboard_panti");
+          });
+        }
+      } else if (type_token === "Pengurus") {
+        const resp = await axios.post(`${API_DUMMY_SMART}/api/member/login`, datapengurus);
+        console.log(resp);
+
+        if (resp.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: `Berhasil Login Sebagai Pengurus`,
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            localStorage.setItem("id", resp.data.data.id);
+            localStorage.setItem("typetoken", resp.data.data.type_token);
+            localStorage.setItem("tokenpython", resp.data.data.token);
+            localStorage.setItem("rolename", "Pengurus");
+            localStorage.setItem("organization_id", resp.data.data.organization_id);
+            history.push("/guru/tahsin");
           });
         }
       }
@@ -124,6 +149,20 @@ function Login() {
               <div className="selector-item">
                 <input
                   type="radio"
+                  id="radio3"
+                  name="selector"
+                  className="selector-item_radio"
+                  checked={type_token === "Pengurus"}
+                  value="Pengurus"
+                  onChange={handleOptionChange}
+                />
+                <label htmlFor="radio3" className="selector-item_label">
+                  Pengurus
+                </label>
+              </div>
+              <div className="selector-item">
+                <input
+                  type="radio"
                   id="radio1"
                   name="selector"
                   className="selector-item_radio"
@@ -151,14 +190,22 @@ function Login() {
               </div>
             </div>
             <div className="input-group mb-3">
-              <input
-                type="text"
-                className="form-control form-control-lg bg-light fs-6"
-                required
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              {type_token == "Pengurus" ?
+                <input
+                  type="text"
+                  className="form-control form-control-lg bg-light fs-6"
+                  required
+                  placeholder="Unique Id"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                /> : <input
+                  type="text"
+                  className="form-control form-control-lg bg-light fs-6"
+                  required
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />}
             </div>
             <div className="input-group mb-1">
               <input

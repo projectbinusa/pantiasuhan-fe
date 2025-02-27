@@ -272,6 +272,7 @@ import AddPengurus from "./views/pages/admin/pantiasuhan/pengurus/AddPengurus.js
 import EditPengurus from "./views/pages/admin/pantiasuhan/pengurus/EditPengurus.js";
 import AdminPengurus from "./views/pages/admin/pantiasuhan/pengurus/AdminPengurus.js";
 import DetailPengurus from "./views/pages/admin/pantiasuhan/pengurus/DetailPengurus.js";
+import GuruDataTahsin from "./views/pages/guru/tahsin/DataTahsin.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
