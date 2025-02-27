@@ -362,7 +362,7 @@ function GuruDataTahsin() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -514,7 +514,7 @@ function GuruDataTahsin() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="5" className="text-center my-3">
+                      <td colSpan="9" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
