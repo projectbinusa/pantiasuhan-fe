@@ -8,14 +8,15 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import axios from "axios";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
-import { uploadImageToS3 } from "../../../../utils/uploadToS3";
-import Organization from "../organization/Organization";
+import AsyncSelect from "react-select/async";
 
 function EditDomain() {
   const [nama, setNama] = useState("");
-  const [Organization, setOrganization] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [idOrganization, setIdOrganization] = useState(null);
   const param = useParams();
   const history = useHistory();
+  const [selectedOrganization, setSelectedOrganization] = useState(null);
 
   const updateDomain = async (e) => {
     e.preventDefault();
@@ -23,15 +24,19 @@ function EditDomain() {
 
     const datas = {
       name: nama,
-      organization_id: Organization,
+      organization_id: Number(idOrganization),
     };
 
     try {
-      await axios.put(`${API_DUMMY_SMART}/api/user/domain/` + param.name, datas, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      });
+      await axios.put(
+        `${API_DUMMY_SMART}/api/user/domain/` + param.name,
+        datas,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
 
       Swal.fire({
         icon: "success",
@@ -68,15 +73,60 @@ function EditDomain() {
       })
       .then((ress) => {
         const response = ress.data.data;
-        console.log(response);
-
         setNama(response.name);
-        setOrganization(response.organization_id);
+        setIdOrganization(response.organization_id);
+
+        // Set nilai awal dari AsyncSelect berdasarkan ID organisasi
+        setSelectedOrganization({
+          value: response.organization_id,
+          label: response.name,
+        });
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+  const handleChange = (selectedOption) => {
+    if (selectedOption) {
+      setIdOrganization(selectedOption.value);
+      setSelectedOrganization(selectedOption);
+    } else {
+      setIdOrganization(null);
+      setSelectedOrganization(null);
+    }
+  };
+
+  const fetchOrganization = async (inputValue) => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/user/organization/organization_ids?filter=${inputValue}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
+      return response.data.data.map((member) => ({
+        value: member.id,
+        label: member.name,
+      }));
+    } catch (error) {
+      console.error("Error searching members:", error);
+      return [];
+    }
+  };
+
+  // const handleChange = (selectedOption) => {
+  //   if (selectedOption) {
+  //     setIdOrganization(selectedOption.value);
+  //     setOrganization(selectedOption.label);
+  //   } else {
+  //     setIdOrganization(null);
+  //     setOrganization("");
+  //   }
+  // };
 
   useEffect(() => {
     AOS.init();
@@ -141,7 +191,7 @@ function EditDomain() {
                       placeholder="Masukkan Nama"
                     />
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  {/* <div className="mb-3 col-lg-6">
                     <label className="form-label font-weight-bold">
                       Organization
                     </label>
@@ -151,6 +201,20 @@ function EditDomain() {
                       type="number"
                       className="form-control"
                       placeholder="Masukkan Organization"
+                    />
+                  </div> */}
+                  <div className="mb-3 col-lg-6">
+                    <label className="form-label font-weight-bold">
+                      Organization
+                    </label>
+                    <AsyncSelect
+                      cacheOptions
+                      defaultOptions
+                      loadOptions={fetchOrganization}
+                      onChange={handleChange}
+                      value={selectedOrganization} // Menampilkan organisasi yang sudah ada sebelum diedit
+                      placeholder="Cari Organisasi..."
+                      noOptionsMessage={() => "Organisasi tidak ditemukan"}
                     />
                   </div>
                 </div>
