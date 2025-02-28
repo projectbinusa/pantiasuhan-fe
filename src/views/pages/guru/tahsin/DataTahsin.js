@@ -132,7 +132,7 @@ function GuruDataTahsin() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/tahsin?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/member/guru/tahsin?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -672,7 +672,7 @@ function GuruDataTahsin() {
                     </label>
                     <select
                       className="form-control"
-                      required
+                      // required
                       onChange={(e) => setStatus(e.target.value)}>
                       <option value="">Pilih Status</option>
                       <option value="Approved">Approved</option>
