@@ -503,7 +503,7 @@ function Home() {
         },
       });
       console.log("visi misi: ", response.data.data[0]);
-
+      
       setVisiPanti(response.data.data[0]);
     } catch (error) {
       console.log("get visi misi", error);
