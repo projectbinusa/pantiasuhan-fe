@@ -273,6 +273,8 @@ import EditPengurus from "./views/pages/admin/pantiasuhan/pengurus/EditPengurus.
 import AdminPengurus from "./views/pages/admin/pantiasuhan/pengurus/AdminPengurus.js";
 import DetailPengurus from "./views/pages/admin/pantiasuhan/pengurus/DetailPengurus.js";
 import GuruDataTahsin from "./views/pages/guru/tahsin/DataTahsin.js";
+import TahsinHarian from "./views/pages/admin/pantiasuhan/tahsin/TahsinHarian.js";
+import TahsinMingguan from "./views/pages/admin/pantiasuhan/tahsin/TahsinMingguan.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -419,6 +421,16 @@ function App() {
               exact
             />
             <PrivateRoute path="/admin_tahsin" component={DataTahsin} exact />
+            <PrivateRoute
+              path="/rekap_tahsin_harian"
+              component={TahsinHarian}
+              exact
+            />
+            <PrivateRoute
+              path="/rekap_tahsin_mingguan"
+              component={TahsinMingguan}
+              exact
+            />
             <PrivateRoute path="/admin_iventaris" component={Iventaris} exact />
             <PrivateRoute path="/add_iventaris" component={AddInves} exact />
             <PrivateRoute
@@ -1350,7 +1362,11 @@ function App() {
               exact
             />
             {/* GURU LEVEL */}
-            <PrivateRoute path="/guru/tahsin" component={GuruDataTahsin} exact />
+            <PrivateRoute
+              path="/guru/tahsin"
+              component={GuruDataTahsin}
+              exact
+            />
           </Switch>
         </main>
         <LogPageView />
