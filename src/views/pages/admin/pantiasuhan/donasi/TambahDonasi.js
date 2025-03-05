@@ -67,8 +67,8 @@ function TambahDonasi() {
 
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
-  const [jenisPemasukan, setJenisPemasukan] = useState(""); 
-  const [jenisDonasi, setJenisDonasi] = useState(""); 
+  const [jenisPemasukan, setJenisPemasukan] = useState("");
+  const [jenisDonasi, setJenisDonasi] = useState("");
   const [kategoriDonatur, setKategoriDonatur] = useState("");
 
   const toggleSidebar = () => {
@@ -103,9 +103,9 @@ function TambahDonasi() {
           name: nama,
           description: deskripsi,
           url_image: imageUrl,
-          income_type: jenisPemasukan,
-          donation_type: jenisDonasi || null,
-          donor_category: kategoriDonatur,
+          // income_type: jenisPemasukan,
+          // donation_type: jenisDonasi || null,
+          // donor_category: kategoriDonatur,
         },
         {
           headers: {
@@ -292,7 +292,7 @@ function TambahDonasi() {
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
-                        <div className="mb-3 col-lg-12">
+                        {/* <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Jenis Pemasukan
                           </label>
@@ -347,7 +347,7 @@ function TambahDonasi() {
                               <option value="Lembaga">Lembaga</option>
                             </select>
                           </div>
-                        )}
+                        )} */}
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Nama
@@ -623,6 +623,13 @@ function TambahDonasi() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+        .ck-editor__editable {
+          min-height: 400px;
+        }
+        `}
+      </style>
     </div>
   );
 }

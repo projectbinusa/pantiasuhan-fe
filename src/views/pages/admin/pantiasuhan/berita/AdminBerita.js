@@ -95,7 +95,7 @@ function AdminBeritaPanti() {
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
+    // setPage(0);
     setCurrentPage(1);
   };
 

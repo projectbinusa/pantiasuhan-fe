@@ -62,6 +62,7 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import { uploadImageDonationToS3 } from "../../../../../utils/uploadDonationToS3";
+import AsyncSelect from "react-select/async";
 
 function EditDonasiTrx() {
   const [nama, setNama] = useState("");
@@ -70,10 +71,12 @@ function EditDonasiTrx() {
   const [image, setImage] = useState(null);
   const [idDonasi, setIdDonasi] = useState("");
   const [donasi, setDonasi] = useState([]);
-
+  const [donastionName, setDonationName] = useState("");
+  const [selectedDonation, setSelectedDonasi] = useState(null);
   const history = useHistory();
   const param = useParams();
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [file, setFile] = useState(null);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -101,7 +104,14 @@ function EditDonasiTrx() {
         setNama(resp.name);
         setNominal(resp.nominal);
         setDeskripsi(resp.description);
-        setImage(resp.url_image)
+        setImage(resp.url_image);
+        setIdDonasi(resp.donation_id);
+        if (resp.donation_id) {
+          setSelectedDonasi({
+            value: resp.donation_id,
+            // label: resp.name,
+          });
+        }
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -141,10 +151,12 @@ function EditDonasiTrx() {
     e.persist();
 
     try {
-      let imageUrl = image;
+      let imageUrl;
 
-      if (image) {
+      if (file) {
         imageUrl = await uploadImageDonationToS3(image);
+      } else {
+        imageUrl = image;
       }
       await axios.put(
         `${API_DUMMY_SMART}/api/customer/donation_trx/${param.id}`,
@@ -190,7 +202,7 @@ function EditDonasiTrx() {
 
   useEffect(() => {
     AOS.init();
-    getAll()
+    getAll();
   }, []);
 
   const REDUCED_MATERIAL_COLORS = [
@@ -316,17 +328,48 @@ function EditDonasiTrx() {
     { label: "Blue grey 900", color: "#263238" },
   ];
 
+  const fetchDonasi = async (inputValue) => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/customer/donation?name=${inputValue}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+      return response.data.data.map((member) => ({
+        value: member.id,
+        label: member.name,
+      }));
+    } catch (error) {
+      console.error("Error searching members:", error);
+      return [];
+    }
+  };
+
+  const handleDonasiChange = (selectedOption) => {
+    if (selectedOption) {
+      setIdDonasi(selectedOption.value);
+      setDonationName(selectedOption.label);
+      setSelectedDonasi(selectedOption);
+    } else {
+      setIdDonasi(null);
+      setDonationName("");
+      setSelectedDonasi(null);
+    }
+  };
+
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -345,22 +388,15 @@ function EditDonasiTrx() {
                           <label className="form-label  font-weight-bold ">
                             Nama Donasi
                           </label>
-                          <select
-                            value={idDonasi}
-                            className="form-control"
-                            aria-label="Small select example"
-                            onChange={(e) => {
-                              const selectedId = e.target.value;
-                              setIdDonasi(selectedId);
-                            }}
-                          >
-                            <option value="">Pilih Donasi</option>
-                            {donasi.map((data, index) => (
-                              <option key={index} value={data.id}>
-                                {data.name}
-                              </option>
-                            ))}
-                          </select>
+                          <AsyncSelect
+                            cacheOptions
+                            defaultOptions
+                            loadOptions={fetchDonasi}
+                            onChange={handleDonasiChange}
+                            value={selectedDonation}
+                            placeholder="Cari Donasi..."
+                            noOptionsMessage={() => "Data tidak ditemukan"}
+                          />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
@@ -624,9 +660,7 @@ function EditDonasiTrx() {
                           </label>
                           <input
                             onChange={(e) =>
-                              setImage(
-                                e.target.files ? e.target.files[0] : null
-                              )
+                              setFile(e.target.files ? e.target.files[0] : null)
                             }
                             type="file"
                             className="form-control"
@@ -636,8 +670,7 @@ function EditDonasiTrx() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/donasi_trx"
-                        >
+                          href="/donasi_trx">
                           Batal
                         </a>
                       </button>
@@ -652,6 +685,13 @@ function EditDonasiTrx() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+        .ck-editor__editable {
+          min-height: 400px;
+        }
+        `}
+      </style>
     </div>
   );
 }

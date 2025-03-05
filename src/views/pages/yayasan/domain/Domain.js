@@ -52,7 +52,7 @@ function Domain() {
       const { data, pagination } = response.data;
       setList(data);
       setPaginationInfo({
-        totalPages: Math.ceil(pagination.total / rowsPerPage),
+        totalPages: Math.ceil(pagination.total_page / rowsPerPage),
         totalElements: pagination.total,
       });
     } catch (error) {
@@ -131,7 +131,7 @@ function Domain() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART}/api/user/domain` + name, {
+          .delete(`${API_DUMMY_SMART}/api/user/domain/` + name, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -271,13 +271,13 @@ function Domain() {
                             {index + 1}
                           </td>
                           <td
-                            data-label="Nama Barang"
+                            data-label="Domain"
                             className="text-md-start text-end"
                           >
                             {row.name}
                           </td>
                           <td
-                            data-label="Nama Barang"
+                            data-label="Organization"
                             className="text-md-start text-end"
                           >
                             {getOrganizationName(row.organization_id)}
@@ -316,7 +316,7 @@ function Domain() {
                                     </a>
                                   </button> */}
                                   <button
-                                    onClick={() => deleteData(row.id)}
+                                    onClick={() => deleteData(row.name)}
                                     type="button"
                                     className="btn-danger btn-sm"
                                   >
