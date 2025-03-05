@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_DUMMY } from "../utils/base_URL";
 import { Grid, Typography } from "@mui/material";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function FooterSekolah() {
   const [berita, setBerita] = useState([]);
@@ -14,6 +15,18 @@ function FooterSekolah() {
   const [judul, setJudul] = useState("");
   const [isi, setIsi] = useState("");
   const [isContactAvailable, setIsContactAvailable] = useState(true);
+
+  const navigate = useHistory()
+
+  const handleVisiMisiClick = () => {
+    navigate.push("/"); // Pindah ke halaman home
+    setTimeout(() => {
+      const section = document.getElementById("visi-misi");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100); // Tunggu sejenak agar halaman termuat sepenuhnya
+  };
 
   // const getAllSejarah = async () => {
   //   try {
@@ -193,27 +206,30 @@ function FooterSekolah() {
                         </a>
                       </li>
                       <li>
-                        <a className="text-white" href="#visi-misi">
+                        <span
+                          onClick={handleVisiMisiClick}
+                          onMouseEnter={(e) => (e.target.style.textDecoration = "none")}
+                          onMouseLeave={(e) => (e.target.style.textDecoration = "underline")}
+                          style={{
+                            cursor: "pointer",
+                            textDecoration: "underline",
+                            color: "white",
+                          }}>
                           Visi Misi{" "}
-                        </a>
+                        </span>
                       </li>
                       <li>
-                        <a className="text-white" href="#program">
+                        <a className="text-white" href="/programpanti">
                           Program
                         </a>
                       </li>
                       <li>
-                        <a className="text-white" href="#berita">
+                        <a className="text-white" href="/beritapanti">
                           Berita
                         </a>
                       </li>
                     </div>
                     <div class="col-lg-3 col-md-6">
-                      <li>
-                        <a className="text-white" href="#santri">
-                          Santri
-                        </a>
-                      </li>
                       <li>
                         <a className="text-white" href="/bukutamu/form/35">
                           Buku Tamu
@@ -222,6 +238,11 @@ function FooterSekolah() {
                       <li>
                         <a className="text-white" href="/donasiumum">
                           Donasi
+                        </a>
+                      </li>
+                      <li>
+                        <a className="text-white" href="/presensipanti">
+                          Presensi
                         </a>
                       </li>
                     </div>

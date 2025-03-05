@@ -179,12 +179,13 @@ function DashboardPanti() {
   const fetchKondisiBarang = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/admin/kondisi_barang`,
+        `${API_DUMMY}/api/admin/kondisi_barang?limit=${5}`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
       console.log(response.data?.data);
+      console.log(response);
 
       setConditions(response.data?.data || []);
     } catch (error) {
@@ -215,9 +216,8 @@ function DashboardPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -250,7 +250,7 @@ function DashboardPanti() {
                 <h2 style={{ fontFamily: "Poppins" }}>Jumlah Saldo Keuangan Panti</h2>
                 <h1 style={{ fontFamily: "Poppins" }}>{rupiah(saldoKeuangan)}</h1>
                 <div className="info-link">
-                  <a href="/admin_keuangan">Informasi Selengkapnya</a>
+                  <a href="/donasi_trx">Informasi Selengkapnya</a>
                 </div>
               </div>
             </div>
@@ -288,7 +288,6 @@ function DashboardPanti() {
                             {condition.kondisi_barang || "Tidak Diketahui"}
                           </td>
                           <td data-label="Jumlah" className="text-center">
-                            {/* {quantities[index]?.stok || 0} */}
                             {ttl || 0}
                           </td>
                         </tr>

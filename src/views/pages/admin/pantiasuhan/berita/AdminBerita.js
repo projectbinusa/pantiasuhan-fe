@@ -251,10 +251,10 @@ function AdminBeritaPanti() {
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th style={{ maxWidth: "300px" }}>Judul Berita</th>
-                    <th>Penulis Berita</th>
+                    <th>Judul</th>
+                    <th>Penulis</th>
                     <th>Thumbnail</th>
-                    <th>Kategori Berita</th>
+                    <th>Kategori</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -267,12 +267,12 @@ function AdminBeritaPanti() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td
-                            data-label="Judul Berita"
-                            className="text-md-start text-end"
+                            data-label="Judul"
+                            className="text-md-start text-end "
                           >
-                            <p className="isiBerita">{berita.judul_berita}</p>
+                            <p className="content-isi">{berita.judul_berita}</p>
                           </td>
-                          <td data-label="Penulis Berita" className="text-md-start text-end">{berita.author}</td>
+                          <td data-label="Penulis" className="text-md-start text-end">{berita.author}</td>
                           <td data-label="Thumbnail" className="text-md-center text-end">
                             <button
                               onClick={() => openModal(berita.image)}
@@ -286,7 +286,7 @@ function AdminBeritaPanti() {
                               style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
                             /> */}
                           </td>
-                          <td data-label="Kategori Berita" className="text-md-start text-end">
+                          <td data-label="Kategori" className="text-md-start text-end">
                             {berita.category}
                           </td>
                           <td data-label="Aksi" className="action">

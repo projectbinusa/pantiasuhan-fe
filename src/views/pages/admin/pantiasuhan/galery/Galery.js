@@ -230,7 +230,7 @@ function Galery() {
                   </select>
                 </div>
               </div>
-              <div className=" ml-auto gap-3">
+              <div className=" d-flex ml-auto gap-3">
                 <input
                   type="search"
                   className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
@@ -238,24 +238,20 @@ function Galery() {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-              </div>
-              {/* Sembunyikan tombol jika peran 'yayasan' */}
-              {userRole !== "yayasan" && (
-                <div className="d-flex ml-auto gap-3">
-                  <div className="btn-actions-pane-right">
-                    <div role="group" className="btn-group-sm btn-group">
+                <div className="btn-actions-pane-right">
+                  <div role="group" className="btn-group-sm btn-group">
+                    {userRole !== "yayasan" && (
                       <button className="active btn-focus p-2 rounded">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/add-galery"
-                        >
-                          Tambah Galery
+                          href="/add-galery">
+                          Tambah
                         </a>
                       </button>
-                    </div>
+                    )}
                   </div>
                 </div>
-              )}
+              </div>
             </div>
             <div
               className="table-responsive-3"

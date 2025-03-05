@@ -375,6 +375,65 @@ function AddSambutanPanti() {
                           </label>
                           <CKEditor
                             editor={ClassicEditor}
+                            data={isi_sambutan}
+                            onChange={(event, editor) => {
+                              const data = editor.getData();
+                              setIsiSambutan(data);
+                            }}
+                            config={{
+                              toolbar: [
+                                "alignment", "|",
+                                "undo", "redo", "|",
+                                "importWord", "exportWord", "exportPdf", "|",
+                                "formatPainter", "caseChange", "findAndReplace", "selectAll", "wproofreader", "|",
+                                "insertTemplate", "tableOfContents", "|",
+                                "link", "blockQuote", "codeBlock", "horizontalLine", "specialCharacters", "-",
+                                "heading", "style", "|",
+                                "bold", "italic", "underline", "strikethrough",
+                                {
+                                  label: "Basic styles",
+                                  icon: "text",
+                                  items: [
+                                    "fontSize", "fontFamily", "fontColor", "fontBackgroundColor",
+                                    "highlight", "superscript", "subscript", "code", "|",
+                                    "textPartLanguage", "|",
+                                  ],
+                                },
+                                "removeFormat", "|",
+                                "bulletedList", "numberedList", "multilevelList", "todoList", "|",
+                                "outdent", "indent",
+                              ],
+                              alignment: { options: ["left", "right", "center", "justify"] },
+                              plugins: [
+                                GeneralHtmlSupport, Bold, Alignment, Essentials, Heading, Indent, IndentBlock,
+                                Italic, Link, List, Paragraph, Undo, Base64UploadAdapter, Indent,
+                                IndentBlock, Italic, Link, List, ListProperties, Mention,
+                                RemoveFormat, SpecialCharacters, SpecialCharactersEssentials,
+                                Strikethrough, Style, Subscript, Superscript, TextPartLanguage,
+                                TextTransformation, TodoList, Underline, WordCount,
+                              ],
+                              fontFamily: { supportAllValues: true },
+                              fontSize: {
+                                options: [10, 12, 14, "default", 18, 20, 22],
+                                supportAllValues: true,
+                              },
+                              fontColor: { columns: 12, colors: REDUCED_MATERIAL_COLORS },
+                              fontBackgroundColor: { columns: 12, colors: REDUCED_MATERIAL_COLORS },
+                              heading: {
+                                options: [
+                                  { model: "paragraph", title: "Paragraph", class: "ck-heading_paragraph" },
+                                  { model: "heading1", view: "h1", title: "Heading 1", class: "ck-heading_heading1" },
+                                  { model: "heading2", view: "h2", title: "Heading 2", class: "ck-heading_heading2" },
+                                  { model: "heading3", view: "h3", title: "Heading 3", class: "ck-heading_heading3" },
+                                  { model: "heading4", view: "h4", title: "Heading 4", class: "ck-heading_heading4" },
+                                  { model: "heading5", view: "h5", title: "Heading 5", class: "ck-heading_heading5" },
+                                  { model: "heading6", view: "h6", title: "Heading 6", class: "ck-heading_heading6" },
+                                ],
+                              },
+                            }}
+                          />
+                          {/* <CKEditor
+                            editor={ClassicEditor}
                             data={isi_sambutan} // Gunakan 'data' untuk set initial value
                             onChange={(event, editor) => {
                               const data = editor.getData(); // Ambil data dari editor
@@ -602,7 +661,7 @@ function AddSambutanPanti() {
                               },
                               // initialData: "<h1>Hello from CKEditor 5!</h1>", // Opsi ini bisa dihapus jika tidak diperlukan
                             }}
-                          />
+                          /> */}
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">

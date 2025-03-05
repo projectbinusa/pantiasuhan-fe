@@ -275,6 +275,7 @@ import DetailPengurus from "./views/pages/admin/pantiasuhan/pengurus/DetailPengu
 import GuruDataTahsin from "./views/pages/guru/tahsin/DataTahsin.js";
 import TahsinHarian from "./views/pages/admin/pantiasuhan/tahsin/TahsinHarian.js";
 import TahsinMingguan from "./views/pages/admin/pantiasuhan/tahsin/TahsinMingguan.js";
+import TahsinAnakAsuh from "./views/pages/admin/pantiasuhan/tahsin/TahsinAnakAsuh.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -470,6 +471,7 @@ function App() {
             />
             <PrivateRoute path="/admin_anak_asuh" component={DataAnak} exact />
             <PrivateRoute path="/add_anak_asuh" component={AddAnak} exact />
+            <PrivateRoute path="/tahsin_anak/:id" component={TahsinAnakAsuh} exact />
             {/* <PrivateRoute path="/add_anak_asuh" component={AddAnak} exact /> */}
             <PrivateRoute
               path="/edit_anak_asuh/:id"

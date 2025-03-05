@@ -157,9 +157,8 @@ function DataAnak() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -320,6 +319,18 @@ function DataAnak() {
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
+                              <button
+                                type="button"
+                                className="btn-success btn-sm mr-2">
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/tahsin_anak/${row.id}`}>
+                                  <i className="fa-solid fa-list-alt"></i>
+                                </a>
+                              </button>
                               <button
                                 type="button"
                                 className="btn-primary btn-sm mr-2">

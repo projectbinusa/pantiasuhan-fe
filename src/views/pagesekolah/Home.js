@@ -503,7 +503,7 @@ function Home() {
         },
       });
       console.log("visi misi: ", response.data.data[0]);
-      
+
       setVisiPanti(response.data.data[0]);
     } catch (error) {
       console.log("get visi misi", error);
@@ -568,15 +568,15 @@ function Home() {
   useEffect(() => {
     // Fetch data jumlah anak asuh dari API
     axios
-      .get(`${API_DUMMY_SMART}/api/customer/jumlah_siswa`, {
+      .get(`${API_DUMMY_SMART}/api/public/jumlah_siswa`, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((response) => {
-        const data = response.data.data;
+        const data = response.data.data.data;
         console.log(data);
-        // setAnakAsuhData(data); // Simpan data ke state
+        setAnakAsuhData(data); // Simpan data ke state
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -1702,7 +1702,7 @@ function Home() {
                 <Typography
                   variant="h4"
                   style={{ fontWeight: "bold", marginTop: "30px" }}>
-                  31
+                  {anakAsuhData?.per_jenis_kelamin?.["laki_laki"] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>PRIA</h5>
               </div>
@@ -1716,7 +1716,7 @@ function Home() {
                 <Typography
                   variant="h4"
                   style={{ fontWeight: "bold", marginTop: "30px" }}>
-                  31
+                  {anakAsuhData?.per_jenis_kelamin?.["perempuan"] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>WANITA</h5>
               </div>
@@ -1732,7 +1732,7 @@ function Home() {
                 <Typography
                   variant="h4"
                   style={{ fontWeight: "bold", marginTop: "30px" }}>
-                  31
+                  {anakAsuhData?.per_tingkat_pendidikan?.["sd/mi"]?.["total"] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>SD</h5>
               </div>
@@ -1748,7 +1748,7 @@ function Home() {
                 <Typography
                   variant="h4"
                   style={{ fontWeight: "bold", marginTop: "30px" }}>
-                  31
+                  {anakAsuhData?.per_tingkat_pendidikan?.["smp/mts"]?.["total"] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>SMP</h5>
               </div>
@@ -1764,7 +1764,7 @@ function Home() {
                 <Typography
                   variant="h4"
                   style={{ fontWeight: "bold", marginTop: "30px" }}>
-                  31
+                  {anakAsuhData?.per_tingkat_pendidikan?.["sma/smk/ma"]?.["total"] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>SMA</h5>
               </div>
@@ -1780,7 +1780,7 @@ function Home() {
                 <Typography
                   variant="h4"
                   style={{ fontWeight: "bold", marginTop: "30px" }}>
-                  31
+                  {anakAsuhData?.per_tingkat_pendidikan?.["kuliah"]?.["total"] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>KULIAH</h5>
               </div>
