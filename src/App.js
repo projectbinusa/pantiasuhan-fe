@@ -276,6 +276,7 @@ import GuruDataTahsin from "./views/pages/guru/tahsin/DataTahsin.js";
 import TahsinHarian from "./views/pages/admin/pantiasuhan/tahsin/TahsinHarian.js";
 import TahsinMingguan from "./views/pages/admin/pantiasuhan/tahsin/TahsinMingguan.js";
 import TahsinAnakAsuh from "./views/pages/admin/pantiasuhan/tahsin/TahsinAnakAsuh.js";
+import AddBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/barang/AddBarangInventaris.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -487,6 +488,11 @@ function App() {
             <PrivateRoute
               path="/barang_inventaris"
               component={DataBarangInventaris}
+              exact
+            />
+            <PrivateRoute
+              path="/add_barang_inventaris"
+              component={AddBarangInventaris}
               exact
             />
             <PrivateRoute

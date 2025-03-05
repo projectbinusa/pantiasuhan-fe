@@ -7,6 +7,7 @@ import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
+import AsyncSelect from "react-select/async";
 
 function AddAnak() {
   const [name, setName] = useState("");
@@ -83,6 +84,37 @@ function AddAnak() {
   //   }
   //   return true;
   // };
+
+   const fetchParent = async (inputValue) => {
+      try {
+        const response = await axios.get(
+          `${API_DUMMY}/api/admin/foster_parent?filter=${inputValue}`,
+          {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          }
+        );
+
+        return response.data.data.map((member) => ({
+          value: member.id,
+          label: member.name,
+        }));
+      } catch (error) {
+        console.error("Error searching members:", error);
+        return [];
+      }
+    };
+
+    const handleParentChange = (selectedOption) => {
+      if (selectedOption) {
+        setParentId(selectedOption.value);
+        setParentName(selectedOption.label);
+      } else {
+        setParentId(null);
+        setParentName("");
+      }
+    };
 
   const add = async (e) => {
     e.preventDefault();
@@ -241,25 +273,14 @@ function AddAnak() {
                           <label className="form-label font-weight-bold">
                             Nama Orang Tua
                           </label>
-                          <select
-                            value={parent_id}
-                            className="form-control"
-                            aria-label="Small select example"
-                            onChange={(e) => {
-                              const selectedId = e.target.value;
-                              setParentId(selectedId);
-                              const selected = listFosterParent.find(
-                                (data) => String(data.id) === String(selectedId)
-                              );
-                              setParentName(selected ? selected.name : "");
-                            }}>
-                            <option value="">Pilih</option>
-                            {listFosterParent.map((data, index) => (
-                              <option key={index} value={data.id}>
-                                {data.name}
-                              </option>
-                            ))}
-                          </select>
+                          <AsyncSelect
+                          cacheOptions
+                          defaultOptions
+                          loadOptions={fetchParent}
+                          onChange={handleParentChange}
+                          placeholder="Cari Nama Orang Tua..."
+                          noOptionsMessage={() => "Data tidak ditemukan"}
+                        />
                           {/* <input
                             value={parentName}
                             onChange={(e) => setParentName(e.target.value)}

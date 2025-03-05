@@ -30,7 +30,7 @@ function FormCabangBaru() {
     setSidebarToggled(!sidebarToggled);
   };
 
-  const userId = localStorage.getItem("id")
+  const userId = localStorage.getItem("id");
   const add = async (e) => {
     e.preventDefault();
 
@@ -41,23 +41,31 @@ function FormCabangBaru() {
         hp: noHp,
         email: email,
         password: password,
-        active: true
+        active: true,
       };
 
-      const response = await axios.post(`${API_DUMMY_SMART}/api/user/customer`, payload, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      });
+      const response = await axios.post(
+        `${API_DUMMY_SMART}/api/user/customer`,
+        payload,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
 
       // console.log("Respons dari backend:", response.data);
       if (response.data && response.data.data) {
         const id = response.data.data.id;
         console.log(response.data.data.id);
         console.log(response.data.data);
-        const customerId = response.data.data.id
+        const customerId = response.data.data.id;
 
-        if (response.data && response.data.status === "200 OK" && response.data.message === "success") {
+        if (
+          response.data &&
+          response.data.status === "200 OK" &&
+          response.data.message === "success"
+        ) {
           const payloadorganization = {
             name: name,
             customer_id: customerId,
@@ -71,64 +79,101 @@ function FormCabangBaru() {
             bank_account_name: bankAccountName,
             bank_name: bankName,
             // domain: domain
-          }
+          };
           console.log(payloadorganization);
 
-          const responseOrganization = await axios.post(`${API_DUMMY_SMART}/api/user/organization`, payloadorganization, {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          });
+          const responseOrganization = await axios.post(
+            `${API_DUMMY_SMART}/api/user/organization`,
+            payloadorganization,
+            {
+              headers: {
+                "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              },
+            }
+          );
           const organizationId = responseOrganization.data.data.id;
           console.log(responseOrganization.data.data.id);
-          
-          if (responseOrganization.data && responseOrganization.data.status === "200 OK" && responseOrganization.data.message === "success") {
-            try {
-              const responseCustomer = await axios.put(`${API_DUMMY_SMART}/api/user/customer/${customerId}`, { organization_id: organizationId }, {
-                headers: {
-                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-                },
-              });
-              console.log(responseCustomer);
 
-              const payloadDomain = { name: domain, organization_id: organizationId }
-              const responseDomain = await axios.put(`${API_DUMMY_SMART}/api/user/domain`, { payloadDomain }, {
-                headers: {
-                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-                },
-              });
-              console.log(responseDomain);
-              await axios.put(`${API_DUMMY_SMART}/api/user/organization_ids/${userId}`, { organization_ids: `${organizationId}` }, {
-                headers: {
-                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-                },
-              }).then((res) => {
-                axios.post(`${API_DUMMY_SMART}/api/user/refresh_token`, {}, {
+          if (
+            responseOrganization.data &&
+            responseOrganization.data.status === "200 OK" &&
+            responseOrganization.data.message === "success"
+          ) {
+            try {
+              const responseCustomer = await axios.put(
+                `${API_DUMMY_SMART}/api/user/customer/${customerId}`,
+                { organization_id: organizationId },
+                {
                   headers: {
                     "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
                   },
-                }).then((resp) => {
-                  console.log(resp);
-                  console.log(resp.data.data.token);
-                  const respon = resp.data.data;
-                  localStorage.setItem("tokenpython", respon.token)
-                  localStorage.setItem("organizationids", respon.organization_ids)
-                  Swal.fire({
-                    icon: "success",
-                    title: "Data Berhasil Ditambahkan",
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
-                  setTimeout(() => {
-                    history.push("/daftar-cabang");
-                  }, 1500);
-                }).catch((err) => {
-                  console.log(err);
+                }
+              );
+              console.log(responseCustomer);
+
+              // const payloadDomain = { name: domain, organization_id: organizationId }
+              const responseDomain = await axios.post(
+                `${API_DUMMY_SMART}/api/user/domain`,
+                { name: domain,
+                  organization_id: organizationId
+                 },
+                {
+                  headers: {
+                    "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+                  },
+                }
+              );
+              console.log(responseDomain);
+              await axios
+                .put(
+                  `${API_DUMMY_SMART}/api/user/organization_ids/${userId}`,
+                  { organization_ids: `${organizationId}` },
+                  {
+                    headers: {
+                      "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+                    },
+                  }
+                )
+                .then((res) => {
+                  axios
+                    .post(
+                      `${API_DUMMY_SMART}/api/user/refresh_token`,
+                      {},
+                      {
+                        headers: {
+                          "auth-tgh": `jwt ${localStorage.getItem(
+                            "tokenpython"
+                          )}`,
+                        },
+                      }
+                    )
+                    .then((resp) => {
+                      console.log(resp);
+                      console.log(resp.data.data.token);
+                      const respon = resp.data.data;
+                      localStorage.setItem("tokenpython", respon.token);
+                      localStorage.setItem(
+                        "organizationids",
+                        respon.organization_ids
+                      );
+                      Swal.fire({
+                        icon: "success",
+                        title: "Data Berhasil Ditambahkan",
+                        showConfirmButton: false,
+                        timer: 1500,
+                      });
+                      setTimeout(() => {
+                        history.push("/daftar-cabang");
+                      }, 1500);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                  console.log(res);
                 })
-                console.log(res);
-              }).catch((err) => {
-                console.log(err);
-              })
+                .catch((err) => {
+                  console.log(err);
+                });
               // try {
               //   const res = await axios.put(`${API_DUMMY_SMART}/api/user/organization_ids/${userId}`, { organization_ids: `${organizationId}` }, {
               //     headers: {
@@ -158,7 +203,6 @@ function FormCabangBaru() {
               // } catch (err) {
               //   console.error("Error respons:", err);
               // }
-
             } catch (err) {
               console.error("Error respons:", err);
             }
@@ -173,7 +217,10 @@ function FormCabangBaru() {
 
       Swal.fire({
         icon: "error",
-        title: error.response?.data?.message || error.message || "Tambah Data Gagal!",
+        title:
+          error.response?.data?.message ||
+          error.message ||
+          "Tambah Data Gagal!",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -181,8 +228,15 @@ function FormCabangBaru() {
   };
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
-      <a id="show-sidebar" className="btn1 btn-lg" onClick={toggleSidebar} style={{ color: "white", background: "#3a3f48" }}>
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
+      <a
+        id="show-sidebar"
+        className="btn1 btn-lg"
+        onClick={toggleSidebar}
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -198,7 +252,9 @@ function FormCabangBaru() {
                     <form onSubmit={add}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Nama</label>
+                          <label className="form-label font-weight-bold">
+                            Nama
+                          </label>
                           <input
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -207,16 +263,21 @@ function FormCabangBaru() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">No Handphone</label>
+                          <label className="form-label font-weight-bold">
+                            No Handphone
+                          </label>
                           <input
                             value={noHp}
                             onChange={(e) => setNoHp(e.target.value)}
-                            placeholder="Masukkan No Handphone" type="number"
+                            placeholder="Masukkan No Handphone"
+                            type="number"
                             className="form-control"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Email</label>
+                          <label className="form-label font-weight-bold">
+                            Email
+                          </label>
                           <input
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -225,7 +286,9 @@ function FormCabangBaru() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Password</label>
+                          <label className="form-label font-weight-bold">
+                            Password
+                          </label>
                           <input
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -234,7 +297,9 @@ function FormCabangBaru() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Domain Website</label>
+                          <label className="form-label font-weight-bold">
+                            Domain Website
+                          </label>
                           <input
                             value={domain}
                             onChange={(e) => setDomain(e.target.value)}
@@ -243,7 +308,9 @@ function FormCabangBaru() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Nama Bank</label>
+                          <label className="form-label font-weight-bold">
+                            Nama Bank
+                          </label>
                           <input
                             value={bankName}
                             onChange={(e) => setBankName(e.target.value)}
@@ -252,7 +319,9 @@ function FormCabangBaru() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Nama Akun Bank</label>
+                          <label className="form-label font-weight-bold">
+                            Nama Akun Bank
+                          </label>
                           <input
                             value={bankAccountName}
                             onChange={(e) => setBankAccountName(e.target.value)}
@@ -261,16 +330,22 @@ function FormCabangBaru() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Nomor Akun Bank</label>
+                          <label className="form-label font-weight-bold">
+                            Nomor Akun Bank
+                          </label>
                           <input
                             value={bankAccountNumber}
-                            onChange={(e) => setBankAccountNumber(e.target.value)}
+                            onChange={(e) =>
+                              setBankAccountNumber(e.target.value)
+                            }
                             placeholder="Masukkan Nomor Akun Bank "
                             className="form-control"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Provinsi</label>
+                          <label className="form-label font-weight-bold">
+                            Provinsi
+                          </label>
                           <input
                             value={provinsi}
                             onChange={(e) => setProvinsi(e.target.value)}
@@ -279,7 +354,9 @@ function FormCabangBaru() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Kota</label>
+                          <label className="form-label font-weight-bold">
+                            Kota
+                          </label>
                           <input
                             value={kota}
                             onChange={(e) => setKota(e.target.value)}
@@ -288,12 +365,22 @@ function FormCabangBaru() {
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">Alamat</label>
-                          <textarea className="form-control" rows={5} placeholder="Masukkan Alamat" onChange={(e) => setAddress(e.target.value)}></textarea>
+                          <label className="form-label font-weight-bold">
+                            Alamat
+                          </label>
+                          <textarea
+                            className="form-control"
+                            rows={5}
+                            placeholder="Masukkan Alamat"
+                            onChange={(e) =>
+                              setAddress(e.target.value)
+                            }></textarea>
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
-                        <a style={{ color: "white", textDecoration: "none" }} href="/admin_anak_asuh">
+                        <a
+                          style={{ color: "white", textDecoration: "none" }}
+                          href="/admin_anak_asuh">
                           Batal
                         </a>
                       </button>

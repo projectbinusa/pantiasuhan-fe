@@ -55,14 +55,15 @@ function EditProfile() {
         imageUrl = image;
       }
       const response = await axios.put(
-        `${API_DUMMY}/api/admin/sambutan/${param.id}`,
+        `${API_DUMMY_SMART}/api/customer/profile`,
         {
-          judul: email,
+          email: email,
           // isi_sambutan: isiSambutan,
-          foto: imageUrl,
-          nama: nama,
-          nohp: nohp,
-          organization_id: +localStorage.getItem("organization_id"),
+          picture: imageUrl,
+          name: nama,
+          hp: nohp,
+          active:1,
+          address:address
         },
         {
           headers: {
@@ -76,14 +77,14 @@ function EditProfile() {
         setShow(false); // Hide modal atau reset form
         Swal.fire({
           icon: "success",
-          title: "Berhasil Mengedit Data Sambutan",
+          title: "Berhasil Mengedit Data Profile",
           showConfirmButton: false,
           timer: 1500,
         });
 
         // Redirect setelah berhasil
         setTimeout(() => {
-          history.push("/admin_profile");
+          history.push("/profile");
         }, 1500);
       } else {
         // Handle respons lain dengan pesan error
@@ -167,8 +168,8 @@ function EditProfile() {
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">Nama Panti Asuhan</label>
                           <input
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={nama}
+                            onChange={(e) => setNama(e.target.value)}
                             type="text"
                             className="form-control"
                             required
@@ -178,8 +179,8 @@ function EditProfile() {
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">Email</label>
                           <input
-                            value={nama}
-                            onChange={(e) => setNama(e.target.value)}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             type="email"
                             className="form-control"
                             required

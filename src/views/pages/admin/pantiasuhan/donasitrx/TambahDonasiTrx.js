@@ -2,9 +2,7 @@ import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
-import {
-  useHistory,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
@@ -125,19 +123,16 @@ function TambahDonasiTrx() {
         description: deskripsi,
         url_image: imageUrl,
         donation_id: idDonasi,
-        is_income: true
-      }
+        is_income: true,
+      };
 
       console.log(datas);
 
-      await axios.post(
-        `${API_DUMMY_SMART}/api/customer/donation_trx`, datas,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+      await axios.post(`${API_DUMMY_SMART}/api/customer/donation_trx`, datas, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      });
 
       Swal.fire({
         icon: "success",
@@ -166,7 +161,7 @@ function TambahDonasiTrx() {
 
   useEffect(() => {
     AOS.init();
-    getAll()
+    getAll();
   }, []);
 
   const REDUCED_MATERIAL_COLORS = [
@@ -294,15 +289,14 @@ function TambahDonasiTrx() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -328,8 +322,7 @@ function TambahDonasiTrx() {
                             onChange={(e) => {
                               const selectedId = e.target.value;
                               setIdDonasi(selectedId);
-                            }}
-                          >
+                            }}>
                             <option value="">Pilih Donasi</option>
                             {donasi.map((data, index) => (
                               <option key={index} value={data.id}>
@@ -609,8 +602,7 @@ function TambahDonasiTrx() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/donasi_trx"
-                        >
+                          href="/donasi_trx">
                           Batal
                         </a>
                       </button>
@@ -625,6 +617,13 @@ function TambahDonasiTrx() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+        .ck-editor__editable {
+          min-height: 400px;
+        }
+        `}
+      </style>
     </div>
   );
 }

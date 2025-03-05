@@ -165,7 +165,7 @@ function EditDomain() {
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
-      <div style={{ marginTop: "10px" }} className="page-content1 absolute">
+      <div style={{ marginTop: "10px" }} className="page-content1">
         <div
           className=" container mt-3 mb-3 app-main__outer"
           data-aos="fade-left"
@@ -187,6 +187,7 @@ function EditDomain() {
                       value={nama}
                       onChange={(e) => setNama(e.target.value)}
                       type="text"
+                      disabled
                       className="form-control"
                       placeholder="Masukkan Nama"
                     />

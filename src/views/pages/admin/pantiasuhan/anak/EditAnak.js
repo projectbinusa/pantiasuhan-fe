@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import AOS from "aos";
 import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import AsyncSelect from "react-select/async";
 
 function EditAnak() {
   const [nama, setNama] = useState("");
@@ -26,6 +27,7 @@ function EditAnak() {
   const [parent_id, setParentId] = useState(0);
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
+  const [selectedParent, setSelectedParent] = useState(null);
 
   const history = useHistory();
   const param = useParams();
@@ -63,7 +65,14 @@ function EditAnak() {
         setAddress(resp.address);
         setHp(resp.hp);
         setParentId(resp.parent_id);
-        setGender(resp.gender)
+        setGender(resp.gender);
+        console.log("data: ", response.data.data);
+        if (resp.parent_id && resp.parent_name) {
+          setSelectedParent({
+            value: resp.parent_id,
+            label: resp.parent_name,
+          });
+        }
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
       }
@@ -78,6 +87,39 @@ function EditAnak() {
     return () => window.removeEventListener("resize", handleResize);
     // console.log("nama: ", namaOrangTua);
   }, []);
+
+  const fetchParent = async (inputValue) => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY}/api/admin/foster_parent?filter=${inputValue}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
+      return response.data.data.map((member) => ({
+        value: member.id,
+        label: member.name,
+      }));
+    } catch (error) {
+      console.error("Error searching members:", error);
+      return [];
+    }
+  };
+
+  const handleParentChange = (selectedOption) => {
+    if (selectedOption) {
+      setParentId(selectedOption.value);
+      setNamaOrangTua(selectedOption.label);
+      setSelectedParent(selectedOption);
+    } else {
+      setParentId(null);
+      setNamaOrangTua("");
+      setSelectedParent(null);
+    }
+  };
 
   const put = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior.
@@ -95,7 +137,7 @@ function EditAnak() {
       parent_name: namaOrangTua,
       parent_id: parent_id,
       education: education,
-      gender: gender
+      gender: gender,
     };
 
     try {
@@ -156,27 +198,6 @@ function EditAnak() {
   useEffect(() => {
     AOS.init();
   }, []);
-
-
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(
-            `${API_DUMMY}/api/admin/foster_parent`,
-            {
-              headers: {
-                "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-              },
-            }
-          );
-          setListFosterParent(response.data.data);
-        } catch (error) {
-          console.error("Terjadi Kesalahan", error);
-        }
-      };
-
-      fetchData();
-    }, []);
 
   return (
     <div
@@ -254,25 +275,15 @@ function EditAnak() {
                           <label className="form-label  font-weight-bold ">
                             Nama Orang Tua
                           </label>
-                          <select
-                            value={parent_id}
-                            className="form-control"
-                            aria-label="Small select example"
-                            onChange={(e) => {
-                              const selectedId = e.target.value;
-                              setParentId(selectedId);
-                              const selected = listFosterParent.find(
-                                (data) => String(data.id) === String(selectedId)
-                              );
-                              setNamaOrangTua(selected ? selected.name : "");
-                            }}>
-                            <option value="">Pilih</option>
-                            {listFosterParent.map((data, index) => (
-                              <option key={index} value={data.id}>
-                                {data.name}
-                              </option>
-                            ))}
-                          </select>
+                          <AsyncSelect
+                            cacheOptions
+                            defaultOptions
+                            loadOptions={fetchParent}
+                            onChange={handleParentChange}
+                            value={selectedParent}
+                            placeholder="Cari Nama Orang Tua..."
+                            noOptionsMessage={() => "Data tidak ditemukan"}
+                          />
                         </div>
                         <div className="mb-3 co-lg-12">
                           <label className="form-label font-weight-bold">
@@ -326,11 +337,23 @@ function EditAnak() {
                           </label>
                           <div className="d-flex">
                             <div className="mr-5">
-                              <input type="radio" value="Laki-laki" checked={gender === "Laki-laki"} name="gender" onChange={(e) => setGender(e.target.value)} />
+                              <input
+                                type="radio"
+                                value="laki-laki"
+                                checked={gender === "laki-laki"}
+                                name="gender"
+                                onChange={(e) => setGender(e.target.value)}
+                              />
                               <label className="ml-2">Laki-laki</label>
                             </div>
                             <div className="mr-5">
-                              <input type="radio" value="Perempuan" checked={gender === "Perempuan"} name="gender" onChange={(e) => setGender(e.target.value)} />
+                              <input
+                                type="radio"
+                                value="perempuan"
+                                checked={gender === "perempuan"}
+                                name="gender"
+                                onChange={(e) => setGender(e.target.value)}
+                              />
                               <label className="ml-2">Perempuan</label>
                             </div>
                           </div>

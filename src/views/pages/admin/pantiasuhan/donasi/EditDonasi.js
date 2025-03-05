@@ -100,7 +100,7 @@ function EditDonasi() {
         console.log(resp);
 
         setNama(resp.name);
-        setDomain(resp.domain);
+        // setDomain(resp.domain);
         setIncome(resp.total_income);
         setOutcome(resp.total_outcome);
         setDeskripsi(resp.description);
@@ -129,7 +129,7 @@ function EditDonasi() {
     if (image) {
       imageUrl = await uploadImageDonationToS3(image);
     } else {
-      imageUrl = file
+      imageUrl = file;
     }
     const data = {
       name: nama,
@@ -137,7 +137,7 @@ function EditDonasi() {
       description: deskripsi,
       total_outcome: outcome,
       total_income: income,
-      domain: domain,
+      // domain: domain,
       // id: +param.id,
       // organization_id: +localStorage.getItem("organization_id"),
       // active: 1,
@@ -367,7 +367,7 @@ function EditDonasi() {
                             className="form-control"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        {/* <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Domain
                           </label>
@@ -378,7 +378,7 @@ function EditDonasi() {
                             placeholder="Masukkan domain"
                             className="form-control"
                           />
-                        </div>
+                        </div> */}
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Gambar
@@ -652,6 +652,13 @@ function EditDonasi() {
           </div>
         </div>
       </div>
+      <style>
+        {`
+        .ck-editor__editable {
+          min-height: 400px;
+        }
+        `}
+      </style>
     </div>
   );
 }
