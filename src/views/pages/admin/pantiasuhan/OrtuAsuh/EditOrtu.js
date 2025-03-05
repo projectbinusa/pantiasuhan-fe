@@ -24,6 +24,11 @@ function EditOrtu() {
   const [nohp, setNoHp] = useState("");
   const [selectedAnak, setSelectedAnak] = useState(null);
 
+  const formatDate = (dateString) => {
+    return dateString.split(" ")[0]; // Ambil bagian sebelum spasi
+  };
+
+
   const param = useParams();
   const history = useHistory();
 
@@ -59,6 +64,39 @@ function EditOrtu() {
       setSelectedAnak(null);
     }
   };
+
+  useEffect(() => {
+    axios
+      .get(`${API_DUMMY}/api/admin/foster_parent/` + param.id, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      })
+      .then((ress) => {
+        const response = ress.data.data;
+        console.log(response);
+
+        setNama(response.name);
+        setAlamat(response.address);
+        setBirthDate(formatDate(response.birth_date));
+        setBirthPlace(response.birth_place);
+        setPekerjaan(response.work);
+        setPenghasilan(response.income);
+        setIDAnak(response.id_anak);
+        setNamaAnak(response.nama_anak);
+        setNoHp(response.phone);
+
+        if (response.id_anak && response.nama_anak) {
+          setSelectedAnak({
+            value: response.id_anak,
+            label: response.nama_anak,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const updateBerita = async (e) => {
     e.preventDefault();
@@ -113,38 +151,6 @@ function EditOrtu() {
     }
   };
 
-  useEffect(() => {
-    axios
-      .get(`${API_DUMMY}/api/admin/foster_parent/` + param.id, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      })
-      .then((ress) => {
-        const response = ress.data.data;
-        console.log(response);
-
-        setNama(response.name);
-        setAlamat(response.address);
-        setBirthDate(response.birth_date);
-        setBirthPlace(response.birth_place);
-        setPekerjaan(response.work);
-        setPenghasilan(response.income);
-        setIDAnak(response.id_anak);
-        setNamaAnak(response.nama_anak);
-        setNoHp(response.phone);
-
-        if (response.id_anak && response.nama_anak) {
-          setSelectedAnak({
-            value: response.id_anak,
-            label: response.nama_anak,
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   useEffect(() => {
     AOS.init();
@@ -170,9 +176,8 @@ function EditOrtu() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -307,7 +312,7 @@ function EditOrtu() {
                     />
                   </div> */}
                 </div>
-                <button type="button" className="btn-danger mt-3">
+                <button type="button" className="btn-danger mt-3 mr-3">
                   <a
                     style={{ color: "white", textDecoration: "none" }}
                     href="/admin_ortu_asuh">

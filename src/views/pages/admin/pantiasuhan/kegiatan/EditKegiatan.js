@@ -661,7 +661,7 @@ function EditKegiatanPanti() {
                     </div>
                   </div>
                 </div>
-                <button type="button" className="btn-danger mt-3">
+                <button type="button" className="btn-danger mt-3 mr-3">
                   <a
                     style={{ color: "white", textDecoration: "none" }}
                     href="/admin_program"

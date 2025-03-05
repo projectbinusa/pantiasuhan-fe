@@ -203,7 +203,7 @@ function LaporanBulananPresensi() {
             value={`${month}`}
           />
           <button
-            className="btn btn-primary ml-3"
+            className="btn-primary ml-3"
             type="button"
             onClick={getAll}
           >

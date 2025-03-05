@@ -138,7 +138,7 @@ function PublikDetailBeritaPanti() {
     setVerificationCode(code);
   };
 
-  const addKomentar = async (e) => {};
+  const addKomentar = async (e) => { };
 
   useEffect(() => {
     generateVerificationCode();
@@ -225,43 +225,76 @@ function PublikDetailBeritaPanti() {
           </p>
           <br />
           <div dangerouslySetInnerHTML={{ __html: berita?.isi_berita }} />
-          <div style={{ marginTop: "20px" }}>
-            <h3>Tambahkan Komentar</h3>
-            <textarea
-              className="form-control"
-              value={komentar}
-              onChange={handleKomentarChange}
-              placeholder="Tulis komentar Anda..."
-              rows="4"></textarea>
-            <br />
-            <div>
-              <label>Kode Verifikasi: {verificationCode}</label>
-              <input
-                type="text"
-                value={userCode}
-                onChange={(e) => setUserCode(e.target.value)}
+          <div className="row">
+            <div style={{ marginTop: "20px" }} className="col-lg-4 col-md-12">
+              <h3>Tambahkan Komentar</h3>
+              <textarea
                 className="form-control"
-                placeholder="Masukkan kode di atas"
-                required
-              />
+                value={komentar}
+                onChange={handleKomentarChange}
+                placeholder="Tulis komentar Anda..."
+                rows="4"></textarea>
+              <br />
+              <div>
+                <label>Kode Verifikasi: {verificationCode}</label>
+                <input
+                  type="text"
+                  value={userCode}
+                  onChange={(e) => setUserCode(e.target.value)}
+                  className="form-control"
+                  placeholder="Masukkan kode di atas"
+                  required
+                />
+              </div>
+              <br />
+              <div>
+                <label>Nama :</label>
+                <input
+                  type="text"
+                  className="form-control mt-2"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Masukkan Nama Anda"
+                />
+              </div>
+              <br />
+              {error && <p style={{ color: "red" }}>{error}</p>}
+              <button className="btn-primary mt-2" onClick={handleSubmitKomentar}>
+                Kirim Komentar
+              </button>
             </div>
-            <br />
-            <div>
-              <label>Nama :</label>
-              <input
-                type="text"
-                className="form-control mt-2"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Masukkan Nama Anda"
-              />
+            <div style={{ marginTop: "20px", marginBottom: "20px" }} className="col-lg-8 col-md-12">
+              <h3>Komentar (0)</h3>
+              <div style={{backgroundColor: "white", padding: "1rem", maxHeight: "400px", // Atur tinggi maksimal
+        overflowY: "auto",}}>
+                <div>
+                  <h6>Nama</h6>
+                  <p>Bagus</p>
+                  <hr />
+                </div>
+                <div>
+                  <h6>Nama</h6>
+                  <p>Bagus</p>
+                  <hr />
+                </div>
+                <div>
+                  <h6>Nama</h6>
+                  <p>Bagus</p>
+                  <hr />
+                </div>
+                <div>
+                  <h6>Nama</h6>
+                  <p>Bagus</p>
+                  <hr />
+                </div>
+                <div>
+                  <h6>Nama</h6>
+                  <p>Bagus</p>
+                  <hr />
+                </div>
+              </div>
             </div>
-            <br />
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <button className="btn-primary mt-2" onClick={handleSubmitKomentar}>
-              Kirim Komentar
-            </button>
           </div>
         </div>
       </div>

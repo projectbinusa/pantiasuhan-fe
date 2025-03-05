@@ -8942,6 +8942,25 @@ a {
   white-space: normal;
 }
 
+.contents {
+  max-width: 300px; /* Batasan lebar default */
+  /* overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;  */
+}
+
+/* Jika layar mencapai ukuran medium (md), atur lebar jadi 100% */
+@media (max-width: 800px) {
+  .contents {
+    max-width: 100%;
+  }
+}
+
+
 .single-blog-inner .thumb img {
   width: 100%;
   /* Gambar akan memenuhi lebar container */
