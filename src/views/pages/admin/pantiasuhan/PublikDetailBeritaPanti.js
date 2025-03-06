@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import Navbar from "../../../../component/Navbar";
 import axios from "axios";
@@ -50,6 +50,7 @@ function PublikDetailBeritaPanti() {
   const [berita, setBerita] = useState(null);
   const [komentar, setKomentar] = useState("");
   const [name, setName] = useState("");
+  const [komentars, setKomentars] = useState([]);
   const [error, setError] = useState(null);
   const history = useHistory();
 
@@ -78,9 +79,101 @@ function PublikDetailBeritaPanti() {
     fetchData();
   }, []);
 
-  const handleCaptchaChange = (value) => {
-    setCaptchaValue(value);
+  // useEffect(() => {
+  //   const fetchDataKomentar = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${API_DUMMY_SMART}/api/public/komentar/berita/${param.id}`,
+  //         {
+  //           headers: {
+  //             "x-origin": window.location.origin,
+  //             // "ORIGIN": "https://staging.mccsemarang.com",
+  //           },
+  //         }
+  //       );
+  //       // const resp = response.data.berita;
+  //       console.log("hai");
+  //       console.log(response);
+  //     } catch (error) {
+  //       console.error("Terjadi Kesalahan", error);
+  //     }
+  //   };
+
+  //   fetchDataKomentar();
+  // }, []);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage] = useState(5);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const komentarRef = useRef(null); // Referensi ke div scrollable
+
+  const getAll = async () => {
+    if (isLoading || !hasMore) return;
+
+    setIsLoading(true);
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/public/komentar/berita/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
+        {
+          headers: {
+            "x-origin": window.location.origin
+          },
+        }
+      );
+
+      const { data, pagination } = response.data;
+      console.log(response.data);
+
+      if (data && pagination) {
+        // Tambahkan data baru ke daftar yang sudah ada tanpa duplikat
+        setKomentars((prevList) => {
+          const uniqueData = data.filter(
+            (item) => !prevList.some((prevItem) => prevItem.id === item.id) // Hindari data dengan ID yang sama
+          );
+          return [...prevList, ...uniqueData];
+        });
+
+        setHasMore(currentPage < pagination); // Periksa apakah masih ada halaman berikutnya
+      } else {
+        console.error("Data atau pagination tidak ditemukan dalam response.");
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error.response || error.message);
+      Swal.fire(
+        "Error!",
+        error.response?.data?.message || "Gagal memuat data.",
+        "error"
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  useEffect(() => {
+    getAll();
+  }, [currentPage]);
+
+  const handleScroll = () => {
+    if (!komentarRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = komentarRef.current;
+
+    if (scrollTop + clientHeight >= scrollHeight - 50 && hasMore && !isLoading) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const [verificationCode, setVerificationCode] = useState("");
+  const [userCode, setUserCode] = useState("");
+  const generateVerificationCode = () => {
+    const code = Math.floor(1000 + Math.random() * 9000).toString();
+    setVerificationCode(code);
+  };
+
+  useEffect(() => {
+    generateVerificationCode();
+  }, []);
 
   const handleKomentarChange = (event) => {
     setKomentar(event.target.value);
@@ -98,20 +191,24 @@ function PublikDetailBeritaPanti() {
       setError("Komentar tidak boleh kosong.");
       return;
     }
+    if (verificationCode !== userCode) {
+      setError("Kode verifikasi salah.");
+      return;
+    }
     try {
       await axios.post(
         `${API_DUMMY_SMART}/api/public/komentar/berita/${param.id}`,
         datas
       );
-      Swal.fire({
-        icon: "success",
-        title: "Komentar Berhasil Terkirim",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      // setTimeout(() => {
-      //   history.push("/beritapanti");
-      // }, 1500);
+      setTimeout(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Komentar Berhasil Terkirim",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        window.location.reload()
+      }, 1500);
       console.log("Komentar yang dikirim:", komentar);
       setKomentar("");
       setError(null);
@@ -122,7 +219,7 @@ function PublikDetailBeritaPanti() {
       } else {
         Swal.fire({
           icon: "error",
-          title: "Tambah Data Gagal!",
+          title: "Komentar Gagal!",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -130,19 +227,6 @@ function PublikDetailBeritaPanti() {
       }
     }
   };
-
-  const [verificationCode, setVerificationCode] = useState("");
-  const [userCode, setUserCode] = useState("");
-  const generateVerificationCode = () => {
-    const code = Math.floor(1000 + Math.random() * 9000).toString();
-    setVerificationCode(code);
-  };
-
-  const addKomentar = async (e) => { };
-
-  useEffect(() => {
-    generateVerificationCode();
-  }, []);
 
   return (
     <div style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
@@ -265,36 +349,31 @@ function PublikDetailBeritaPanti() {
               </button>
             </div>
             <div style={{ marginTop: "20px", marginBottom: "20px" }} className="col-lg-8 col-md-12">
-              <h3>Komentar (0)</h3>
-              <div style={{backgroundColor: "white", padding: "1rem", maxHeight: "400px", // Atur tinggi maksimal
-        overflowY: "auto",}}>
-                <div>
-                  <h6>Nama</h6>
-                  <p>Bagus</p>
-                  <hr />
-                </div>
-                <div>
-                  <h6>Nama</h6>
-                  <p>Bagus</p>
-                  <hr />
-                </div>
-                <div>
-                  <h6>Nama</h6>
-                  <p>Bagus</p>
-                  <hr />
-                </div>
-                <div>
-                  <h6>Nama</h6>
-                  <p>Bagus</p>
-                  <hr />
-                </div>
-                <div>
-                  <h6>Nama</h6>
-                  <p>Bagus</p>
-                  <hr />
-                </div>
-              </div>
-            </div>
+              <h3>Komentar</h3>
+              <div
+                ref={komentarRef}
+                style={{
+                  backgroundColor: "white",
+                  padding: "1rem",
+                  maxHeight: "400px",
+                  overflowY: "auto",
+                }}
+                onScroll={handleScroll} // Deteksi scroll di dalam div, bukan di window
+              >
+                {komentars.length > 0 ? (
+                  komentars.map((item, idx) => (
+                    <div key={idx}>
+                      <h6>{item?.id}</h6>
+                      <p>{item?.description}</p>
+                      <hr />
+                    </div>
+                  ))
+                ) : (
+                  <p>Tidak ada komentar.</p>
+                )}
+
+                {isLoading && <p>Loading...</p>}
+              </div>            </div>
           </div>
         </div>
       </div>
