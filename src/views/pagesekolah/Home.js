@@ -565,6 +565,32 @@ function Home() {
     }
   };
 
+  const [list, setList] = useState([]);
+  const getAllfasilitas = async () => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/customer/fasilitas `,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
+      const { data, pagination } = response.data;
+      console.log(response);
+
+      setList(data || []);
+
+      // setPagi`nationInfo({
+      //   totalPages: pagination?.total_page || 1,
+      //   totalElements: pagination?.total || 0,
+      // });`
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+    }
+  };
+
   useEffect(() => {
     // Fetch data jumlah anak asuh dari API
     axios
@@ -592,6 +618,7 @@ function Home() {
     getAllSantri();
     getAllGalery();
     getAllDonasi();
+    getAllfasilitas();
   }, []);
 
   return (
@@ -638,23 +665,27 @@ function Home() {
       <Navbar />
       <div
         style={{ backgroundImage: `url(${backgroundImage})` }}
-        class="banner-area banner-area-1 bg-black bg-relative">
+        class="banner-area banner-area-1 bg-black bg-relative"
+      >
         <div
           className="banner-bg-img"
           style={{
             backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
             backgroundColor: "rgba(0, 0, 0, 0.7)",
-          }}></div>
+          }}
+        ></div>
         <div
           className="banner-bg-img"
           style={{
             backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
-          }}></div>
+          }}
+        ></div>
         <div class="container">
           <div class="order-lg-first align-self-center">
             <div
               data-aos="zoom-out-right"
-              class="banner-inner style-white text-center text-lg-start">
+              class="banner-inner style-white text-center text-lg-start"
+            >
               {/* <h4 class="sub-title">Best it solution</h4> */}
               <h2 class="title d-none d-lg-inline-block">
                 Panti Asuhan Muhammadiyah <br />
@@ -662,7 +693,8 @@ function Home() {
               </h2>
               <h2
                 style={{ fonrSize: "30px", color: "white" }}
-                class="d-inline-block d-lg-none">
+                class="d-inline-block d-lg-none"
+              >
                 Panti Asuhan Muhammadiyah <br />
                 <span style={{ color: "#00FF9C" }}> Pantinya Sang Juara</span>
               </h2>
@@ -681,7 +713,8 @@ function Home() {
                   data-aos="fade-right"
                   data-aos-offset="300"
                   data-aos-easing="ease-in-sine"
-                  class="col-md-5">
+                  class="col-md-5"
+                >
                   <div class="thumb mb-4 mb-md-0">
                     <img src={sambutanPanti?.foto} alt="img" />
                     {/* <div class="quote-wrap">
@@ -698,7 +731,8 @@ function Home() {
                   class="col-md-7"
                   data-aos="fade-left"
                   data-aos-offset="300"
-                  data-aos-easing="ease-in-sine">
+                  data-aos-easing="ease-in-sine"
+                >
                   <div class="single-testimonial-inner px-lg-5">
                     <div class="details section-title">
                       {/* <div className=""> */}
@@ -758,7 +792,8 @@ function Home() {
             </div>
             <div
               data-aos="fade-right"
-              class="col-lg-6 pe-xl-5 order-lg-first align-self-center">
+              class="col-lg-6 pe-xl-5 order-lg-first align-self-center"
+            >
               <div class="section-title mb-0">
                 {/* <h5 class="sub-title right-line">Faq</h5> */}
                 <h2 class="title">Visi Misi</h2>
@@ -777,7 +812,8 @@ function Home() {
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseOne"
                       aria-expanded="true"
-                      aria-controls="collapseOne">
+                      aria-controls="collapseOne"
+                    >
                       Visi
                     </button>
                   </h2>
@@ -785,7 +821,8 @@ function Home() {
                     id="collapseOne"
                     class="accordion-collapse collapse show"
                     aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample">
+                    data-bs-parent="#accordionExample"
+                  >
                     {/* <div> */}
                     <div
                       class="accordion-body"
@@ -809,7 +846,8 @@ function Home() {
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseTwo"
                       aria-expanded="false"
-                      aria-controls="collapseTwo">
+                      aria-controls="collapseTwo"
+                    >
                       Misi
                     </button>
                   </h2>
@@ -817,7 +855,8 @@ function Home() {
                     id="collapseTwo"
                     class="accordion-collapse collapse"
                     aria-labelledby="headingTwo"
-                    data-bs-parent="#accordionExample">
+                    data-bs-parent="#accordionExample"
+                  >
                     <div
                       class="accordion-body"
                       style={{
@@ -842,22 +881,26 @@ function Home() {
         <div
           style={{ backgroundImage: `url(${backgroundImage1})` }}
           id="program"
-          class="banner-area banner-area-1 project-area bg-black bg-relative pd-top-115">
+          class="banner-area banner-area-1 project-area bg-black bg-relative pd-top-115"
+        >
           <div
             className="banner-bg-img"
             style={{
               // backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
               backgroundColor: "rgba(0, 0, 0, 0.7)",
-            }}></div>
+            }}
+          ></div>
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-lg-7">
                 <div
                   data-aos="flip-up"
-                  class="section-title style-white text-center">
+                  class="section-title style-white text-center"
+                >
                   <h5
                     class="sub-title double-line"
-                    style={{ color: "#00FF9C" }}>
+                    style={{ color: "#00FF9C" }}
+                  >
                     Kegiatan / Program
                   </h5>
                   <h2 class="title">Program dan Kegiatan Panti Asuhan</h2>
@@ -897,14 +940,16 @@ function Home() {
               },
             }}
             modules={[Pagination]}
-            className="mySwiper">
+            className="mySwiper"
+          >
             <div class="project-slider-2 slider-control-square owl-carousel">
               {kegiatan.map((data) => (
                 <SwiperSlide>
                   <div class="item">
                     <div
                       data-aos="flip-down"
-                      class="single-project-inner style-two">
+                      class="single-project-inner style-two"
+                    >
                       <div class="thumb thumb-img">
                         <img
                           src={
@@ -1187,7 +1232,8 @@ function Home() {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               gap: "20px",
-            }}>
+            }}
+          >
             {donasi.map((item, index) => (
               <div
                 className="card"
@@ -1208,7 +1254,8 @@ function Home() {
                   e.currentTarget.style.transform = "scale(1)";
                   e.currentTarget.style.boxShadow =
                     "0 4px 8px rgba(0, 0, 0, 0.1)";
-                }}>
+                }}
+              >
                 <img
                   src={
                     item.url_image !== ""
@@ -1229,7 +1276,8 @@ function Home() {
                       fontWeight: "bold",
                       color: "#004080",
                       marginBottom: "10px",
-                    }}>
+                    }}
+                  >
                     {item.name}
                   </h4>
                   <p
@@ -1239,7 +1287,8 @@ function Home() {
                       marginBottom: "5px",
                       display: "flex",
                       alignItems: "center",
-                    }}>
+                    }}
+                  >
                     <svg
                       className="svg-inline--fa fa-calendar-alt fa-w-14"
                       aria-hidden="true"
@@ -1254,7 +1303,8 @@ function Home() {
                         height: "16px",
                         color: "#004080",
                         marginRight: "5px",
-                      }}>
+                      }}
+                    >
                       <path
                         fill="currentColor"
                         d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-56V64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H152V64zM32 192h384v272c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V192zm96 100c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40z"
@@ -1270,7 +1320,8 @@ function Home() {
                       marginBottom: "15px",
                       marginTop: "1rem",
                     }}
-                    className="content-isi">
+                    className="content-isi"
+                  >
                     <div
                       dangerouslySetInnerHTML={{ __html: item?.description }}
                     />
@@ -1282,7 +1333,8 @@ function Home() {
                       fontWeight: "500",
                       marginTop: "1rem",
                     }}
-                    className="content-isi">
+                    className="content-isi"
+                  >
                     Total Donasi
                   </p>
                   <h4
@@ -1291,7 +1343,8 @@ function Home() {
                       fontWeight: "bold",
                       color: "#004080",
                       marginBottom: "10px",
-                    }}>
+                    }}
+                  >
                     {formatRupiah(item.total_income)}
                   </h4>
                   <a
@@ -1311,7 +1364,8 @@ function Home() {
                     }
                     onMouseOut={(e) =>
                       (e.currentTarget.style.color = "#004080")
-                    }>
+                    }
+                  >
                     <span style={{ marginRight: "8px" }}>Selengkapnya</span>
                   </a>
                 </div>
@@ -1325,7 +1379,8 @@ function Home() {
       <div
         id="berita"
         class="blog-area pd-top-115 pd-bottom-60"
-        style={{ background: "#F8FCFB" }}>
+        style={{ background: "#F8FCFB" }}
+      >
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-7 col-md-10">
@@ -1342,7 +1397,8 @@ function Home() {
           <div
             class="row justify-content-center"
             data-aos="fade-up"
-            data-aos-easing="linear">
+            data-aos-easing="linear"
+          >
             {berita.map((data) => (
               <div class="col-lg-4 col-md-6 mb-4">
                 <div class="single-blog-inner style-3">
@@ -1369,7 +1425,8 @@ function Home() {
                       <a
                         style={{ color: "#0d2f74", textDecoration: "none" }}
                         className="content-preview"
-                        href={`/beritapanti/${data.id}`}>
+                        href={`/beritapanti/${data.id}`}
+                      >
                         {data.judul_berita}
                       </a>
                     </h4>
@@ -1456,13 +1513,15 @@ function Home() {
           backgroundImage:
             "url('https://solverwp.com/demo/html/itechie/assets/img/bg/10.webp')",
         }}
-        class="project-area half-bg-top pd-top-115">
+        class="project-area half-bg-top pd-top-115"
+      >
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-lg-6 col-md-10">
               <div
                 data-aos="zoom-in-down"
-                class="section-title style-white text-center">
+                class="section-title style-white text-center"
+              >
                 {/* <h5 class="sub-title double-border">Work Process</h5> */}
                 <h2 class="title text-white">Galery</h2>
                 <p class="content text-white">
@@ -1479,7 +1538,8 @@ function Home() {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               gap: "20px",
-            }}>
+            }}
+          >
             {galery.map((item, index) => (
               <div
                 className="card"
@@ -1500,7 +1560,8 @@ function Home() {
                   e.currentTarget.style.transform = "scale(1)";
                   e.currentTarget.style.boxShadow =
                     "0 4px 8px rgba(0, 0, 0, 0.1)";
-                }}>
+                }}
+              >
                 <img
                   src={
                     item.foto !== ""
@@ -1696,12 +1757,14 @@ function Home() {
           <div class="row" data-aos="fade-up">
             <div
               class="col-lg-2 col-md-4 col-sm-6"
-              style={{ textAlign: "center" }}>
+              style={{ textAlign: "center" }}
+            >
               <div>
                 <i class="fas fa-male" style={{ fontSize: "32px" }}></i>
                 <Typography
                   variant="h4"
-                  style={{ fontWeight: "bold", marginTop: "30px" }}>
+                  style={{ fontWeight: "bold", marginTop: "30px" }}
+                >
                   {anakAsuhData?.per_jenis_kelamin?.["laki_laki"] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>PRIA</h5>
@@ -1710,12 +1773,14 @@ function Home() {
             </div>
             <div
               class="col-lg-2 col-md-4 col-sm-6"
-              style={{ textAlign: "center" }}>
+              style={{ textAlign: "center" }}
+            >
               <div>
                 <i class="fas fa-female" style={{ fontSize: "32px" }}></i>
                 <Typography
                   variant="h4"
-                  style={{ fontWeight: "bold", marginTop: "30px" }}>
+                  style={{ fontWeight: "bold", marginTop: "30px" }}
+                >
                   {anakAsuhData?.per_jenis_kelamin?.["perempuan"] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>WANITA</h5>
@@ -1724,15 +1789,19 @@ function Home() {
             </div>
             <div
               class="col-lg-2 col-md-4 col-sm-6"
-              style={{ textAlign: "center" }}>
+              style={{ textAlign: "center" }}
+            >
               <div>
                 <i
                   class="fas fa-graduation-cap"
-                  style={{ fontSize: "32px" }}></i>
+                  style={{ fontSize: "32px" }}
+                ></i>
                 <Typography
                   variant="h4"
-                  style={{ fontWeight: "bold", marginTop: "30px" }}>
-                  {anakAsuhData?.per_tingkat_pendidikan?.["sd/mi"]?.["total"] || 0}
+                  style={{ fontWeight: "bold", marginTop: "30px" }}
+                >
+                  {anakAsuhData?.per_tingkat_pendidikan?.["sd/mi"]?.["total"] ||
+                    0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>SD</h5>
               </div>
@@ -1740,15 +1809,20 @@ function Home() {
             </div>
             <div
               class="col-lg-2 col-md-4 col-sm-6"
-              style={{ textAlign: "center" }}>
+              style={{ textAlign: "center" }}
+            >
               <div>
                 <i
                   class="fas fa-graduation-cap"
-                  style={{ fontSize: "32px" }}></i>
+                  style={{ fontSize: "32px" }}
+                ></i>
                 <Typography
                   variant="h4"
-                  style={{ fontWeight: "bold", marginTop: "30px" }}>
-                  {anakAsuhData?.per_tingkat_pendidikan?.["smp/mts"]?.["total"] || 0}
+                  style={{ fontWeight: "bold", marginTop: "30px" }}
+                >
+                  {anakAsuhData?.per_tingkat_pendidikan?.["smp/mts"]?.[
+                    "total"
+                  ] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>SMP</h5>
               </div>
@@ -1756,15 +1830,20 @@ function Home() {
             </div>
             <div
               class="col-lg-2 col-md-4 col-sm-6"
-              style={{ textAlign: "center" }}>
+              style={{ textAlign: "center" }}
+            >
               <div>
                 <i
                   class="fas fa-graduation-cap"
-                  style={{ fontSize: "32px" }}></i>
+                  style={{ fontSize: "32px" }}
+                ></i>
                 <Typography
                   variant="h4"
-                  style={{ fontWeight: "bold", marginTop: "30px" }}>
-                  {anakAsuhData?.per_tingkat_pendidikan?.["sma/smk/ma"]?.["total"] || 0}
+                  style={{ fontWeight: "bold", marginTop: "30px" }}
+                >
+                  {anakAsuhData?.per_tingkat_pendidikan?.["sma/smk/ma"]?.[
+                    "total"
+                  ] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>SMA</h5>
               </div>
@@ -1772,15 +1851,20 @@ function Home() {
             </div>
             <div
               class="col-lg-2 col-md-4 col-sm-6"
-              style={{ textAlign: "center" }}>
+              style={{ textAlign: "center" }}
+            >
               <div>
                 <i
                   class="fas fa-graduation-cap"
-                  style={{ fontSize: "32px" }}></i>
+                  style={{ fontSize: "32px" }}
+                ></i>
                 <Typography
                   variant="h4"
-                  style={{ fontWeight: "bold", marginTop: "30px" }}>
-                  {anakAsuhData?.per_tingkat_pendidikan?.["kuliah"]?.["total"] || 0}
+                  style={{ fontWeight: "bold", marginTop: "30px" }}
+                >
+                  {anakAsuhData?.per_tingkat_pendidikan?.["kuliah"]?.[
+                    "total"
+                  ] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>KULIAH</h5>
               </div>
@@ -1800,6 +1884,100 @@ function Home() {
                 </div>
               </div>
             ))} */}
+          </div>
+        </div>
+      </div>
+
+      {/* Fasilitas */}
+      <div class="project-area half-bg-top pd-top-115">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-10">
+              <div
+                data-aos="zoom-in-down"
+                class="section-title style-white text-center"
+              >
+                {/* <h5 class="sub-title double-border">Work Process</h5> */}
+                <h2 class="title text-black">Fasilitas</h2>
+                <p class="content text-black">
+                  Panti asuhan memiliki fasilitas yang mumpuni 
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            className="grid-container"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gap: "20px",
+            }}
+          >
+            {list.length > 0 ? (
+              list.map((fasilitas, index) => (
+                <div
+                  className="card"
+                  key={index}
+                  style={{
+                    backgroundColor: "#fff",
+                    borderRadius: "15px",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                    overflow: "hidden",
+                    transition: "transform 0.3s, box-shadow 0.3s",
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "scale(1.05)";
+                    e.currentTarget.style.boxShadow =
+                      "0 8px 16px rgba(0, 0, 0, 0.2)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 8px rgba(0, 0, 0, 0.1)";
+                  }}
+                >
+                  <img
+                    src={
+                      fasilitas.image && fasilitas.image.trim() !== ""
+                        ? fasilitas.image
+                        : "https://via.placeholder.com/300x200"
+                    }
+                    alt="Fasilitas"
+                    style={{
+                      width: "100%",
+                      height: "200px",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <div style={{ padding: "15px" }}>
+                    <h5 style={{ marginBottom: "10px", color: "#333" }}>
+                      {fasilitas.name}
+                    </h5>
+                    <p style={{ color: "#777" }}>{fasilitas.description}</p>
+                    {/* <div className="d-flex justify-content-between">
+                      <a
+                        href={`/admin_fasilitas/edit/${fasilitas.id}`}
+                        className="btn btn-primary btn-sm"
+                      >
+                        <i className="fa-solid fa-pen-to-square"></i> Edit
+                      </a>
+                      <button
+                        onClick={() => deleteData(fasilitas.id)}
+                        className="btn btn-danger btn-sm"
+                      >
+                        <i className="fa-solid fa-trash"></i> Hapus
+                      </button>
+                    </div> */}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div
+                style={{ textAlign: "center", padding: "20px", color: "#777" }}
+              >
+                Tidak ada data yang tersedia.
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -2766,7 +2944,8 @@ function Home() {
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
+        aria-describedby="modal-modal-description"
+      >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {judul}

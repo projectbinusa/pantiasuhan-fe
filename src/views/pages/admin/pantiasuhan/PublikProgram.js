@@ -5,13 +5,23 @@ import AOS from "aos";
 import { API_DUMMY } from "../../../../utils/base_URL";
 import Navbar from "../../../../component/Navbar";
 import FooterSekolah from "../../../../component/FooterSekolah";
-import charity from "../../../../aset/pantiasuhan/charity.jpg"
+import charity from "../../../../aset/pantiasuhan/charity.jpg";
 import { removeImages } from "../../../../utils/removeImages";
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
   const bulan = [
-    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
   ];
   const hari = tanggal.getDate();
   const bulanNama = bulan[tanggal.getMonth()];
@@ -38,7 +48,7 @@ function PublikProgram() {
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            "x-origin": window.location.hostname
+            "x-origin": window.location.hostname,
           },
         }
       );
@@ -77,7 +87,7 @@ function PublikProgram() {
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop >=
-      document.documentElement.offsetHeight - 200 &&
+        document.documentElement.offsetHeight - 200 &&
       !isLoading &&
       hasMore
     ) {
@@ -130,7 +140,9 @@ function PublikProgram() {
             maxWidth: "1200px",
             margin: "0 auto",
           }}
-        > <br /> <br /> <br /> <br />
+        >
+          {" "}
+          <br /> <br /> <br /> <br />
           <div className="row justify-content-center">
             <div className="col-xl-6 col-lg-7 col-md-10">
               <div className="section-title text-center" data-aos="fade-down">
@@ -154,7 +166,8 @@ function PublikProgram() {
             placeholder="Cari Program..."
             value={searchTerm}
             onChange={handleSearchChange}
-          /> <br />
+          />{" "}
+          <br />
           <div
             className="grid-container"
             style={{
@@ -163,10 +176,11 @@ function PublikProgram() {
               gap: "20px",
             }}
           >
-            {filteredList.length > 0 ?
+            {filteredList.length > 0 ? (
               filteredList.map((item, index) => (
                 <div
-                  className="card" key={index}
+                  className="card"
+                  key={index}
                   style={{
                     backgroundColor: "#fff",
                     borderRadius: "15px",
@@ -176,14 +190,21 @@ function PublikProgram() {
                   }}
                   onMouseOver={(e) => {
                     e.currentTarget.style.transform = "scale(1.05)";
-                    e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
+                    e.currentTarget.style.boxShadow =
+                      "0 8px 16px rgba(0, 0, 0, 0.2)";
                   }}
                   onMouseOut={(e) => {
                     e.currentTarget.style.transform = "scale(1)";
-                    e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 8px rgba(0, 0, 0, 0.1)";
                   }}
                 >
-                  <img src={item.foto == null || item.foto == "" ? charity : item.foto}
+                  <img
+                    src={ 
+                      item.foto == null || item.foto.trim() === ""
+                        ? "https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png"
+                        : item.foto
+                    }
                     alt="Foto Program"
                     style={{
                       width: "100%",
@@ -191,6 +212,7 @@ function PublikProgram() {
                       objectFit: "cover",
                     }}
                   />
+
                   <div style={{ padding: "20px" }}>
                     <h4
                       style={{
@@ -239,10 +261,16 @@ function PublikProgram() {
                         fontSize: "0.9rem",
                         color: "#777",
                         lineHeight: "1.5",
-                        marginBottom: "15px", marginTop: "1rem"
-                      }} className="content-isi"
+                        marginBottom: "15px",
+                        marginTop: "1rem",
+                      }}
+                      className="content-isi"
                     >
-                      <div dangerouslySetInnerHTML={{ __html: removeImages(item?.isi) }} />
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: removeImages(item?.isi),
+                        }}
+                      />
                     </p>
                     <a
                       className="read-more-text"
@@ -256,14 +284,23 @@ function PublikProgram() {
                         textDecoration: "none",
                         transition: "color 0.3s ease",
                       }}
-                      onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
-                      onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}
+                      onMouseOver={(e) =>
+                        (e.currentTarget.style.color = "#0066cc")
+                      }
+                      onMouseOut={(e) =>
+                        (e.currentTarget.style.color = "#004080")
+                      }
                     >
                       <span style={{ marginRight: "8px" }}>Selengkapnya</span>
                     </a>
                   </div>
                 </div>
-              )) : <div><p>Data tidak ditemukan...</p></div>}
+              ))
+            ) : (
+              <div>
+                <p>Data tidak ditemukan...</p>
+              </div>
+            )}
           </div>
           {isLoading && <p>Memuat data...</p>}
           {/* {!hasMore && <p>Tidak ada data lagi.</p>} */}
