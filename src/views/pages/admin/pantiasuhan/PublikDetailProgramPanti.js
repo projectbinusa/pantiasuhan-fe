@@ -9,12 +9,27 @@ const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
 
   const hariNama = [
-    "Minggu", "Senin", "Selasa", "Rabu",
-    "Kamis", "Jumat", "Sabtu"
+    "Minggu",
+    "Senin",
+    "Selasa",
+    "Rabu",
+    "Kamis",
+    "Jumat",
+    "Sabtu",
   ];
   const bulan = [
-    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    "Januari",
+    "Februari",
+    "Maret",
+    "April",
+    "Mei",
+    "Juni",
+    "Juli",
+    "Agustus",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
   ];
 
   const hari = tanggal.getDate();
@@ -37,12 +52,12 @@ function PublikDetailProgramPanti() {
           {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-              "x-origin": window.location.hostname
+              "x-origin": window.location.hostname,
             },
           }
         );
         const resp = response.data.kegiatan;
-        setKegiatan(resp)
+        setKegiatan(resp);
         console.log(resp);
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
@@ -54,13 +69,22 @@ function PublikDetailProgramPanti() {
 
   return (
     <div style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
-      <Navbar />   <br /> <br />     <br /> <br /> <br /> <br />
+      <Navbar /> <br /> <br /> <br /> <br /> <br /> <br />
       <div className="container" style={{ minHeight: "100vh" }}>
-        <img src={kegiatan?.foto !== "" ? kegiatan?.foto : "https://via.placeholder.com/500x350"} style={{
-          width: "100%",
-          height: "350px",
-          objectFit: "cover",
-        }} alt="Gambar Header" /> <br /> <br />
+        <img
+          src={
+            kegiatan?.foto && kegiatan.foto.trim() !== ""
+              ? kegiatan.foto
+              : "https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg"
+          }
+          style={{
+            width: "20%",
+            height: "200px",
+            objectFit: "cover",
+          }}
+          alt="Gambar Header"
+        />
+        <br /> <br />
         <h2 className="titlepanti">{kegiatan?.judul}</h2>
         <p
           style={{
@@ -135,7 +159,7 @@ function PublikDetailProgramPanti() {
       </style>
       <FooterSekolah />
     </div>
-  )
+  );
 }
 
 export default PublikDetailProgramPanti;
