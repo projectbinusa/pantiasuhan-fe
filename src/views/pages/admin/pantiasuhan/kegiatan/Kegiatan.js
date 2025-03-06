@@ -238,8 +238,8 @@ function KegiatanPanti() {
                           <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Program" className="text-md-start text-end">
-                            <p className="isiBerita">{kegiatan.judul}</p>
+                          <td data-label="Program" className="text-md-start text-end contents">
+                            <p className="content-isi">{kegiatan.judul}</p>
                           </td>
                           <td data-label="Penulis" className="text-md-start text-end">{kegiatan.penulis}</td>
                           <td data-label="Tanggal Dibuat" className="text-md-start text-end">

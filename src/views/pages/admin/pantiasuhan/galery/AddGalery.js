@@ -126,7 +126,7 @@ const AddGalery = () => {
                   <hr />
                   <form onSubmit={add}>
                     <div className="row">
-                      <div className="mb-3 col-lg-12">
+                      <div className="mb-3 col-lg-6 ">
                         <label className="form-label font-weight-bold">
                           Judul
                         </label>
@@ -154,7 +154,7 @@ const AddGalery = () => {
                         <label className="form-label font-weight-bold">
                           Deskripsi
                         </label>
-                        <textarea
+                        <textarea rows={4}
                           value={deskripsi}
                           onChange={(e) => setDeskripsi(e.target.value)}
                           className="form-control"

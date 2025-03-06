@@ -37,7 +37,7 @@ function LaporanInventaris() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/admin/investaris/organization_ids?page=${currentPage}&size=${rowsPerPage}`,
+        `${API_DUMMY}/api/admin/investaris/organization_ids?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -50,8 +50,7 @@ function LaporanInventaris() {
       const { data, pagination } = response.data;
       setList(data);
       setPaginationInfo({
-        totalPages: Math.ceil(pagination.total / rowsPerPage),
-        totalElements: pagination.total,
+        totalPages: Math.ceil(response.data.pagination / rowsPerPage),
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -70,12 +69,13 @@ function LaporanInventaris() {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setCurrentPage(1); // Reset ke halaman pertama
+    setPage(0);
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1); // Reset ke halaman pertama setelah pencarian
+    setPage(0);
+    setCurrentPage(1);
   };
 
   const filteredList = list.filter((item) =>
@@ -90,9 +90,8 @@ function LaporanInventaris() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -155,7 +154,7 @@ function LaporanInventaris() {
               <div className="d-flex ml-auto gap-3">
                 <input
                   type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
+                  className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
                   placeholder="Search..."
                   value={searchTerm}
                   onChange={handleSearchChange}
@@ -209,7 +208,10 @@ function LaporanInventaris() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
                 showFirstButton
                 showLastButton
                 color="primary"

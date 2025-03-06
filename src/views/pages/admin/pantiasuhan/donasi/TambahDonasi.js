@@ -268,9 +268,8 @@ function TambahDonasi() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -350,12 +349,23 @@ function TambahDonasi() {
                         )} */}
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
-                            Nama
+                            Nama Donasi
                           </label>
                           <input
                             value={nama}
                             onChange={(e) => setNama(e.target.value)}
-                            placeholder="Masukkan Nama"
+                            placeholder="Masukkan Nama Donasi"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Thumbnail
+                          </label>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => setImage(e.target.files[0])}
                             className="form-control"
                           />
                         </div>
@@ -590,17 +600,6 @@ function TambahDonasi() {
                                 ],
                               },
                             }}
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Image
-                          </label>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => setImage(e.target.files[0])}
-                            className="form-control"
                           />
                         </div>
                       </div>

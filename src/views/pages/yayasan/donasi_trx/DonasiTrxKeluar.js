@@ -6,6 +6,7 @@ import { Box, Modal, Pagination } from "@mui/material";
 import "../../../../css/button.css";
 import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
+import AsyncSelect from "react-select/async";
 
 const formatDate = (value) => {
   const date = new Date(value);
@@ -125,12 +126,12 @@ function DonasiTrxKeluar() {
 
   const filteredList = searchTerm
     ? list.filter((item) =>
-        Object.values(item).some(
-          (value) =>
-            typeof value === "string" &&
-            value.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+      Object.values(item).some(
+        (value) =>
+          typeof value === "string" &&
+          value.toLowerCase().includes(searchTerm.toLowerCase())
       )
+    )
     : list;
 
   const style = {
@@ -210,11 +211,39 @@ function DonasiTrxKeluar() {
     fetchDataOrganization();
   }, []);
 
+  const fetchDonasi = async (inputValue) => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/user/customer/organization_ids?filter=${inputValue}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
+      return response.data.data.map((member) => ({
+        value: member.id,
+        label: member.name,
+      }));
+    } catch (error) {
+      console.error("Error searching members:", error);
+      return [];
+    }
+  };
+
+  const handleChangeDonasi = (selectedOption) => {
+    if (selectedOption) {
+      setIdCabang(selectedOption.value);
+    } else {
+      setIdCabang(null);
+    }
+  };
+
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -378,7 +407,7 @@ function DonasiTrxKeluar() {
         `}
         </style>
       </div>
-      
+
       <Modal
         open={isModalOpen}
         onClose={closeModal}
@@ -455,7 +484,7 @@ function DonasiTrxKeluar() {
               <label className="form-label font-weight-bold text-start">
                 Cabang
               </label>
-              <select
+              {/* <select
                 className="form-control"
                 value={idCabang}
                 onChange={(e) => setIdCabang(e.target.value)}
@@ -466,7 +495,25 @@ function DonasiTrxKeluar() {
                     {item.name}
                   </option>
                 ))}
-              </select>
+              </select> */}
+              <AsyncSelect
+                cacheOptions
+                defaultOptions
+                loadOptions={fetchDonasi}
+                onChange={handleChangeDonasi}
+                placeholder="Cari Cabang..."
+                noOptionsMessage={() => "Cabang tidak ditemukan"}
+                menuPortalTarget={document.body}
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  menu: (base) => ({
+                    ...base,
+                    position: "absolute",
+                    zIndex: 9999,
+                    backgroundColor: "white",
+                  }),
+                }}
+              />
             </div>
           </div>
           <button

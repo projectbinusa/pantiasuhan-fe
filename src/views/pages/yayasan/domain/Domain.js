@@ -39,7 +39,7 @@ function Domain() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/user/domain?page=${currentPage}&size=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/user/domain?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -52,7 +52,7 @@ function Domain() {
       const { data, pagination } = response.data;
       setList(data);
       setPaginationInfo({
-        totalPages: Math.ceil(pagination.total_page / rowsPerPage),
+        totalPages: Math.ceil(pagination.total / rowsPerPage),
         totalElements: pagination.total,
       });
     } catch (error) {
@@ -162,9 +162,8 @@ function Domain() {
   };
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -207,7 +206,7 @@ function Domain() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Laporan Inventaris</p>
+              <p className="mt-3">Domain</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -239,7 +238,7 @@ function Domain() {
                         style={{ color: "white", textDecoration: "none" }}
                         href="/add-domain"
                       >
-                        Tambah Domain
+                        Tambah
                       </a>
                     </button>
                   </div>
@@ -271,7 +270,7 @@ function Domain() {
                             {index + 1}
                           </td>
                           <td
-                            data-label="Domain"
+                            data-label="Nama Domain"
                             className="text-md-start text-end"
                           >
                             {row.name}
@@ -287,7 +286,7 @@ function Domain() {
                             <div className="d-flex justify-content-center align-items-center">
                               {userRole !== "yayasan" && (
                                 <>
-                                  <button
+                                  {/* <button
                                     type="button"
                                     className="btn-primary btn-sm mr-2"
                                   >
@@ -300,7 +299,7 @@ function Domain() {
                                     >
                                       <i className="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                  </button>
+                                  </button> */}
                                   {/* <button
                                     type="button"
                                     className="btn-warning btn-sm mr-2"
@@ -331,7 +330,7 @@ function Domain() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="8" className="text-center my-3">
+                      <td colSpan="4" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
@@ -345,7 +344,10 @@ function Domain() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
                 showFirstButton
                 showLastButton
                 color="primary"

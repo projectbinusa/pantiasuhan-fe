@@ -224,9 +224,8 @@ function Donasi() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -340,16 +339,14 @@ function Donasi() {
                           {(currentPage - 1) * rowsPerPage + index + 1}
                         </td>
                         <td
-                          className="text-lg-start text-md-end text-sm-end"
+                          className="text-lg-start text-md-end text-sm-end contents"
                           data-label="Nama Donasi"
-                        >
-                          {item.name}
-                        </td>
+                        > <p className="content-isi">{item.name}</p></td>
                         <td
-                          className="text-lg-start text-md-end text-sm-end"
+                          className="text-lg-start text-md-end text-sm-end contents"
                           data-label="Deskripsi"
                         >
-                          <div
+                          <div className="content-isi"
                             dangerouslySetInnerHTML={{
                               __html: item.description,
                             }}

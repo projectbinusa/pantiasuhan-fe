@@ -182,14 +182,14 @@ function EditGalery() {
                       className="form-control"
                     />
                   </div>
-                  <div className="mb-3 col-lg-6">
+                  <div className="mb-3 col-lg-12">
                     <label
                       for="exampleInputPassword1"
                       className="form-label font-weight-bold"
                     >
                       Deskripsi
                     </label>
-                    <textarea
+                    <textarea rows={4}
                       value={deskripsi}
                       onChange={(e) => setDeskripsi(e.target.value)}
                       type="text"

@@ -160,6 +160,15 @@ function CabangAnakAsuh() {
                   </select>
                 </div>
               </div>
+                <div className="d-flex ml-auto gap-3">
+                  <input
+                    type="search"
+                    className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                  />
+                </div>
             </div>
             <div
               className="table-responsive-3"
@@ -209,14 +218,17 @@ function CabangAnakAsuh() {
               </table>
             </div>
             <div className="card-header mt-3 d-flex justify-content-center">
-              {/* <Pagination
+              <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => setCurrentPage(value)}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  // setPage(value);
+                }}
                 showFirstButton
                 showLastButton
                 color="primary"
-              /> */}
+              />
             </div>
           </div>
         </div>
