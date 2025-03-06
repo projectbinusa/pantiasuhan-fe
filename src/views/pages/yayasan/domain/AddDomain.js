@@ -96,25 +96,6 @@ function AddDomain() {
     AOS.init();
   }, []);
 
-  //   useEffect(() => {
-  //     const fetchDataAnak = async () => {
-  //       try {
-  //         const response = await axios.get(
-  //           `${API_DUMMY_SMART}/api/user/domain`,
-  //           {
-  //             headers: {
-  //               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-  //             },
-  //           }
-  //         );
-  //         setListAnak(response.data.data);
-  //       } catch (error) {
-  //         console.error("Terjadi Kesalahan saat mengambil data lokasi:", error);
-  //       }
-  //     };
-  //     fetchDataAnak()
-  //   }, [])
-
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
   const toggleSidebar = () => {
@@ -174,21 +155,6 @@ function AddDomain() {
                           placeholder="Masukkan Nama"
                         />
                       </div>
-                      {/* <div className="mb-3 col-lg-6">
-                        <label
-                          for="exampleInputEmail1"
-                          className="form-label  font-weight-bold "
-                        >
-                          Organization_id
-                        </label>
-                        <input
-                          value={organization}
-                          onChange={(e) => setOrganization(e.target.value)}
-                          type="number"
-                          className="form-control"
-                          placeholder="Masukkan Organization"
-                        />
-                      </div> */}
                       <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
                           Organization
@@ -233,7 +199,6 @@ function AddDomain() {
         </div>
       </div>
     </div>
-    // </div>
   );
 }
 

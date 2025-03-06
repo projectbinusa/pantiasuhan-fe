@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -59,6 +59,7 @@ import {
   Alignment,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
+import AsyncSelect from "react-select/async";
 
 function TambahDonasiTrx() {
   const [nama, setNama] = useState("");
@@ -87,21 +88,65 @@ function TambahDonasiTrx() {
     // console.log("nama: ", namaOrangTua);
   }, []);
 
+  // const getAll = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY_SMART}/api/customer/donation?page=${currentPage}&limit=${rowsPerPage}`,
+  //       {
+  //         headers: {
+  //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+  //         },
+  //       }
+  //     );
+  //     const { data, pagination } = response.data;
+  //     console.log(data);
+  //     setDonasi(data);
+  //   } catch (error) {
+  //     console.error("Terjadi kesalahan:", error.response || error.message);
+  //   }
+  // };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const rowsPerPage = 10;
+  const selectRef = useRef(null);
+
   const getAll = async () => {
+    if (isLoading) return; // Cegah pemanggilan ganda
+    setIsLoading(true);
+
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/donation`,
+        `${API_DUMMY_SMART}/api/customer/donation?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
-      const { data, pagination } = response.data;
-      console.log(data);
-      setDonasi(data);
+
+      const { data } = response.data;
+      setDonasi((prev) => [...prev, ...data]); // Tambah data baru ke daftar lama
+      setIsLoading(false);
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAll();
+  }, [currentPage]); // Panggil saat halaman berubah
+
+  const handleScroll = () => {
+    const selectElement = selectRef.current;
+    if (!selectElement) return;
+
+    const bottom =
+      selectElement.scrollTop + selectElement.clientHeight >= selectElement.scrollHeight - 5;
+
+    if (bottom && !isLoading) {
+      setCurrentPage((prev) => prev + 1);
     }
   };
 
@@ -287,11 +332,39 @@ function TambahDonasiTrx() {
     { label: "Blue grey 900", color: "#263238" },
   ];
 
+  const fetchDonasi = async (inputValue) => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/customer/donation?name=${inputValue}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
+      return response.data.data.map((member) => ({
+        value: member.id,
+        label: member.name,
+      }));
+    } catch (error) {
+      console.error("Error searching :", error);
+      return [];
+    }
+  };
+
+  const handleChangeDonasi = (selectedOption) => {
+    if (selectedOption) {
+      setIdDonasi(selectedOption.value);
+    } else {
+      setIdDonasi(null);
+    }
+  };
+
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -315,7 +388,7 @@ function TambahDonasiTrx() {
                           <label className="form-label  font-weight-bold ">
                             Nama Donasi
                           </label>
-                          <select
+                          {/* <select
                             value={idDonasi}
                             className="form-control"
                             aria-label="Small select example"
@@ -329,7 +402,44 @@ function TambahDonasiTrx() {
                                 {data.name}
                               </option>
                             ))}
+                          </select> */}
+
+                          {/* <select
+                            ref={selectRef}
+                            value={idDonasi}
+                            className="form-control"
+                            aria-label="Small select example"
+                            onChange={(e) => setIdDonasi(e.target.value)}
+                            onScroll={handleScroll}
+                            style={{ maxHeight: "200px", overflowY: "auto" }} // Tambahkan scroll jika item banyak
+                          >
+                            <option value="">Pilih Donasi</option>
+                            {donasi.map((data, index) => (
+                              <option key={index} value={data.id}>
+                                {data.name}
+                              </option>
+                            ))}
                           </select>
+                          {isLoading && <p>Loading...</p>} */}
+
+                          <AsyncSelect
+                            cacheOptions
+                            defaultOptions
+                            loadOptions={fetchDonasi}
+                            onChange={handleChangeDonasi}
+                            placeholder="Cari Donasi..."
+                            noOptionsMessage={() => "Donasi tidak ditemukan"}
+                            menuPortalTarget={document.body}
+                            styles={{
+                              menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                              menu: (base) => ({
+                                ...base,
+                                position: "absolute",
+                                zIndex: 9999,
+                                backgroundColor: "white",
+                              }),
+                            }}
+                          />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">

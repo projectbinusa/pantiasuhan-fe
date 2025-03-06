@@ -123,9 +123,8 @@ function AddOrtu() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -134,133 +133,135 @@ function AddOrtu() {
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
-      <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="card shadow">
-                <div className="card-body">
-                  <h1 className="fs-4">Form Tambah Data</h1>
-                  <hr />
-                  <form onSubmit={add}>
-                    <div className="row">
-                      <div className="mb-3 col-lg-6">
-                        <label
-                          htmlFor="exampleInputEmail1"
-                          className="form-label font-weight-bold">
-                          Nama
-                        </label>
-                        <input
-                          value={nama}
-                          onChange={(e) => setNama(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          placeholder="Masukkan Nama"
-                        />
+      <div className="page-content1" style={{ marginTop: "10px", minHeight: "100vh" }}>
+        <div className="app-main__outer container mb-3" data-aos="fade-left">
+          <div className="app-main__inner">
+            <div className="row">
+              <div className="col-md-12">
+                <div className="card shadow">
+                  <div className="card-body">
+                    <h1 className="fs-4">Form Tambah Data</h1>
+                    <hr />
+                    <form onSubmit={add}>
+                      <div className="row">
+                        <div className="mb-3 col-lg-6">
+                          <label
+                            htmlFor="exampleInputEmail1"
+                            className="form-label font-weight-bold">
+                            Nama
+                          </label>
+                          <input
+                            value={nama}
+                            onChange={(e) => setNama(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukkan Nama"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label
+                            htmlFor="exampleInputEmail1"
+                            className="form-label font-weight-bold">
+                            Alamat
+                          </label>
+                          <input
+                            value={alamat}
+                            onChange={(e) => setAlamat(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukkan Alamat"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Tempat Lahir
+                          </label>
+                          <input
+                            value={birthPlace}
+                            onChange={(e) => setBirthPlace(e.target.value)}
+                            placeholder="Masukkan Nama Tempat Lahir"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Tanggal Lahir
+                          </label>
+                          <input
+                            value={birthDate}
+                            onChange={(e) => setBirthDate(e.target.value)}
+                            type="date"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label
+                            htmlFor="exampleInputEmail1"
+                            className="form-label font-weight-bold">
+                            Pekerjaan
+                          </label>
+                          <input
+                            value={pekerjaan}
+                            onChange={(e) => setPekerjaan(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukkan Pekerjaan"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label
+                            htmlFor="exampleInputEmail1"
+                            className="form-label font-weight-bold">
+                            Penghasilan
+                          </label>
+                          <input
+                            value={penghasilan}
+                            onChange={(e) => setPenghasilan(e.target.value)}
+                            type="number"
+                            className="form-control"
+                            placeholder="Masukkan Penghasilan"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label
+                            htmlFor="exampleInputEmail1"
+                            className="form-label font-weight-bold">
+                            No HP
+                          </label>
+                          <input
+                            value={nohp}
+                            onChange={(e) => setNoHp(e.target.value)}
+                            type="number"
+                            className="form-control"
+                            placeholder="Masukkan No Handphone"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Anak Asuh
+                          </label>
+                          <AsyncSelect
+                            cacheOptions
+                            defaultOptions
+                            loadOptions={fetchSantri}
+                            onChange={handleSantriChange}
+                            placeholder="Cari Anak Asuh..."
+                            noOptionsMessage={() => "Anak Asuh tidak ditemukan"}
+                          />
+                        </div>
                       </div>
-                      <div className="mb-3 col-lg-6">
-                        <label
-                          htmlFor="exampleInputEmail1"
-                          className="form-label font-weight-bold">
-                          Alamat
-                        </label>
-                        <input
-                          value={alamat}
-                          onChange={(e) => setAlamat(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          placeholder="Masukkan Alamat"
-                        />
-                      </div>
-                      <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">
-                          Tempat Lahir
-                        </label>
-                        <input
-                          value={birthPlace}
-                          onChange={(e) => setBirthPlace(e.target.value)}
-                          placeholder="Masukkan Nama Tempat Lahir"
-                          className="form-control"
-                        />
-                      </div>
-                      <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">
-                          Tanggal Lahir
-                        </label>
-                        <input
-                          value={birthDate}
-                          onChange={(e) => setBirthDate(e.target.value)}
-                          type="date"
-                          className="form-control"
-                        />
-                      </div>
-                      <div className="mb-3 col-lg-6">
-                        <label
-                          htmlFor="exampleInputEmail1"
-                          className="form-label font-weight-bold">
-                          Pekerjaan
-                        </label>
-                        <input
-                          value={pekerjaan}
-                          onChange={(e) => setPekerjaan(e.target.value)}
-                          type="text"
-                          className="form-control"
-                          placeholder="Masukkan Pekerjaan"
-                        />
-                      </div>
-                      <div className="mb-3 col-lg-6">
-                        <label
-                          htmlFor="exampleInputEmail1"
-                          className="form-label font-weight-bold">
-                          Penghasilan
-                        </label>
-                        <input
-                          value={penghasilan}
-                          onChange={(e) => setPenghasilan(e.target.value)}
-                          type="number"
-                          className="form-control"
-                          placeholder="Masukkan Penghasilan"
-                        />
-                      </div>
-                      <div className="mb-3 col-lg-6">
-                        <label
-                          htmlFor="exampleInputEmail1"
-                          className="form-label font-weight-bold">
-                          No HP
-                        </label>
-                        <input
-                          value={nohp}
-                          onChange={(e) => setNoHp(e.target.value)}
-                          type="number"
-                          className="form-control"
-                          placeholder="Masukkan No Handphone"
-                        />
-                      </div>
-                      <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">
-                          Anak Asuh
-                        </label>
-                        <AsyncSelect
-                          cacheOptions
-                          defaultOptions
-                          loadOptions={fetchSantri}
-                          onChange={handleSantriChange}
-                          placeholder="Cari Anak Asuh..."
-                          noOptionsMessage={() => "Anak Asuh tidak ditemukan"}
-                        />
-                      </div>
-                    </div>
-                    <button type="button" className="btn-danger mt-3 mr-3">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/admin_ortu_asuh">
-                        Batal
-                      </a>
-                    </button>
-                    <button type="submit" className="btn-primary mt-3">
-                      Submit
-                    </button>
-                  </form>
+                      <button type="button" className="btn-danger mt-3 mr-3">
+                        <a
+                          style={{ color: "white", textDecoration: "none" }}
+                          href="/admin_ortu_asuh">
+                          Batal
+                        </a>
+                      </button>
+                      <button type="submit" className="btn-primary mt-3">
+                        Submit
+                      </button>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>

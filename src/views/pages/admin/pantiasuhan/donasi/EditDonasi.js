@@ -135,8 +135,8 @@ function EditDonasi() {
       name: nama,
       url_image: imageUrl,
       description: deskripsi,
-      total_outcome: outcome,
-      total_income: income,
+      // total_outcome: outcome,
+      // total_income: income,
       // domain: domain,
       // id: +param.id,
       // organization_id: +localStorage.getItem("organization_id"),
@@ -334,16 +334,16 @@ function EditDonasi() {
                       <div className="row">
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
-                            Nama
+                            Nama Donasi
                           </label>
                           <input
                             value={nama}
                             onChange={(e) => setNama(e.target.value)}
-                            placeholder="Masukkan Nama"
+                            placeholder="Masukkan Nama Donasi"
                             className="form-control"
                           />
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        {/* <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Total Income
                           </label>
@@ -366,7 +366,7 @@ function EditDonasi() {
                             placeholder="Masukkan Total Outcome"
                             className="form-control"
                           />
-                        </div>
+                        </div> */}
                         {/* <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
                             Domain
@@ -381,7 +381,7 @@ function EditDonasi() {
                         </div> */}
                         <div className="mb-3 col-lg-12">
                           <label className="form-label  font-weight-bold ">
-                            Gambar
+                            Thumbnail
                           </label>
                           <input
                             type="file"
