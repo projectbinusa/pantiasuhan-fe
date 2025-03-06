@@ -56,7 +56,7 @@ function TahsinHarian() {
       const tgl = date2 || formatTanggal;
       console.log(tgl);
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/tahsin?page=${currentPage}&limit=${rowsPerPage}&date=${tgl}`,
+        `${API_DUMMY_SMART}/api/member/tahsin/rekap-daily/organization?page=${currentPage}&limit=${rowsPerPage}&date=${tgl}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -67,11 +67,18 @@ function TahsinHarian() {
       console.log("data: ", response.data.data);
       console.log("data: ", response.data.pagination);
       setPaginationInfo({
-        totalPages: response.data.pagination.total_page,
-        // totalElements: response.data.data.totalElements,
+        totalPages: response.data?.pagination?.total_page || 0,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Gagal mengambil data!",
+        text:
+          error.response?.data?.message ||
+          "Terjadi kesalahan saat mengambil data.",
+      });
     }
   };
 
@@ -117,7 +124,7 @@ function TahsinHarian() {
     setCurrentPage(1);
   };
 
-  const filteredList = list.filter((item) =>
+  const filteredList = (list || []).filter((item) =>
     Object.values(item).some(
       (value) =>
         typeof value === "string" &&
@@ -293,7 +300,7 @@ function TahsinHarian() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="5" className="text-center my-3">
+                      <td colSpan="8" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
