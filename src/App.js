@@ -277,6 +277,7 @@ import TahsinHarian from "./views/pages/admin/pantiasuhan/tahsin/TahsinHarian.js
 import TahsinMingguan from "./views/pages/admin/pantiasuhan/tahsin/TahsinMingguan.js";
 import TahsinAnakAsuh from "./views/pages/admin/pantiasuhan/tahsin/TahsinAnakAsuh.js";
 import AddBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/barang/AddBarangInventaris.js";
+import ProfilePublic from "./views/pagesekolah/ProfilePublic.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -557,6 +558,7 @@ function App() {
             />
             {/* END PANTI ASUHAN */}
             <Route path="/sambutan" component={sambutan} exact />
+            <Route path="/publicprofile" component={ProfilePublic} exact />
             <Route path="/visi-misi" component={VisiMisiSekolah} exact />
             <Route path="/sejarah" component={SejarahSekolah} exact />
             <Route path="/staff" component={TenagaKepndidkan} exact />

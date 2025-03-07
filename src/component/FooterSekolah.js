@@ -241,6 +241,11 @@ function FooterSekolah() {
                         </a>
                       </li>
                       <li>
+                        <a className="text-white" href="/publicprofile">
+                          Profile
+                        </a>
+                      </li>
+                      <li>
                         <a className="text-white" href="/presensipanti">
                           Presensi
                         </a>

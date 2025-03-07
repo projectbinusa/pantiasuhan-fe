@@ -73,16 +73,19 @@ function PublikDetailProgramPanti() {
       <div className="container" style={{ minHeight: "100vh" }}>
         <img
           src={
-            kegiatan?.foto && kegiatan.foto.trim() !== ""
-              ? kegiatan.foto
-              : "https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small_2x/user-profile-icon-free-vector.jpg"
+            kegiatan.foto ||
+            "https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png"
           }
+          alt="Foto Program"
+          onError={(e) => {
+            e.target.src =
+              "https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png";
+          }}
           style={{
-            width: "20%",
+            width: "100%",
             height: "200px",
             objectFit: "cover",
           }}
-          alt="Gambar Header"
         />
         <br /> <br />
         <h2 className="titlepanti">{kegiatan?.judul}</h2>
