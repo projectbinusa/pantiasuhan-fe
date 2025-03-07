@@ -57,7 +57,7 @@ function KontakPanti() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/pantiasuhan/api/kontak/` + id, {
+          .delete(`${API_DUMMY}/api/admin/kontak/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },

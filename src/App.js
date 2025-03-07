@@ -277,6 +277,9 @@ import TahsinHarian from "./views/pages/admin/pantiasuhan/tahsin/TahsinHarian.js
 import TahsinMingguan from "./views/pages/admin/pantiasuhan/tahsin/TahsinMingguan.js";
 import TahsinAnakAsuh from "./views/pages/admin/pantiasuhan/tahsin/TahsinAnakAsuh.js";
 import AddBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/barang/AddBarangInventaris.js";
+import Web from "./views/pages/admin/pantiasuhan/web/Web.js";
+import EditWeb from "./views/pages/admin/pantiasuhan/web/EditWeb.js";
+import SettingWeb from "./views/pages/admin/pantiasuhan/web/SettingWeb.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1367,6 +1370,17 @@ function App() {
             <PrivateRoute
               path="/profile/edit/:id"
               component={EditProfile}
+              exact
+            />
+            <PrivateRoute path="/web" component={Web} exact />
+            <PrivateRoute
+              path="/web/edit/:id"
+              component={EditWeb}
+              exact
+            />
+            <PrivateRoute
+              path="/seting_tampilan_web"
+              component={SettingWeb}
               exact
             />
             {/* GURU LEVEL */}
