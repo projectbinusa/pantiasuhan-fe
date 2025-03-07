@@ -452,7 +452,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       icon: <i class="fa-solid fa-angle-down"></i>,
     },
     {
-      header: "Inventaris",
+      header: "Inventaris1",
       items: [
         {
           title: "Laporan Investaris",
@@ -538,6 +538,15 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       path: "/lokasi_barang_inventaris",
       action: ["/edit_lokasi_barang_inventaris"],
     },
+  ];
+
+  const tampilanItems = [
+    {
+      title: "Web",
+      icon: "fa-solid fa-list",
+      path: "/web",
+      action: ["/add_web"],
+    }
   ];
 
   const menuItemsPengurus = [
@@ -647,6 +656,33 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                     <span>Inventaris</span>
                   </li>
                   {inventarisItems.map((data, index) => (
+                    <li
+                      key={index}
+                      className={`body-menu ${
+                        location.pathname === data.path ||
+                        data.action.includes(location.pathname)
+                          ? "bactive"
+                          : ""
+                      }`}
+                      ref={(el) => (inventarisRefs.current[index] = el)}
+                    >
+                      <NavLink to={data.path} style={{ background: "none" }}>
+                        <i
+                          className={`${data.icon} ${
+                            location.pathname === data.path ||
+                            data.action.includes(location.pathname)
+                              ? "active"
+                              : ""
+                          }`}
+                        ></i>
+                        <span>{data.title}</span>
+                      </NavLink>
+                    </li>
+                  ))}
+                  <li className="header-menu1">
+                    <span>Tampilan</span>
+                  </li>
+                  {tampilanItems.map((data, index) => (
                     <li
                       key={index}
                       className={`body-menu ${
