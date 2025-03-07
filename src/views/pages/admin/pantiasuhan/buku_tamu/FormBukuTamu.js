@@ -1,11 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import Swal from "sweetalert2";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 import pantiasuhan from "../../../../../aset/pantiasuhan/pantiasuhan.png";
 
@@ -14,14 +10,9 @@ function FormBukuTamu() {
   const [noWa, setNoWa] = useState("");
   const [alamat, setAlamat] = useState("");
   const [tujuan, setTujuan] = useState("");
-  const [image, setImage] = useState(null);
-  const [tanggal, setTanggal] = useState("");
-  const [catatan, setCatatan] = useState("");
-  const [organization, setOrganization] = useState([]);
-  const [organizationId, setOrganizationId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const [signature, setSignature] = useState(""); // State to store signature
-  const history = useHistory();
-  const param = useParams();
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
 
@@ -112,57 +103,10 @@ function FormBukuTamu() {
     setSignature(null);
   };
 
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const isFetching = useRef(false); // Gunakan useRef agar tidak memicu re-render
-
-  const fetchData = async (pageNum) => {
-    if (isFetching.current || !hasMore) return; // Mencegah pemanggilan ganda
-
-    isFetching.current = true; // Set fetching agar tidak double request
-    setIsLoading(true);
-
-    try {
-      const response = await axios.get(
-        `${API_DUMMY_SMART}/api/public/organization?page=${pageNum}`,
-        {
-          headers: {
-            "x-origin": window.location.hostname,
-          },
-        }
-      );
-
-      const newData = response.data.data;
-      const pagination = response.data.pagination;
-      const hasNextPage = pagination.page < pagination.total_page;
-
-      setOrganization((prev) => [...prev, ...newData]);
-      setHasMore(hasNextPage);
-
-      console.log("Fetched Page:", pageNum);
-      console.log("Next Page Exists:", hasNextPage);
-
-      if (hasNextPage) {
-        setPage(pageNum + 1);
-      }
-    } catch (error) {
-      console.error("Terjadi Kesalahan saat mengambil data:", error);
-    }
-
-    isFetching.current = false; // Reset fetching flag
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    fetchData(page); // Ambil data pertama kali
-  }, [page]);
-
   const add = async (e) => {
     e.preventDefault();
     e.persist();
-
+    setIsLoading(true);
     try {
       let imageUrl = signature;
       if (signature) {
@@ -175,11 +119,9 @@ function FormBukuTamu() {
           no_wa: convertToInternational(noWa),
           address: alamat,
           nama: nama,
-          // visit_date: tanggal,
           signature: imageUrl,
-          note: catatan,
+          note: tujuan,
           description_donation: tujuan,
-          // organization_id: organizationId,
         },
         {
           headers: {
@@ -196,9 +138,9 @@ function FormBukuTamu() {
         timer: 1500,
       });
 
-      // setTimeout(() => {
-      //   history.push("/");
-      // }, 1500);
+      setTimeout(() => {
+        window.location.reload()
+      }, 1500);
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -207,6 +149,8 @@ function FormBukuTamu() {
         timer: 1500,
       });
       console.log(error);
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -258,33 +202,6 @@ function FormBukuTamu() {
                   placeholder="Masukkan Alamat"
                   rows={4}></textarea>
               </div>
-              {/* <div className="mb-3 col-lg-12">
-                <label
-                  for="exampleInputEmail1"
-                  className="form-label font-weight-bold ">
-                  Panti Asuhan
-                </label>
-                <Select
-                  className="basic-single"
-                  classNamePrefix="select"
-                  options={organization.map((data) => ({
-                    value: data.id,
-                    label: data.name,
-                  }))}
-                  onChange={(e) => setOrganizationId(e.value)}
-                  isLoading={isLoading}
-                />
-              </div> */}
-              {/* <div className="mb-3 col-lg-12">
-                <label className="form-label font-weight-bold">
-                  Tanggal Kunjungan
-                </label>
-                <input
-                  type="date"
-                  onChange={(e) => setTanggal(e.target.value)}
-                  className="form-control"
-                />
-              </div> */}
               <div className="mb-3 col-lg-12">
                 <label className="form-label font-weight-bold">Tujuan</label>
                 <textarea
@@ -326,8 +243,8 @@ function FormBukuTamu() {
           <br /> <br />
         </div>
         <div className="fixed-donate-buttons">
-          <button type="button" onClick={add} className="btn-primary">
-            Kirim
+          <button type="button" onClick={add} className="btn-primary" disabled={isLoading}>
+            {isLoading ? <span className="loader"></span> : "Kirim"}
           </button>
         </div>
       </section>

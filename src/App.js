@@ -280,6 +280,8 @@ import AddBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/baran
 import Web from "./views/pages/admin/pantiasuhan/web/Web.js";
 import EditWeb from "./views/pages/admin/pantiasuhan/web/EditWeb.js";
 import SettingWeb from "./views/pages/admin/pantiasuhan/web/SettingWeb.js";
+import MessageData from "./views/pages/admin/pantiasuhan/blast/MessageData.js";
+import AddMessage from "./views/pages/admin/pantiasuhan/blast/AddMessage.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1383,6 +1385,12 @@ function App() {
               component={SettingWeb}
               exact
             />
+            <PrivateRoute
+              path="/message"
+              component={MessageData}
+              exact
+            />
+            <PrivateRoute path="/message/add" component={AddMessage} exact/>
             {/* GURU LEVEL */}
             <PrivateRoute
               path="/guru/tahsin"
