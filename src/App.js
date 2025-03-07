@@ -278,6 +278,11 @@ import TahsinMingguan from "./views/pages/admin/pantiasuhan/tahsin/TahsinMinggua
 import TahsinAnakAsuh from "./views/pages/admin/pantiasuhan/tahsin/TahsinAnakAsuh.js";
 import AddBarangInventaris from "./views/pages/admin/pantiasuhan/iventaris/barang/AddBarangInventaris.js";
 import ProfilePublic from "./views/pagesekolah/ProfilePublic.js";
+import Web from "./views/pages/admin/pantiasuhan/web/Web.js";
+import EditWeb from "./views/pages/admin/pantiasuhan/web/EditWeb.js";
+import SettingWeb from "./views/pages/admin/pantiasuhan/web/SettingWeb.js";
+import MessageData from "./views/pages/admin/pantiasuhan/blast/MessageData.js";
+import AddMessage from "./views/pages/admin/pantiasuhan/blast/AddMessage.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1371,6 +1376,23 @@ function App() {
               component={EditProfile}
               exact
             />
+            <PrivateRoute path="/web" component={Web} exact />
+            <PrivateRoute
+              path="/web/edit/:id"
+              component={EditWeb}
+              exact
+            />
+            <PrivateRoute
+              path="/seting_tampilan_web"
+              component={SettingWeb}
+              exact
+            />
+            <PrivateRoute
+              path="/message"
+              component={MessageData}
+              exact
+            />
+            <PrivateRoute path="/message/add" component={AddMessage} exact/>
             {/* GURU LEVEL */}
             <PrivateRoute
               path="/guru/tahsin"

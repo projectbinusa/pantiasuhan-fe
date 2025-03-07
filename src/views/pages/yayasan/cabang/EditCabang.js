@@ -271,7 +271,7 @@ function EditCabang() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/daftar-sambutan"
+                          href="/daftar-cabang"
                         >
                           Batal
                         </a>

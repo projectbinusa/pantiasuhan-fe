@@ -111,12 +111,12 @@ function FormCabangBaru() {
               );
               console.log(responseCustomer);
 
-              // const payloadDomain = { name: domain, organization_id: organizationId }
               const responseDomain = await axios.post(
                 `${API_DUMMY_SMART}/api/user/domain`,
-                { name: domain,
+                {
+                  name: domain,
                   organization_id: organizationId
-                 },
+                },
                 {
                   headers: {
                     "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -174,35 +174,6 @@ function FormCabangBaru() {
                 .catch((err) => {
                   console.log(err);
                 });
-              // try {
-              //   const res = await axios.put(`${API_DUMMY_SMART}/api/user/organization_ids/${userId}`, { organization_ids: `${organizationId}` }, {
-              //     headers: {
-              //       "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-              //     },
-              //   });
-              //   console.log(res);
-              //   const ress = await axios.post(`${API_DUMMY_SMART}/api/user/refresh_token`, {
-              //     headers: {
-              //       "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-              //     },
-              //   });
-              //   console.log(ress);
-
-              //   Swal.fire({
-              //     icon: "success",
-              //     title: "Data Berhasil Ditambahkan",
-              //     showConfirmButton: false,
-              //     timer: 1500,
-              //   });
-
-              //   console.log("Data yang diterima:", response.data);
-
-              //   // setTimeout(() => {
-              //   //   history.push("/daftar-cabang");
-              //   // }, 1500);
-              // } catch (err) {
-              //   console.error("Error respons:", err);
-              // }
             } catch (err) {
               console.error("Error respons:", err);
             }
@@ -229,9 +200,8 @@ function FormCabangBaru() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"

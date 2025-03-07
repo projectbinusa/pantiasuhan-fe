@@ -185,7 +185,7 @@ function ShiftPublik() {
                 <div className="d-flex ml-auto gap-3">
                   <input
                     type="search"
-                    className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
+                    className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
                     placeholder="Search..."
                     value={searchTerm}
                     onChange={handleSearchChange}

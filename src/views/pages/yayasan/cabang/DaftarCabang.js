@@ -360,7 +360,7 @@ function DaftarCabang() {
     }
   };
 
-  const deleteData = async (id) => {
+  const deleteData = async (id, organization_id) => {
     Swal.fire({
       title: "Apakah Anda Ingin Menghapus?",
       text: "Perubahan data tidak bisa dikembalikan!",
@@ -379,13 +379,41 @@ function DaftarCabang() {
             },
           })
           .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Dihapus!",
-              showConfirmButton: false,
-              timer: 1500,
+            axios.delete(`${API_DUMMY_SMART}/api/user/organization/${organization_id}`, {
+              headers: {
+                "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              },
+            }).then(() => {
+              axios.delete(`${API_DUMMY_SMART}/api/user/domain/${id}`, {
+                headers: {
+                  "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+                },
+              }).then(() => {
+                Swal.fire({
+                  icon: "success",
+                  title: "Dihapus!",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                getAll();
+              }).catch((err) => {
+                Swal.fire({
+                  icon: "error",
+                  title: "Hapus Data Gagal!",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                console.log(err);
+              });
+            }).catch((err) => {
+              Swal.fire({
+                icon: "error",
+                title: "Hapus Data Gagal!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              console.log(err);
             });
-            getAll();
           })
           .catch((err) => {
             Swal.fire({
@@ -512,6 +540,15 @@ function DaftarCabang() {
                   </select>
                 </div>
               </div>
+              <div className="d-flex ml-auto gap-3">
+                <input
+                  type="search"
+                  className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+              </div>
             </div>
             <div
               className="table-responsive-3"
@@ -582,7 +619,7 @@ function DaftarCabang() {
                           <button
                             type="button"
                             className="btn-danger btn-sm"
-                            onClick={() => deleteData(item.id)}
+                            onClick={() => deleteData(item.id, item.organization_id)}
                           >
                             <i className="fa-solid fa-trash"></i>
                           </button>

@@ -50,11 +50,12 @@ Version: 1.0.5
   --main-color2: #EE0020;
   --heading-color: #151423;
   --paragraph-color: #616161;
-  --body-font: "Rubik", sans-serif;
-  --heading-font: "Rajdhani", sans-serif;
+  /* --body-font: var(--custom-font), serif;
+  --heading-font: var(--custom-font), serif; */
   --body-font-size: 16px;
   --line-height30: 1.7;
 }
+
 a {
   text-decoration: none;
 }
@@ -64,7 +65,7 @@ html {
   -ms-text-size-adjust: 100%;
   overflow-x: hidden;
   /* font-family: var(--body-font); */
-  font-family: "Poppins", serif;
+  font-family: var(--custom-font), serif;
   font-weight: 100;
   font-style: normal;
 
@@ -74,15 +75,19 @@ html {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   outline: none;
-  -moz-osx-font-smoothing: grayscale;
-  /* Firefox */
-  -webkit-font-smoothing: antialiased;
-  /* WebKit  */
-  font-family: "Poppins", serif;
-  /* font-weight: 400; */
+  -moz-osx-font-smoothing: grayscale; /* Firefox */
+  -webkit-font-smoothing: antialiased; /* WebKit */
+  font-family: var(--custom-font), serif;
   font-style: normal;
   text-decoration: none;
 }
+
+/* Default font */
+:root {
+  --custom-font: "Poppins", serif;
+}
+
+
 
 h2 {
   font-family: "Poppins", serif;
@@ -97,7 +102,7 @@ body {
   font-size: var(--body-font-size);
   background: #fff;
   text-decoration: none;
-  font-family: "Poppins", serif;
+  font-family: var(--custom-font), serif;
   font-weight: 100;
   font-style: normal;
 
@@ -141,7 +146,7 @@ h5,
 h6 {
   color: var(--heading-color);
   font-weight: 600;
-  font-family: var(--heading-font);
+  font-family: var(--custom-font), serif;
 }
 
 p {
@@ -2132,7 +2137,7 @@ ul {
   color: var(--heading-color);
   font-weight: 600;
   font-size: 18px;
-  font-family: var(--heading-font);
+  font-family: var(--custom-font), serif;
 }
 
 .navbar-area .nav-container .navbar-collapse .navbar-nav li:hover a {
@@ -5137,7 +5142,7 @@ a {
   font-weight: 600;
   font-size: 16px;
   color: var(--heading-color);
-  font-family: var(--heading-font);
+  font-family: var(--custom-font), serif;
 }
 
 .progress-item .counting-icons {
@@ -5235,7 +5240,7 @@ a {
   top: -32px;
   font-weight: 600;
   color: var(--heading-color);
-  font-family: var(--heading-font);
+  font-family: var(--custom-font), serif;
 }
 
 .single-pricing-inner .header .price h2 {
@@ -5248,7 +5253,7 @@ a {
 .single-pricing-inner .header .price sub {
   font-size: 24px;
   font-weight: 600;
-  font-family: var(--heading-font);
+  font-family: var(--custom-font), serif;
   line-height: 1;
   position: absolute;
   bottom: 12px;
@@ -6672,11 +6677,13 @@ a {
   flex-direction: column;
   margin-bottom: 10px;
   border-bottom: 0;
-  height: 100%; /* Memastikan tinggi sama */
+  height: 100%;
+  /* Memastikan tinggi sama */
 }
 
 .single-blog-inner.style-3 .details {
-  flex-grow: 1; /* Memastikan bagian details mengisi ruang tersisa */
+  flex-grow: 1;
+  /* Memastikan bagian details mengisi ruang tersisa */
   display: flex;
   flex-direction: column;
   /* justify-content: space-between; Meratakan isi */
@@ -8020,7 +8027,7 @@ a {
   font-weight: 600;
   font-size: 18px;
   color: #fff;
-  font-family: var(--heading-font);
+  font-family: var(--custom-font), serif;
 }
 
 .navbar-area-5 .nav-container .navbar-collapse .navbar-nav li:hover a {
@@ -8045,7 +8052,7 @@ a {
   padding: 0 40px;
   font-weight: 600;
   font-size: 20px;
-  font-family: var(--heading-font);
+  font-family: var(--custom-font), serif;
 }
 
 .navbar-area-5 .nav-right-part-desktop {
@@ -8276,7 +8283,7 @@ a {
   font-weight: 400;
   font-size: 18px;
   line-height: 30px;
-  font-family: var(--heading-font);
+  font-family: var(--custom-font), serif;
   color: #777777;
   margin-bottom: 30px;
 }
@@ -8294,7 +8301,7 @@ a {
   font-weight: 400;
   font-size: 18px;
   line-height: 28px;
-  font-family: var(--heading-font);
+  font-family: var(--custom-font), serif;
   color: #777777;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -8943,10 +8950,11 @@ a {
 }
 
 .contents {
-  max-width: 300px; /* Batasan lebar default */
+  max-width: 300px;
+  /* Batasan lebar default */
   /* overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3; 
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   white-space: normal;
@@ -8988,4 +8996,19 @@ a {
   height: 400px;
   object-fit: cover;
   border-radius: 10px;
+}
+
+.loader {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

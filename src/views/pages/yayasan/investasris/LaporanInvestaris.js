@@ -50,7 +50,7 @@ function LaporanInventaris() {
       const { data, pagination } = response.data;
       setList(data);
       setPaginationInfo({
-        totalPages: Math.ceil(response.data.pagination / rowsPerPage),
+        totalPages: pagination.total_pages,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -210,7 +210,7 @@ function LaporanInventaris() {
                 page={currentPage}
                 onChange={(event, value) => {
                   setCurrentPage(value);
-                  setPage(value);
+                  // setPage(value);
                 }}
                 showFirstButton
                 showLastButton
