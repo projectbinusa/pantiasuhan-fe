@@ -26,14 +26,24 @@ const AddGalery = () => {
     try {
       let imageUrl = foto;
 
-      if (foto) {
-        imageUrl = await uploadImageToS3(foto);
+      // Jalankan upload gambar dan request API secara bersamaan
+      const uploadPromise = foto
+        ? uploadImageToS3(foto)
+        : Promise.resolve(null);
+
+      // Mulai proses upload gambar terlebih dahulu
+      const [uploadedImageUrl] = await Promise.all([uploadPromise]);
+
+      if (uploadedImageUrl) {
+        imageUrl = uploadedImageUrl;
       }
+
+      // Kirim data ke API
       const response = await axios.post(
         `${API_DUMMY}/api/admin/galery`,
         {
-          judul: judul,
-          deskripsi: deskripsi,
+          judul,
+          deskripsi,
           foto: imageUrl,
         },
         {
@@ -50,25 +60,23 @@ const AddGalery = () => {
           icon: "success",
           title: "Data Berhasil Ditambahkan",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1000, // Percepat timer
         });
 
-        // Redirect setelah berhasil
+        // Redirect lebih cepat
         setTimeout(() => {
           history.push("/admin_galeri");
-        }, 1500);
+        }, 1000);
       } else {
-        // Handle respons lain dengan pesan error
         Swal.fire({
           icon: "error",
           title: "Tambah Data Gagal!",
-          text: response.data.message, // Tambahkan pesan error dari respons
+          text: response.data.message,
           showConfirmButton: false,
           timer: 1500,
         });
       }
     } catch (error) {
-      // Handle error, terutama untuk masalah autentikasi
       if (error.response && error.response.status === 401) {
         localStorage.clear();
         history.push("/login");
@@ -76,11 +84,11 @@ const AddGalery = () => {
         Swal.fire({
           icon: "error",
           title: "Tambah Data Gagal!",
-          text: error.message, // Tambahkan pesan error dari error
+          text: error.message,
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(error); // Log error untuk debugging
+        console.log(error);
       }
     }
   };
@@ -154,7 +162,8 @@ const AddGalery = () => {
                         <label className="form-label font-weight-bold">
                           Deskripsi
                         </label>
-                        <textarea rows={4}
+                        <textarea
+                          rows={4}
                           value={deskripsi}
                           onChange={(e) => setDeskripsi(e.target.value)}
                           className="form-control"

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  API_DUMMY,
-  API_DUMMY_SMART,
-} from "../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
@@ -168,9 +165,40 @@ function DataShift() {
     return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00`; // Add seconds (00)
   };
 
+  const detectBrowser = () => {
+    const userAgent = navigator.userAgent;
+    if (userAgent.includes("Chrome") && !userAgent.includes("Edg")) {
+      return "chrome";
+    } else if (userAgent.includes("Edg")) {
+      return "edge";
+    } else if (userAgent.includes("Firefox")) {
+      return "firefox";
+    }
+    return "other";
+  };
+
   const handleWaktuMasukChange = (e) => {
-    const formattedTime = formatTime(e.target.value);
-    setWaktuMasuk(formattedTime);
+    const waktuMasuk = e.target.value;
+    setWaktuMasuk(waktuMasuk);
+
+    const browser = detectBrowser();
+
+    // Set durasi shift berdasarkan browser
+    let shiftDuration = 24; // Default 24 jam
+    if (browser === "chrome") {
+      shiftDuration = 12;
+    }
+
+    // Hitung waktu pulang
+    const [hours, minutes] = waktuMasuk.split(":");
+    let waktuPulangJam = parseInt(hours) + shiftDuration;
+    if (waktuPulangJam >= 24) {
+      waktuPulangJam = waktuPulangJam % 24; // Jika lebih dari 24, reset ke jam 0
+    }
+    const waktuPulang = `${waktuPulangJam
+      .toString()
+      .padStart(2, "0")}:${minutes}`;
+    setWaktuPulang(waktuPulang);
   };
 
   const handleWaktuPulangChange = (e) => {
@@ -250,8 +278,9 @@ function DataShift() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -490,6 +519,7 @@ function DataShift() {
                       type="time"
                       required
                       placeholder="Masukkan Waktu Pulang"
+                      value={waktuPulang}
                       onChange={handleWaktuPulangChange}
                     />
                   </div>
@@ -508,20 +538,18 @@ function DataShift() {
                     />
                   </div>
                   <div className="mb-3 col-lg-12">
-                          <label className="form-label font-weight-bold">
-                            Level
-                          </label>
-                          <select
-                            className="form-control"
-                            value={level}
-                            onChange={(e) => setLevel(e.target.value)}
-                          >
-                            <option>Pilih</option>
-                            <option value="santri">Santri</option>
-                            <option value="pengurus">Pengurus</option>
-                            <option value="guru">Guru</option>
-                          </select>
-                        </div>
+                    <label className="form-label font-weight-bold">Level</label>
+                    <select
+                      className="form-control"
+                      value={level}
+                      onChange={(e) => setLevel(e.target.value)}
+                    >
+                      <option>Pilih</option>
+                      <option value="santri">Santri</option>
+                      <option value="pengurus">Pengurus</option>
+                      <option value="guru">Guru</option>
+                    </select>
+                  </div>
                   <div style={{ display: "flex", gap: "1rem" }}>
                     <button onClick={closeModal} className="btn-danger ">
                       TUTUP
