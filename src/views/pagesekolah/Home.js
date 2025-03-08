@@ -565,6 +565,7 @@ function Home() {
     }
   };
 
+  // GET FASILITAS
   const [list, setList] = useState([]);
   const getAllfasilitas = async () => {
     try {
@@ -586,6 +587,30 @@ function Home() {
       //   totalPages: pagination?.total_page || 1,
       //   totalElements: pagination?.total || 0,
       // });`
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+    }
+  };
+
+  // GET PENGURUS
+  const [listp, setListp] = useState([]);
+  const getAllPengurus = async () => {
+    try {
+      const pengurusResponse = await axios.get(
+        `${API_DUMMY_SMART}/api/customer/member&level=pengurus`,
+        {
+          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+        }
+      );
+
+      const guruResponse = await axios.get(
+        `${API_DUMMY_SMART}/api/customer/member&level=guru`,
+        {
+          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
+        }
+      );
+
+      setListp([...pengurusResponse.data.data, ...guruResponse.data.data]);
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
     }
@@ -619,6 +644,7 @@ function Home() {
     getAllGalery();
     getAllDonasi();
     getAllfasilitas();
+    getAllPengurus();
   }, []);
 
   return (
@@ -1375,6 +1401,105 @@ function Home() {
         </div>
       </div>
 
+      {/* Pengurus */}
+      <div class=" team-area pd-top-115 pd-bottom-90">
+        {/* <img
+          class="shape-left-top top_image_bounce"
+          src="https://solverwp.com/demo/html/itechie/assets/img/shape/3.webp"
+          alt="img"
+        />
+        <img
+          class="shape-right-top top_image_bounce"
+          src="https://solverwp.com/demo/html/itechie/assets/img/shape/4.webp"
+          alt="img"
+        /> */}
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <div class="section-title text-center" data-aos="fade-down">
+                {/* <h5 class="sub-title double-line">Santri Panti</h5> */}
+                <h2 class="title">Pengurus Panti</h2>
+                {/* <p class="content">
+                  Dcidunt eget semper nec quam. Sed hendrerit. acfelis Nunc
+                  egestas augue atpellentesque laoreet
+                </p> */}
+              </div>
+            </div>
+          </div>
+          <div class="row" data-aos="fade-up">
+            <div
+              className="grid-container"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                gap: "20px",
+              }}
+            >
+              {listp.map((member, index) => (
+                <div
+                  className="card"
+                  key={index}
+                  style={{
+                    backgroundColor: "#fff",
+                    borderRadius: "15px",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                    overflow: "hidden",
+                    transition: "transform 0.3s, box-shadow 0.3s",
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = "scale(1.05)";
+                    e.currentTarget.style.boxShadow =
+                      "0 8px 16px rgba(0, 0, 0, 0.2)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 8px rgba(0, 0, 0, 0.1)";
+                  }}
+                >
+                  <div style={{ padding: "20px" }}>
+                    <h4
+                      style={{
+                        fontSize: "1.5rem",
+                        fontWeight: "bold",
+                        color: "#004080",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      {member.name}
+                    </h4>
+                    <p
+                      style={{
+                        fontSize: "0.9rem",
+                        color: "#555",
+                        marginBottom: "5px",
+                      }}
+                    >
+                      No HP: {member.hp}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* {siswa.map((data) => (
+              <div class="col-lg-3 col-md-6">
+                <div class="single-team-inner style-1 text-center">
+                  <div class="thumb">
+                    <img src={data.picture} alt="img" />
+                  </div>
+                  <div class="details-wrap">
+                    <div class="details-inner">
+                      <h4>{data.name}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))} */}
+          </div>
+        </div>
+      </div>
+
       {/* Berita */}
       <div
         id="berita"
@@ -1900,7 +2025,7 @@ function Home() {
                 {/* <h5 class="sub-title double-border">Work Process</h5> */}
                 <h2 class="title text-black">Fasilitas</h2>
                 <p class="content text-black">
-                  Panti asuhan memiliki fasilitas yang mumpuni 
+                  Panti asuhan memiliki fasilitas yang mumpuni
                 </p>
               </div>
             </div>
