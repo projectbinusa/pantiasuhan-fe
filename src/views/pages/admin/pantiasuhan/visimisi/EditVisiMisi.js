@@ -435,7 +435,7 @@ function EditVisiMisiPanti() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Tujuan
+                            Motto
                           </label>
                           <CKEditor
                             editor={ClassicEditor}

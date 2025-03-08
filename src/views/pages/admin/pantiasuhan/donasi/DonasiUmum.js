@@ -8,6 +8,7 @@ import image1 from "../../../../../aset/images.png";
 import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import Navbar from "../../../../../component/Navbar";
 import { formatRupiah } from "../../../../../utils/formating";
+import FooterSekolah from "../../../../../component/FooterSekolah";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -332,6 +333,7 @@ function DonasiUmum() {
           {!hasMore && <p>Tidak ada data lagi.</p>} */}
         </div>
       </div>
+      <FooterSekolah />
       {/* <div
         className="container"
         style={{

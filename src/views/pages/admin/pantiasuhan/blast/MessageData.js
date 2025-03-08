@@ -79,6 +79,42 @@ function MessageData() {
     });
   };
 
+  console.log(localStorage.getItem("tokenpython"));
+
+  const blastData = async (id) => {
+    Swal.fire({
+      title: "Apakah Anda Ingin Mengirim?",
+      text: "Pesan akan segera dikirim dan tidak bisa dibatalkan!",
+      icon: "warning",
+      showCancelButton: true, 
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Kirim",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(`${API_DUMMY_SMART}/api/customer/blast/${id}/blast`, {}, {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          })
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Terkirim!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          });
+      }
+    });
+  };
+
   useEffect(() => {
     getAll(currentPage);
   }, [currentPage, rowsPerPage]);
@@ -158,9 +194,8 @@ function MessageData() {
   };
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -255,21 +290,25 @@ function MessageData() {
                 </thead>
                 <tbody>
                   {filteredList.length > 0 ? (
-                    filteredList.map((berita, no) => {
+                    filteredList.map((data, no) => {
                       return (
                         <tr key={no}>
                           <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Redaksi Teks" className="text-md-start text-end">{berita.author}</td>
-                          <td data-label="Penerima" className="text-md-start text-end">
-                            {berita.category}
+                          <td data-label="Redaksi Teks" className="text-md-start text-end contents">
+                            <p className="content-isi"> {data.redaksi}
+                            </p></td>
+                          <td data-label="Penerima" className="text-md-start text-end contents">
+                            <p className="content-isi">
+                              {data.receivers.join(", ")}
+                            </p>
                           </td>
                           <td data-label="Aksi" className="action">
-                            <div className="d-flex justify-content-center align-items-center">
+                            <div className="d-flex justify-content-center align-items-center gap-2">
                               <button
                                 type="button"
-                                className="btn-primary btn-sm mr-2"
+                                className="btn-primary btn-sm"
                                 style={{ height: "100%" }}
                               >
                                 <a
@@ -277,24 +316,31 @@ function MessageData() {
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/admin_berita/edit/${berita.id}`}
+                                  href={`/message/edit/${data.id}`}
                                 >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
                               </button>
                               <button
                                 type="button"
-                                className="btn-warning mr-2 btn-sm"
+                                className="btn-warning btn-sm"
                               >
                                 <a
                                   className="text-light"
-                                  href={"/admin_berita/detail/" + berita.id}
+                                  href={"/message/detail/" + data.id}
                                 >
                                   <i className="fas fa-info-circle"></i>
                                 </a>
                               </button>
                               <button
-                                onClick={() => deleteData(berita.id)}
+                                onClick={() => blastData(data.id)}
+                                type="button"
+                                className="btn-info btn-sm"
+                              >
+                                <i className="fa-solid fa-paper-plane"></i>
+                              </button>
+                              <button
+                                onClick={() => deleteData(data.id)}
                                 type="button"
                                 className="btn-danger btn-sm"
                               >

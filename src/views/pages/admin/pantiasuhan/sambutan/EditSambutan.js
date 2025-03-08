@@ -73,6 +73,7 @@ function EditSambutanPanti() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const param = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
@@ -102,6 +103,7 @@ function EditSambutanPanti() {
   const update = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
 
     try {
       let imageUrl;
@@ -167,6 +169,8 @@ function EditSambutanPanti() {
         });
         console.log(error); // Log error untuk debugging
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -373,7 +377,7 @@ function EditSambutanPanti() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            NIY
+                            NBM
                           </label>
                           <input
                             value={nip}
@@ -381,7 +385,7 @@ function EditSambutanPanti() {
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan NIY"
+                            placeholder="Masukkan NBM"
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
@@ -472,8 +476,8 @@ function EditSambutanPanti() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

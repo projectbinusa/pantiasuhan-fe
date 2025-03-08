@@ -869,6 +869,37 @@ function Home() {
                     />
                   </div>
                 </div>
+                <div class="accordion-item single-accordion-inner">
+                  <h2 class="accordion-header" id="headingThree">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseThree"
+                      aria-expanded="false"
+                      aria-controls="collapseThree"
+                    >
+                      Motto
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseThree"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="headingThree"
+                    data-bs-parent="#accordionExample"
+                  >
+                    <div
+                      class="accordion-body"
+                      style={{
+                        fontSize: "1rem",
+                        marginBottom: "15px",
+                      }}
+                      dangerouslySetInnerHTML={{
+                        __html: visiPanti?.tujuan,
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

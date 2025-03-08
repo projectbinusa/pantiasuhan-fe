@@ -190,7 +190,7 @@ function DetailVisiPanti() {
                   />
                 </div>
                 <div class="mb-3">
-                  <label class="form-label fw-bold">Tujuan</label>
+                  <label class="form-label fw-bold">Motto</label>
                   <div
                     className="form-control"
                     style={{ height: "auto", background: "#e9ecef" }}

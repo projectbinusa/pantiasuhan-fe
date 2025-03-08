@@ -58,21 +58,24 @@ function PublikDetailBeritaPanti() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
+        const response = await fetch(
           `${API_DUMMY_SMART}/api/public/berita/${param.id}`,
           {
+            method: "GET",
             headers: {
-              // "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-              ORIGIN: window.location.hostname,
-              // "ORIGIN": "https://staging.mccsemarang.com",
+              "x-origin": window.location.origin,
+              "origin": window.location.origin,
             },
           }
         );
-        const resp = response.data.berita;
-        setBerita(resp);
-        console.log(resp);
+
+        if (!response.ok) throw new Error("Request gagal!");
+
+        const data = await response.json();
+        console.log(data);
+        setBerita(response.data)
       } catch (error) {
-        console.error("Terjadi Kesalahan", error);
+        console.error("Terjadi Kesalahan:", error);
       }
     };
 
@@ -245,7 +248,7 @@ function PublikDetailBeritaPanti() {
         <div className="container" style={{ minHeight: "100vh" }}>
           <img
             src={
-              berita?.image !== ""
+              berita?.image !== "" || berita?.image !== null
                 ? berita?.image
                 : "https://via.placeholder.com/500x350"
             }
@@ -363,7 +366,7 @@ function PublikDetailBeritaPanti() {
                 {komentars.length > 0 ? (
                   komentars.map((item, idx) => (
                     <div key={idx}>
-                      <h6>{item?.id}</h6>
+                      <h6>{item?.name}</h6>
                       <p>{item?.description}</p>
                       <hr />
                     </div>
@@ -373,7 +376,8 @@ function PublikDetailBeritaPanti() {
                 )}
 
                 {isLoading && <p>Loading...</p>}
-              </div>            </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

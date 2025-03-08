@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useState } from "react";
@@ -89,6 +89,8 @@ function AddMessage() {
     setReceivers(receivers.filter((_, i) => i !== index));
   };
 
+  const memoizedRedaksi = useMemo(() => redaksi, [redaksi]);
+
   //add
   const add = async (e) => {
     e.preventDefault();
@@ -99,7 +101,7 @@ function AddMessage() {
         `${API_DUMMY_SMART}/api/customer/blast`,
         {
           receivers: receivers,
-          redaksi: receivers,
+          redaksi: memoizedRedaksi,
         },
         {
           headers: {
@@ -310,7 +312,7 @@ function AddMessage() {
                       </label>
                       <div>
                         {receivers.map((data, index) => (
-                          <div key={index} className="d-flex align-items-center gap-5 p-2 rounded mb-2">
+                          <div key={index} className="d-flex align-items-center justify-content-between p-2 rounded mb-2">
                             <p className="m-0 font-weight-bold">{data}</p>
                             <button onClick={() => handleRemoveReceiver(index)} className="btn-danger btn-sm">
                               <i className="fa-solid fa-trash"></i>
@@ -326,8 +328,16 @@ function AddMessage() {
                           className="form-control"
                           placeholder="Masukkan No Whatsapp Penerima"
                         />
-                        <button onClick={handleAddReceiver} className="btn-primary"><i class="fa-solid fa-plus"></i></button>
+                        <button onClick={handleAddReceiver} className="btn-primary btn-sm p-2"><i class="fa-solid fa-plus"></i></button>
                       </div>
+                    </div>
+                    <div className="mb-3 col-lg-12">
+                      <label className="form-label font-weight-bold">
+                        Redaksi Text
+                      </label>
+                      <textarea rows={6} onChange={(e) => setRedaksi(e.target.value)} className="form-control"
+                        required
+                        placeholder="Masukkan Redaksi Teks"></textarea>
                     </div>
                     {/* <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
