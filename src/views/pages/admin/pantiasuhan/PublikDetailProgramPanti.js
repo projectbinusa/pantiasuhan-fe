@@ -71,20 +71,26 @@ function PublikDetailProgramPanti() {
       <Navbar /> <br /> <br /> <br /> <br /> <br /> <br />
       <div className="container">
         <img
+          key={kegiatan?.foto}
           src={
-            kegiatan?.foto ||
+            kegiatan?.foto?.trim() ||
             "https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png"
           }
-          alt="Foto Program"
           onError={(e) => {
-            e.target.src =
-              "https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png";
+            if (
+              e.target.src !==
+              "https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png"
+            ) {
+              e.target.src =
+                "https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png";
+            }
           }}
           style={{
             width: "100%",
-            height: "200px",
+            height: "350px",
             objectFit: "cover",
           }}
+          alt="Foto Header"
         />
         <br /> <br />
         <h2 className="titlepanti">{kegiatan?.judul}</h2>
