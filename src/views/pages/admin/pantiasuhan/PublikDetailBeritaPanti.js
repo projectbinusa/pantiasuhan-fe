@@ -58,21 +58,14 @@ function PublikDetailBeritaPanti() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${API_DUMMY_SMART}/api/public/berita/${param.id}`,
-          {
-            headers: {
-              // "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-              "x-origin": window.location.hostname,
-            },
-          }
-        );
-
-        if (!response.ok) throw new Error("Request gagal!");
-
-        const data = await response.json();
-        console.log(data);
-        setBerita(response.data);
+        await axios
+          .get(`${API_DUMMY_SMART}/api/public/berita/${param.id}`)
+          .then((ress) => {
+            setBerita(ress.data.data);
+            console.log("data: ", ress.data.data);
+          });
+        // if (!response.ok) throw new Error("Request gagal!");
+        // const data = await response.json();
       } catch (error) {
         console.error("Terjadi Kesalahan:", error);
       }
