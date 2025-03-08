@@ -73,6 +73,7 @@ function EditKegiatanPanti() {
   const history = useHistory();
   const param = useParams();
   const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
@@ -125,6 +126,7 @@ function EditKegiatanPanti() {
   const update = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
 
     try {
       let imageUrl;
@@ -191,6 +193,8 @@ function EditKegiatanPanti() {
         });
         console.log(error); // Log error untuk debugging
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -669,8 +673,8 @@ function EditKegiatanPanti() {
                     Batal
                   </a>
                 </button>
-                <button type="submit" className="btn-primary mt-3">
-                  Submit
+                <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                  {isLoading ? <span className="loader"></span> : "Kirim"}
                 </button>
               </form>
             </div>

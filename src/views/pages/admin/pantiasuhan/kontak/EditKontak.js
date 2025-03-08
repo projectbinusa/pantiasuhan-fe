@@ -16,6 +16,7 @@ function EditKontakPanti() {
   const [phone, setPhone] = useState("");
   const history = useHistory();
   const param = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
@@ -47,14 +48,14 @@ function EditKontakPanti() {
       fax: fax,
       organization_id: +localStorage.getItem("organization_id")
     }
-
-    await axios
-      .put(`${API_DUMMY}/api/admin/kontak/` + param.id, data, {
+    try {
+      const res = await axios.put(`${API_DUMMY}/api/admin/kontak/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
-      .then(() => {
+
+      if (res.data.code === 200) {
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Data Kontak",
@@ -64,21 +65,30 @@ function EditKontakPanti() {
         setTimeout(() => {
           history.push("/admin_kontak");
         }, 1500);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log(error);
-        }
-      });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      if (error.ressponse && error.response.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error);
+      }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
+    }
   };
 
   useEffect(() => {
@@ -185,8 +195,8 @@ function EditKontakPanti() {
                         Batal
                       </a>
                     </button>
-                    <button type="submit" className="btn-primary mt-3">
-                      Submit
+                    <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                      {isLoading ? <span className="loader"></span> : "Kirim"}
                     </button>
                   </form>
                 </div>

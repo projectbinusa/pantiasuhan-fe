@@ -26,6 +26,7 @@ function EditPengurus() {
   const [parent_id, setParentId] = useState(0);
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const history = useHistory();
   const param = useParams();
@@ -97,6 +98,7 @@ function EditPengurus() {
       education: education,
       gender: gender,
     };
+    setIsLoading(true);
 
     try {
       // Make the PUT request
@@ -150,6 +152,8 @@ function EditPengurus() {
           timer: 1500,
         });
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -179,9 +183,8 @@ function EditPengurus() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -359,8 +362,8 @@ function EditPengurus() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

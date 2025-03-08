@@ -77,6 +77,7 @@ function EditDonasiTrx() {
   const param = useParams();
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [file, setFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -149,6 +150,7 @@ function EditDonasiTrx() {
   const put = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
 
     try {
       let imageUrl;
@@ -197,6 +199,8 @@ function EditDonasiTrx() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -362,9 +366,8 @@ function EditDonasiTrx() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -674,8 +677,8 @@ function EditDonasiTrx() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

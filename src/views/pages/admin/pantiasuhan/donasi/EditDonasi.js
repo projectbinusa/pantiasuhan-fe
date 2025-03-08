@@ -74,6 +74,7 @@ function EditDonasi() {
   const history = useHistory();
   const param = useParams();
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -124,6 +125,8 @@ function EditDonasi() {
   const put = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
+
     let imageUrl;
 
     if (image) {
@@ -178,6 +181,8 @@ function EditDonasi() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -641,8 +646,8 @@ function EditDonasi() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                      {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

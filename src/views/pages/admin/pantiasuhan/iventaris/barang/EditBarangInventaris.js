@@ -30,6 +30,7 @@ function EditBarangInventaris() {
   const [kondisi, setKondisi] = useState([]);
   const [lokasi, setLokasi] = useState([]);
   const [status, setStatus] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -147,6 +148,7 @@ function EditBarangInventaris() {
   //add
   const put = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       await axios.put(
@@ -190,6 +192,8 @@ function EditBarangInventaris() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -360,8 +364,8 @@ function EditBarangInventaris() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

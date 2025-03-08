@@ -17,6 +17,7 @@ function EditKondisiBarang() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [kondisi, setKondisi] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
@@ -55,6 +56,7 @@ function EditKondisiBarang() {
   //add
   const put = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       await axios.put(
@@ -91,6 +93,8 @@ function EditKondisiBarang() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -150,8 +154,8 @@ function EditKondisiBarang() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

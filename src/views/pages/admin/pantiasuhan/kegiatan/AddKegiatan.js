@@ -71,6 +71,7 @@ function AddKegiatanPanti() {
   const history = useHistory();
   const [list, setList] = useState([]);
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -91,6 +92,7 @@ function AddKegiatanPanti() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
 
     try {
       let imageUrl = foto;
@@ -154,6 +156,8 @@ function AddKegiatanPanti() {
         });
         console.log(error); // Log error untuk debugging
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -286,9 +290,8 @@ function AddKegiatanPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -319,7 +322,7 @@ function AddKegiatanPanti() {
                             onChange={(e) => setJudul(e.target.value)}
                             type="text"
                             className="form-control"
-                            placeholder="Masukkan Nama Program"
+                            placeholder="Masukkan Nama Program" required
                           />
                         </div>
                         {/* <div className="mb-3 col-lg-12">
@@ -612,7 +615,7 @@ function AddKegiatanPanti() {
                             onChange={(e) => setPenulis(e.target.value)}
                             type="text"
                             className="form-control"
-                            placeholder="Masukkan Nama Penulis Program"
+                            placeholder="Masukkan Nama Penulis Program" required
                           />
                         </div>
                         <div className="mb-3 col-lg-12">
@@ -624,7 +627,7 @@ function AddKegiatanPanti() {
                             onChange={(e) => setTanggal(e.target.value)}
                             type="date"
                             className="form-control"
-                            placeholder="Masukkan Tanggal Program Dimulai"
+                            placeholder="Masukkan Tanggal Program Dimulai" required
                           />
                         </div>
                       </div>
@@ -636,8 +639,8 @@ function AddKegiatanPanti() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

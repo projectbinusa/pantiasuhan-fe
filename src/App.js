@@ -285,6 +285,7 @@ import MessageData from "./views/pages/admin/pantiasuhan/blast/MessageData.js";
 import AddMessage from "./views/pages/admin/pantiasuhan/blast/AddMessage.js";
 import EditMessage from "./views/pages/admin/pantiasuhan/blast/EditMessage.js";
 import DetailMessage from "./views/pages/admin/pantiasuhan/blast/DetailMessage.js";
+import AdminKomentarBerita from "./views/pages/admin/pantiasuhan/berita/KomentarBerita.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1397,6 +1398,7 @@ function App() {
             <PrivateRoute path="/message/add" component={AddMessage} exact/>
             <PrivateRoute path="/message/detail/:id" component={DetailMessage} exact/>
             <PrivateRoute path="/message/edit/:id" component={EditMessage} exact/>
+            <PrivateRoute path="/admin_berita/comment/:id" component={AdminKomentarBerita} exact/>
             {/* GURU LEVEL */}
             <PrivateRoute
               path="/guru/tahsin"

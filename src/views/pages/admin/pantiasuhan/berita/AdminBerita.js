@@ -308,6 +308,21 @@ function AdminBeritaPanti() {
                               </button>
                               <button
                                 type="button"
+                                className="btn-info btn-sm mr-2"
+                                style={{ height: "100%" }}
+                              >
+                                <a
+                                  style={{
+                                    color: "white",
+                                    textDecoration: "none",
+                                  }}
+                                  href={`/admin_berita/comment/${berita.id}`}
+                                >
+                                  <i className="fa-solid fa-comment"></i>
+                                </a>
+                              </button>
+                              <button
+                                type="button"
                                 className="btn-warning mr-2 btn-sm"
                               >
                                 <a

@@ -67,6 +67,7 @@ function EditMessage() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const param = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
@@ -101,6 +102,7 @@ function EditMessage() {
 
   const updateData = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       await axios.put(
@@ -138,6 +140,8 @@ function EditMessage() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -231,8 +235,8 @@ function EditMessage() {
                       Batal
                     </a>
                   </button>
-                  <button onClick={updateData} className="btn-primary mt-3">
-                    Submit
+                  <button onClick={updateData} className="btn-primary mt-3" disabled={isLoading}>
+                    {isLoading ? <span className="loader"></span> : "Kirim"}
                   </button>
                 </div>
               </div>

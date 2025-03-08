@@ -7,32 +7,23 @@ import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
 function DetailMessage() {
-  const [judulBerita, setJudulBerita] = useState("");
-  const [createdDate, setCreatedDate] = useState("");
-  const [updateDate, setUpdateDate] = useState("");
-  const [author, setAuthor] = useState("");
-  const [isiBerita, setIsiBerita] = useState("");
-  const [categoryBerita, setCategoryBerita] = useState("");
-  const [image, setImage] = useState("");
+  const [redaksi, setRedaksi] = useState("");
+  const [receivers, setReceivers] = useState([]);
   const param = useParams();
 
   // get by id berita
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_SMART}/api/customer/berita/` + param.id, {
+      .get(`${API_DUMMY_SMART}/api/customer/blast/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((res) => {
         const list_data = res.data.data;
-        setCreatedDate(list_data.created_date);
-        setUpdateDate(list_data.updated_date);
-        setJudulBerita(list_data.judul_berita);
-        setAuthor(list_data.author);
-        setIsiBerita(list_data.isi_berita);
-        setImage(list_data.image);
-        setCategoryBerita(list_data.category);
+        console.log(list_data);
+        setRedaksi(list_data?.redaksi);
+        setReceivers(list_data?.receivers)
       })
       .catch((error) => {
         alert("Terjadi Kesalahan " + error);
@@ -59,9 +50,8 @@ function DetailMessage() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -78,82 +68,33 @@ function DetailMessage() {
       >
         <div className="container box-tabel">
           <div className="card shadow w-100">
-            <h1 className="title card-header fw-bold fs-3">Detail</h1>
+            <h1 className="title card-header fw-bold fs-3">Detail Pesan</h1>
             <br />
             <div className="card-body">
-              {image === null ? (
-                <img
-                  className="rounded-circle w-75 mr-auto ml-auto d-block"
-                  src="https://via.placeholder.com/500x400"
-                />
-              ) : (
-                <img
-                  style={{ width: "100%", maxHeight: "400px" }}
-                  className="w-75 d-block mr-auto ml-auto"
-                  src={image}
-                />
-              )}
-              <br />
-              <br />
               <div className="row">
                 <div className="mb-3 col-lg-12">
                   <label className="form-label font-weight-bold">
-                    Judul Berita
+                    Redaksi Teks
                   </label>
-                  <input
-                    value={judulBerita}
-                    disabled
-                    type="text"
-                    className="form-control"
-                    placeholder="Masukkan Judul Berita"
-                  />
+                  <textarea value={redaksi} rows={6} className="form-control" disabled></textarea>
                 </div>
                 <div className="mb-3 col-lg-12">
                   <label className="form-label font-weight-bold">
-                    Kategori Berita
+                    No Whatsapp Penerima
                   </label>
-                  <input
-                    value={categoryBerita}
-                    type="text"
-                    disabled
-                    className="form-control"
-                    placeholder="Masukkan Kategori Berita"
-                  />
-                </div>
-                <div className="mb-3 col-lg-12">
-                  <label
-                    for="exampleInputEmail1"
-                    className="form-label  font-weight-bold "
-                  >
-                    Penulis Berita
-                  </label>
-                  <input
-                    value={author}
-                    disabled
-                    type="disabled"
-                    className="form-control"
-                    placeholder="Masukkan Penulis Berita"
-                  />
-                </div>
-                <div className="mb-3 col-lg-12">
-                  <label className="form-label font-weight-bold">
-                    Isi Berita
-                  </label>
-                  <div
-                    style={{
-                      background: "#E9EFEC",
-                      borderRadius: "8px",
-                      padding: "4px",
-                      paddingLeft: "5px",
-                    }}
-                    dangerouslySetInnerHTML={{ __html: isiBerita }}
-                  />
+                  <div>
+                    {receivers.map((data, index) => (
+                      <div key={index} className="d-flex align-items-center justify-content-between p-2 rounded mb-2">
+                        <p className="m-0 font-weight-bold">{data}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
             <button type="button" className="btn-kembali btn-danger mt-3 px-0">
               <a
-                href="/admin_berita"
+                href="/message"
                 style={{ color: "white", textDecoration: "none" }}
               >
                 Kembali

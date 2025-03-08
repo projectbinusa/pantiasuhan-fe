@@ -18,6 +18,7 @@ function EditStokBarang() {
   const [stok, setStok] = useState("");
   const [idBarang, setIdBarang] = useState("");
   const [barang, setBarang] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,6 +76,7 @@ function EditStokBarang() {
   //add
   const put = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       await axios.put(
@@ -111,6 +113,8 @@ function EditStokBarang() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -165,7 +169,7 @@ function EditStokBarang() {
                             Stok
                           </label>
                           <input placeholder="Masukkan Stok Barang" className="form-control" value={stok}
-                            onChange={(e) => setStok(e.target.value)}/>
+                            onChange={(e) => setStok(e.target.value)} />
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
@@ -175,8 +179,8 @@ function EditStokBarang() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

@@ -70,6 +70,7 @@ function EditDanaKeluar() {
   const [image, setImage] = useState(null);
   const [idDonasi, setIdDonasi] = useState("");
   const [donasi, setDonasi] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const history = useHistory();
   const param = useParams();
@@ -113,6 +114,7 @@ function EditDanaKeluar() {
   const put = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
 
     try {
       let imageUrl = image;
@@ -159,6 +161,8 @@ function EditDanaKeluar() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -317,9 +321,8 @@ function EditDanaKeluar() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -641,8 +644,8 @@ function EditDanaKeluar() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

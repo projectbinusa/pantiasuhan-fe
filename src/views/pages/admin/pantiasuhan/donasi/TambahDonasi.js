@@ -70,6 +70,7 @@ function TambahDonasi() {
   const [jenisPemasukan, setJenisPemasukan] = useState("");
   const [jenisDonasi, setJenisDonasi] = useState("");
   const [kategoriDonatur, setKategoriDonatur] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -91,6 +92,8 @@ function TambahDonasi() {
   //add
   const add = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
     try {
       let imageUrl = image;
       if (image) {
@@ -136,6 +139,8 @@ function TambahDonasi() {
         });
         console.error(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -611,8 +616,8 @@ function TambahDonasi() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

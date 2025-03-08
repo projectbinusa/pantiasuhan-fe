@@ -15,6 +15,7 @@ function AddKontakPanti() {
   const [phone, setPhone] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   //add
   const add = async (e) => {
@@ -30,6 +31,8 @@ function AddKontakPanti() {
       organization_id: organization_id
     };
     console.log(data);
+
+    setIsLoading(true);
 
     try {
       await axios.post(`${API_DUMMY}/api/admin/kontak`, data, {
@@ -60,6 +63,8 @@ function AddKontakPanti() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -173,8 +178,8 @@ function AddKontakPanti() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

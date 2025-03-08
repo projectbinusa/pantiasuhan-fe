@@ -15,6 +15,7 @@ const AddGalery = () => {
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const history = useHistory();
   const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     AOS.init();
@@ -22,6 +23,7 @@ const AddGalery = () => {
 
   const add = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       let imageUrl = foto;
@@ -90,6 +92,8 @@ const AddGalery = () => {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -111,9 +115,8 @@ const AddGalery = () => {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <button
         id="show-sidebar"
@@ -172,15 +175,16 @@ const AddGalery = () => {
                         ></textarea>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      className="btn btn-danger mt-3 mr-3"
-                      onClick={() => history("/admin-galery")}
-                    >
-                      Batal
+                    <button type="button" className="btn-danger mt-3 mr-3">
+                      <a
+                        href="/admin_galeri"
+                        style={{ color: "white", textDecoration: "none" }}
+                      >
+                        Batal
+                      </a>
                     </button>
-                    <button type="submit" className="btn btn-primary mt-3">
-                      Submit
+                    <button type="submit" className="btn btn-primary mt-3" disabled={isLoading}>
+                      {isLoading ? <span className="loader"></span> : "Kirim"}
                     </button>
                   </form>
                 </div>

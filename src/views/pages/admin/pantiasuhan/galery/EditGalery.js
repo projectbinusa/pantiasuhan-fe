@@ -19,6 +19,7 @@ function EditGalery() {
   const [show, setShow] = useState("");
   const param = useParams();
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -60,6 +61,7 @@ function EditGalery() {
   const update = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
 
     try {
       let imageUrl;
@@ -122,6 +124,8 @@ function EditGalery() {
         });
         console.log(error); // Log error untuk debugging
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -131,9 +135,8 @@ function EditGalery() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -207,8 +210,8 @@ function EditGalery() {
                     Batal
                   </a>
                 </button>
-                <button type="submit" className="btn-primary mt-3">
-                  Simpan
+                <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                  {isLoading ? <span className="loader"></span> : "Kirim"}
                 </button>
               </form>
             </div>
