@@ -9,7 +9,7 @@ import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
-function DetailSAmbutanPanti() {
+function  DetailSAmbutanPanti() {
   const [judulSambutan, setJudulSambutan] = useState("");
   const [createdDate, setCreatedDate] = useState("");
   const [updateDate, setUpdateDate] = useState("");
@@ -208,7 +208,7 @@ function DetailSAmbutanPanti() {
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label fw-bold">NIY</label>
+                  <label className="form-label fw-bold">NBM</label>
                   <input
                     type="text"
                     className="form-control"
