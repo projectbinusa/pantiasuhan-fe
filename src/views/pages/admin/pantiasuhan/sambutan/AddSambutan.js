@@ -70,11 +70,13 @@ function AddSambutanPanti() {
   const [nama, setNama] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   //add
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
 
     try {
       let imageUrl = foto;
@@ -137,6 +139,8 @@ function AddSambutanPanti() {
         });
         console.log(error); // Log error untuk debugging
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -347,7 +351,7 @@ function AddSambutanPanti() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            NIY
+                            NBM
                           </label>
                           <input
                             value={nip}
@@ -355,7 +359,7 @@ function AddSambutanPanti() {
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan NIY"
+                            placeholder="Masukkan NBM"
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
@@ -672,8 +676,8 @@ function AddSambutanPanti() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

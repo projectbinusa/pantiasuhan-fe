@@ -370,12 +370,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           path: "/daftar-cabang",
           action: [""],
         },
-        {
-          title: "Buat Cabang Baru",
-          icon: "fa-solid fa-plus",
-          path: "/form-cabang-baru",
-          action: [""],
-        },
+        // {
+        //   title: "Buat Cabang Baru",
+        //   icon: "fa-solid fa-plus",
+        //   path: "/form-cabang-baru",
+        //   action: [""],
+        // },
       ],
       icon: <i class="fa-solid fa-angle-down"></i>,
     },

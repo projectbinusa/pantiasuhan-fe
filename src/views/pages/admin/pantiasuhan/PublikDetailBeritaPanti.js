@@ -58,21 +58,16 @@ function PublikDetailBeritaPanti() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${API_DUMMY_SMART}/api/public/berita/${param.id}`,
-          {
-            headers: {
-              // "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-              ORIGIN: window.location.hostname,
-              // "ORIGIN": "https://staging.mccsemarang.com",
-            },
-          }
-        );
-        const resp = response.data.berita;
-        setBerita(resp);
-        console.log(resp);
+        await axios
+          .get(`${API_DUMMY_SMART}/api/public/berita/${param.id}`)
+          .then((ress) => {
+            setBerita(ress.data.data);
+            console.log("data: ", ress.data.data);
+          });
+        // if (!response.ok) throw new Error("Request gagal!");
+        // const data = await response.json();
       } catch (error) {
-        console.error("Terjadi Kesalahan", error);
+        console.error("Terjadi Kesalahan:", error);
       }
     };
 
@@ -117,7 +112,7 @@ function PublikDetailBeritaPanti() {
         `${API_DUMMY_SMART}/api/public/komentar/berita/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
-            "x-origin": window.location.origin
+            "x-origin": window.location.origin,
           },
         }
       );
@@ -159,7 +154,11 @@ function PublikDetailBeritaPanti() {
     if (!komentarRef.current) return;
     const { scrollTop, scrollHeight, clientHeight } = komentarRef.current;
 
-    if (scrollTop + clientHeight >= scrollHeight - 50 && hasMore && !isLoading) {
+    if (
+      scrollTop + clientHeight >= scrollHeight - 50 &&
+      hasMore &&
+      !isLoading
+    ) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -207,7 +206,7 @@ function PublikDetailBeritaPanti() {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.reload()
+        window.location.reload();
       }, 1500);
       console.log("Komentar yang dikirim:", komentar);
       setKomentar("");
@@ -245,7 +244,7 @@ function PublikDetailBeritaPanti() {
         <div className="container" style={{ minHeight: "100vh" }}>
           <img
             src={
-              berita?.image !== ""
+              berita?.image !== "" || berita?.image !== null
                 ? berita?.image
                 : "https://via.placeholder.com/500x350"
             }
@@ -344,11 +343,15 @@ function PublikDetailBeritaPanti() {
               </div>
               <br />
               {error && <p style={{ color: "red" }}>{error}</p>}
-              <button className="btn-primary mt-2" onClick={handleSubmitKomentar}>
+              <button
+                className="btn-primary mt-2"
+                onClick={handleSubmitKomentar}>
                 Kirim Komentar
               </button>
             </div>
-            <div style={{ marginTop: "20px", marginBottom: "20px" }} className="col-lg-8 col-md-12">
+            <div
+              style={{ marginTop: "20px", marginBottom: "20px" }}
+              className="col-lg-8 col-md-12">
               <h3>Komentar</h3>
               <div
                 ref={komentarRef}
@@ -363,7 +366,7 @@ function PublikDetailBeritaPanti() {
                 {komentars.length > 0 ? (
                   komentars.map((item, idx) => (
                     <div key={idx}>
-                      <h6>{item?.id}</h6>
+                      <h6>{item?.name}</h6>
                       <p>{item?.description}</p>
                       <hr />
                     </div>
@@ -373,7 +376,8 @@ function PublikDetailBeritaPanti() {
                 )}
 
                 {isLoading && <p>Loading...</p>}
-              </div>            </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

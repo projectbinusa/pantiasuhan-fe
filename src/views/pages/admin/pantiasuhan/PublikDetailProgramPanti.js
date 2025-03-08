@@ -51,8 +51,7 @@ function PublikDetailProgramPanti() {
           `${API_DUMMY}/api/public/kegiatan/${param.id}`,
           {
             headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-              "x-origin": window.location.hostname,
+              "x-origin": window.location.origin,
             },
           }
         );
@@ -70,7 +69,7 @@ function PublikDetailProgramPanti() {
   return (
     <div style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
       <Navbar /> <br /> <br /> <br /> <br /> <br /> <br />
-      <div className="container" style={{ minHeight: "100vh" }}>
+      <div className="container">
         <img
           key={kegiatan?.foto}
           src={
