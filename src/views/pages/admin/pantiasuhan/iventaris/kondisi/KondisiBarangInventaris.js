@@ -19,6 +19,7 @@ function KondisiBarangInventaris() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -153,6 +154,7 @@ function KondisiBarangInventaris() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
 
     const data = {
       organization_id: +localStorage.getItem("organization_id"),
@@ -190,14 +192,15 @@ function KondisiBarangInventaris() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -312,31 +315,31 @@ function KondisiBarangInventaris() {
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
-                            {userRole !== "yayasan" && (
-                              <>
-                             <button
-                                type="button"
-                                className="btn-primary btn-sm mr-2"
-                              >
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/edit_kondisi_barang_inventaris/${row.id}`}
-                                >
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
-                              </button>
-                              <button
-                                onClick={() => deleteData(row.id)}
-                                type="button"
-                                className="btn-danger btn-sm"
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                              </>
-                               )}
+                              {userRole !== "yayasan" && (
+                                <>
+                                  <button
+                                    type="button"
+                                    className="btn-primary btn-sm mr-2"
+                                  >
+                                    <a
+                                      style={{
+                                        color: "white",
+                                        textDecoration: "none",
+                                      }}
+                                      href={`/edit_kondisi_barang_inventaris/${row.id}`}
+                                    >
+                                      <i className="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                  </button>
+                                  <button
+                                    onClick={() => deleteData(row.id)}
+                                    type="button"
+                                    className="btn-danger btn-sm"
+                                  >
+                                    <i className="fa-solid fa-trash"></i>
+                                  </button>
+                                </>
+                              )}
                             </div>
                           </td>
                         </tr>
@@ -409,8 +412,8 @@ function KondisiBarangInventaris() {
                     <button onClick={closeModal} className="btn-danger ">
                       TUTUP
                     </button>
-                    <button type="submit" className="btn-primary">
-                      SIMPAN
+                    <button type="submit" className="btn-primary" disabled={isLoading}>
+                      {isLoading ? <span className="loader"></span> : "SIMPAN"}
                     </button>
                   </div>
                 </div>

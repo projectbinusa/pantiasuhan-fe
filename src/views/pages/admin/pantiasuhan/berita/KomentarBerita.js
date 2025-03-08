@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../../utils/base_URL";
+import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import { Box, Modal, Pagination } from "@mui/material";
-import SidebarPantiAdmin from "../../../../../../component/SidebarPantiAdmin";
-import "../../../../../../css/button.css";
+import "../../../../../css/button.css";
+// import news from "../../../../../aset/smpn1bergas/News-rafiki.png";
 
-function KategoriBarangInventaris() {
+import { Box, Modal, Pagination } from "@mui/material";
+import Sidebar1 from "../../../../../component/Sidebar1";
+import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+
+function AdminKomentarBerita() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,39 +22,25 @@ function KategoriBarangInventaris() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
-  const [sidebarToggled, setSidebarToggled] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const toggleSidebar = () => {
-    setSidebarToggled(!sidebarToggled);
-  };
-
-  const handleResize = () => {
-    if (window.innerWidth < 800) {
-      setSidebarToggled(false);
-    }
-  };
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const history = useHistory();
+  const param = useParams();
 
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/admin/kategori_barang`,
+        `${API_DUMMY_SMART}/api/customer/komentar/berita/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
-      setList(response.data.data);
-      console.log(response.data.data);
+      const { data, pagination } = response.data;
+      console.log(response);
+      setList(data); // Set the list of news articles
       setPaginationInfo({
-        totalPages: response.data.pagination.total_page,
+        totalPages: pagination.total_page || 1,
+        totalElements: pagination.total || 0,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -69,7 +60,7 @@ function KategoriBarangInventaris() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY}/api/admin/kategori_barang/` + id, {
+          .delete(`${API_DUMMY_SMART}/api/customer/berita/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -81,19 +72,11 @@ function KategoriBarangInventaris() {
               showConfirmButton: false,
               timer: 1500,
             });
-            getAll();
+
             setTimeout(() => {
+              history.push("/admin_berita");
               window.location.reload();
             }, 1500);
-          })
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Hapus Data Gagal!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            console.log(err);
           });
       }
     });
@@ -114,7 +97,7 @@ function KategoriBarangInventaris() {
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
+    // setPage(0);
     setCurrentPage(1);
   };
 
@@ -126,76 +109,56 @@ function KategoriBarangInventaris() {
     )
   );
 
+  console.log(filteredList);
+
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
+
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarToggled(!sidebarToggled);
+  };
+
+  const handleResize = () => {
+    if (window.innerWidth < 800) {
+      setSidebarToggled(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 500,
+    width: "90%", // Persentase untuk fleksibilitas
+    maxWidth: "800px",
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 3,
     borderRadius: "10px",
     backgroundColor: "#f5f5f5",
+    overflowY: "auto",
+    maxHeight: "90vh",
+    textAlign: "center", // Menempatkan konten di tengah
   };
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imageSrc, setImageSrc] = useState(""); // Untuk menyimpan URL gambar
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  // ADD
-  const [kategori, setKategori] = useState("");
-  const [deskripsi, setDeskripsi] = useState("");
-
-  const add = async (e) => {
-    e.preventDefault();
-    e.persist();
-    setIsLoading(true);
-
-    const data = {
-      nama_kategori: kategori,
-      deskripsi: deskripsi,
-      organization_id: localStorage.getItem("organization_id"),
-    };
-    console.log(data);
-
-    try {
-      await axios.post(`${API_DUMMY}/api/admin/kategori_barang`, data, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      });
-      Swal.fire({
-        icon: "success",
-        title: "Data Berhasil DiTambahkan",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setIsModalOpen(false);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
-    } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
-        localStorage.clear();
-      } else {
-        setIsModalOpen(false);
-        Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log(error);
-      }
-    } finally {
-      setIsLoading(false); // Matikan loading setelah selesai
-    }
+  const openModal = (image) => {
+    setImageSrc(image); // Simpan URL gambar
+    setIsModalOpen(true); // Buka modal
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false); // Tutup modal
+    setImageSrc(""); // Reset URL gambar
+  };
   return (
     <div
       className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
@@ -242,7 +205,7 @@ function KategoriBarangInventaris() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Kategori Barang</p>
+              <p className="mt-3">Komentar Berita</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -262,21 +225,11 @@ function KategoriBarangInventaris() {
               <div className="d-flex ml-auto gap-3">
                 <input
                   type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
+                  className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
                   placeholder="Search..."
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-                <div className="btn-actions-pane-right">
-                  <div role="group" className="btn-group-sm btn-group">
-                    <button
-                      className="active btn-focus p-2 rounded"
-                      onClick={openModal}
-                    >
-                      Tambah
-                    </button>
-                  </div>
-                </div>
               </div>
             </div>
             <div
@@ -286,50 +239,53 @@ function KategoriBarangInventaris() {
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th>Nama Kategori</th>
-                    <th scope="col">Deskripsi</th>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Komentar</th>
+                    <th>Balas Komentar</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredList.length > 0 ? (
-                    filteredList.map((row, no) => {
+                    filteredList.map((berita, no) => {
                       return (
                         <tr key={no}>
                           <td data-label="No" className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td
-                            className="text-md-start text-end"
-                            data-label="Nama Kategori"
+                            data-label="Judul"
+                            className="text-md-start text-end "
                           >
-                            {row.nama_kategori}
+                            <p className="content-isi">{berita.judul_berita}</p>
                           </td>
-                          <td
-                            className="text-md-start text-end"
-                            data-label="Deskripsi"
-                          >
-                            {row.deskripsi}
+                          <td data-label="Penulis" className="text-md-start text-end">{berita.author}</td>
+                          <td data-label="Kategori" className="text-md-start text-end">
+                            {berita.category}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
+                                onClick={() => deleteData(berita.id)}
                                 type="button"
-                                className="btn-primary btn-sm mr-2"
+                                className="btn-info btn-sm"
+                              >
+                                <i className="fa-solid fa-comments"></i>
+                              </button>
+                              <button
+                                type="button"
+                                className="btn-warning mr-2 btn-sm"
                               >
                                 <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/edit_kategori_barang_inventaris/${row.id}`}
+                                  className="text-light"
+                                  href={"/admin_berita/detail/" + berita.id}
                                 >
-                                  <i className="fa-solid fa-pen-to-square"></i>
+                                  <i className="fas fa-info-circle"></i>
                                 </a>
                               </button>
                               <button
-                                onClick={() => deleteData(row.id)}
+                                onClick={() => deleteData(berita.id)}
                                 type="button"
                                 className="btn-danger btn-sm"
                               >
@@ -342,7 +298,7 @@ function KategoriBarangInventaris() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="4" className="text-center my-3">
+                      <td colSpan="5" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
@@ -366,59 +322,48 @@ function KategoriBarangInventaris() {
               />
             </div>
           </div>
-          <Modal
-            open={isModalOpen}
-            onClose={closeModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <form onSubmit={add}>
-                <div className="row">
-                  <div className="mb-3 col-lg-12">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label  font-weight-bold "
-                    >
-                      Kategori
-                    </label>
-                    <input
-                      onChange={(e) => setKategori(e.target.value)}
-                      type="text"
-                      className="form-control"
-                      placeholder="Masukkan Kategori"
-                    />
-                  </div>
-                  <div className="mb-3 col-lg-12">
-                    <label
-                      for="exampleInputEmail1"
-                      className="form-label font-weight-bold "
-                    >
-                      Deskripsi
-                    </label>
-                    <textarea
-                      rows={3}
-                      onChange={(e) => setDeskripsi(e.target.value)}
-                      className="form-control"
-                      placeholder="Masukkan Deskripsi"
-                    ></textarea>
-                  </div>
-                  <div style={{ display: "flex", gap: "1rem" }}>
-                    <button onClick={closeModal} className="btn-danger ">
-                      TUTUP
-                    </button>
-                    <button type="submit" className="btn-primary" disabled={isLoading}>
-                      {isLoading ? <span className="loader"></span> : "SIMPAN"}
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </Box>
-          </Modal>
         </div>
       </div>
+      <Modal
+        open={isModalOpen}
+        onClose={closeModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <button
+            onClick={closeModal}
+            style={{
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              background: "transparent",
+              border: "none",
+              fontSize: "20px",
+              cursor: "pointer",
+              color: "black",
+            }}
+            aria-label="Close"
+          >
+            ✖
+          </button>{" "}
+          <br />
+          {/* Gambar */}
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              alt="Preview"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "70vh",
+                borderRadius: "8px",
+              }}
+            />
+          )}
+        </Box>
+      </Modal>
     </div>
   );
 }
 
-export default KategoriBarangInventaris;
+export default AdminKomentarBerita;

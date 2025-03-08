@@ -17,6 +17,7 @@ function EditStatusBarang() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [deskripsi, setDeskripsi] = useState("");
   const [namaStatus, setNamaStatus] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
@@ -54,6 +55,7 @@ function EditStatusBarang() {
   //add
   const put = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       await axios.put(
@@ -90,6 +92,8 @@ function EditStatusBarang() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 

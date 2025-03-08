@@ -70,6 +70,7 @@ function TambahDonasiTrx() {
   const [donasi, setDonasi] = useState([]);
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -154,6 +155,7 @@ function TambahDonasiTrx() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setLoading(true);
 
     try {
       let imageUrl = image;
@@ -201,6 +203,8 @@ function TambahDonasiTrx() {
         });
         console.log(error);
       }
+    } finally {
+      setLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -716,8 +720,8 @@ function TambahDonasiTrx() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={loading}>
+                        {loading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

@@ -66,6 +66,7 @@ function AddMessage() {
   const [redaksi, setRedaksi] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const newReceiver = e.target.value;
@@ -95,6 +96,7 @@ function AddMessage() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
 
     try {
       await axios.post(
@@ -132,6 +134,8 @@ function AddMessage() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -581,8 +585,8 @@ function AddMessage() {
                       Batal
                     </a>
                   </button>
-                  <button onClick={add} className="btn-primary mt-3">
-                    Submit
+                  <button onClick={add} className="btn-primary mt-3" disabled={isLoading}>
+                    {isLoading ? <span className="loader"></span> : "Kirim"}
                   </button>
                 </div>
               </div>

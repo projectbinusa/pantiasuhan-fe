@@ -27,6 +27,7 @@ function AddPengurus() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [level, setLevel] = useState("");
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,6 +90,7 @@ function AddPengurus() {
     e.preventDefault();
 
     // if (!validateForm()) return;
+    setIsLoading(true);
 
     try {
       let imageUrl = foto;
@@ -164,14 +166,15 @@ function AddPengurus() {
         showConfirmButton: false,
         timer: 1500,
       });
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -368,8 +371,8 @@ function AddPengurus() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

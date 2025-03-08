@@ -67,6 +67,7 @@ function AddVisiMisiPanti() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -88,6 +89,7 @@ function AddVisiMisiPanti() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
 
     try {
       const data = {
@@ -123,6 +125,8 @@ function AddVisiMisiPanti() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -483,8 +487,8 @@ function AddVisiMisiPanti() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

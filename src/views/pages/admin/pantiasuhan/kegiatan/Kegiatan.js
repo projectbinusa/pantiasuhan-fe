@@ -50,13 +50,15 @@ function KegiatanPanti() {
       setList(response.data.data);
       console.log(response.data);
       setPaginationInfo({
-        totalPages: Math.ceil(response.data.pagination.total/rowsPerPage),
+        totalPages: Math.ceil(response.data.pagination.total / rowsPerPage),
         totalElements: response.data.pagination.total,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
     }
   };
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -68,35 +70,36 @@ function KegiatanPanti() {
       cancelButtonColor: "#d33",
       confirmButtonText: "Hapus",
       cancelButtonText: "Batal",
-    }).then((result) => {
+    }).then(async (result) => { // Ubah ini jadi async function
       if (result.isConfirmed) {
-        axios
-          .delete(`${API_DUMMY}/api/admin/kegiatan/` + id, {
+        setIsLoading(true);
+
+        try {
+          const res = await axios.delete(`${API_DUMMY}/api/admin/kegiatan/${id}`, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
-          })
-          .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Dihapus!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            getAll();
-            setTimeout(() => {
-              window.location.reload();
-            }, 1500);
-          })
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Hapus Data Gagal!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            console.log(err);
           });
+
+          Swal.fire({
+            icon: "success",
+            title: "Dihapus!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          await getAll(); // Tunggu fetch ulang agar data langsung update
+        } catch (err) {
+          Swal.fire({
+            icon: "error",
+            title: "Hapus Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          console.log(err);
+        } finally {
+          setIsLoading(false); // Matikan loading setelah selesai
+        }
       }
     });
   };
@@ -131,9 +134,8 @@ function KegiatanPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -282,7 +284,7 @@ function KegiatanPanti() {
                                   <button
                                     onClick={() => deleteData(kegiatan.id)}
                                     type="button"
-                                    className="btn-danger btn-sm"
+                                    className="btn-danger btn-sm" disabled={isLoading}
                                   >
                                     <i className="fa-solid fa-trash"></i>
                                   </button>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import FooterSekolah from "../../../../component/FooterSekolah";
 import Navbar from "../../../../component/Navbar";
 import axios from "axios";
@@ -101,7 +101,70 @@ function PublikDetailBeritaPanti() {
   const [rowsPerPage] = useState(5);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const komentarRef = useRef(null); // Referensi ke div scrollable
+  // const komentarRef = useRef(null); // Referensi ke div scrollable
+
+  // const getAll = async () => {
+  //   if (isLoading || !hasMore) return;
+
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY_SMART}/api/public/komentar/berita/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
+  //       {
+  //         headers: {
+  //           "x-origin": window.location.origin,
+  //         },
+  //       }
+  //     );
+
+  //     const { data, pagination } = response.data;
+  //     console.log(response.data);
+
+  //     if (data && pagination) {
+  //       // Tambahkan data baru ke daftar yang sudah ada tanpa duplikat
+  //       setKomentars((prevList) => {
+  //         const uniqueData = data.filter(
+  //           (item) => !prevList.some((prevItem) => prevItem.id === item.id) // Hindari data dengan ID yang sama
+  //         );
+  //         return [...prevList, ...uniqueData];
+  //       });
+
+  //       setHasMore(currentPage < pagination); // Periksa apakah masih ada halaman berikutnya
+  //     } else {
+  //       console.error("Data atau pagination tidak ditemukan dalam response.");
+  //       setHasMore(false);
+  //     }
+  //   } catch (error) {
+  //     console.error("Terjadi kesalahan:", error.response || error.message);
+  //     Swal.fire(
+  //       "Error!",
+  //       error.response?.data?.message || "Gagal memuat data.",
+  //       "error"
+  //     );
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getAll();
+  // }, [currentPage]);
+
+  // const handleScroll = () => {
+  //   if (!komentarRef.current) return;
+  //   const { scrollTop, scrollHeight, clientHeight } = komentarRef.current;
+
+  //   if (
+  //     scrollTop + clientHeight >= scrollHeight - 50 &&
+  //     hasMore &&
+  //     !isLoading
+  //   ) {
+  //     setCurrentPage((prevPage) => prevPage + 1);
+  //   }
+  // };
+
+  const observer = useRef(null);
+  const lastKomentarRef = useRef(null); // Referensi untuk elemen terakhir
 
   const getAll = async () => {
     if (isLoading || !hasMore) return;
@@ -109,7 +172,7 @@ function PublikDetailBeritaPanti() {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/public/komentar/berita/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/public/komentar/berita/${param.id}?page=${currentPage}&limit=5&id_berita=${param.id}`, // Sesuaikan limit
         {
           headers: {
             "x-origin": window.location.origin,
@@ -118,29 +181,23 @@ function PublikDetailBeritaPanti() {
       );
 
       const { data, pagination } = response.data;
-      console.log(response.data);
+      console.log(data);
+      console.log(pagination.total_page);
 
-      if (data && pagination) {
-        // Tambahkan data baru ke daftar yang sudah ada tanpa duplikat
+      if (data) {
         setKomentars((prevList) => {
           const uniqueData = data.filter(
-            (item) => !prevList.some((prevItem) => prevItem.id === item.id) // Hindari data dengan ID yang sama
+            (item) => !prevList.some((prevItem) => prevItem.id === item.id)
           );
           return [...prevList, ...uniqueData];
         });
 
-        setHasMore(currentPage < pagination); // Periksa apakah masih ada halaman berikutnya
+        setHasMore(currentPage < pagination.total_page); // Sesuaikan dengan struktur pagination
       } else {
-        console.error("Data atau pagination tidak ditemukan dalam response.");
         setHasMore(false);
       }
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
-      Swal.fire(
-        "Error!",
-        error.response?.data?.message || "Gagal memuat data.",
-        "error"
-      );
     } finally {
       setIsLoading(false);
     }
@@ -150,18 +207,25 @@ function PublikDetailBeritaPanti() {
     getAll();
   }, [currentPage]);
 
-  const handleScroll = () => {
-    if (!komentarRef.current) return;
-    const { scrollTop, scrollHeight, clientHeight } = komentarRef.current;
+  // Fungsi untuk menangani infinite scroll dengan Intersection Observer
+  const lastKomentarCallback = useCallback(
+    (node) => {
+      if (isLoading) return;
+      if (observer.current) observer.current.disconnect();
 
-    if (
-      scrollTop + clientHeight >= scrollHeight - 50 &&
-      hasMore &&
-      !isLoading
-    ) {
-      setCurrentPage((prevPage) => prevPage + 1);
-    }
-  };
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasMore) {
+            setCurrentPage((prevPage) => prevPage + 1);
+          }
+        },
+        { threshold: 1.0 }
+      );
+
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, hasMore]
+  );
 
   const [verificationCode, setVerificationCode] = useState("");
   const [userCode, setUserCode] = useState("");
@@ -349,7 +413,32 @@ function PublikDetailBeritaPanti() {
                 Kirim Komentar
               </button>
             </div>
-            <div
+            <div style={{ marginTop: "20px", marginBottom: "20px" }} className="col-lg-8 col-md-12">
+              <h3>Komentar</h3>
+              <div
+                style={{
+                  backgroundColor: "white",
+                  padding: "1rem",
+                  maxHeight: "400px",
+                  overflowY: "auto",
+                }}
+              >
+                {komentars.length > 0 ? (
+                  komentars.map((item, idx) => (
+                    <div key={item.id} ref={idx === komentars.length - 1 ? lastKomentarCallback : null}>
+                      <h6>{item?.id_berita}</h6>
+                      <p>{item?.description}</p>
+                      <hr />
+                    </div>
+                  ))
+                ) : (
+                  <p>Tidak ada komentar.</p>
+                )}
+
+                {isLoading && <p>Loading...</p>}
+              </div>
+            </div>
+            {/* <div
               style={{ marginTop: "20px", marginBottom: "20px" }}
               className="col-lg-8 col-md-12">
               <h3>Komentar</h3>
@@ -377,8 +466,9 @@ function PublikDetailBeritaPanti() {
 
                 {isLoading && <p>Loading...</p>}
               </div>
-            </div>
+            </div> */}
           </div>
+          <br />
         </div>
       </div>
       <style>

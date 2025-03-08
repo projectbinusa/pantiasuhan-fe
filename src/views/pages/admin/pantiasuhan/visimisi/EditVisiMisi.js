@@ -70,6 +70,7 @@ function EditVisiMisiPanti() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const param = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
@@ -98,14 +99,13 @@ function EditVisiMisiPanti() {
       tujuan: tujuan,
       organization_id: +localStorage.getItem("organization_id")
     };
-
-    await axios
-      .put(`${API_DUMMY}/api/admin/visi-misi/` + param.id, data, {
+    try {
+      const res = await axios.put(`${API_DUMMY}/api/admin/visi-misi/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
-      .then(() => {
+      if (res.data.code === 200) {
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Data Visi Misi",
@@ -115,21 +115,31 @@ function EditVisiMisiPanti() {
         setTimeout(() => {
           history.push("/admin_visimisi");
         }, 1500);
-      })
-      .catch((error) => {
-        if (error.ressponse && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log(error);
-        }
-      });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          text: res.data.message, // Tambahkan pesan error dari respons
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      if (error.ressponse && error.response.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error);
+      }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
+    }
   };
 
   useEffect(() => {
@@ -505,8 +515,8 @@ function EditVisiMisiPanti() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

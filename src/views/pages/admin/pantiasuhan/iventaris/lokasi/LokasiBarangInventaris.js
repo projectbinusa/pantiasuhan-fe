@@ -18,6 +18,7 @@ function LokasiBarangInventaris() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -156,6 +157,8 @@ function LokasiBarangInventaris() {
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
+
 
     const data = {
       lokasi_barang: lokasi,
@@ -190,6 +193,8 @@ function LokasiBarangInventaris() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -221,9 +226,8 @@ function LokasiBarangInventaris() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -408,8 +412,8 @@ function LokasiBarangInventaris() {
                     <button onClick={closeModal} className="btn-danger ">
                       TUTUP
                     </button>
-                    <button type="submit" className="btn-primary">
-                      SIMPAN
+                    <button type="submit" className="btn-primary" disabled={isLoading}>
+                      {isLoading ? <span className="loader"></span> : "SIMPAN"}
                     </button>
                   </div>
                 </div>
