@@ -58,13 +58,12 @@ function PublikDetailBeritaPanti() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
+        const response = await axios.get(
           `${API_DUMMY_SMART}/api/public/berita/${param.id}`,
           {
-            method: "GET",
             headers: {
-              "x-origin": window.location.origin,
-              "origin": window.location.origin,
+              // "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              "x-origin": window.location.hostname,
             },
           }
         );
@@ -73,7 +72,7 @@ function PublikDetailBeritaPanti() {
 
         const data = await response.json();
         console.log(data);
-        setBerita(response.data)
+        setBerita(response.data);
       } catch (error) {
         console.error("Terjadi Kesalahan:", error);
       }
@@ -120,7 +119,7 @@ function PublikDetailBeritaPanti() {
         `${API_DUMMY_SMART}/api/public/komentar/berita/${param.id}?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
-            "x-origin": window.location.origin
+            "x-origin": window.location.origin,
           },
         }
       );
@@ -162,7 +161,11 @@ function PublikDetailBeritaPanti() {
     if (!komentarRef.current) return;
     const { scrollTop, scrollHeight, clientHeight } = komentarRef.current;
 
-    if (scrollTop + clientHeight >= scrollHeight - 50 && hasMore && !isLoading) {
+    if (
+      scrollTop + clientHeight >= scrollHeight - 50 &&
+      hasMore &&
+      !isLoading
+    ) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -210,7 +213,7 @@ function PublikDetailBeritaPanti() {
           showConfirmButton: false,
           timer: 1500,
         });
-        window.location.reload()
+        window.location.reload();
       }, 1500);
       console.log("Komentar yang dikirim:", komentar);
       setKomentar("");
@@ -347,11 +350,15 @@ function PublikDetailBeritaPanti() {
               </div>
               <br />
               {error && <p style={{ color: "red" }}>{error}</p>}
-              <button className="btn-primary mt-2" onClick={handleSubmitKomentar}>
+              <button
+                className="btn-primary mt-2"
+                onClick={handleSubmitKomentar}>
                 Kirim Komentar
               </button>
             </div>
-            <div style={{ marginTop: "20px", marginBottom: "20px" }} className="col-lg-8 col-md-12">
+            <div
+              style={{ marginTop: "20px", marginBottom: "20px" }}
+              className="col-lg-8 col-md-12">
               <h3>Komentar</h3>
               <div
                 ref={komentarRef}
