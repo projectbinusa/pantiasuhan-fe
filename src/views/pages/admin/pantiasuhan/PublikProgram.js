@@ -200,12 +200,15 @@ function PublikProgram() {
                   }}
                 >
                   <img
-                    src={ 
-                      item.foto == null || item.foto.trim() === ""
-                        ? "https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png"
-                        : item.foto
+                    src={
+                      item.foto ||
+                      "https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png"
                     }
                     alt="Foto Program"
+                    onError={(e) => {
+                      e.target.src =
+                        "https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png";
+                    }}
                     style={{
                       width: "100%",
                       height: "200px",
