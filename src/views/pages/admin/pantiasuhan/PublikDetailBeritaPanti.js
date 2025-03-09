@@ -51,6 +51,7 @@ function PublikDetailBeritaPanti() {
   const [komentar, setKomentar] = useState("");
   const [name, setName] = useState("");
   const [komentars, setKomentars] = useState([]);
+  const [balaskomentars, setBalasKomentars] = useState([]);
   const [error, setError] = useState(null);
   const history = useHistory();
 
@@ -98,9 +99,12 @@ function PublikDetailBeritaPanti() {
   // }, []);
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentPageBalasKomentar, setCurrentPageBalasKomentar] = useState(1);
   const [rowsPerPage] = useState(5);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingBalasKomentar, setIsLoadingBalasKomentar] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+  const [hasMoreBalasKomentar, setHasMoreBalasKomentar] = useState(true);
   // const komentarRef = useRef(null); // Referensi ke div scrollable
 
   // const getAll = async () => {
@@ -202,6 +206,43 @@ function PublikDetailBeritaPanti() {
       setIsLoading(false);
     }
   };
+
+  // const getAllBalsKomentar = async () => {
+  //   if (isLoading || !hasMore) return;
+
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await axios.get(
+  //       `${API_DUMMY_SMART}/api/public/komentar/{id_komentar}/reply_komentar?page=${currentPage}&limit=5`, // Sesuaikan limit
+  //       {
+  //         headers: {
+  //           "x-origin": window.location.origin,
+  //         },
+  //       }
+  //     );
+
+  //     const { data, pagination } = response.data;
+  //     console.log(data);
+  //     console.log(pagination.total_page);
+
+  //     if (data) {
+  //       setKomentars((prevList) => {
+  //         const uniqueData = data.filter(
+  //           (item) => !prevList.some((prevItem) => prevItem.id === item.id)
+  //         );
+  //         return [...prevList, ...uniqueData];
+  //       });
+
+  //       setHasMore(currentPage < pagination.total_page); // Sesuaikan dengan struktur pagination
+  //     } else {
+  //       setHasMore(false);
+  //     }
+  //   } catch (error) {
+  //     console.error("Terjadi kesalahan:", error.response || error.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
     getAll();
@@ -426,7 +467,7 @@ function PublikDetailBeritaPanti() {
                 {komentars.length > 0 ? (
                   komentars.map((item, idx) => (
                     <div key={item.id} ref={idx === komentars.length - 1 ? lastKomentarCallback : null}>
-                      <h6>{item?.id_berita}</h6>
+                      <h6>{item?.name}</h6>
                       <p>{item?.description}</p>
                       <hr />
                     </div>
