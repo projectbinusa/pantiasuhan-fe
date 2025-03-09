@@ -24,6 +24,7 @@ function DataAnak() {
     per_jenis_kelamin: { laki_laki: 0, perempuan: 0 },
     per_tingkat_pendidikan: {},
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -75,37 +76,42 @@ function DataAnak() {
       cancelButtonColor: "#d33",
       confirmButtonText: "Hapus",
       cancelButtonText: "Batal",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`${API_DUMMY_SMART}/api/customer/member/` + member_id, {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          })
-          .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Dihapus!",
-              showConfirmButton: false,
-              timer: 1500,
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          setIsLoading(true);
+          axios
+            .delete(`${API_DUMMY_SMART}/api/customer/member/` + member_id, {
+              headers: {
+                "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              },
+            })
+            .then(() => {
+              Swal.fire({
+                icon: "success",
+                title: "Dihapus!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              getAll();
+              // setTimeout(() => {
+              //   window.location.reload();
+              // }, 1500);
+            })
+            .catch((err) => {
+              Swal.fire({
+                icon: "error",
+                title: "Hapus Data Gagal!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              console.log(err);
             });
-            getAll();
-            setTimeout(() => {
-              window.location.reload();
-            }, 1500);
-          })
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Hapus Data Gagal!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            console.log(err);
-          });
-      }
-    });
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -157,8 +163,9 @@ function DataAnak() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -187,13 +194,19 @@ function DataAnak() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td data-label="Total Anak Asuh" className="text-md-start text-end">
+                    <td
+                      data-label="Total Anak Asuh"
+                      className="text-md-start text-end">
                       {anakAsuhData.total_anak_asuh}
                     </td>
-                    <td data-label="Laki-Laki" className="text-md-start text-end">
+                    <td
+                      data-label="Laki-Laki"
+                      className="text-md-start text-end">
                       {anakAsuhData.per_jenis_kelamin.laki_laki}
                     </td>
-                    <td data-label="Perempuan" className="text-md-start text-end">
+                    <td
+                      data-label="Perempuan"
+                      className="text-md-start text-end">
                       {anakAsuhData.per_jenis_kelamin.perempuan}
                     </td>
                   </tr>
@@ -221,14 +234,26 @@ function DataAnak() {
                   {Object.entries(anakAsuhData.per_tingkat_pendidikan).map(
                     ([tingkat, data]) => (
                       <tr key={tingkat}>
-                        <td data-label="Tingkat Pendidikan" className="text-md-start text-end">{tingkat}</td>
-                        <td data-label="Laki-Laki" className="text-md-start text-end">
+                        <td
+                          data-label="Tingkat Pendidikan"
+                          className="text-md-start text-end">
+                          {tingkat}
+                        </td>
+                        <td
+                          data-label="Laki-Laki"
+                          className="text-md-start text-end">
                           {data.laki_laki}
                         </td>
-                        <td data-label="Perempuan" className="text-md-start text-end">
+                        <td
+                          data-label="Perempuan"
+                          className="text-md-start text-end">
                           {data.perempuan}
                         </td>
-                        <td data-label="Total" className="text-md-start text-end">{data.total}</td>
+                        <td
+                          data-label="Total"
+                          className="text-md-start text-end">
+                          {data.total}
+                        </td>
                       </tr>
                     )
                   )}
@@ -359,8 +384,14 @@ function DataAnak() {
                                 <button
                                   onClick={() => deleteData(row.id)}
                                   type="button"
-                                  className="btn-danger btn-sm">
-                                  <i className="fa-solid fa-trash"></i>
+                                  className="btn-danger btn-sm"
+                                  disabled={isLoading}
+                                >
+                                  {isLoading ? (
+                                    <i className="fa-solid fa-spinner fa-spin"></i>
+                                  ) : (
+                                    <i className="fa-solid fa-trash"></i>
+                                  )}
                                 </button>
                               )}
                             </div>

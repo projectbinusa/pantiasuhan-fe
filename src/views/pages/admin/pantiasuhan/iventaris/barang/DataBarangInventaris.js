@@ -239,15 +239,15 @@ function DataBarangInventaris() {
     e.persist();
 
     const data = {
-      name: namaBarang,
-      kategori_barang_id: idKategori,
-      status_barang_id: idStatus,
-      lokasi_barang_id: idLokasi,
-      tanggal_masuk: tanggal,
-      kondisi_barang_id: idKondisi,
+      name: namaBarang || "-",
+      kategori_barang_id: idKategori || 0,
+      status_barang_id: idStatus || 0,
+      lokasi_barang_id: idLokasi || 0,
+      tanggal_masuk: tanggal || "-",
+      kondisi_barang_id: idKondisi || 0,
       // purchase_date: purchase_date,
       // purchase_price: purchase_price,
-      stok: stok,
+      stok: stok || 0,
     };
 
     try {
@@ -497,7 +497,6 @@ function DataBarangInventaris() {
                     </label>
                     <input
                       className="form-control"
-                      required
                       placeholder="Masukkan Nama Barang"
                       onChange={(e) => setNamaBarang(e.target.value)}
                     />
@@ -511,7 +510,6 @@ function DataBarangInventaris() {
                     <input
                       className="form-control"
                       type="date"
-                      required
                       onChange={(e) => setTanggal(e.target.value)}
                     />
                   </div>
@@ -522,7 +520,6 @@ function DataBarangInventaris() {
                       Kategori Barang
                     </label>
                     <select
-                      required
                       className="form-control"
                       aria-label="Small select example"
                       onChange={(e) => {
@@ -544,7 +541,6 @@ function DataBarangInventaris() {
                       Status Barang
                     </label>
                     <select
-                      required
                       className="form-control"
                       aria-label="Small select example"
                       onChange={(e) => {
@@ -566,7 +562,6 @@ function DataBarangInventaris() {
                       Kondisi Barang
                     </label>
                     <select
-                      required
                       className="form-control"
                       aria-label="Small select example"
                       onChange={(e) => {
@@ -588,7 +583,6 @@ function DataBarangInventaris() {
                       Lokasi Barang
                     </label>
                     <select
-                      required
                       className="form-control"
                       aria-label="Small select example"
                       onChange={(e) => {

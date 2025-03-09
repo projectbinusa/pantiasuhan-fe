@@ -28,7 +28,7 @@ function EditAnak() {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [selectedParent, setSelectedParent] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const param = useParams();
   const [sidebarToggled, setSidebarToggled] = useState(true);
@@ -61,10 +61,8 @@ function EditAnak() {
         setBirthPlace(resp.birth_place); // Update for birth place
         setBirthDate(resp.birth_date); // Update for birth date
         setEducation(resp.education); // Update for education
-        setNamaOrangTua(resp.parent_name); // Update for parent's name
         setAddress(resp.address);
         setHp(resp.hp);
-        setParentId(resp.parent_id);
         setGender(resp.gender);
         console.log("data: ", response.data.data);
         if (resp.parent_id && resp.parent_name) {
@@ -88,42 +86,9 @@ function EditAnak() {
     // console.log("nama: ", namaOrangTua);
   }, []);
 
-  const fetchParent = async (inputValue) => {
-    try {
-      const response = await axios.get(
-        `${API_DUMMY}/api/admin/foster_parent?filter=${inputValue}`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
-
-      return response.data.data.map((member) => ({
-        value: member.id,
-        label: member.name,
-      }));
-    } catch (error) {
-      console.error("Error searching members:", error);
-      return [];
-    }
-  };
-
-  const handleParentChange = (selectedOption) => {
-    if (selectedOption) {
-      setParentId(selectedOption.value);
-      setNamaOrangTua(selectedOption.label);
-      setSelectedParent(selectedOption);
-    } else {
-      setParentId(null);
-      setNamaOrangTua("");
-      setSelectedParent(null);
-    }
-  };
-
   const put = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior.
-
+    setIsLoading(true);
     // Prepare the payload
     const payload = {
       name: nama,
@@ -134,8 +99,6 @@ function EditAnak() {
       education: education,
       hp: hp,
       address: address,
-      parent_name: namaOrangTua,
-      parent_id: parent_id,
       education: education,
       gender: gender,
     };
@@ -192,6 +155,8 @@ function EditAnak() {
           timer: 1500,
         });
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -270,20 +235,6 @@ function EditAnak() {
                             <option value="SMA/SMK/MA">SMA/SMK/MA</option>
                             <option value="Kuliah">Kuliah</option>
                           </select>
-                        </div>
-                        <div className="mb-3 col-lg-12">
-                          <label className="form-label  font-weight-bold ">
-                            Nama Orang Tua
-                          </label>
-                          <AsyncSelect
-                            cacheOptions
-                            defaultOptions
-                            loadOptions={fetchParent}
-                            onChange={handleParentChange}
-                            value={selectedParent}
-                            placeholder="Cari Nama Orang Tua..."
-                            noOptionsMessage={() => "Data tidak ditemukan"}
-                          />
                         </div>
                         <div className="mb-3 co-lg-12">
                           <label className="form-label font-weight-bold">
@@ -366,8 +317,18 @@ function EditAnak() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button
+                        type="submit"
+                        className="btn-primary mt-3"
+                        disabled={isLoading}>
+                        {isLoading ? (
+                          <>
+                            <span className="spinner-border spinner-border-sm me-2"></span>{" "}
+                            Loading...
+                          </>
+                        ) : (
+                          "Submit"
+                        )}
                       </button>
                     </form>
                   </div>

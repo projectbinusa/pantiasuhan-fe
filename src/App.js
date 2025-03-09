@@ -286,6 +286,9 @@ import AddMessage from "./views/pages/admin/pantiasuhan/blast/AddMessage.js";
 import EditMessage from "./views/pages/admin/pantiasuhan/blast/EditMessage.js";
 import DetailMessage from "./views/pages/admin/pantiasuhan/blast/DetailMessage.js";
 import AdminKomentarBerita from "./views/pages/admin/pantiasuhan/berita/KomentarBerita.js";
+import Komentar from "./views/pages/admin/pantiasuhan/komentar/Komentar.js";
+import BalasKomentar from "./views/pages/admin/pantiasuhan/komentar/BalasKomentar.js";
+import DataBalasKomentar from "./views/pages/admin/pantiasuhan/komentar/DataBalasKomentar.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -494,6 +497,21 @@ function App() {
               exact
             />
             <Route path="/bukutamu/form" component={FormBukuTamu} exact />
+            <PrivateRoute
+              path="/moderasi_komentar"
+              component={Komentar}
+              exact
+            />
+            <PrivateRoute
+              path="/balas_komentar/berita/:id_berita/komentar/:id_komentar"
+              component={BalasKomentar}
+              exact
+            />
+            <PrivateRoute
+              path="/data_balas_komentar/berita/:id_berita/komentar/:id_komentar"
+              component={DataBalasKomentar}
+              exact
+            />
             <PrivateRoute
               path="/barang_inventaris"
               component={DataBarangInventaris}

@@ -27,6 +27,7 @@ function AddAnak() {
   const [listFosterParent, setListFosterParent] = useState([]);
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,39 +86,40 @@ function AddAnak() {
   //   return true;
   // };
 
-   const fetchParent = async (inputValue) => {
-      try {
-        const response = await axios.get(
-          `${API_DUMMY}/api/admin/foster_parent?filter=${inputValue}`,
-          {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          }
-        );
+  //  const fetchParent = async (inputValue) => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${API_DUMMY}/api/admin/foster_parent?filter=${inputValue}`,
+  //         {
+  //           headers: {
+  //             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+  //           },
+  //         }
+  //       );
 
-        return response.data.data.map((member) => ({
-          value: member.id,
-          label: member.name,
-        }));
-      } catch (error) {
-        console.error("Error searching members:", error);
-        return [];
-      }
-    };
+  //       return response.data.data.map((member) => ({
+  //         value: member.id,
+  //         label: member.name,
+  //       }));
+  //     } catch (error) {
+  //       console.error("Error searching members:", error);
+  //       return [];
+  //     }
+  //   };
 
-    const handleParentChange = (selectedOption) => {
-      if (selectedOption) {
-        setParentId(selectedOption.value);
-        setParentName(selectedOption.label);
-      } else {
-        setParentId(null);
-        setParentName("");
-      }
-    };
+  //   const handleParentChange = (selectedOption) => {
+  //     if (selectedOption) {
+  //       setParentId(selectedOption.value);
+  //       setParentName(selectedOption.label);
+  //     } else {
+  //       setParentId(null);
+  //       setParentName("");
+  //     }
+  //   };
 
   const add = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     // if (!validateForm()) return;
 
@@ -134,17 +136,17 @@ function AddAnak() {
         password,
         rfid_number: rfidNumber,
         unique_id,
-        parent_name: parentName,
+        // parent_name: parentName,
         birth_place: birthPlace,
         birth_date: birthDate,
         email: email,
         address: address,
         hp: hp,
-        parent_id: parent_id,
+        // parent_id: parent_id,
         education,
         picture: imageUrl,
         gender: gender,
-        level: "santri"
+        level: "santri",
       };
 
       console.log("Payload yang dikirim ke backend:", payload);
@@ -195,13 +197,16 @@ function AddAnak() {
         showConfirmButton: false,
         timer: 1500,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -269,7 +274,7 @@ function AddAnak() {
                             <option value="Kuliah">Kuliah</option>
                           </select>
                         </div>
-                        <div className="mb-3 col-lg-12">
+                        {/* <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Nama Orang Tua
                           </label>
@@ -281,13 +286,7 @@ function AddAnak() {
                           placeholder="Cari Nama Orang Tua..."
                           noOptionsMessage={() => "Data tidak ditemukan"}
                         />
-                          {/* <input
-                            value={parentName}
-                            onChange={(e) => setParentName(e.target.value)}
-                            placeholder="Masukkan Nama Orang Tua "
-                            className="form-control"
-                          /> */}
-                        </div>
+                        </div> */}
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Password
@@ -375,11 +374,23 @@ function AddAnak() {
                           </label>
                           <div className="d-flex">
                             <div className="mr-5">
-                              <input type="radio" value="laki-laki" checked={gender === "laki-laki"} name="gender" onChange={(e) => setGender(e.target.value)} />
+                              <input
+                                type="radio"
+                                value="laki-laki"
+                                checked={gender === "laki-laki"}
+                                name="gender"
+                                onChange={(e) => setGender(e.target.value)}
+                              />
                               <label className="ml-2">Laki-laki</label>
                             </div>
                             <div className="mr-5">
-                              <input type="radio" value="perempuan" checked={gender === "perempuan"} name="gender" onChange={(e) => setGender(e.target.value)} />
+                              <input
+                                type="radio"
+                                value="perempuan"
+                                checked={gender === "perempuan"}
+                                name="gender"
+                                onChange={(e) => setGender(e.target.value)}
+                              />
                               <label className="ml-2">Perempuan</label>
                             </div>
                           </div>
@@ -392,8 +403,11 @@ function AddAnak() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button
+                        type="submit"
+                        className="btn-primary mt-3"
+                        disabled={isLoading}>
+                        {isLoading ? "Loading..." : "Submit"}
                       </button>
                     </form>
                   </div>

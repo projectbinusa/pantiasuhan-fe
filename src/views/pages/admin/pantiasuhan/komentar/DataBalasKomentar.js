@@ -1,35 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { API_DUMMY } from "../../../../../utils/base_URL";
+import {
+  API_DUMMY_S,
+  API_DUMMY_SMART,
+  API_DUMMY_SMARTMART,
+} from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import "../../../../../css/button.css";
+import "../../../../../App.css";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
-const formatDate = (value) => {
-  const date = new Date(value);
-
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-
-  return `${day}-${month}-${year}`;
-};
-
-function Dataortu() {
+function DataBalasKomentar() {
   const [list, setList] = useState([]);
-  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const userRole = localStorage.getItem("rolename");
+
   const [paginationInfo, setPaginationInfo] = useState({
     totalPages: 1,
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
+  const param = useParams();
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -49,19 +45,26 @@ function Dataortu() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY}/api/admin/foster_parent`, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      });
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/customer/reply-komentar/komentar/${param.id_komentar}?page=${currentPage}&limit=${rowsPerPage}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
       setList(response.data.data);
+      console.log(response.data);
       setPaginationInfo({
-        totalPages: response.pagination.total_pages,
+        totalPages: Math.ceil(response.data.pagination.total / rowsPerPage),
+        totalElements: response.data.pagination.total,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
     }
   };
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const deleteData = async (id) => {
     Swal.fire({
@@ -73,42 +76,42 @@ function Dataortu() {
       cancelButtonColor: "#d33",
       confirmButtonText: "Hapus",
       cancelButtonText: "Batal",
-    })
-      .then((result) => {
-        if (result.isConfirmed) {
-          setIsLoading(true);
-          axios
-            .delete(`${API_DUMMY}/api/admin/foster_parent/` + id, {
+    }).then(async (result) => {
+      // Ubah ini jadi async function
+      if (result.isConfirmed) {
+        setIsLoading(true);
+
+        try {
+          const res = await axios.delete(
+            `${API_DUMMY_SMART}/api/customer/reply-komentar/${id}`,
+            {
               headers: {
                 "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
               },
-            })
-            .then(() => {
-              Swal.fire({
-                icon: "success",
-                title: "Dihapus!",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              getAll();
-              // setTimeout(() => {
-              //   window.location.reload();
-              // }, 1500);
-            })
-            .catch((err) => {
-              Swal.fire({
-                icon: "error",
-                title: "Hapus Data Gagal!",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              console.log(err);
-            });
+            }
+          );
+
+          Swal.fire({
+            icon: "success",
+            title: "Dihapus!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          await getAll(); // Tunggu fetch ulang agar data langsung update
+        } catch (err) {
+          Swal.fire({
+            icon: "error",
+            title: "Hapus Data Gagal!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          console.log(err);
+        } finally {
+          setIsLoading(false); // Matikan loading setelah selesai
         }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      }
+    });
   };
 
   useEffect(() => {
@@ -121,12 +124,11 @@ function Dataortu() {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setCurrentPage(1);
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(0);
     setCurrentPage(1);
   };
 
@@ -183,7 +185,7 @@ function Dataortu() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Orang Tua Asuh</p>
+              <p className="mt-3">Data Balas Komentar</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
                   <label className="form-label mt-2">Rows per page:</label>
@@ -199,6 +201,7 @@ function Dataortu() {
                   </select>
                 </div>
               </div>
+
               <div className="d-flex ml-auto gap-3">
                 <input
                   type="search"
@@ -212,8 +215,13 @@ function Dataortu() {
                     <button className="active btn-focus p-2 rounded">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add_ortu_asuh">
-                        Tambah Orang Tua Asuh
+                        href={
+                          "/balas_komentar/berita/" +
+                          param.id_berita +
+                          "/komentar/" +
+                          param.id_komentar
+                        }>
+                        Balas Komentar
                       </a>
                     </button>
                   </div>
@@ -226,18 +234,16 @@ function Dataortu() {
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">No</th>
-                    <th>Nama Ayah</th>
-                    <th>Nama Ibu</th>
-                    <th>Pekerjaan</th>
-                    <th>No HP</th>
-                    <th>Anak Asuh</th>
+                    <th>No</th>
+                    <th>Pengomentar</th>
+                    <th>Komentar</th>
+                    <th>Tanggal Dibuat</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredList.length > 0 ? (
-                    filteredList.map((row, no) => {
+                    filteredList.map((komen, no) => {
                       return (
                         <tr key={no}>
                           <td
@@ -246,29 +252,19 @@ function Dataortu() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td
-                            data-label="Nama Ayah"
-                            className="text-md-start text-end">
-                            {row.father_name}
+                            data-label="Program"
+                            className="text-md-start text-end contents">
+                            <p className="content-isi">{komen.name}</p>
                           </td>
                           <td
-                            data-label="Nama Ibu"
+                            data-label="Penulis"
                             className="text-md-start text-end">
-                            {row.mother_name}
+                            {komen.description}
                           </td>
                           <td
-                            data-label="Pekerjaan"
+                            data-label="Tanggal Update"
                             className="text-md-start text-end">
-                          Ayah : {row.work_father}, Ibu : {row.work_mother}
-                          </td>
-                          <td
-                            data-label="No HP"
-                            className="text-md-start text-end">
-                             Ayah : {row.phone_father}, Ibu : {row.phone_mother}
-                          </td>
-                          <td
-                            data-label="Anak Asuh"
-                            className="text-md-start text-end">
-                            {row.nama_anak}
+                            {komen.created_date}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
@@ -282,33 +278,16 @@ function Dataortu() {
                                         color: "white",
                                         textDecoration: "none",
                                       }}
-                                      href={`/edit_ortu_asuh/${row.id}`}>
-                                      <i className="fa-solid fa-pen-to-square"></i>
+                                      href={`/balas_komentar/${komen.id_berita}`}>
+                                      <i class="fa-solid fa-reply"></i>
                                     </a>
                                   </button>
                                   <button
-                                    type="button"
-                                    className="btn-warning btn-sm mr-2">
-                                    <a
-                                      style={{
-                                        color: "white",
-                                        textDecoration: "none",
-                                      }}
-                                      href={`/detail_ortu_asuh/${row.id}`}>
-                                      <i className="fa-solid fa-info-circle"></i>
-                                    </a>
-                                  </button>
-                                  <button
-                                    onClick={() => deleteData(row.id)}
+                                    onClick={() => deleteData(komen.id)}
                                     type="button"
                                     className="btn-danger btn-sm"
-                                    disabled={isLoading} // Disabled jika loading
-                                  >
-                                    {isLoading ? (
-                                      <i className="fa-solid fa-spinner fa-spin"></i> // Icon loading
-                                    ) : (
-                                      <i className="fa-solid fa-trash"></i>
-                                    )}
+                                    disabled={isLoading}>
+                                    <i className="fa-solid fa-trash"></i>
                                   </button>
                                 </>
                               )}
@@ -319,7 +298,7 @@ function Dataortu() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="8" className="text-center my-3">
+                      <td colSpan="6" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
@@ -333,21 +312,17 @@ function Dataortu() {
               <Pagination
                 count={paginationInfo.totalPages}
                 page={currentPage}
-                onChange={(event, value) => {
-                  setCurrentPage(value);
-                  setPage(value);
-                }}
+                onChange={(event, value) => setCurrentPage(value)}
                 showFirstButton
                 showLastButton
                 color="primary"
               />
             </div>
           </div>
-          {/* <FotoKegiatan></FotoKegiatan> */}
         </div>
       </div>
     </div>
   );
 }
 
-export default Dataortu;
+export default DataBalasKomentar;
