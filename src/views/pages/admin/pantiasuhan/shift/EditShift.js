@@ -6,8 +6,9 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
+import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import dayjs from "dayjs";
 
 function EditShift() {
   const [name, setName] = useState("");
@@ -107,6 +108,20 @@ function EditShift() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleWaktuMasukChange = (e) => {
+    const waktuMasuk = e.target.value;
+    const formattedTime = dayjs(`1970-01-01T${waktuMasuk}`).format("HH:mm");
+
+    setWaktuMasuk(formattedTime);
+  };
+
+  const handleWaktuPulangChange = (e) => {
+    const waktuPulang = e.target.value;
+    const formattedTime = dayjs(`1970-01-01T${waktuPulang}`).format("HH:mm");
+
+    setWaktuPulang(formattedTime);
+  };
+
   return (
     <div
       className={`page-wrapper chiller-theme ${
@@ -150,12 +165,12 @@ function EditShift() {
                           Waktu Masuk
                         </label>
                         <input
-                          value={waktuMasuk}
-                          onChange={(e) => setWaktuMasuk(e.target.value)}
-                          type="time"
                           className="form-control"
+                          type="time"
                           required
                           placeholder="Masukkan Waktu Masuk"
+                          step="60"
+                          onChange={handleWaktuMasukChange}
                         />
                       </div>
                       <div className="mb-3 col-lg-12">
@@ -163,12 +178,14 @@ function EditShift() {
                           Waktu Pulang
                         </label>
                         <input
-                          value={waktuPulang}
-                          onChange={(e) => setWaktuPulang(e.target.value)}
-                          type="time"
                           className="form-control"
+                          type="time"
                           required
-                          placeholder="Masukkan Waktu Pulang"/>
+                          placeholder="Masukkan Waktu Pulang"
+                          step="60"
+                          value={waktuPulang}
+                          onChange={handleWaktuPulangChange}
+                        />
                       </div>
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">

@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Box, Modal, Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import dayjs from "dayjs";
 
 function DataShift() {
   const [list, setList] = useState([]);
@@ -80,9 +81,9 @@ function DataShift() {
               timer: 1500,
             });
             getAll();
-            setTimeout(() => {
-              window.location.reload();
-            }, 1500);
+            // setTimeout(() => {
+            //   window.location.reload();
+            // }, 1500);
           })
           .catch((err) => {
             Swal.fire({
@@ -165,46 +166,45 @@ function DataShift() {
     return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00`; // Add seconds (00)
   };
 
-  const detectBrowser = () => {
-    const userAgent = navigator.userAgent;
-    if (userAgent.includes("Chrome") && !userAgent.includes("Edg")) {
-      return "chrome";
-    } else if (userAgent.includes("Edg")) {
-      return "edge";
-    } else if (userAgent.includes("Firefox")) {
-      return "firefox";
-    }
-    return "other";
-  };
+  // const detectBrowser = () => {
+  //   const userAgent = navigator.userAgent;
+  //   if (userAgent.includes("Chrome") && !userAgent.includes("Edg")) {
+  //     return "chrome";
+  //   } else if (userAgent.includes("Edg")) {
+  //     return "edge";
+  //   } else if (userAgent.includes("Firefox")) {
+  //     return "firefox";
+  //   }
+  //   return "other";
+  // };
 
   const handleWaktuMasukChange = (e) => {
     const waktuMasuk = e.target.value;
-    setWaktuMasuk(waktuMasuk);
+    if (!waktuMasuk) return;
 
-    const browser = detectBrowser();
+    const [hours, minutes] = waktuMasuk.split(":").map(Number);
 
-    // Set durasi shift berdasarkan browser
-    let shiftDuration = 24; // Default 24 jam
-    if (browser === "chrome") {
-      shiftDuration = 12;
-    }
+    const formattedTime = new Date(1970, 0, 1, hours, minutes)
+      .toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", hour12: false });
 
-    // Hitung waktu pulang
-    const [hours, minutes] = waktuMasuk.split(":");
-    let waktuPulangJam = parseInt(hours) + shiftDuration;
-    if (waktuPulangJam >= 24) {
-      waktuPulangJam = waktuPulangJam % 24; // Jika lebih dari 24, reset ke jam 0
-    }
-    const waktuPulang = `${waktuPulangJam
-      .toString()
-      .padStart(2, "0")}:${minutes}`;
-    setWaktuPulang(waktuPulang);
+    console.log("Formatted Time:", formattedTime);
+    setWaktuMasuk(formattedTime);
   };
+
 
   const handleWaktuPulangChange = (e) => {
-    const formattedTime = formatTime(e.target.value);
+    const waktuPulang = e.target.value;
+    if (!waktuPulang) return;
+
+    const [hours, minutes] = waktuPulang.split(":").map(Number);
+
+    const formattedTime = new Date(1970, 0, 1, hours, minutes)
+      .toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", hour12: false });
+
+    console.log("Formatted Time:", formattedTime);
     setWaktuPulang(formattedTime);
   };
+
 
   // ADD
   const [name, setName] = useState("");
@@ -258,7 +258,8 @@ function DataShift() {
         showConfirmButton: false,
         timer: 1500,
       });
-      window.location.reload();
+      // window.location.reload();
+      getAll();
     } catch (error) {
       if (error.response && error.response.status === 401) {
         localStorage.clear();
@@ -280,22 +281,19 @@ function DataShift() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left"
-        >
+          data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -304,8 +302,7 @@ function DataShift() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}
-              >
+                value={rowsPerPage}>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -332,8 +329,7 @@ function DataShift() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
+                    value={rowsPerPage}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -352,8 +348,7 @@ function DataShift() {
                   <div role="group" className="btn-group-sm btn-group">
                     <button
                       className="active btn-focus p-2 rounded"
-                      onClick={openModal}
-                    >
+                      onClick={openModal}>
                       Tambah
                     </button>
                   </div>
@@ -362,8 +357,7 @@ function DataShift() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}
-            >
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -385,58 +379,49 @@ function DataShift() {
                         </td>
                         <td
                           className="text-md-start text-end"
-                          data-label="Shift"
-                        >
+                          data-label="Shift">
                           {row.name}
                         </td>
                         <td
                           className="text-md-start text-end"
-                          data-label="Waktu Masuk"
-                        >
+                          data-label="Waktu Masuk">
                           {row.waktu_masuk}
                         </td>
                         <td
                           className="text-md-start text-end"
-                          data-label="Waktu Pulang"
-                        >
+                          data-label="Waktu Pulang">
                           {row.waktu_pulang}
                         </td>
                         <td
                           className="text-md-start text-end"
-                          data-label="Level"
-                        >
+                          data-label="Level">
                           {row.level}
                         </td>
                         <td
                           className="text-md-start text-end"
-                          data-label="Deskripsi"
-                        >
+                          data-label="Deskripsi">
                           {row.description}
                         </td>
                         <td
                           className="text-sm-start text-end action"
-                          data-label="Aksi"
-                        >
+                          data-label="Aksi">
                           <div className="d-flex justify-content-center align-items-center">
                             <button
                               type="button"
-                              className="btn-primary btn-sm mr-2"
-                            >
+                              className="btn-primary btn-sm mr-2">
                               <a
                                 style={{
                                   color: "white",
                                   textDecoration: "none",
                                 }}
-                                href={`/admin_shift/edit/${row.id}`}
-                              >
+                                href={`/admin_shift/edit/${row.id}`}>
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </a>
                             </button>
                             <button
                               onClick={() => deleteData(row.id)}
                               type="button"
-                              className="btn-danger btn-sm"
-                            >
+                              className="btn-danger btn-sm">
                               <i className="fa-solid fa-trash"></i>
                             </button>
                           </div>
@@ -473,16 +458,14 @@ function DataShift() {
             open={isModalOpen}
             onClose={closeModal}
             aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
+            aria-describedby="modal-modal-description">
             <Box sx={style}>
               <form onSubmit={add}>
                 <div className="row">
                   <div className="mb-3 col-md-12">
                     <label
                       for="exampleInputEmail1"
-                      className="form-label  font-weight-bold "
-                    >
+                      className="form-label  font-weight-bold ">
                       Nama
                     </label>
                     <input
@@ -495,8 +478,7 @@ function DataShift() {
                   <div className="mb-3 col-md-12">
                     <label
                       for="exampleInputEmail1"
-                      className="form-label  font-weight-bold "
-                    >
+                      className="form-label  font-weight-bold ">
                       Waktu Masuk
                     </label>
                     <input
@@ -510,8 +492,7 @@ function DataShift() {
                   <div className="mb-3 col-md-12">
                     <label
                       for="exampleInputEmail1"
-                      className="form-label  font-weight-bold "
-                    >
+                      className="form-label  font-weight-bold ">
                       Waktu Pulang
                     </label>
                     <input
@@ -526,8 +507,7 @@ function DataShift() {
                   <div className="mb-3 col-md-12">
                     <label
                       for="exampleInputEmail1"
-                      className="form-label  font-weight-bold "
-                    >
+                      className="form-label  font-weight-bold ">
                       Deskripsi
                     </label>
                     <input
@@ -542,8 +522,7 @@ function DataShift() {
                     <select
                       className="form-control"
                       value={level}
-                      onChange={(e) => setLevel(e.target.value)}
-                    >
+                      onChange={(e) => setLevel(e.target.value)}>
                       <option>Pilih</option>
                       <option value="santri">Santri</option>
                       <option value="pengurus">Pengurus</option>

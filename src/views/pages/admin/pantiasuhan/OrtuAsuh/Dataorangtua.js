@@ -3,9 +3,7 @@ import { API_DUMMY } from "../../../../../utils/base_URL";
 import axios from "axios";
 import Swal from "sweetalert2";
 import AOS from "aos";
-import {
-  Pagination,
-} from "@mui/material";
+import { Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import "../../../../../css/button.css";
 
@@ -17,7 +15,7 @@ const formatDate = (value) => {
   const day = String(date.getDate()).padStart(2, "0");
 
   return `${day}-${month}-${year}`;
-}
+};
 
 function Dataortu() {
   const [list, setList] = useState([]);
@@ -31,6 +29,7 @@ function Dataortu() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -50,14 +49,11 @@ function Dataortu() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(
-        `${API_DUMMY}/api/admin/foster_parent`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+      const response = await axios.get(`${API_DUMMY}/api/admin/foster_parent`, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      });
       setList(response.data.data);
       setPaginationInfo({
         totalPages: response.pagination.total_pages,
@@ -77,37 +73,42 @@ function Dataortu() {
       cancelButtonColor: "#d33",
       confirmButtonText: "Hapus",
       cancelButtonText: "Batal",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios
-          .delete(`${API_DUMMY}/api/admin/foster_parent/` + id, {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          })
-          .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Dihapus!",
-              showConfirmButton: false,
-              timer: 1500,
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          setIsLoading(true);
+          axios
+            .delete(`${API_DUMMY}/api/admin/foster_parent/` + id, {
+              headers: {
+                "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              },
+            })
+            .then(() => {
+              Swal.fire({
+                icon: "success",
+                title: "Dihapus!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              getAll();
+              // setTimeout(() => {
+              //   window.location.reload();
+              // }, 1500);
+            })
+            .catch((err) => {
+              Swal.fire({
+                icon: "error",
+                title: "Hapus Data Gagal!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              console.log(err);
             });
-            getAll();
-            setTimeout(() => {
-              window.location.reload();
-            }, 1500);
-          })
-          .catch((err) => {
-            Swal.fire({
-              icon: "error",
-              title: "Hapus Data Gagal!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            console.log(err);
-          });
-      }
-    });
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -141,23 +142,21 @@ function Dataortu() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left"
-        >
+          data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -166,8 +165,7 @@ function Dataortu() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}
-              >
+                value={rowsPerPage}>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -194,8 +192,7 @@ function Dataortu() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
+                    value={rowsPerPage}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -215,8 +212,7 @@ function Dataortu() {
                     <button className="active btn-focus p-2 rounded">
                       <a
                         style={{ color: "white", textDecoration: "none" }}
-                        href="/add_ortu_asuh"
-                      >
+                        href="/add_ortu_asuh">
                         Tambah Orang Tua Asuh
                       </a>
                     </button>
@@ -226,18 +222,16 @@ function Dataortu() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}
-            >
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>nama</th>
-                    <th>TTL</th>
+                    <th>Nama Ayah</th>
+                    <th>Nama Ibu</th>
                     <th>Pekerjaan</th>
                     <th>No HP</th>
                     <th>Anak Asuh</th>
-                    <th scope="col" style={{ minWidth: "150px" }}>Alamat</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -246,56 +240,78 @@ function Dataortu() {
                     filteredList.map((row, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="text-md-start text-end">
+                          <td
+                            data-label="No"
+                            className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Nama" className="text-md-start text-end">{row.name}</td>
-                          <td data-label="TTL" className="text-md-start text-end">{row.birth_place}, {formatDate(row.birth_date)}</td>
-                          <td data-label="Pekerjaan" className="text-md-start text-end">{row.work}</td>
-                          <td data-label="No HP" className="text-md-start text-end">{row.phone}</td>
-                          <td data-label="Anak Asuh" className="text-md-start text-end">{row.nama_anak}</td> 
-                          <td data-label="Alamat" className="text-md-start text-end">{row.address}</td>
+                          <td
+                            data-label="Nama Ayah"
+                            className="text-md-start text-end">
+                            {row.father_name}
+                          </td>
+                          <td
+                            data-label="Nama Ibu"
+                            className="text-md-start text-end">
+                            {row.mother_name}
+                          </td>
+                          <td
+                            data-label="Pekerjaan"
+                            className="text-md-start text-end">
+                          Ayah : {row.work_father}, Ibu : {row.work_mother}
+                          </td>
+                          <td
+                            data-label="No HP"
+                            className="text-md-start text-end">
+                             Ayah : {row.phone_father}, Ibu : {row.phone_mother}
+                          </td>
+                          <td
+                            data-label="Anak Asuh"
+                            className="text-md-start text-end">
+                            {row.nama_anak}
+                          </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
-                            {userRole !== "yayasan" && (
-                              <>
-                             <button
-                                type="button"
-                                className="btn-primary btn-sm mr-2"
-                              >
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/edit_ortu_asuh/${row.id}`}
-                                >
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
-                              </button>
-                              <button
-                                type="button"
-                                className="btn-warning btn-sm mr-2"
-                              >
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/detail_ortu_asuh/${row.id}`}
-                                >
-                                  <i className="fa-solid fa-info-circle"></i>
-                                </a>
-                              </button>
-                              <button
-                                onClick={() => deleteData(row.id)}
-                                type="button"
-                                className="btn-danger btn-sm"
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                              </>
-                               )}
+                              {userRole !== "yayasan" && (
+                                <>
+                                  <button
+                                    type="button"
+                                    className="btn-primary btn-sm mr-2">
+                                    <a
+                                      style={{
+                                        color: "white",
+                                        textDecoration: "none",
+                                      }}
+                                      href={`/edit_ortu_asuh/${row.id}`}>
+                                      <i className="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="btn-warning btn-sm mr-2">
+                                    <a
+                                      style={{
+                                        color: "white",
+                                        textDecoration: "none",
+                                      }}
+                                      href={`/detail_ortu_asuh/${row.id}`}>
+                                      <i className="fa-solid fa-info-circle"></i>
+                                    </a>
+                                  </button>
+                                  <button
+                                    onClick={() => deleteData(row.id)}
+                                    type="button"
+                                    className="btn-danger btn-sm"
+                                    disabled={isLoading} // Disabled jika loading
+                                  >
+                                    {isLoading ? (
+                                      <i className="fa-solid fa-spinner fa-spin"></i> // Icon loading
+                                    ) : (
+                                      <i className="fa-solid fa-trash"></i>
+                                    )}
+                                  </button>
+                                </>
+                              )}
                             </div>
                           </td>
                         </tr>

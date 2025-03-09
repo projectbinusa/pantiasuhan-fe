@@ -64,24 +64,25 @@ function DetailOrtu() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div
         style={{ marginTop: "10px" }}
-        className="page-content1 mt-3 mb-3 app-main__outer"
-      >
+        className="page-content1 mt-3 mb-3 app-main__outer">
         <div className="container box-tabel">
           <main className="container card shadow">
-            <h1 className="title card-header fw-bold fs-3">Detail Orang Tua Asuh</h1>
+            <h1 className="title card-header fw-bold fs-3">
+              Detail Orang Tua Asuh
+            </h1>
             <br />
             <div className="card-body">
               <Grid container spacing={3}>
@@ -89,6 +90,16 @@ function DetailOrtu() {
                 <Grid item xs={12} md={12}>
                   <Card variant="outlined" sx={{ padding: 2 }}>
                     <CardContent>
+                      {/* <Typography
+                        variant="h5"
+                        sx={{
+                          fontWeight: 700,
+                          color: "#005b9f",
+                          marginBottom: 2,
+                        }}
+                      >
+                        {datas?.father_name}
+                      </Typography>
                       <Typography
                         variant="h5"
                         sx={{
@@ -97,36 +108,80 @@ function DetailOrtu() {
                           marginBottom: 2,
                         }}
                       >
-                        {datas?.name}
-                      </Typography>
+                        {datas?.mother_name}
+                      </Typography> */}
 
                       {/* Side-by-side details */}
                       <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                          <Typography variant="body1" sx={{ fontWeight: 700 }}>
+                            Nama Ayah:
+                          </Typography>
+                          <Typography variant="body2">
+                            {datas?.father_name}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <Typography variant="body1" sx={{ fontWeight: 700 }}>
+                            Nama Ibu:
+                          </Typography>
+                          <Typography variant="body2">
+                            {datas?.mother_name}
+                          </Typography>
+                        </Grid>
                         {/* Birth Place and Date */}
                         <Grid item xs={12} sm={6}>
                           <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                            Tempat/Tanggal Lahir:
+                            Tempat/Tanggal Lahir (Ayah):
                           </Typography>
                           <Typography variant="body2">
-                            {datas?.birth_place}, {formatDate(datas?.birth_date)}
+                            {datas?.birth_place_father},{" "}
+                            {formatDate(datas?.birth_date_father)}
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <Typography variant="body1" sx={{ fontWeight: 700 }}>
+                            Tempat/Tanggal Lahir (Ibu):
+                          </Typography>
+                          <Typography variant="body2">
+                            {datas?.birth_place_mother},{" "}
+                            {formatDate(datas?.birth_date_mother)}
                           </Typography>
                         </Grid>
 
                         {/* Income */}
                         <Grid item xs={12} sm={6}>
                           <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                            Pekerjaan:
+                            Pekerjaan (Ibu):
                           </Typography>
-                          <Typography variant="body2">{datas?.work}</Typography>
+                          <Typography variant="body2">{datas?.work_father}</Typography>
+                        </Grid>
+
+                        {/* Income Ibu*/}
+                        <Grid item xs={12} sm={6}>
+                          <Typography variant="body1" sx={{ fontWeight: 700 }}>
+                            Pekerjaan (Ibu):
+                          </Typography>
+                          <Typography variant="body2">{datas?.work_mother}</Typography>
                         </Grid>
 
                         {/* Total Income */}
                         <Grid item xs={12} sm={6}>
                           <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                            Pendapatan:
+                            Pendapatan (Ayah):
                           </Typography>
                           <Typography variant="body2">
-                            Rp {datas?.income?.toLocaleString()}
+                            Rp {datas?.income_father?.toLocaleString()}
+                          </Typography>
+                        </Grid>
+
+                        {/* Total Income Ibu*/}
+                        <Grid item xs={12} sm={6}>
+                          <Typography variant="body1" sx={{ fontWeight: 700 }}>
+                            Pendapatan (Ibu):
+                          </Typography>
+                          <Typography variant="body2">
+                            Rp {datas?.income_mother?.toLocaleString()}
                           </Typography>
                         </Grid>
 
@@ -135,23 +190,36 @@ function DetailOrtu() {
                           <Typography variant="body1" sx={{ fontWeight: 700 }}>
                             Alamat:
                           </Typography>
-                          <Typography variant="body2">{datas?.address}</Typography>
+                          <Typography variant="body2">
+                            {datas?.address}
+                          </Typography>
                         </Grid>
 
-                        {/* Phone */}
+                        {/* Phone Ayah */}
                         <Grid item xs={12} sm={6}>
                           <Typography variant="body1" sx={{ fontWeight: 700 }}>
-                            No. Telepon:
+                            No. Telepon (Ayah):
                           </Typography>
-                          <Typography variant="body2">{datas?.phone}</Typography>
+                          <Typography variant="body2">
+                            {datas?.phone_father}
+                          </Typography>
+                        </Grid>
+
+                        {/* Phone Ibu */}
+                        <Grid item xs={12} sm={6}>
+                          <Typography variant="body1" sx={{ fontWeight: 700 }}>
+                            No. Telepon (Ibu):
+                          </Typography>
+                          <Typography variant="body2">
+                            {datas?.phone_mother}
+                          </Typography>
                         </Grid>
                       </Grid>
 
                       {/* Child's Name */}
                       <Typography
                         variant="body1"
-                        sx={{ fontWeight: 700, marginTop: 2 }}
-                      >
+                        sx={{ fontWeight: 700, marginTop: 2 }}>
                         Nama Anak: {datas?.nama_anak}
                       </Typography>
                     </CardContent>

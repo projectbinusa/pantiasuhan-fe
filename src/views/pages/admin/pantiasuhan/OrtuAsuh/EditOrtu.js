@@ -12,22 +12,27 @@ import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 import AsyncSelect from "react-select/async";
 
 function EditOrtu() {
-  const [nama, setNama] = useState("");
+  const [fatherName, setFatherName] = useState("");
+  const [motherName, setMotherName] = useState("");
   const [alamat, setAlamat] = useState("");
   const [namaAnak, setNamaAnak] = useState("");
   const [idAnak, setIDAnak] = useState(null);
-  const [listAnak, setListAnak] = useState([]);
-  const [birthPlace, setBirthPlace] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [pekerjaan, setPekerjaan] = useState("");
-  const [penghasilan, setPenghasilan] = useState("");
-  const [nohp, setNoHp] = useState("");
+  const [birthPlaceFather, setBirthPlaceFather] = useState("");
+  const [birthDateFather, setBirthDateFather] = useState("");
+  const [pekerjaanFather, setPekerjaanFather] = useState("");
+  const [penghasilanFather, setPenghasilanFather] = useState("");
+  const [nohpFather, setNoHpFather] = useState("");
+  const [birthPlaceMother, setBirthPlaceMother] = useState("");
+  const [birthDateMother, setBirthDateMother] = useState("");
+  const [pekerjaanMother, setPekerjaanMother] = useState("");
+  const [penghasilanMother, setPenghasilanMother] = useState("");
+  const [nohpMother, setNoHpMother] = useState("");
   const [selectedAnak, setSelectedAnak] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const formatDate = (dateString) => {
     return dateString.split(" ")[0]; // Ambil bagian sebelum spasi
   };
-
 
   const param = useParams();
   const history = useHistory();
@@ -76,15 +81,21 @@ function EditOrtu() {
         const response = ress.data.data;
         console.log(response);
 
-        setNama(response.name);
+        setFatherName(response.father_name);
+        setMotherName(response.mother_name);
         setAlamat(response.address);
-        setBirthDate(formatDate(response.birth_date));
-        setBirthPlace(response.birth_place);
-        setPekerjaan(response.work);
-        setPenghasilan(response.income);
+        setBirthDateFather(formatDate(response.birth_date_father));
+        setBirthPlaceFather(response.birth_place_father);
+        setPekerjaanFather(response.work_father);
+        setPenghasilanFather(response.income_father);
+        setNoHpFather(response.phone_father);
+        setBirthDateMother(formatDate(response.birth_date_mother));
+        setBirthPlaceMother(response.birth_place_mother);
+        setPekerjaanMother(response.work_mother);
+        setPenghasilanMother(response.income_mother);
+        setNoHpMother(response.phone_mother);
         setIDAnak(response.id_anak);
         setNamaAnak(response.nama_anak);
-        setNoHp(response.phone);
 
         if (response.id_anak && response.nama_anak) {
           setSelectedAnak({
@@ -101,15 +112,22 @@ function EditOrtu() {
   const updateBerita = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
 
     const datas = {
-      name: nama,
+      father_name: fatherName,
+      mother_name: motherName,
       address: alamat,
-      phone: nohp,
-      birth_place: birthPlace,
-      birth_date: birthDate,
-      income: penghasilan,
-      work: pekerjaan,
+      phone_father: nohpFather || "0",
+      birth_place_father: birthPlaceFather,
+      birth_date_father: birthDateFather,
+      income_father: penghasilanFather || "-",
+      work_father: pekerjaanFather || "-",
+      phone_mother: nohpMother || "0",
+      birth_place_mother: birthPlaceMother,
+      birth_date_mother: birthDateMother,
+      income_mother: penghasilanMother || 0.0,
+      work_mother: pekerjaanMother || "-",
       id_anak: idAnak,
       nama_anak: namaAnak,
     };
@@ -148,9 +166,10 @@ function EditOrtu() {
         });
         console.error(error);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
-
 
   useEffect(() => {
     AOS.init();
@@ -176,8 +195,9 @@ function EditOrtu() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -200,14 +220,28 @@ function EditOrtu() {
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold ">
-                      Nama
+                      Nama Ayah
                     </label>
                     <input
-                      value={nama}
-                      onChange={(e) => setNama(e.target.value)}
+                      value={fatherName}
+                      onChange={(e) => setFatherName(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan Nama"
+                      placeholder="Masukkan Nama Ayah"
+                    />
+                  </div>
+                  <div className="mb-3 col-lg-6">
+                    <label
+                      for="exampleInputEmail1"
+                      className="form-label  font-weight-bold ">
+                      Nama Ibu
+                    </label>
+                    <input
+                      value={motherName}
+                      onChange={(e) => setMotherName(e.target.value)}
+                      type="text"
+                      className="form-control"
+                      placeholder="Masukkan Nama Ibu"
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
@@ -224,22 +258,22 @@ function EditOrtu() {
                   </div>
                   <div className="mb-3 col-lg-6">
                     <label className="form-label  font-weight-bold ">
-                      Tempat Lahir
+                      Tempat Lahir (Ayah)
                     </label>
                     <input
-                      value={birthPlace}
-                      onChange={(e) => setBirthPlace(e.target.value)}
-                      placeholder="Masukkan Nama Tempat Lahir"
+                      value={birthPlaceFather}
+                      onChange={(e) => setBirthPlaceFather(e.target.value)}
+                      placeholder="Masukkan Nama Tempat Lahir Ayah"
                       className="form-control"
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
                     <label className="form-label  font-weight-bold ">
-                      Tanggal Lahir
+                      Tanggal Lahir (Ayah)
                     </label>
                     <input
-                      value={birthDate}
-                      onChange={(e) => setBirthDate(e.target.value)}
+                      value={birthDateFather}
+                      onChange={(e) => setBirthDateFather(e.target.value)}
                       type="date"
                       className="form-control"
                     />
@@ -248,42 +282,106 @@ function EditOrtu() {
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold ">
-                      Pekerjaan
+                      Pekerjaan (Ayah)
                     </label>
                     <input
-                      value={pekerjaan}
-                      onChange={(e) => setPekerjaan(e.target.value)}
+                      value={pekerjaanFather}
+                      onChange={(e) => setPekerjaanFather(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan Pekerjaan"
+                      placeholder="Masukkan Pekerjaan Ayah"
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold ">
-                      Penghasilan
+                      Penghasilan (Ayah)
                     </label>
                     <input
-                      value={penghasilan}
-                      onChange={(e) => setPenghasilan(e.target.value)}
+                      value={penghasilanFather}
+                      onChange={(e) => setPenghasilanFather(e.target.value)}
                       type="text"
                       className="form-control"
-                      placeholder="Masukkan Penghasilan"
+                      placeholder="Masukkan Penghasilan Ayah"
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
                     <label
                       for="exampleInputEmail1"
                       className="form-label  font-weight-bold ">
-                      No HP
+                      No HP (ayah)
                     </label>
                     <input
-                      value={nohp}
-                      onChange={(e) => setNoHp(e.target.value)}
+                      value={nohpFather}
+                      onChange={(e) => setNoHpFather(e.target.value)}
                       type="number"
                       className="form-control"
-                      placeholder="Masukkan No Handphone"
+                      placeholder="Masukkan No Handphone Ayah"
+                    />
+                  </div>
+                  <div className="mb-3 col-lg-6">
+                    <label className="form-label  font-weight-bold ">
+                      Tempat Lahir (Ibu)
+                    </label>
+                    <input
+                      value={birthPlaceMother}
+                      onChange={(e) => setBirthPlaceMother(e.target.value)}
+                      placeholder="Masukkan Nama Tempat Lahir Ibu"
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="mb-3 col-lg-6">
+                    <label className="form-label  font-weight-bold ">
+                      Tanggal Lahir (Ibu)
+                    </label>
+                    <input
+                      value={birthDateMother}
+                      onChange={(e) => setBirthDateMother(e.target.value)}
+                      type="date"
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="mb-3 col-lg-6">
+                    <label
+                      for="exampleInputEmail1"
+                      className="form-label  font-weight-bold ">
+                      Pekerjaan (Ibu)
+                    </label>
+                    <input
+                      value={pekerjaanMother}
+                      onChange={(e) => setPekerjaanMother(e.target.value)}
+                      type="text"
+                      className="form-control"
+                      placeholder="Masukkan Pekerjaan Ibu"
+                    />
+                  </div>
+                  <div className="mb-3 col-lg-6">
+                    <label
+                      for="exampleInputEmail1"
+                      className="form-label  font-weight-bold ">
+                      Penghasilan (Ibu)
+                    </label>
+                    <input
+                      value={penghasilanMother}
+                      onChange={(e) => setPenghasilanMother(e.target.value)}
+                      type="text"
+                      className="form-control"
+                      placeholder="Masukkan Penghasilan Ibu"
+                    />
+                  </div>
+                  <div className="mb-3 col-lg-6">
+                    <label
+                      for="exampleInputEmail1"
+                      className="form-label  font-weight-bold ">
+                      No HP (Ibu)
+                    </label>
+                    <input
+                      value={nohpMother}
+                      onChange={(e) => setNoHpMother(e.target.value)}
+                      type="number"
+                      className="form-control"
+                      placeholder="Masukkan No Handphone Ibu"
                     />
                   </div>
                   <div className="mb-3 col-lg-6">
@@ -319,8 +417,11 @@ function EditOrtu() {
                     Batal
                   </a>
                 </button>
-                <button type="submit" className="btn-primary mt-3">
-                  Submit
+                <button
+                  type="submit"
+                  className="btn-primary mt-3"
+                  disabled={isLoading}>
+                  {isLoading ? "Loading..." : "Submit"}
                 </button>
               </form>
             </div>

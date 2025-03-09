@@ -169,7 +169,6 @@ function EditGalery() {
                       onChange={(e) => setJudul(e.target.value)}
                       type="text"
                       className="form-control"
-                      required
                       id="exampleInputPassword1"
                     />
                   </div>
@@ -197,7 +196,6 @@ function EditGalery() {
                       onChange={(e) => setDeskripsi(e.target.value)}
                       type="text"
                       className="form-control"
-                      required
                       id="exampleInputPassword1"
                     ></textarea>
                   </div>

@@ -44,8 +44,8 @@ const AddGalery = () => {
       const response = await axios.post(
         `${API_DUMMY}/api/admin/galery`,
         {
-          judul,
-          deskripsi,
+          judul: judul || "-",
+          deskripsi: deskripsi || "-",
           foto: imageUrl,
         },
         {
@@ -147,7 +147,6 @@ const AddGalery = () => {
                           type="text"
                           className="form-control"
                           placeholder="Masukkan Judul"
-                          required
                         />
                       </div>
                       <div className="mb-3 col-lg-6">
@@ -171,7 +170,6 @@ const AddGalery = () => {
                           onChange={(e) => setDeskripsi(e.target.value)}
                           className="form-control"
                           placeholder="Masukkan Deskripsi"
-                          required
                         ></textarea>
                       </div>
                     </div>
