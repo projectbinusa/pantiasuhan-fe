@@ -184,6 +184,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       header: "Tentang",
       items: [
         {
+          title: "Tampilan Web",
+          icon: "fa-solid fa-list",
+          path: "/web",
+          action: ["/add_web"],
+        },
+        {
           title: "Sambutan",
           icon: "fa-solid fa-book-open",
           path: "/admin_sambutan",
@@ -210,6 +216,12 @@ function SidebarPantiAdmin({ toggleSidebar }) {
             "/admin_berita/edit",
             "/admin_berita/detail",
           ],
+        },
+        {
+          title: "Komentar",
+          icon: "fa-solid fa-comments",
+          path: "/moderasi_komentar",
+          action: ["/balas_komentar"],
         },
         {
           title: "Galeri",
@@ -557,7 +569,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
 
   const komentarItems = [
     {
-      title: "Moderasi Komentar",
+      title: "Komentar",
       icon: "fa-solid fa-comments",
       path: "/moderasi_komentar",
       action: ["/balas_komentar"],
@@ -687,7 +699,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                       </NavLink>
                     </li>
                   ))}
-                  <li className="header-menu1">
+                  {/* <li className="header-menu1">
                     <span>Tampilan</span>
                   </li>
                   {tampilanItems.map((data, index) => (
@@ -736,7 +748,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                         <span>{data.title}</span>
                       </NavLink>
                     </li>
-                  ))}
+                  ))} */}
                 </>
               ) : localStorage.getItem("rolename") == "Yayasan" ? (
                 <>

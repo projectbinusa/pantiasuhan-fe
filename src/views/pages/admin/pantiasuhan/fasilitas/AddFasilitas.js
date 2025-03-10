@@ -43,10 +43,8 @@ function AddFasilitas() {
         showConfirmButton: false,
         timer: 1500,
       });
-      history.push("/admin_fasilitas");
       setTimeout(() => {
         history.push("/admin_fasilitas");
-        window.location.reload();
       }, 1000);
     } catch (error) {
       if (error.response && error.response.status === 401) {

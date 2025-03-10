@@ -41,6 +41,7 @@ import { EffectCoverflow, Pagination } from "swiper/modules";
 import { formatRupiah } from "../../utils/formating";
 import { removeImages } from "../../utils/removeImages";
 import charity from "../../aset/pantiasuhan/charity.jpg";
+import avatar from "../../aset/pantiasuhan/avatarr.png";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -570,10 +571,10 @@ function Home() {
   const getAllfasilitas = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/fasilitas `,
+        `${API_DUMMY_SMART}/api/public/fasilitas `,
         {
           headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            "x-origin": window.location.hostname,
           },
         }
       );
@@ -597,14 +598,14 @@ function Home() {
   const getAllPengurus = async () => {
     try {
       const pengurusResponse = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/member&level=pengurus`,
+        `${API_DUMMY_SMART}/api/public/pengurus/pengurus`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
 
       const guruResponse = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/member&level=guru`,
+        `${API_DUMMY_SMART}/api/public/pengurus/guru`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
@@ -742,7 +743,15 @@ function Home() {
                   class="col-md-5"
                 >
                   <div class="thumb mb-4 mb-md-0">
-                    <img src={sambutanPanti?.foto} alt="img" />
+                    <img
+                      src={
+                        sambutanPanti?.foto == null || sambutanPanti?.foto == ""
+                          ? avatar
+                          : sambutanPanti?.foto
+                      }
+                      alt="img"
+                    />
+                    {/* <img src={sambutanPanti?.foto} alt="img" /> */}
                     {/* <div class="quote-wrap">
                       <div class="quote">
                         <img
@@ -2092,7 +2101,7 @@ function Home() {
                       "0 4px 8px rgba(0, 0, 0, 0.1)";
                   }}
                 >
-                  <img
+                  {/* <img
                     src={
                       fasilitas.image && fasilitas.image.trim() !== ""
                         ? fasilitas.image
@@ -2104,7 +2113,7 @@ function Home() {
                       height: "200px",
                       objectFit: "cover",
                     }}
-                  />
+                  /> */}
                   <div style={{ padding: "15px" }}>
                     <h5 style={{ marginBottom: "10px", color: "#333" }}>
                       {fasilitas.name}
