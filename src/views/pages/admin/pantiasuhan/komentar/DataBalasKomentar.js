@@ -144,9 +144,8 @@ function DataBalasKomentar() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -252,17 +251,17 @@ function DataBalasKomentar() {
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td
-                            data-label="Program"
+                            data-label="Pengomentar"
                             className="text-md-start text-end contents">
                             <p className="content-isi">{komen.name}</p>
                           </td>
                           <td
-                            data-label="Penulis"
-                            className="text-md-start text-end">
-                            {komen.description}
+                            data-label="Komentar"
+                            className="text-md-start text-end contents">
+                            <p className="content-isi"><div dangerouslySetInnerHTML={{ __html: komen.description }}/></p>
                           </td>
                           <td
-                            data-label="Tanggal Update"
+                            data-label="Tanggal Dibuat"
                             className="text-md-start text-end">
                             {komen.created_date}
                           </td>
