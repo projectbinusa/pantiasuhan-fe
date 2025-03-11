@@ -153,7 +153,14 @@ function StatusBarangInventaris() {
     e.preventDefault();
     e.persist();
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     const data = {
       nama_status: status,
       deskripsi: deskripsi,

@@ -154,7 +154,14 @@ function KategoriBarangInventaris() {
     e.preventDefault();
     e.persist();
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     const data = {
       nama_kategori: kategori,
       deskripsi: deskripsi,

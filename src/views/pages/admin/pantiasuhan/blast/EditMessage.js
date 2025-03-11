@@ -103,7 +103,14 @@ function EditMessage() {
   const updateData = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     try {
       await axios.put(
         `${API_DUMMY_SMART}/api/customer/blast/${param.id}`,

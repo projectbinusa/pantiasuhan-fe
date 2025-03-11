@@ -19,6 +19,7 @@ function EditShift() {
   const [level, setLevel] = useState("");
   const history = useHistory();
   const param = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
@@ -44,6 +45,15 @@ function EditShift() {
 
   const update = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
     const data = {
       name: name,
@@ -54,37 +64,51 @@ function EditShift() {
       level: level,
     };
 
-    await axios
-      .put(`${API_DUMMY_SMART}/api/customer/shift/` + param.id, data, {
+    try {
+      const response = await axios.put(`${API_DUMMY_SMART}/api/customer/shift/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
-      .then(() => {
+
+      if (response.data.code === 200) {
         Swal.fire({
           icon: "success",
           title: "Berhasil Mengedit Data Shift",
           showConfirmButton: false,
           timer: 1500,
         });
+
+        // Redirect setelah berhasil
         setTimeout(() => {
           history.push("/admin_shift");
         }, 1500);
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 401) {
-          localStorage.clear();
-          history.push("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Edit Data Gagal!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          console.log(error);
-        }
-      });
+      } else {
+        // Handle respons lain dengan pesan error
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          text: response.data.message, // Tambahkan pesan error dari respons
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        localStorage.clear();
+        history.push("/login");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error);
+      }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
+    }
   };
 
   useEffect(() => {
@@ -124,9 +148,8 @@ function EditShift() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -222,8 +245,8 @@ function EditShift() {
                         Batal
                       </a>
                     </button>
-                    <button type="submit" className="btn-primary mt-3">
-                      Submit
+                    <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                      {isLoading ? <span className="loader"></span> : "Kirim"}
                     </button>
                   </form>
                 </div>

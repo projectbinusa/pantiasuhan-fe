@@ -177,7 +177,14 @@ function StokBarangInventaris() {
     e.preventDefault();
     e.persist();
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     const data = {
       jumlah_stok: stok,
       barang_id: idBarang,

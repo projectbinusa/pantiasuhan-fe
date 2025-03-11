@@ -239,7 +239,14 @@ function AddBarangInventaris() {
   const add = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     try {
       await axios.post(
         `${API_DUMMY}/api/admin/investaris`,

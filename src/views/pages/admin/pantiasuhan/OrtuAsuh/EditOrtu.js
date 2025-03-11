@@ -113,7 +113,14 @@ function EditOrtu() {
     e.preventDefault();
     e.persist();
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     const datas = {
       father_name: fatherName,
       mother_name: motherName,

@@ -21,6 +21,7 @@ function FormCabangBaru() {
   const [kota, setKota] = useState(null);
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     AOS.init();
@@ -33,6 +34,15 @@ function FormCabangBaru() {
   const userId = localStorage.getItem("id");
   const add = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
     try {
       const payload = {
@@ -195,6 +205,8 @@ function FormCabangBaru() {
         showConfirmButton: false,
         timer: 1500,
       });
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -354,8 +366,8 @@ function FormCabangBaru() {
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

@@ -88,7 +88,14 @@ function EditFasilitas() {
   const update = async (e) => {
     e.preventDefault();
     e.persist();
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     try {
       const response = await axios.put(
         `${API_DUMMY_SMART}/api/customer/fasilitas/${param.id}`,

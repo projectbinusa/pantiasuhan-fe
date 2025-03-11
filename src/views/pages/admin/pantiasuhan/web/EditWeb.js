@@ -19,6 +19,7 @@ function EditWeb() {
   const [font, setFont] = useState("");
   const history = useHistory();
   const param = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios
@@ -56,33 +57,45 @@ function EditWeb() {
       background2: bg2,
       logo: imageUrl,
     };
-
-    await axios
-      .put(`${API_DUMMY}/api/admin/web/` + param.id, data, {
+    try {
+      const response = await axios.put(`${API_DUMMY}/api/admin/web/` + param.id, data, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
-      .then(() => {
+      if (response.data.code === 200) {
         Swal.fire({
           icon: "success",
           title: "Berhasil Setting Web",
           showConfirmButton: false,
           timer: 1500,
         });
+
+        // Redirect setelah berhasil
         setTimeout(() => {
           history.push("/web");
         }, 1500);
-      })
-      .catch((error) => {
+      } else {
+        // Handle respons lain dengan pesan error
         Swal.fire({
           icon: "error",
           title: "Edit Data Gagal!",
+          text: response.data.message, // Tambahkan pesan error dari respons
           showConfirmButton: false,
           timer: 1500,
         });
-        console.log(error);
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Edit Data Gagal!",
+        showConfirmButton: false,
+        timer: 1500,
       });
+      console.log(error);
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
+    }
   };
   useEffect(() => {
     AOS.init();
@@ -129,9 +142,8 @@ function EditWeb() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -229,15 +241,15 @@ function EditWeb() {
                       {/* Tombol */}
                       <button
                         type="button"
-                        className="btn btn-danger mt-3 mr-3">
+                        className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
                           href="/web">
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn btn-primary mt-3">
-                        Submit
+                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                        {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
                   </div>

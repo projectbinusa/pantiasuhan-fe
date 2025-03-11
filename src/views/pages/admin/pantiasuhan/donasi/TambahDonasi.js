@@ -93,7 +93,14 @@ function TambahDonasi() {
   const add = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     try {
       let imageUrl = image;
       if (image) {

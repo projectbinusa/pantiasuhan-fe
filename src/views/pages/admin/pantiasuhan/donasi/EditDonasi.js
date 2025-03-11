@@ -126,6 +126,14 @@ function EditDonasi() {
     e.preventDefault();
     e.persist();
     setIsLoading(true);
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
     let imageUrl;
 

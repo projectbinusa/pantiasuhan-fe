@@ -55,7 +55,14 @@ function EditLokasiBarang() {
   const put = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     try {
       await axios.put(
         `${API_DUMMY}/api/admin/lokasi_barang/${param.id}`,

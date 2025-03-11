@@ -17,10 +17,20 @@ function EditDomain() {
   const param = useParams();
   const history = useHistory();
   const [selectedOrganization, setSelectedOrganization] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateDomain = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
     const datas = {
       name: nama,
@@ -61,6 +71,8 @@ function EditDomain() {
         });
         console.error(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -152,9 +164,8 @@ function EditDomain() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -227,8 +238,8 @@ function EditDomain() {
                     Batal
                   </a>
                 </button>
-                <button type="submit" className="btn-primary mt-3">
-                  Submit
+                <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                  {isLoading ? <span className="loader"></span> : "Kirim"}
                 </button>
               </form>
             </div>

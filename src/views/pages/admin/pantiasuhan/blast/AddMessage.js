@@ -97,7 +97,14 @@ function AddMessage() {
     e.preventDefault();
     e.persist();
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     try {
       await axios.post(
         `${API_DUMMY_SMART}/api/customer/blast`,
