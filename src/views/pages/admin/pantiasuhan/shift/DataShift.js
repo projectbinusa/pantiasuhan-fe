@@ -160,11 +160,11 @@ function DataShift() {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-  const formatTime = (time) => {
-    // Ensure the time is in the correct format: HH:MM:SS
-    const [hours, minutes] = time.split(":");
-    return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00`; // Add seconds (00)
-  };
+  // const formatTime = (time) => {
+  //   // Ensure the time is in the correct format: HH:MM:SS
+  //   const [hours, minutes] = time.split(":");
+  //   return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00`; // Add seconds (00)
+  // };
 
   // const detectBrowser = () => {
   //   const userAgent = navigator.userAgent;
@@ -178,32 +178,32 @@ function DataShift() {
   //   return "other";
   // };
 
-  const handleWaktuMasukChange = (e) => {
-    const waktuMasuk = e.target.value;
-    if (!waktuMasuk) return;
+  // const handleWaktuMasukChange = (e) => {
+  //   const waktuMasuk = e.target.value;
+  //   if (!waktuMasuk) return;
 
-    const [hours, minutes] = waktuMasuk.split(":").map(Number);
+  //   const [hours, minutes] = waktuMasuk.split(":").map(Number);
 
-    const formattedTime = new Date(1970, 0, 1, hours, minutes)
-      .toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", hour12: false });
+  //   const formattedTime = new Date(1970, 0, 1, hours, minutes)
+  //     .toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", hour12: false });
 
-    console.log("Formatted Time:", formattedTime);
-    setWaktuMasuk(formattedTime);
-  };
+  //   console.log("Formatted Time:", formattedTime);
+  //   setWaktuMasuk(formattedTime);
+  // };
 
 
-  const handleWaktuPulangChange = (e) => {
-    const waktuPulang = e.target.value;
-    if (!waktuPulang) return;
+  // const handleWaktuPulangChange = (e) => {
+  //   const waktuPulang = e.target.value;
+  //   if (!waktuPulang) return;
 
-    const [hours, minutes] = waktuPulang.split(":").map(Number);
+  //   const [hours, minutes] = waktuPulang.split(":").map(Number);
 
-    const formattedTime = new Date(1970, 0, 1, hours, minutes)
-      .toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", hour12: false });
+  //   const formattedTime = new Date(1970, 0, 1, hours, minutes)
+  //     .toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", hour12: false });
 
-    console.log("Formatted Time:", formattedTime);
-    setWaktuPulang(formattedTime);
-  };
+  //   console.log("Formatted Time:", formattedTime);
+  //   setWaktuPulang(formattedTime);
+  // };
 
 
   // ADD
@@ -215,10 +215,26 @@ function DataShift() {
   const [level, setLevel] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleWaktuMasukChange = (e) => {
+    setWaktuMasuk(e.target.value);
+  };
+
+  const handleWaktuPulangChange = (e) => {
+    setWaktuPulang(e.target.value);
+  };
+
+  // Fungsi untuk memastikan format waktu benar
+  const formatTime = (time) => {
+    if (!time) return "00:00:00"; // Jika kosong, beri nilai default
+
+    const [hours, minutes] = time.split(":");
+    return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00`; // Tambah detik
+  };
+
   const add = async (e) => {
     e.preventDefault();
-    e.persist();
     setIsLoading(true);
+
     Swal.fire({
       title: "Loading...",
       text: "Please wait",
@@ -228,67 +244,49 @@ function DataShift() {
       }
     });
 
-    // Ensure the time is in the correct format
-    const formatTime = (time) => {
-      const [hours, minutes] = time.split(":");
-      return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00`; // Add seconds
-    };
-
+    // Format waktu
     const formattedWaktuMasuk = formatTime(waktuMasuk);
     const formattedWaktuPulang = formatTime(waktuPulang);
 
-    // Log the formatted values before sending to check
-    console.log("Waktu Masuk:", formattedWaktuMasuk);
-    console.log("Waktu Pulang:", formattedWaktuPulang);
+    console.log("Waktu Masuk:", waktuMasuk, "=>", formattedWaktuMasuk);
+    console.log("Waktu Pulang:", waktuPulang, "=>", formattedWaktuPulang);
 
     const data = {
       name: name,
-      waktu_masuk: formattedWaktuMasuk, // Example: "07:00:00"
-      waktu_pulang: formattedWaktuPulang, // Example: "15:00:00"
-      active: parseInt(active), // Ensure active is an integer (1 or 0)
+      waktu_masuk: formattedWaktuMasuk,
+      waktu_pulang: formattedWaktuPulang,
+      active: parseInt(active),
       description: deskripsi,
       level: level,
     };
 
     try {
-      const response = await axios.post(
-        `${API_DUMMY_SMART}/api/customer/shift`,
-        data,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+      await axios.post(`${API_DUMMY_SMART}/api/customer/shift`, data, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      });
 
       setIsModalOpen(false);
       Swal.fire({
         icon: "success",
-        title: "Data Berhasil DiTambahkan",
+        title: "Data Berhasil Ditambahkan",
         showConfirmButton: false,
         timer: 1500,
       });
-      // window.location.reload();
       getAll();
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        localStorage.clear();
-        window.location.reload(); // Redirect to login or perform other actions
-      } else {
-        setIsModalOpen(false);
-        Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log("Error:", error.response ? error.response.data : error);
-      }
+      Swal.fire({
+        icon: "error",
+        title: "Tambah Data Gagal!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      console.log("Error:", error.response ? error.response.data : error);
     } finally {
-      setIsLoading(false); // Matikan loading setelah selesai
+      setIsLoading(false);
     }
   };
-
   return (
     <div
       className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
