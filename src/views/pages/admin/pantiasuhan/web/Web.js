@@ -10,6 +10,8 @@ function Web() {
   const [font, setFont] = useState("");
   const [id, setId] = useState("");
   const [datas, setDatas] = useState(null);
+  const [title, setTitle] = useState("Panti Asuhan Muhammadiyah");
+  const [subtitle, setSubtitle] = useState("Pantinya Sang Juara");
 
   const getAll = async () => {
     try {
@@ -27,6 +29,8 @@ function Web() {
         setBg(res.background);
         setBg2(res.background2);
         setId(res.id);
+        setTitle(res.title || "Panti Asuhan Muhammadiyah");
+        setSubtitle(res.subtitle || "Pantinya Sang Juara");
       }
     } catch (error) {
       console.error("Terjadi Kesalahan:", error);
@@ -44,12 +48,14 @@ function Web() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -63,7 +69,8 @@ function Web() {
                   <button type="button" className="btn-primary btn-sm mr-2">
                     <a
                       href={`/web/edit/${id}`}
-                      style={{ color: "white", textDecoration: "none" }}>
+                      style={{ color: "white", textDecoration: "none" }}
+                    >
                       <i className="fa-solid fa-pen-to-square"></i> Edit
                     </a>
                   </button>
@@ -71,7 +78,8 @@ function Web() {
                   <button className="btn-focus p-2 rounded">
                     <a
                       href="/seting_tampilan_web"
-                      style={{ color: "white", textDecoration: "none" }}>
+                      style={{ color: "white", textDecoration: "none" }}
+                    >
                       Seting Tampilan Web
                     </a>
                   </button>
@@ -108,7 +116,8 @@ function Web() {
                       backgroundColor: bg || "#ffffff",
                       marginTop: "10px",
                       border: "1px solid #000",
-                    }}></div>
+                    }}
+                  ></div>
                 </div>
                 <div className="mb-3">
                   <label className="form-label fw-bold">
@@ -127,7 +136,8 @@ function Web() {
                       backgroundColor: bg2 || "#ffffff",
                       marginTop: "10px",
                       border: "1px solid #000",
-                    }}></div>
+                    }}
+                  ></div>
                 </div>
                 <div className="mb-3">
                   <label className="form-label fw-bold">Font</label>
@@ -142,6 +152,40 @@ function Web() {
             </div>
           </div>
         </div>
+        {/* Bagian untuk menampilkan banner dengan background dan font yang diambil dari state */}
+        {/* <div
+          style={{ backgroundImage: `url(${bg})` }}
+          className="banner-area banner-area-1 bg-black bg-relative"
+        >
+          <div
+            className="banner-bg-img"
+            style={{
+              backgroundImage: `url(${bg2})`,
+              backgroundColor: "rgba(0, 0, 0, 0.7)",
+            }}
+          ></div>
+          <div className="container">
+            <div className="order-lg-first align-self-center">
+              <div
+                data-aos="zoom-out-right"
+                className="banner-inner style-white text-center text-lg-start"
+                style={{ fontFamily: font }}
+              >
+                <h2 className="title d-none d-lg-inline-block">
+                  {title} <br />
+                  <span>{subtitle}</span>
+                </h2>
+                <h2
+                  style={{ fontSize: "30px", color: "white" }}
+                  className="d-inline-block d-lg-none"
+                >
+                  {title} <br />
+                  <span>{subtitle}</span>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div> */}
       </div>
     </div>
   );

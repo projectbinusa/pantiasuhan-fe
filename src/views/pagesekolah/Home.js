@@ -42,6 +42,7 @@ import { formatRupiah } from "../../utils/formating";
 import { removeImages } from "../../utils/removeImages";
 import charity from "../../aset/pantiasuhan/charity.jpg";
 import avatar from "../../aset/pantiasuhan/avatarr.png";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const formatTanggal = (tanggalString) => {
   const tanggal = new Date(tanggalString);
@@ -294,6 +295,18 @@ function Home() {
 
   // GET ALL ALUMNI
   const [galery, setGalery] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const openModal = (image) => {
+    setSelectedImage(image);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setSelectedImage(null);
+  };
 
   const getAllGalery = async () => {
     try {
@@ -597,21 +610,14 @@ function Home() {
   const [listp, setListp] = useState([]);
   const getAllPengurus = async () => {
     try {
-      const pengurusResponse = await axios.get(
+      const response = await axios.get(
         `${API_DUMMY_SMART}/api/public/pengurus/pengurus`,
         {
           headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
         }
       );
 
-      const guruResponse = await axios.get(
-        `${API_DUMMY_SMART}/api/public/pengurus/guru`,
-        {
-          headers: { "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}` },
-        }
-      );
-
-      setListp([...pengurusResponse.data.data, ...guruResponse.data.data]);
+      setListp(response.data.data);
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
     }
@@ -635,10 +641,40 @@ function Home() {
       });
   }, []);
 
+  const [bg, setBg] = useState("#ffffff"); // Default warna putih
+  const [bg2, setBg2] = useState("#ffffff");
+  const [font, setFont] = useState("");
+  const [title, setTitle] = useState("Panti Asuhan Muhammadiyah");
+  const [subtitle, setSubtitle] = useState("Pantinya Sang Juara");
+
+  const getAll = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/api/admin/web`, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      });
+
+      const res = response.data.data;
+      if (res) {
+        setFont(res.font);
+        setBg(res.background);
+        setBg2(res.background2);
+        setTitle(res.title || "Panti Asuhan Muhammadiyah");
+        setSubtitle(res.subtitle || "Pantinya Sang Juara");
+        console.log("isi bg 1", bg);
+        console.log("isi bg 2", bg);
+      }
+    } catch (error) {
+      console.error("Terjadi Kesalahan:", error);
+    }
+  };
+
   useEffect(() => {
     getAllVisiMisiPanti();
     getAllSambutanPanti();
     getAllKegiatan();
+    getAll();
     // getAllKontakPanti();
     getAllBerita();
     getAllSantri();
@@ -730,6 +766,39 @@ function Home() {
           {/* </div> */}
         </div>
       </div>
+      {/* <div
+        style={{ backgroundImage: `url(${bg})` }}
+        className="banner-area banner-area-1 bg-black bg-relative"
+      >
+        <div
+          className="banner-bg-img"
+          style={{
+            backgroundImage: `url(${bg2})`,
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+          }}
+        ></div>
+        <div className="container">
+          <div className="order-lg-first align-self-center">
+            <div
+              data-aos="zoom-out-right"
+              className="banner-inner style-white text-center text-lg-start"
+              style={{ fontFamily: font }}
+            >
+              <h2 className="title d-none d-lg-inline-block">
+                {title} <br />
+                <span>{subtitle}</span>
+              </h2>
+              <h2
+                style={{ fontSize: "30px", color: "white" }}
+                className="d-inline-block d-lg-none"
+              >
+                {title} <br />
+                <span>{subtitle}</span>
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div> */}
 
       <div class="testimonial-slider bg-sky bg-relative testimonial-slider-bg pd-top-120 pd-bottom-120">
         <div class="container bg-relative">
@@ -1442,37 +1511,28 @@ function Home() {
       </div>
 
       {/* Pengurus */}
-      <div class=" team-area pd-top-115 pd-bottom-90">
-        {/* <img
-          class="shape-left-top top_image_bounce"
-          src="https://solverwp.com/demo/html/itechie/assets/img/shape/3.webp"
-          alt="img"
-        />
-        <img
-          class="shape-right-top top_image_bounce"
-          src="https://solverwp.com/demo/html/itechie/assets/img/shape/4.webp"
-          alt="img"
-        /> */}
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6">
-              <div class="section-title text-center" data-aos="fade-down">
-                {/* <h5 class="sub-title double-line">Santri Panti</h5> */}
-                <h2 class="title">Pengurus Panti</h2>
-                {/* <p class="content">
-                  Dcidunt eget semper nec quam. Sed hendrerit. acfelis Nunc
-                  egestas augue atpellentesque laoreet
-                </p> */}
+      <div className="team-area pd-top-115 pd-bottom-90">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-6">
+              <div className="section-title text-center" data-aos="fade-down">
+                <h2
+                  className="title"
+                  style={{ fontWeight: "bold", color: "#004080" }}
+                >
+                  Pengurus Panti
+                </h2>
               </div>
             </div>
           </div>
-          <div class="row" data-aos="fade-up">
+          <div className="row" data-aos="fade-up">
             <div
               className="grid-container"
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
                 gap: "20px",
+                padding: "20px",
               }}
             >
               {listp.map((member, index) => (
@@ -1481,38 +1541,47 @@ function Home() {
                   key={index}
                   style={{
                     backgroundColor: "#fff",
-                    borderRadius: "15px",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "12px",
+                    boxShadow: "0 6px 12px rgba(0, 0, 0, 0.1)",
                     overflow: "hidden",
-                    transition: "transform 0.3s, box-shadow 0.3s",
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    border: "1px solid #ddd",
                   }}
                   onMouseOver={(e) => {
-                    e.currentTarget.style.transform = "scale(1.05)";
+                    e.currentTarget.style.transform = "scale(1.03)";
                     e.currentTarget.style.boxShadow =
-                      "0 8px 16px rgba(0, 0, 0, 0.2)";
+                      "0 10px 20px rgba(0, 0, 0, 0.15)";
                   }}
                   onMouseOut={(e) => {
                     e.currentTarget.style.transform = "scale(1)";
                     e.currentTarget.style.boxShadow =
-                      "0 4px 8px rgba(0, 0, 0, 0.1)";
+                      "0 6px 12px rgba(0, 0, 0, 0.1)";
                   }}
                 >
-                  <div style={{ padding: "20px" }}>
+                  <div style={{ padding: "25px", textAlign: "center" }}>
                     <h4
                       style={{
-                        fontSize: "1.5rem",
-                        fontWeight: "bold",
+                        fontSize: "1.6rem",
+                        fontWeight: "600",
                         color: "#004080",
                         marginBottom: "10px",
+                        transition: "color 0.3s ease",
                       }}
+                      onMouseOver={(e) =>
+                        (e.currentTarget.style.color = "#007BFF")
+                      }
+                      onMouseOut={(e) =>
+                        (e.currentTarget.style.color = "#004080")
+                      }
                     >
                       {member.name}
                     </h4>
                     <p
                       style={{
-                        fontSize: "0.9rem",
-                        color: "#555",
+                        fontSize: "1rem",
+                        color: "#666",
                         marginBottom: "5px",
+                        letterSpacing: "0.5px",
                       }}
                     >
                       No HP: {member.hp}
@@ -1521,21 +1590,6 @@ function Home() {
                 </div>
               ))}
             </div>
-
-            {/* {siswa.map((data) => (
-              <div class="col-lg-3 col-md-6">
-                <div class="single-team-inner style-1 text-center">
-                  <div class="thumb">
-                    <img src={data.picture} alt="img" />
-                  </div>
-                  <div class="details-wrap">
-                    <div class="details-inner">
-                      <h4>{data.name}</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))} */}
           </div>
         </div>
       </div>
@@ -1677,221 +1731,79 @@ function Home() {
         style={{
           backgroundImage:
             "url('https://solverwp.com/demo/html/itechie/assets/img/bg/10.webp')",
+          padding: "50px 0",
         }}
-        class="project-area half-bg-top pd-top-115"
+        className="text-center"
       >
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-10">
-              <div
-                data-aos="zoom-in-down"
-                class="section-title style-white text-center"
-              >
-                {/* <h5 class="sub-title double-border">Work Process</h5> */}
-                <h2 class="title text-white">Galery</h2>
-                <p class="content text-white">
-                  Galeri panti asuhan menampilkan momen kebahagiaan,
-                  kreativitas, dan kegiatan sehari-hari anak-anak, mencerminkan
-                  semangat harapan dan kebersamaan yang indah.
-                </p>
-              </div>
+        <div className="container">
+          <h2 className="text-white">Galeri</h2>
+          <p className="text-white">
+            Galeri panti asuhan menampilkan momen kebahagiaan, kreativitas, dan
+            kegiatan sehari-hari anak-anak, mencerminkan semangat harapan dan
+            kebersamaan yang indah.
+          </p>
+
+          {/* Pastikan `galery` tidak undefined atau null */}
+          {galery && galery.length > 0 ? (
+            <div
+              className="d-grid"
+              style={{
+                gridTemplateColumns: "repeat(3, 1fr)", // 3 kolom
+                gridGap: "20px",
+              }}
+            >
+              {galery.slice(0, 6).map((item, index) => (
+                <div
+                  key={index}
+                  className="card border-0 shadow"
+                  style={{ borderRadius: "15px", overflow: "hidden" }}
+                  onClick={() => openModal(item.foto)}
+                >
+                  <img
+                    src={item.foto}
+                    alt="galery Item"
+                    className="img-fluid"
+                    style={{
+                      height: "200px",
+                      width: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+              ))}
             </div>
-          </div>
-          <div
-            className="grid-container"
+          ) : (
+            <p className="text-white">Tidak ada gambar tersedia</p>
+          )}
+        </div>
+
+        {/* Popup Modal */}
+        {modalIsOpen && selectedImage && (
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "20px",
+              content: {
+                top: "50%",
+                left: "50%",
+                right: "auto",
+                bottom: "auto",
+                marginRight: "-50%",
+                transform: "translate(-50%, -50%)",
+                background: "rgba(0,0,0,0.8)",
+                border: "none",
+              },
             }}
           >
-            {galery.map((item, index) => (
-              <div
-                className="card"
-                key={index}
-                style={{
-                  backgroundColor: "#fff",
-                  borderRadius: "15px",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                  overflow: "hidden",
-                  transition: "transform 0.3s, box-shadow 0.3s",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = "scale(1.05)";
-                  e.currentTarget.style.boxShadow =
-                    "0 8px 16px rgba(0, 0, 0, 0.2)";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 8px rgba(0, 0, 0, 0.1)";
-                }}
-              >
-                <img
-                  src={
-                    item.foto !== ""
-                      ? item.foto
-                      : "https://via.placeholder.com/300x200"
-                  }
-                  alt="Foto Donasi"
-                  style={{
-                    width: "100%",
-                    height: "200px",
-                    objectFit: "cover",
-                  }}
-                />
-                {/* <div style={{ padding: "20px" }}>
-                  <h4
-                    style={{
-                      fontSize: "1.5rem",
-                      fontWeight: "bold",
-                      color: "#004080",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    {item.name}
-                  </h4>
-                  <p
-                    style={{
-                      fontSize: "0.9rem",
-                      color: "#555",
-                      marginBottom: "5px",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <svg
-                      className="svg-inline--fa fa-calendar-alt fa-w-14"
-                      aria-hidden="true"
-                      focusable="false"
-                      data-prefix="far"
-                      data-icon="calendar-alt"
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 448 512"
-                      style={{
-                        width: "16px",
-                        height: "16px",
-                        color: "#004080",
-                        marginRight: "5px",
-                      }}
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-56V64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H152V64zM32 192h384v272c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V192zm96 100c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40z"
-                      />
-                    </svg>
-                    {formatTanggal(item.created_date)}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "0.9rem",
-                      color: "#777",
-                      lineHeight: "1.5",
-                      marginBottom: "15px", marginTop: "1rem"
-                    }} className="content-isi"
-                  >
-                    <div dangerouslySetInnerHTML={{ __html: item?.description }} />
-                  </p>
-                  <p style={{
-                    fontSize: "0.9rem",
-                    color: "#777", fontWeight: "500", marginTop: "1rem"
-                  }} className="content-isi"
-                  >Total Donasi</p>
-                  <h4
-                    style={{
-                      fontSize: "1.3rem",
-                      fontWeight: "bold",
-                      color: "#004080",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    {formatRupiah(item.total_income)}
-                  </h4>
-                  <a
-                    className="read-more-text"
-                    href={"/donasiumum/preview/" + item.id}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      fontSize: "0.9rem",
-                      fontWeight: "bold",
-                      color: "#004080",
-                      textDecoration: "none",
-                      transition: "color 0.3s ease",
-                    }}
-                    onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
-                    onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}
-                  >
-                    <span style={{ marginRight: "8px" }}>Selengkapnya</span>
-                  </a>
-                </div> */}
-              </div>
-            ))}
-          </div>
-          {/* <Swiper
-            effect={"coverflow"}
-            grabCursor={true}
-            centeredSlides={true}
-            spaceBetween={10}
-            slidesPerView={3}
-            breakpoints={{
-              320: {
-                slidesPerView: 1, // 1 slide untuk layar sangat kecil (320px ke bawah)
-                spaceBetween: 10,
-              },
-              480: {
-                slidesPerView: 2, // 2 slide untuk layar sedang (480px ke bawah)
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 3, // 3 slide untuk tablet (768px ke bawah)
-                spaceBetween: 25,
-              },
-              1024: {
-                slidesPerView: 4, // 4 slide untuk layar besar
-                spaceBetween: 30,
-              },
-            }}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 5,
-              depth: 100,
-              modifier: 1,
-              slideShadows: false,
-            }}
-            pagination={true}
-            modules={[EffectCoverflow, Pagination]}
-            className="mySwiper">
-            <div class="project-slider slider-control-round owl-carousel">
-              <div class="item">
-                {galery.map((data) => (
-                  <SwiperSlide>
-                    <div data-aos="zoom-in" class="single-project-inner">
-                      <div class="thumb">
-                        <button
-                          style={{
-                            justifyContent: "center",
-                            justifyItems: "center",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                          onClick={() => {
-                            handleOpen();
-                            byIdGalery(data.id);
-                          }}
-                          class="icon swp-readmore-arrow swp-image-popup">
-                          <i class="fas fa-search-minus"></i>
-                        </button>
-                        <img src={data.foto} alt="img" />
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </div>
-            </div>
-          </Swiper> */}
-        </div>
+            <img
+              src={selectedImage}
+              alt="Full Size"
+              className="img-fluid"
+              style={{ maxHeight: "80vh", maxWidth: "100%" }}
+              onClick={closeModal}
+            />
+          </Modal>
+        )}
       </div>
 
       {/* Santri */}
@@ -2054,28 +1966,42 @@ function Home() {
       </div>
 
       {/* Fasilitas */}
-      <div class="project-area half-bg-top pd-top-115">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-10">
+      <div className="project-area half-bg-top pd-top-115">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-6 col-md-10">
               <div
                 data-aos="zoom-in-down"
-                class="section-title style-white text-center"
+                className="section-title style-white text-center"
               >
-                {/* <h5 class="sub-title double-border">Work Process</h5> */}
-                <h2 class="title text-black">Fasilitas</h2>
-                <p class="content text-black">
-                  Panti asuhan memiliki fasilitas yang mumpuni
+                <h2
+                  className="title text-black"
+                  style={{ fontWeight: "bold", color: "#004080" }}
+                >
+                  Fasilitas
+                </h2>
+                <p
+                  className="content text-black"
+                  style={{
+                    fontSize: "1.1rem",
+                    color: "#555",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Panti asuhan memiliki fasilitas yang mumpuni untuk mendukung
+                  kesejahteraan anak-anak.
                 </p>
               </div>
             </div>
           </div>
+
           <div
             className="grid-container"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
               gap: "20px",
+              padding: "10px",
             }}
           >
             {list.length > 0 ? (
@@ -2085,20 +2011,21 @@ function Home() {
                   key={index}
                   style={{
                     backgroundColor: "#fff",
-                    borderRadius: "15px",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
                     overflow: "hidden",
-                    transition: "transform 0.3s, box-shadow 0.3s",
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                    border: "1px solid #ddd",
                   }}
                   onMouseOver={(e) => {
-                    e.currentTarget.style.transform = "scale(1.05)";
+                    e.currentTarget.style.transform = "translateY(-5px)";
                     e.currentTarget.style.boxShadow =
-                      "0 8px 16px rgba(0, 0, 0, 0.2)";
+                      "0 8px 18px rgba(0, 0, 0, 0.2)";
                   }}
                   onMouseOut={(e) => {
-                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.transform = "translateY(0)";
                     e.currentTarget.style.boxShadow =
-                      "0 4px 8px rgba(0, 0, 0, 0.1)";
+                      "0 4px 12px rgba(0, 0, 0, 0.15)";
                   }}
                 >
                   {/* <img
@@ -2110,35 +2037,46 @@ function Home() {
                     alt="Fasilitas"
                     style={{
                       width: "100%",
-                      height: "200px",
+                      height: "180px",
                       objectFit: "cover",
+                      borderTopLeftRadius: "12px",
+                      borderTopRightRadius: "12px",
+                      transition: "opacity 0.3s ease",
                     }}
+                    onMouseOver={(e) => (e.currentTarget.style.opacity = "0.9")}
+                    onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
                   /> */}
-                  <div style={{ padding: "15px" }}>
-                    <h5 style={{ marginBottom: "10px", color: "#333" }}>
+                  <div style={{ padding: "15px", textAlign: "center" }}>
+                    <h5
+                      style={{
+                        marginBottom: "8px",
+                        fontSize: "1.3rem",
+                        fontWeight: "600",
+                        color: "#004080",
+                      }}
+                    >
                       {fasilitas.name}
                     </h5>
-                    <p style={{ color: "#777" }}>{fasilitas.description}</p>
-                    {/* <div className="d-flex justify-content-between">
-                      <a
-                        href={`/admin_fasilitas/edit/${fasilitas.id}`}
-                        className="btn btn-primary btn-sm"
-                      >
-                        <i className="fa-solid fa-pen-to-square"></i> Edit
-                      </a>
-                      <button
-                        onClick={() => deleteData(fasilitas.id)}
-                        className="btn btn-danger btn-sm"
-                      >
-                        <i className="fa-solid fa-trash"></i> Hapus
-                      </button>
-                    </div> */}
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        color: "#666",
+                        lineHeight: "1.5",
+                      }}
+                    >
+                      {fasilitas.description}
+                    </p>
                   </div>
                 </div>
               ))
             ) : (
               <div
-                style={{ textAlign: "center", padding: "20px", color: "#777" }}
+                style={{
+                  textAlign: "center",
+                  padding: "20px",
+                  color: "#777",
+                  fontSize: "1.1rem",
+                }}
               >
                 Tidak ada data yang tersedia.
               </div>
