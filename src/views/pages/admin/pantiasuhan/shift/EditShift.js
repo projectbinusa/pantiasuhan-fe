@@ -211,6 +211,7 @@ function EditShift() {
                           type="time"
                           placeholder="Masukkan Waktu Masuk"
                           step="60"
+                          value={waktuMasuk}
                           onChange={handleWaktuMasukChange}
                         />
                       </div>
