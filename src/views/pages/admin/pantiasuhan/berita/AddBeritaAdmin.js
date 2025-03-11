@@ -68,11 +68,21 @@ function AddBeritaAdminPanti() {
   const [isiBerita, setIsiBerita] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   //add
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
     try {
       let imageUrl = image;
@@ -118,6 +128,8 @@ function AddBeritaAdminPanti() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -267,9 +279,8 @@ function AddBeritaAdminPanti() {
   }, []);
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -589,8 +600,8 @@ function AddBeritaAdminPanti() {
                         Batal
                       </a>
                     </button>
-                    <button type="submit" className="btn-primary mt-3">
-                      Submit
+                    <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                      {isLoading ? <span className="loader"></span> : "Kirim"}
                     </button>
                   </form>
                 </div>

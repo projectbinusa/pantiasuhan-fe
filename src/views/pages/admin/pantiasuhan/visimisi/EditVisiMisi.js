@@ -92,6 +92,15 @@ function EditVisiMisiPanti() {
 
   const update = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
     const data = {
       visi: visi,

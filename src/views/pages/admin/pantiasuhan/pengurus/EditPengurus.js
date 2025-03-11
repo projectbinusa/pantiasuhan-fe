@@ -99,7 +99,14 @@ function EditPengurus() {
       gender: gender,
     };
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     try {
       // Make the PUT request
       await axios.put(

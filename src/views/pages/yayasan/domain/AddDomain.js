@@ -14,12 +14,23 @@ function AddDomain() {
   const [nama, setNama] = useState("");
   const [organization, setOrganization] = useState("");
   const [idOrganization, setIdOrganization] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const history = useHistory();
 
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     // let imageUrl = foto;
 
     // if (foto) {
@@ -58,6 +69,8 @@ function AddDomain() {
         });
         console.log(error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -117,9 +130,8 @@ function AddDomain() {
   return (
     <div
       c
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -188,8 +200,8 @@ function AddDomain() {
                         Batal
                       </a>
                     </button>
-                    <button type="submit" className="btn-primary mt-3">
-                      Submit
+                    <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                      {isLoading ? <span className="loader"></span> : "Kirim"}
                     </button>
                   </form>
                 </div>

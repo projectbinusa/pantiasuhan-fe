@@ -89,6 +89,14 @@ function EditAnak() {
   const put = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior.
     setIsLoading(true);
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     // Prepare the payload
     const payload = {
       name: nama,

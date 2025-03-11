@@ -155,7 +155,14 @@ function KondisiBarangInventaris() {
     e.preventDefault();
     e.persist();
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     const data = {
       organization_id: +localStorage.getItem("organization_id"),
       kondisi_barang: kondisi,

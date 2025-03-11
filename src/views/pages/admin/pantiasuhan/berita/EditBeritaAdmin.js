@@ -68,6 +68,7 @@ function EditBeritaAdminPanti() {
   const [isiBerita, setIsiBerita] = useState("");
   const [show, setShow] = useState(false);
   const [imageurl, setImageUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const param = useParams();
   const history = useHistory();
@@ -95,6 +96,15 @@ function EditBeritaAdminPanti() {
   const updateBerita = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
     try {
       let imageUrl;
@@ -159,6 +169,8 @@ function EditBeritaAdminPanti() {
         });
         console.log(error); // Log error untuk debugging
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -309,9 +321,8 @@ function EditBeritaAdminPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -658,8 +669,8 @@ function EditBeritaAdminPanti() {
                     Batal
                   </a>
                 </button>
-                <button type="submit" className="btn-primary mt-3">
-                  Submit
+                <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                  {isLoading ? <span className="loader"></span> : "Kirim"}
                 </button>
               </form>
             </div>

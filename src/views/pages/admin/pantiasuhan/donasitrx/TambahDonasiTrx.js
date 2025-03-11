@@ -156,7 +156,14 @@ function TambahDonasiTrx() {
     e.preventDefault();
     e.persist();
     setLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     try {
       let imageUrl = image;
 

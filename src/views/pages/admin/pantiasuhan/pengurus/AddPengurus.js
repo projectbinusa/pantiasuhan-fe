@@ -91,7 +91,14 @@ function AddPengurus() {
 
     // if (!validateForm()) return;
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     try {
       let imageUrl = foto;
 

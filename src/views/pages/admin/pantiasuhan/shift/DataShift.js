@@ -213,10 +213,20 @@ function DataShift() {
   const [active, setActive] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [level, setLevel] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const add = async (e) => {
     e.preventDefault();
     e.persist();
+    setIsLoading(true);
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
     // Ensure the time is in the correct format
     const formatTime = (time) => {
@@ -274,14 +284,15 @@ function DataShift() {
         });
         console.log("Error:", error.response ? error.response.data : error);
       }
+    } finally {
+      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}>
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -491,7 +502,7 @@ function DataShift() {
                   </div>
                   <div className="mb-3 col-md-12">
                     <label
-                      for="exampleInputEmail1"
+                      for="exampleInputEmail3"
                       className="form-label  font-weight-bold ">
                       Waktu Pulang
                     </label>
@@ -500,7 +511,6 @@ function DataShift() {
                       type="time"
                       required
                       placeholder="Masukkan Waktu Pulang"
-                      value={waktuPulang}
                       onChange={handleWaktuPulangChange}
                     />
                   </div>
@@ -533,8 +543,8 @@ function DataShift() {
                     <button onClick={closeModal} className="btn-danger ">
                       TUTUP
                     </button>
-                    <button type="submit" className="btn-primary">
-                      SIMPAN
+                    <button type="submit" className="btn-primary" disabled={isLoading}>
+                      {isLoading ? <span className="loader"></span> : "SIMPAN"}
                     </button>
                   </div>
                 </div>

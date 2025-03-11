@@ -24,6 +24,14 @@ const AddGalery = () => {
   const add = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
     try {
       let imageUrl = foto;
@@ -181,7 +189,7 @@ const AddGalery = () => {
                         Batal
                       </a>
                     </button>
-                    <button type="submit" className="btn btn-primary mt-3" disabled={isLoading}>
+                    <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
                       {isLoading ? <span className="loader"></span> : "Kirim"}
                     </button>
                   </form>

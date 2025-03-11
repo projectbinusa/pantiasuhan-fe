@@ -33,7 +33,14 @@ function AddKontakPanti() {
     console.log(data);
 
     setIsLoading(true);
-
+    Swal.fire({
+      title: "Loading...",
+      text: "Please wait",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
     try {
       await axios.post(`${API_DUMMY}/api/admin/kontak`, data, {
         headers: {
