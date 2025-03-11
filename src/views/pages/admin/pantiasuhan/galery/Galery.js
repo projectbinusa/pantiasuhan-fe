@@ -40,7 +40,6 @@ function Galery() {
         totalElements: pagination.total || 0,
       });
       console.log(pagination);
-
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
     }
@@ -116,12 +115,12 @@ function Galery() {
 
   const filteredList = searchTerm
     ? list.filter((item) =>
-      Object.values(item).some(
-        (value) =>
-          typeof value === "string" &&
-          value.toLowerCase().includes(searchTerm.toLowerCase())
+        Object.values(item).some(
+          (value) =>
+            typeof value === "string" &&
+            value.toLowerCase().includes(searchTerm.toLowerCase())
+        )
       )
-    )
     : list;
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
@@ -173,7 +172,9 @@ function Galery() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -185,7 +186,10 @@ function Galery() {
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
+        <div
+          className="container box-table mt-3 app-main__outer"
+          data-aos="fade-left"
+        >
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -244,7 +248,8 @@ function Galery() {
                       <button className="active btn-focus p-2 rounded">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/add-galery">
+                          href="/add-galery"
+                        >
                           Tambah
                         </a>
                       </button>
@@ -274,16 +279,34 @@ function Galery() {
                     filteredList.map((galery, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="text-md-start text-end">
+                          <td
+                            data-label="No"
+                            className="text-md-start text-end"
+                          >
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Judul" className="text-md-start text-end">{galery.judul}</td>
-                          <td data-label="Deskripsi" className="text-md-start text-end">{galery.deskripsi}</td>
-                          <td data-label="Image" className="text-md-center text-end">
+                          <td
+                            data-label="Judul"
+                            className="text-md-start text-end"
+                          >
+                            {galery.judul}
+                          </td>
+                          <td
+                            data-label="Deskripsi"
+                            className="text-md-start text-end"
+                          >
+                            {galery.deskripsi}
+                          </td>
+                          <td
+                            data-label="Image"
+                            className="text-md-center text-end"
+                          >
                             <button
                               onClick={() => openModal(galery.foto)}
                               type="button"
-                              className="btn-info btn-sm">Tampilkan Gambar
+                              className="btn-info btn-sm"
+                            >
+                              Tampilkan Gambar
                             </button>
                             {/* <img
                               src={galery.foto}
@@ -374,18 +397,23 @@ function Galery() {
               border: "none",
               fontSize: "20px",
               cursor: "pointer",
-              color: "black"
+              color: "black",
             }}
             aria-label="Close"
           >
             ✖
-          </button> <br />
+          </button>{" "}
+          <br />
           {/* Gambar */}
           {imageSrc && (
             <img
               src={imageSrc}
               alt="Preview"
-              style={{ maxWidth: "100%", maxHeight: "70vh", borderRadius: "8px" }}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "70vh",
+                borderRadius: "8px",
+              }}
             />
           )}
         </Box>

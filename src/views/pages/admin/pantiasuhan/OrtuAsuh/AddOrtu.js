@@ -6,6 +6,7 @@ import AOS from "aos";
 import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import AsyncSelect from "react-select/async";
+import Select from "react-select";
 
 function AddOrtu() {
   const [fatherName, setFatherName] = useState("");
@@ -16,7 +17,7 @@ function AddOrtu() {
   const [birthPlaceFather, setBirthPlaceFather] = useState("");
   const [birthDateFather, setBirthDateFather] = useState("");
   const [pekerjaanFather, setPekerjaanFather] = useState("");
-  const [penghasilanFather, setPenghasilanFather] = useState("");
+  const [penghasilanFather, setPenghasilanFather] = useState(null);
   const [nohpFather, setNoHpFather] = useState("");
   const [birthPlaceMother, setBirthPlaceMother] = useState("");
   const [birthDateMother, setBirthDateMother] = useState("");
@@ -37,7 +38,7 @@ function AddOrtu() {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
     const datas = {
       father_name: fatherName,
@@ -115,13 +116,17 @@ function AddOrtu() {
     }
   };
 
-  const handleSantriChange = (selectedOption) => {
-    if (selectedOption) {
-      setIDAnak(selectedOption.value);
-      setNamaAnak(selectedOption.label);
+  const handleSantriChange = (selectedOptions) => {
+    if (selectedOptions && selectedOptions.length > 0) {
+      // Mengambil ID dan Nama dari semua anak yang dipilih
+      const ids = selectedOptions.map((option) => option.value);
+      const names = selectedOptions.map((option) => option.label);
+
+      setIDAnak(ids); // Menyimpan array ID
+      setNamaAnak(names); // Menyimpan array Nama
     } else {
-      setIDAnak(null);
-      setNamaAnak("");
+      setIDAnak([]); // Kosongkan jika tidak ada yang dipilih
+      setNamaAnak([]);
     }
   };
 
@@ -143,22 +148,32 @@ function AddOrtu() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const incomeOptions = [
+    { value: "1jt-3jt", label: "1jt - 3jt" },
+    { value: "4jt-10jt", label: "4jt - 10jt" },
+    { value: "10jt-50jt", label: "10jt - 50jt" },
+    { value: "50jt-up", label: "50jt ke atas" },
+  ];
+
   return (
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div
         className="page-content1"
-        style={{ marginTop: "10px", minHeight: "100vh" }}>
+        style={{ marginTop: "10px", minHeight: "100vh" }}
+      >
         <div className="app-main__outer container mb-3" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
@@ -172,29 +187,16 @@ function AddOrtu() {
                         <div className="mb-3 col-lg-6">
                           <label
                             for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Nama Ayah
+                            className="form-label  font-weight-bold "
+                          >
+                            Nama
                           </label>
                           <input
                             value={fatherName}
                             onChange={(e) => setFatherName(e.target.value)}
                             type="text"
                             className="form-control"
-                            placeholder="Masukkan Nama Ayah"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-6">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Nama Ibu
-                          </label>
-                          <input
-                            value={motherName}
-                            onChange={(e) => setMotherName(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Nama Ibu"
+                            placeholder="Masukkan Nama"
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
@@ -211,20 +213,20 @@ function AddOrtu() {
                         </div>
                         <div className="mb-3 col-lg-6">
                           <label className="form-label  font-weight-bold ">
-                            Tempat Lahir (Ayah)
+                            Tempat Lahir
                           </label>
                           <input
                             value={birthPlaceFather}
                             onChange={(e) =>
                               setBirthPlaceFather(e.target.value)
                             }
-                            placeholder="Masukkan Nama Tempat Lahir Ayah"
+                            placeholder="Masukkan Nama Tempat Lahir"
                             className="form-control"
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
                           <label className="form-label  font-weight-bold ">
-                            Tanggal Lahir (Ayah)
+                            Tanggal Lahir
                           </label>
                           <input
                             value={birthDateFather}
@@ -234,115 +236,29 @@ function AddOrtu() {
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Pekerjaan (Ayah)
+                          <label className="form-label font-weight-bold">
+                            Range Penghasilan
                           </label>
-                          <input
-                            value={pekerjaanFather}
-                            onChange={(e) => setPekerjaanFather(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Pekerjaan Ayah"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-6">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Penghasilan (Ayah)
-                          </label>
-                          <input
+                          <Select
+                            options={incomeOptions}
                             value={penghasilanFather}
-                            onChange={(e) =>
-                              setPenghasilanFather(e.target.value)
-                            }
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Penghasilan Ayah"
+                            onChange={setPenghasilanFather}
+                            placeholder="Pilih Range Penghasilan"
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
                           <label
                             for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            No HP (ayah)
+                            className="form-label  font-weight-bold "
+                          >
+                            No HP
                           </label>
                           <input
                             value={nohpFather}
                             onChange={(e) => setNoHpFather(e.target.value)}
                             type="number"
                             className="form-control"
-                            placeholder="Masukkan No Handphone Ayah"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-6">
-                          <label className="form-label  font-weight-bold ">
-                            Tempat Lahir (Ibu)
-                          </label>
-                          <input
-                            value={birthPlaceMother}
-                            onChange={(e) =>
-                              setBirthPlaceMother(e.target.value)
-                            }
-                            placeholder="Masukkan Nama Tempat Lahir Ibu"
-                            className="form-control"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-6">
-                          <label className="form-label  font-weight-bold ">
-                            Tanggal Lahir (Ibu)
-                          </label>
-                          <input
-                            value={birthDateMother}
-                            onChange={(e) => setBirthDateMother(e.target.value)}
-                            type="date"
-                            className="form-control"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-6">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Pekerjaan (Ibu)
-                          </label>
-                          <input
-                            value={pekerjaanMother}
-                            onChange={(e) => setPekerjaanMother(e.target.value)}
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Pekerjaan Ibu"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-6">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            Penghasilan (Ibu)
-                          </label>
-                          <input
-                            value={penghasilanMother}
-                            onChange={(e) =>
-                              setPenghasilanMother(e.target.value)
-                            }
-                            type="text"
-                            className="form-control"
-                            placeholder="Masukkan Penghasilan Ibu"
-                          />
-                        </div>
-                        <div className="mb-3 col-lg-6">
-                          <label
-                            for="exampleInputEmail1"
-                            className="form-label  font-weight-bold ">
-                            No HP (Ibu)
-                          </label>
-                          <input
-                            value={nohpMother}
-                            onChange={(e) => setNoHpMother(e.target.value)}
-                            type="number"
-                            className="form-control"
-                            placeholder="Masukkan No Handphone Ibu"
+                            placeholder="Masukkan No Handphone"
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
@@ -356,6 +272,7 @@ function AddOrtu() {
                             onChange={handleSantriChange}
                             placeholder="Cari Anak Asuh..."
                             noOptionsMessage={() => "Anak Asuh tidak ditemukan"}
+                            isMulti
                           />
                         </div>
                         {/* <div className="mb-3 col-lg-6">
@@ -373,14 +290,16 @@ function AddOrtu() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_ortu_asuh">
+                          href="/admin_ortu_asuh"
+                        >
                           Batal
                         </a>
                       </button>
                       <button
                         type="submit"
                         className="btn-primary mt-3"
-                        disabled={isLoading}>
+                        disabled={isLoading}
+                      >
                         {isLoading ? "Loading..." : "Submit"}
                       </button>
                     </form>

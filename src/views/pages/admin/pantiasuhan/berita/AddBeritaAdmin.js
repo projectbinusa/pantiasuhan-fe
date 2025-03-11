@@ -81,7 +81,7 @@ function AddBeritaAdminPanti() {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
 
     try {
@@ -279,8 +279,9 @@ function AddBeritaAdminPanti() {
   }, []);
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -515,6 +516,7 @@ function AddBeritaAdminPanti() {
                               WordCount,
                             ],
                             image: {
+                              resizeUnit: "px", // Ukuran dalam pixel agar lebih stabil
                               toolbar: [
                                 "imageTextAlternative",
                                 "toggleImageCaption",
@@ -523,9 +525,16 @@ function AddBeritaAdminPanti() {
                                 "imageStyle:wrapText",
                                 "imageStyle:breakText",
                                 "|",
-                                "resizeImage",
+                                "resizeImage", // Aktifkan resize
                                 "|",
                                 "linkImage",
+                              ],
+                              styles: [
+                                "full", // Gambar mengambil lebar penuh konten
+                                "side", // Gambar sejajar dengan teks
+                                "alignLeft",
+                                "alignCenter",
+                                "alignRight",
                               ],
                             },
                             fontFamily: {
@@ -600,7 +609,11 @@ function AddBeritaAdminPanti() {
                         Batal
                       </a>
                     </button>
-                    <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                    <button
+                      type="submit"
+                      className="btn-primary mt-3"
+                      disabled={isLoading}
+                    >
                       {isLoading ? <span className="loader"></span> : "Kirim"}
                     </button>
                   </form>

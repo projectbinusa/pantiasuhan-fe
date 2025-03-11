@@ -22,6 +22,8 @@ function AddAnak() {
   const [email, setEmail] = useState("");
   const [hp, setHp] = useState("");
   const [address, setAddress] = useState("");
+  const [ibu, setIbu] = useState("");
+  const [ayah, setAyah] = useState("");
   const [parent_id, setParentId] = useState(0);
   const [foto, setFoto] = useState(null);
   const [listFosterParent, setListFosterParent] = useState([]);
@@ -126,7 +128,7 @@ function AddAnak() {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
     // if (!validateForm()) return;
 
@@ -213,12 +215,14 @@ function AddAnak() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -273,7 +277,8 @@ function AddAnak() {
                           <select
                             className="form-control"
                             value={education}
-                            onChange={(e) => setEducation(e.target.value)}>
+                            onChange={(e) => setEducation(e.target.value)}
+                          >
                             <option>Pilih</option>
                             <option value="SD/MI">SD/MI</option>
                             <option value="SMP/Mts">SMP/Mts</option>
@@ -364,6 +369,32 @@ function AddAnak() {
                             className="form-control"
                           />
                         </div>
+                        <div className="row">
+                          <div className="mb-3 col-lg-6">
+                            <label className="form-label font-weight-bold">
+                              Nama Ibu Kandung
+                            </label>
+                            <input
+                              value={ibu}
+                              onChange={(e) => setIbu(e.target.value)}
+                              type="text"
+                              placeholder="Masukkan Nama Ibu Kandung"
+                              className="form-control"
+                            />
+                          </div>
+                          <div className="mb-3 col-lg-6">
+                            <label className="form-label font-weight-bold">
+                              Nama Bapak
+                            </label>
+                            <input
+                              value={ayah}
+                              onChange={(e) => setAyah(e.target.value)}
+                              type="text"
+                              placeholder="Masukkan Nama Bapak"
+                              className="form-control"
+                            />
+                          </div>
+                        </div>
                         <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Foto
@@ -406,14 +437,16 @@ function AddAnak() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_anak_asuh">
+                          href="/admin_anak_asuh"
+                        >
                           Batal
                         </a>
                       </button>
                       <button
                         type="submit"
                         className="btn-primary mt-3"
-                        disabled={isLoading}>
+                        disabled={isLoading}
+                      >
                         {isLoading ? "Loading..." : "Submit"}
                       </button>
                     </form>

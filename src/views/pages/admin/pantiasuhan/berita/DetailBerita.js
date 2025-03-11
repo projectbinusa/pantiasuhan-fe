@@ -146,7 +146,12 @@ function DetailBeritaPantiAdmin() {
                       padding: "4px",
                       paddingLeft: "5px",
                     }}
-                    dangerouslySetInnerHTML={{ __html: isiBerita }}
+                    dangerouslySetInnerHTML={{
+                      __html: isiBerita.replace(
+                        /<img /g,
+                        '<img style="max-width:100%; height:auto; display:block; margin:auto;" '
+                      ),
+                    }}
                   />
                 </div>
               </div>
