@@ -5,7 +5,7 @@ import AOS from "aos";
 import { API_DUMMY_SMART } from "../../../../../utils/base_URL";
 import Navbar from "../../../../../component/Navbar";
 import { debounce } from "lodash";
-import charity from "../../../../../aset/pantiasuhan/charity.jpg"
+import charity from "../../../../../aset/pantiasuhan/charity.jpg";
 import FooterSekolah from "../../../../../component/FooterSekolah";
 import { removeImages } from "../../../../../utils/removeImages";
 
@@ -60,7 +60,6 @@ function PublikBerita() {
       const { data, pagination } = response.data;
       console.log(data);
 
-
       if (data && pagination) {
         setList((prevList) => {
           const uniqueData = data.filter(
@@ -89,7 +88,7 @@ function PublikBerita() {
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop >=
-      document.documentElement.offsetHeight - 200 &&
+        document.documentElement.offsetHeight - 200 &&
       !isLoading &&
       hasMore
     ) {
@@ -140,10 +139,12 @@ function PublikBerita() {
           backgroundColor: "#f9f9f9",
           fontFamily: "'Poppins', sans-serif",
           padding: "40px 20px",
-        }}>
+        }}
+      >
         <div
           className="container"
-          style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          style={{ maxWidth: "1200px", margin: "0 auto" }}
+        >
           <br />
           <br />
           <br />
@@ -158,7 +159,8 @@ function PublikBerita() {
                     fontSize: "1.5em",
                     fontWeight: "bold",
                     marginBottom: "20px",
-                  }}>
+                  }}
+                >
                   Panti dalam Sorotan
                 </h5>
               </div>
@@ -178,8 +180,9 @@ function PublikBerita() {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               gap: "20px",
-            }}>
-            {filteredList.length > 0 ?
+            }}
+          >
+            {filteredList.length > 0 ? (
               filteredList.map((item, index) => (
                 <div
                   className="card"
@@ -200,8 +203,14 @@ function PublikBerita() {
                     e.currentTarget.style.transform = "scale(1)";
                     e.currentTarget.style.boxShadow =
                       "0 4px 8px rgba(0, 0, 0, 0.1)";
-                  }}>
-                  <img src={item.image == null || item.image == "" ? charity : item.image}
+                  }}
+                >
+                  <img
+                    src={
+                      item.image == null || item.image == ""
+                        ? charity
+                        : item.image
+                    }
                     alt="Foto Donasi"
                     style={{
                       width: "100%",
@@ -216,7 +225,8 @@ function PublikBerita() {
                         fontWeight: "bold",
                         color: "#004080",
                         marginBottom: "10px",
-                      }}>
+                      }}
+                    >
                       {item.judul_berita}
                     </h4>
                     <p
@@ -226,7 +236,8 @@ function PublikBerita() {
                         marginBottom: "5px",
                         display: "flex",
                         alignItems: "center",
-                      }}>
+                      }}
+                    >
                       <svg
                         className="svg-inline--fa fa-calendar-alt fa-w-14"
                         aria-hidden="true"
@@ -241,20 +252,30 @@ function PublikBerita() {
                           height: "16px",
                           color: "#004080",
                           marginRight: "5px",
-                        }}>
+                        }}
+                      >
                         <path
                           fill="currentColor"
-                          d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-72V64zm0 96h72c8.84 0 16-7.16 16-16V64h16c8.84 0 16 7.16 16 16v48h72c8.84 0 16 7.16 16 16v320c0 8.84-7.16 16-16 16H48c-8.84 0-16-7.16-16-16V160c0-8.84 7.16-16 16-16h72v-48c0-8.84 7.16-16 16-16h16c8.84 0 16 7.16 16 16v48z"></path>
+                          d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-72V64zm0 96h72c8.84 0 16-7.16 16-16V64h16c8.84 0 16 7.16 16 16v48h72c8.84 0 16 7.16 16 16v320c0 8.84-7.16 16-16 16H48c-8.84 0-16-7.16-16-16V160c0-8.84 7.16-16 16-16h72v-48c0-8.84 7.16-16 16-16h16c8.84 0 16 7.16 16 16v48z"
+                        ></path>
                       </svg>
                       {formatTanggal(item.created_date)}
                     </p>
-                    <p style={{
-                      fontSize: "0.9rem",
-                      color: "#555",
-                      lineHeight: "1.5",
-                      marginBottom: "15px", marginTop: "1rem"
-                    }} className="content-isi">
-                      <div dangerouslySetInnerHTML={{ __html: removeImages(item.isi_berita) }} />
+                    <p
+                      style={{
+                        fontSize: "0.9rem",
+                        color: "#555",
+                        lineHeight: "1.5",
+                        marginBottom: "15px",
+                        marginTop: "1rem",
+                      }}
+                      className="content-isi"
+                    >
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: removeImages(item.isi_berita),
+                        }}
+                      />
                       {/* {item.isi_berita.slice(0, 100)}... */}
                     </p>
                     {/* Hide button if role is 'yayasan' */}
@@ -269,12 +290,18 @@ function PublikBerita() {
                       }}
                       onClick={() =>
                         (window.location.href = "/beritapanti/" + item.id)
-                      }>Selengkapnya</button>
+                      }
+                    >
+                      Selengkapnya
+                    </button>
                   </div>
                 </div>
-              )) : <div>
+              ))
+            ) : (
+              <div>
                 <p>Data tidak ditemukan...</p>
-              </div>}
+              </div>
+            )}
           </div>
           {isLoading && <p>Memuat data...</p>}
         </div>

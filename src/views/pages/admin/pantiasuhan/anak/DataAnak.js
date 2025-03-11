@@ -165,19 +165,22 @@ function DataAnak() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left">
+          data-aos="fade-left"
+        >
           {/* Tabel Data Jumlah Anak Asuh */}
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header">
@@ -196,17 +199,20 @@ function DataAnak() {
                   <tr>
                     <td
                       data-label="Total Anak Asuh"
-                      className="text-md-start text-end">
+                      className="text-md-start text-end"
+                    >
                       {anakAsuhData.total_anak_asuh}
                     </td>
                     <td
                       data-label="Laki-Laki"
-                      className="text-md-start text-end">
+                      className="text-md-start text-end"
+                    >
                       {anakAsuhData.per_jenis_kelamin.laki_laki}
                     </td>
                     <td
                       data-label="Perempuan"
-                      className="text-md-start text-end">
+                      className="text-md-start text-end"
+                    >
                       {anakAsuhData.per_jenis_kelamin.perempuan}
                     </td>
                   </tr>
@@ -236,22 +242,26 @@ function DataAnak() {
                       <tr key={tingkat}>
                         <td
                           data-label="Tingkat Pendidikan"
-                          className="text-md-start text-end">
+                          className="text-md-start text-end"
+                        >
                           {tingkat}
                         </td>
                         <td
                           data-label="Laki-Laki"
-                          className="text-md-start text-end">
+                          className="text-md-start text-end"
+                        >
                           {data.laki_laki}
                         </td>
                         <td
                           data-label="Perempuan"
-                          className="text-md-start text-end">
+                          className="text-md-start text-end"
+                        >
                           {data.perempuan}
                         </td>
                         <td
                           data-label="Total"
-                          className="text-md-start text-end">
+                          className="text-md-start text-end"
+                        >
                           {data.total}
                         </td>
                       </tr>
@@ -274,7 +284,8 @@ function DataAnak() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}>
+                    value={rowsPerPage}
+                  >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -295,7 +306,8 @@ function DataAnak() {
                       <button className="active btn-focus p-2 rounded">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/add_anak_asuh">
+                          href="/add_anak_asuh"
+                        >
                           Tambah Anak Asuh
                         </a>
                       </button>
@@ -306,7 +318,8 @@ function DataAnak() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              style={{ overflowX: "auto", maxWidth: "100%" }}
+            >
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -324,59 +337,69 @@ function DataAnak() {
                         <tr key={no}>
                           <td
                             data-label="No"
-                            className="text-md-start text-end">
+                            className="text-md-start text-end"
+                          >
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td
                             data-label="Nama"
-                            className="text-md-start text-end">
+                            className="text-md-start text-end"
+                          >
                             {row.name}
                           </td>
                           <td
                             data-label="RFID Number"
-                            className="text-md-start text-end">
+                            className="text-md-start text-end"
+                          >
                             {row.rfid_number}
                           </td>
                           <td
                             data-label="NIK"
-                            className="text-md-start text-end">
+                            className="text-md-start text-end"
+                          >
                             {row.unique_id}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 type="button"
-                                className="btn-success btn-sm mr-2">
+                                className="btn-success btn-sm mr-2"
+                              >
                                 <a
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/tahsin_anak/${row.id}`}>
+                                  href={`/tahsin_anak/${row.id}`}
+                                >
                                   <i className="fa-solid fa-list-alt"></i>
                                 </a>
                               </button>
                               <button
                                 type="button"
-                                className="btn-primary btn-sm mr-2">
+                                className="btn-primary btn-sm mr-2"
+                              >
                                 <a
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/edit_anak_asuh/${row.id}`}>
+                                  href={`/edit_anak_asuh/${row.id}`}
+                                >
                                   <i className="fa-solid fa-pen-to-square"></i>
                                 </a>
                               </button>
                               <button
                                 type="button"
-                                className="btn-warning btn-sm mr-2">
+                                className="btn-warning btn-sm mr-2"
+                              >
                                 <a
                                   style={{
                                     color: "white",
                                     textDecoration: "none",
                                   }}
-                                  href={`/detail_anak_asuh/${row.id}`}>
+                                  href={`/detail_anak_asuh/${row.id}`}
+                                >
                                   <i className="fa-solid fa-info-circle"></i>
                                 </a>
                               </button>

@@ -10,12 +10,11 @@ import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 const AddGalery = () => {
   const [judul, setJudul] = useState("");
-  const [foto, setFoto] = useState(null);
+  const [foto, setFoto] = useState([]); // Mengubah dari single ke array
   const [deskripsi, setDeskripsi] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const history = useHistory();
   const [show, setShow] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     AOS.init();
@@ -23,38 +22,19 @@ const AddGalery = () => {
 
   const add = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    Swal.fire({
-      title: "Loading...",
-      text: "Please wait",
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      }
-    });
 
     try {
-      let imageUrl = foto;
-
-      // Jalankan upload gambar dan request API secara bersamaan
-      const uploadPromise = foto
-        ? uploadImageToS3(foto)
-        : Promise.resolve(null);
-
-      // Mulai proses upload gambar terlebih dahulu
-      const [uploadedImageUrl] = await Promise.all([uploadPromise]);
-
-      if (uploadedImageUrl) {
-        imageUrl = uploadedImageUrl;
-      }
+      const uploadedImageUrls = await Promise.all(
+        foto.map((file) => uploadImageToS3(file)) // Upload setiap file
+      );
 
       // Kirim data ke API
       const response = await axios.post(
         `${API_DUMMY}/api/admin/galery`,
         {
-          judul: judul || "-",
-          deskripsi: deskripsi || "-",
-          foto: imageUrl,
+          judul,
+          deskripsi,
+          foto: uploadedImageUrls,
         },
         {
           headers: {
@@ -100,8 +80,6 @@ const AddGalery = () => {
         });
         console.log(error);
       }
-    } finally {
-      setIsLoading(false); // Matikan loading setelah selesai
     }
   };
 
@@ -121,10 +99,16 @@ const AddGalery = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files); // Ubah FileList ke array
+    setFoto(files); // Simpan semua file dalam state
+  };
+
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <button
         id="show-sidebar"
@@ -155,6 +139,7 @@ const AddGalery = () => {
                           type="text"
                           className="form-control"
                           placeholder="Masukkan Judul"
+                          required
                         />
                       </div>
                       <div className="mb-3 col-lg-6">
@@ -163,8 +148,9 @@ const AddGalery = () => {
                         </label>
                         <input
                           type="file"
+                          multiple
                           accept="image/*"
-                          onChange={(e) => setFoto(e.target.files[0])}
+                          onChange={handleImageChange}
                           className="form-control"
                         />
                       </div>
@@ -178,19 +164,19 @@ const AddGalery = () => {
                           onChange={(e) => setDeskripsi(e.target.value)}
                           className="form-control"
                           placeholder="Masukkan Deskripsi"
+                          required
                         ></textarea>
                       </div>
                     </div>
-                    <button type="button" className="btn-danger mt-3 mr-3">
-                      <a
-                        href="/admin_galeri"
-                        style={{ color: "white", textDecoration: "none" }}
-                      >
-                        Batal
-                      </a>
+                    <button
+                      type="button"
+                      className="btn btn-danger mt-3 mr-3"
+                      onClick={() => (window.location.href = "/admin-galery")}
+                    >
+                      Batal
                     </button>
-                    <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
-                      {isLoading ? <span className="loader"></span> : "Kirim"}
+                    <button type="submit" className="btn btn-primary mt-3">
+                      Submit
                     </button>
                   </form>
                 </div>
