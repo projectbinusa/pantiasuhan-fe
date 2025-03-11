@@ -36,12 +36,31 @@ function EditShift() {
         setActive(response.active);
         setDeskripsi(response.description);
         setLevel(response.level);
-        console.log("shift : ", ress.data.data);
+        console.log("shift : ", ress.data.data.waktu_masuk);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+  const handleWaktuMasukChange = (e) => {
+    setWaktuMasuk(e.target.value);
+  };
+
+  const handleWaktuPulangChange = (e) => {
+    setWaktuPulang(e.target.value);
+  };
+
+  // Fungsi untuk memastikan format waktu benar
+  const formatTime = (time) => {
+    if (!time) return "00:00:00"; // Jika kosong, beri nilai default
+
+    const [hours, minutes] = time.split(":");
+    return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00`; // Tambah detik
+  };
+
+  const formattedWaktuMasuk = formatTime(waktuMasuk);
+  const formattedWaktuPulang = formatTime(waktuPulang);
 
   const update = async (e) => {
     e.preventDefault();
@@ -57,10 +76,10 @@ function EditShift() {
 
     const data = {
       name: name,
-      waktu_masuk: waktuMasuk,
-      waktu_pulang: waktuPulang,
+      waktu_masuk: formattedWaktuMasuk,
+      waktu_pulang: formattedWaktuPulang,
       active: active,
-      description: deskripsi,
+      description: deskripsi || "-",
       level: level,
     };
 
@@ -132,19 +151,19 @@ function EditShift() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleWaktuMasukChange = (e) => {
-    const waktuMasuk = e.target.value;
-    const formattedTime = dayjs(`1970-01-01T${waktuMasuk}`).format("HH:mm");
+  // const handleWaktuMasukChange = (e) => {
+  //   const waktuMasuk = e.target.value;
+  //   const formattedTime = dayjs(`1970-01-01T${waktuMasuk}`).format("HH:mm");
 
-    setWaktuMasuk(formattedTime);
-  };
+  //   setWaktuMasuk(formattedTime);
+  // };
 
-  const handleWaktuPulangChange = (e) => {
-    const waktuPulang = e.target.value;
-    const formattedTime = dayjs(`1970-01-01T${waktuPulang}`).format("HH:mm");
+  // const handleWaktuPulangChange = (e) => {
+  //   const waktuPulang = e.target.value;
+  //   const formattedTime = dayjs(`1970-01-01T${waktuPulang}`).format("HH:mm");
 
-    setWaktuPulang(formattedTime);
-  };
+  //   setWaktuPulang(formattedTime);
+  // };
 
   return (
     <div
@@ -190,7 +209,6 @@ function EditShift() {
                         <input
                           className="form-control"
                           type="time"
-                          required
                           placeholder="Masukkan Waktu Masuk"
                           step="60"
                           onChange={handleWaktuMasukChange}
@@ -203,7 +221,6 @@ function EditShift() {
                         <input
                           className="form-control"
                           type="time"
-                          required
                           placeholder="Masukkan Waktu Pulang"
                           step="60"
                           value={waktuPulang}
