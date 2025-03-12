@@ -508,6 +508,22 @@ function Home() {
   }, []);
   // GET VISI MISI PANTI
   const [visiPanti, setVisiPanti] = useState(null);
+  const [selectedImagevs, setSelectedImagevs] = useState(null);
+  const [showInput, setShowInput] = useState(false);
+  const [tempImage, setTempImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setTempImage(imageUrl);
+    }
+  };
+
+  const handleSaveImage = () => {
+    setSelectedImagevs(tempImage);
+    setShowInput(false);
+  };
 
   const getAllVisiMisiPanti = async () => {
     try {
@@ -623,23 +639,23 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    // Fetch data jumlah anak asuh dari API
-    axios
-      .get(`${API_DUMMY_SMART}/api/public/jumlah_siswa`, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      })
-      .then((response) => {
-        const data = response.data.data.data;
-        console.log(data);
-        setAnakAsuhData(data); // Simpan data ke state
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // Fetch data jumlah anak asuh dari API
+  //   axios
+  //     .get(`${API_DUMMY_SMART}/api/public/jumlah_siswa`, {
+  //       headers: {
+  //         "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       const data = response.data.data.data;
+  //       console.log(data);
+  //       setAnakAsuhData(data); // Simpan data ke state
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }, []);
 
   const [bg, setBg] = useState("#ffffff"); // Default warna putih
   const [bg2, setBg2] = useState("#ffffff");
@@ -800,6 +816,7 @@ function Home() {
         </div>
       </div> */}
 
+      {/* Sambutan */}
       <div class="testimonial-slider bg-sky bg-relative testimonial-slider-bg pd-top-120 pd-bottom-120">
         <div class="container bg-relative">
           <div class="slider testimonial-thumb">
@@ -819,6 +836,9 @@ function Home() {
                           : sambutanPanti?.foto
                       }
                       alt="img"
+                      style={{
+                        maxWidth: "60%",
+                      }}
                     />
                     {/* <img src={sambutanPanti?.foto} alt="img" /> */}
                     {/* <div class="quote-wrap">
@@ -886,32 +906,64 @@ function Home() {
       </div>
 
       {/* visi misi */}
-      <div id="visi-misi" class="about-area pd-top-120 pd-bottom-120">
+      <div id="visi-misi" className="about-area pd-top-120 pd-bottom-120">
         <div className="container">
-          <div class="row justify-content-end p-3 p-lg-0">
-            <div class="col-lg-6 px-xl-5 order-lg-last text-lg-end">
-              <div data-aos="fade-left" class="thumb">
-                <img src={visimisi} alt="img" />
+          <div className="row justify-content-end p-3 p-lg-0">
+            <div className="col-lg-6 px-xl-5 order-lg-last text-lg-end">
+              <div data-aos="fade-left" className="thumb">
+                <img
+                  src={selectedImagevs || visimisi}
+                  alt="img"
+                  style={{
+                    width: "100%",
+                    maxHeight: "400px",
+                    objectFit: "cover",
+                  }}
+                />
+                {!showInput ? (
+                  <button
+                    className=" btn-primary mt-3"
+                    onClick={() => setShowInput(true)}
+                  >
+                    Ubah Gambar
+                  </button>
+                ) : (
+                  <>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="form-control mt-3"
+                    />
+                    {tempImage && (
+                      <button
+                        className=" btn-success mt-2"
+                        onClick={handleSaveImage}
+                      >
+                        Simpan
+                      </button>
+                    )}
+                  </>
+                )}
               </div>
             </div>
             <div
               data-aos="fade-right"
-              class="col-lg-6 pe-xl-5 order-lg-first align-self-center"
+              className="col-lg-6 pe-xl-5 order-lg-first align-self-center"
             >
-              <div class="section-title mb-0">
-                {/* <h5 class="sub-title right-line">Faq</h5> */}
-                <h2 class="title">Visi Misi</h2>
+              <div className="section-title mb-0">
+                <h2 className="title">Visi Misi</h2>
                 <p>
                   Visi dan misi adalah panduan strategis organisasi untuk
                   mencapai tujuan jangka panjang melalui langkah-langkah
                   operasional yang terarah.
                 </p>
               </div>
-              <div class="accordion mt-4" id="accordionExample">
-                <div class="accordion-item single-accordion-inner">
-                  <h2 class="accordion-header" id="headingOne">
+              <div className="accordion mt-4" id="accordionExample">
+                <div className="accordion-item single-accordion-inner">
+                  <h2 className="accordion-header" id="headingOne">
                     <button
-                      class="accordion-button"
+                      className="accordion-button"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseOne"
@@ -923,29 +975,25 @@ function Home() {
                   </h2>
                   <div
                     id="collapseOne"
-                    class="accordion-collapse collapse show"
+                    className="accordion-collapse collapse show"
                     aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample"
                   >
-                    {/* <div> */}
                     <div
-                      class="accordion-body"
+                      className="accordion-body"
                       style={{
                         fontSize: "1rem",
                         color: "white",
                         marginBottom: "15px",
                       }}
-                      dangerouslySetInnerHTML={{
-                        __html: visiPanti?.visi,
-                      }}
+                      dangerouslySetInnerHTML={{ __html: visiPanti?.visi }}
                     />
-                    {/* </div> */}
                   </div>
                 </div>
-                <div class="accordion-item single-accordion-inner">
-                  <h2 class="accordion-header" id="headingTwo">
+                <div className="accordion-item single-accordion-inner">
+                  <h2 className="accordion-header" id="headingTwo">
                     <button
-                      class="accordion-button collapsed"
+                      className="accordion-button collapsed"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseTwo"
@@ -957,26 +1005,24 @@ function Home() {
                   </h2>
                   <div
                     id="collapseTwo"
-                    class="accordion-collapse collapse"
+                    className="accordion-collapse collapse"
                     aria-labelledby="headingTwo"
                     data-bs-parent="#accordionExample"
                   >
                     <div
-                      class="accordion-body"
+                      className="accordion-body"
                       style={{
                         fontSize: "1rem",
                         marginBottom: "15px",
                       }}
-                      dangerouslySetInnerHTML={{
-                        __html: visiPanti?.misi,
-                      }}
+                      dangerouslySetInnerHTML={{ __html: visiPanti?.misi }}
                     />
                   </div>
                 </div>
-                <div class="accordion-item single-accordion-inner">
-                  <h2 class="accordion-header" id="headingThree">
+                <div className="accordion-item single-accordion-inner">
+                  <h2 className="accordion-header" id="headingThree">
                     <button
-                      class="accordion-button collapsed"
+                      className="accordion-button collapsed"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseThree"
@@ -988,19 +1034,17 @@ function Home() {
                   </h2>
                   <div
                     id="collapseThree"
-                    class="accordion-collapse collapse"
+                    className="accordion-collapse collapse"
                     aria-labelledby="headingThree"
                     data-bs-parent="#accordionExample"
                   >
                     <div
-                      class="accordion-body"
+                      className="accordion-body"
                       style={{
                         fontSize: "1rem",
                         marginBottom: "15px",
                       }}
-                      dangerouslySetInnerHTML={{
-                        __html: visiPanti?.tujuan,
-                      }}
+                      dangerouslySetInnerHTML={{ __html: visiPanti?.tujuan }}
                     />
                   </div>
                 </div>
@@ -1008,7 +1052,6 @@ function Home() {
             </div>
           </div>
         </div>
-        {/* </div> */}
       </div>
 
       {/* Kegiatan */}
