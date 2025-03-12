@@ -295,17 +295,32 @@ function Home() {
 
   // GET ALL ALUMNI
   const [galery, setGalery] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imageSrc, setImageSrc] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const openModal = (image) => {
-    setSelectedImage(image);
-    setModalIsOpen(true);
+    setImageSrc(image);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setModalIsOpen(false);
-    setSelectedImage(null);
+    setIsModalOpen(false);
+    setImageSrc(null);
+  };
+
+  const stylee = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "80%",
+    maxWidth: "600px",
+    bgcolor: "white",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "8px",
+    textAlign: "center",
   };
 
   const getAllGalery = async () => {
@@ -1778,75 +1793,120 @@ function Home() {
         }}
         className="text-center"
       >
-        <div className="container">
-          <h2 className="text-white">Galeri</h2>
-          <p className="text-white">
+        <div className="container mt-4">
+          <h2 className="text-white text-center">Galeri</h2>
+          <p className="text-white text-center">
             Galeri panti asuhan menampilkan momen kebahagiaan, kreativitas, dan
             kegiatan sehari-hari anak-anak, mencerminkan semangat harapan dan
             kebersamaan yang indah.
           </p>
 
-          {/* Pastikan `galery` tidak undefined atau null */}
+          {/* Cek apakah galery memiliki data */}
           {galery && galery.length > 0 ? (
             <div
-              className="d-grid"
-              style={{
-                gridTemplateColumns: "repeat(3, 1fr)", // 3 kolom
-                gridGap: "20px",
-              }}
+              id="galleryCarousel"
+              className="carousel slide"
+              data-bs-ride="carousel"
             >
-              {galery.slice(0, 6).map((item, index) => (
-                <div
-                  key={index}
-                  className="card border-0 shadow"
-                  style={{ borderRadius: "15px", overflow: "hidden" }}
-                  onClick={() => openModal(item.foto)}
-                >
-                  <img
-                    src={item.foto}
-                    alt="galery Item"
-                    className="img-fluid"
-                    style={{
-                      height: "200px",
-                      width: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-              ))}
+              <div className="carousel-inner">
+                {galery.slice(0, 6).map((item, index) => (
+                  <div
+                    key={index}
+                    className={`carousel-item ${index === 0 ? "active" : ""}`}
+                  >
+                    <img
+                      src={item.foto}
+                      alt={`Galeri ${index + 1}`}
+                      className="d-block w-100"
+                      style={{ height: "400px", objectFit: "cover" }}
+                      onClick={() => openModal(item.foto)}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Tombol Navigasi */}
+              <button
+                className="carousel-control-prev"
+                type="button"
+                data-bs-target="#galleryCarousel"
+                data-bs-slide="prev"
+                style={{
+                  background: "none",
+                  border: "none",
+                }}
+              >
+                <span
+                  className="carousel-control-prev-icon"
+                  aria-hidden="true"
+                  style={{
+                    filter: "invert(100%)",
+                  }}
+                ></span>
+                <span className="visually-hidden">Previous</span>
+              </button>
+
+              <button
+                className="carousel-control-next"
+                type="button"
+                data-bs-target="#galleryCarousel"
+                data-bs-slide="next"
+                style={{
+                  background: "none",
+                  border: "none",
+                }}
+              >
+                <span
+                  className="carousel-control-next-icon"
+                  aria-hidden="true"
+                  style={{
+                    filter: "invert(100%)",
+                  }}
+                ></span>
+                <span className="visually-hidden">Next</span>
+              </button>
             </div>
           ) : (
-            <p className="text-white">Tidak ada gambar tersedia</p>
+            <p className="text-white text-center">Tidak ada gambar tersedia</p>
           )}
         </div>
 
-        {/* Popup Modal */}
-        {modalIsOpen && selectedImage && (
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            style={{
-              content: {
-                top: "50%",
-                left: "50%",
-                right: "auto",
-                bottom: "auto",
-                marginRight: "-50%",
-                transform: "translate(-50%, -50%)",
-                background: "rgba(0,0,0,0.8)",
-                border: "none",
-              },
-            }}
-          >
-            <img
-              src={selectedImage}
-              alt="Full Size"
-              className="img-fluid"
-              style={{ maxHeight: "80vh", maxWidth: "100%" }}
+        <Modal
+          open={isModalOpen}
+          onClose={closeModal}
+          aria-labelledby="modal-modal-title"
+        >
+          <Box sx={stylee}>
+            <button
               onClick={closeModal}
-            />
-          </Modal>
-        )}
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                background: "transparent",
+                border: "none",
+                fontSize: "20px",
+                cursor: "pointer",
+                color: "black",
+              }}
+              aria-label="Close"
+            >
+              ✖
+            </button>
+            <br />
+            {imageSrc && (
+              <img
+                src={imageSrc}
+                alt="Preview"
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "70vh",
+                  borderRadius: "8px",
+                }}
+              />
+            )}
+          </Box>
+        </Modal>
       </div>
 
       {/* Santri */}

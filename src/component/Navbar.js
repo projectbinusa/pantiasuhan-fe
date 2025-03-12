@@ -16,6 +16,12 @@ function Navbar() {
   const [email, setEmail] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useHistory();
+  const [socials, setSocials] = useState({
+    facebook: "#",
+    twitter: "#",
+    instagram: "#",
+    youtube: "#",
+  });
 
   const handleVisiMisiClick = () => {
     navigate.push("/"); // Pindah ke halaman home
@@ -46,6 +52,33 @@ function Navbar() {
       console.error("Error saat mendapatkan kontak panti:", error);
     }
   };
+
+  // const getAllWeb = async () => {
+  //   try {
+  //     const response = await axios.get(`${API_DUMMY}/api/public/web`, {
+  //       headers: {
+  //         "x-origin": window.location.hostname,
+  //       },
+  //     });
+  //     console.log("web panti: ", response.data.data);
+
+  //     // Mengatur state dari data API
+  //     if (response.data.data.length > 0) {
+  //       const data = response.data.data[0];
+  //       setAddress(data.address);
+  //       setPhone(data.phone);
+  //       setEmail(data.email);
+  //       setSocials({
+  //         facebook: data.facebook || "#",
+  //         twitter: data.twitter || "#",
+  //         instagram: data.instagram || "#",
+  //         youtube: data.youtube || "#",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error saat mendapatkan web panti:", error);
+  //   }
+  // };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -112,6 +145,7 @@ function Navbar() {
   // };
   useEffect(() => {
     getAllKontakPanti();
+    // getAllWeb();
   }, []);
 
   return (
@@ -180,40 +214,40 @@ function Navbar() {
                   <li>
                     <a
                       className="facebook"
-                      href="#"
-                      // href="https://www.facebook.com/Bawaslu.Kabupaten.Boyolali"
+                      // href={socials.facebook}
                       target="_blank"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       <i className="fab fa-facebook-f"></i>
                     </a>
                   </li>
                   <li>
                     <a
                       className="twitter"
-                      href="#"
-                      // href="https://twitter.com/i/flow/login?redirect_after_login=%2Fbawasluboyolali"
+                      // href={socials.twitter}
                       target="_blank"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       <i className="fab fa-twitter"></i>
                     </a>
                   </li>
                   <li>
                     <a
                       className="instagram"
-                      href="#"
-                      // href="https://www.instagram.com/bawaslu_boyolali/"
+                      // href={socials.instagram}
                       target="_blank"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       <i className="fab fa-instagram"></i>
                     </a>
                   </li>
                   <li>
                     <a
                       className="youtube"
-                      href="#"
-                      // href="https://www.youtube.com/channel/UC-OZT-HT_Qg7cUmo-oHfkAw"
+                      // href={socials.youtube}
                       target="_blank"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       <i className="fab fa-youtube"></i>
                     </a>
                   </li>
@@ -226,7 +260,8 @@ function Navbar() {
       <nav
         className={`navbar-area navbar-area-2 navbar-expand-lg ${
           isSticky ? "sticky-active" : ""
-        }`}>
+        }`}
+      >
         <div
           className="d-inline-block d-lg-none"
           style={{
@@ -237,13 +272,15 @@ function Navbar() {
             position: "relative",
             whiteSpace: "nowrap",
             width: "100%",
-          }}>
+          }}
+        >
           <div
             style={{
               display: "inline-block",
               whiteSpace: "nowrap",
               animation: "marquee 20s linear infinite",
-            }}>
+            }}
+          >
             <span style={{ fontSize: "20px" }}>
               "Pendidikan adalah jembatan menuju masa depan yang lebih cerah,
               tempat harapan tumbuh, dan setiap anak menemukan kekuatan untuk
@@ -260,7 +297,8 @@ function Navbar() {
               onClick={toggleMenu}
               data-target="#Iitechie_main_menu"
               aria-expanded="false"
-              aria-label="Toggle navigation">
+              aria-label="Toggle navigation"
+            >
               <span className="icon-left"></span>
               <span className="icon-right"></span>
             </button>
@@ -273,7 +311,8 @@ function Navbar() {
                 justifyContent: "center",
                 justifyItems: "center",
                 gap: "5px",
-              }}>
+              }}
+            >
               <a href="/">
                 <img style={{ width: "50px" }} src={logo} />
               </a>
@@ -288,18 +327,21 @@ function Navbar() {
               textAlign: "center",
             }}
             className={`collapse navbar-collapse ${menuOpen ? "sopen" : ""}`}
-            id="Iitechie_main_menu text-navbar-rspnv">
+            id="Iitechie_main_menu text-navbar-rspnv"
+          >
             <ul
               className="navbar-reponsive navbar-nav menu-open text-lg-start"
               style={{
                 marginLeft: "auto",
                 marginRight: "auto",
                 display: "flex",
-              }}>
+              }}
+            >
               <li className="">
                 <a
                   href="/"
-                  style={{ paddingLeft: "15px", textDecoration: "none" }}>
+                  style={{ paddingLeft: "15px", textDecoration: "none" }}
+                >
                   Home
                 </a>
               </li>
@@ -310,8 +352,9 @@ function Navbar() {
                     cursor: "pointer",
                     paddingLeft: "15px",
                     textDecoration: "none",
-                    color: "white"
-                  }}>
+                    color: "white",
+                  }}
+                >
                   Visi Misi
                 </span>
               </li>
@@ -329,7 +372,8 @@ function Navbar() {
                     display: "block",
                     borderRadius: "5px",
                     textAlign: "center",
-                  }}>
+                  }}
+                >
                   Program
                 </a>
                 {isOpen && (
@@ -347,7 +391,8 @@ function Navbar() {
                       zIndex: 10,
                       boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                       borderRadius: "5px",
-                    }}>
+                    }}
+                  >
                     <li style={{ padding: "8px 15px", whiteSpace: "nowrap" }}>
                       <a
                         href="/programpanti"
@@ -355,7 +400,8 @@ function Navbar() {
                           textDecoration: "none",
                           color: "white",
                           display: "block",
-                        }}>
+                        }}
+                      >
                         Program Tahunan
                       </a>
                     </li>
@@ -365,7 +411,8 @@ function Navbar() {
               <li className="">
                 <a
                   href="/beritapanti"
-                  style={{ paddingLeft: "15px", textDecoration: "none" }}>
+                  style={{ paddingLeft: "15px", textDecoration: "none" }}
+                >
                   Berita
                 </a>
               </li>
@@ -377,21 +424,24 @@ function Navbar() {
               <li className="">
                 <a
                   href="/bukutamu/form"
-                  style={{ paddingLeft: "15px", textDecoration: "none" }}>
+                  style={{ paddingLeft: "15px", textDecoration: "none" }}
+                >
                   Buku Tamu
                 </a>
               </li>
               <li className="">
                 <a
                   href="/donasiumum"
-                  style={{ paddingLeft: "15px", textDecoration: "none" }}>
+                  style={{ paddingLeft: "15px", textDecoration: "none" }}
+                >
                   Donasi
                 </a>
               </li>
               <li className="">
                 <a
                   href="/presensipanti"
-                  style={{ paddingLeft: "15px", textDecoration: "none" }}>
+                  style={{ paddingLeft: "15px", textDecoration: "none" }}
+                >
                   Presensi
                 </a>
               </li>
@@ -406,13 +456,15 @@ function Navbar() {
                   overflow: "hidden",
                   position: "relative",
                   whiteSpace: "nowrap",
-                }}>
+                }}
+              >
                 <div
                   style={{
                     display: "inline-block",
                     whiteSpace: "nowrap",
                     animation: "marquee 20s linear infinite",
-                  }}>
+                  }}
+                >
                   <span>
                     "Pendidikan adalah jembatan menuju masa depan yang lebih
                     cerah, tempat harapan tumbuh, dan setiap anak menemukan

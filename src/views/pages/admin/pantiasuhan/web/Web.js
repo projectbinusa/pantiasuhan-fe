@@ -148,6 +148,42 @@ function Web() {
                     disabled
                   />
                 </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Link Youtube</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    // value={youtube || ""}
+                    disabled
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Link Instagram</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    // value={instagram || ""}
+                    disabled
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Link Facebook</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    // value={facebook || ""}
+                    disabled
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Link X</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    // value={twitter || ""}
+                    disabled
+                  />
+                </div>
               </div>
             </div>
           </div>
