@@ -245,7 +245,7 @@ function KegiatanPanti() {
                           </td>
                           <td data-label="Penulis" className="text-md-start text-end">{kegiatan.penulis}</td>
                           <td data-label="Tanggal Dibuat" className="text-md-start text-end">
-                            {kegiatan.created_date}
+                            {kegiatan.tanggal}
                           </td>
                           <td data-label="Tanggal Update" className="text-md-start text-end">
                             {kegiatan.updated_date}

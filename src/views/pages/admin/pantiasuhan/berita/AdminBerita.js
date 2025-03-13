@@ -253,6 +253,7 @@ function AdminBeritaPanti() {
                     <th>No</th>
                     <th>Judul</th>
                     <th>Penulis</th>
+                    <th>Tanggal Redaksi</th>
                     <th>Thumbnail</th>
                     <th>Kategori</th>
                     <th>Aksi</th>
@@ -273,6 +274,7 @@ function AdminBeritaPanti() {
                             <p className="content-isi">{berita.judul_berita}</p>
                           </td>
                           <td data-label="Penulis" className="text-md-start text-end">{berita.author}</td>
+                          <td data-label="Penulis" className="text-md-start text-end">{berita.updated_date}</td>
                           <td data-label="Thumbnail" className="text-md-center text-end">
                             <button
                               onClick={() => openModal(berita.image)}
