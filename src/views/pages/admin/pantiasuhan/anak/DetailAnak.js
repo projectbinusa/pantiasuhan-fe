@@ -31,7 +31,7 @@ function DetailAnak() {
           }
         );
         const resp = response.data.data;
-        console.log(resp);
+        console.log("datas1: ", response.data.data);
         setDatas(resp);
       } catch (error) {
         console.error("Terjadi Kesalahan", error);
@@ -67,27 +67,24 @@ function DetailAnak() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div
         style={{ marginTop: "10px" }}
-        className="page-content1 mt-3 mb-3 app-main__outer"
-      >
-        <div className="container box-tabel">
+        className="page-content1 mt-3 mb-3 app-main__outer">
+        <div className="container">
           <main className="container card shadow">
             <h1 className="title card-header fw-bold fs-3">Detail Anak Asuh</h1>
             <br />
             <div className="card-body">
-              <Grid container spacing={3}>
+              <Grid>
                 {/* Image Section */}
                 {localStorage.getItem("typetoken") === "customer" ? (
                   <></>
@@ -115,25 +112,34 @@ function DetailAnak() {
                     <Grid item>
                       <Card variant="outlined" sx={{ padding: 2 }}>
                         <CardContent>
+                          <img
+                            src={datas?.picture}
+                            style={{
+                              maxWidth: "400px",
+                              display: "block",
+                              margin: "0 auto",
+                            }}
+                            alt=""
+                          />
+                          <br />
+                          <br />
                           <Typography
                             variant="h5"
                             sx={{
                               fontWeight: 700,
                               color: "#005b9f",
                               marginBottom: 2,
-                            }}
-                          >
+                            }}>
                             {datas?.name}
                           </Typography>
 
                           {/* Stack all fields vertically on small screens */}
                           <Grid container spacing={3}>
                             {/* Tempat/Tanggal Lahir */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Tempat/Tanggal Lahir:
                               </Typography>
                               <Typography variant="body2">
@@ -142,11 +148,10 @@ function DetailAnak() {
                             </Grid>
 
                             {/* RFID Number */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 RFID Number:
                               </Typography>
                               <Typography variant="body2">
@@ -155,11 +160,10 @@ function DetailAnak() {
                             </Grid>
 
                             {/* Unique ID */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Unique ID:
                               </Typography>
                               <Typography variant="body2">
@@ -168,11 +172,10 @@ function DetailAnak() {
                             </Grid>
 
                             {/* Alamat */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Alamat:
                               </Typography>
                               <Typography variant="body2">
@@ -181,11 +184,10 @@ function DetailAnak() {
                             </Grid>
 
                             {/* Email */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Email:
                               </Typography>
                               <Typography variant="body2">
@@ -194,11 +196,10 @@ function DetailAnak() {
                             </Grid>
 
                             {/* Education */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Pendidikan:
                               </Typography>
                               <Typography variant="body2">
@@ -207,26 +208,24 @@ function DetailAnak() {
                             </Grid>
 
                             {/* Parent Name */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Nama Bapak:
                               </Typography>
                               <Typography variant="body2">
-                                {datas?.parent_name}
+                                {datas?.father_name}
                               </Typography>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Nama Ibu:
                               </Typography>
                               <Typography variant="body2">
-                                {datas?.parent_name}
+                                {datas?.mother_name}
                               </Typography>
                             </Grid>
                           </Grid>
@@ -237,7 +236,7 @@ function DetailAnak() {
                 ) : (
                   <>
                     {/* Details Section */}
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={6} md={6}>
                       <Card variant="outlined" sx={{ padding: 2 }}>
                         <CardContent>
                           <Typography
@@ -246,19 +245,17 @@ function DetailAnak() {
                               fontWeight: 700,
                               color: "#005b9f",
                               marginBottom: 2,
-                            }}
-                          >
+                            }}>
                             {datas?.name}
                           </Typography>
 
                           {/* Stack all fields vertically on small screens */}
                           <Grid container spacing={3}>
                             {/* Tempat/Tanggal Lahir */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Tempat/Tanggal Lahir:
                               </Typography>
                               <Typography variant="body2">
@@ -267,11 +264,10 @@ function DetailAnak() {
                             </Grid>
 
                             {/* RFID Number */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 RFID Number:
                               </Typography>
                               <Typography variant="body2">
@@ -280,11 +276,10 @@ function DetailAnak() {
                             </Grid>
 
                             {/* Unique ID */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Unique ID:
                               </Typography>
                               <Typography variant="body2">
@@ -293,11 +288,10 @@ function DetailAnak() {
                             </Grid>
 
                             {/* Alamat */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Alamat:
                               </Typography>
                               <Typography variant="body2">
@@ -306,11 +300,10 @@ function DetailAnak() {
                             </Grid>
 
                             {/* Email */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Email:
                               </Typography>
                               <Typography variant="body2">
@@ -319,11 +312,10 @@ function DetailAnak() {
                             </Grid>
 
                             {/* Education */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Pendidikan:
                               </Typography>
                               <Typography variant="body2">
@@ -332,22 +324,20 @@ function DetailAnak() {
                             </Grid>
 
                             {/* Parent Name */}
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Nama Bapak:
                               </Typography>
                               <Typography variant="body2">
                                 {datas?.parent_name}
                               </Typography>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                               <Typography
                                 variant="body1"
-                                sx={{ fontWeight: 700 }}
-                              >
+                                sx={{ fontWeight: 700 }}>
                                 Nama Ibu:
                               </Typography>
                               <Typography variant="body2">

@@ -227,8 +227,7 @@ function Dataortu() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th>Nama Ayah</th>
-                    <th>Nama Ibu</th>
+                    <th>Nama</th>
                     <th>Pekerjaan</th>
                     <th>No HP</th>
                     <th>Anak Asuh</th>
@@ -248,27 +247,24 @@ function Dataortu() {
                           <td
                             data-label="Nama Ayah"
                             className="text-md-start text-end">
-                            {row.father_name}
-                          </td>
-                          <td
-                            data-label="Nama Ibu"
-                            className="text-md-start text-end">
-                            {row.mother_name}
+                            {row.name}
                           </td>
                           <td
                             data-label="Pekerjaan"
-                            className="text-md-start text-end">
-                          Ayah : {row.work_father}, Ibu : {row.work_mother}
-                          </td>
+                            className="text-md-start text-end">{row.work}</td>
                           <td
                             data-label="No HP"
                             className="text-md-start text-end">
-                             Ayah : {row.phone_father}, Ibu : {row.phone_mother}
+                            {row.phone_parents}
                           </td>
                           <td
                             data-label="Anak Asuh"
                             className="text-md-start text-end">
-                            {row.nama_anak}
+                            <ul>
+                              {row.nama_anak.map((data) => (
+                                <li>{data}</li>
+                              ))}
+                            </ul>
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">

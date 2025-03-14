@@ -289,6 +289,8 @@ import AdminKomentarBerita from "./views/pages/admin/pantiasuhan/berita/Komentar
 import Komentar from "./views/pages/admin/pantiasuhan/komentar/Komentar.js";
 import BalasKomentar from "./views/pages/admin/pantiasuhan/komentar/BalasKomentar.js";
 import DataBalasKomentar from "./views/pages/admin/pantiasuhan/komentar/DataBalasKomentar.js";
+import GuruAnakAsuh from "./views/pages/guru/anak asuh/GuruAnakAsuh.js";
+import GuruTahsinAnakAsuh from "./views/pages/guru/anak asuh/TahsinAnakAsuh.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1421,6 +1423,16 @@ function App() {
             <PrivateRoute
               path="/guru/tahsin"
               component={GuruDataTahsin}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/anak_asuh"
+              component={GuruAnakAsuh}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahsin/anak_asuh/:id"
+              component={GuruTahsinAnakAsuh}
               exact
             />
           </Switch>

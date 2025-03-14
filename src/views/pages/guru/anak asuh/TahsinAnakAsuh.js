@@ -6,8 +6,9 @@ import { Box, Modal, Pagination } from "@mui/material";
 import "../../../../css/button.css";
 import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
-function GuruDataTahsin() {
+function TahsinAnakAsuh() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,6 +65,7 @@ function GuruDataTahsin() {
   const [description, setDescription] = useState("");
   const [member_id, setMemberId] = useState("");
   const [status, setStatus] = useState("");
+  const param = useParams();
 
   const edit = async (e) => {
     e.preventDefault();
@@ -78,7 +80,7 @@ function GuruDataTahsin() {
     };
 
     try {
-      await axios.put(
+      const response = await axios.put(
         `${API_DUMMY_SMART}/api/customer/tahsin/${selectedTahsinId}/status`,
         data,
         {
@@ -95,8 +97,7 @@ function GuruDataTahsin() {
         showConfirmButton: false,
         timer: 1500,
       });
-      getAll();
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       if (error.response && error.response.status === 401) {
         localStorage.clear();
@@ -133,7 +134,7 @@ function GuruDataTahsin() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/member/guru/tahsin?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/member/guru/anak_asuh/${param.id}/tahsin?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -157,55 +158,55 @@ function GuruDataTahsin() {
   const [memberName, setMemberName] = useState("");
   const [foto, setFoto] = useState("");
 
-  const tabrfid = async (event) => {
-    event.preventDefault(); // Mencegah reload halaman
+//   const tabrfid = async (event) => {
+//     event.preventDefault(); // Mencegah reload halaman
 
-    if (!rfidNumber) {
-      setUserData(null);
-      return;
-    }
+//     if (!rfidNumber) {
+//       setUserData(null);
+//       return;
+//     }
 
-    try {
-      const response = await axios.get(
-        `${API_DUMMY_SMART}/api/customer/member/rfid?rfid_number=${rfidNumber}`,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+//     try {
+//       const response = await axios.get(
+//         `${API_DUMMY_SMART}/api/customer/member/rfid?rfid_number=${rfidNumber}`,
+//         {
+//           headers: {
+//             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+//           },
+//         }
+//       );
 
-      if (response.data && response.data.data) {
-        setUserData(response.data.data);
-        setMemberName(response.data.data.name);
-        setMemberId(response.data.data.id);
-        console.log(response.data.data);
+//       if (response.data && response.data.data) {
+//         setUserData(response.data.data);
+//         setMemberName(response.data.data.name);
+//         setMemberId(response.data.data.id);
+//         console.log(response.data.data);
 
-        // Tutup modal terlebih dahulu
-        closeModal2();
+//         // Tutup modal terlebih dahulu
+//         closeModal2();
 
-        // Tunggu modal benar-benar tertutup sebelum menampilkan alert
-        // setTimeout(async () => {
-        //   await Swal.fire({
-        //     title: "Berhasil!",
-        //     text: "Data RFID berhasil ditemukan.",
-        //     icon: "success",
-        //   });
-        // }, 500);
+//         // Tunggu modal benar-benar tertutup sebelum menampilkan alert
+//         // setTimeout(async () => {
+//         //   await Swal.fire({
+//         //     title: "Berhasil!",
+//         //     text: "Data RFID berhasil ditemukan.",
+//         //     icon: "success",
+//         //   });
+//         // }, 500);
 
-        openModal();
-      }
-    } catch (error) {
-      console.error("Terjadi Kesalahan", error);
-      setUserData(null);
-      await Swal.fire({
-        title: "Gagal!",
-        text: "RFID tidak ditemukan atau terjadi kesalahan.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-    }
-  };
+//         openModal();
+//       }
+//     } catch (error) {
+//       console.error("Terjadi Kesalahan", error);
+//       setUserData(null);
+//       await Swal.fire({
+//         title: "Gagal!",
+//         text: "RFID tidak ditemukan atau terjadi kesalahan.",
+//         icon: "error",
+//         confirmButtonText: "OK",
+//       });
+//     }
+//   };
 
   const rfidInputRef = useRef(null);
 
@@ -222,7 +223,7 @@ function GuruDataTahsin() {
     const handleScanRFID = (event) => {
       const scannedRfid = event.detail; // RFID dari event
       setRfidNumber(scannedRfid);
-      tabrfid(); // Ambil data siswa setelah RFID terdeteksi
+    //   tabrfid(); // Ambil data siswa setelah RFID terdeteksi
     };
 
     window.addEventListener("scanRFID", handleScanRFID);
@@ -237,52 +238,55 @@ function GuruDataTahsin() {
     setRfidNumber(manualRfid);
   };
 
-  const add = async (e) => {
-    e.preventDefault();
-    e.persist();
+//   const add = async (e) => {
+//     e.preventDefault();
+//     e.persist();
 
-    const data = {
-      start_juz,
-      end_juz,
-      start_pojok,
-      end_pojok,
-      description,
-      member_id,
-      status,
-    };
+//     const data = {
+//       start_juz,
+//       end_juz,
+//       start_pojok,
+//       end_pojok,
+//       description,
+//       member_id,
+//       status,
+//     };
 
-    try {
-      await axios.post(`${API_DUMMY_SMART}/api/customer/tahsin`, data, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      });
+//     try {
+//       const response = await axios.post(
+//         `${API_DUMMY_SMART}/api/customer/tahsin`,
+//         data,
+//         {
+//           headers: {
+//             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+//           },
+//         }
+//       );
 
-      Swal.fire({
-        icon: "success",
-        title: "Data Berhasil DiTambahkan",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      getAll()
-      setIsModalOpen(false);
-      // window.location.reload();
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        localStorage.clear();
-        window.location.reload(); // Redirect to login or perform other actions
-      } else {
-        setIsModalOpen(false);
-        Swal.fire({
-          icon: "error",
-          title: "Tambah Data Gagal!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log("Error:", error.response ? error.response.data : error);
-      }
-    }
-  };
+//       setIsModalOpen(false);
+//       Swal.fire({
+//         icon: "success",
+//         title: "Data Berhasil DiTambahkan",
+//         showConfirmButton: false,
+//         timer: 1500,
+//       });
+//       window.location.reload();
+//     } catch (error) {
+//       if (error.response && error.response.status === 401) {
+//         localStorage.clear();
+//         window.location.reload(); // Redirect to login or perform other actions
+//       } else {
+//         setIsModalOpen(false);
+//         Swal.fire({
+//           icon: "error",
+//           title: "Tambah Data Gagal!",
+//           showConfirmButton: false,
+//           timer: 1500,
+//         });
+//         console.log("Error:", error.response ? error.response.data : error);
+//       }
+//     }
+//   };
 
   // const deleteData = async (id) => {
   //   Swal.fire({
@@ -423,7 +427,7 @@ function GuruDataTahsin() {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-                <div className="btn-actions-pane-right">
+                {/* <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
                     <button
                       className="active btn-focus p-2 rounded"
@@ -431,7 +435,7 @@ function GuruDataTahsin() {
                       Tambah
                     </button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div
@@ -441,14 +445,13 @@ function GuruDataTahsin() {
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    {/* <th>Member ID</th> */}
                     <th>Nama</th>
                     <th>Tanggal</th>
                     <th>Pojok Awal - Pojok Akhir</th>
                     <th>Juz Awal - Juz Akhir</th>
                     <th>Deskripsi</th>
                     <th>Status</th>
-                    <th>Aksi</th>
+                    {/* <th>Aksi</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -496,7 +499,7 @@ function GuruDataTahsin() {
                             className="text-md-start text-end">
                             {tahsin.status !== "" ? tahsin.status : "Pending"}
                           </td>
-                          <td className="action" data-label="Aksi">
+                          {/* <td className="action" data-label="Aksi">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 type="button"
@@ -506,7 +509,7 @@ function GuruDataTahsin() {
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </button>
                             </div>
-                          </td>
+                          </td> */}
                         </tr>
                       );
                     })
@@ -546,7 +549,7 @@ function GuruDataTahsin() {
                   Setoran Tahsin - {memberName}
                 </h4>
 
-                <form onSubmit={add}>
+                <form>
                   <div
                     className="form-grid"
                     style={{
@@ -713,7 +716,7 @@ function GuruDataTahsin() {
                   mx: "auto",
                   mt: "10%",
                 }}>
-                <form onSubmit={tabrfid}>
+                <form>
                   <h4 style={{ marginBottom: "1rem", textAlign: "center" }}>
                     Tab Kartu
                   </h4>
@@ -758,4 +761,4 @@ function GuruDataTahsin() {
   );
 }
 
-export default GuruDataTahsin;
+export default TahsinAnakAsuh;

@@ -9,22 +9,15 @@ import AsyncSelect from "react-select/async";
 import Select from "react-select";
 
 function AddOrtu() {
-  const [fatherName, setFatherName] = useState("");
-  const [motherName, setMotherName] = useState("");
+  const [name, setName] = useState("");
   const [alamat, setAlamat] = useState("");
   const [namaAnak, setNamaAnak] = useState("");
   const [idAnak, setIDAnak] = useState(null);
-  const [birthPlaceFather, setBirthPlaceFather] = useState("");
-  const [birthDateFather, setBirthDateFather] = useState("");
-  const [pekerjaanFather, setPekerjaanFather] = useState("");
-  const [penghasilanFather, setPenghasilanFather] = useState(null);
-  const [nohpFather, setNoHpFather] = useState("");
-  const [birthPlaceMother, setBirthPlaceMother] = useState("");
-  const [birthDateMother, setBirthDateMother] = useState("");
-  const [pekerjaanMother, setPekerjaanMother] = useState("");
-  const [penghasilanMother, setPenghasilanMother] = useState("");
-  const [nohpMother, setNoHpMother] = useState("");
-  const [foto, setFoto] = useState("");
+  const [birth_place_parents, setBirthPlaceParents] = useState("");
+  const [birth_date_parents, setBirthDateParents] = useState("");
+  const [income_parents, setIncomeParents] = useState("");
+  const [phone_parents, setPhoneParents] = useState("");
+  const [work, setWork] = useState("");
   const [isLoading, setIsLoading] = useState("");
   const history = useHistory();
 
@@ -41,19 +34,13 @@ function AddOrtu() {
       },
     });
     const datas = {
-      father_name: fatherName,
-      mother_name: motherName,
+      name: name,
       address: alamat,
-      phone_father: nohpFather || "0",
-      birth_place_father: birthPlaceFather,
-      birth_date_father: birthDateFather,
-      income_father: penghasilanFather || "-",
-      work_father: pekerjaanFather || "-",
-      phone_mother: nohpMother || "0",
-      birth_place_mother: birthPlaceMother,
-      birth_date_mother: birthDateMother,
-      income_mother: penghasilanMother || 0.0,
-      work_mother: pekerjaanMother || "-",
+      phone_parents: phone_parents || "0",
+      birth_place_parents: birth_place_parents,
+      birth_date_parents: birth_date_parents,
+      income_parents: income_parents,
+      work: work || "-",
       id_anak: idAnak,
       nama_anak: namaAnak,
     };
@@ -159,21 +146,18 @@ function AddOrtu() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div
         className="page-content1"
-        style={{ marginTop: "10px", minHeight: "100vh" }}
-      >
+        style={{ marginTop: "10px", minHeight: "100vh" }}>
         <div className="app-main__outer container mb-3" data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
@@ -187,13 +171,12 @@ function AddOrtu() {
                         <div className="mb-3 col-lg-6">
                           <label
                             for="exampleInputEmail1"
-                            className="form-label  font-weight-bold "
-                          >
+                            className="form-label  font-weight-bold ">
                             Nama
                           </label>
                           <input
-                            value={fatherName}
-                            onChange={(e) => setFatherName(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             type="text"
                             className="form-control"
                             placeholder="Masukkan Nama"
@@ -216,9 +199,9 @@ function AddOrtu() {
                             Tempat Lahir
                           </label>
                           <input
-                            value={birthPlaceFather}
+                            value={birth_place_parents}
                             onChange={(e) =>
-                              setBirthPlaceFather(e.target.value)
+                              setBirthPlaceParents(e.target.value)
                             }
                             placeholder="Masukkan Nama Tempat Lahir"
                             className="form-control"
@@ -229,8 +212,10 @@ function AddOrtu() {
                             Tanggal Lahir
                           </label>
                           <input
-                            value={birthDateFather}
-                            onChange={(e) => setBirthDateFather(e.target.value)}
+                            value={birth_date_parents}
+                            onChange={(e) =>
+                              setBirthDateParents(e.target.value)
+                            }
                             type="date"
                             className="form-control"
                           />
@@ -241,24 +226,43 @@ function AddOrtu() {
                           </label>
                           <Select
                             options={incomeOptions}
-                            value={penghasilanFather}
-                            onChange={setPenghasilanFather}
-                            placeholder="Pilih Range Penghasilan"
+                            onChange={(selectedOption) =>
+                              setIncomeParents(
+                                selectedOption ? selectedOption.value : ""
+                              )
+                            }
+                            value={incomeOptions.find(
+                              (option) => option.value === income_parents
+                            )}
+                            placeholder="Pilih Pendapatan"
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
                           <label
                             for="exampleInputEmail1"
-                            className="form-label  font-weight-bold "
-                          >
+                            className="form-label  font-weight-bold ">
                             No HP
                           </label>
                           <input
-                            value={nohpFather}
-                            onChange={(e) => setNoHpFather(e.target.value)}
+                            value={phone_parents}
+                            onChange={(e) => setPhoneParents(e.target.value)}
                             type="number"
                             className="form-control"
                             placeholder="Masukkan No Handphone"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label
+                            for="exampleInputEmail1"
+                            className="form-label  font-weight-bold ">
+                            Pekerjaan
+                          </label>
+                          <input
+                            value={work}
+                            onChange={(e) => setWork(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukkan Pekerjaan"
                           />
                         </div>
                         <div className="mb-3 col-lg-6">
@@ -275,31 +279,18 @@ function AddOrtu() {
                             isMulti
                           />
                         </div>
-                        {/* <div className="mb-3 col-lg-6">
-                    <label className="form-label font-weight-bold">
-                      Gambar
-                    </label>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => setFoto(e.target.files[0])}
-                      className="form-control"
-                    />
-                  </div> */}
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_ortu_asuh"
-                        >
+                          href="/admin_ortu_asuh">
                           Batal
                         </a>
                       </button>
                       <button
                         type="submit"
                         className="btn-primary mt-3"
-                        disabled={isLoading}
-                      >
+                        disabled={isLoading}>
                         {isLoading ? "Loading..." : "Submit"}
                       </button>
                     </form>
