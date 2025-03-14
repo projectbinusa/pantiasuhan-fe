@@ -255,6 +255,7 @@ function AdminBeritaPanti() {
                     <th>Penulis</th>
                     <th>Thumbnail</th>
                     <th>Kategori</th>
+                    <th>Tanggal Redaksi</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -263,7 +264,10 @@ function AdminBeritaPanti() {
                     filteredList.map((berita, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="text-md-start text-end">
+                          <td
+                            data-label="No"
+                            className="text-md-start text-end"
+                          >
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td
@@ -272,8 +276,16 @@ function AdminBeritaPanti() {
                           >
                             <p className="content-isi">{berita.judul_berita}</p>
                           </td>
-                          <td data-label="Penulis" className="text-md-start text-end">{berita.author}</td>
-                          <td data-label="Thumbnail" className="text-md-center text-end">
+                          <td
+                            data-label="Penulis"
+                            className="text-md-start text-end"
+                          >
+                            {berita.author}
+                          </td>
+                          <td
+                            data-label="Thumbnail"
+                            className="text-md-center text-end"
+                          >
                             <button
                               onClick={() => openModal(berita.image)}
                               type="button"
@@ -286,8 +298,17 @@ function AdminBeritaPanti() {
                               style={{ height: "4.5rem", width: "4.5rem", marginLeft: "auto", marginRight: "auto", display: "flex" }}
                             /> */}
                           </td>
-                          <td data-label="Kategori" className="text-md-start text-end">
+                          <td
+                            data-label="Kategori"
+                            className="text-md-start text-end"
+                          >
                             {berita.category}
+                          </td>
+                          <td
+                            data-label="Kategori"
+                            className="text-md-start text-end"
+                          >
+                            {berita.news_date}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
