@@ -291,6 +291,11 @@ import BalasKomentar from "./views/pages/admin/pantiasuhan/komentar/BalasKomenta
 import DataBalasKomentar from "./views/pages/admin/pantiasuhan/komentar/DataBalasKomentar.js";
 import GuruAnakAsuh from "./views/pages/guru/anak asuh/GuruAnakAsuh.js";
 import GuruTahsinAnakAsuh from "./views/pages/guru/anak asuh/TahsinAnakAsuh.js";
+import DataTahsinWeakly from "./views/pages/guru/tahsin/DataTahsinWeakly.js";
+import DataTahsinMonth from "./views/pages/guru/tahsin/DataTahsinMonth.js";
+import DataTahsinDaily from "./views/pages/guru/tahsin/DataTahsinDaily.js";
+import DataTahsinWeek from "./views/pages/guru/tahsin/DataTahsinWeek.js";
+import DataTahsinDay from "./views/pages/guru/tahsin/DataTahsinDay.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1423,6 +1428,36 @@ function App() {
             <PrivateRoute
               path="/guru/tahsin"
               component={GuruDataTahsin}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahsin/weakly"
+              component={DataTahsinWeakly}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahsin/month"
+              component={DataTahsinMonth}
+              exact
+            />
+            {/* <PrivateRoute
+              path="/guru/tahsin/year"
+              component={DataTahsinYear}
+              exact
+            /> */}
+            <PrivateRoute
+              path="/guru/tahsin/day"
+              component={DataTahsinDay}
+              exacD
+            />
+            <PrivateRoute
+              path="/guru/tahsin/daily"
+              component={DataTahsinDaily}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahsin/week"
+              component={DataTahsinWeek}
               exact
             />
             <PrivateRoute
