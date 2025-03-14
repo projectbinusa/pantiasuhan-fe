@@ -154,6 +154,8 @@ function AddAnak() {
         // parent_id: parent_id,
         education,
         picture: imageUrl,
+        father_name: ayah,
+        mother_name: ibu,
         gender: gender,
         level: "santri",
       };

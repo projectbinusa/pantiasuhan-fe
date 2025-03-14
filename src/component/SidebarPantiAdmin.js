@@ -573,7 +573,7 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       icon: "fa-solid fa-comments",
       path: "/moderasi_komentar",
       action: ["/balas_komentar"],
-    }
+    },
   ];
 
   const menuItemsPengurus = [
@@ -584,6 +584,18 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           title: "Data Tahsin",
           icon: "fa-solid fa-book-open",
           path: "/guru/tahsin",
+          action: [""],
+        },
+      ],
+      icon: <i class="fa-solid fa-angle-down"></i>,
+    },
+    {
+      header: "Anak Asuh",
+      items: [
+        {
+          title: "Data Anak Asuh",
+          icon: "fa-solid fa-users",
+          path: "/guru/anak_asuh",
           action: [""],
         },
       ],
