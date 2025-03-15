@@ -23,48 +23,82 @@ function DataTahsinDaily() {
   });
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [month, setMonth] = useState("");
-  const [year, setYear] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sidebarToggled, setSidebarToggled] = useState(true);
-  const [start_date, setStartDate] = useState("");
+  const [date, setStartDate] = useState("");
 
   const getAll = async () => {
-    try {
-      const user = JSON.parse(localStorage.getItem("user")); // Ambil user dari localStorage
-      const organization_id = user?.organization_id || ""; // Ambil organization_id dari user
+      try {
+        // Ambil data user dari localStorage
+        const userData = {
+          id: localStorage.getItem("id"),
+          organization_id: localStorage.getItem("organization_id"),
+          rolename: localStorage.getItem("rolename"),
+        };
   
-      if (!organization_id) {
-        console.error("organization_id tidak ditemukan!");
-        return; // Berhenti jika organization_id kosong
-      }
+        console.log("User Data dari localStorage:", userData); // Debugging
   
-      const response = await axios.get(
-        `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-daily/organization`,
-        {
-          params: {
-            page: currentPage,
-            month: month || new Date().getMonth() + 1, 
-            year: year || new Date().getFullYear(),
-            organization_id, // Pastikan ini dikirim
-          },
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
+        if (!userData.organization_id) {
+          console.error("organization_id tidak ditemukan dalam localStorage!");
+          return;
         }
-      );
   
-      setList(response.data.data);
-      setPaginationInfo({
-        totalPages: response.data.pagination.total_page,
-      });
+        // Pastikan date ada sebelum melakukan request
+        if (!date) {
+          console.error("date harus diisi!");
+          return;
+        }
   
-      console.log("API Response:", response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error.response ? error.response.data : error);
-    }
-  };
+        // Ambil token dari localStorage
+        const token = localStorage.getItem("tokenpython");
+        if (!token) {
+          console.error("Token autentikasi tidak ditemukan di localStorage!");
+          return;
+        }
+  
+        console.log("Token ditemukan:", token); // Debugging
+  
+        // Set konfigurasi header dengan format auth-tgh
+        const config = {
+          headers: {
+            "auth-tgh": `jwt ${token}`,
+          },
+          params: {
+            date,
+            organization_id: userData.organization_id,
+          },
+        };
+  
+        console.log("Mengirim request ke API dengan config:", config); // Debugging
+  
+        // Panggil API dengan axios
+        const response = await axios.get(
+          `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-daily/organization`,
+          config
+        );
+  
+        console.log("API Response:", response.data); // Debugging
+  
+        if (response.data && response.data.data) {
+          setList(response.data.data);
+          setPaginationInfo({
+            totalPages: Math.ceil(response.data.data.length / rowsPerPage),
+          });
+        } else {
+          setList([]); // Kosongkan list jika tidak ada hasil
+          setPaginationInfo({ totalPages: 1 });
+        }
+      } catch (error) {
+        console.error(
+          "Error fetching data:",
+          error.response ? error.response.data : error.message
+        );
+        setList([]); // Kosongkan list jika terjadi error
+        setPaginationInfo({ totalPages: 1 });
+      }
+    };
+  
   
 
   useEffect(() => {
@@ -92,6 +126,12 @@ function DataTahsinDaily() {
         typeof value === "string" &&
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
+  );
+
+  // Paginasi dengan slice()
+  const paginatedList = filteredList.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
   );
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
@@ -176,7 +216,7 @@ function DataTahsinDaily() {
                   <input
                     type="date"
                     className="form-select form-select-sm"
-                    value={start_date}
+                    value={date}
                     style={{ height: "35px", fontSize: "12px" }}
                     onChange={(e) => setStartDate(e.target.value)}
                   />
@@ -212,8 +252,8 @@ function DataTahsinDaily() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length > 0 ? (
-                    filteredList.map((tahsin, no) => {
+                  {paginatedList.length > 0 ? (
+                    paginatedList.map((tahsin, no) => {
                       return (
                         <tr key={no}>
                           <td
@@ -222,11 +262,6 @@ function DataTahsinDaily() {
                           >
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          {/* <td
-                            data-label="Member ID"
-                            className="text-md-start text-end">
-                            {tahsin.member_id}
-                          </td> */}
                           <td
                             data-label="Nama"
                             className="text-md-start text-end"
