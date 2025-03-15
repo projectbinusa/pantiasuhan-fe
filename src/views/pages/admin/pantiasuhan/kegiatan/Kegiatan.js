@@ -255,6 +255,11 @@ function KegiatanPanti() {
                           >
                             <p className="content-isi">{kegiatan.judul}</p>
                           </td>
+<<<<<<< HEAD
+                          <td data-label="Penulis" className="text-md-start text-end">{kegiatan.penulis}</td>
+                          <td data-label="Tanggal Dibuat" className="text-md-start text-end">
+                            {kegiatan.tanggal}
+=======
                           <td
                             data-label="Penulis"
                             className="text-md-start text-end"
@@ -277,6 +282,7 @@ function KegiatanPanti() {
                             className="text-md-start text-end"
                           >
                             {kegiatan.created_date}
+>>>>>>> 23cb8889e99c5331a2bfa20a1a51100ab0e3d1f5
                           </td>
                           <td
                             data-label="Tanggal Update"

@@ -70,6 +70,7 @@ function AddBeritaAdminPanti() {
   const [show, setShow] = useState(false);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
+  const [tanggalRedaksi, setTanggalRedaksi] = useState('');
 
   //add
   const add = async (e) => {
@@ -334,8 +335,8 @@ function AddBeritaAdminPanti() {
                       </div>
                       <div className="mb-3 col-lg-6">
                         <label
-                          for="exampleInputEmail1"
-                          className="form-label  font-weight-bold "
+                          htmlFor="exampleInputEmail1"
+                          className="form-label font-weight-bold"
                         >
                           Penulis Berita
                         </label>
@@ -347,6 +348,22 @@ function AddBeritaAdminPanti() {
                           placeholder="Masukkan Penulis Berita"
                         />
                       </div>
+
+                      <div className="mb-3 col-lg-6">
+                        <label
+                          htmlFor="tanggalRedaksi"
+                          className="form-label font-weight-bold"
+                        >
+                          Tanggal Redaksi
+                        </label>
+                        <input
+                          value={tanggalRedaksi}
+                          onChange={(e) => setTanggalRedaksi(e.target.value)}
+                          type="date"
+                          className="form-control"
+                        />
+                      </div>
+
                       <div className="mb-3 col-lg-6">
                         <label
                           for="exampleInputEmail1"
