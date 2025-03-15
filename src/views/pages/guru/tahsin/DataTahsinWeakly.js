@@ -23,63 +23,83 @@ function DataTahsinWeakly() {
   });
   const [list, setList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [month, setMonth] = useState("");
-  const [year, setYear] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [start_date, setStartDate] = useState("");
   const [end_date, setEndDate] = useState("");
-  
 
   const getAll = async () => {
     try {
-        // Ambil data user dari localStorage
-        const userData = JSON.parse(localStorage.getItem("user"));
+      // Ambil data user dari localStorage
+      const userData = {
+        id: localStorage.getItem("id"),
+        organization_id: localStorage.getItem("organization_id"),
+        rolename: localStorage.getItem("rolename"),
+      };
 
-        console.log("User Data:", userData); // Debugging
+      console.log("User Data dari localStorage:", userData); // Debugging
 
-        if (!userData?.organization_id) {
-            console.error("organization_id tidak ditemukan di localStorage!");
-            return;
-        }
+      if (!userData.organization_id) {
+        console.error("organization_id tidak ditemukan dalam localStorage!");
+        return;
+      }
 
-        // Pastikan start_date dan end_date ada
-        if (!start_date || !end_date) {
-            console.error("start_date dan end_date harus diisi!");
-            return;
-        }
+      // Pastikan start_date dan end_date ada sebelum melakukan request
+      if (!start_date || !end_date) {
+        console.error("start_date dan end_date harus diisi!");
+        return;
+      }
 
-        const token = localStorage.getItem("tokenpython"); // Pastikan token tersimpan dengan benar
-        if (!token) {
-            console.error("Token autentikasi tidak ditemukan!");
-            return;
-        }
+      // Ambil token dari localStorage
+      const token = localStorage.getItem("tokenpython");
+      if (!token) {
+        console.error("Token autentikasi tidak ditemukan di localStorage!");
+        return;
+      }
 
-        // Set konfigurasi header
-        const config = {
-            headers: {
-                "auth": `Bearer ${token}`,
-            },
-            params: {
-                start_date,
-                end_date,
-                organization_id: userData.organization_id
-            }
-        };
+      console.log("Token ditemukan:", token); // Debugging
 
-        // Panggil API dengan axios
-        const response = await axios.get(`${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-weakly/organization`, config);
+      // Set konfigurasi header dengan format auth-tgh
+      const config = {
+        headers: {
+          "auth-tgh": `jwt ${token}`,
+        },
+        params: {
+          start_date,
+          end_date,
+          organization_id: userData.organization_id,
+        },
+      };
 
-        // Set data ke state
+      console.log("Mengirim request ke API dengan config:", config); // Debugging
+
+      // Panggil API dengan axios
+      const response = await axios.get(
+        `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-weakly/organization`,
+        config
+      );
+
+      console.log("API Response:", response.data); // Debugging
+
+      if (response.data && response.data.data) {
         setList(response.data.data);
-        setPaginationInfo({ totalPages: response.data.pagination?.total_page || 1 });
-
-        console.log("API Response:", response.data);
+        setPaginationInfo({
+          totalPages: Math.ceil(response.data.data.length / rowsPerPage),
+        });
+      } else {
+        setList([]); // Kosongkan list jika tidak ada hasil
+        setPaginationInfo({ totalPages: 1 });
+      }
     } catch (error) {
-        console.error("Error fetching data:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error fetching data:",
+        error.response ? error.response.data : error.message
+      );
+      setList([]); // Kosongkan list jika terjadi error
+      setPaginationInfo({ totalPages: 1 });
     }
-};
+  };
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -96,138 +116,6 @@ function DataTahsinWeakly() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const [rfidNumber, setRfidNumber] = useState("");
-  const [userData, setUserData] = useState(null);
-  const [memberName, setMemberName] = useState("");
-  const [foto, setFoto] = useState("");
-
-  // const tabrfid = async (event) => {
-  //   event.preventDefault(); // Mencegah reload halaman
-
-  //   if (!rfidNumber) {
-  //     setUserData(null);
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await axios.get(
-  //       `${API_DUMMY_BYRTGHN}/api/customer/member/rfid?rfid_number=${rfidNumber}`,
-  //       {
-  //         headers: {
-  //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-  //         },
-  //       }
-  //     );
-
-  //     if (response.data && response.data.data) {
-  //       setUserData(response.data.data);
-  //       setMemberName(response.data.data.name);
-  //       setMemberId(response.data.data.id);
-  //       console.log(response.data.data);
-
-  //       // Tutup modal terlebih dahulu
-  //       closeModal2();
-
-  //       // Tunggu modal benar-benar tertutup sebelum menampilkan alert
-  //       // setTimeout(async () => {
-  //       //   await Swal.fire({
-  //       //     title: "Berhasil!",
-  //       //     text: "Data RFID berhasil ditemukan.",
-  //       //     icon: "success",
-  //       //   });
-  //       // }, 500);
-
-  //       openModal();
-  //     }
-  //   } catch (error) {
-  //     console.error("Terjadi Kesalahan", error);
-  //     setUserData(null);
-  //     await Swal.fire({
-  //       title: "Gagal!",
-  //       text: "RFID tidak ditemukan atau terjadi kesalahan.",
-  //       icon: "error",
-  //       confirmButtonText: "OK",
-  //     });
-  //   }
-  // };
-
-  // const rfidInputRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (isModalOpen2) {
-  //     setTimeout(() => {
-  //       rfidInputRef.current?.focus();
-  //     }, 100); // Beri sedikit delay agar modal selesai dirender
-  //   }
-  // }, [isModalOpen2]);
-
-  // // Menangkap pemindaian kartu otomatis
-  // useEffect(() => {
-  //   const handleScanRFID = (event) => {
-  //     const scannedRfid = event.detail; // RFID dari event
-  //     setRfidNumber(scannedRfid);
-  //     tabrfid(); // Ambil data siswa setelah RFID terdeteksi
-  //   };
-
-  //   window.addEventListener("scanRFID", handleScanRFID);
-  //   return () => {
-  //     window.removeEventListener("scanRFID", handleScanRFID);
-  //   };
-  // }, []);
-
-  // // Menangani input manual RFID
-  // const handleManualRFID = (e) => {
-  //   const manualRfid = e.target.value;
-  //   setRfidNumber(manualRfid);
-  // };
-
-  // const add = async (e) => {
-  //   e.preventDefault();
-  //   e.persist();
-
-  //   const data = {
-  //     start_juz,
-  //     end_juz,
-  //     start_pojok,
-  //     end_pojok,
-  //     description,
-  //     member_id,
-  //     status,
-  //   };
-
-  //   try {
-  //     await axios.post(`${API_DUMMY_BYRTGHN}/api/customer/tahsin`, data, {
-  //       headers: {
-  //         "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-  //       },
-  //     });
-
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Data Berhasil DiTambahkan",
-  //       showConfirmButton: false,
-  //       timer: 1500,
-  //     });
-  //     getAll()
-  //     setIsModalOpen(false);
-  //     // window.location.reload();
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 401) {
-  //       localStorage.clear();
-  //       window.location.reload(); // Redirect to login or perform other actions
-  //     } else {
-  //       setIsModalOpen(false);
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Tambah Data Gagal!",
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //       });
-  //       console.log("Error:", error.response ? error.response.data : error);
-  //     }
-  //   }
-  // };
 
   useEffect(() => {
     getAll(currentPage);
@@ -254,6 +142,12 @@ function DataTahsinWeakly() {
         typeof value === "string" &&
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
+  );
+
+  // Paginasi dengan slice()
+  const paginatedList = filteredList.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
   );
 
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
@@ -294,15 +188,6 @@ function DataTahsinWeakly() {
               </select>
             </div>
           </div>
-          {/* <div className="search">
-            <input
-              type="search"
-              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div> */}
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Daftar Rekap Tahsin Weakly</p>
@@ -370,12 +255,11 @@ function DataTahsinWeakly() {
                     <th>Juz Awal - Juz Akhir</th>
                     <th>Deskripsi</th>
                     <th>Status</th>
-                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length > 0 ? (
-                    filteredList.map((tahsin, no) => {
+                  {paginatedList.length > 0 ? (
+                    paginatedList.map((tahsin, no) => {
                       return (
                         <tr key={no}>
                           <td
@@ -384,11 +268,6 @@ function DataTahsinWeakly() {
                           >
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          {/* <td
-                            data-label="Member ID"
-                            className="text-md-start text-end">
-                            {tahsin.member_id}
-                          </td> */}
                           <td
                             data-label="Nama"
                             className="text-md-start text-end"

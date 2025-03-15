@@ -53,114 +53,75 @@ function DataTahsinMonth() {
 
   const getAll = async () => {
     try {
-      const user = JSON.parse(localStorage.getItem("user")); // Ambil user dari localStorage
-      const organization_id = user?.organization_id || ""; // Ambil organization_id dari user
-  
-      if (!organization_id) {
-        console.error("organization_id tidak ditemukan!");
-        return; // Berhenti jika organization_id kosong
+      // Ambil data user dari localStorage
+      const userData = {
+        id: localStorage.getItem("id"),
+        organization_id: localStorage.getItem("organization_id"),
+        rolename: localStorage.getItem("rolename"),
+      };
+
+      console.log("User Data dari localStorage:", userData); // Debugging
+
+      if (!userData.organization_id) {
+        console.error("organization_id tidak ditemukan dalam localStorage!");
+        return;
       }
-  
+
+      // Pastikan month dan year ada sebelum melakukan request
+      if (!month || !year) {
+        console.error("month dan year harus diisi!");
+        return;
+      }
+
+      // Ambil token dari localStorage
+      const token = localStorage.getItem("tokenpython");
+      if (!token) {
+        console.error("Token autentikasi tidak ditemukan di localStorage!");
+        return;
+      }
+
+      console.log("Token ditemukan:", token); // Debugging
+
+      // Set konfigurasi header dengan format auth-tgh
+      const config = {
+        headers: {
+          "auth-tgh": `jwt ${token}`,
+        },
+        params: {
+          month,
+          year,
+          organization_id: userData.organization_id,
+        },
+      };
+
+      console.log("Mengirim request ke API dengan config:", config); // Debugging
+
+      // Panggil API dengan axios
       const response = await axios.get(
         `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-month/organization`,
-        {
-          params: {
-            page: currentPage,
-            month: month || new Date().getMonth() + 1, 
-            year: year || new Date().getFullYear(),
-            organization_id, // Pastikan ini dikirim
-          },
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
+        config
       );
-  
-      setList(response.data.data);
-      setPaginationInfo({
-        totalPages: response.data.pagination.total_page,
-      });
-  
-      console.log("API Response:", response.data);
+
+      console.log("API Response:", response.data); // Debugging
+
+      if (response.data && response.data.data) {
+        setList(response.data.data);
+        setPaginationInfo({
+          totalPages: Math.ceil(response.data.data.length / rowsPerPage),
+        });
+      } else {
+        setList([]); // Kosongkan list jika tidak ada hasil
+        setPaginationInfo({ totalPages: 1 });
+      }
     } catch (error) {
-      console.error("Error fetching data:", error.response ? error.response.data : error);
+      console.error(
+        "Error fetching data:",
+        error.response ? error.response.data : error.message
+      );
+      setList([]); // Kosongkan list jika terjadi error
+      setPaginationInfo({ totalPages: 1 });
     }
   };
-  
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "90%", // Menggunakan persentase agar menyesuaikan dengan ukuran layar
-    maxWidth: "800px", // Menentukan lebar maksimum untuk layar besar
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    p: 3,
-    borderRadius: "10px",
-    backgroundColor: "#f5f5f5",
-    overflowY: "auto", // Untuk menangani konten panjang
-    maxHeight: "90vh", // Membatasi tinggi modal agar tidak melebihi viewport
-  };
-
-  // ADD
-  const [start_juz, setStartJuz] = useState("");
-  const [end_juz, setEndJuz] = useState("");
-  const [start_pojok, setStartPojok] = useState("");
-  const [end_pojok, setEndPojok] = useState("");
-  const [description, setDescription] = useState("");
-  const [member_id, setMemberId] = useState("");
-  const [status, setStatus] = useState("");
-
-  // const edit = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!selectedTahsinId) {
-  //     console.error("Error: tahsin_id tidak tersedia");
-  //     return;
-  //   }
-
-  //   const data = {
-  //     status,
-  //   };
-
-  //   try {
-  //     await axios.put(
-  //       `${API_DUMMY_BYRTGHN}/api/customer/tahsin/${selectedTahsinId}/status`,
-  //       data,
-  //       {
-  //         headers: {
-  //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-  //         },
-  //       }
-  //     );
-
-  //     setIsModalOpen1(false);
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Data Berhasil Diedit",
-  //       showConfirmButton: false,
-  //       timer: 1500,
-  //     });
-  //     getAll();
-  //     // window.location.reload();
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 401) {
-  //       localStorage.clear();
-  //       window.location.reload();
-  //     } else {
-  //       setIsModalOpen1(false);
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Edit Data Gagal!",
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //       });
-  //       console.log("Error:", error.response ? error.response.data : error);
-  //     }
-  //   }
-  // };
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -178,138 +139,6 @@ function DataTahsinMonth() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const [rfidNumber, setRfidNumber] = useState("");
-  const [userData, setUserData] = useState(null);
-  const [memberName, setMemberName] = useState("");
-  const [foto, setFoto] = useState("");
-
-  // const tabrfid = async (event) => {
-  //   event.preventDefault(); // Mencegah reload halaman
-
-  //   if (!rfidNumber) {
-  //     setUserData(null);
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await axios.get(
-  //       `${API_DUMMY_BYRTGHN}/api/customer/member/rfid?rfid_number=${rfidNumber}`,
-  //       {
-  //         headers: {
-  //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-  //         },
-  //       }
-  //     );
-
-  //     if (response.data && response.data.data) {
-  //       setUserData(response.data.data);
-  //       setMemberName(response.data.data.name);
-  //       setMemberId(response.data.data.id);
-  //       console.log(response.data.data);
-
-  //       // Tutup modal terlebih dahulu
-  //       closeModal2();
-
-  //       // Tunggu modal benar-benar tertutup sebelum menampilkan alert
-  //       // setTimeout(async () => {
-  //       //   await Swal.fire({
-  //       //     title: "Berhasil!",
-  //       //     text: "Data RFID berhasil ditemukan.",
-  //       //     icon: "success",
-  //       //   });
-  //       // }, 500);
-
-  //       openModal();
-  //     }
-  //   } catch (error) {
-  //     console.error("Terjadi Kesalahan", error);
-  //     setUserData(null);
-  //     await Swal.fire({
-  //       title: "Gagal!",
-  //       text: "RFID tidak ditemukan atau terjadi kesalahan.",
-  //       icon: "error",
-  //       confirmButtonText: "OK",
-  //     });
-  //   }
-  // };
-
-  // const rfidInputRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (isModalOpen2) {
-  //     setTimeout(() => {
-  //       rfidInputRef.current?.focus();
-  //     }, 100); // Beri sedikit delay agar modal selesai dirender
-  //   }
-  // }, [isModalOpen2]);
-
-  // // Menangkap pemindaian kartu otomatis
-  // useEffect(() => {
-  //   const handleScanRFID = (event) => {
-  //     const scannedRfid = event.detail; // RFID dari event
-  //     setRfidNumber(scannedRfid);
-  //     tabrfid(); // Ambil data siswa setelah RFID terdeteksi
-  //   };
-
-  //   window.addEventListener("scanRFID", handleScanRFID);
-  //   return () => {
-  //     window.removeEventListener("scanRFID", handleScanRFID);
-  //   };
-  // }, []);
-
-  // // Menangani input manual RFID
-  // const handleManualRFID = (e) => {
-  //   const manualRfid = e.target.value;
-  //   setRfidNumber(manualRfid);
-  // };
-
-  // const add = async (e) => {
-  //   e.preventDefault();
-  //   e.persist();
-
-  //   const data = {
-  //     start_juz,
-  //     end_juz,
-  //     start_pojok,
-  //     end_pojok,
-  //     description,
-  //     member_id,
-  //     status,
-  //   };
-
-  //   try {
-  //     await axios.post(`${API_DUMMY_BYRTGHN}/api/customer/tahsin`, data, {
-  //       headers: {
-  //         "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-  //       },
-  //     });
-
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Data Berhasil DiTambahkan",
-  //       showConfirmButton: false,
-  //       timer: 1500,
-  //     });
-  //     getAll()
-  //     setIsModalOpen(false);
-  //     // window.location.reload();
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 401) {
-  //       localStorage.clear();
-  //       window.location.reload(); // Redirect to login or perform other actions
-  //     } else {
-  //       setIsModalOpen(false);
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Tambah Data Gagal!",
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //       });
-  //       console.log("Error:", error.response ? error.response.data : error);
-  //     }
-  //   }
-  // };
-
   useEffect(() => {
     getAll(currentPage);
   }, [currentPage, rowsPerPage]);
@@ -323,12 +152,6 @@ function DataTahsinMonth() {
     setPage(0);
   };
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-    setPage(0);
-    setCurrentPage(1);
-  };
-
   const filteredList = list.filter((item) =>
     Object.values(item).some(
       (value) =>
@@ -336,7 +159,12 @@ function DataTahsinMonth() {
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-
+  
+  // Paginasi dengan slice()
+  const paginatedList = filteredList.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
@@ -375,15 +203,6 @@ function DataTahsinMonth() {
               </select>
             </div>
           </div>
-          {/* <div className="search">
-            <input
-              type="search"
-              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div> */}
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Daftar Rekap Tahsin Month</p>
@@ -404,13 +223,6 @@ function DataTahsinMonth() {
                 </div>
               </div>
               <div className="d-flex ml-auto gap-2">
-                {/* <input
-                  type="search"
-                  className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                /> */}
                 {/* Filter Bulan */}
                 <div className="col-auto">
                   <Select
@@ -475,12 +287,11 @@ function DataTahsinMonth() {
                     <th>Juz Awal - Juz Akhir</th>
                     <th>Deskripsi</th>
                     <th>Status</th>
-                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.length > 0 ? (
-                    filteredList.map((tahsin, no) => {
+                  {paginatedList.length > 0 ? (
+                    paginatedList.map((tahsin, no) => {
                       return (
                         <tr key={no}>
                           <td
