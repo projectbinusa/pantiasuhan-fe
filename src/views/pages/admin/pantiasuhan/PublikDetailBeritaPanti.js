@@ -332,6 +332,32 @@ function PublikDetailBeritaPanti() {
     }
   };
 
+  const getBalasanKomentar = async (idKomentar) => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/public/komentar/${idKomentar}/reply_komentar`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching balasan komentar:", error);
+      return [];
+    }
+  };
+
+  const [balasan, setBalasan] = useState({});
+  const [loading, setLoading] = useState({});
+
+  useEffect(() => {
+    komentars.forEach((komentar) => {
+      setLoading((prev) => ({ ...prev, [komentar.id]: true }));
+
+      getBalasanKomentar(komentar.id).then((data) => {
+        setBalasan((prev) => ({ ...prev, [komentar.id]: data }));
+        setLoading((prev) => ({ ...prev, [komentar.id]: false }));
+      });
+    });
+  }, [komentars]);
+
   return (
     <div style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
       <Navbar /> <br /> <br /> <br /> <br /> <br /> <br />
@@ -489,24 +515,39 @@ function PublikDetailBeritaPanti() {
               >
                 {komentars.length > 0 ? (
                   komentars.map((item, idx) => (
-                    <div
-                      key={item.id}
-                      ref={
-                        idx === komentars.length - 1
-                          ? lastKomentarCallback
-                          : null
-                      }
-                    >
+                    <div key={item.id} style={{ marginBottom: "1rem" }}>
                       <h6>{item?.name}</h6>
                       <p>{item?.description}</p>
                       <hr />
+
+                      {loading[item.id] && <p>Loading balasan...</p>}
+
+                      {/* Hanya tampilkan balasan jika ada */}
+                      {balasan[item.id]?.length > 0 && (
+                        <div
+                          style={{
+                            paddingLeft: "1rem",
+                            borderLeft: "2px solid #ccc",
+                          }}
+                        >
+                          {balasan[item.id].map((reply) => (
+                            <div key={reply.id} style={{ marginTop: "0.5rem" }}>
+                              <h6 style={{ fontSize: "0.9rem" }}>
+                                {reply.name}
+                              </h6>
+                              <p style={{ fontSize: "0.85rem" }}>
+                                {reply.description}
+                              </p>
+                              <hr />
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   ))
                 ) : (
                   <p>Tidak ada komentar.</p>
                 )}
-
-                {isLoading && <p>Loading...</p>}
               </div>
             </div>
             {/* <div

@@ -70,16 +70,20 @@ function KegiatanPanti() {
       cancelButtonColor: "#d33",
       confirmButtonText: "Hapus",
       cancelButtonText: "Batal",
-    }).then(async (result) => { // Ubah ini jadi async function
+    }).then(async (result) => {
+      // Ubah ini jadi async function
       if (result.isConfirmed) {
         setIsLoading(true);
 
         try {
-          const res = await axios.delete(`${API_DUMMY}/api/admin/kegiatan/${id}`, {
-            headers: {
-              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-            },
-          });
+          const res = await axios.delete(
+            `${API_DUMMY}/api/admin/kegiatan/${id}`,
+            {
+              headers: {
+                "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+              },
+            }
+          );
 
           Swal.fire({
             icon: "success",
@@ -134,8 +138,9 @@ function KegiatanPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}
     >
       <a
         id="show-sidebar"
@@ -227,8 +232,9 @@ function KegiatanPanti() {
                     <th>No</th>
                     <th>Program</th>
                     <th>Penulis</th>
-                    <th>Tanggal Dibuat</th>
-                    <th>Tanggal Update</th>
+                    <th>Tanggal Program</th>
+                    {/* <th>Tanggal Dibuat</th>
+                    <th>Tanggal Update</th> */}
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -237,19 +243,53 @@ function KegiatanPanti() {
                     filteredList.map((kegiatan, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="text-md-start text-end">
+                          <td
+                            data-label="No"
+                            className="text-md-start text-end"
+                          >
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td data-label="Program" className="text-md-start text-end contents">
+                          <td
+                            data-label="Program"
+                            className="text-md-start text-end contents"
+                          >
                             <p className="content-isi">{kegiatan.judul}</p>
                           </td>
+<<<<<<< HEAD
                           <td data-label="Penulis" className="text-md-start text-end">{kegiatan.penulis}</td>
                           <td data-label="Tanggal Dibuat" className="text-md-start text-end">
                             {kegiatan.tanggal}
+=======
+                          <td
+                            data-label="Penulis"
+                            className="text-md-start text-end"
+                          >
+                            {kegiatan.penulis}
                           </td>
-                          <td data-label="Tanggal Update" className="text-md-start text-end">
+                          <td
+                            data-label="Tanggal Program"
+                            className="text-md-start text-end"
+                          >
+                            {new Intl.DateTimeFormat("id-ID", {
+                              day: "2-digit",
+                              month: "long",
+                              year: "numeric",
+                            }).format(new Date(kegiatan.tanggal))}
+                          </td>
+
+                          {/* <td
+                            data-label="Tanggal Dibuat"
+                            className="text-md-start text-end"
+                          >
+                            {kegiatan.created_date}
+>>>>>>> 23cb8889e99c5331a2bfa20a1a51100ab0e3d1f5
+                          </td>
+                          <td
+                            data-label="Tanggal Update"
+                            className="text-md-start text-end"
+                          >
                             {kegiatan.updated_date}
-                          </td>
+                          </td> */}
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               {userRole !== "yayasan" && (
@@ -284,7 +324,8 @@ function KegiatanPanti() {
                                   <button
                                     onClick={() => deleteData(kegiatan.id)}
                                     type="button"
-                                    className="btn-danger btn-sm" disabled={isLoading}
+                                    className="btn-danger btn-sm"
+                                    disabled={isLoading}
                                   >
                                     <i className="fa-solid fa-trash"></i>
                                   </button>

@@ -66,6 +66,7 @@ function AddBeritaAdminPanti() {
   const [image, setImage] = useState(null);
   const [categoryBerita, setCategoryBerita] = useState("");
   const [isiBerita, setIsiBerita] = useState("");
+  const [newsDate, setNewsDate] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
@@ -98,6 +99,7 @@ function AddBeritaAdminPanti() {
           category: categoryBerita,
           image: imageUrl,
           isi_berita: isiBerita,
+          news_date: newsDate,
           judul_berita: judulBerita,
         },
         {
@@ -362,6 +364,21 @@ function AddBeritaAdminPanti() {
                         />
                       </div>
 
+                      <div className="mb-3 col-lg-6">
+                        <label
+                          for="exampleInputEmail1"
+                          className="form-label  font-weight-bold "
+                        >
+                          Tanggal Redaksi
+                        </label>
+                        <input
+                          value={newsDate}
+                          onChange={(e) => setNewsDate(e.target.value)}
+                          type="date"
+                          className="form-control"
+                          placeholder="Masukkan Tanggal Redaksi"
+                        />
+                      </div>
                       <div className="mb-3 col-lg-6">
                         <label
                           for="exampleInputEmail1"
