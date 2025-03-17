@@ -25,6 +25,8 @@ function EditWeb() {
   const [facebook, setFacebook] = useState("");
   const [instagram, setInstagram] = useState("");
   const [youtube, setYoutube] = useState("");
+  const [title, setTitle] = useState("");
+  const [sub_title, setSubTitle] = useState("");
 
   useEffect(() => {
     axios
@@ -43,6 +45,8 @@ function EditWeb() {
         setFacebook(response.facebook || "");
         setYoutube(response.youtube || "");
         setInstagram(response.instagram || "");
+        setTitle(response.title || "");
+        setSubTitle(response.sub_title || "");
       })
       .catch((error) => {
         console.log(error);
@@ -76,6 +80,8 @@ function EditWeb() {
       instagram: instagram,
       youtube: youtube,
       facebook: facebook,
+      sub_title: sub_title,
+      title: title,
     };
     try {
       const response = await axios.put(
@@ -199,6 +205,30 @@ function EditWeb() {
 
                     <form onSubmit={update}>
                       <div className="row">
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Title
+                          </label>
+                          <input
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukan Title"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Sub Title
+                          </label>
+                          <input
+                            value={sub_title}
+                            onChange={(e) => setSubTitle(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukan Sub Title"
+                          />
+                        </div>
                         {/* Warna Background1 */}
                         <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
@@ -262,6 +292,7 @@ function EditWeb() {
                             className="form-control"
                             value={font}
                             onChange={(e) => setFont(e.target.value)}>
+                            <option>Pilih Font</option>
                             <option value="Poppins">Poppins</option>
                             <option value="Roboto">Roboto</option>
                             <option value="Open Sans">Open Sans</option>

@@ -43,6 +43,11 @@ function Web() {
       }
     } catch (error) {
       console.error("Terjadi Kesalahan:", error);
+
+      // Jika error adalah 400 Bad Request
+      if (error.response && error.response.status === 400) {
+        setDatas(null);
+      }
     }
   };
 
@@ -104,6 +109,24 @@ function Web() {
                   }
                   alt="Logo Web"
                 />
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Title</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={title}
+                    disabled
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Sub Title</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={subtitle}
+                    disabled
+                  />
+                </div>  
                 <div className="mb-3">
                   <label className="form-label fw-bold">
                     Warna Background 1
