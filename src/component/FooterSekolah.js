@@ -11,12 +11,12 @@ function FooterSekolah() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
-  const [fax, setFax] = useState("");
+  const [link_maps, setLinkMaps] = useState("");
   const [judul, setJudul] = useState("");
   const [isi, setIsi] = useState("");
   const [isContactAvailable, setIsContactAvailable] = useState(true);
 
-  const navigate = useHistory()
+  const navigate = useHistory();
 
   const handleVisiMisiClick = () => {
     navigate.push("/"); // Pindah ke halaman home
@@ -47,29 +47,31 @@ function FooterSekolah() {
   //   getAllSejarah();
   // }, []);
 
-  // const getAllKontak = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `${API_DUMMY}/pantiasuhan/api/kontak/all/terbaru?page=0&size=1`
-  //     );
-  //     const data = response.data.data.content[0] || {};
+  const getKontak = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/api/public/kontak`, {
+        headers: {
+          "x-origin": window.location.hostname,
+        },
+      });
+      const data = response.data.data[0] || {};
 
-  //     const isDataAvailable =
-  //       data.email || data.phone || data.fax || data.address;
+      const isDataAvailable =
+        data.email || data.phone || data.fax || data.address;
 
-  //     setIsContactAvailable(!!isDataAvailable);
-  //     setEmail(data.email || "Email tidak tersedia");
-  //     setPhone(data.phone || "Telepon tidak tersedia");
-  //     setFax(data.fax || "Fax tidak tersedia");
-  //     setAddress(data.address || "Alamat tidak tersedia");
-  //   } catch (error) {
-  //     console.log("Error fetching contact data:", error);
-  //   }
-  // };
+      setIsContactAvailable(!!isDataAvailable);
+      setLinkMaps(data.link_maps || "Fax tidak tersedia");
+      setAddress(data.address);
+      console.log("kontak: ", response.data.data[0]);
 
-  // useEffect(() => {
-  //   getAllKontak();
-  // }, []);
+    } catch (error) {
+      console.log("Error fetching contact data:", error);
+    }
+  };
+
+  useEffect(() => {
+    getKontak();
+  }, []);
 
   // const getAllBerita = async () => {
   //   try {
@@ -118,11 +120,12 @@ function FooterSekolah() {
   const getAllVisiMisiPanti = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/public/visimisi?page=1&limit=1`, {
-        headers: {
-          "x-origin": window.location.hostname
-        },
-      }
+        `${API_DUMMY}/api/public/visimisi?page=1&limit=1`,
+        {
+          headers: {
+            "x-origin": window.location.hostname,
+          },
+        }
       );
       console.log(response.data.data[0]);
 
@@ -208,8 +211,12 @@ function FooterSekolah() {
                       <li>
                         <span
                           onClick={handleVisiMisiClick}
-                          onMouseEnter={(e) => (e.target.style.textDecoration = "none")}
-                          onMouseLeave={(e) => (e.target.style.textDecoration = "underline")}
+                          onMouseEnter={(e) =>
+                            (e.target.style.textDecoration = "none")
+                          }
+                          onMouseLeave={(e) =>
+                            (e.target.style.textDecoration = "underline")
+                          }
                           style={{
                             cursor: "pointer",
                             textDecoration: "underline",
@@ -269,7 +276,8 @@ function FooterSekolah() {
               </Typography>
               <iframe
                 title="Location Map"
-                src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3129.9824873682737!2d110.45976957379189!3d-6.9885941684384205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708cdb5955f7fd%3A0x2dd118c3e56d1f3a!2sPanti%20Asuhan%20Muhammadiyah!5e1!3m2!1sid!2sid!4v1733301705391!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade`}
+                src={link_maps}
+                // src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5089.413769283263!2d110.45906593133502!3d-6.988613906225304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708cdb5955f7fd%3A0x2dd118c3e56d1f3a!2sPanti%20Asuhan%20Muhammadiyah!5e0!3m2!1sid!2sid!4v1741933708297!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade`}
                 style={{ width: "100%", height: "400px", border: "0" }}
                 allowFullScreen=""
                 loading="lazy"></iframe>
