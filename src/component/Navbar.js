@@ -14,14 +14,11 @@ function Navbar() {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [facebook, setFacebook] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [youtube, setYoutube] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useHistory();
-  const [socials, setSocials] = useState({
-    facebook: "#",
-    twitter: "#",
-    instagram: "#",
-    youtube: "#",
-  });
 
   const handleVisiMisiClick = () => {
     navigate.push("/"); // Pindah ke halaman home
@@ -53,32 +50,38 @@ function Navbar() {
     }
   };
 
-  // const getAllWeb = async () => {
-  //   try {
-  //     const response = await axios.get(`${API_DUMMY}/api/public/web`, {
-  //       headers: {
-  //         "x-origin": window.location.hostname,
-  //       },
-  //     });
-  //     console.log("web panti: ", response.data.data);
+  const getAllWeb = async () => {
+    try {
+      const response = await axios.get(`${API_DUMMY}/api/public/web`, {
+        headers: {
+          "x-origin": window.location.hostname,
+        },
+      });
 
-  //     // Mengatur state dari data API
-  //     if (response.data.data.length > 0) {
-  //       const data = response.data.data[0];
-  //       setAddress(data.address);
-  //       setPhone(data.phone);
-  //       setEmail(data.email);
-  //       setSocials({
-  //         facebook: data.facebook || "#",
-  //         twitter: data.twitter || "#",
-  //         instagram: data.instagram || "#",
-  //         youtube: data.youtube || "#",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error("Error saat mendapatkan web panti:", error);
-  //   }
-  // };
+      console.log("Response API:", response.data);
+
+      if (!response.data || !response.data.data) {
+        console.error("Data kosong atau tidak valid");
+        return;
+      }
+
+      const data = response.data.data;
+
+      // Menangani media sosial dengan default "#"
+      setFacebook(data.facebook ?? "#");
+      setInstagram(data.instagram ?? "#");
+      setYoutube(data.youtube ?? "#");
+
+      console.log("Facebook:", data.facebook ?? "#");
+      console.log("Instagram:", data.instagram ?? "#");
+      console.log("YouTube:", data.youtube ?? "#");
+    } catch (error) {
+      console.error(
+        "Error saat mendapatkan web panti:",
+        error.response || error
+      );
+    }
+  };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -145,7 +148,7 @@ function Navbar() {
   // };
   useEffect(() => {
     getAllKontakPanti();
-    // getAllWeb();
+    getAllWeb();
   }, []);
 
   return (
@@ -214,14 +217,14 @@ function Navbar() {
                   <li>
                     <a
                       className="facebook"
-                      // href={socials.facebook}
+                      href={facebook}
                       target="_blank"
                       rel="noreferrer"
                     >
                       <i className="fab fa-facebook-f"></i>
                     </a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a
                       className="twitter"
                       // href={socials.twitter}
@@ -230,11 +233,11 @@ function Navbar() {
                     >
                       <i className="fab fa-twitter"></i>
                     </a>
-                  </li>
+                  </li> */}
                   <li>
                     <a
                       className="instagram"
-                      // href={socials.instagram}
+                      href={instagram}
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -244,7 +247,7 @@ function Navbar() {
                   <li>
                     <a
                       className="youtube"
-                      // href={socials.youtube}
+                      href={youtube}
                       target="_blank"
                       rel="noreferrer"
                     >

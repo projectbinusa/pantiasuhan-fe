@@ -680,9 +680,9 @@ function Home() {
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY}/api/admin/web`, {
+      const response = await axios.get(`${API_DUMMY}/api/public/web`, {
         headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          "x-origin": window.location.hostname,
         },
       });
 
