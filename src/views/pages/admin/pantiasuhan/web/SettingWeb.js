@@ -25,6 +25,8 @@ function SettingWeb() {
   const [facebook, setFacebook] = useState("");
   const [instagram, setInstagram] = useState("");
   const [youtube, setYoutube] = useState("");
+  const [title, setTitle] = useState("");
+  const [subTitle, setSubTitle] = useState("");
 
   const post = async (e) => {
     e.preventDefault();
@@ -53,17 +55,15 @@ function SettingWeb() {
       instagram: instagram,
       youtube: youtube,
       facebook: facebook,
+      title: title,
+      sub_title: subTitle,
     };
     try {
-      const response = await axios.post(
-        `${API_DUMMY}/api/admin/web`,
-        data,
-        {
-          headers: {
-            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-          },
-        }
-      );
+      const response = await axios.post(`${API_DUMMY}/api/admin/web`, data, {
+        headers: {
+          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        },
+      });
       if (response.data.code === 200) {
         Swal.fire({
           icon: "success",
@@ -73,14 +73,14 @@ function SettingWeb() {
         });
 
         // Redirect setelah berhasil
-        setTimeout(() => {
-          history.push("/web");
-        }, 1500);
+        // setTimeout(() => {
+        //   history.push("/web");
+        // }, 1500);
       } else {
         // Handle respons lain dengan pesan error
         Swal.fire({
           icon: "error",
-          title: "Edit Data Gagal!",
+          title: "Setting Web  Gagal!",
           text: response.data.message, // Tambahkan pesan error dari respons
           showConfirmButton: false,
           timer: 1500,
@@ -89,7 +89,7 @@ function SettingWeb() {
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Edit Data Gagal!",
+        title: "Setting Web Gagal!",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -175,6 +175,30 @@ function SettingWeb() {
                     <hr />
                     <form onSubmit={post}>
                       <div className="row">
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Title
+                          </label>
+                          <input
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukan Title"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Sub Title
+                          </label>
+                          <input
+                            value={subTitle}
+                            onChange={(e) => setSubTitle(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukan Sub Title"
+                          />
+                        </div>
                         {/* Warna Background1 */}
                         <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
@@ -238,6 +262,7 @@ function SettingWeb() {
                             className="form-control"
                             value={font}
                             onChange={(e) => setFont(e.target.value)}>
+                            <option>Pilih Font</option>
                             <option value="Poppins">Poppins</option>
                             <option value="Roboto">Roboto</option>
                             <option value="Open Sans">Open Sans</option>
