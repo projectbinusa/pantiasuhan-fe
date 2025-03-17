@@ -13,6 +13,7 @@ function KontakPanti() {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState(null);
   const [fax, setFax] = useState("");
+  const [link_maps, setLinkMaps] = useState("");
   const [phone, setPhone] = useState("");
   const [id, setId] = useState(0);
   const [createdDate, setCreatedDate] = useState("");
@@ -22,7 +23,7 @@ function KontakPanti() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY}/api/admin/kontak-organization/${organization_id}/organization`,
+        `${API_DUMMY}/api/admin/kontak-organization/organization`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -30,10 +31,11 @@ function KontakPanti() {
         }
       );
       const res = response.data.data;
-      setList(res)
+      setList(res);
       console.log(res);
       setEmail(res.email);
       setFax(res.fax);
+      setLinkMaps(res.link_maps);
       setPhone(res.phone);
       setId(res.id);
       setAddress(res.address);
@@ -100,12 +102,14 @@ function KontakPanti() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
-    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+    <div
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
       }`}>
       <a
         id="show-sidebar"
@@ -121,36 +125,38 @@ function KontakPanti() {
             <div className="card shadow w-100">
               <div className="title card-header d-flex justify-content-between">
                 <h1 className="fw-bold fs-3">Kontak</h1>
-                {list !== null ? (<>
-                  <div>
-                    <button
-                      type="button"
-                      className="btn-primary btn-sm mr-2">
+                {list !== null ? (
+                  <>
+                    <div>
+                      <button type="button" className="btn-primary btn-sm mr-2">
+                        <a
+                          style={{
+                            color: "white",
+                            textDecoration: "none",
+                          }}
+                          href={`/edit_kontak/${id}`}>
+                          <i className="fa-solid fa-pen-to-square"></i>
+                        </a>
+                      </button>
+                      <button
+                        onClick={() => deleteData(id)}
+                        type="button"
+                        className="btn-danger btn-sm">
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <button className="active btn-focus p-2 rounded">
                       <a
-                        style={{
-                          color: "white",
-                          textDecoration: "none",
-                        }}
-                        href={`/edit_kontak/${id}`}>
-                        <i className="fa-solid fa-pen-to-square"></i>
+                        style={{ color: "white", textDecoration: "none" }}
+                        href="/add_kontak">
+                        Tambah Data
                       </a>
                     </button>
-                    <button
-                      onClick={() => deleteData(id)}
-                      type="button"
-                      className="btn-danger btn-sm">
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </div>
-                </>) : (<>
-                  <button className="active btn-focus p-2 rounded">
-                    <a
-                      style={{ color: "white", textDecoration: "none" }}
-                      href="/add_kontak">
-                      Tambah Data
-                    </a>
-                  </button>
-                </>)}
+                  </>
+                )}
               </div>
               <br />
               <div className="card-body">
@@ -180,6 +186,14 @@ function KontakPanti() {
                     disabled
                     value={fax}
                   />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Link Maps</label>
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    disabled
+                    value={link_maps}></textarea>
                 </div>
                 <div class="mb-3">
                   <label class="form-label fw-bold">Alamat</label>

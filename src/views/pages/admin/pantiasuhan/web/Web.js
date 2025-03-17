@@ -7,8 +7,12 @@ function Web() {
   const [logo, setLogo] = useState("");
   const [bg, setBg] = useState("");
   const [bg2, setBg2] = useState("");
+  const [banner, setBanner] = useState("");
   const [font, setFont] = useState("");
   const [id, setId] = useState("");
+  const [facebook, setFacebook] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [youtube, setYoutube] = useState("");
   const [datas, setDatas] = useState(null);
   const [title, setTitle] = useState("Panti Asuhan Muhammadiyah");
   const [subtitle, setSubtitle] = useState("Pantinya Sang Juara");
@@ -23,17 +27,27 @@ function Web() {
 
       const res = response.data.data;
       if (res) {
+        console.log("res: ", response.data.data);
         setDatas(res);
         setLogo(res.logo);
         setFont(res.font);
         setBg(res.background);
         setBg2(res.background2);
+        setBanner(res.banner);
         setId(res.id);
+        setYoutube(res.youtube);
+        setInstagram(res.instagram);
+        setFacebook(res.facebook);
         setTitle(res.title || "Panti Asuhan Muhammadiyah");
         setSubtitle(res.subtitle || "Pantinya Sang Juara");
       }
     } catch (error) {
       console.error("Terjadi Kesalahan:", error);
+
+      // Jika error adalah 400 Bad Request
+      if (error.response && error.response.status === 400) {
+        setDatas(null);
+      }
     }
   };
 
@@ -48,14 +62,12 @@ function Web() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -69,17 +81,15 @@ function Web() {
                   <button type="button" className="btn-primary btn-sm mr-2">
                     <a
                       href={`/web/edit/${id}`}
-                      style={{ color: "white", textDecoration: "none" }}
-                    >
+                      style={{ color: "white", textDecoration: "none" }}>
                       <i className="fa-solid fa-pen-to-square"></i> Edit
                     </a>
                   </button>
                 ) : (
                   <button className="btn-focus p-2 rounded">
                     <a
-                      href="/seting_tampilan_web"
-                      style={{ color: "white", textDecoration: "none" }}
-                    >
+                      href="/setting-web"
+                      style={{ color: "white", textDecoration: "none" }}>
                       Seting Tampilan Web
                     </a>
                   </button>
@@ -100,6 +110,24 @@ function Web() {
                   alt="Logo Web"
                 />
                 <div className="mb-3">
+                  <label className="form-label fw-bold">Title</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={title}
+                    disabled
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Sub Title</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={subtitle}
+                    disabled
+                  />
+                </div>  
+                <div className="mb-3">
                   <label className="form-label fw-bold">
                     Warna Background 1
                   </label>
@@ -116,8 +144,7 @@ function Web() {
                       backgroundColor: bg || "#ffffff",
                       marginTop: "10px",
                       border: "1px solid #000",
-                    }}
-                  ></div>
+                    }}></div>
                 </div>
                 <div className="mb-3">
                   <label className="form-label fw-bold">
@@ -136,8 +163,16 @@ function Web() {
                       backgroundColor: bg2 || "#ffffff",
                       marginTop: "10px",
                       border: "1px solid #000",
-                    }}
-                  ></div>
+                    }}></div>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Banner</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={banner || ""}
+                    disabled
+                  />
                 </div>
                 <div className="mb-3">
                   <label className="form-label fw-bold">Font</label>
@@ -153,7 +188,7 @@ function Web() {
                   <input
                     type="text"
                     className="form-control"
-                    // value={youtube || ""}
+                    value={youtube || ""}
                     disabled
                   />
                 </div>
@@ -162,7 +197,7 @@ function Web() {
                   <input
                     type="text"
                     className="form-control"
-                    // value={instagram || ""}
+                    value={instagram || ""}
                     disabled
                   />
                 </div>
@@ -171,16 +206,7 @@ function Web() {
                   <input
                     type="text"
                     className="form-control"
-                    // value={facebook || ""}
-                    disabled
-                  />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label fw-bold">Link X</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    // value={twitter || ""}
+                    value={facebook || ""}
                     disabled
                   />
                 </div>

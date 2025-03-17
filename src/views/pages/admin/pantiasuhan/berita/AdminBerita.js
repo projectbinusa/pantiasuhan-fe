@@ -277,23 +277,10 @@ function AdminBeritaPanti() {
                           >
                             <p className="content-isi">{berita.judul_berita}</p>
                           </td>
-<<<<<<< HEAD
                           <td data-label="Penulis" className="text-md-start text-end">{berita.author}</td>
                           <td data-label="Penulis" className="text-md-start text-end">{berita.updated_date}</td>
                           <td data-label="Thumbnail" className="text-md-center text-end">
-=======
-                          <td
-                            data-label="Penulis"
-                            className="text-md-start text-end"
-                          >
-                            {berita.author}
-                          </td>
-                          <td
-                            data-label="Thumbnail"
-                            className="text-md-center text-end"
-                          >
->>>>>>> 23cb8889e99c5331a2bfa20a1a51100ab0e3d1f5
-                            <button
+                             <button
                               onClick={() => openModal(berita.image)}
                               type="button"
                               className="btn-info btn-sm"
