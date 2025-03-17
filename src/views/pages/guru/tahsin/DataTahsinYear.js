@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Box, Modal, Pagination } from "@mui/material";
 import "../../../../css/button.css";
-import { API_DUMMY_SMART } from "../../../../utils/base_URL";
+import { API_DUMMY_SMART, API_DUMMY_BYRTGHN } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
 function DataTahsinYear() {
@@ -79,7 +79,7 @@ function DataTahsinYear() {
 
     try {
       const response = await axios.put(
-        `${API_DUMMY_SMART}/api/member/tahsin/rekap-year/organization${selectedTahsinId}/status`,
+        `${API_DUMMY_BYRTGHN}/api/customer/tahsin/${selectedTahsinId}/status`,
         data,
         {
           headers: {
@@ -132,7 +132,7 @@ function DataTahsinYear() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/member/tahsin/rekap-year/organization?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-year/organization?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -252,7 +252,7 @@ function DataTahsinYear() {
 
     try {
       const response = await axios.post(
-        `${API_DUMMY_SMART}/api/member/tahsin/rekap-year/organization`,
+        `${API_DUMMY_SMART}/api/customer/tahsin`,
         data,
         {
           headers: {

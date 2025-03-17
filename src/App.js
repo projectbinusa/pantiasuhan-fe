@@ -296,6 +296,7 @@ import DataTahsinMonth from "./views/pages/guru/tahsin/DataTahsinMonth.js";
 import DataTahsinDaily from "./views/pages/guru/tahsin/DataTahsinDaily.js";
 import DataTahsinWeek from "./views/pages/guru/tahsin/DataTahsinWeek.js";
 import DataTahsinDay from "./views/pages/guru/tahsin/DataTahsinDay.js";
+import DataTahsinYear from "./views/pages/guru/tahsin/DataTahsinYear.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1441,11 +1442,11 @@ function App() {
               component={DataTahsinMonth}
               exact
             />
-            {/* <PrivateRoute
+            <PrivateRoute
               path="/guru/tahsin/year"
               component={DataTahsinYear}
               exact
-            /> */}
+            />
             <PrivateRoute
               path="/guru/tahsin/day"
               component={DataTahsinDay}
