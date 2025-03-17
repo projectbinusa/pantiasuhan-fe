@@ -1405,6 +1405,7 @@ function App() {
               exact
             />
             <PrivateRoute path="/web" component={Web} exact />
+            <PrivateRoute path="/setting-web" component={SettingWeb} exact />
             <PrivateRoute
               path="/web/edit/:id"
               component={EditWeb}

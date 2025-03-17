@@ -16,10 +16,15 @@ function EditWeb() {
   const [logo, setLogo] = useState("");
   const [bg, setBg] = useState("#ffffff"); // Default warna putih
   const [bg2, setBg2] = useState("#ffffff");
+  const [banner, setBanner] = useState("");
+  const [fileBanner, setFileBanner] = useState("");
   const [font, setFont] = useState("");
   const history = useHistory();
   const param = useParams();
   const [isLoading, setIsLoading] = useState(false);
+  const [facebook, setFacebook] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [youtube, setYoutube] = useState("");
 
   useEffect(() => {
     axios
@@ -34,6 +39,10 @@ function EditWeb() {
         setBg(response.background || "#ffffff");
         setBg2(response.background2 || "#ffffff");
         setFont(response.font || "");
+        setBanner(response.banner || "");
+        setFacebook(response.facebook || "");
+        setYoutube(response.youtube || "");
+        setInstagram(response.instagram || "");
       })
       .catch((error) => {
         console.log(error);
@@ -50,19 +59,34 @@ function EditWeb() {
     } else {
       imageUrl = logo;
     }
+    let imageUrlBanner;
+
+    if (fileBanner) {
+      imageUrlBanner = await uploadImageToS3(fileBanner);
+    } else {
+      imageUrlBanner = banner;
+    }
 
     const data = {
       font: font,
       background: bg,
       background2: bg2,
+      banner: imageUrlBanner,
       logo: imageUrl,
+      instagram: instagram,
+      youtube: youtube,
+      facebook: facebook,
     };
     try {
-      const response = await axios.put(`${API_DUMMY}/api/admin/web/` + param.id, data, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      })
+      const response = await axios.put(
+        `${API_DUMMY}/api/admin/web/` + param.id,
+        data,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
       if (response.data.code === 200) {
         Swal.fire({
           icon: "success",
@@ -129,21 +153,27 @@ function EditWeb() {
 
       // Buat link baru untuk Google Fonts
       const link = document.createElement("link");
-      link.href = `https://fonts.googleapis.com/css2?family=${font.replace(/\s/g, "+")}:wght@400&display=swap`;
+      link.href = `https://fonts.googleapis.com/css2?family=${font.replace(
+        /\s/g,
+        "+"
+      )}:wght@400&display=swap`;
       link.rel = "stylesheet";
       link.id = "dynamic-font";
       document.head.appendChild(link);
 
       // Ubah variable CSS agar font berlaku di seluruh aplikasi
-      document.documentElement.style.setProperty("--custom-font", `'${font}', serif`);
+      document.documentElement.style.setProperty(
+        "--custom-font",
+        `'${font}', serif`
+      );
     }
   }, [font]);
 
-
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -207,6 +237,22 @@ function EditWeb() {
                             }}></div>
                         </div>
 
+                        {/* Banner */}
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Banner
+                          </label>
+                          <input
+                            onChange={(e) =>
+                              setFileBanner(
+                                e.target.files ? e.target.files[0] : null
+                              )
+                            }
+                            type="file"
+                            className="form-control"
+                          />
+                        </div>
+
                         {/* Font */}
                         <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
@@ -236,19 +282,57 @@ function EditWeb() {
                             className="form-control"
                           />
                         </div>
+
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Youtube
+                          </label>
+                          <input
+                            value={youtube}
+                            onChange={(e) => setYoutube(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukan Link Youtube"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Facebook
+                          </label>
+                          <input
+                            value={facebook}
+                            onChange={(e) => setFacebook(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukan Link Facebook"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-6">
+                          <label className="form-label font-weight-bold">
+                            Instagram
+                          </label>
+                          <input
+                            value={instagram}
+                            onChange={(e) => setInstagram(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            placeholder="Masukan Link Instagram"
+                          />
+                        </div>
                       </div>
 
                       {/* Tombol */}
-                      <button
-                        type="button"
-                        className="btn-danger mt-3 mr-3">
+                      <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
                           href="/web">
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                      <button
+                        type="submit"
+                        className="btn-primary mt-3"
+                        disabled={isLoading}>
                         {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>

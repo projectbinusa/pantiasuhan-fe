@@ -12,6 +12,7 @@ function AddKontakPanti() {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [fax, setFax] = useState("");
+  const [link_maps, setLinkMaps] = useState("");
   const [phone, setPhone] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
@@ -27,8 +28,9 @@ function AddKontakPanti() {
       email: email,
       address: address,
       fax: fax,
+      link_maps: link_maps,
       phone: phone,
-      organization_id: organization_id
+      organization_id: organization_id,
     };
     console.log(data);
 
@@ -39,7 +41,7 @@ function AddKontakPanti() {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
     try {
       await axios.post(`${API_DUMMY}/api/admin/kontak`, data, {
@@ -99,22 +101,21 @@ function AddKontakPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container mt-3 mb-3 app-main__outer"
-          data-aos="fade-left"
-        >
+          data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -152,6 +153,19 @@ function AddKontakPanti() {
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
+                            Link Google Maps
+                          </label>
+                          <input
+                            value={link_maps}
+                            onChange={(e) => setLinkMaps(e.target.value)}
+                            type="text"
+                            className="form-control"
+                            required
+                            placeholder="Masukkan Link Dari Google Maps"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
                             Alamat
                           </label>
                           <textarea
@@ -160,8 +174,7 @@ function AddKontakPanti() {
                             type="text"
                             className="form-control"
                             required
-                            placeholder="Masukkan Alamat Sekolah Lengkap"
-                          ></textarea>
+                            placeholder="Masukkan Alamat Sekolah Lengkap"></textarea>
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
@@ -177,15 +190,19 @@ function AddKontakPanti() {
                           />
                         </div>
                       </div>
-                      <button type="button" className="btn btn-danger mt-3 mr-3">
+                      <button
+                        type="button"
+                        className="btn btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_kontak"
-                        >
+                          href="/admin_kontak">
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn btn-primary mt-3" disabled={isLoading}>
+                      <button
+                        type="submit"
+                        className="btn btn-primary mt-3"
+                        disabled={isLoading}>
                         {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>

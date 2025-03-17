@@ -13,6 +13,7 @@ function EditKontakPanti() {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState(null);
   const [fax, setFax] = useState("");
+  const [link_maps, setLinkMaps] = useState("");
   const [phone, setPhone] = useState("");
   const history = useHistory();
   const param = useParams();
@@ -30,6 +31,7 @@ function EditKontakPanti() {
         setEmail(response.email);
         setAddress(response.address);
         setFax(response.fax);
+        setLinkMaps(response.link_maps);
         setPhone(response.phone);
         console.log("kontak : ", ress.data.data);
       })
@@ -47,21 +49,26 @@ function EditKontakPanti() {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
     const data = {
       address: address,
       phone: phone,
       email: email,
       fax: fax,
-      organization_id: +localStorage.getItem("organization_id")
-    }
+      link_maps: link_maps,
+      organization_id: +localStorage.getItem("organization_id"),
+    };
     try {
-      const res = await axios.put(`${API_DUMMY}/api/admin/kontak/` + param.id, data, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      })
+      const res = await axios.put(
+        `${API_DUMMY}/api/admin/kontak/` + param.id,
+        data,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
 
       if (res.data.code === 200) {
         Swal.fire({
@@ -116,14 +123,15 @@ function EditKontakPanti() {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}>
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -172,6 +180,18 @@ function EditKontakPanti() {
                       </div>
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
+                          Link Google Maps
+                        </label>
+                        <textarea
+                          value={link_maps}
+                          onChange={(e) => setLinkMaps(e.target.value)}
+                          type="text"
+                          className="form-control"
+                          required
+                          placeholder="Masukkan Link Dari Google Maps"></textarea>
+                      </div>
+                      <div className="mb-3 col-lg-12">
+                        <label className="form-label font-weight-bold">
                           Alamat
                         </label>
                         <textarea
@@ -203,7 +223,10 @@ function EditKontakPanti() {
                         Batal
                       </a>
                     </button>
-                    <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                    <button
+                      type="submit"
+                      className="btn-primary mt-3"
+                      disabled={isLoading}>
                       {isLoading ? <span className="loader"></span> : "Kirim"}
                     </button>
                   </form>
