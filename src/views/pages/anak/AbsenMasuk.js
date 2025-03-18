@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { API_DUMMY_ABSEN } from "../../../utils/base_URL";
+import { API_DUMMY_ABSEN, API_DUMMY_SMART } from "../../../utils/base_URL";
 import "../../../css/absen.css";
 import logo from "../../../aset/pantiasuhan/logo.png";
 import panti from "../../../aset/pantiasuhan/pantiasuhan.png";
@@ -29,7 +29,7 @@ const AbsenMasuk = () => {
 
     try {
       const response = await fetch(
-        `${API_DUMMY_ABSEN}/api/absensi/submit`,
+        `${API_DUMMY_SMART}/api/absensi/submit`,
         {
           method: "POST",
           headers: {
