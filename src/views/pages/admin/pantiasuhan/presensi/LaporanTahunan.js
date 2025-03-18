@@ -39,7 +39,7 @@ function LaporanTahunanPresensi() {
   const exportTahunan = async () => {
     try {
       const response = await axios({
-        url: `${API_DUMMY_ABSEN}/api/absensi/export-tahunan?tahun=${tahun}`,
+        url: `${API_DUMMY_SMART}/api/absensi/export-tahunan?tahun=${tahun}`,
         method: "GET",
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
