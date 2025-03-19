@@ -298,7 +298,8 @@ import DataTahsinWeek from "./views/pages/guru/tahsin/DataTahsinWeek.js";
 import DataTahsinDay from "./views/pages/guru/tahsin/DataTahsinDay.js";
 import axios from "axios";
 import { API_DUMMY } from "./utils/base_URL.js";
-
+import EditReplyKomentar from "./views/pages/admin/pantiasuhan/berita/EditReplyKomentar.js";
+ 
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -1485,6 +1486,11 @@ function App() {
             <PrivateRoute
               path="/admin_berita/comment/:id"
               component={AdminKomentarBerita}
+              exact
+            />
+            <PrivateRoute
+              path="/edit_balas_komentar/:id"
+              component={EditReplyKomentar}
               exact
             />
             {/* GURU LEVEL */}

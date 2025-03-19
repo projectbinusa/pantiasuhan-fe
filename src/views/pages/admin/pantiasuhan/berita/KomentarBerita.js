@@ -22,6 +22,15 @@ function AdminKomentarBerita() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
+  const [listReply, setListReply] = useState([]);
+  const [pageReply, setPageReply] = useState(1);
+  const [currentPageReply, setCurrentPageReply] = useState(1);
+  const [rowsPerPageReply, setRowsPerPageReply] = useState(5);
+  const [paginationInfoReply, setPaginationInfoReply] = useState({
+    totalPages: 1,
+    totalElements: 0,
+  });
+  const [searchTermReply, setSearchTermReply] = useState("");
   const history = useHistory();
   const param = useParams();
 
@@ -47,6 +56,28 @@ function AdminKomentarBerita() {
     }
   };
 
+  const getAllReply = async (id) => {
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/customer/reply-komentar/komentar/${id}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+      const { data, pagination } = response.data;
+      console.log(response);
+      setListReply(data); // Set the list of news articles
+      setPaginationInfoReply({
+        totalPages: pagination.total_page || 1,
+        totalElements: pagination.total || 0,
+      });
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+    }
+  };
+
   const deleteData = async (id) => {
     Swal.fire({
       title: "Apakah Anda Ingin Menghapus?",
@@ -60,7 +91,7 @@ function AdminKomentarBerita() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${API_DUMMY_SMART}/api/customer/berita/` + id, {
+          .delete(`${API_DUMMY_SMART}/api/customer/komentar/` + id, {
             headers: {
               "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
             },
@@ -72,11 +103,38 @@ function AdminKomentarBerita() {
               showConfirmButton: false,
               timer: 1500,
             });
+            getAll();
+          });
+      }
+    });
+  };
 
-            setTimeout(() => {
-              history.push("/admin_berita");
-              window.location.reload();
-            }, 1500);
+  const deleteDataReply = async (id) => {
+    Swal.fire({
+      title: "Apakah Anda Ingin Menghapus?",
+      text: "Perubahan data tidak bisa dikembalikan!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Hapus",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${API_DUMMY_SMART}/api/customer/reply-komentar/` + id, {
+            headers: {
+              "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+            },
+          })
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Dihapus!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            getAllReply(id);
           });
       }
     });
@@ -84,7 +142,8 @@ function AdminKomentarBerita() {
 
   useEffect(() => {
     getAll(currentPage);
-  }, [currentPage, rowsPerPage]);
+    // getAllReply(currentPageReply);
+  }, [currentPage, rowsPerPage, currentPageReply, rowsPerPageReply]);
 
   useEffect(() => {
     AOS.init();
@@ -109,9 +168,26 @@ function AdminKomentarBerita() {
     )
   );
 
-  console.log(filteredList);
+  const handleRowsPerPageChangeReply = (event) => {
+    setRowsPerPageReply(parseInt(event.target.value, 10));
+    setPageReply(0);
+  };
 
-  const totalPages = Math.ceil(filteredList.length / rowsPerPage);
+  const handleSearchChangeReply = (event) => {
+    setSearchTermReply(event.target.value);
+    // setPage(0);
+    setCurrentPageReply(1);
+  };
+
+  const filteredListReply = listReply.filter((item) =>
+    Object.values(item).some(
+      (value) =>
+        typeof value === "string" &&
+        value.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
+  console.log(filteredList);
 
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
@@ -161,23 +237,21 @@ function AdminKomentarBerita() {
   };
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left"
-        >
+          data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -186,8 +260,7 @@ function AdminKomentarBerita() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}
-              >
+                value={rowsPerPage}>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -214,8 +287,7 @@ function AdminKomentarBerita() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
+                    value={rowsPerPage}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -234,15 +306,14 @@ function AdminKomentarBerita() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}
-            >
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama</th>
+                    <th>Pengkomentar</th>
                     <th>Komentar</th>
-                    <th>Balas Komentar</th>
+                    {/* <th>Balas Komentar</th> */}
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -251,48 +322,197 @@ function AdminKomentarBerita() {
                     filteredList.map((berita, no) => {
                       return (
                         <tr key={no}>
-                          <td data-label="No" className="text-md-start text-end">
+                          <td
+                            data-label="No"
+                            className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td
-                            data-label="Judul"
-                            className="text-md-start text-end "
-                          >
-                            <p className="content-isi">{berita.judul_berita}</p>
+                            data-label="Pengkomentar"
+                            className="text-md-start text-end ">
+                            <p className="content-isi">{berita.name}</p>
                           </td>
-                          <td data-label="Penulis" className="text-md-start text-end">{berita.author}</td>
-                          <td data-label="Kategori" className="text-md-start text-end">
+                          <td
+                            data-label="Penulis"
+                            className="text-md-start text-end">
+                            {berita.description}
+                          </td>
+                          {/* <td data-label="Kategori" className="text-md-start text-end">
                             {berita.category}
-                          </td>
+                          </td> */}
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 type="button"
-                                className="btn-info btn-sm mr-2"
-                              >
-                                  <a
+                                className="btn-info btn-sm mr-2">
+                                <a
                                   className="text-light"
-                                  href={"/balas_komentar/" + berita.id}
-                                >
-                                <i className="fa-solid fa-comments"></i>
+                                  href={"/balas_komentar/" + berita.id}>
+                                  <i className="fa-solid fa-comments"></i>
                                 </a>
                               </button>
                               <button
                                 type="button"
-                                className="btn-warning mr-2 btn-sm"
-                              >
+                                className="btn-warning mr-2 btn-sm">
                                 <a
                                   className="text-light"
-                                  href={"/admin_berita/detail/" + berita.id}
-                                >
+                                  href={"/admin_berita/detail/" + berita.id}>
                                   <i className="fas fa-info-circle"></i>
                                 </a>
                               </button>
                               <button
                                 onClick={() => deleteData(berita.id)}
                                 type="button"
-                                className="btn-danger btn-sm"
-                              >
+                                className="btn-danger btn-sm mr-2">
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => getAllReply(berita.id)}
+                                className="btn-success btn-sm">
+                                <i class="fa-regular fa-circle-down"></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan="5" className="text-center my-3">
+                        <div style={{ padding: "10px", color: "#555" }}>
+                          Tidak ada data yang tersedia.
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+            <div className="card-header mt-3 d-flex justify-content-center">
+              <Pagination
+                count={paginationInfo.totalPages}
+                page={currentPage}
+                onChange={(event, value) => {
+                  setCurrentPage(value);
+                  setPage(value);
+                }}
+                showFirstButton
+                showLastButton
+                color="primary"
+              />
+            </div>
+          </div>
+        </div>
+        <br />
+        <br />
+        <div
+          className="container box-table mt-3 app-main__outer"
+          data-aos="fade-left">
+          <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
+            <div className="col-auto">
+              <label className="form-label mt-2">Rows per page:</label>
+            </div>
+            <div className="col-auto">
+              <select
+                className="form-select form-select-xl w-auto"
+                onChange={handleRowsPerPageChangeReply}
+                value={rowsPerPageReply}>
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+              </select>
+            </div>
+          </div>
+          <div className="search">
+            <input
+              type="search"
+              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
+              placeholder="Search..."
+              value={searchTermReply}
+              onChange={handleSearchChangeReply}
+            />
+          </div>
+          <div className="main-card box-tabel mb-3 card">
+            <div className="card-header" style={{ display: "flex" }}>
+              <p className="mt-3">Balasan Komentar</p>
+              <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
+                <div className="col-auto">
+                  <label className="form-label mt-2">Rows per page:</label>
+                </div>
+                <div className="col-auto">
+                  <select
+                    className="form-select form-select-sm"
+                    onChange={handleRowsPerPageChangeReply}
+                    value={rowsPerPageReply}>
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                  </select>
+                </div>
+              </div>
+              <div className="d-flex ml-auto gap-3">
+                <input
+                  type="search"
+                  className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
+                  placeholder="Search..."
+                  value={searchTermReply}
+                  onChange={handleSearchChangeReply}
+                />
+              </div>
+            </div>
+            <div
+              className="table-responsive-3"
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
+              <table className="align-middle mb-0 table table-bordered table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Komentar</th>
+                    {/* <th>Balas Komentar</th> */}
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredListReply.length > 0 ? (
+                    filteredListReply.map((berita, no) => {
+                      return (
+                        <tr key={no}>
+                          <td
+                            data-label="No"
+                            className="text-md-start text-end">
+                            {no + 1 + (currentPage - 1) * rowsPerPage}
+                          </td>
+                          <td
+                            data-label="Pengkomentar"
+                            className="text-md-start text-end ">
+                            <p className="content-isi">{berita.name}</p>
+                          </td>
+                          <td
+                            data-label="Penulis"
+                            className="text-md-start text-end">
+                            {berita.description}
+                          </td>
+                          {/* <td data-label="Kategori" className="text-md-start text-end">
+                            {berita.category}
+                          </td> */}
+                          <td data-label="Aksi" className="action">
+                            <div className="d-flex justify-content-center align-items-center">
+                              <button
+                                type="button"
+                                className="btn-primary btn-sm mr-2">
+                                <a
+                                  className="text-light"
+                                  href={"/edit_balas_komentar/" + berita.id}>
+                                  <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </button>
+                              <button
+                                onClick={() => deleteDataReply(berita.id)}
+                                type="button"
+                                className="btn-danger btn-sm mr-2">
                                 <i className="fa-solid fa-trash"></i>
                               </button>
                             </div>
@@ -332,8 +552,7 @@ function AdminKomentarBerita() {
         open={isModalOpen}
         onClose={closeModal}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
           <button
             onClick={closeModal}
@@ -347,8 +566,7 @@ function AdminKomentarBerita() {
               cursor: "pointer",
               color: "black",
             }}
-            aria-label="Close"
-          >
+            aria-label="Close">
             ✖
           </button>{" "}
           <br />
