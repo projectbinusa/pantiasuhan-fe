@@ -1154,8 +1154,8 @@ function App() {
             <PrivateRoute path="/edit-ortu" component={EditOrtu} exact />
             <PrivateRoute path="/detail-ortu" component={DetailOrtu} exact />
             {/* Absensi */}
-            <PrivateRoute path="/absen-masuk" component={AbsenMasuk} exact />
-            <PrivateRoute path="/absen-pulang" component={AbsenPulang} exact />
+            <Route path="/absen-masuk" component={AbsenMasuk} exact />
+            <Route path="/absen-pulang" component={AbsenPulang} exact />
             <PrivateRoute path="/siswa/izin" component={Izin} exact />
             {/* Donasi */}
             <PrivateRoute path="/donasi" component={Donasi} exact />
