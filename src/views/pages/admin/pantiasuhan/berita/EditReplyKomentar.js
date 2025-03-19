@@ -63,7 +63,7 @@ import {
 import "ckeditor5/ckeditor5.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 
-function BalasKomentar() {
+function EditReplyKomentar() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [show, setShow] = useState(false);
@@ -71,7 +71,6 @@ function BalasKomentar() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const param = useParams();
-  const [id, setId] = useState();
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -91,14 +90,15 @@ function BalasKomentar() {
 
   useEffect(() => {
     axios
-      .get(`${API_DUMMY_SMART}/api/customer/komentar/` + param.id_komentar, {
+      .get(`${API_DUMMY_SMART}/api/customer/reply-komentar/` + param.id, {
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
         },
       })
       .then((ress) => {
         const response = ress.data.data;
-        setId(response.data.data.id_berita);
+        setName(response.name);
+        setDescription(response.description);
       })
       .catch((error) => {
         console.log(error);
@@ -106,7 +106,7 @@ function BalasKomentar() {
   }, []);
 
   //add
-  const add = async (e) => {
+  const edit = async (e) => {
     e.preventDefault();
     e.persist();
     setIsLoading(true);
@@ -123,8 +123,8 @@ function BalasKomentar() {
         name: name,
         description: description,
       };
-      await axios.post(
-        `${API_DUMMY_SMART}/api/customer/reply-komentar/komentar/${param.id_komentar}`,
+      await axios.put(
+        `${API_DUMMY_SMART}/api/customer/reply-komentar/${param.id}`,
         data,
         {
           headers: {
@@ -135,13 +135,15 @@ function BalasKomentar() {
       setShow(false);
       Swal.fire({
         icon: "success",
-        title: "Data Berhasil DiTambahkan",
+        title: "Data Berhasil Diedit",
         showConfirmButton: false,
         timer: 1500,
       });
-      setTimeout(() => {
-        history.push(`/admin_berita/comment/${id}`);
-      }, 1500);
+      // setTimeout(() => {
+      //   history.push(
+      //     `/data_balas_komentar/berita/${param.id_berita}/komentar/${param.id_komentar}`
+      //   );
+      // }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();
@@ -311,13 +313,13 @@ function BalasKomentar() {
               <div className="col-md-12">
                 <div className="card shadow">
                   <div className="card-body">
-                    <h1 className="fs-4">Form Balas Komentar</h1>
+                    <h1 className="fs-4">Form Edit Balas Komentar</h1>
                     <hr />
-                    <form onSubmit={add}>
+                    <form onSubmit={edit}>
                       <div className="row">
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
-                            Pengomentar
+                            Nama
                           </label>
                           <input
                             value={name}
@@ -497,13 +499,13 @@ function BalasKomentar() {
                           />
                         </div>
                       </div>
-                      <button type="button" className="btn-danger mt-3 mr-3">
+                      {/* <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href={`/admin_berita/comment/${id}`}>
+                          href={`/data_balas_komentar/berita/${param.id_berita}/komentar/${param.id_komentar}`}>
                           Batal
                         </a>
-                      </button>
+                      </button> */}
                       <button
                         type="submit"
                         className="btn-primary mt-3"
@@ -529,4 +531,4 @@ function BalasKomentar() {
   );
 }
 
-export default BalasKomentar;
+export default EditReplyKomentar;

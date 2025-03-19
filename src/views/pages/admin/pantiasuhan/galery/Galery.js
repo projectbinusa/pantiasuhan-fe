@@ -20,8 +20,7 @@ function Galery() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
 
-  // Periksa peran user, jika 'yayasan', maka sembunyikan tombol
-  const userRole = localStorage.getItem("rolename"); // atau dari state setelah login
+  const userRole = localStorage.getItem("rolename");
 
   const getAll = async () => {
     try {
@@ -39,6 +38,7 @@ function Galery() {
         totalPages: Math.ceil(pagination.total / rowsPerPage),
         totalElements: pagination.total || 0,
       });
+      console.log("data: ", data);
       console.log(pagination);
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -189,22 +189,19 @@ function Galery() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left"
-        >
+          data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -213,8 +210,7 @@ function Galery() {
               <select
                 className="form-select form-select-xl w-auto"
                 onChange={handleRowsPerPageChange}
-                value={rowsPerPage}
-              >
+                value={rowsPerPage}>
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -241,8 +237,7 @@ function Galery() {
                   <select
                     className="form-select form-select-sm"
                     onChange={handleRowsPerPageChange}
-                    value={rowsPerPage}
-                  >
+                    value={rowsPerPage}>
                     <option value={5}>5</option>
                     <option value={10}>10</option>
                     <option value={20}>20</option>
@@ -263,8 +258,7 @@ function Galery() {
                       <button className="active btn-focus p-2 rounded">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/add-galery"
-                        >
+                          href="/add-galery">
                           Tambah
                         </a>
                       </button>
@@ -275,8 +269,7 @@ function Galery() {
             </div>
             <div
               className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}
-            >
+              style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -296,43 +289,35 @@ function Galery() {
                         <tr key={no}>
                           <td
                             data-label="No"
-                            className="text-md-start text-end"
-                          >
+                            className="text-md-start text-end">
                             {no + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
                           <td
                             data-label="Judul"
-                            className="text-md-start text-end"
-                          >
+                            className="text-md-start text-end">
                             {galery.judul}
                           </td>
                           <td
                             data-label="Deskripsi"
-                            className="text-md-start text-end"
-                          >
+                            className="text-md-start text-end">
                             {galery.deskripsi}
                           </td>
                           <td
                             data-label="Image"
-                            className="text-md-center text-end"
-                          >
-                            <button
-                              onClick={() => openModal(galery.foto)}
-                              type="button"
-                              className="btn-info btn-sm"
-                            >
-                              Tampilkan Gambar
-                            </button>
-                            {/* <img
-                              src={galery.foto}
-                              style={{
-                                height: "4.5rem",
-                                width: "4.5rem",
-                                marginLeft: "auto",
-                                marginRight: "auto",
-                                display: "flex",
-                              }}
-                            /> */}
+                            className="text-md-center text-end">
+                            {JSON.parse(galery.foto).map((imgSrc, index) => (
+                              <ul>
+                                <li>
+                                  <button
+                                    key={index}
+                                    onClick={() => openModal(imgSrc)}
+                                    type="button"
+                                    className="btn-info btn-sm">
+                                    Tampilkan Gambar
+                                  </button>
+                                </li>
+                              </ul>
+                            ))}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
@@ -340,15 +325,13 @@ function Galery() {
                                 <>
                                   <button
                                     type="button"
-                                    className="btn-primary btn-sm mr-2"
-                                  >
+                                    className="btn-primary btn-sm mr-2">
                                     <a
                                       style={{
                                         color: "white",
                                         textDecoration: "none",
                                       }}
-                                      href={`/edit-galery/${galery.id}`}
-                                    >
+                                      href={`/edit-galery/${galery.id}`}>
                                       {" "}
                                       <i className="fa-solid fa-pen-to-square"></i>
                                     </a>
@@ -356,8 +339,7 @@ function Galery() {
                                   <button
                                     onClick={() => deleteData(galery.id)}
                                     type="button"
-                                    className="btn-danger btn-sm"
-                                  >
+                                    className="btn-danger btn-sm">
                                     <i className="fa-solid fa-trash"></i>
                                   </button>
                                 </>
@@ -415,6 +397,7 @@ function Galery() {
           }}
         >
           {/* Tombol Close */}
+
           <button
             onClick={closeModal}
             style={{
@@ -427,8 +410,7 @@ function Galery() {
               cursor: "pointer",
               color: "black",
             }}
-            aria-label="Close"
-          >
+            aria-label="Close">
             ✖
           </button>
 

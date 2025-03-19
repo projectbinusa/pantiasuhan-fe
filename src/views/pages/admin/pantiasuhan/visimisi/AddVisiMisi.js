@@ -59,6 +59,7 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function AddVisiMisiPanti() {
   const [visi, setVisi] = useState("");
@@ -69,6 +70,7 @@ function AddVisiMisiPanti() {
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [image, setImage] = useState("");
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -114,6 +116,7 @@ function AddVisiMisiPanti() {
       }
 
       await axios.post(`${API_DUMMY}/api/admin/visi-misi`, formData, {
+
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           "Content-Type": "multipart/form-data", // Penting untuk upload file
@@ -280,14 +283,13 @@ function AddVisiMisiPanti() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
@@ -296,8 +298,7 @@ function AddVisiMisiPanti() {
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container mt-3 mb-3 app-main__outer"
-          data-aos="fade-left"
-        >
+          data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -307,6 +308,21 @@ function AddVisiMisiPanti() {
                     <hr />
                     <form onSubmit={add}>
                       <div className="row">
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
+                            Gambar
+                          </label>
+                          <input
+                            onChange={(e) =>
+                              setImage(
+                                e.target.files ? e.target.files[0] : null
+                              )
+                            }
+                            type="file"
+                            required
+                            className="form-control"
+                          />
+                        </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
                             Visi
@@ -829,8 +845,7 @@ function AddVisiMisiPanti() {
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_visimisi"
-                        >
+                          href="/admin_visimisi">
                           Batal
                         </a>
                       </button>

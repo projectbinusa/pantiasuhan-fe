@@ -34,7 +34,7 @@ function Web() {
         console.log("res: ", response.data.data);
         setDatas(res);
         setLogo(res.logo);
-        setFont(res.font);
+        // setFont(res.font);
         setBg(res.background);
         setBg2(res.background2);
         setBanner(res.banner);
@@ -65,6 +65,7 @@ function Web() {
 
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const toggleSidebar = () => setSidebarToggled(!sidebarToggled);
+
 
   return (
     <div
@@ -132,6 +133,80 @@ function Web() {
                     type="text"
                     className="form-control"
                     value={subtitle}
+                    disabled
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">
+                    Warna Background 1
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={bg || ""}
+                    disabled
+                  />
+                  <div
+                    style={{
+                      width: "100px",
+                      height: "30px",
+                      backgroundColor: bg || "#ffffff",
+                      marginTop: "10px",
+                      border: "1px solid #000",
+                    }}></div>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">
+                    Warna Background 2
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={bg2 || ""}
+                    disabled
+                  />
+                  <div
+                    style={{
+                      width: "100px",
+                      height: "30px",
+                      backgroundColor: bg2 || "#ffffff",
+                      marginTop: "10px",
+                      border: "1px solid #000",
+                    }}></div>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Banner</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={banner || ""}
+                    disabled
+                  />
+                </div>
+                {/* <div className="mb-3">
+                  <label className="form-label fw-bold">Font</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={font || ""}
+                    disabled
+                  />
+                </div> */}
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Link Youtube</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={youtube || ""}
+                    disabled
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label fw-bold">Link Instagram</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={instagram || ""}
                     disabled
                   />
                 </div>

@@ -644,22 +644,20 @@ function Home() {
   const [bg, setBg] = useState("#ffffff"); // Default warna putih
   const [bg2, setBg2] = useState("#ffffff");
   const [font, setFont] = useState("");
-  const [title, setTitle] = useState("Panti Asuhan Muhammadiyah");
-  const [subtitle, setSubtitle] = useState("Pantinya Sang Juara");
+  const [banner, setBanner] = useState("");
+  const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
 
   const getAll = async () => {
     try {
-      const response = await axios.get(`${API_DUMMY}/api/admin/web`, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      });
+      const response = await axios.get(`${API_DUMMY}/api/public/web`);
 
       const res = response.data.data;
       if (res) {
         setFont(res.font);
         setBg(res.background);
         setBg2(res.background2);
+        setBanner(res.banner || backgroundImage);
         setTitle(res.title || "Panti Asuhan Muhammadiyah");
         setSubtitle(res.subtitle || "Pantinya Sang Juara");
         console.log("isi bg 1", bg);
@@ -669,6 +667,38 @@ function Home() {
       console.error("Terjadi Kesalahan:", error);
     }
   };
+
+  useEffect(() => {
+    if (font) {
+      // Hapus link lama jika ada
+      const existingLink = document.getElementById("dynamic-font");
+      if (existingLink) {
+        document.head.removeChild(existingLink);
+      }
+
+      // Buat link baru untuk Google Fonts
+      const link = document.createElement("link");
+      link.href = `https://fonts.googleapis.com/css2?family=${font.replace(
+        /\s/g,
+        "+"
+      )}:wght@400&display=swap`;
+      link.rel = "stylesheet";
+      link.id = "dynamic-font";
+      document.head.appendChild(link);
+
+      // Ubah variable CSS agar font berlaku di seluruh aplikasi
+      document.documentElement.style.setProperty(
+        "--custom-font",
+        `'${font}', serif`
+      );
+    }
+  }, [font]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty("--custom-bg", bg);
+    document.documentElement.style.setProperty("--custom-bg2", bg2);
+  }, [bg, bg2]);
+
 
   useEffect(() => {
     getAllVisiMisiPanti();
@@ -727,39 +757,34 @@ function Home() {
         /> */}
       <Navbar />
       <div
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-        class="banner-area banner-area-1 bg-black bg-relative"
-      >
+        style={{ backgroundImage: `url(${banner})` }}
+        class="banner-area banner-area-1 bg-black bg-relative">
         <div
           className="banner-bg-img"
           style={{
             backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
             backgroundColor: "rgba(0, 0, 0, 0.7)",
-          }}
-        ></div>
+          }}></div>
         <div
           className="banner-bg-img"
           style={{
             backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
-          }}
-        ></div>
+          }}></div>
         <div class="container">
           <div class="order-lg-first align-self-center">
             <div
               data-aos="zoom-out-right"
-              class="banner-inner style-white text-center text-lg-start"
-            >
+              class="banner-inner style-white text-center text-lg-start">
               {/* <h4 class="sub-title">Best it solution</h4> */}
               <h2 class="title d-none d-lg-inline-block">
-                Panti Asuhan Muhammadiyah <br />
-                <span style={{ color: "#00FF9C" }}> Pantinya Sang Juara</span>
+                {title} <br />
+                <span style={{ color: "var(--custom-bg2)" }}> {subtitle}</span>
               </h2>
               <h2
                 style={{ fonrSize: "30px", color: "white" }}
-                class="d-inline-block d-lg-none"
-              >
-                Panti Asuhan Muhammadiyah <br />
-                <span style={{ color: "#00FF9C" }}> Pantinya Sang Juara</span>
+                class="d-inline-block d-lg-none">
+                {title} <br />
+                <span style={{ color: "var(--custom-bg2)" }}>{subtitle}</span>
               </h2>
             </div>
           </div>
@@ -810,8 +835,7 @@ function Home() {
                   data-aos="fade-right"
                   data-aos-offset="300"
                   data-aos-easing="ease-in-sine"
-                  class="col-md-5"
-                >
+                  class="col-md-5">
                   <div class="thumb mb-4 mb-md-0">
                     <img
                       src={
@@ -839,8 +863,7 @@ function Home() {
                   class="col-md-7"
                   data-aos="fade-left"
                   data-aos-offset="300"
-                  data-aos-easing="ease-in-sine"
-                >
+                  data-aos-easing="ease-in-sine">
                   <div class="single-testimonial-inner px-lg-5">
                     <div class="details section-title">
                       {/* <div className=""> */}
@@ -896,6 +919,7 @@ function Home() {
             <div class="col-lg-6 px-xl-5 order-lg-last text-lg-end">
               <div data-aos="fade-left" class="thumb">
                 <img src={visimisi} alt="img" />
+
               </div>
             </div>
             <div
@@ -905,6 +929,7 @@ function Home() {
               <div class="section-title mb-0">
                 {/* <h5 class="sub-title right-line">Faq</h5> */}
                 <h2 class="title">Visi Misi</h2>
+
                 <p>
                   Visi dan misi adalah panduan strategis organisasi untuk
                   mencapai tujuan jangka panjang melalui langkah-langkah
@@ -920,8 +945,7 @@ function Home() {
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseOne"
                       aria-expanded="true"
-                      aria-controls="collapseOne"
-                    >
+                      aria-controls="collapseOne">
                       Visi
                     </button>
                   </h2>
@@ -932,6 +956,7 @@ function Home() {
                     data-bs-parent="#accordionExample"
                   >
                     {/* <div> */}
+
                     <div
                       class="accordion-body"
                       style={{
@@ -954,8 +979,7 @@ function Home() {
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseTwo"
                       aria-expanded="false"
-                      aria-controls="collapseTwo"
-                    >
+                      aria-controls="collapseTwo">
                       Misi
                     </button>
                   </h2>
@@ -963,8 +987,7 @@ function Home() {
                     id="collapseTwo"
                     class="accordion-collapse collapse"
                     aria-labelledby="headingTwo"
-                    data-bs-parent="#accordionExample"
-                  >
+                    data-bs-parent="#accordionExample">
                     <div
                       class="accordion-body"
                       style={{
@@ -985,8 +1008,7 @@ function Home() {
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseThree"
                       aria-expanded="false"
-                      aria-controls="collapseThree"
-                    >
+                      aria-controls="collapseThree">
                       Motto
                     </button>
                   </h2>
@@ -994,8 +1016,7 @@ function Home() {
                     id="collapseThree"
                     class="accordion-collapse collapse"
                     aria-labelledby="headingThree"
-                    data-bs-parent="#accordionExample"
-                  >
+                    data-bs-parent="#accordionExample">
                     <div
                       class="accordion-body"
                       style={{
@@ -1018,28 +1039,24 @@ function Home() {
       {/* Kegiatan */}
       <div>
         <div
-          style={{ backgroundImage: `url(${backgroundImage1})` }}
+          style={{ backgroundImage: `url(${banner})` }}
           id="program"
-          class="banner-area banner-area-1 project-area bg-black bg-relative pd-top-115"
-        >
+          class="banner-area banner-area-1 project-area bg-black bg-relative pd-top-115">
           <div
             className="banner-bg-img"
             style={{
               // backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
               backgroundColor: "rgba(0, 0, 0, 0.7)",
-            }}
-          ></div>
+            }}></div>
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-lg-7">
                 <div
                   data-aos="flip-up"
-                  class="section-title style-white text-center"
-                >
+                  class="section-title style-white text-center">
                   <h5
                     class="sub-title double-line"
-                    style={{ color: "#00FF9C" }}
-                  >
+                    style={{ color: "#00FF9C" }}>
                     Kegiatan / Program
                   </h5>
                   <h2 class="title">Program dan Kegiatan Panti Asuhan</h2>
@@ -1079,16 +1096,14 @@ function Home() {
               },
             }}
             modules={[Pagination]}
-            className="mySwiper"
-          >
+            className="mySwiper">
             <div class="project-slider-2 slider-control-square owl-carousel">
               {kegiatan.map((data) => (
                 <SwiperSlide>
                   <div class="item">
                     <div
                       data-aos="flip-down"
-                      class="single-project-inner style-two"
-                    >
+                      class="single-project-inner style-two">
                       <div class="thumb thumb-img">
                         <img
                           src={
@@ -1226,7 +1241,7 @@ function Home() {
         className="blog-area pd-top-115 pd-bottom-60"
         id="visi-misi"
         style={{
-          backgroundColor: "#004080", // Biru sangat muda untuk latar keseluruhan
+          backgroundColor: "var(--custom-bg)", // Biru sangat muda untuk latar keseluruhan
           fontFamily: "'Poppins', sans-serif",
         }}>
         <div className="container">
@@ -1276,7 +1291,7 @@ function Home() {
                 style={{
                   fontSize: "1.8em",
                   fontWeight: "bold",
-                  color: "#004080", // Biru gelap
+                  color: "var(--custom-bg)", // Biru gelap
                   marginBottom: "20px",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
@@ -1315,7 +1330,7 @@ function Home() {
                 style={{
                   fontSize: "1.8em",
                   fontWeight: "bold",
-                  color: "#004080", // Biru gelap
+                  color: "var(--custom-bg)", // Biru gelap
                   marginBottom: "20px",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
@@ -1371,8 +1386,7 @@ function Home() {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               gap: "20px",
-            }}
-          >
+            }}>
             {donasi.map((item, index) => (
               <div
                 className="card"
@@ -1393,8 +1407,7 @@ function Home() {
                   e.currentTarget.style.transform = "scale(1)";
                   e.currentTarget.style.boxShadow =
                     "0 4px 8px rgba(0, 0, 0, 0.1)";
-                }}
-              >
+                }}>
                 <img
                   src={
                     item.url_image !== ""
@@ -1413,10 +1426,9 @@ function Home() {
                     style={{
                       fontSize: "1.5rem",
                       fontWeight: "bold",
-                      color: "#004080",
+                      color: "var(--custom-bg)",
                       marginBottom: "10px",
-                    }}
-                  >
+                    }}>
                     {item.name}
                   </h4>
                   <p
@@ -1426,8 +1438,7 @@ function Home() {
                       marginBottom: "5px",
                       display: "flex",
                       alignItems: "center",
-                    }}
-                  >
+                    }}>
                     <svg
                       className="svg-inline--fa fa-calendar-alt fa-w-14"
                       aria-hidden="true"
@@ -1440,10 +1451,9 @@ function Home() {
                       style={{
                         width: "16px",
                         height: "16px",
-                        color: "#004080",
+                        color: "var(--custom-bg)",
                         marginRight: "5px",
-                      }}
-                    >
+                      }}>
                       <path
                         fill="currentColor"
                         d="M152 64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V160c0-26.51-21.49-48-48-48h-56V64c0-8.84-7.16-16-16-16h-16c-8.84 0-16 7.16-16 16v48H152V64zM32 192h384v272c0 8.82-7.18 16-16 16H48c-8.82 0-16-7.18-16-16V192zm96 100c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40zm96 0c0-6.63-5.37-12-12-12h-40c-6.63 0-12 5.37-12 12v40c0 6.63 5.37 12 12 12h40c6.63 0 12-5.37 12-12v-40z"
@@ -1459,8 +1469,7 @@ function Home() {
                       marginBottom: "15px",
                       marginTop: "1rem",
                     }}
-                    className="content-isi"
-                  >
+                    className="content-isi">
                     <div
                       dangerouslySetInnerHTML={{ __html: item?.description }}
                     />
@@ -1472,18 +1481,16 @@ function Home() {
                       fontWeight: "500",
                       marginTop: "1rem",
                     }}
-                    className="content-isi"
-                  >
+                    className="content-isi">
                     Total Donasi
                   </p>
                   <h4
                     style={{
                       fontSize: "1.3rem",
                       fontWeight: "bold",
-                      color: "#004080",
+                      color: "var(--custom-bg)",
                       marginBottom: "10px",
-                    }}
-                  >
+                    }}>
                     {formatRupiah(item.total_income)}
                   </h4>
                   <a
@@ -1494,7 +1501,7 @@ function Home() {
                       alignItems: "center",
                       fontSize: "0.9rem",
                       fontWeight: "bold",
-                      color: "#004080",
+                      color: "var(--custom-bg)",
                       textDecoration: "none",
                       transition: "color 0.3s ease",
                     }}
@@ -1502,9 +1509,8 @@ function Home() {
                       (e.currentTarget.style.color = "#0066cc")
                     }
                     onMouseOut={(e) =>
-                      (e.currentTarget.style.color = "#004080")
-                    }
-                  >
+                      (e.currentTarget.style.color = "var(--custom-bg)")
+                    }>
                     <span style={{ marginRight: "8px" }}>Selengkapnya</span>
                   </a>
                 </div>
@@ -1522,8 +1528,7 @@ function Home() {
               <div className="section-title text-center" data-aos="fade-down">
                 <h2
                   className="title"
-                  style={{ fontWeight: "bold", color: "#004080" }}
-                >
+                  style={{ fontWeight: "bold", color: "var(--custom-bg)" }}>
                   Pengurus Panti
                 </h2>
               </div>
@@ -1537,8 +1542,7 @@ function Home() {
                 gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
                 gap: "20px",
                 padding: "20px",
-              }}
-            >
+              }}>
               {listp.map((member, index) => (
                 <div
                   className="card"
@@ -1560,14 +1564,13 @@ function Home() {
                     e.currentTarget.style.transform = "scale(1)";
                     e.currentTarget.style.boxShadow =
                       "0 6px 12px rgba(0, 0, 0, 0.1)";
-                  }}
-                >
+                  }}>
                   <div style={{ padding: "25px", textAlign: "center" }}>
                     <h4
                       style={{
                         fontSize: "1.6rem",
                         fontWeight: "600",
-                        color: "#004080",
+                        color: "var(--custom-bg)",
                         marginBottom: "10px",
                         transition: "color 0.3s ease",
                       }}
@@ -1575,9 +1578,8 @@ function Home() {
                         (e.currentTarget.style.color = "#007BFF")
                       }
                       onMouseOut={(e) =>
-                        (e.currentTarget.style.color = "#004080")
-                      }
-                    >
+                        (e.currentTarget.style.color = "var(--custom-bg)")
+                      }>
                       {member.name}
                     </h4>
                     <p
@@ -1586,8 +1588,7 @@ function Home() {
                         color: "#666",
                         marginBottom: "5px",
                         letterSpacing: "0.5px",
-                      }}
-                    >
+                      }}>
                       No HP: {member.hp}
                     </p>
                   </div>
@@ -1602,8 +1603,7 @@ function Home() {
       <div
         id="berita"
         class="blog-area pd-top-115 pd-bottom-60"
-        style={{ background: "#F8FCFB" }}
-      >
+        style={{ background: "#F8FCFB" }}>
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-7 col-md-10">
@@ -1620,8 +1620,7 @@ function Home() {
           <div
             class="row justify-content-center"
             data-aos="fade-up"
-            data-aos-easing="linear"
-          >
+            data-aos-easing="linear">
             {berita.map((data) => (
               <div class="col-lg-4 col-md-6 mb-4">
                 <div class="single-blog-inner style-3">
@@ -1648,8 +1647,7 @@ function Home() {
                       <a
                         style={{ color: "#0d2f74", textDecoration: "none" }}
                         className="content-preview"
-                        href={`/beritapanti/${data.id}`}
-                      >
+                        href={`/beritapanti/${data.id}`}>
                         {data.judul_berita}
                       </a>
                     </h4>
@@ -1742,6 +1740,7 @@ function Home() {
         <div className="container">
           <h2 className="text-white">Galeri</h2>
           <p className="text-white">
+
             Galeri panti asuhan menampilkan momen kebahagiaan, kreativitas, dan
             kegiatan sehari-hari anak-anak, mencerminkan semangat harapan dan
             kebersamaan yang indah.
@@ -1775,13 +1774,14 @@ function Home() {
                   />
                 </div>
               ))}
+
             </div>
           ) : (
             <p className="text-white">Tidak ada gambar tersedia</p>
           )}
         </div>
 
-        {/* Popup Modal */}
+         {/* Popup Modal */}
         {modalIsOpen && selectedImage && (
           <Modal
             isOpen={modalIsOpen}
@@ -1808,6 +1808,7 @@ function Home() {
             />
           </Modal>
         )}
+ 
       </div>
 
       {/* Santri */}
@@ -1838,14 +1839,12 @@ function Home() {
           <div class="row" data-aos="fade-up">
             <div
               class="col-lg-2 col-md-4 col-sm-6"
-              style={{ textAlign: "center" }}
-            >
+              style={{ textAlign: "center" }}>
               <div>
                 <i class="fas fa-male" style={{ fontSize: "32px" }}></i>
                 <Typography
                   variant="h4"
-                  style={{ fontWeight: "bold", marginTop: "30px" }}
-                >
+                  style={{ fontWeight: "bold", marginTop: "30px" }}>
                   {anakAsuhData?.per_jenis_kelamin?.["laki_laki"] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>PRIA</h5>
@@ -1854,14 +1853,12 @@ function Home() {
             </div>
             <div
               class="col-lg-2 col-md-4 col-sm-6"
-              style={{ textAlign: "center" }}
-            >
+              style={{ textAlign: "center" }}>
               <div>
                 <i class="fas fa-female" style={{ fontSize: "32px" }}></i>
                 <Typography
                   variant="h4"
-                  style={{ fontWeight: "bold", marginTop: "30px" }}
-                >
+                  style={{ fontWeight: "bold", marginTop: "30px" }}>
                   {anakAsuhData?.per_jenis_kelamin?.["perempuan"] || 0}
                 </Typography>
                 <h5 style={{ fontWeight: "bold" }}>WANITA</h5>
@@ -1870,17 +1867,14 @@ function Home() {
             </div>
             <div
               class="col-lg-2 col-md-4 col-sm-6"
-              style={{ textAlign: "center" }}
-            >
+              style={{ textAlign: "center" }}>
               <div>
                 <i
                   class="fas fa-graduation-cap"
-                  style={{ fontSize: "32px" }}
-                ></i>
+                  style={{ fontSize: "32px" }}></i>
                 <Typography
                   variant="h4"
-                  style={{ fontWeight: "bold", marginTop: "30px" }}
-                >
+                  style={{ fontWeight: "bold", marginTop: "30px" }}>
                   {anakAsuhData?.per_tingkat_pendidikan?.["sd/mi"]?.["total"] ||
                     0}
                 </Typography>
@@ -1890,17 +1884,14 @@ function Home() {
             </div>
             <div
               class="col-lg-2 col-md-4 col-sm-6"
-              style={{ textAlign: "center" }}
-            >
+              style={{ textAlign: "center" }}>
               <div>
                 <i
                   class="fas fa-graduation-cap"
-                  style={{ fontSize: "32px" }}
-                ></i>
+                  style={{ fontSize: "32px" }}></i>
                 <Typography
                   variant="h4"
-                  style={{ fontWeight: "bold", marginTop: "30px" }}
-                >
+                  style={{ fontWeight: "bold", marginTop: "30px" }}>
                   {anakAsuhData?.per_tingkat_pendidikan?.["smp/mts"]?.[
                     "total"
                   ] || 0}
@@ -1911,17 +1902,14 @@ function Home() {
             </div>
             <div
               class="col-lg-2 col-md-4 col-sm-6"
-              style={{ textAlign: "center" }}
-            >
+              style={{ textAlign: "center" }}>
               <div>
                 <i
                   class="fas fa-graduation-cap"
-                  style={{ fontSize: "32px" }}
-                ></i>
+                  style={{ fontSize: "32px" }}></i>
                 <Typography
                   variant="h4"
-                  style={{ fontWeight: "bold", marginTop: "30px" }}
-                >
+                  style={{ fontWeight: "bold", marginTop: "30px" }}>
                   {anakAsuhData?.per_tingkat_pendidikan?.["sma/smk/ma"]?.[
                     "total"
                   ] || 0}
@@ -1932,17 +1920,14 @@ function Home() {
             </div>
             <div
               class="col-lg-2 col-md-4 col-sm-6"
-              style={{ textAlign: "center" }}
-            >
+              style={{ textAlign: "center" }}>
               <div>
                 <i
                   class="fas fa-graduation-cap"
-                  style={{ fontSize: "32px" }}
-                ></i>
+                  style={{ fontSize: "32px" }}></i>
                 <Typography
                   variant="h4"
-                  style={{ fontWeight: "bold", marginTop: "30px" }}
-                >
+                  style={{ fontWeight: "bold", marginTop: "30px" }}>
                   {anakAsuhData?.per_tingkat_pendidikan?.["kuliah"]?.[
                     "total"
                   ] || 0}
@@ -1976,12 +1961,10 @@ function Home() {
             <div className="col-lg-6 col-md-10">
               <div
                 data-aos="zoom-in-down"
-                className="section-title style-white text-center"
-              >
+                className="section-title style-white text-center">
                 <h2
                   className="title text-black"
-                  style={{ fontWeight: "bold", color: "#004080" }}
-                >
+                  style={{ fontWeight: "bold", color: "var(--custom-bg)" }}>
                   Fasilitas
                 </h2>
                 <p
@@ -1990,8 +1973,7 @@ function Home() {
                     fontSize: "1.1rem",
                     color: "#555",
                     whiteSpace: "nowrap",
-                  }}
-                >
+                  }}>
                   Panti asuhan memiliki fasilitas yang mumpuni untuk mendukung
                   kesejahteraan anak-anak.
                 </p>
@@ -2006,8 +1988,7 @@ function Home() {
               gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
               gap: "20px",
               padding: "10px",
-            }}
-          >
+            }}>
             {list.length > 0 ? (
               list.map((fasilitas, index) => (
                 <div
@@ -2030,8 +2011,7 @@ function Home() {
                     e.currentTarget.style.transform = "translateY(0)";
                     e.currentTarget.style.boxShadow =
                       "0 4px 12px rgba(0, 0, 0, 0.15)";
-                  }}
-                >
+                  }}>
                   {/* <img
                     src={
                       fasilitas.image && fasilitas.image.trim() !== ""
@@ -2056,9 +2036,8 @@ function Home() {
                         marginBottom: "8px",
                         fontSize: "1.3rem",
                         fontWeight: "600",
-                        color: "#004080",
-                      }}
-                    >
+                        color: "var(--custom-bg)",
+                      }}>
                       {fasilitas.name}
                     </h5>
                     <p
@@ -2066,8 +2045,7 @@ function Home() {
                         fontSize: "1rem",
                         color: "#666",
                         lineHeight: "1.5",
-                      }}
-                    >
+                      }}>
                       {fasilitas.description}
                     </p>
                   </div>
@@ -2080,8 +2058,7 @@ function Home() {
                   padding: "20px",
                   color: "#777",
                   fontSize: "1.1rem",
-                }}
-              >
+                }}>
                 Tidak ada data yang tersedia.
               </div>
             )}
@@ -2223,7 +2200,7 @@ function Home() {
                   style={{
                     fontSize: "1.5rem",
                     fontWeight: "bold",
-                    color: "#004080",
+                    color: "var(--custom-bg)",
                     marginBottom: "10px",
                   }}>
                   Kegiatan Sosial
@@ -2248,7 +2225,7 @@ function Home() {
                     style={{
                       width: "16px",
                       height: "16px",
-                      color: "#004080",
+                      color: "var(--custom-bg)",
                       marginRight: "5px",
                     }}>
                     <path
@@ -2306,12 +2283,12 @@ function Home() {
                     alignItems: "center",
                     fontSize: "0.9rem",
                     fontWeight: "bold",
-                    color: "#004080",
+                    color: "var(--custom-bg)",
                     textDecoration: "none",
                     transition: "color 0.3s ease",
                   }}
                   onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
-                  onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}>
+                  onMouseOut={(e) => (e.currentTarget.style.color = "var(--custom-bg)")}>
                   <span style={{ marginRight: "8px" }}>Read More</span>
                 </a>
               </div>
@@ -2349,7 +2326,7 @@ function Home() {
                   style={{
                     fontSize: "1.5rem",
                     fontWeight: "bold",
-                    color: "#004080",
+                    color: "var(--custom-bg)",
                     marginBottom: "10px",
                   }}>
                   Kegiatan Pendidikan
@@ -2374,7 +2351,7 @@ function Home() {
                     style={{
                       width: "16px",
                       height: "16px",
-                      color: "#004080",
+                      color: "var(--custom-bg)",
                       marginRight: "5px",
                     }}>
                     <path
@@ -2432,12 +2409,12 @@ function Home() {
                     alignItems: "center",
                     fontSize: "0.9rem",
                     fontWeight: "bold",
-                    color: "#004080",
+                    color: "var(--custom-bg)",
                     textDecoration: "none",
                     transition: "color 0.3s ease",
                   }}
                   onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
-                  onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}>
+                  onMouseOut={(e) => (e.currentTarget.style.color = "var(--custom-bg)")}>
                   <span style={{ marginRight: "8px" }}>Read More</span>
                 </a>
               </div>
@@ -2514,7 +2491,7 @@ function Home() {
                     style={{
                       widht: "16px",
                       height: "16px",
-                      color: "#004080",
+                      color: "var(--custom-bg)",
                       marginRight: "5px",
                     }}>
                     <path
@@ -2534,7 +2511,7 @@ function Home() {
                     style={{
                       widht: "16px",
                       height: "16px",
-                      color: "#004080",
+                      color: "var(--custom-bg)",
                       marginRight: "5px",
                     }}>
                     <path
@@ -2565,12 +2542,12 @@ function Home() {
                     alignItems: "center",
                     fontSize: "0.9rem",
                     fontWeight: "bold",
-                    color: "#004080",
+                    color: "var(--custom-bg)",
                     textDecoration: "none",
                     transition: "color 0.3s ease",
                   }}
                   onMouseOver={(e) => (e.currentTarget.style.color = "#0066cc")}
-                  onMouseOut={(e) => (e.currentTarget.style.color = "#004080")}>
+                  onMouseOut={(e) => (e.currentTarget.style.color = "var(--custom-bg)")}>
                   <span style={{ marginRight: "8px" }}>Read More</span>
                 </a>
               </div>
@@ -3033,7 +3010,7 @@ function Home() {
             <h6
               className="title"
               style={{
-                color: "#004080",
+                color: "var(--custom-bg)",
                 fontSize: "1.5rem",
                 lineHeight: "1.8",
                 fontWeight: "bold",
@@ -3051,8 +3028,7 @@ function Home() {
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {judul}

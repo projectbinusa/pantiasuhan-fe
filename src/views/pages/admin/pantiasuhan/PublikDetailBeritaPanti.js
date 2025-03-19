@@ -409,7 +409,7 @@ function PublikDetailBeritaPanti() {
               style={{
                 widht: "16px",
                 height: "16px",
-                color: "#004080",
+                color: "var(--custom-bg)",
                 marginRight: "5px",
               }}
             >
@@ -431,7 +431,7 @@ function PublikDetailBeritaPanti() {
               style={{
                 widht: "16px",
                 height: "16px",
-                color: "#004080",
+                color: "var(--custom-bg)",
                 marginRight: "5px",
               }}
             >

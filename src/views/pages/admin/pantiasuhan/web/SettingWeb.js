@@ -18,7 +18,7 @@ function SettingWeb() {
   const [bg2, setBg2] = useState("#ffffff");
   const [banner, setBanner] = useState("");
   const [fileBanner, setFileBanner] = useState("");
-  const [font, setFont] = useState("");
+  // const [font, setFont] = useState("");
   const history = useHistory();
   const param = useParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +47,7 @@ function SettingWeb() {
     }
 
     const data = {
-      font: font,
+      // font: font,
       background: bg,
       background2: bg2,
       banner: imageUrlBanner,
@@ -120,31 +120,31 @@ function SettingWeb() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    if (font) {
-      // Hapus link lama jika ada
-      const existingLink = document.getElementById("dynamic-font");
-      if (existingLink) {
-        document.head.removeChild(existingLink);
-      }
+  // useEffect(() => {
+  //   if (font) {
+  //     // Hapus link lama jika ada
+  //     const existingLink = document.getElementById("dynamic-font");
+  //     if (existingLink) {
+  //       document.head.removeChild(existingLink);
+  //     }
 
-      // Buat link baru untuk Google Fonts
-      const link = document.createElement("link");
-      link.href = `https://fonts.googleapis.com/css2?family=${font.replace(
-        /\s/g,
-        "+"
-      )}:wght@400&display=swap`;
-      link.rel = "stylesheet";
-      link.id = "dynamic-font";
-      document.head.appendChild(link);
+  //     // Buat link baru untuk Google Fonts
+  //     const link = document.createElement("link");
+  //     link.href = `https://fonts.googleapis.com/css2?family=${font.replace(
+  //       /\s/g,
+  //       "+"
+  //     )}:wght@400&display=swap`;
+  //     link.rel = "stylesheet";
+  //     link.id = "dynamic-font";
+  //     document.head.appendChild(link);
 
-      // Ubah variable CSS agar font berlaku di seluruh aplikasi
-      document.documentElement.style.setProperty(
-        "--custom-font",
-        `'${font}', serif`
-      );
-    }
-  }, [font]);
+  //     // Ubah variable CSS agar font berlaku di seluruh aplikasi
+  //     document.documentElement.style.setProperty(
+  //       "--custom-font",
+  //       `'${font}', serif`
+  //     );
+  //   }
+  // }, [font]);
 
   return (
     <div
@@ -254,21 +254,27 @@ function SettingWeb() {
                         </div>
 
                         {/* Font */}
-                        <div className="mb-3 col-lg-6">
+                        {/* <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Font
                           </label>
                           <select
                             className="form-control"
                             value={font}
-                            onChange={(e) => setFont(e.target.value)}>
+                            onChange={(e) => {
+                              setFont(e.target.value);
+                              document.documentElement.style.setProperty(
+                                "--custom-font",
+                                `'${e.target.value}', sans-serif`
+                              );
+                            }}>
                             <option>Pilih Font</option>
                             <option value="Poppins">Poppins</option>
                             <option value="Roboto">Roboto</option>
                             <option value="Open Sans">Open Sans</option>
                             <option value="Lato">Lato</option>
                           </select>
-                        </div>
+                        </div> */}
 
                         {/* Upload Logo */}
                         <div className="mb-3 col-lg-6">

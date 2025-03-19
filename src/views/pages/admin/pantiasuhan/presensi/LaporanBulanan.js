@@ -71,7 +71,7 @@ function LaporanBulananPresensi() {
       const currentMonth = selectedMonth;
 
       const response = await axios({
-        url: `${API_DUMMY_ABSEN}/api/absensi/export-bulanan?bulan=${currentMonth}&tahun=${currentYear}`,
+        url: `${API_DUMMY_SMART}/api/absensi/export-bulanan?bulan=${currentMonth}&tahun=${currentYear}`,
         method: "GET",
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,

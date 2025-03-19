@@ -6,11 +6,11 @@ import "aos/dist/aos.css";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
+import { uploadImageToS3, uploadImageToS31 } from "../../../../../utils/uploadToS3";
 
 const AddGalery = () => {
   const [judul, setJudul] = useState("");
-  const [foto, setFoto] = useState([]); // Array untuk menyimpan gambar
+  const [foto, setFoto] = useState([null]);
   const [deskripsi, setDeskripsi] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const history = useHistory();
@@ -19,6 +19,21 @@ const AddGalery = () => {
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const handleFileChange = (index, file) => {
+    const updatedfoto = [...foto];
+    updatedfoto[index] = file;
+    setFoto(updatedfoto);
+  };
+
+  const addFileInput = () => {
+    setFoto([...foto, null]);
+  };
+
+  const removeFileInput = (index) => {
+    const updatedfoto = foto.filter((_, i) => i !== index);
+    setFoto(updatedfoto);
+  };
 
   const add = async (e) => {
     e.preventDefault();
@@ -43,7 +58,7 @@ const AddGalery = () => {
         {
           judul,
           deskripsi,
-          foto: uploadedImageUrls, // Simpan array URL gambar
+          foto: uploadedImageUrls, /
         },
         {
           headers: {
@@ -117,14 +132,14 @@ const AddGalery = () => {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <button
         id="show-sidebar"
         className="btn btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </button>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -151,7 +166,7 @@ const AddGalery = () => {
                           required
                         />
                       </div>
-                      <div className="mb-3 col-lg-6">
+                      {/* <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
                           Gambar
                         </label>
@@ -198,15 +213,13 @@ const AddGalery = () => {
                           onChange={(e) => setDeskripsi(e.target.value)}
                           className="form-control"
                           placeholder="Masukkan Deskripsi"
-                          required
-                        ></textarea>
+                          required></textarea>
                       </div>
                     </div>
                     <button
                       type="button"
-                      className="btn-danger mt-3 mr-3"
-                      onClick={() => (window.location.href = "/admin-galery")}
-                    >
+                      className="btn btn-danger mt-3 mr-3"
+                      onClick={() => (window.location.href = "/admin-galery")}>
                       Batal
                     </button>
                     <button type="submit" className="btn-primary mt-3">

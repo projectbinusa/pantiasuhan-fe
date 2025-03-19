@@ -6,7 +6,7 @@ import {
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import AOS from "aos";
-import { API_DUMMY, API_DUMMY_SMART } from "../../../../../utils/base_URL";
+import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 import { SketchPicker } from "react-color";
@@ -18,7 +18,7 @@ function EditWeb() {
   const [bg2, setBg2] = useState("#ffffff");
   const [banner, setBanner] = useState("");
   const [fileBanner, setFileBanner] = useState("");
-  const [font, setFont] = useState("");
+  // const [font, setFont] = useState("");
   const history = useHistory();
   const param = useParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +40,7 @@ function EditWeb() {
         setLogo(response.logo || "");
         setBg(response.background || "#ffffff");
         setBg2(response.background2 || "#ffffff");
-        setFont(response.font || "");
+        // setFont(response.font || "");
         setBanner(response.banner || "");
         setFacebook(response.facebook || "");
         setYoutube(response.youtube || "");
@@ -72,7 +72,7 @@ function EditWeb() {
     }
 
     const data = {
-      font: font,
+      // font: font,
       background: bg,
       background2: bg2,
       banner: imageUrlBanner,
@@ -149,31 +149,37 @@ function EditWeb() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // useEffect(() => {
+  //   if (font) {
+  //     // Hapus link lama jika ada
+  //     const existingLink = document.getElementById("dynamic-font");
+  //     if (existingLink) {
+  //       document.head.removeChild(existingLink);
+  //     }
+
+  //     // Buat link baru untuk Google Fonts
+  //     const link = document.createElement("link");
+  //     link.href = `https://fonts.googleapis.com/css2?family=${font.replace(
+  //       /\s/g,
+  //       "+"
+  //     )}:wght@400&display=swap`;
+  //     link.rel = "stylesheet";
+  //     link.id = "dynamic-font";
+  //     document.head.appendChild(link);
+
+  //     // Ubah variable CSS agar font berlaku di seluruh aplikasi
+  //     document.documentElement.style.setProperty(
+  //       "--custom-font",
+  //       `'${font}', serif`
+  //     );
+  //   }
+  // }, [font]);
+
   useEffect(() => {
-    if (font) {
-      // Hapus link lama jika ada
-      const existingLink = document.getElementById("dynamic-font");
-      if (existingLink) {
-        document.head.removeChild(existingLink);
-      }
+    document.documentElement.style.setProperty("--custom-bg", bg);
+    document.documentElement.style.setProperty("--custom-bg2", bg2);
+  }, [bg, bg2]);
 
-      // Buat link baru untuk Google Fonts
-      const link = document.createElement("link");
-      link.href = `https://fonts.googleapis.com/css2?family=${font.replace(
-        /\s/g,
-        "+"
-      )}:wght@400&display=swap`;
-      link.rel = "stylesheet";
-      link.id = "dynamic-font";
-      document.head.appendChild(link);
-
-      // Ubah variable CSS agar font berlaku di seluruh aplikasi
-      document.documentElement.style.setProperty(
-        "--custom-font",
-        `'${font}', serif`
-      );
-    }
-  }, [font]);
 
   return (
     <div
@@ -284,7 +290,7 @@ function EditWeb() {
                         </div>
 
                         {/* Font */}
-                        <div className="mb-3 col-lg-6">
+                        {/* <div className="mb-3 col-lg-6">
                           <label className="form-label font-weight-bold">
                             Font
                           </label>
@@ -298,7 +304,7 @@ function EditWeb() {
                             <option value="Open Sans">Open Sans</option>
                             <option value="Lato">Lato</option>
                           </select>
-                        </div>
+                        </div> */}
 
                         {/* Upload Logo */}
                         <div className="mb-3 col-lg-6">
