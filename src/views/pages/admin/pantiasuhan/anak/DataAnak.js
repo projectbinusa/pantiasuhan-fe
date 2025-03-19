@@ -327,6 +327,7 @@ function DataAnak() {
                     <th>Nama</th>
                     <th>RFID Number</th>
                     <th>NIK</th>
+                    <th>Level</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -358,6 +359,12 @@ function DataAnak() {
                             className="text-md-start text-end"
                           >
                             {row.unique_id}
+                          </td>
+                          <td
+                            data-label="Level"
+                            className="text-md-start text-end"
+                          >
+                            {row.level}
                           </td>
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">

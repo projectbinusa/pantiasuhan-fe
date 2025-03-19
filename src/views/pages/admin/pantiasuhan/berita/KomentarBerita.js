@@ -267,11 +267,15 @@ function AdminKomentarBerita() {
                           <td data-label="Aksi" className="action">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
-                                onClick={() => deleteData(berita.id)}
                                 type="button"
-                                className="btn-info btn-sm"
+                                className="btn-info btn-sm mr-2"
                               >
+                                  <a
+                                  className="text-light"
+                                  href={"/balas_komentar/" + berita.id}
+                                >
                                 <i className="fa-solid fa-comments"></i>
+                                </a>
                               </button>
                               <button
                                 type="button"

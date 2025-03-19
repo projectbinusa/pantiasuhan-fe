@@ -16,6 +16,7 @@ function DetailVisiPanti() {
   const [updateDate, setUpdateDate] = useState("");
   const [misi, setMisi] = useState("");
   const [visi, setVisi] = useState("");
+  const [image, setImage] = useState("");
   const [id, setId] = useState("");
   const [datas, setDatas] = useState(0);
 
@@ -32,15 +33,16 @@ function DetailVisiPanti() {
 
       const res = response.data.data;
       console.log(res);
-      
+
       if (res) {
-        setDatas(res.length); // Menyimpan data visi-misi dalam state
+        setDatas(res.length);
         setTujuan(res[0]?.tujuan);
         setCreatedDate(res[0]?.created_date);
         setUpdateDate(res[0]?.updated_date);
         setVisi(res[0]?.visi);
         setMisi(res[0]?.misi);
         setId(res[0]?.id);
+        setImage(res[0]?.image_url);
       } else {
         console.warn("Data visi-misi tidak ditemukan.");
       }
@@ -50,7 +52,7 @@ function DetailVisiPanti() {
   };
 
   useEffect(() => {
-      getAll(); 
+      getAll();
   }, []);
 
   const deleteData = async (id) => {
@@ -173,6 +175,23 @@ function DetailVisiPanti() {
               </div>
               <br />
               <div className="card-body">
+              <img
+                  className={`w-75 d-block mr-auto ml-auto ${image === null ? "rounded-circle" : ""
+                    }`}
+                  style={
+                    image === null
+                      ? {}
+                      : { maxWidth: "400px", maxHeight: "400px" }
+                  }
+                  src={
+                    image === null
+                      ? "https://cdn.icon-icons.com/icons2/2506/PNG/512/user_icon_150670.png"
+                      : image
+                  }
+                  alt="Foto Kepala Panti"
+                />
+                <br />
+                <br />
                 <div class="mb-3">
                   <label class="form-label fw-bold">Visi</label>
                   <div

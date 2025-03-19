@@ -223,7 +223,7 @@ function PublikBerita() {
                       style={{
                         fontSize: "1.5rem",
                         fontWeight: "bold",
-                        color: "#004080",
+                        color: "var(--custom-bg)",
                         marginBottom: "10px",
                       }}
                     >
@@ -250,7 +250,7 @@ function PublikBerita() {
                         style={{
                           width: "16px",
                           height: "16px",
-                          color: "#004080",
+                          color: "var(--custom-bg)",
                           marginRight: "5px",
                         }}
                       >
@@ -281,7 +281,7 @@ function PublikBerita() {
                     {/* Hide button if role is 'yayasan' */}
                     <button
                       style={{
-                        backgroundColor: "#004080",
+                        backgroundColor: "var(--custom-bg)",
                         color: "#fff",
                         padding: "10px 15px",
                         borderRadius: "5px",

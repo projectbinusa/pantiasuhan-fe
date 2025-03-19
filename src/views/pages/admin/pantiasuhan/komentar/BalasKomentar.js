@@ -122,11 +122,11 @@ function BalasKomentar() {
         showConfirmButton: false,
         timer: 1500,
       });
-      setTimeout(() => {
-        history.push(
-          `/data_balas_komentar/berita/${param.id_berita}/komentar/${param.id_komentar}`
-        );
-      }, 1500);
+      // setTimeout(() => {
+      //   history.push(
+      //     `/data_balas_komentar/berita/${param.id_berita}/komentar/${param.id_komentar}`
+      //   );
+      // }, 1500);
     } catch (error) {
       if (error.ressponse && error.response.status === 401) {
         localStorage.clear();

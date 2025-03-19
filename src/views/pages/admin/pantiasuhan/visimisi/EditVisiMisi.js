@@ -62,6 +62,7 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 function EditVisiMisiPanti() {
   const [visi, setVisi] = useState("");
@@ -71,6 +72,8 @@ function EditVisiMisiPanti() {
   const history = useHistory();
   const param = useParams();
   const [isLoading, setIsLoading] = useState(false);
+  const [file, setFile] = useState(null);
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     axios
@@ -84,6 +87,7 @@ function EditVisiMisiPanti() {
         setVisi(response.visi);
         setMisi(response.misi);
         setTujuan(response.tujuan);
+        setImage(response.image);
       })
       .catch((error) => {
         console.log(error);
@@ -99,21 +103,34 @@ function EditVisiMisiPanti() {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-      }
+      },
     });
+
+    let imageUrl;
+
+    if (file) {
+      imageUrl = await uploadImageToS3(file);
+    } else {
+      imageUrl = image;
+    }
 
     const data = {
       visi: visi,
       misi: misi,
       tujuan: tujuan,
-      organization_id: +localStorage.getItem("organization_id")
+      image_url: imageUrl,
+      organization_id: +localStorage.getItem("organization_id"),
     };
     try {
-      const res = await axios.put(`${API_DUMMY}/api/admin/visi-misi/` + param.id, data, {
-        headers: {
-          "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-        },
-      })
+      const res = await axios.put(
+        `${API_DUMMY}/api/admin/visi-misi/` + param.id,
+        data,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
       if (res.data.code === 200) {
         Swal.fire({
           icon: "success",
@@ -298,15 +315,14 @@ function EditVisiMisiPanti() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
-        }`}
-    >
+      className={`page-wrapper chiller-theme ${
+        sidebarToggled ? "toggled" : ""
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </a>
       {/* <Header toggleSidebar={toggleSidebar} /> */}
@@ -315,8 +331,7 @@ function EditVisiMisiPanti() {
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container mt-3 mb-3 app-main__outer"
-          data-aos="fade-left"
-        >
+          data-aos="fade-left">
           <div className="app-main__inner">
             <div className="row">
               <div className="col-md-12">
@@ -328,66 +343,184 @@ function EditVisiMisiPanti() {
                       <div className="row">
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
+                            Gambar
+                          </label>
+                          <input
+                            onChange={(e) =>
+                              setFile(e.target.files ? e.target.files[0] : null)
+                            }
+                            type="file"
+                            className="form-control"
+                          />
+                        </div>
+                        <div className="mb-3 col-lg-12">
+                          <label className="form-label font-weight-bold">
                             Visi
                           </label>
                           <CKEditor
                             editor={ClassicEditor}
-                            data={visi} // Gunakan 'data' untuk set initial value
+                            data={visi}
                             onChange={(event, editor) => {
-                              const data = editor.getData(); // Ambil data dari editor
-                              setVisi(data); // Set state dengan data dari editor
+                              const data = editor.getData();
+                              setVisi(data);
                             }}
                             config={{
                               toolbar: [
-                                "alignment", "|",
-                                "undo", "redo", "|",
-                                "importWord", "exportWord", "exportPdf", "|",
-                                "formatPainter", "caseChange", "findAndReplace", "selectAll", "wproofreader", "|",
-                                "insertTemplate", "tableOfContents", "|",
-                                "link", "blockQuote", "codeBlock", "horizontalLine", "specialCharacters", "-",
-                                "heading", "style", "|",
-                                "bold", "italic", "underline", "strikethrough",
+                                "alignment",
+                                "|",
+                                "undo",
+                                "redo",
+                                "|",
+                                "importWord",
+                                "exportWord",
+                                "exportPdf",
+                                "|",
+                                "formatPainter",
+                                "caseChange",
+                                "findAndReplace",
+                                "selectAll",
+                                "wproofreader",
+                                "|",
+                                "insertTemplate",
+                                "tableOfContents",
+                                "|",
+                                "link",
+                                "blockQuote",
+                                "codeBlock",
+                                "horizontalLine",
+                                "specialCharacters",
+                                "-",
+                                "heading",
+                                "style",
+                                "|",
+                                "bold",
+                                "italic",
+                                "underline",
+                                "strikethrough",
                                 {
                                   label: "Basic styles",
                                   icon: "text",
                                   items: [
-                                    "fontSize", "fontFamily", "fontColor", "fontBackgroundColor",
-                                    "highlight", "superscript", "subscript", "code", "|",
-                                    "textPartLanguage", "|",
+                                    "fontSize",
+                                    "fontFamily",
+                                    "fontColor",
+                                    "fontBackgroundColor",
+                                    "highlight",
+                                    "superscript",
+                                    "subscript",
+                                    "code",
+                                    "|",
+                                    "textPartLanguage",
+                                    "|",
                                   ],
                                 },
-                                "removeFormat", "|",
-                                "bulletedList", "numberedList", "multilevelList", "todoList", "|",
-                                "outdent", "indent",
+                                "removeFormat",
+                                "|",
+                                "bulletedList",
+                                "numberedList",
+                                "multilevelList",
+                                "todoList",
+                                "|",
+                                "outdent",
+                                "indent",
                               ],
-                              alignment: { options: ["left", "right", "center", "justify"] },
+                              alignment: {
+                                options: ["left", "right", "center", "justify"],
+                              },
                               plugins: [
-                                GeneralHtmlSupport, Bold, Alignment, Essentials, Heading, Indent, IndentBlock,
-                                Italic, Link, List, Paragraph, Undo, Base64UploadAdapter, Indent,
-                                IndentBlock, Italic, Link, List, ListProperties, Mention,
-                                RemoveFormat, SpecialCharacters, SpecialCharactersEssentials,
-                                Strikethrough, Style, Subscript, Superscript, TextPartLanguage,
-                                TextTransformation, TodoList, Underline, WordCount,
+                                GeneralHtmlSupport,
+                                Bold,
+                                Alignment,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                Paragraph,
+                                Undo,
+                                Base64UploadAdapter,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                ListProperties,
+                                Mention,
+                                RemoveFormat,
+                                SpecialCharacters,
+                                SpecialCharactersEssentials,
+                                Strikethrough,
+                                Style,
+                                Subscript,
+                                Superscript,
+                                TextPartLanguage,
+                                TextTransformation,
+                                TodoList,
+                                Underline,
+                                WordCount,
                               ],
                               fontFamily: { supportAllValues: true },
                               fontSize: {
                                 options: [10, 12, 14, "default", 18, 20, 22],
                                 supportAllValues: true,
                               },
-                              fontColor: { columns: 12, colors: REDUCED_MATERIAL_COLORS },
-                              fontBackgroundColor: { columns: 12, colors: REDUCED_MATERIAL_COLORS },
+                              fontColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              fontBackgroundColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
                               heading: {
                                 options: [
-                                  { model: "paragraph", title: "Paragraph", class: "ck-heading_paragraph" },
-                                  { model: "heading1", view: "h1", title: "Heading 1", class: "ck-heading_heading1" },
-                                  { model: "heading2", view: "h2", title: "Heading 2", class: "ck-heading_heading2" },
-                                  { model: "heading3", view: "h3", title: "Heading 3", class: "ck-heading_heading3" },
-                                  { model: "heading4", view: "h4", title: "Heading 4", class: "ck-heading_heading4" },
-                                  { model: "heading5", view: "h5", title: "Heading 5", class: "ck-heading_heading5" },
-                                  { model: "heading6", view: "h6", title: "Heading 6", class: "ck-heading_heading6" },
+                                  {
+                                    model: "paragraph",
+                                    title: "Paragraph",
+                                    class: "ck-heading_paragraph",
+                                  },
+                                  {
+                                    model: "heading1",
+                                    view: "h1",
+                                    title: "Heading 1",
+                                    class: "ck-heading_heading1",
+                                  },
+                                  {
+                                    model: "heading2",
+                                    view: "h2",
+                                    title: "Heading 2",
+                                    class: "ck-heading_heading2",
+                                  },
+                                  {
+                                    model: "heading3",
+                                    view: "h3",
+                                    title: "Heading 3",
+                                    class: "ck-heading_heading3",
+                                  },
+                                  {
+                                    model: "heading4",
+                                    view: "h4",
+                                    title: "Heading 4",
+                                    class: "ck-heading_heading4",
+                                  },
+                                  {
+                                    model: "heading5",
+                                    view: "h5",
+                                    title: "Heading 5",
+                                    class: "ck-heading_heading5",
+                                  },
+                                  {
+                                    model: "heading6",
+                                    view: "h6",
+                                    title: "Heading 6",
+                                    class: "ck-heading_heading6",
+                                  },
                                 ],
                               },
-                            }} />
+                            }}
+                          />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
@@ -402,55 +535,161 @@ function EditVisiMisiPanti() {
                             }}
                             config={{
                               toolbar: [
-                                "alignment", "|",
-                                "undo", "redo", "|",
-                                "importWord", "exportWord", "exportPdf", "|",
-                                "formatPainter", "caseChange", "findAndReplace", "selectAll", "wproofreader", "|",
-                                "insertTemplate", "tableOfContents", "|",
-                                "link", "blockQuote", "codeBlock", "horizontalLine", "specialCharacters", "-",
-                                "heading", "style", "|",
-                                "bold", "italic", "underline", "strikethrough",
+                                "alignment",
+                                "|",
+                                "undo",
+                                "redo",
+                                "|",
+                                "importWord",
+                                "exportWord",
+                                "exportPdf",
+                                "|",
+                                "formatPainter",
+                                "caseChange",
+                                "findAndReplace",
+                                "selectAll",
+                                "wproofreader",
+                                "|",
+                                "insertTemplate",
+                                "tableOfContents",
+                                "|",
+                                "link",
+                                "blockQuote",
+                                "codeBlock",
+                                "horizontalLine",
+                                "specialCharacters",
+                                "-",
+                                "heading",
+                                "style",
+                                "|",
+                                "bold",
+                                "italic",
+                                "underline",
+                                "strikethrough",
                                 {
                                   label: "Basic styles",
                                   icon: "text",
                                   items: [
-                                    "fontSize", "fontFamily", "fontColor", "fontBackgroundColor",
-                                    "highlight", "superscript", "subscript", "code", "|",
-                                    "textPartLanguage", "|",
+                                    "fontSize",
+                                    "fontFamily",
+                                    "fontColor",
+                                    "fontBackgroundColor",
+                                    "highlight",
+                                    "superscript",
+                                    "subscript",
+                                    "code",
+                                    "|",
+                                    "textPartLanguage",
+                                    "|",
                                   ],
                                 },
-                                "removeFormat", "|",
-                                "bulletedList", "numberedList", "multilevelList", "todoList", "|",
-                                "outdent", "indent",
+                                "removeFormat",
+                                "|",
+                                "bulletedList",
+                                "numberedList",
+                                "multilevelList",
+                                "todoList",
+                                "|",
+                                "outdent",
+                                "indent",
                               ],
-                              alignment: { options: ["left", "right", "center", "justify"] },
+                              alignment: {
+                                options: ["left", "right", "center", "justify"],
+                              },
                               plugins: [
-                                GeneralHtmlSupport, Bold, Alignment, Essentials, Heading, Indent, IndentBlock,
-                                Italic, Link, List, Paragraph, Undo, Base64UploadAdapter, Indent,
-                                IndentBlock, Italic, Link, List, ListProperties, Mention,
-                                RemoveFormat, SpecialCharacters, SpecialCharactersEssentials,
-                                Strikethrough, Style, Subscript, Superscript, TextPartLanguage,
-                                TextTransformation, TodoList, Underline, WordCount,
+                                GeneralHtmlSupport,
+                                Bold,
+                                Alignment,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                Paragraph,
+                                Undo,
+                                Base64UploadAdapter,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                ListProperties,
+                                Mention,
+                                RemoveFormat,
+                                SpecialCharacters,
+                                SpecialCharactersEssentials,
+                                Strikethrough,
+                                Style,
+                                Subscript,
+                                Superscript,
+                                TextPartLanguage,
+                                TextTransformation,
+                                TodoList,
+                                Underline,
+                                WordCount,
                               ],
                               fontFamily: { supportAllValues: true },
                               fontSize: {
                                 options: [10, 12, 14, "default", 18, 20, 22],
                                 supportAllValues: true,
                               },
-                              fontColor: { columns: 12, colors: REDUCED_MATERIAL_COLORS },
-                              fontBackgroundColor: { columns: 12, colors: REDUCED_MATERIAL_COLORS },
+                              fontColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              fontBackgroundColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
                               heading: {
                                 options: [
-                                  { model: "paragraph", title: "Paragraph", class: "ck-heading_paragraph" },
-                                  { model: "heading1", view: "h1", title: "Heading 1", class: "ck-heading_heading1" },
-                                  { model: "heading2", view: "h2", title: "Heading 2", class: "ck-heading_heading2" },
-                                  { model: "heading3", view: "h3", title: "Heading 3", class: "ck-heading_heading3" },
-                                  { model: "heading4", view: "h4", title: "Heading 4", class: "ck-heading_heading4" },
-                                  { model: "heading5", view: "h5", title: "Heading 5", class: "ck-heading_heading5" },
-                                  { model: "heading6", view: "h6", title: "Heading 6", class: "ck-heading_heading6" },
+                                  {
+                                    model: "paragraph",
+                                    title: "Paragraph",
+                                    class: "ck-heading_paragraph",
+                                  },
+                                  {
+                                    model: "heading1",
+                                    view: "h1",
+                                    title: "Heading 1",
+                                    class: "ck-heading_heading1",
+                                  },
+                                  {
+                                    model: "heading2",
+                                    view: "h2",
+                                    title: "Heading 2",
+                                    class: "ck-heading_heading2",
+                                  },
+                                  {
+                                    model: "heading3",
+                                    view: "h3",
+                                    title: "Heading 3",
+                                    class: "ck-heading_heading3",
+                                  },
+                                  {
+                                    model: "heading4",
+                                    view: "h4",
+                                    title: "Heading 4",
+                                    class: "ck-heading_heading4",
+                                  },
+                                  {
+                                    model: "heading5",
+                                    view: "h5",
+                                    title: "Heading 5",
+                                    class: "ck-heading_heading5",
+                                  },
+                                  {
+                                    model: "heading6",
+                                    view: "h6",
+                                    title: "Heading 6",
+                                    class: "ck-heading_heading6",
+                                  },
                                 ],
                               },
-                            }} />
+                            }}
+                          />
                         </div>
                         <div className="mb-3 col-lg-12">
                           <label className="form-label font-weight-bold">
@@ -465,66 +704,174 @@ function EditVisiMisiPanti() {
                             }}
                             config={{
                               toolbar: [
-                                "alignment", "|",
-                                "undo", "redo", "|",
-                                "importWord", "exportWord", "exportPdf", "|",
-                                "formatPainter", "caseChange", "findAndReplace", "selectAll", "wproofreader", "|",
-                                "insertTemplate", "tableOfContents", "|",
-                                "link", "blockQuote", "codeBlock", "horizontalLine", "specialCharacters", "-",
-                                "heading", "style", "|",
-                                "bold", "italic", "underline", "strikethrough",
+                                "alignment",
+                                "|",
+                                "undo",
+                                "redo",
+                                "|",
+                                "importWord",
+                                "exportWord",
+                                "exportPdf",
+                                "|",
+                                "formatPainter",
+                                "caseChange",
+                                "findAndReplace",
+                                "selectAll",
+                                "wproofreader",
+                                "|",
+                                "insertTemplate",
+                                "tableOfContents",
+                                "|",
+                                "link",
+                                "blockQuote",
+                                "codeBlock",
+                                "horizontalLine",
+                                "specialCharacters",
+                                "-",
+                                "heading",
+                                "style",
+                                "|",
+                                "bold",
+                                "italic",
+                                "underline",
+                                "strikethrough",
                                 {
                                   label: "Basic styles",
                                   icon: "text",
                                   items: [
-                                    "fontSize", "fontFamily", "fontColor", "fontBackgroundColor",
-                                    "highlight", "superscript", "subscript", "code", "|",
-                                    "textPartLanguage", "|",
+                                    "fontSize",
+                                    "fontFamily",
+                                    "fontColor",
+                                    "fontBackgroundColor",
+                                    "highlight",
+                                    "superscript",
+                                    "subscript",
+                                    "code",
+                                    "|",
+                                    "textPartLanguage",
+                                    "|",
                                   ],
                                 },
-                                "removeFormat", "|",
-                                "bulletedList", "numberedList", "multilevelList", "todoList", "|",
-                                "outdent", "indent",
+                                "removeFormat",
+                                "|",
+                                "bulletedList",
+                                "numberedList",
+                                "multilevelList",
+                                "todoList",
+                                "|",
+                                "outdent",
+                                "indent",
                               ],
-                              alignment: { options: ["left", "right", "center", "justify"] },
+                              alignment: {
+                                options: ["left", "right", "center", "justify"],
+                              },
                               plugins: [
-                                GeneralHtmlSupport, Bold, Alignment, Essentials, Heading, Indent, IndentBlock,
-                                Italic, Link, List, Paragraph, Undo, Base64UploadAdapter, Indent,
-                                IndentBlock, Italic, Link, List, ListProperties, Mention,
-                                RemoveFormat, SpecialCharacters, SpecialCharactersEssentials,
-                                Strikethrough, Style, Subscript, Superscript, TextPartLanguage,
-                                TextTransformation, TodoList, Underline, WordCount,
+                                GeneralHtmlSupport,
+                                Bold,
+                                Alignment,
+                                Essentials,
+                                Heading,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                Paragraph,
+                                Undo,
+                                Base64UploadAdapter,
+                                Indent,
+                                IndentBlock,
+                                Italic,
+                                Link,
+                                List,
+                                ListProperties,
+                                Mention,
+                                RemoveFormat,
+                                SpecialCharacters,
+                                SpecialCharactersEssentials,
+                                Strikethrough,
+                                Style,
+                                Subscript,
+                                Superscript,
+                                TextPartLanguage,
+                                TextTransformation,
+                                TodoList,
+                                Underline,
+                                WordCount,
                               ],
                               fontFamily: { supportAllValues: true },
                               fontSize: {
                                 options: [10, 12, 14, "default", 18, 20, 22],
                                 supportAllValues: true,
                               },
-                              fontColor: { columns: 12, colors: REDUCED_MATERIAL_COLORS },
-                              fontBackgroundColor: { columns: 12, colors: REDUCED_MATERIAL_COLORS },
+                              fontColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
+                              fontBackgroundColor: {
+                                columns: 12,
+                                colors: REDUCED_MATERIAL_COLORS,
+                              },
                               heading: {
                                 options: [
-                                  { model: "paragraph", title: "Paragraph", class: "ck-heading_paragraph" },
-                                  { model: "heading1", view: "h1", title: "Heading 1", class: "ck-heading_heading1" },
-                                  { model: "heading2", view: "h2", title: "Heading 2", class: "ck-heading_heading2" },
-                                  { model: "heading3", view: "h3", title: "Heading 3", class: "ck-heading_heading3" },
-                                  { model: "heading4", view: "h4", title: "Heading 4", class: "ck-heading_heading4" },
-                                  { model: "heading5", view: "h5", title: "Heading 5", class: "ck-heading_heading5" },
-                                  { model: "heading6", view: "h6", title: "Heading 6", class: "ck-heading_heading6" },
+                                  {
+                                    model: "paragraph",
+                                    title: "Paragraph",
+                                    class: "ck-heading_paragraph",
+                                  },
+                                  {
+                                    model: "heading1",
+                                    view: "h1",
+                                    title: "Heading 1",
+                                    class: "ck-heading_heading1",
+                                  },
+                                  {
+                                    model: "heading2",
+                                    view: "h2",
+                                    title: "Heading 2",
+                                    class: "ck-heading_heading2",
+                                  },
+                                  {
+                                    model: "heading3",
+                                    view: "h3",
+                                    title: "Heading 3",
+                                    class: "ck-heading_heading3",
+                                  },
+                                  {
+                                    model: "heading4",
+                                    view: "h4",
+                                    title: "Heading 4",
+                                    class: "ck-heading_heading4",
+                                  },
+                                  {
+                                    model: "heading5",
+                                    view: "h5",
+                                    title: "Heading 5",
+                                    class: "ck-heading_heading5",
+                                  },
+                                  {
+                                    model: "heading6",
+                                    view: "h6",
+                                    title: "Heading 6",
+                                    class: "ck-heading_heading6",
+                                  },
                                 ],
                               },
-                            }} />
+                            }}
+                          />
                         </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
                           style={{ color: "white", textDecoration: "none" }}
-                          href="/admin_visimisi"
-                        >
+                          href="/admin_visimisi">
                           Batal
                         </a>
                       </button>
-                      <button type="submit" className="btn-primary mt-3" disabled={isLoading}>
+                      <button
+                        type="submit"
+                        className="btn-primary mt-3"
+                        disabled={isLoading}>
                         {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>

@@ -6,11 +6,11 @@ import "aos/dist/aos.css";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
+import { uploadImageToS3, uploadImageToS31 } from "../../../../../utils/uploadToS3";
 
 const AddGalery = () => {
   const [judul, setJudul] = useState("");
-  const [foto, setFoto] = useState([]); // Mengubah dari single ke array
+  const [foto, setFoto] = useState([null]);
   const [deskripsi, setDeskripsi] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const history = useHistory();
@@ -20,21 +20,35 @@ const AddGalery = () => {
     AOS.init();
   }, []);
 
+  const handleFileChange = (index, file) => {
+    const updatedfoto = [...foto];
+    updatedfoto[index] = file;
+    setFoto(updatedfoto);
+  };
+
+  const addFileInput = () => {
+    setFoto([...foto, null]);
+  };
+
+  const removeFileInput = (index) => {
+    const updatedfoto = foto.filter((_, i) => i !== index);
+    setFoto(updatedfoto);
+  };
+
   const add = async (e) => {
     e.preventDefault();
-
     try {
-      const uploadedImageUrls = await Promise.all(
-        foto.map((file) => uploadImageToS3(file)) // Upload setiap file
-      );
+      let files = [];
+      if (foto && foto.length > 0) {
+        files = await uploadImageToS31(foto.filter((file) => file !== null));
+      }
 
-      // Kirim data ke API
       const response = await axios.post(
         `${API_DUMMY}/api/admin/galery`,
         {
           judul,
           deskripsi,
-          foto: uploadedImageUrls,
+          foto: files,
         },
         {
           headers: {
@@ -43,7 +57,6 @@ const AddGalery = () => {
         }
       );
 
-      // Periksa respons yang berhasil
       if (response.data.code === 200) {
         setShow(false); // Hide modal atau reset form
         Swal.fire({
@@ -53,7 +66,6 @@ const AddGalery = () => {
           timer: 1000, // Percepat timer
         });
 
-        // Redirect lebih cepat
         setTimeout(() => {
           history.push("/admin_galeri");
         }, 1000);
@@ -108,14 +120,12 @@ const AddGalery = () => {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}
-    >
+      }`}>
       <button
         id="show-sidebar"
         className="btn btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
+        style={{ color: "white", background: "#3a3f48" }}>
         <i className="fas fa-bars"></i>
       </button>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -142,7 +152,7 @@ const AddGalery = () => {
                           required
                         />
                       </div>
-                      <div className="mb-3 col-lg-6">
+                      {/* <div className="mb-3 col-lg-6">
                         <label className="form-label font-weight-bold">
                           Gambar
                         </label>
@@ -153,7 +163,36 @@ const AddGalery = () => {
                           onChange={handleImageChange}
                           className="form-control"
                         />
-                      </div>
+                      </div> */}
+                      {foto.map((file, index) => (
+                        <>
+                          <div className="mb-3 col-lg-6">
+                            <label>{`Foto ${index + 1}`}</label>
+                            <div className="d-flex align-items-center">
+                              <input
+                                type="file"
+                                onChange={(e) =>
+                                  handleFileChange(index, e.target.files[0])
+                                }
+                              />
+                              {index === foto.length - 1 ? (
+                                <button
+                                  className="btn-success ms-2"
+                                  onClick={addFileInput}>
+                                  +
+                                </button>
+                              ) : (
+                                <button
+                                  className="btn-danger ms-2"
+                                  onClick={() => removeFileInput(index)}>
+                                  Hapus
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                          <br />
+                        </>
+                      ))}
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
                           Deskripsi
@@ -164,15 +203,13 @@ const AddGalery = () => {
                           onChange={(e) => setDeskripsi(e.target.value)}
                           className="form-control"
                           placeholder="Masukkan Deskripsi"
-                          required
-                        ></textarea>
+                          required></textarea>
                       </div>
                     </div>
                     <button
                       type="button"
                       className="btn btn-danger mt-3 mr-3"
-                      onClick={() => (window.location.href = "/admin-galery")}
-                    >
+                      onClick={() => (window.location.href = "/admin-galery")}>
                       Batal
                     </button>
                     <button type="submit" className="btn btn-primary mt-3">
