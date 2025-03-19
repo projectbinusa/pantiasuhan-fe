@@ -30,7 +30,7 @@ function Web() {
         console.log("res: ", response.data.data);
         setDatas(res);
         setLogo(res.logo);
-        setFont(res.font);
+        // setFont(res.font);
         setBg(res.background);
         setBg2(res.background2);
         setBanner(res.banner);
@@ -57,6 +57,7 @@ function Web() {
 
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const toggleSidebar = () => setSidebarToggled(!sidebarToggled);
+
 
   return (
     <div
@@ -126,7 +127,7 @@ function Web() {
                     value={subtitle}
                     disabled
                   />
-                </div>  
+                </div>
                 <div className="mb-3">
                   <label className="form-label fw-bold">
                     Warna Background 1
@@ -174,7 +175,7 @@ function Web() {
                     disabled
                   />
                 </div>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <label className="form-label fw-bold">Font</label>
                   <input
                     type="text"
@@ -182,7 +183,7 @@ function Web() {
                     value={font || ""}
                     disabled
                   />
-                </div>
+                </div> */}
                 <div className="mb-3">
                   <label className="form-label fw-bold">Link Youtube</label>
                   <input

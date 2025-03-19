@@ -221,7 +221,7 @@ function PublikProgram() {
                       style={{
                         fontSize: "1.5rem",
                         fontWeight: "bold",
-                        color: "#004080",
+                        color: "var(--custom-bg)",
                         marginBottom: "10px",
                       }}
                     >
@@ -248,7 +248,7 @@ function PublikProgram() {
                         style={{
                           width: "16px",
                           height: "16px",
-                          color: "#004080",
+                          color: "var(--custom-bg)",
                           marginRight: "5px",
                         }}
                       >
@@ -283,7 +283,7 @@ function PublikProgram() {
                         alignItems: "center",
                         fontSize: "0.9rem",
                         fontWeight: "bold",
-                        color: "#004080",
+                        color: "var(--custom-bg)",
                         textDecoration: "none",
                         transition: "color 0.3s ease",
                       }}
@@ -291,7 +291,7 @@ function PublikProgram() {
                         (e.currentTarget.style.color = "#0066cc")
                       }
                       onMouseOut={(e) =>
-                        (e.currentTarget.style.color = "#004080")
+                        (e.currentTarget.style.color = "var(--custom-bg)")
                       }
                     >
                       <span style={{ marginRight: "8px" }}>Selengkapnya</span>

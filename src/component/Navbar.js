@@ -349,7 +349,7 @@ function Navbar() {
                 </a>
               </li>
               <li className="">
-                <span
+                <a
                   onClick={handleVisiMisiClick}
                   style={{
                     cursor: "pointer",
@@ -359,7 +359,7 @@ function Navbar() {
                   }}
                 >
                   Visi Misi
-                </span>
+                </a>
               </li>
 
               <li className="" style={{ position: "relative" }}>
@@ -385,7 +385,7 @@ function Navbar() {
                       position: "absolute",
                       top: "100%",
                       left: 0,
-                      backgroundColor: "#001F5B",
+                      backgroundColor: "var(--custom-bg)",
                       listStyle: "none",
                       padding: "5px 0",
                       margin: 0,
