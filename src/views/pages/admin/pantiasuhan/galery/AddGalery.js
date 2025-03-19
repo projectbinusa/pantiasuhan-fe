@@ -10,7 +10,7 @@ import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 const AddGalery = () => {
   const [judul, setJudul] = useState("");
-  const [foto, setFoto] = useState([]); // Mengubah dari single ke array
+  const [foto, setFoto] = useState([]); // Array untuk menyimpan gambar
   const [deskripsi, setDeskripsi] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const history = useHistory();
@@ -23,18 +23,27 @@ const AddGalery = () => {
   const add = async (e) => {
     e.preventDefault();
 
+    if (foto.length === 0) {
+      Swal.fire({
+        icon: "warning",
+        title: "Pilih setidaknya satu gambar!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+
     try {
       const uploadedImageUrls = await Promise.all(
-        foto.map((file) => uploadImageToS3(file)) // Upload setiap file
+        foto.map((file) => uploadImageToS3(file)) // Upload semua gambar
       );
 
-      // Kirim data ke API
       const response = await axios.post(
         `${API_DUMMY}/api/admin/galery`,
         {
           judul,
           deskripsi,
-          foto: uploadedImageUrls,
+          foto: uploadedImageUrls, // Simpan array URL gambar
         },
         {
           headers: {
@@ -43,17 +52,15 @@ const AddGalery = () => {
         }
       );
 
-      // Periksa respons yang berhasil
       if (response.data.code === 200) {
-        setShow(false); // Hide modal atau reset form
+        setShow(false);
         Swal.fire({
           icon: "success",
           title: "Data Berhasil Ditambahkan",
           showConfirmButton: false,
-          timer: 1000, // Percepat timer
+          timer: 1000,
         });
 
-        // Redirect lebih cepat
         setTimeout(() => {
           history.push("/admin_galeri");
         }, 1000);
@@ -100,15 +107,17 @@ const AddGalery = () => {
   }, []);
 
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files); // Ubah FileList ke array
-    setFoto(files); // Simpan semua file dalam state
+    const files = Array.from(e.target.files);
+    setFoto([...foto, ...files]); // Tambahkan gambar baru ke state tanpa menghapus yang lama
+  };
+
+  const removeImage = (index) => {
+    setFoto(foto.filter((_, i) => i !== index)); // Hapus gambar tertentu
   };
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
     >
       <button
         id="show-sidebar"
@@ -154,6 +163,31 @@ const AddGalery = () => {
                           className="form-control"
                         />
                       </div>
+                      {/* Preview gambar yang dipilih */}
+                      <div className="mb-3 col-lg-12">
+                        {foto.length > 0 && (
+                          <div className="d-flex flex-wrap">
+                            {foto.map((file, index) => (
+                              <div key={index} className="m-2 position-relative">
+                                <img
+                                  src={URL.createObjectURL(file)}
+                                  alt="Preview"
+                                  className="img-thumbnail"
+                                  style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                                />
+                                <button
+                                  type="button"
+                                  className="btn btn-danger btn-sm position-absolute"
+                                  style={{ top: "5px", right: "5px" }}
+                                  onClick={() => removeImage(index)}
+                                >
+                                  &times;
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
                           Deskripsi
@@ -170,12 +204,12 @@ const AddGalery = () => {
                     </div>
                     <button
                       type="button"
-                      className="btn btn-danger mt-3 mr-3"
+                      className="btn-danger mt-3 mr-3"
                       onClick={() => (window.location.href = "/admin-galery")}
                     >
                       Batal
                     </button>
-                    <button type="submit" className="btn btn-primary mt-3">
+                    <button type="submit" className="btn-primary mt-3">
                       Submit
                     </button>
                   </form>
