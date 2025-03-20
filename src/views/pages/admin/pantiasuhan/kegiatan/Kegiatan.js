@@ -255,28 +255,9 @@ function KegiatanPanti() {
                           >
                             <p className="content-isi">{kegiatan.judul}</p>
                           </td>
-                          <td
-                            data-label="Penulis"
-                            className="text-md-start text-end"
-                          >
-                            {kegiatan.penulis}
-                          </td>
-                          <td
-                            data-label="Tanggal Program"
-                            className="text-md-start text-end"
-                          >
-                            {new Intl.DateTimeFormat("id-ID", {
-                              day: "2-digit",
-                              month: "long",
-                              year: "numeric",
-                            }).format(new Date(kegiatan.tanggal))}
-                          </td>
-
-                          {/* <td
-                            data-label="Tanggal Dibuat"
-                            className="text-md-start text-end"
-                          >
-                            {kegiatan.created_date}
+                          <td data-label="Penulis" className="text-md-start text-end">{kegiatan.penulis}</td>
+                          <td data-label="Tanggal Dibuat" className="text-md-start text-end">
+                            {kegiatan.tanggal}
                           </td>
                           <td
                             data-label="Tanggal Update"

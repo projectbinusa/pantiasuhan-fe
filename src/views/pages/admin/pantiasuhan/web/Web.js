@@ -17,6 +17,10 @@ function Web() {
   const [title, setTitle] = useState("Panti Asuhan Muhammadiyah");
   const [subtitle, setSubtitle] = useState("Pantinya Sang Juara");
 
+  // Tambahkan state untuk gambar visi dan misi
+  const [visiImage, setVisiImage] = useState("");
+  const [misiImage, setMisiImage] = useState("");
+
   const getAll = async () => {
     try {
       const response = await axios.get(`${API_DUMMY}/api/admin/web`, {
@@ -40,6 +44,10 @@ function Web() {
         setFacebook(res.facebook);
         setTitle(res.title || "Panti Asuhan Muhammadiyah");
         setSubtitle(res.subtitle || "Pantinya Sang Juara");
+
+        // Set gambar visi dan misi jika ada
+        setVisiImage(res.visiImage || "");
+        setMisiImage(res.misiImage || "");
       }
     } catch (error) {
       console.error("Terjadi Kesalahan:", error);
@@ -202,53 +210,34 @@ function Web() {
                     disabled
                   />
                 </div>
+
+                {/* Input dan tampilan gambar visi */}
                 <div className="mb-3">
-                  <label className="form-label fw-bold">Link Facebook</label>
+                  <label className="form-label fw-bold">Gambar Visi</label>
                   <input
                     type="text"
                     className="form-control"
-                    value={facebook || ""}
+                    value={visiImage || ""}
                     disabled
                   />
+                  {visiImage && (
+                    <img
+                      className="w-50 d-block mx-auto mt-2"
+                      style={{
+                        maxWidth: "300px",
+                        maxHeight: "300px",
+                        borderRadius: "10px",
+                      }}
+                      src={visiImage}
+                      alt="Gambar Visi"
+                    />
+                  )}
                 </div>
+
               </div>
             </div>
           </div>
         </div>
-        {/* Bagian untuk menampilkan banner dengan background dan font yang diambil dari state */}
-        {/* <div
-          style={{ backgroundImage: `url(${bg})` }}
-          className="banner-area banner-area-1 bg-black bg-relative"
-        >
-          <div
-            className="banner-bg-img"
-            style={{
-              backgroundImage: `url(${bg2})`,
-              backgroundColor: "rgba(0, 0, 0, 0.7)",
-            }}
-          ></div>
-          <div className="container">
-            <div className="order-lg-first align-self-center">
-              <div
-                data-aos="zoom-out-right"
-                className="banner-inner style-white text-center text-lg-start"
-                style={{ fontFamily: font }}
-              >
-                <h2 className="title d-none d-lg-inline-block">
-                  {title} <br />
-                  <span>{subtitle}</span>
-                </h2>
-                <h2
-                  style={{ fontSize: "30px", color: "white" }}
-                  className="d-inline-block d-lg-none"
-                >
-                  {title} <br />
-                  <span>{subtitle}</span>
-                </h2>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

@@ -170,6 +170,21 @@ function Galery() {
     setImageSrc(""); // Reset URL gambar
   };
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const nextImage = () => {
+    if (currentIndex < imageSrc.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+  
+  // Fungsi untuk pindah ke gambar sebelumnya
+  const prevImage = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+
   return (
     <div
       className={`page-wrapper chiller-theme ${
@@ -366,8 +381,23 @@ function Galery() {
         open={isModalOpen}
         onClose={closeModal}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
-        <Box sx={style}>
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "relative",
+            width: "60%",
+            maxWidth: "500px",
+            margin: "auto",
+            marginTop: "10vh",
+            padding: "20px",
+            backgroundColor: "white",
+            borderRadius: "8px",
+            textAlign: "center",
+          }}
+        >
+          {/* Tombol Close */}
+
           <button
             onClick={closeModal}
             style={{
@@ -382,12 +412,12 @@ function Galery() {
             }}
             aria-label="Close">
             ✖
-          </button>{" "}
-          <br />
+          </button>
+
           {/* Gambar */}
-          {imageSrc && (
+          {imageSrc.length > 0 && (
             <img
-              src={imageSrc}
+              src={imageSrc[currentIndex]}
               alt="Preview"
               style={{
                 maxWidth: "100%",
@@ -396,6 +426,44 @@ function Galery() {
               }}
             />
           )}
+
+          {/* Navigasi Gambar */}
+          <div style={{ marginTop: "10px" }}>
+            <button
+              onClick={prevImage}
+              disabled={currentIndex === 0}
+              style={{
+                marginRight: "10px",
+                padding: "8px 12px",
+                backgroundColor: currentIndex === 0 ? "#ccc" : "#007bff",
+                color: "white",
+                border: "none",
+                borderRadius: "4px",
+                cursor: currentIndex === 0 ? "not-allowed" : "pointer",
+              }}
+            >
+              ← Previous
+            </button>
+
+            <button
+              onClick={nextImage}
+              disabled={currentIndex === imageSrc.length - 1}
+              style={{
+                padding: "8px 12px",
+                backgroundColor:
+                  currentIndex === imageSrc.length - 1 ? "#ccc" : "#007bff",
+                color: "white",
+                border: "none",
+                borderRadius: "4px",
+                cursor:
+                  currentIndex === imageSrc.length - 1
+                    ? "not-allowed"
+                    : "pointer",
+              }}
+            >
+              Next →
+            </button>
+          </div>
         </Box>
       </Modal>
     </div>

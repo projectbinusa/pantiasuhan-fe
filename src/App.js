@@ -1509,11 +1509,11 @@ function App() {
               component={DataTahsinMonth}
               exact
             />
-            {/* <PrivateRoute
+            <PrivateRoute
               path="/guru/tahsin/year"
               component={DataTahsinYear}
               exact
-            /> */}
+            />
             <PrivateRoute
               path="/guru/tahsin/day"
               component={DataTahsinDay}

@@ -4,10 +4,10 @@ import Swal from "sweetalert2";
 import AOS from "aos";
 import { Box, Modal, Pagination } from "@mui/material";
 import "../../../../css/button.css";
-import { API_DUMMY_SMART } from "../../../../utils/base_URL";
+import { API_DUMMY_SMART, API_DUMMY_BYRTGHN } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
-function GuruDataTahsin() {
+function DataTahsinYear() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -79,7 +79,7 @@ function GuruDataTahsin() {
 
     try {
       const response = await axios.put(
-        `${API_DUMMY_SMART}/api/customer/tahsin/${selectedTahsinId}/status`,
+        `${API_DUMMY_BYRTGHN}/api/customer/tahsin/${selectedTahsinId}/status`,
         data,
         {
           headers: {
@@ -132,7 +132,7 @@ function GuruDataTahsin() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/member/guru/tahsin?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-year/organization?page=${currentPage}&limit=${rowsPerPage}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -760,4 +760,4 @@ function GuruDataTahsin() {
   );
 }
 
-export default GuruDataTahsin;
+export default DataTahsinYear;

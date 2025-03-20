@@ -37,18 +37,28 @@ const AddGalery = () => {
 
   const add = async (e) => {
     e.preventDefault();
+
+    if (foto.length === 0) {
+      Swal.fire({
+        icon: "warning",
+        title: "Pilih setidaknya satu gambar!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+
     try {
-      let files = [];
-      if (foto && foto.length > 0) {
-        files = await uploadImageToS31(foto.filter((file) => file !== null));
-      }
+      const uploadedImageUrls = await Promise.all(
+        foto.map((file) => uploadImageToS3(file)) // Upload semua gambar
+      );
 
       const response = await axios.post(
         `${API_DUMMY}/api/admin/galery`,
         {
           judul,
           deskripsi,
-          foto: files,
+          foto: uploadedImageUrls, /
         },
         {
           headers: {
@@ -58,12 +68,12 @@ const AddGalery = () => {
       );
 
       if (response.data.code === 200) {
-        setShow(false); // Hide modal atau reset form
+        setShow(false);
         Swal.fire({
           icon: "success",
           title: "Data Berhasil Ditambahkan",
           showConfirmButton: false,
-          timer: 1000, // Percepat timer
+          timer: 1000,
         });
 
         setTimeout(() => {
@@ -112,8 +122,12 @@ const AddGalery = () => {
   }, []);
 
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files); // Ubah FileList ke array
-    setFoto(files); // Simpan semua file dalam state
+    const files = Array.from(e.target.files);
+    setFoto([...foto, ...files]); // Tambahkan gambar baru ke state tanpa menghapus yang lama
+  };
+
+  const removeImage = (index) => {
+    setFoto(foto.filter((_, i) => i !== index)); // Hapus gambar tertentu
   };
 
   return (
@@ -163,36 +177,32 @@ const AddGalery = () => {
                           onChange={handleImageChange}
                           className="form-control"
                         />
-                      </div> */}
-                      {foto.map((file, index) => (
-                        <>
-                          <div className="mb-3 col-lg-6">
-                            <label>{`Foto ${index + 1}`}</label>
-                            <div className="d-flex align-items-center">
-                              <input
-                                type="file"
-                                onChange={(e) =>
-                                  handleFileChange(index, e.target.files[0])
-                                }
-                              />
-                              {index === foto.length - 1 ? (
+                      </div>
+                      {/* Preview gambar yang dipilih */}
+                      <div className="mb-3 col-lg-12">
+                        {foto.length > 0 && (
+                          <div className="d-flex flex-wrap">
+                            {foto.map((file, index) => (
+                              <div key={index} className="m-2 position-relative">
+                                <img
+                                  src={URL.createObjectURL(file)}
+                                  alt="Preview"
+                                  className="img-thumbnail"
+                                  style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                                />
                                 <button
-                                  className="btn-success ms-2"
-                                  onClick={addFileInput}>
-                                  +
+                                  type="button"
+                                  className="btn btn-danger btn-sm position-absolute"
+                                  style={{ top: "5px", right: "5px" }}
+                                  onClick={() => removeImage(index)}
+                                >
+                                  &times;
                                 </button>
-                              ) : (
-                                <button
-                                  className="btn-danger ms-2"
-                                  onClick={() => removeFileInput(index)}>
-                                  Hapus
-                                </button>
-                              )}
-                            </div>
+                              </div>
+                            ))}
                           </div>
-                          <br />
-                        </>
-                      ))}
+                        )}
+                      </div>
                       <div className="mb-3 col-lg-12">
                         <label className="form-label font-weight-bold">
                           Deskripsi
@@ -212,7 +222,7 @@ const AddGalery = () => {
                       onClick={() => (window.location.href = "/admin-galery")}>
                       Batal
                     </button>
-                    <button type="submit" className="btn btn-primary mt-3">
+                    <button type="submit" className="btn-primary mt-3">
                       Submit
                     </button>
                   </form>

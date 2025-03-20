@@ -295,32 +295,17 @@ function Home() {
 
   // GET ALL ALUMNI
   const [galery, setGalery] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [imageSrc, setImageSrc] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const openModal = (image) => {
-    setImageSrc(image);
-    setIsModalOpen(true);
+    setSelectedImage(image);
+    setModalIsOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
-    setImageSrc(null);
-  };
-
-  const stylee = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "80%",
-    maxWidth: "600px",
-    bgcolor: "white",
-    boxShadow: 24,
-    p: 4,
-    borderRadius: "8px",
-    textAlign: "center",
+    setModalIsOpen(false);
+    setSelectedImage(null);
   };
 
   const getAllGalery = async () => {
@@ -523,22 +508,6 @@ function Home() {
   }, []);
   // GET VISI MISI PANTI
   const [visiPanti, setVisiPanti] = useState(null);
-  const [selectedImagevs, setSelectedImagevs] = useState(null);
-  const [showInput, setShowInput] = useState(false);
-  const [tempImage, setTempImage] = useState(null);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setTempImage(imageUrl);
-    }
-  };
-
-  const handleSaveImage = () => {
-    setSelectedImagevs(tempImage);
-    setShowInput(false);
-  };
 
   const getAllVisiMisiPanti = async () => {
     try {
@@ -855,8 +824,8 @@ function Home() {
           </div>
         </div>
       </div> */}
-
-      {/* Sambutan */}
+      
+        {/* Sambutan */}
       <div class="testimonial-slider bg-sky bg-relative testimonial-slider-bg pd-top-120 pd-bottom-120">
         <div class="container bg-relative">
           <div class="slider testimonial-thumb">
@@ -876,7 +845,7 @@ function Home() {
                       }
                       alt="img"
                       style={{
-                        maxWidth: "60%",
+                        maxWidth: "60%"
                       }}
                     />
                     {/* <img src={sambutanPanti?.foto} alt="img" /> */}
@@ -944,61 +913,34 @@ function Home() {
       </div>
 
       {/* visi misi */}
-      <div id="visi-misi" className="about-area pd-top-120 pd-bottom-120">
+      <div id="visi-misi" class="about-area pd-top-120 pd-bottom-120">
         <div className="container">
-          <div className="row justify-content-end p-3 p-lg-0">
-            <div className="col-lg-6 px-xl-5 order-lg-last text-lg-end">
-              <div data-aos="fade-left" className="thumb">
-                <img
-                  src={visiPanti?.visi || visimisi}
-                  alt="img"
-                  style={{
-                    width: "100%",
-                    maxHeight: "400px",
-                    objectFit: "cover",
-                  }}
-                />
-                {/* {!showInput ? (
-                  <button
-                    className=" btn-primary mt-3"
-                    onClick={() => setShowInput(true)}>
-                    Ubah Gambar
-                  </button>
-                ) : (
-                  <>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      className="form-control mt-3"
-                    />
-                    {tempImage && (
-                      <button
-                        className=" btn-success mt-2"
-                        onClick={handleSaveImage}>
-                        Simpan
-                      </button>
-                    )}
-                  </>
-                )} */}
+          <div class="row justify-content-end p-3 p-lg-0">
+            <div class="col-lg-6 px-xl-5 order-lg-last text-lg-end">
+              <div data-aos="fade-left" class="thumb">
+                <img src={visimisi} alt="img" />
+
               </div>
             </div>
             <div
               data-aos="fade-right"
-              className="col-lg-6 pe-xl-5 order-lg-first align-self-center">
-              <div className="section-title mb-0">
-                <h2 className="title">Visi Misi</h2>
+              class="col-lg-6 pe-xl-5 order-lg-first align-self-center"
+            >
+              <div class="section-title mb-0">
+                {/* <h5 class="sub-title right-line">Faq</h5> */}
+                <h2 class="title">Visi Misi</h2>
+
                 <p>
                   Visi dan misi adalah panduan strategis organisasi untuk
                   mencapai tujuan jangka panjang melalui langkah-langkah
                   operasional yang terarah.
                 </p>
               </div>
-              <div className="accordion mt-4" id="accordionExample">
-                <div className="accordion-item single-accordion-inner">
-                  <h2 className="accordion-header" id="headingOne">
+              <div class="accordion mt-4" id="accordionExample">
+                <div class="accordion-item single-accordion-inner">
+                  <h2 class="accordion-header" id="headingOne">
                     <button
-                      className="accordion-button"
+                      class="accordion-button"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseOne"
@@ -1009,24 +951,30 @@ function Home() {
                   </h2>
                   <div
                     id="collapseOne"
-                    className="accordion-collapse collapse show"
+                    class="accordion-collapse collapse show"
                     aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample">
+                    data-bs-parent="#accordionExample"
+                  >
+                    {/* <div> */}
+
                     <div
-                      className="accordion-body"
+                      class="accordion-body"
                       style={{
                         fontSize: "1rem",
                         color: "white",
                         marginBottom: "15px",
                       }}
-                      dangerouslySetInnerHTML={{ __html: visiPanti?.visi }}
+                      dangerouslySetInnerHTML={{
+                        __html: visiPanti?.visi,
+                      }}
                     />
+                    {/* </div> */}
                   </div>
                 </div>
-                <div className="accordion-item single-accordion-inner">
-                  <h2 className="accordion-header" id="headingTwo">
+                <div class="accordion-item single-accordion-inner">
+                  <h2 class="accordion-header" id="headingTwo">
                     <button
-                      className="accordion-button collapsed"
+                      class="accordion-button collapsed"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseTwo"
@@ -1037,23 +985,25 @@ function Home() {
                   </h2>
                   <div
                     id="collapseTwo"
-                    className="accordion-collapse collapse"
+                    class="accordion-collapse collapse"
                     aria-labelledby="headingTwo"
                     data-bs-parent="#accordionExample">
                     <div
-                      className="accordion-body"
+                      class="accordion-body"
                       style={{
                         fontSize: "1rem",
                         marginBottom: "15px",
                       }}
-                      dangerouslySetInnerHTML={{ __html: visiPanti?.misi }}
+                      dangerouslySetInnerHTML={{
+                        __html: visiPanti?.misi,
+                      }}
                     />
                   </div>
                 </div>
-                <div className="accordion-item single-accordion-inner">
-                  <h2 className="accordion-header" id="headingThree">
+                <div class="accordion-item single-accordion-inner">
+                  <h2 class="accordion-header" id="headingThree">
                     <button
-                      className="accordion-button collapsed"
+                      class="accordion-button collapsed"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseThree"
@@ -1064,16 +1014,18 @@ function Home() {
                   </h2>
                   <div
                     id="collapseThree"
-                    className="accordion-collapse collapse"
+                    class="accordion-collapse collapse"
                     aria-labelledby="headingThree"
                     data-bs-parent="#accordionExample">
                     <div
-                      className="accordion-body"
+                      class="accordion-body"
                       style={{
                         fontSize: "1rem",
                         marginBottom: "15px",
                       }}
-                      dangerouslySetInnerHTML={{ __html: visiPanti?.tujuan }}
+                      dangerouslySetInnerHTML={{
+                        __html: visiPanti?.tujuan,
+                      }}
                     />
                   </div>
                 </div>
@@ -1081,6 +1033,7 @@ function Home() {
             </div>
           </div>
         </div>
+        {/* </div> */}
       </div>
 
       {/* Kegiatan */}
@@ -1782,113 +1735,80 @@ function Home() {
             "url('https://solverwp.com/demo/html/itechie/assets/img/bg/10.webp')",
           padding: "50px 0",
         }}
-        className="text-center">
-        <div className="container mt-4">
-          <h2 className="text-white text-center">Galeri</h2>
-          <p className="text-white text-center">
+        className="text-center"
+      >
+        <div className="container">
+          <h2 className="text-white">Galeri</h2>
+          <p className="text-white">
+
             Galeri panti asuhan menampilkan momen kebahagiaan, kreativitas, dan
             kegiatan sehari-hari anak-anak, mencerminkan semangat harapan dan
             kebersamaan yang indah.
           </p>
 
-          {/* Cek apakah galery memiliki data */}
+          {/* Pastikan `galery` tidak undefined atau null */}
           {galery && galery.length > 0 ? (
             <div
-              id="galleryCarousel"
-              className="carousel slide"
-              data-bs-ride="carousel">
-              <div className="carousel-inner">
-                {galery.slice(0, 6).map((item, index) => (
-                  <div
-                    key={index}
-                    className={`carousel-item ${index === 0 ? "active" : ""}`}>
-                    <img
-                      src={item.foto}
-                      alt={`Galeri ${index + 1}`}
-                      className="d-block w-100"
-                      style={{ height: "400px", objectFit: "cover" }}
-                      onClick={() => openModal(item.foto)}
-                    />
-                  </div>
-                ))}
-              </div>
+              className="d-grid"
+              style={{
+                gridTemplateColumns: "repeat(3, 1fr)", // 3 kolom
+                gridGap: "20px",
+              }}
+            >
+              {galery.slice(0, 6).map((item, index) => (
+                <div
+                  key={index}
+                  className="card border-0 shadow"
+                  style={{ borderRadius: "15px", overflow: "hidden" }}
+                  onClick={() => openModal(item.foto)}
+                >
+                  <img
+                    src={item.foto}
+                    alt="galery Item"
+                    className="img-fluid"
+                    style={{
+                      height: "200px",
+                      width: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+              ))}
 
-              {/* Tombol Navigasi */}
-              <button
-                className="carousel-control-prev"
-                type="button"
-                data-bs-target="#galleryCarousel"
-                data-bs-slide="prev"
-                style={{
-                  background: "none",
-                  border: "none",
-                }}>
-                <span
-                  className="carousel-control-prev-icon"
-                  aria-hidden="true"
-                  style={{
-                    filter: "invert(100%)",
-                  }}></span>
-                <span className="visually-hidden">Previous</span>
-              </button>
-
-              <button
-                className="carousel-control-next"
-                type="button"
-                data-bs-target="#galleryCarousel"
-                data-bs-slide="next"
-                style={{
-                  background: "none",
-                  border: "none",
-                }}>
-                <span
-                  className="carousel-control-next-icon"
-                  aria-hidden="true"
-                  style={{
-                    filter: "invert(100%)",
-                  }}></span>
-                <span className="visually-hidden">Next</span>
-              </button>
             </div>
           ) : (
-            <p className="text-white text-center">Tidak ada gambar tersedia</p>
+            <p className="text-white">Tidak ada gambar tersedia</p>
           )}
         </div>
 
-        <Modal
-          open={isModalOpen}
-          onClose={closeModal}
-          aria-labelledby="modal-modal-title">
-          <Box sx={stylee}>
-            <button
-              onClick={closeModal}
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                background: "transparent",
+         {/* Popup Modal */}
+        {modalIsOpen && selectedImage && (
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            style={{
+              content: {
+                top: "50%",
+                left: "50%",
+                right: "auto",
+                bottom: "auto",
+                marginRight: "-50%",
+                transform: "translate(-50%, -50%)",
+                background: "rgba(0,0,0,0.8)",
                 border: "none",
-                fontSize: "20px",
-                cursor: "pointer",
-                color: "black",
-              }}
-              aria-label="Close">
-              ✖
-            </button>
-            <br />
-            {imageSrc && (
-              <img
-                src={imageSrc}
-                alt="Preview"
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "70vh",
-                  borderRadius: "8px",
-                }}
-              />
-            )}
-          </Box>
-        </Modal>
+              },
+            }}
+          >
+            <img
+              src={selectedImage}
+              alt="Full Size"
+              className="img-fluid"
+              style={{ maxHeight: "80vh", maxWidth: "100%" }}
+              onClick={closeModal}
+            />
+          </Modal>
+        )}
+ 
       </div>
 
       {/* Santri */}

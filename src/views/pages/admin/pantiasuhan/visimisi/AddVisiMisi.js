@@ -65,6 +65,7 @@ function AddVisiMisiPanti() {
   const [visi, setVisi] = useState("");
   const [misi, setMisi] = useState("");
   const [tujuan, setTujuan] = useState("");
+  const [image, setImage] = useState(null);
   const [show, setShow] = useState(false);
   const history = useHistory();
   const [sidebarToggled, setSidebarToggled] = useState(true);
@@ -87,11 +88,14 @@ function AddVisiMisiPanti() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  //add
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]); // Simpan file ke state
+  };
+
   const add = async (e) => {
     e.preventDefault();
-    e.persist();
     setIsLoading(true);
+
     Swal.fire({
       title: "Loading...",
       text: "Please wait",
@@ -100,30 +104,38 @@ function AddVisiMisiPanti() {
         Swal.showLoading();
       },
     });
+
     try {
-      const data = {
-        visi: visi,
-        misi: misi,
-        tujuan: tujuan,
-        image_url: await uploadImageToS3(image),
-      };
-      await axios.post(`${API_DUMMY}/api/admin/visi-misi`, data, {
+      // Gunakan FormData untuk upload gambar
+      const formData = new FormData();
+      formData.append("visi", visi);
+      formData.append("misi", misi);
+      formData.append("tujuan", tujuan);
+      if (image) {
+        formData.append("image", image);
+      }
+
+      await axios.post(`${API_DUMMY}/api/admin/visi-misi`, formData, {
+
         headers: {
           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          "Content-Type": "multipart/form-data", // Penting untuk upload file
         },
       });
+
       setShow(false);
       Swal.fire({
         icon: "success",
-        title: "Data Berhasil DiTambahkan",
+        title: "Data Berhasil Ditambahkan",
         showConfirmButton: false,
         timer: 1500,
       });
+
       setTimeout(() => {
         history.push("/admin_visimisi");
       }, 1500);
     } catch (error) {
-      if (error.ressponse && error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         localStorage.clear();
         history.push("/login");
       } else {
@@ -271,6 +283,7 @@ function AddVisiMisiPanti() {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
+
       }`}>
       <a
         id="show-sidebar"
@@ -817,6 +830,17 @@ function AddVisiMisiPanti() {
                             }}
                           />
                         </div>
+                        <div className="mb-3">
+                          <label className="form-label font-weight-bold">
+                            Upload Gambar
+                          </label>
+                          <input
+                            type="file"
+                            className="form-control"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                          />
+                        </div>
                       </div>
                       <button type="button" className="btn-danger mt-3 mr-3">
                         <a
@@ -828,7 +852,8 @@ function AddVisiMisiPanti() {
                       <button
                         type="submit"
                         className="btn-primary mt-3"
-                        disabled={isLoading}>
+                        disabled={isLoading}
+                      >
                         {isLoading ? <span className="loader"></span> : "Kirim"}
                       </button>
                     </form>
