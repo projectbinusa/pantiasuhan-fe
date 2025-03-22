@@ -699,7 +699,6 @@ function Home() {
     document.documentElement.style.setProperty("--custom-bg2", bg2);
   }, [bg, bg2]);
 
-
   useEffect(() => {
     getAllVisiMisiPanti();
     getAllSambutanPanti();
@@ -757,8 +756,12 @@ function Home() {
         /> */}
       <Navbar />
       <div
-        style={{ backgroundImage: `url(${banner})` }}
-        class="banner-area banner-area-1 bg-black bg-relative">
+        style={{
+          backgroundImage: `url('${banner || backgroundImage1}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        className="banner-area banner-area-1 bg-black bg-relative">
         <div
           className="banner-bg-img"
           style={{
@@ -777,14 +780,14 @@ function Home() {
               class="banner-inner style-white text-center text-lg-start">
               {/* <h4 class="sub-title">Best it solution</h4> */}
               <h2 class="title d-none d-lg-inline-block">
-                {title} <br />
-                <span style={{ color: "var(--custom-bg2)" }}> {subtitle}</span>
+                {title || "Panti Asuhan Muhammadiyah"} <br />
+                <span style={{ color: "var(--custom-bg2)" }}> {subtitle || "Pantinya Sang Juara"}</span>
               </h2>
               <h2
                 style={{ fonrSize: "30px", color: "white" }}
                 class="d-inline-block d-lg-none">
-                {title} <br />
-                <span style={{ color: "var(--custom-bg2)" }}>{subtitle}</span>
+                {title || "Panti Asuhan Muhammadiyah"} <br />
+                <span style={{ color: "var(--custom-bg2)" }}>{subtitle || "Pantinya Sang Juara"}</span>
               </h2>
             </div>
           </div>
