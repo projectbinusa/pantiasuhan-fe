@@ -315,7 +315,7 @@ function App() {
     return null;
   };
 
-  const [bg, setBg] = useState("#0d2f74"); // Default warna putih
+  const [bg, setBg] = useState("#0d2f74");
   const [bg2, setBg2] = useState("#30c47a");
   const [font, setFont] = useState("");
 
@@ -347,6 +347,11 @@ function App() {
   }, []);
 
   useEffect(() => {
+    document.documentElement.style.setProperty("--custom-bg", bg);
+    document.documentElement.style.setProperty("--custom-bg2", bg2);
+  }, [bg, bg2]);
+
+  useEffect(() => {
     if (font) {
       const existingLink = document.getElementById("dynamic-font");
       if (existingLink) {
@@ -366,21 +371,8 @@ function App() {
         "--custom-font",
         `'${font}', sans-serif`
       );
-    } else {
-      document.documentElement.style.setProperty(
-        "--custom-font",
-        '"Lato", sans-serif'
-      );
     }
   }, [font]);
-
-  useEffect(() => {
-    document.documentElement.style.setProperty("--custom-bg", bg || "#0d2f74");
-    document.documentElement.style.setProperty(
-      "--custom-bg2",
-      bg2 || "#30c47a"
-    );
-  }, [bg, bg2]);
 
   return loading ? (
     <Loading />
