@@ -30,6 +30,7 @@ const AddGalery = () => {
     setFoto([...foto, null]);
   };
 
+
   const removeFileInput = (index) => {
     const updatedfoto = foto.filter((_, i) => i !== index);
     setFoto(updatedfoto);
