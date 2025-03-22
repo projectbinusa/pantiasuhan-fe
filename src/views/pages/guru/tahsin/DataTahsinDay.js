@@ -29,24 +29,23 @@ function DataTahsinDay() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [start_date, setStartDate] = useState("");
-  
 
   const getAll = async () => {
     try {
       const user = JSON.parse(localStorage.getItem("user")); // Ambil user dari localStorage
       const organization_id = user?.organization_id || ""; // Ambil organization_id dari user
-  
+
       if (!organization_id) {
         console.error("organization_id tidak ditemukan!");
         return; // Berhenti jika organization_id kosong
       }
-  
+
       const response = await axios.get(
         `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-day/member`,
         {
           params: {
             page: currentPage,
-            month: month || new Date().getMonth() + 1, 
+            month: month || new Date().getMonth() + 1,
             year: year || new Date().getFullYear(),
             organization_id, // Pastikan ini dikirim
           },
@@ -55,18 +54,20 @@ function DataTahsinDay() {
           },
         }
       );
-  
+
       setList(response.data.data);
       setPaginationInfo({
         totalPages: response.data.pagination.total_page,
       });
-  
+
       console.log("API Response:", response.data);
     } catch (error) {
-      console.error("Error fetching data:", error.response ? error.response.data : error);
+      console.error(
+        "Error fetching data:",
+        error.response ? error.response.data : error
+      );
     }
   };
-  
 
   useEffect(() => {
     getAll(currentPage);
@@ -179,7 +180,7 @@ function DataTahsinDay() {
                     type="date"
                     className="form-select form-select-sm"
                     value={start_date}
-                    style={{height: "35px", fontSize: "12px" }}
+                    style={{ height: "35px", fontSize: "12px" }}
                     onChange={(e) => setStartDate(e.target.value)}
                   />
                 </div>
