@@ -30,56 +30,66 @@ function DataTahsinWeek() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [start_date, setStartDate] = useState("");
   const [end_date, setEndDate] = useState("");
-  
 
   const getAll = async () => {
     try {
-        // Ambil data user dari localStorage
-        const userData = JSON.parse(localStorage.getItem("user"));
+      const userData = {
+        id: localStorage.getItem("id"),
+        organization_id: localStorage.getItem("organization_id"),
+        rolename: localStorage.getItem("rolename"),
+      };
 
-        console.log("User Data:", userData); // Debugging
+      console.log("User Data dari localStorage:", userData); // Debugging
 
-        if (!userData?.organization_id) {
-            console.error("organization_id tidak ditemukan di localStorage!");
-            return;
-        }
+      if (!userData.organization_id) {
+        console.error("organization_id tidak ditemukan dalam localStorage!");
+        return;
+      }
 
-        // Pastikan start_date dan end_date ada
-        if (!start_date || !end_date) {
-            console.error("start_date dan end_date harus diisi!");
-            return;
-        }
+      // Pastikan start_date dan end_date ada
+      if (!start_date || !end_date) {
+        console.error("start_date dan end_date harus diisi!");
+        return;
+      }
 
-        const token = localStorage.getItem("tokenpython"); // Pastikan token tersimpan dengan benar
-        if (!token) {
-            console.error("Token autentikasi tidak ditemukan!");
-            return;
-        }
+      const token = localStorage.getItem("tokenpython"); // Pastikan token tersimpan dengan benar
+      if (!token) {
+        console.error("Token autentikasi tidak ditemukan!");
+        return;
+      }
 
-        // Set konfigurasi header
-        const config = {
-            headers: {
-                "auth": `Bearer ${token}`,
-            },
-            params: {
-                start_date,
-                end_date,
-                organization_id: userData.organization_id
-            }
-        };
+      // Set konfigurasi header
+      const config = {
+        headers: {
+          "auth-tgh": `jwt ${token}`,
+        },
+        params: {
+          start_date,
+          end_date,
+          organization_id: userData.organization_id,
+        },
+      };
 
-        // Panggil API dengan axios
-        const response = await axios.get(`${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-week/member`, config);
+      // Panggil API dengan axios
+      const response = await axios.get(
+        `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-week/member`,
+        config
+      );
 
-        // Set data ke state
-        setList(response.data.data);
-        setPaginationInfo({ totalPages: response.data.pagination?.total_page || 1 });
+      // Set data ke state
+      setList(response.data.data);
+      setPaginationInfo({
+        totalPages: response.data.pagination?.total_page || 1,
+      });
 
-        console.log("API Response:", response.data);
+      console.log("API Response:", response.data);
     } catch (error) {
-        console.error("Error fetching data:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error fetching data:",
+        error.response ? error.response.data : error.message
+      );
     }
-};
+  };
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
@@ -248,11 +258,12 @@ function DataTahsinWeek() {
     setCurrentPage(1);
   };
 
-  const filteredList = list.filter((item) =>
+  const searchTermLower = (searchTerm || "").toLowerCase(); // Pastikan searchTerm terdefinisi
+  const filteredList = (list || []).filter((item) =>
     Object.values(item).some(
       (value) =>
         typeof value === "string" &&
-        value.toLowerCase().includes(searchTerm.toLowerCase())
+        value.toLowerCase().includes(searchTermLower)
     )
   );
 

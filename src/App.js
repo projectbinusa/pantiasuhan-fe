@@ -299,6 +299,7 @@ import DataTahsinDay from "./views/pages/guru/tahsin/DataTahsinDay.js";
 import axios from "axios";
 import { API_DUMMY } from "./utils/base_URL.js";
 import EditReplyKomentar from "./views/pages/admin/pantiasuhan/berita/EditReplyKomentar.js";
+import DataTahsinYear from "./views/pages/guru/tahsin/DataTahsinYear.js";
 
 function App() {
   const [loading, setLoading] = useState(true);

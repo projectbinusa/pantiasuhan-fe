@@ -6,7 +6,10 @@ import "aos/dist/aos.css";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { uploadImageToS3, uploadImageToS31 } from "../../../../../utils/uploadToS3";
+import {
+  uploadImageToS3,
+  uploadImageToS31,
+} from "../../../../../utils/uploadToS3";
 
 const AddGalery = () => {
   const [judul, setJudul] = useState("");
@@ -29,7 +32,6 @@ const AddGalery = () => {
   const addFileInput = () => {
     setFoto([...foto, null]);
   };
-
 
   const removeFileInput = (index) => {
     const updatedfoto = foto.filter((_, i) => i !== index);
@@ -59,7 +61,7 @@ const AddGalery = () => {
         {
           judul,
           deskripsi,
-          foto: uploadedImageUrls, /
+          foto: uploadedImageUrls,
         },
         {
           headers: {
@@ -135,12 +137,14 @@ const AddGalery = () => {
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-      }`}>
+      }`}
+    >
       <button
         id="show-sidebar"
         className="btn btn-lg"
         onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}>
+        style={{ color: "white", background: "#3a3f48" }}
+      >
         <i className="fas fa-bars"></i>
       </button>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
@@ -184,12 +188,19 @@ const AddGalery = () => {
                         {foto.length > 0 && (
                           <div className="d-flex flex-wrap">
                             {foto.map((file, index) => (
-                              <div key={index} className="m-2 position-relative">
+                              <div
+                                key={index}
+                                className="m-2 position-relative"
+                              >
                                 <img
                                   src={URL.createObjectURL(file)}
                                   alt="Preview"
                                   className="img-thumbnail"
-                                  style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                                  style={{
+                                    width: "100px",
+                                    height: "100px",
+                                    objectFit: "cover",
+                                  }}
                                 />
                                 <button
                                   type="button"
@@ -214,13 +225,15 @@ const AddGalery = () => {
                           onChange={(e) => setDeskripsi(e.target.value)}
                           className="form-control"
                           placeholder="Masukkan Deskripsi"
-                          required></textarea>
+                          required
+                        ></textarea>
                       </div>
                     </div>
                     <button
                       type="button"
                       className="btn btn-danger mt-3 mr-3"
-                      onClick={() => (window.location.href = "/admin-galery")}>
+                      onClick={() => (window.location.href = "/admin-galery")}
+                    >
                       Batal
                     </button>
                     <button type="submit" className="btn-primary mt-3">
