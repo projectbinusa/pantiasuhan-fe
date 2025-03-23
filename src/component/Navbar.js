@@ -268,7 +268,7 @@ function Navbar() {
         <div
           className="d-inline-block d-lg-none"
           style={{
-            background: "#0d2f74",
+            background: "var(--custom-bg2)",
             fontWeight: "bold",
             color: "white",
             overflow: "hidden",

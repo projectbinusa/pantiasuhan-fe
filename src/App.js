@@ -299,7 +299,8 @@ import DataTahsinDay from "./views/pages/guru/tahsin/DataTahsinDay.js";
 import axios from "axios";
 import { API_DUMMY } from "./utils/base_URL.js";
 import EditReplyKomentar from "./views/pages/admin/pantiasuhan/berita/EditReplyKomentar.js";
- 
+import DataTahsinYear from "./views/pages/guru/tahsin/DataTahsinYear.js";
+
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -315,24 +316,29 @@ function App() {
     return null;
   };
 
-  const [bg, setBg] = useState("#0d2f74"); // Default warna putih
+  const [bg, setBg] = useState("#0d2f74");
   const [bg2, setBg2] = useState("#30c47a");
   const [font, setFont] = useState("");
 
   const getAll = async () => {
     try {
       const response = await axios.get(`${API_DUMMY}/api/public/web`);
-
       const res = response.data.data;
-      if (res) {
-        setFont(res.font);
-        setBg(res.background);
-        setBg2(res.background2);
-        console.log("isi bg 1", bg);
-        console.log("isi bg 2", bg);
-      }
+
+      // Pastikan data dari API valid, jika tidak, gunakan default
+      setFont(res?.font || "Lato");
+      setBg(res?.background || "#0d2f74");
+      setBg2(res?.background2 || "#30c47a");
+
+      console.log("isi bg 1", res?.background || "#0d2f74");
+      console.log("isi bg 2", res?.background2 || "#30c47a");
     } catch (error) {
       console.error("Terjadi Kesalahan:", error);
+
+      // Jika terjadi error, tetap gunakan nilai default
+      setFont("Lato");
+      setBg("#0d2f74");
+      setBg2("#30c47a");
     }
   };
 
@@ -342,14 +348,17 @@ function App() {
   }, []);
 
   useEffect(() => {
+    document.documentElement.style.setProperty("--custom-bg", bg);
+    document.documentElement.style.setProperty("--custom-bg2", bg2);
+  }, [bg, bg2]);
+
+  useEffect(() => {
     if (font) {
-      // Hapus link lama jika ada
       const existingLink = document.getElementById("dynamic-font");
       if (existingLink) {
         document.head.removeChild(existingLink);
       }
 
-      // Tambahkan link baru ke Google Fonts
       const link = document.createElement("link");
       link.href = `https://fonts.googleapis.com/css2?family=${font.replace(
         /\s/g,
@@ -359,16 +368,12 @@ function App() {
       link.id = "dynamic-font";
       document.head.appendChild(link);
 
-      // Simpan ke CSS variable agar bisa digunakan di seluruh aplikasi
-      document.documentElement.style.setProperty("--custom-font", `'${font}', sans-serif`);
+      document.documentElement.style.setProperty(
+        "--custom-font",
+        `'${font}', sans-serif`
+      );
     }
   }, [font]);
-
-
-  useEffect(() => {
-    document.documentElement.style.setProperty("--custom-bg", bg);
-    document.documentElement.style.setProperty("--custom-bg2", bg2);
-  }, [bg, bg2]);
 
   return loading ? (
     <Loading />
