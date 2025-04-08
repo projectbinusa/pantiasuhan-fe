@@ -32,6 +32,7 @@ import FooterSekolah from "../../../component/FooterSekolah";
 
 function ShiftPublik() {
   const [list, setList] = useState([]);
+  const [guruList, setGuruList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -39,11 +40,21 @@ function ShiftPublik() {
     totalElements: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedMateri, setSelectedMateri] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [currentShiftId, setCurrentShiftId] = useState(null);
+  const [materiList, setMateriList] = useState([]);
 
-  const getAll = async () => {
+  const handleAbsenClick = (shiftId) => {
+    setCurrentShiftId(shiftId);
+    setShowModal(true);
+    getMateriKitab();
+  };
+
+  const getMateriKitab = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/public/shift?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/member/guru/materi_kitab`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -52,18 +63,57 @@ function ShiftPublik() {
         }
       );
 
-      const { data, pagination } = response.data;
-      console.log(data);
+      const data = response.data?.data || [];
+      setMateriList(data);
+    } catch (error) {
+      console.error(
+        "Gagal mengambil data materi kitab:",
+        error.response || error.message
+      );
+    }
+  };
 
-      if (data && pagination) {
-        setList(data);
+  const getAll = async () => {
+    try {
+      const headers = {
+        "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+        "x-origin": window.location.hostname,
+      };
+
+      // Panggil kedua API secara paralel
+      const [shiftResponse, guruResponse] = await Promise.all([
+        axios.get(
+          `${API_DUMMY_SMART}/api/public/shift?page=${currentPage}&limit=${rowsPerPage}`,
+          { headers }
+        ),
+        axios.get(`${API_DUMMY_SMART}/api/member/guru/shift`, { headers }),
+      ]);
+
+      // Ambil data dari shiftResponse
+      const { data: shiftData, pagination } = shiftResponse.data;
+
+      // Ambil dan filter data dari guruResponse
+      const guruDataRaw = guruResponse.data?.data || [];
+      const guruFiltered = guruDataRaw.filter((item) => item.level === "Guru");
+
+      console.log("Data Shift:", shiftData);
+      console.log("Data Guru Level 'Guru':", guruFiltered);
+
+      // Simpan ke state
+      if (shiftData && pagination) {
+        setList(shiftData);
         setPaginationInfo({
           totalPages: pagination.total_page,
           totalElements: pagination.total,
         });
       } else {
-        console.error("Data atau pagination tidak ditemukan dalam response.");
+        console.error(
+          "Data atau pagination tidak ditemukan dalam shift response."
+        );
       }
+
+      // Simpan data guru jika perlu
+      setGuruList(guruFiltered); // Pastikan kamu sudah punya state `guruList`
     } catch (error) {
       console.error("Terjadi kesalahan:", error.response || error.message);
     }
@@ -105,163 +155,250 @@ function ShiftPublik() {
           padding: "40px 20px",
           minHeight: "100vh",
         }}
-        class="banner-area banner-area-1 bg-relative">
+        class="banner-area banner-area-1 bg-relative"
+      >
         <div
           className="banner-bg-img"
           style={{
             backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
-          }}></div>
+          }}
+        ></div>
         <div class="container">
           <div class="order-lg-first align-self-center">
-
-        <div
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-          }}>
-          {" "}
-          <br /> <br /> <br /> <br />
-          <div className="row justify-content-center">
-            <div className="col-xl-6 col-lg-7 col-md-10">
-              <div className="section-title text-center" data-aos="fade-down">
-                <h5
-                  className="sub-title double-line"
-                  style={{
-                    color: "#000000",
-                    fontSize: "1.5em",
-                    fontWeight: "bold",
-                    marginBottom: "20px",
-                  }}>
-                  Shiftmu, Kendalimu! 🕒
-                </h5>
+            <div
+              style={{
+                maxWidth: "1200px",
+                margin: "0 auto",
+              }}
+            >
+              {" "}
+              <br /> <br /> <br /> <br />
+              <div className="row justify-content-center">
+                <div className="col-xl-6 col-lg-7 col-md-10">
+                  <div
+                    className="section-title text-center"
+                    data-aos="fade-down"
+                  >
+                    <h5
+                      className="sub-title double-line"
+                      style={{
+                        color: "#000000",
+                        fontSize: "1.5em",
+                        fontWeight: "bold",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      Shiftmu, Kendalimu! 🕒
+                    </h5>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div
-            className="container box-table mt-3 app-main__outer"
-            data-aos="fade-left">
-            <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
-              <div className="col-auto">
-                <label className="form-label mt-2">Rows per page:</label>
-              </div>
-              <div className="col-auto">
-                <select
-                  className="form-select form-select-xl w-auto"
-                  onChange={handleRowsPerPageChange}
-                  value={rowsPerPage}>
-                  <option value={5}>5</option>
-                  <option value={10}>10</option>
-                  <option value={20}>20</option>
-                </select>
-              </div>
-            </div>
-            <div className="search">
-              <input
-                type="search"
-                className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={handleSearchChange}
-              />
-            </div>
-            <div className="main-card box-tabel mb-3 card">
-              <div className="card-header" style={{ display: "flex" }}>
-                {/* <p className="mt-3">Donasi </p> */}
-                <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
+              <div
+                className="container box-table mt-3 app-main__outer"
+                data-aos="fade-left"
+              >
+                <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
                   <div className="col-auto">
                     <label className="form-label mt-2">Rows per page:</label>
                   </div>
                   <div className="col-auto">
                     <select
-                      className="form-select form-select-sm"
+                      className="form-select form-select-xl w-auto"
                       onChange={handleRowsPerPageChange}
-                      value={rowsPerPage}>
+                      value={rowsPerPage}
+                    >
                       <option value={5}>5</option>
                       <option value={10}>10</option>
                       <option value={20}>20</option>
                     </select>
                   </div>
                 </div>
-                <div className="d-flex ml-auto gap-3">
+                <div className="search">
                   <input
                     type="search"
-                    className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
+                    className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
                     placeholder="Search..."
                     value={searchTerm}
                     onChange={handleSearchChange}
                   />
                 </div>
+                <div className="main-card box-tabel mb-3 card">
+                  <div className="card-header" style={{ display: "flex" }}>
+                    {/* <p className="mt-3">Donasi </p> */}
+                    <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
+                      <div className="col-auto">
+                        <label className="form-label mt-2">
+                          Rows per page:
+                        </label>
+                      </div>
+                      <div className="col-auto">
+                        <select
+                          className="form-select form-select-sm"
+                          onChange={handleRowsPerPageChange}
+                          value={rowsPerPage}
+                        >
+                          <option value={5}>5</option>
+                          <option value={10}>10</option>
+                          <option value={20}>20</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="d-flex ml-auto gap-3">
+                      <input
+                        type="search"
+                        className="form-control widget-content-right w-100 d-lg-block d-none d-md-none"
+                        placeholder="Search..."
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="table-responsive-3"
+                    style={{ overflowX: "auto", maxWidth: "100%" }}
+                  >
+                    <table className="align-middle mb-0 table table-bordered table-striped table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">No</th>
+                          <th>Nama</th>
+                          <th>Deskripsi</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filteredList.map((item, index) => (
+                          <tr key={index}>
+                            <td data-label="No">
+                              {(currentPage - 1) * rowsPerPage + index + 1}
+                            </td>
+                            <td data-label="Nama">{item.name}</td>
+                            <td data-label="Deskripsi">
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: item.description,
+                                }}
+                              />
+                            </td>
+                            <td data-label="Aksi">
+                              {item.level === "guru" ? (
+                                <>
+                                  <button
+                                    type="button"
+                                    className="btn-primary btn-sm mr-2"
+                                    onClick={() => handleAbsenClick(item.id)}
+                                  >
+                                    Absen Masuk
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="btn-warning mr-2 btn-sm"
+                                    onClick={() => handleAbsenClick(item.id)}
+                                  >
+                                    Absen Pulang
+                                  </button>
+                                </>
+                              ) : (
+                                <>
+                                  <button
+                                    type="button"
+                                    className="btn-primary btn-sm mr-2"
+                                  >
+                                    <a
+                                      style={{
+                                        color: "white",
+                                        textDecoration: "none",
+                                      }}
+                                      href={`/absen-masuk?shift_id=${item.id}`}
+                                    >
+                                      Absen Masuk
+                                    </a>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="btn-warning mr-2 btn-sm"
+                                  >
+                                    <a
+                                      style={{
+                                        color: "white",
+                                        textDecoration: "none",
+                                      }}
+                                      href={`/absen-pulang?shift_id=${item.id}`}
+                                    >
+                                      Absen Pulang
+                                    </a>
+                                  </button>
+                                </>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="card-header mt-3 d-flex justify-content-center">
+                    <Pagination
+                      count={paginationInfo.totalPages}
+                      page={currentPage}
+                      onChange={(event, value) => setCurrentPage(value)}
+                      showFirstButton
+                      showLastButton
+                      color="primary"
+                    />
+                  </div>
+                </div>
+                {showModal && (
+                  <div className="modal">
+                    <div className="modal-content">
+                      <h3>Pilih Materi Kitab</h3>
+                      <select
+                        onChange={(e) => setSelectedMateri(e.target.value)}
+                        defaultValue=""
+                      >
+                        <option value="" disabled>
+                          Pilih materi
+                        </option>
+                        {materiList.map((materi) => (
+                          <option key={materi.id} value={materi.id}>
+                            {materi.nama}
+                          </option>
+                        ))}
+                      </select>
+
+                      <div
+                        className="modal-buttons"
+                        style={{ marginTop: "10px" }}
+                      >
+                        <button
+                          className="btn-success btn-sm mr-2"
+                          disabled={!selectedMateri}
+                          onClick={() => {
+                            window.location.href = `/absen-masuk?shift_id=${currentShiftId}&materi_id=${selectedMateri}`;
+                          }}
+                        >
+                          Absen Masuk
+                        </button>
+                        <button
+                          className="btn-warning btn-sm"
+                          disabled={!selectedMateri}
+                          onClick={() => {
+                            window.location.href = `/absen-pulang?shift_id=${currentShiftId}&materi_id=${selectedMateri}`;
+                          }}
+                        >
+                          Absen Pulang
+                        </button>
+                        <button
+                          className="btn-secondary btn-sm ml-2"
+                          onClick={() => setShowModal(false)}
+                        >
+                          Batal
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div
-                className="table-responsive-3"
-                style={{ overflowX: "auto", maxWidth: "100%" }}>
-                <table className="align-middle mb-0 table table-bordered table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">No</th>
-                      <th>Nama</th>
-                      <th>Deskripsi</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredList.map((item, index) => (
-                      <tr key={index}>
-                        <td data-label="No">
-                          {(currentPage - 1) * rowsPerPage + index + 1}
-                        </td>
-                        <td data-label="Nama">{item.name}</td>
-                        <td data-label="Deskripsi">
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: item.description,
-                            }}
-                          />
-                        </td>
-                        <td data-label="Aksi">
-                          <button
-                            type="button"
-                            className="btn-primary btn-sm mr-2">
-                            <a
-                              style={{
-                                color: "white",
-                                textDecoration: "none",
-                              }}
-                              href={`/absen-masuk?shift_id=${item.id}`}>
-                              Absen Masuk
-                            </a>
-                          </button>
-                          <button
-                            type="button"
-                            className="btn-warning mr-2 btn-sm">
-                            <a
-                              style={{
-                                color: "white",
-                                textDecoration: "none",
-                              }}
-                              href={`/absen-pulang?shift_id=${item.id}`}>
-                              Absen Pulang
-                            </a>
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="card-header mt-3 d-flex justify-content-center">
-                <Pagination
-                  count={paginationInfo.totalPages}
-                  page={currentPage}
-                  onChange={(event, value) => setCurrentPage(value)}
-                  showFirstButton
-                  showLastButton
-                  color="primary"
-                />
-              </div>
-            </div>
-          </div>
-          {/* <input
+              {/* <input
             type="search"
             className="form-control widget-content-right w-100"
             placeholder="Cari Donasi..."
@@ -378,14 +515,14 @@ function ShiftPublik() {
               </div>
             ))}
           </div> */}
-          {/* {isLoading && <p>Memuat data...</p>}
+              {/* {isLoading && <p>Memuat data...</p>}
           {!hasMore && <p>Tidak ada data lagi.</p>} */}
-        </div>
+            </div>
           </div>
           {/* </div> */}
         </div>
       </div>
-        {/* <div
+      {/* <div
           className="banner-bg-img"
           style={{
             backgroundImage: `url(https://solverwp.com/demo/html/itechie/assets/img/banner/2.webp)`,
