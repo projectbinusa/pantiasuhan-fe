@@ -637,6 +637,18 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       ],
       icon: <i class="fa-solid fa-angle-down"></i>,
     },
+    {
+      header: "Kitab",
+      items: [
+        {
+          title: "Data Kitab",
+          icon: "fa-solid fa-book-open",
+          path: "/guru/kitab",
+          action: [""],
+        },
+      ],
+      icon: <i class="fa-solid fa-book-open"></i>,
+    },
   ];
 
   useEffect(() => {
@@ -673,7 +685,8 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                       data.action.includes(location.pathname)
                         ? "bactive"
                         : ""
-                    }`}>
+                    }`}
+                  >
                     <NavLink to={data.path} style={{ background: "none" }}>
                       <i
                         className={`${data.icon} ${
@@ -681,7 +694,8 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                           data.action.includes(location.pathname)
                             ? "active"
                             : ""
-                        }`}></i>
+                        }`}
+                      ></i>
                       <span>{data.title}</span>
                     </NavLink>
                   </li>
@@ -705,17 +719,20 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                               ? "bactive"
                               : ""
                           }`}
-                          ref={(el) => (menuRefs.current[subIndex] = el)}>
+                          ref={(el) => (menuRefs.current[subIndex] = el)}
+                        >
                           <NavLink
                             to={data.path}
-                            style={{ background: "none" }}>
+                            style={{ background: "none" }}
+                          >
                             <i
                               className={`${data.icon} ${
                                 location.pathname === data.path ||
                                 data.action.includes(location.pathname)
                                   ? "active"
                                   : ""
-                              }`}></i>
+                              }`}
+                            ></i>
                             <span>{data.title}</span>
                           </NavLink>
                         </li>
@@ -734,7 +751,8 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                           ? "bactive"
                           : ""
                       }`}
-                      ref={(el) => (inventarisRefs.current[index] = el)}>
+                      ref={(el) => (inventarisRefs.current[index] = el)}
+                    >
                       <NavLink to={data.path} style={{ background: "none" }}>
                         <i
                           className={`${data.icon} ${
@@ -742,7 +760,8 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                             data.action.includes(location.pathname)
                               ? "active"
                               : ""
-                          }`}></i>
+                          }`}
+                        ></i>
                         <span>{data.title}</span>
                       </NavLink>
                     </li>
@@ -814,7 +833,8 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                               ? "active"
                               : ""
                           }`}
-                          ref={(el) => (menuRefs.current[subIndex] = el)}>
+                          ref={(el) => (menuRefs.current[subIndex] = el)}
+                        >
                           <NavLink
                             to={data.path}
                             style={{ background: "none" }}
@@ -835,7 +855,8 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                                 data.action.includes(location.pathname)
                                   ? "active"
                                   : ""
-                              }`}></i>
+                              }`}
+                            ></i>
                             <span>{data.title}</span>
                           </NavLink>
                         </li>
@@ -859,17 +880,20 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                               ? "active"
                               : ""
                           }`}
-                          ref={(el) => (menuRefs.current[subIndex] = el)}>
+                          ref={(el) => (menuRefs.current[subIndex] = el)}
+                        >
                           <NavLink
                             to={data.path}
-                            style={{ background: "none" }}>
+                            style={{ background: "none" }}
+                          >
                             <i
                               className={`${data.icon} ${
                                 location.pathname === data.path ||
                                 data.action.includes(location.pathname)
                                   ? "active"
                                   : ""
-                              }`}></i>
+                              }`}
+                            ></i>
                             <span>{data.title}</span>
                           </NavLink>
                         </li>
@@ -976,7 +1000,8 @@ function SidebarPantiAdmin({ toggleSidebar }) {
           open={isModalOpen}
           onClose={closeModal}
           aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description">
+          aria-describedby="modal-modal-description"
+        >
           <Box sx={styleForm}>
             <button
               onClick={closeModal}
@@ -990,7 +1015,8 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                 cursor: "pointer",
                 color: "black",
               }}
-              aria-label="Close">
+              aria-label="Close"
+            >
               ✖
             </button>{" "}
             <br />
@@ -1002,7 +1028,8 @@ function SidebarPantiAdmin({ toggleSidebar }) {
                 <select
                   className="form-control"
                   value={idCabang}
-                  onChange={(e) => setIdCabang(e.target.value)}>
+                  onChange={(e) => setIdCabang(e.target.value)}
+                >
                   <option>Pilih</option>
                   {cabang.map((item, idx) => (
                     <option value={item.organization_id} key={idx}>
@@ -1015,7 +1042,8 @@ function SidebarPantiAdmin({ toggleSidebar }) {
             <button
               type="button"
               onClick={() => handleModal(idCabang)}
-              className="btn-success btn-md">
+              className="btn-success btn-md"
+            >
               Simpan
             </button>
           </Box>

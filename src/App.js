@@ -300,6 +300,7 @@ import axios from "axios";
 import { API_DUMMY } from "./utils/base_URL.js";
 import EditReplyKomentar from "./views/pages/admin/pantiasuhan/berita/EditReplyKomentar.js";
 import DataTahsinYear from "./views/pages/guru/tahsin/DataTahsinYear.js";
+import Kitab from "./views/pages/guru/hafalankitab/Kitab.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1544,6 +1545,7 @@ function App() {
               component={GuruTahsinAnakAsuh}
               exact
             />
+            <PrivateRoute path="/guru/kitab" component={Kitab} exact />
           </Switch>
         </main>
         <LogPageView />
