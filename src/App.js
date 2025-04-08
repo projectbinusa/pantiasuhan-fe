@@ -301,6 +301,9 @@ import { API_DUMMY } from "./utils/base_URL.js";
 import EditReplyKomentar from "./views/pages/admin/pantiasuhan/berita/EditReplyKomentar.js";
 import DataTahsinYear from "./views/pages/guru/tahsin/DataTahsinYear.js";
 import Kitab from "./views/pages/guru/hafalankitab/Kitab.js";
+import Tahfidzharian from "./views/pages/guru/Tahfiz/TahfizHarian.js";
+import Tahfidzmingguan from "./views/pages/guru/Tahfiz/TahfizMingguan.js";
+import Tahfidzbulanan from "./views/pages/guru/Tahfiz/TahfizBulanan.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1546,6 +1549,9 @@ function App() {
               exact
             />
             <PrivateRoute path="/guru/kitab" component={Kitab} exact />
+            <PrivateRoute path="/guru/tahfizharian" component={Tahfidzharian} exact />
+            <PrivateRoute path="/guru/tahfizmingguan" component={Tahfidzmingguan} exact />
+            <PrivateRoute path="/guru/tahfizbulanan" component={Tahfidzbulanan} exact />
           </Switch>
         </main>
         <LogPageView />
