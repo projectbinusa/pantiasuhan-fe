@@ -649,6 +649,30 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       ],
       icon: <i class="fa-solid fa-book-open"></i>,
     },
+    {
+      header: "Tahfidz",
+      items: [
+        {
+          title: "Data Tahfidz Harian",
+          icon: "fa-solid fa-book-open",
+          path: "/guru/tahfizharian",
+          action: [""],
+        },
+        {
+          title: "Data Tahfidz Mingguan ",
+          icon: "fa-solid fa-book-open",
+          path: "/guru/tahfizmingguan",
+          action: [""],
+        },
+        {
+          title: "Data Tahfidz Bulanan",
+          icon: "fa-solid fa-book-open",
+          path: "/guru/tahfizbulanan",
+          action: [""],
+        },
+      ],
+      icon: <i class="fa-solid fa-book-open"></i>,
+    },
   ];
 
   useEffect(() => {
