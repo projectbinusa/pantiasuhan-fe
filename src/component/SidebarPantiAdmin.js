@@ -578,6 +578,18 @@ function SidebarPantiAdmin({ toggleSidebar }) {
 
   const menuItemsPengurus = [
     {
+      header: "Presensi",
+      items: [
+        {
+          title: "Presensi",
+          icon: "fa-solid fa-users",
+          path: "/guru/presensi",
+          action: [""],
+        },
+      ],
+      icon: <i class="fa-solid fa-angle-down"></i>,
+    },
+    {
       header: "Tahsin",
       items: [
         {

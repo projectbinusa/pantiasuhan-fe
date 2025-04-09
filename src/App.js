@@ -1546,6 +1546,7 @@ function App() {
               exact
             />
             <PrivateRoute path="/guru/kitab" component={Kitab} exact />
+            <PrivateRoute path="/guru/presensi" component={AbsenMasuk} exact />
           </Switch>
         </main>
         <LogPageView />
