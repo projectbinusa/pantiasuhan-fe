@@ -301,6 +301,12 @@ import { API_DUMMY } from "./utils/base_URL.js";
 import EditReplyKomentar from "./views/pages/admin/pantiasuhan/berita/EditReplyKomentar.js";
 import DataTahsinYear from "./views/pages/guru/tahsin/DataTahsinYear.js";
 import Kitab from "./views/pages/guru/hafalankitab/Kitab.js";
+import KitabDaily from "./views/pages/guru/hafalankitab/KitabDaily.js";
+import KitabYear from "./views/pages/guru/hafalankitab/KitabYear.js";
+import KitabWeek from "./views/pages/guru/hafalankitab/KitabWeek.js";
+import KitabWeakly from "./views/pages/guru/hafalankitab/KitabWeakly.js";
+import KitabMonth from "./views/pages/guru/hafalankitab/KitabMonth.js";
+import KitabDay from "./views/pages/guru/hafalankitab/KitabDay.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1546,6 +1552,12 @@ function App() {
               exact
             />
             <PrivateRoute path="/guru/kitab" component={Kitab} exact />
+            <PrivateRoute path="/guru/kitab/daily" component={KitabDaily} exact />
+            <PrivateRoute path="/guru/kitab/day" component={KitabDay} exact />
+            <PrivateRoute path="/guru/kitab/month" component={KitabMonth} exact />
+            <PrivateRoute path="/guru/kitab/weakly" component={KitabWeakly} exact />
+            <PrivateRoute path="/guru/kitab/week" component={KitabWeek} exact />
+            <PrivateRoute path="/guru/kitab/year" component={KitabYear} exact />
             <PrivateRoute path="/guru/presensi" component={AbsenMasuk} exact />
           </Switch>
         </main>
