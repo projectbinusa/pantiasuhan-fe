@@ -661,6 +661,54 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       ],
       icon: <i class="fa-solid fa-book-open"></i>,
     },
+    {
+      header: "Tahfidz",
+      items: [
+        {
+          title: "Data Tahfidz",
+          icon: "fa-solid fa-book-open",
+          path: "/guru/tahfidz",
+          action: [""],
+        },
+        {
+          title: "Data Tahfidz Weakly",
+          icon: "fa-solid fa-book-open",
+          path: "/guru/tahfidz/weakly",
+          action: [""],
+        },
+        {
+          title: "Data Tahfidz Month",
+          icon: "fa-solid fa-book-open",
+          path: "/guru/tahfidz/month",
+          action: [""],
+        },
+        {
+          title: "Data Tahfidz Week",
+          icon: "fa-solid fa-book-open",
+          path: "/guru/tahfidz/week",
+          action: [""],
+        },
+        {
+          title: "Data Tahfidz Year",
+          icon: "fa-solid fa-book-open",
+          path: "/guru/tahfidz/year",
+          action: [""],
+        },
+        {
+          title: "Data Tahfidz Daily",
+          icon: "fa-solid fa-book-open",
+          path: "/guru/tahfidz/daily",
+          action: [""],
+        },
+        {
+          title: "Data Tahfidz Day",
+          icon: "fa-solid fa-book-open",
+          path: "/guru/tahfidz/day",
+          action: [""],
+        },
+      ],
+      icon: <i class="fa-solid fa-book-open"></i>,
+    },
   ];
 
   useEffect(() => {
