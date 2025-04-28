@@ -18,6 +18,7 @@ function GuruDataTahsin() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString());
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
@@ -45,15 +46,15 @@ function GuruDataTahsin() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "90%", // Menggunakan persentase agar menyesuaikan dengan ukuran layar
-    maxWidth: "800px", // Menentukan lebar maksimum untuk layar besar
+    width: "90%",
+    maxWidth: "800px",
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 3,
     borderRadius: "10px",
     backgroundColor: "#f5f5f5",
-    overflowY: "auto", // Untuk menangani konten panjang
-    maxHeight: "90vh", // Membatasi tinggi modal agar tidak melebihi viewport
+    overflowY: "auto",
+    maxHeight: "90vh",
   };
 
   // ADD
@@ -64,6 +65,9 @@ function GuruDataTahsin() {
   const [description, setDescription] = useState("");
   const [member_id, setMemberId] = useState("");
   const [status, setStatus] = useState("");
+
+  // Generate years from 2020 to 2025
+  const years = Array.from({ length: 6 }, (_, i) => (2025 - i).toString());
 
   const edit = async (e) => {
     e.preventDefault();
@@ -132,7 +136,7 @@ function GuruDataTahsin() {
   const getAll = async () => {
     try {
       const response = await axios.get(
-        `${API_DUMMY_SMART}/api/member/guru/tahsin?page=${currentPage}&limit=${rowsPerPage}`,
+        `${API_DUMMY_SMART}/api/member/guru/tahsin?page=${currentPage}&limit=${rowsPerPage}&year=${selectedYear}`,
         {
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
@@ -144,7 +148,6 @@ function GuruDataTahsin() {
       console.log("data: ", response.data.pagination);
       setPaginationInfo({
         totalPages: response.data.pagination.total_page,
-        // totalElements: response.data.data.totalElements,
       });
     } catch (error) {
       console.error("Terjadi Kesalahan", error);
@@ -157,7 +160,7 @@ function GuruDataTahsin() {
   const [foto, setFoto] = useState("");
 
   const tabrfid = async (event) => {
-    event.preventDefault(); // Mencegah reload halaman
+    event.preventDefault();
 
     if (!rfidNumber) {
       setUserData(null);
@@ -180,18 +183,7 @@ function GuruDataTahsin() {
         setMemberId(response.data.data.id);
         console.log(response.data.data);
 
-        // Tutup modal terlebih dahulu
         closeModal2();
-
-        // Tunggu modal benar-benar tertutup sebelum menampilkan alert
-        // setTimeout(async () => {
-        //   await Swal.fire({
-        //     title: "Berhasil!",
-        //     text: "Data RFID berhasil ditemukan.",
-        //     icon: "success",
-        //   });
-        // }, 500);
-
         openModal();
       }
     } catch (error) {
@@ -212,16 +204,15 @@ function GuruDataTahsin() {
     if (isModalOpen2) {
       setTimeout(() => {
         rfidInputRef.current?.focus();
-      }, 100); // Beri sedikit delay agar modal selesai dirender
+      }, 100);
     }
   }, [isModalOpen2]);
 
-  // Menangkap pemindaian kartu otomatis
   useEffect(() => {
     const handleScanRFID = (event) => {
-      const scannedRfid = event.detail; // RFID dari event
+      const scannedRfid = event.detail;
       setRfidNumber(scannedRfid);
-      tabrfid(); // Ambil data siswa setelah RFID terdeteksi
+      tabrfid();
     };
 
     window.addEventListener("scanRFID", handleScanRFID);
@@ -230,7 +221,6 @@ function GuruDataTahsin() {
     };
   }, []);
 
-  // Menangani input manual RFID
   const handleManualRFID = (e) => {
     const manualRfid = e.target.value;
     setRfidNumber(manualRfid);
@@ -272,7 +262,7 @@ function GuruDataTahsin() {
     } catch (error) {
       if (error.response && error.response.status === 401) {
         localStorage.clear();
-        window.location.reload(); // Redirect to login or perform other actions
+        window.location.reload();
       } else {
         setIsModalOpen(false);
         Swal.fire({
@@ -286,52 +276,9 @@ function GuruDataTahsin() {
     }
   };
 
-  // const deleteData = async (id) => {
-  //   Swal.fire({
-  //     title: "Apakah Anda Ingin Menghapus?",
-  //     text: "Perubahan data tidak bisa dikembalikan!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Hapus",
-  //     cancelButtonText: "Batal",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       axios
-  //         .delete(`${API_DUMMY}/api/customer/tahsin` + id, {
-  //           headers: {
-  //             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-  //           },
-  //         })
-  //         .then(() => {
-  //           Swal.fire({
-  //             icon: "success",
-  //             title: "Dihapus!",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-  //           getAll();
-  //           setTimeout(() => {
-  //             window.location.reload();
-  //           }, 1500);
-  //         })
-  //         .catch((err) => {
-  //           Swal.fire({
-  //             icon: "error",
-  //             title: "Hapus Data Gagal!",
-  //             showConfirmButton: false,
-  //             timer: 1500,
-  //           });
-  //           console.log(err);
-  //         });
-  //     }
-  //   });
-  // };
-
   useEffect(() => {
-    getAll(currentPage);
-  }, [currentPage, rowsPerPage]);
+    getAll();
+  }, [currentPage, rowsPerPage, selectedYear]);
 
   useEffect(() => {
     AOS.init();
@@ -348,6 +295,11 @@ function GuruDataTahsin() {
     setCurrentPage(1);
   };
 
+  const handleYearChange = (event) => {
+    setSelectedYear(event.target.value);
+    setCurrentPage(1);
+  };
+
   const filteredList = list.filter((item) =>
     Object.values(item).some(
       (value) =>
@@ -356,13 +308,11 @@ function GuruDataTahsin() {
     )
   );
 
-  const totalPages = Math.ceil(filteredList.length / rowsPerPage);
-
   return (
     <div
       className={`page-wrapper chiller-theme ${
         sidebarToggled ? "toggled" : ""
-        }`}>
+      }`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -418,6 +368,18 @@ function GuruDataTahsin() {
                 </div>
               </div>
               <div className="d-flex ml-auto gap-3">
+                <div className="col-auto">
+                  <select
+                    className="form-select form-select-sm"
+                    onChange={handleYearChange}
+                    value={selectedYear}>
+                    {years.map((year) => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
+                </div>
                 <input
                   type="search"
                   className="form-control widget-content-right w-75 d-lg-block d-none d-md-none"
@@ -503,8 +465,7 @@ function GuruDataTahsin() {
                               <button
                                 type="button"
                                 className="btn-primary btn-sm mr-2"
-                                onClick={() => openModal1(tahsin.id)} // Kirim ID saat klik tombol
-                              >
+                                onClick={() => openModal1(tahsin.id)}>
                                 <i className="fa-solid fa-pen-to-square"></i>
                               </button>
                             </div>
@@ -543,7 +504,6 @@ function GuruDataTahsin() {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description">
               <Box sx={style}>
-                {/* Title Modal */}
                 <h4 style={{ textAlign: "center", marginBottom: "1rem" }}>
                   Setoran Tahsin - {memberName}
                 </h4>
@@ -561,7 +521,6 @@ function GuruDataTahsin() {
             "deskripsi ."
           `,
                     }}>
-                    {/* Start Juz */}
                     <div className="mb-3" style={{ gridArea: "startJuz" }}>
                       <label className="form-label font-weight-bold">
                         Start Juz
@@ -574,7 +533,6 @@ function GuruDataTahsin() {
                       />
                     </div>
 
-                    {/* End Juz */}
                     <div className="mb-3" style={{ gridArea: "endJuz" }}>
                       <label className="form-label font-weight-bold">
                         End Juz
@@ -587,7 +545,6 @@ function GuruDataTahsin() {
                       />
                     </div>
 
-                    {/* Start Pojok */}
                     <div className="mb-3" style={{ gridArea: "startPojok" }}>
                       <label className="form-label font-weight-bold">
                         Start Pojok
@@ -600,7 +557,6 @@ function GuruDataTahsin() {
                       />
                     </div>
 
-                    {/* End Pojok */}
                     <div className="mb-3" style={{ gridArea: "endPojok" }}>
                       <label className="form-label font-weight-bold">
                         End Pojok
@@ -613,7 +569,6 @@ function GuruDataTahsin() {
                       />
                     </div>
 
-                    {/* Deskripsi */}
                     <div className="mb-3" style={{ gridArea: "deskripsi" }}>
                       <label className="form-label font-weight-bold">
                         Deskripsi
@@ -627,7 +582,6 @@ function GuruDataTahsin() {
                     </div>
                   </div>
 
-                  {/* Tombol Tindakan */}
                   <div
                     style={{
                       display: "flex",
@@ -672,7 +626,6 @@ function GuruDataTahsin() {
                     </label>
                     <select
                       className="form-control"
-                      // required
                       onChange={(e) => setStatus(e.target.value)}>
                       <option value="">Pilih Status</option>
                       <option value="Approved">Approved</option>
