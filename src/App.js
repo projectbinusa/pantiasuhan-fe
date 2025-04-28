@@ -1521,33 +1521,33 @@ function App() {
               component={GuruDataTahsin}
               exact
             />
-            <PrivateRoute
+            {/* <PrivateRoute
               path="/guru/tahsin/weakly"
               component={DataTahsinWeakly}
               exact
-            />
+            /> */}
             <PrivateRoute
-              path="/guru/tahsin/month"
+              path="/guru/tahsin/bulanan"
               component={DataTahsinMonth}
               exact
             />
             <PrivateRoute
-              path="/guru/tahsin/year"
+              path="/guru/tahsin/tahunan"
               component={DataTahsinYear}
               exact
             />
             <PrivateRoute
-              path="/guru/tahsin/day"
+              path="/guru/tahsin/harian"
               component={DataTahsinDay}
               exacD
             />
-            <PrivateRoute
+            {/* <PrivateRoute
               path="/guru/tahsin/daily"
               component={DataTahsinDaily}
               exact
-            />
+            /> */}
             <PrivateRoute
-              path="/guru/tahsin/week"
+              path="/guru/tahsin/mingguan"
               component={DataTahsinWeek}
               exact
             />
