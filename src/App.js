@@ -296,6 +296,13 @@ import DataTahsinMonth from "./views/pages/guru/tahsin/DataTahsinMonth.js";
 import DataTahsinDaily from "./views/pages/guru/tahsin/DataTahsinDaily.js";
 import DataTahsinWeek from "./views/pages/guru/tahsin/DataTahsinWeek.js";
 import DataTahsinDay from "./views/pages/guru/tahsin/DataTahsinDay.js";
+import GuruDataTahfidz from "./views/pages/guru/tahfidz/DataTahfidz.js";
+import DataTahfidzWeakly from "./views/pages/guru/tahfidz/DataTahfidzWeakly.js";
+import DataTahfidzMonth from "./views/pages/guru/tahfidz/DataTahfidzMonth.js";
+import DataTahfidzDaily from "./views/pages/guru/tahfidz/DataTahfidzDaily.js";
+import DataTahfidzWeek from "./views/pages/guru/tahfidz/DataTahfidzWeek.js";
+import DataTahfidzDay from "./views/pages/guru/tahfidz/DataTahfidzDay.js";
+import DataTahfidzYear from "./views/pages/guru/tahfidz/DataTahfidzYear.js";
 import axios from "axios";
 import { API_DUMMY } from "./utils/base_URL.js";
 import EditReplyKomentar from "./views/pages/admin/pantiasuhan/berita/EditReplyKomentar.js";
@@ -304,6 +311,12 @@ import Kitab from "./views/pages/guru/hafalankitab/Kitab.js";
 import TahfidzHarian from "./views/pages/guru/tahfidz/TahfidzHarian.js";
 import TahfidzMingguan from "./views/pages/guru/tahfidz/TahfidzMingguan.js";
 import TahfidzBulanan from "./views/pages/guru/tahfidz/TahfidzBulanan.js";
+import KitabDaily from "./views/pages/guru/hafalankitab/KitabDaily.js";
+import KitabYear from "./views/pages/guru/hafalankitab/KitabYear.js";
+import KitabWeek from "./views/pages/guru/hafalankitab/KitabWeek.js";
+import KitabWeakly from "./views/pages/guru/hafalankitab/KitabWeakly.js";
+import KitabMonth from "./views/pages/guru/hafalankitab/KitabMonth.js";
+import KitabDay from "./views/pages/guru/hafalankitab/KitabDay.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1548,7 +1561,60 @@ function App() {
               component={GuruTahsinAnakAsuh}
               exact
             />
+            <PrivateRoute
+              path="/guru/tahfidz"
+              component={GuruDataTahfidz}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/weakly"
+              component={DataTahfidzWeakly}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/month"
+              component={DataTahfidzMonth}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/year"
+              component={DataTahfidzYear}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/day"
+              component={DataTahfidzDay}
+              exacD
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/daily"
+              component={DataTahfidzDaily}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/week"
+              component={DataTahfidzWeek}
+              exact
+            />
             <PrivateRoute path="/guru/kitab" component={Kitab} exact />
+            <PrivateRoute
+              path="/guru/kitab/daily"
+              component={KitabDaily}
+              exact
+            />
+            <PrivateRoute path="/guru/kitab/day" component={KitabDay} exact />
+            <PrivateRoute
+              path="/guru/kitab/month"
+              component={KitabMonth}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/kitab/weakly"
+              component={KitabWeakly}
+              exact
+            />
+            <PrivateRoute path="/guru/kitab/week" component={KitabWeek} exact />
+            <PrivateRoute path="/guru/kitab/year" component={KitabYear} exact />
             <PrivateRoute path="/guru/presensi" component={AbsenMasuk} exact />
             <PrivateRoute
               path="/guru/tahfidz/harian"
