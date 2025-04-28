@@ -296,6 +296,13 @@ import DataTahsinMonth from "./views/pages/guru/tahsin/DataTahsinMonth.js";
 import DataTahsinDaily from "./views/pages/guru/tahsin/DataTahsinDaily.js";
 import DataTahsinWeek from "./views/pages/guru/tahsin/DataTahsinWeek.js";
 import DataTahsinDay from "./views/pages/guru/tahsin/DataTahsinDay.js";
+import GuruDataTahfidz from "./views/pages/guru/tahfidz/DataTahfidz.js";
+import DataTahfidzWeakly from "./views/pages/guru/tahfidz/DataTahfidzWeakly.js";
+import DataTahfidzMonth from "./views/pages/guru/tahfidz/DataTahfidzMonth.js";
+import DataTahfidzDaily from "./views/pages/guru/tahfidz/DataTahfidzDaily.js";
+import DataTahfidzWeek from "./views/pages/guru/tahfidz/DataTahfidzWeek.js";
+import DataTahfidzDay from "./views/pages/guru/tahfidz/DataTahfidzDay.js";
+import DataTahfidzYear from "./views/pages/guru/tahfidz/DataTahfidzYear.js";
 import axios from "axios";
 import { API_DUMMY } from "./utils/base_URL.js";
 import EditReplyKomentar from "./views/pages/admin/pantiasuhan/berita/EditReplyKomentar.js";
@@ -1549,6 +1556,41 @@ function App() {
             <PrivateRoute
               path="/guru/tahsin/anak_asuh/:id"
               component={GuruTahsinAnakAsuh}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahfidz"
+              component={GuruDataTahfidz}
+              exact
+            />
+             <PrivateRoute
+              path="/guru/tahfidz/weakly"
+              component={DataTahfidzWeakly}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/month"
+              component={DataTahfidzMonth}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/year"
+              component={DataTahfidzYear}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/day"
+              component={DataTahfidzDay}
+              exacD
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/daily"
+              component={DataTahfidzDaily}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/week"
+              component={DataTahfidzWeek}
               exact
             />
             <PrivateRoute path="/guru/kitab" component={Kitab} exact />
