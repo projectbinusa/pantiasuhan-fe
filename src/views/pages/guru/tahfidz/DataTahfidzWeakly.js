@@ -31,36 +31,23 @@ function DataTahfidzWeekly() {
 
   const getAll = async () => {
     try {
-      // Ambil data user dari localStorage
       const userData = {
         id: localStorage.getItem("id"),
         organization_id: localStorage.getItem("organization_id"),
         rolename: localStorage.getItem("rolename"),
       };
 
-      console.log("User Data dari localStorage:", userData); // Debugging
-
-      if (!userData.organization_id) {
-        console.error("organization_id tidak ditemukan dalam localStorage!");
+      if (!userData.organization_id || !start_date || !end_date) {
+        console.error("Data tidak lengkap!");
         return;
       }
 
-      // Pastikan start_date dan end_date ada sebelum melakukan request
-      if (!start_date || !end_date) {
-        console.error("start_date dan end_date harus diisi!");
-        return;
-      }
-
-      // Ambil token dari localStorage
       const token = localStorage.getItem("tokenpython");
       if (!token) {
-        console.error("Token autentikasi tidak ditemukan di localStorage!");
+        console.error("Token tidak ditemukan!");
         return;
       }
 
-      console.log("Token ditemukan:", token); // Debugging
-
-      // Set konfigurasi header dengan format auth-tgh
       const config = {
         headers: {
           "auth-tgh": `jwt ${token}`,
@@ -72,15 +59,10 @@ function DataTahfidzWeekly() {
         },
       };
 
-      console.log("Mengirim request ke API dengan config:", config); // Debugging
-
-      // Panggil API dengan axios
       const response = await axios.get(
         `${API_DUMMY_BYRTGHN}/api/member/tahfidz/rekap-weekly/organization`,
         config
       );
-
-      console.log("API Response:", response.data); // Debugging
 
       if (response.data && response.data.data) {
         setList(response.data.data);
@@ -88,7 +70,7 @@ function DataTahfidzWeekly() {
           totalPages: Math.ceil(response.data.data.length / rowsPerPage),
         });
       } else {
-        setList([]); // Kosongkan list jika tidak ada hasil
+        setList([]);
         setPaginationInfo({ totalPages: 1 });
       }
     } catch (error) {
@@ -96,8 +78,54 @@ function DataTahfidzWeekly() {
         "Error fetching data:",
         error.response ? error.response.data : error.message
       );
-      setList([]); // Kosongkan list jika terjadi error
+      setList([]);
       setPaginationInfo({ totalPages: 1 });
+    }
+  };
+
+  const exportData = async () => {
+    try {
+      if (!start_date || !end_date) {
+        Swal.fire("Pilih tanggal terlebih dahulu!", "", "warning");
+        return;
+      }
+
+      const token = localStorage.getItem("tokenpython");
+      if (!token) {
+        Swal.fire("Token tidak ditemukan!", "", "error");
+        return;
+      }
+
+      const config = {
+        headers: {
+          "auth-tgh": `jwt ${token}`,
+        },
+        responseType: "blob", // Penting supaya file bisa di-download
+        params: {
+          as_file: true,
+          type_param: 2,
+          start_date,
+          end_date,
+        },
+      };
+
+      const response = await axios.get(
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/weekly`,
+        config
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `rekap-tahfidz-weekly-${start_date}-to-${end_date}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      Swal.fire("Berhasil!", "File berhasil diunduh.", "success");
+    } catch (error) {
+      console.error(error);
+      Swal.fire("Gagal export file!", "", "error");
     }
   };
 
@@ -144,7 +172,6 @@ function DataTahfidzWeekly() {
     )
   );
 
-  // Paginasi dengan slice()
   const paginatedList = filteredList.slice(
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage
@@ -153,9 +180,7 @@ function DataTahfidzWeekly() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
-    >
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -166,10 +191,7 @@ function DataTahfidzWeekly() {
       </a>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
-        <div
-          className="container box-table mt-3 app-main__outer"
-          data-aos="fade-left"
-        >
+        <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
           <div className="ml-2 row g-3 align-items-center d-lg-none d-md-flex rows-rspnv">
             <div className="col-auto">
               <label className="form-label mt-2">Rows per page:</label>
@@ -206,7 +228,6 @@ function DataTahfidzWeekly() {
                 </div>
               </div>
               <div className="d-flex ml-auto gap-2">
-                {/* Input Start Date */}
                 <div className="col-auto">
                   <input
                     type="date"
@@ -216,8 +237,6 @@ function DataTahfidzWeekly() {
                     onChange={(e) => setStartDate(e.target.value)}
                   />
                 </div>
-
-                {/* Filter End Date */}
                 <div className="col-auto">
                   <input
                     type="date"
@@ -227,20 +246,21 @@ function DataTahfidzWeekly() {
                     onChange={(e) => setEndDate(e.target.value)}
                   />
                 </div>
-
+                <Button variant="contained" className="col-md-2" onClick={getAll}>
+                  Cari
+                </Button>
                 <Button
                   variant="contained"
+                  color="success"
                   className="col-md-2"
-                  onClick={getAll}
+                  onClick={exportData}
                 >
-                  Cari
+                  Export
                 </Button>
               </div>
             </div>
-            <div
-              className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}
-            >
+
+            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -255,33 +275,25 @@ function DataTahfidzWeekly() {
                 </thead>
                 <tbody>
                   {paginatedList.length > 0 ? (
-                    paginatedList.map((tahfidz, no) => {
-                      return (
-                        <tr key={no}>
-                          <td className="text-md-start text-end">
-                            {no + 1 + (currentPage - 1) * rowsPerPage}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.member_name}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.created_date}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.start_pojok} - {tahfidz.end_pojok}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.start_juz} - {tahfidz.end_juz}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.description}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.status !== "" ? tahfidz.status : "Pending"}
-                          </td>
-                        </tr>
-                      );
-                    })
+                    paginatedList.map((tahfidz, no) => (
+                      <tr key={no}>
+                        <td className="text-md-start text-end">
+                          {no + 1 + (currentPage - 1) * rowsPerPage}
+                        </td>
+                        <td className="text-md-start text-end">{tahfidz.member_name}</td>
+                        <td className="text-md-start text-end">{tahfidz.created_date}</td>
+                        <td className="text-md-start text-end">
+                          {tahfidz.start_pojok} - {tahfidz.end_pojok}
+                        </td>
+                        <td className="text-md-start text-end">
+                          {tahfidz.start_juz} - {tahfidz.end_juz}
+                        </td>
+                        <td className="text-md-start text-end">{tahfidz.description}</td>
+                        <td className="text-md-start text-end">
+                          {tahfidz.status !== "" ? tahfidz.status : "Pending"}
+                        </td>
+                      </tr>
+                    ))
                   ) : (
                     <tr>
                       <td colSpan="9" className="text-center my-3">
