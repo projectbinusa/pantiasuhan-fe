@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { Modal, Box } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import axios from "axios";
-// import SidebarPantiAdmin from "./SidebarPantiAdmin";
+import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -81,6 +81,8 @@ const GuruDataTahfidz = () => {
     Swal.fire("Success", "RFID berhasil diset", "success");
   };
 
+  const [sidebarToggled, setSidebarToggled] = useState(true);
+
   const modalStyle = {
     width: 400,
     bgcolor: "white",
@@ -110,16 +112,20 @@ const GuruDataTahfidz = () => {
   }, []);
 
   return (
-    <div className="page-wrapper chiller-theme">
-      <a
-        id="show-sidebar"
-        className="btn1 btn-lg"
-        onClick={toggleSidebar}
-        style={{ color: "white", background: "#3a3f48" }}
-      >
-        <i className="fas fa-bars"></i>
-      </a>
-      {/* <SidebarPantiAdmin toggleSidebar={toggleSidebar} /> */}
+     <div
+          className={`page-wrapper chiller-theme ${
+            sidebarToggled ? "toggled" : ""
+          }`}
+        >
+          <a
+            id="show-sidebar"
+            className="btn1 btn-lg"
+            onClick={toggleSidebar}
+            style={{ color: "white", background: "#3a3f48" }}
+          >
+            <i className="fas fa-bars"></i>
+          </a>
+          <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div
           className="container box-table mt-3 app-main__outer"
