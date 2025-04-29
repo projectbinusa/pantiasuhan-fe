@@ -308,6 +308,9 @@ import { API_DUMMY } from "./utils/base_URL.js";
 import EditReplyKomentar from "./views/pages/admin/pantiasuhan/berita/EditReplyKomentar.js";
 import DataTahsinYear from "./views/pages/guru/tahsin/DataTahsinYear.js";
 import Kitab from "./views/pages/guru/hafalankitab/Kitab.js";
+import TahfidzHarian from "./views/pages/guru/tahfidz/TahfidzHarian.js";
+import TahfidzMingguan from "./views/pages/guru/tahfidz/TahfidzMingguan.js";
+import TahfidzBulanan from "./views/pages/guru/tahfidz/TahfidzBulanan.js";
 import KitabDaily from "./views/pages/guru/hafalankitab/KitabDaily.js";
 import KitabYear from "./views/pages/guru/hafalankitab/KitabYear.js";
 import KitabWeek from "./views/pages/guru/hafalankitab/KitabWeek.js";
@@ -1518,33 +1521,33 @@ function App() {
               component={GuruDataTahsin}
               exact
             />
-            <PrivateRoute
+            {/* <PrivateRoute
               path="/guru/tahsin/weakly"
               component={DataTahsinWeakly}
               exact
-            />
+            /> */}
             <PrivateRoute
-              path="/guru/tahsin/month"
+              path="/guru/tahsin/bulanan"
               component={DataTahsinMonth}
               exact
             />
             <PrivateRoute
-              path="/guru/tahsin/year"
+              path="/guru/tahsin/tahunan"
               component={DataTahsinYear}
               exact
             />
             <PrivateRoute
-              path="/guru/tahsin/day"
+              path="/guru/tahsin/harian"
               component={DataTahsinDay}
               exacD
             />
-            <PrivateRoute
+            {/* <PrivateRoute
               path="/guru/tahsin/daily"
               component={DataTahsinDaily}
               exact
-            />
+            /> */}
             <PrivateRoute
-              path="/guru/tahsin/week"
+              path="/guru/tahsin/mingguan"
               component={DataTahsinWeek}
               exact
             />
@@ -1563,7 +1566,7 @@ function App() {
               component={GuruDataTahfidz}
               exact
             />
-             <PrivateRoute
+            <PrivateRoute
               path="/guru/tahfidz/weakly"
               component={DataTahfidzWeakly}
               exact
@@ -1594,13 +1597,40 @@ function App() {
               exact
             />
             <PrivateRoute path="/guru/kitab" component={Kitab} exact />
-            <PrivateRoute path="/guru/kitab/daily" component={KitabDaily} exact />
+            <PrivateRoute
+              path="/guru/kitab/daily"
+              component={KitabDaily}
+              exact
+            />
             <PrivateRoute path="/guru/kitab/day" component={KitabDay} exact />
-            <PrivateRoute path="/guru/kitab/month" component={KitabMonth} exact />
-            <PrivateRoute path="/guru/kitab/weakly" component={KitabWeakly} exact />
+            <PrivateRoute
+              path="/guru/kitab/month"
+              component={KitabMonth}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/kitab/weakly"
+              component={KitabWeakly}
+              exact
+            />
             <PrivateRoute path="/guru/kitab/week" component={KitabWeek} exact />
             <PrivateRoute path="/guru/kitab/year" component={KitabYear} exact />
             <PrivateRoute path="/guru/presensi" component={AbsenMasuk} exact />
+            <PrivateRoute
+              path="/guru/tahfidz/harian"
+              component={TahfidzHarian}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/mingguan"
+              component={TahfidzMingguan}
+              exact
+            />
+            <PrivateRoute
+              path="/guru/tahfidz/bulanan"
+              component={TahfidzBulanan}
+              exact
+            />
           </Switch>
         </main>
         <LogPageView />
