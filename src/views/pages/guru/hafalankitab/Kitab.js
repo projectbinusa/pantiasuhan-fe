@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { API_DUMMY_SMART } from "../../../../utils/base_URL";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -8,7 +8,7 @@ import "../../../../css/button.css";
 import { Box, Modal, Pagination } from "@mui/material";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
 
-function KItab() {
+function Kitab() {
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,6 +19,27 @@ function KItab() {
   });
   const [searchTerm, setSearchTerm] = useState("");
   const history = useHistory();
+
+  // Modal states
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen1, setIsModalOpen1] = useState(false);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
+  const [selectedKitabId, setSelectedKitabId] = useState(null);
+  
+  // Form states
+  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
+  const [kitab, setKitab] = useState("");
+  const [startHalaman, setStartHalaman] = useState("");
+  const [endHalaman, setEndHalaman] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("");
+  const [member_id, setMemberId] = useState("");
+  const [rfidNumber, setRfidNumber] = useState("");
+  const [userData, setUserData] = useState(null);
+  const [memberName, setMemberName] = useState("");
+
+  const rfidInputRef = useRef(null);
 
   const getAll = async () => {
     try {
@@ -80,6 +101,169 @@ function KItab() {
     });
   };
 
+  // Modal functions
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const openModal1 = (id) => {
+    setSelectedKitabId(id);
+    setIsModalOpen1(true);
+  };
+  const closeModal1 = () => setIsModalOpen1(false);
+
+  const openModal2 = () => setIsModalOpen2(true);
+  const closeModal2 = () => {
+    setIsModalOpen2(false);
+    setUserData(null);
+    setRfidNumber("");
+  };
+
+  // RFID functions
+  const tabrfid = async (event) => {
+    event.preventDefault();
+
+    if (!rfidNumber) {
+      setUserData(null);
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `${API_DUMMY_SMART}/api/customer/member/rfid?rfid_number=${rfidNumber}`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
+      if (response.data && response.data.data) {
+        setUserData(response.data.data);
+        setMemberName(response.data.data.name);
+        setMemberId(response.data.data.id);
+        console.log(response.data.data);
+
+        closeModal2();
+        openModal();
+      }
+    } catch (error) {
+      console.error("Terjadi Kesalahan", error);
+      setUserData(null);
+      await Swal.fire({
+        title: "Gagal!",
+        text: "RFID tidak ditemukan atau terjadi kesalahan.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
+  };
+
+  const handleManualRFID = (e) => {
+    const manualRfid = e.target.value;
+    setRfidNumber(manualRfid);
+  };
+
+  // Add function
+  const add = async (e) => {
+    e.preventDefault();
+    e.persist();
+
+    const data = {
+      name,
+      date,
+      kitab,
+      startHalaman,
+      endHalaman,
+      description,
+      member_id,
+      status,
+    };
+
+    try {
+      const response = await axios.post(
+        `${API_DUMMY_SMART}/api/member/guru/materi_kitab`,
+        data,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
+      setIsModalOpen(false);
+      Swal.fire({
+        icon: "success",
+        title: "Data Berhasil DiTambahkan",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      window.location.reload();
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        localStorage.clear();
+        window.location.reload();
+      } else {
+        setIsModalOpen(false);
+        Swal.fire({
+          icon: "error",
+          title: "Tambah Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log("Error:", error.response ? error.response.data : error);
+      }
+    }
+  };
+
+  // Edit function
+  const edit = async (e) => {
+    e.preventDefault();
+
+    if (!selectedKitabId) {
+      console.error("Error: kitab_id tidak tersedia");
+      return;
+    }
+
+    const data = {
+      status,
+    };
+
+    try {
+      const response = await axios.put(
+        `${API_DUMMY_SMART}/api/member/guru/materi_kitab/${selectedKitabId}/status`,
+        data,
+        {
+          headers: {
+            "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
+          },
+        }
+      );
+
+      setIsModalOpen1(false);
+      Swal.fire({
+        icon: "success",
+        title: "Data Berhasil Diedit",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      window.location.reload();
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        localStorage.clear();
+        window.location.reload();
+      } else {
+        setIsModalOpen1(false);
+        Swal.fire({
+          icon: "error",
+          title: "Edit Data Gagal!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log("Error:", error.response ? error.response.data : error);
+      }
+    }
+  };
+
   useEffect(() => {
     getAll(currentPage);
   }, [currentPage, rowsPerPage]);
@@ -131,7 +315,7 @@ function KItab() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "90%", // Persentase untuk fleksibilitas
+    width: "90%",
     maxWidth: "800px",
     bgcolor: "background.paper",
     boxShadow: 24,
@@ -140,20 +324,9 @@ function KItab() {
     backgroundColor: "#f5f5f5",
     overflowY: "auto",
     maxHeight: "90vh",
-    textAlign: "center", // Menempatkan konten di tengah
-  };
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [imageSrc, setImageSrc] = useState(""); // Untuk menyimpan URL gambar
-
-  const openModal = (image) => {
-    setImageSrc(image); // Simpan URL gambar
-    setIsModalOpen(true); // Buka modal
+    textAlign: "center",
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false); // Tutup modal
-    setImageSrc(""); // Reset URL gambar
-  };
   return (
     <div
       className={`page-wrapper chiller-theme ${
@@ -228,13 +401,11 @@ function KItab() {
                 />
                 <div className="btn-actions-pane-right">
                   <div role="group" className="btn-group-sm btn-group">
-                    <button className="active btn-focus p-2 rounded">
-                      <a
-                        style={{ color: "white", textDecoration: "none" }}
-                        href="/admin_fasilitas/add"
-                      >
-                        Tambah
-                      </a>
+                    <button
+                      className="active btn-focus p-2 rounded"
+                      onClick={openModal2}
+                    >
+                      Tambah
                     </button>
                   </div>
                 </div>
@@ -248,49 +419,54 @@ function KItab() {
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Materi Kitab</th>
+                    <th>Nama</th>
+                    <th>Tanggal</th>
+                    <th>Kitab</th>
+                    <th>Halaman Awal - Akhir</th>
+                    <th>Deskripsi</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredList.length > 0 ? (
-                    filteredList.map((kitab, no) => {
+                    filteredList.map((data, index) => {
                       return (
-                        <tr key={no}>
-                          <td
-                            data-label="No"
-                            className="text-md-start text-end"
-                          >
-                            {no + 1 + (currentPage - 1) * rowsPerPage}
+                        <tr key={index}>
+                          <td data-label="No" className="text-md-start text-end">
+                            {index + 1 + (currentPage - 1) * rowsPerPage}
                           </td>
-                          <td
-                            data-label="Nama Kitab"
-                            className="text-md-start text-end"
-                          >
-                            {kitab.kitab}
+                          <td data-label="Nama" className="text-md-start text-end">
+                            {data.name}
                           </td>
-
-                          <td data-label="Aksi" className="action">
+                          <td data-label="Tanggal" className="text-md-start text-end">
+                            {data.date}
+                          </td>
+                          <td data-label="Kitab" className="text-md-start text-end">
+                            {data.kitab}
+                          </td>
+                          <td data-label="Halaman" className="text-md-start text-end">
+                            {`${data.startHalaman} - ${data.endHalaman}`}
+                          </td>
+                          <td data-label="Deskripsi" className="text-md-start text-end">
+                            {data.description}
+                          </td>
+                          <td data-label="Status" className="text-md-start text-end">
+                            {data.status !== "" ? data.status : "Pending"}
+                          </td>
+                          <td className="action" data-label="Aksi">
                             <div className="d-flex justify-content-center align-items-center">
                               <button
                                 type="button"
                                 className="btn-primary btn-sm mr-2"
-                                style={{ height: "100%" }}
+                                onClick={() => openModal1(data.id)}
                               >
-                                <a
-                                  style={{
-                                    color: "white",
-                                    textDecoration: "none",
-                                  }}
-                                  href={`/admin_fasilitas/edit/${kitab.id}`}
-                                >
-                                  <i className="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                <i className="fa-solid fa-pen-to-square"></i>
                               </button>
                               <button
-                                onClick={() => deleteData(kitab.id)}
                                 type="button"
                                 className="btn-danger btn-sm"
+                                onClick={() => deleteData(data.id)}
                               >
                                 <i className="fa-solid fa-trash"></i>
                               </button>
@@ -301,7 +477,7 @@ function KItab() {
                     })
                   ) : (
                     <tr>
-                      <td colSpan="5" className="text-center my-3">
+                      <td colSpan="8" className="text-center my-3">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
@@ -327,6 +503,8 @@ function KItab() {
           </div>
         </div>
       </div>
+
+      {/* Add Modal */}
       <Modal
         open={isModalOpen}
         onClose={closeModal}
@@ -334,39 +512,236 @@ function KItab() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <button
-            onClick={closeModal}
-            style={{
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-              background: "transparent",
-              border: "none",
-              fontSize: "20px",
-              cursor: "pointer",
-              color: "black",
-            }}
-            aria-label="Close"
-          >
-            ✖
-          </button>{" "}
-          <br />
-          {/* Gambar */}
-          {imageSrc && (
-            <img
-              src={imageSrc}
-              alt="Preview"
+          <h4 style={{ textAlign: "center", marginBottom: "1rem" }}>
+            Materi Kitab - {memberName}
+          </h4>
+
+          <form onSubmit={add}>
+            <div
+              className="form-grid"
               style={{
-                maxWidth: "100%",
-                maxHeight: "70vh",
-                borderRadius: "8px",
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "1rem",
+                gridTemplateAreas: `
+                  "name date"
+                  "kitab ."
+                  "startHalaman endHalaman"
+                  "description ."
+                `,
               }}
-            />
-          )}
+            >
+              {/* Name */}
+              <div className="mb-3" style={{ gridArea: "name" }}>
+                <label className="form-label font-weight-bold">Nama</label>
+                <input
+                  className="form-control"
+                  required
+                  placeholder="Masukkan Nama"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+
+              {/* Date */}
+              <div className="mb-3" style={{ gridArea: "date" }}>
+                <label className="form-label font-weight-bold">Tanggal</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  required
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                />
+              </div>
+
+              {/* Kitab */}
+              <div className="mb-3" style={{ gridArea: "kitab" }}>
+                <label className="form-label font-weight-bold">Kitab</label>
+                <input
+                  className="form-control"
+                  required
+                  placeholder="Masukkan Nama Kitab"
+                  value={kitab}
+                  onChange={(e) => setKitab(e.target.value)}
+                />
+              </div>
+
+              {/* Start Halaman */}
+              <div className="mb-3" style={{ gridArea: "startHalaman" }}>
+                <label className="form-label font-weight-bold">Halaman Awal</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  required
+                  placeholder="Masukkan Halaman Awal"
+                  value={startHalaman}
+                  onChange={(e) => setStartHalaman(e.target.value)}
+                />
+              </div>
+
+              {/* End Halaman */}
+              <div className="mb-3" style={{ gridArea: "endHalaman" }}>
+                <label className="form-label font-weight-bold">Halaman Akhir</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  required
+                  placeholder="Masukkan Halaman Akhir"
+                  value={endHalaman}
+                  onChange={(e) => setEndHalaman(e.target.value)}
+                />
+              </div>
+
+              {/* Description */}
+              <div className="mb-3" style={{ gridArea: "description" }}>
+                <label className="form-label font-weight-bold">Deskripsi</label>
+                <textarea
+                  className="form-control"
+                  required
+                  placeholder="Masukkan Deskripsi"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: "1rem",
+                marginTop: "1rem",
+              }}
+            >
+              <button onClick={closeModal} className="btn btn-danger">
+                TUTUP
+              </button>
+              <button type="submit" className="btn btn-primary">
+                SIMPAN
+              </button>
+            </div>
+          </form>
+        </Box>
+      </Modal>
+
+      {/* Edit Modal */}
+      <Modal
+        open={isModalOpen1}
+        onClose={closeModal1}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            width: 400,
+            bgcolor: "white",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: "10px",
+            mx: "auto",
+            mt: "10%",
+          }}
+        >
+          <form onSubmit={edit}>
+            <h4 style={{ marginBottom: "1rem", textAlign: "center" }}>
+              Edit Status Kitab
+            </h4>
+
+            <div className="mb-3">
+              <label className="form-label font-weight-bold">Status</label>
+              <select
+                className="form-control"
+                required
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option value="">Pilih Status</option>
+                <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "1rem",
+              }}
+            >
+              <button
+                onClick={closeModal1}
+                className="btn btn-danger"
+                type="button"
+              >
+                TUTUP
+              </button>
+              <button type="submit" className="btn btn-primary">
+                SIMPAN
+              </button>
+            </div>
+          </form>
+        </Box>
+      </Modal>
+
+      {/* RFID Modal */}
+      <Modal
+        open={isModalOpen2}
+        onClose={closeModal2}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            width: 400,
+            bgcolor: "white",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: "10px",
+            mx: "auto",
+            mt: "10%",
+          }}
+        >
+          <form onSubmit={tabrfid}>
+            <h4 style={{ marginBottom: "1rem", textAlign: "center" }}>
+              Tab Kartu
+            </h4>
+
+            <div className="mb-3">
+              <label className="form-label font-weight-bold">Tab Kartu</label>
+              <input
+                className="form-control"
+                required
+                placeholder="Tab Kartu"
+                value={rfidNumber}
+                onChange={handleManualRFID}
+                ref={rfidInputRef}
+              />
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "1rem",
+              }}
+            >
+              <button
+                onClick={closeModal2}
+                className="btn btn-danger"
+                type="button"
+              >
+                TUTUP
+              </button>
+              <button type="submit" className="btn btn-primary">
+                SIMPAN
+              </button>
+            </div>
+          </form>
         </Box>
       </Modal>
     </div>
   );
 }
 
-export default KItab;
+export default Kitab;
