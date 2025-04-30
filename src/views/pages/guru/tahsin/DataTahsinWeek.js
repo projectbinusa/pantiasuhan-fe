@@ -115,8 +115,10 @@ function DataTahsinWeek() {
         return;
       }
 
+      const weekParam = `${start_date}-${end_date}`;
+
       const response = await axios.get(
-        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/weekly?as_file=true&type_param=1&start_date=${start_date}&end_date=${end_date}`,
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin?type=1&week=${weekParam}`,
         {
           responseType: "blob",
           headers: {

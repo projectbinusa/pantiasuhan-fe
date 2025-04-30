@@ -1594,24 +1594,24 @@ function App() {
               exact
             />
             <PrivateRoute path="/guru/kitab" component={Kitab} exact />
-            <PrivateRoute
+            {/* <PrivateRoute
               path="/guru/kitab/daily"
               component={KitabDaily}
               exact
-            />
-            <PrivateRoute path="/guru/kitab/day" component={KitabDay} exact />
+            /> */}
+            <PrivateRoute path="/guru/kitab/harian" component={KitabDay} exact />
             <PrivateRoute
-              path="/guru/kitab/month"
+              path="/guru/kitab/bulanan"
               component={KitabMonth}
               exact
             />
-            <PrivateRoute
+            {/* <PrivateRoute
               path="/guru/kitab/weakly"
               component={KitabWeakly}
               exact
-            />
-            <PrivateRoute path="/guru/kitab/week" component={KitabWeek} exact />
-            <PrivateRoute path="/guru/kitab/year" component={KitabYear} exact />
+            /> */}
+            <PrivateRoute path="/guru/kitab/mingguan" component={KitabWeek} exact />
+            <PrivateRoute path="/guru/kitab/tahunan" component={KitabYear} exact />
             <PrivateRoute path="/guru/presensi" component={AbsenMasuk} exact />
           </Switch>
         </main>

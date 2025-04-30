@@ -28,6 +28,7 @@ function DataTahsinMonth() {
   const [searchTerm, setSearchTerm] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   // List bulan dan tahun
   const months = [
@@ -123,67 +124,64 @@ function DataTahsinMonth() {
     }
   };
 
-  const [isLoading, setIsLoading] = useState(false);
-
-const exportData = async () => {
-  try {
-    setIsLoading(true);
-
-    if (!month || !year) {
+  const exportData = async () => {
+    try {
+      setIsLoading(true);
+  
+      if (!month || !year) {
+        Swal.fire({
+          icon: "warning",
+          title: "Bulan dan Tahun belum dipilih!",
+          text: "Silakan pilih bulan dan tahun terlebih dahulu sebelum export.",
+        });
+        return;
+      }
+  
+      const token = localStorage.getItem("tokenpython");
+      if (!token) {
+        Swal.fire({
+          icon: "error",
+          title: "Token tidak ditemukan",
+          text: "Silakan login ulang.",
+        });
+        return;
+      }
+  
+      const response = await axios.get(
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin?type=1&month=${month}&year=${year}`,
+        {
+          responseType: "blob",
+          headers: {
+            "auth-tgh": `jwt ${token}`,
+          },
+        }
+      );
+  
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `rekap_tahsin_monthly_${month}-${year}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+  
       Swal.fire({
-        icon: "warning",
-        title: "Bulan dan Tahun belum dipilih!",
-        text: "Silakan pilih bulan dan tahun terlebih dahulu sebelum export.",
+        icon: "success",
+        title: "Berhasil",
+        text: "Data berhasil didownload!",
       });
-      return;
-    }
-
-    const token = localStorage.getItem("tokenpython");
-    if (!token) {
+  
+    } catch (error) {
+      console.error("Error exporting data:", error);
       Swal.fire({
         icon: "error",
-        title: "Token tidak ditemukan",
-        text: "Silakan login ulang.",
+        title: "Gagal Export",
+        text: "Terjadi kesalahan saat mengunduh data.",
       });
-      return;
+    } finally {
+      setIsLoading(false);
     }
-
-    const response = await axios.get(
-      `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/monthly?as_file=true&type=1&month=${month}&year=${year}`,
-      {
-        responseType: "blob",
-        headers: {
-          "auth-tgh": `jwt ${token}`,
-        },
-      }
-    );
-
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", `rekap_tahsin_monthly_${month}-${year}.xlsx`);
-    document.body.appendChild(link);
-    link.click();
-    link.parentNode.removeChild(link);
-
-    Swal.fire({
-      icon: "success",
-      title: "Berhasil",
-      text: "Data berhasil didownload!",
-    });
-
-  } catch (error) {
-    console.error("Error exporting data:", error);
-    Swal.fire({
-      icon: "error",
-      title: "Gagal Export",
-      text: "Terjadi kesalahan saat mengunduh data.",
-    });
-  } finally {
-    setIsLoading(false);
-  }
-};
-
+  };  
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
