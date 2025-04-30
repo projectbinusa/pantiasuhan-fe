@@ -154,7 +154,7 @@ function DataTahfidzYear() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Daftar Rekap Tahfidz Year</p>
+              <p className="mt-3">Daftar Rekap Tahfidz Tahunan</p>
               <div className="d-flex ml-auto gap-2">
                 <div className="col-auto">
                   <input

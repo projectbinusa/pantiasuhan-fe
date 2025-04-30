@@ -5,6 +5,7 @@ import {
   Button,
   Pagination,
 } from "@mui/material";
+import Swal from "sweetalert2";
 import "../../../../css/button.css";
 import { API_DUMMY_BYRTGHN } from "../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../component/SidebarPantiAdmin";
@@ -22,6 +23,7 @@ function DataTahfidzDay() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [startDate, setStartDate] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const getAll = async () => {
     try {
@@ -50,6 +52,65 @@ function DataTahfidzDay() {
       });
     } catch (error) {
       console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleExport = async () => {
+    try {
+      setIsLoading(true);
+  
+      if (!startDate) {
+        Swal.fire({
+          icon: "warning",
+          title: "Tanggal belum dipilih!",
+          text: "Silakan pilih tanggal terlebih dahulu sebelum export.",
+        });
+        return;
+      }
+  
+      const token = localStorage.getItem("tokenpython");
+      if (!token) {
+        Swal.fire({
+          icon: "error",
+          title: "Token tidak ditemukan",
+          text: "Silakan login ulang.",
+        });
+        return;
+      }
+  
+      const url = `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin?type=2&date=${startDate}`;
+      const filename = `rekap_tahfidz_day_${startDate}.xlsx`;
+  
+      const response = await axios.get(url, {
+        responseType: "blob",
+        headers: {
+          "auth-tgh": `jwt ${token}`,
+        },
+      });
+  
+      const urlBlob = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = urlBlob;
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+  
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil",
+        text: "Data berhasil didownload!",
+      });
+  
+    } catch (error) {
+      console.error("Error exporting data:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Gagal Export",
+        text: "Terjadi kesalahan saat mengunduh data.",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -130,6 +191,14 @@ function DataTahfidzDay() {
                   style={{ whiteSpace: "nowrap" }}
                 >
                   Cari
+                </Button>
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={handleExport}
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  Export
                 </Button>
               </div>
             </div>

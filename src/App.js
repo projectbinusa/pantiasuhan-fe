@@ -1563,33 +1563,33 @@ function App() {
               component={GuruDataTahfidz}
               exact
             />
-            <PrivateRoute
+            {/* <PrivateRoute
               path="/guru/tahfidz/weakly"
               component={DataTahfidzWeakly}
               exact
-            />
+            /> */}
             <PrivateRoute
-              path="/guru/tahfidz/month"
+              path="/guru/tahfidz/bulanan"
               component={DataTahfidzMonth}
               exact
             />
             <PrivateRoute
-              path="/guru/tahfidz/year"
+              path="/guru/tahfidz/tahunan"
               component={DataTahfidzYear}
               exact
             />
             <PrivateRoute
-              path="/guru/tahfidz/day"
+              path="/guru/tahfidz/harian"
               component={DataTahfidzDay}
               exacD
             />
-            <PrivateRoute
+            {/* <PrivateRoute
               path="/guru/tahfidz/daily"
               component={DataTahfidzDaily}
               exact
-            />
+            /> */}
             <PrivateRoute
-              path="/guru/tahfidz/week"
+              path="/guru/tahfidz/mingguan"
               component={DataTahfidzWeek}
               exact
             />
