@@ -745,30 +745,6 @@ function SidebarPantiAdmin({ toggleSidebar }) {
       ],
       icon: <i class="fa-solid fa-book-open"></i>,
     },
-    {
-      header: "Tahfidz",
-      items: [
-        {
-          title: "Tahfidz Harian",
-          icon: "fa-solid fa-book-open",
-          path: "/guru/tahfidz/harian",
-          action: [""],
-        },
-        {
-          title: "Tahfidz Mingguan",
-          icon: "fa-solid fa-book-open",
-          path: "/guru/tahfidz/mingguan",
-          action: [""],
-        },
-        {
-          title: "Tahfidz Bulanan",
-          icon: "fa-solid fa-book-open",
-          path: "/guru/tahfidz/bulanan",
-          action: [""],
-        },
-      ],
-      icon: <i class="fa-solid fa-book-open"></i>,
-    },
   ];
 
   useEffect(() => {

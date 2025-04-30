@@ -108,11 +108,55 @@ function DataTahfidzDaily() {
     setSidebarToggled(!sidebarToggled);
   };
 
+  const exportData = async () => {
+    try {
+      if (!date) {
+        Swal.fire({
+          icon: "warning",
+          title: "Tanggal belum dipilih!",
+          text: "Silakan pilih tanggal terlebih dahulu sebelum export.",
+        });
+        return;
+      }
+
+      const token = localStorage.getItem("tokenpython");
+      if (!token) return;
+
+      const response = await axios.get(
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/daily`,
+        {
+          headers: {
+            "auth-tgh": `jwt ${token}`,
+          },
+          params: {
+            as_file: true,
+            type_param: 2,
+            date: date,
+          },
+          responseType: "blob",
+        }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `rekap_tahfidz_daily_${date}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Error exporting data:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Gagal Export",
+        text: "Terjadi kesalahan saat melakukan export data.",
+      });
+    }
+  };
+
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
     >
       <a
         id="show-sidebar"
@@ -182,8 +226,17 @@ function DataTahfidzDaily() {
                 >
                   Cari
                 </Button>
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={exportData}
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  Export
+                </Button>
               </div>
             </div>
+
             <div
               className="table-responsive-3"
               style={{ overflowX: "auto", maxWidth: "100%" }}
@@ -198,38 +251,35 @@ function DataTahfidzDaily() {
                     <th>Juz Awal - Juz Akhir</th>
                     <th>Deskripsi</th>
                     <th>Status</th>
-                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {paginatedList.length > 0 ? (
-                    paginatedList.map((tahfidz, no) => {
-                      return (
-                        <tr key={no}>
-                          <td className="text-md-start text-end">
-                            {no + 1 + (currentPage - 1) * rowsPerPage}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.member_name}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.created_date}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.start_pojok} - {tahfidz.end_pojok}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.start_juz} - {tahfidz.end_juz}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.description}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.status !== "" ? tahfidz.status : "Pending"}
-                          </td>
-                        </tr>
-                      );
-                    })
+                    paginatedList.map((tahfidz, no) => (
+                      <tr key={no}>
+                        <td className="text-md-start text-end">
+                          {no + 1 + (currentPage - 1) * rowsPerPage}
+                        </td>
+                        <td className="text-md-start text-end">
+                          {tahfidz.member_name}
+                        </td>
+                        <td className="text-md-start text-end">
+                          {tahfidz.created_date}
+                        </td>
+                        <td className="text-md-start text-end">
+                          {tahfidz.start_pojok} - {tahfidz.end_pojok}
+                        </td>
+                        <td className="text-md-start text-end">
+                          {tahfidz.start_juz} - {tahfidz.end_juz}
+                        </td>
+                        <td className="text-md-start text-end">
+                          {tahfidz.description}
+                        </td>
+                        <td className="text-md-start text-end">
+                          {tahfidz.status !== "" ? tahfidz.status : "Pending"}
+                        </td>
+                      </tr>
+                    ))
                   ) : (
                     <tr>
                       <td colSpan="9" className="text-center my-3">
@@ -242,6 +292,7 @@ function DataTahfidzDaily() {
                 </tbody>
               </table>
             </div>
+
             <div className="card-header mt-3 d-flex justify-content-center">
               <Pagination
                 count={paginationInfo.totalPages}

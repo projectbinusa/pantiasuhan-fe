@@ -308,9 +308,6 @@ import { API_DUMMY } from "./utils/base_URL.js";
 import EditReplyKomentar from "./views/pages/admin/pantiasuhan/berita/EditReplyKomentar.js";
 import DataTahsinYear from "./views/pages/guru/tahsin/DataTahsinYear.js";
 import Kitab from "./views/pages/guru/hafalankitab/Kitab.js";
-import TahfidzHarian from "./views/pages/guru/tahfidz/TahfidzHarian.js";
-import TahfidzMingguan from "./views/pages/guru/tahfidz/TahfidzMingguan.js";
-import TahfidzBulanan from "./views/pages/guru/tahfidz/TahfidzBulanan.js";
 import KitabDaily from "./views/pages/guru/hafalankitab/KitabDaily.js";
 import KitabYear from "./views/pages/guru/hafalankitab/KitabYear.js";
 import KitabWeek from "./views/pages/guru/hafalankitab/KitabWeek.js";
@@ -1616,21 +1613,6 @@ function App() {
             <PrivateRoute path="/guru/kitab/week" component={KitabWeek} exact />
             <PrivateRoute path="/guru/kitab/year" component={KitabYear} exact />
             <PrivateRoute path="/guru/presensi" component={AbsenMasuk} exact />
-            <PrivateRoute
-              path="/guru/tahfidz/harian"
-              component={TahfidzHarian}
-              exact
-            />
-            <PrivateRoute
-              path="/guru/tahfidz/mingguan"
-              component={TahfidzMingguan}
-              exact
-            />
-            <PrivateRoute
-              path="/guru/tahfidz/bulanan"
-              component={TahfidzBulanan}
-              exact
-            />
           </Switch>
         </main>
         <LogPageView />
