@@ -25,6 +25,7 @@ function DataTahfidzWeek() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [start_date, setStartDate] = useState("");
   const [end_date, setEndDate] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const getAll = async () => {
     try {
@@ -39,7 +40,6 @@ function DataTahfidzWeek() {
         return;
       }
 
-      // Pastikan start_date dan end_date ada
       if (!start_date || !end_date) {
         console.error("start_date dan end_date harus diisi!");
         return;
@@ -63,7 +63,7 @@ function DataTahfidzWeek() {
       };
 
       const response = await axios.get(
-        `${API_DUMMY_BYRTGHN}/api/member/tahfidz/rekap-week/member`, // Ubah endpoint menjadi tahfidz
+        `${API_DUMMY_BYRTGHN}/api/member/tahfidz/rekap-week/member`,
         config
       );
 
@@ -76,6 +76,67 @@ function DataTahfidzWeek() {
         "Error fetching data:",
         error.response ? error.response.data : error.message
       );
+    }
+  };
+
+  const handleExport = async () => {
+    try {
+      setIsLoading(true);
+  
+      if (!start_date || !end_date) {
+        Swal.fire({
+          icon: "warning",
+          title: "Tanggal belum dipilih!",
+          text: "Silakan pilih tanggal awal dan akhir minggu terlebih dahulu sebelum export.",
+        });
+        return;
+      }
+  
+      const token = localStorage.getItem("tokenpython");
+      if (!token) {
+        Swal.fire({
+          icon: "error",
+          title: "Token tidak ditemukan",
+          text: "Silakan login ulang.",
+        });
+        return;
+      }
+  
+      // Format the week parameter as "YYYY-MM-DDYYYY-MM-DD"
+      const weekParam = `${start_date}${end_date}`;
+      const url = `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin?type=1&week=${weekParam}`;
+      const filename = `rekap_tahfidz_mingguan_${start_date}_to_${end_date}.xlsx`;
+  
+      const response = await axios.get(url, {
+        responseType: "blob",
+        headers: {
+          "auth-tgh": `jwt ${token}`,
+        },
+      });
+  
+      const urlBlob = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = urlBlob;
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+  
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil",
+        text: "Data berhasil didownload!",
+      });
+  
+    } catch (error) {
+      console.error("Error exporting data:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Gagal Export",
+        text: "Terjadi kesalahan saat mengunduh data.",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -158,7 +219,7 @@ function DataTahfidzWeek() {
           </div>
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
-              <p className="mt-3">Daftar Rekap Tahfidz Week</p>
+              <p className="mt-3">Daftar Rekap Tahfidz Mingguan</p>
               <div className="d-flex ml-auto gap-2">
                 {/* Input Start Date */}
                 <div className="col-auto">
@@ -184,6 +245,14 @@ function DataTahfidzWeek() {
 
                 <Button variant="contained" className="col-md-2" onClick={getAll}>
                   Cari
+                </Button>
+                <Button 
+                  variant="contained" 
+                  color="success" 
+                  onClick={handleExport}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Exporting..." : "Export"}
                 </Button>
               </div>
             </div>

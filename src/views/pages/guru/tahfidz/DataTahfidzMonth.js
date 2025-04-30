@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AOS from "aos";
-import Swal from "sweetalert2"; // Import SweetAlert2
+import Swal from "sweetalert2";
 import {
   Box,
   Button,
@@ -24,6 +24,7 @@ function DataTahfidzMonth() {
   const [searchTerm, setSearchTerm] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sidebarToggled, setSidebarToggled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const months = [
     { label: "Januari", value: "01" },
@@ -74,18 +75,27 @@ function DataTahfidzMonth() {
 
   const handleExport = async () => {
     try {
+      setIsLoading(true);
+  
       if (!month || !year) {
         Swal.fire({
-          icon: 'warning',
-          title: 'Pilih bulan dan tahun terlebih dahulu.',
-          showConfirmButton: true,
+          icon: "warning",
+          title: "Bulan dan tahun belum dipilih!",
+          text: "Silakan pilih bulan dan tahun terlebih dahulu sebelum export.",
         });
         return;
       }
-
+  
       const token = localStorage.getItem("tokenpython");
-      if (!token) return;
-
+      if (!token) {
+        Swal.fire({
+          icon: "error",
+          title: "Token tidak ditemukan",
+          text: "Silakan login ulang.",
+        });
+        return;
+      }
+  
       const response = await axios.get(
         `${API_DUMMY_BYRTGHN}/api/member/tahfidz/export/monthly`,
         {
@@ -100,29 +110,31 @@ function DataTahfidzMonth() {
           responseType: "blob",
         }
       );
-
-      const url = window.URL.createObjectURL(new Blob([response.data]));
+  
+      const filename = `rekap_tahfidz_bulanan_${month}_${year}.xlsx`;
+      const urlBlob = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `Tahfidz_Bulanan_${month}_${year}.xlsx`);
+      link.href = urlBlob;
+      link.setAttribute("download", filename);
       document.body.appendChild(link);
       link.click();
-      link.remove();
-
+      link.parentNode.removeChild(link);
+  
       Swal.fire({
-        icon: 'success',
-        title: 'Export Berhasil!',
-        text: `Data Tahfidz Bulanan ${month} ${year} berhasil diunduh.`,
-        showConfirmButton: true,
+        icon: "success",
+        title: "Berhasil",
+        text: "Data Tahfidz berhasil diexport!",
       });
+  
     } catch (error) {
-      console.error("Error exporting data:", error.response?.data || error.message);
+      console.error("Error exporting data:", error);
       Swal.fire({
-        icon: 'error',
-        title: 'Gagal Export Data',
-        text: 'Terjadi kesalahan saat melakukan export data.',
-        showConfirmButton: true,
+        icon: "error",
+        title: "Gagal Export",
+        text: "Terjadi kesalahan saat mengekspor data.",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -144,7 +156,7 @@ function DataTahfidzMonth() {
 
   useEffect(() => {
     getAll();
-  }, [currentPage, rowsPerPage]);
+  }, [currentPage, rowsPerPage, month, year]);
 
   useEffect(() => {
     AOS.init();
@@ -216,8 +228,13 @@ function DataTahfidzMonth() {
                 <Button variant="contained" color="primary" onClick={getAll}>
                   Cari
                 </Button>
-                <Button variant="contained" color="success" onClick={handleExport}>
-                  Export
+                <Button 
+                  variant="contained" 
+                  color="success" 
+                  onClick={handleExport}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Exporting..." : "Export"}
                 </Button>
               </div>
             </div>
