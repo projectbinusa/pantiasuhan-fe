@@ -123,6 +123,68 @@ function DataTahsinMonth() {
     }
   };
 
+  const [isLoading, setIsLoading] = useState(false);
+
+const exportData = async () => {
+  try {
+    setIsLoading(true);
+
+    if (!month || !year) {
+      Swal.fire({
+        icon: "warning",
+        title: "Bulan dan Tahun belum dipilih!",
+        text: "Silakan pilih bulan dan tahun terlebih dahulu sebelum export.",
+      });
+      return;
+    }
+
+    const token = localStorage.getItem("tokenpython");
+    if (!token) {
+      Swal.fire({
+        icon: "error",
+        title: "Token tidak ditemukan",
+        text: "Silakan login ulang.",
+      });
+      return;
+    }
+
+    const response = await axios.get(
+      `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/monthly?as_file=true&type=1&month=${month}&year=${year}`,
+      {
+        responseType: "blob",
+        headers: {
+          "auth-tgh": `jwt ${token}`,
+        },
+      }
+    );
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `rekap_tahsin_monthly_${month}-${year}.xlsx`);
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
+
+    Swal.fire({
+      icon: "success",
+      title: "Berhasil",
+      text: "Data berhasil didownload!",
+    });
+
+  } catch (error) {
+    console.error("Error exporting data:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Gagal Export",
+      text: "Terjadi kesalahan saat mengunduh data.",
+    });
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
@@ -230,7 +292,6 @@ function DataTahsinMonth() {
                     onChange={(e) => setMonth(e.target.value)}
                     displayEmpty
                     variant="outlined"
-                    // className="form-select form-select-sm"
                     style={{ width: "110px", height: "35px", fontSize: "12px" }}
                   >
                     <MenuItem value="">Bulan</MenuItem>
@@ -249,7 +310,6 @@ function DataTahsinMonth() {
                     onChange={(e) => setYear(e.target.value)}
                     displayEmpty
                     variant="outlined"
-                    // className="form-select form-select-sm"
                     style={{ width: "110px", height: "35px", fontSize: "12px" }}
                   >
                     <MenuItem value="">Tahun</MenuItem>
@@ -269,6 +329,16 @@ function DataTahsinMonth() {
                   style={{ whiteSpace: "nowrap" }}
                 >
                   Cari
+                </Button>
+                
+                {/* Tombol Export */}
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={exportData}
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  Export
                 </Button>
               </div>
             </div>

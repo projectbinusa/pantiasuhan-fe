@@ -30,6 +30,7 @@ function DataTahsinWeek() {
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [start_date, setStartDate] = useState("");
   const [end_date, setEndDate] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const getAll = async () => {
     try {
@@ -91,6 +92,65 @@ function DataTahsinWeek() {
     }
   };
 
+  const exportData = async () => {
+    try {
+      setIsLoading(true);
+
+      if (!start_date || !end_date) {
+        Swal.fire({
+          icon: "warning",
+          title: "Tanggal belum dipilih!",
+          text: "Silakan pilih tanggal terlebih dahulu sebelum export.",
+        });
+        return;
+      }
+
+      const token = localStorage.getItem("tokenpython");
+      if (!token) {
+        Swal.fire({
+          icon: "error",
+          title: "Token tidak ditemukan",
+          text: "Silakan login ulang.",
+        });
+        return;
+      }
+
+      const response = await axios.get(
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/weekly?as_file=true&type_param=1&start_date=${start_date}&end_date=${end_date}`,
+        {
+          responseType: "blob",
+          headers: {
+            "auth-tgh": `jwt ${token}`,
+          },
+        }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `rekap_tahsin_weekly_${start_date}_to_${end_date}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil",
+        text: "Data berhasil didownload!",
+      });
+
+    } catch (error) {
+      console.error("Error exporting data:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Gagal Export",
+        text: "Terjadi kesalahan saat mengunduh data.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
   };
@@ -106,138 +166,6 @@ function DataTahsinWeek() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const [rfidNumber, setRfidNumber] = useState("");
-  const [userData, setUserData] = useState(null);
-  const [memberName, setMemberName] = useState("");
-  const [foto, setFoto] = useState("");
-
-  // const tabrfid = async (event) => {
-  //   event.preventDefault(); // Mencegah reload halaman
-
-  //   if (!rfidNumber) {
-  //     setUserData(null);
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await axios.get(
-  //       `${API_DUMMY_BYRTGHN}/api/customer/member/rfid?rfid_number=${rfidNumber}`,
-  //       {
-  //         headers: {
-  //           "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-  //         },
-  //       }
-  //     );
-
-  //     if (response.data && response.data.data) {
-  //       setUserData(response.data.data);
-  //       setMemberName(response.data.data.name);
-  //       setMemberId(response.data.data.id);
-  //       console.log(response.data.data);
-
-  //       // Tutup modal terlebih dahulu
-  //       closeModal2();
-
-  //       // Tunggu modal benar-benar tertutup sebelum menampilkan alert
-  //       // setTimeout(async () => {
-  //       //   await Swal.fire({
-  //       //     title: "Berhasil!",
-  //       //     text: "Data RFID berhasil ditemukan.",
-  //       //     icon: "success",
-  //       //   });
-  //       // }, 500);
-
-  //       openModal();
-  //     }
-  //   } catch (error) {
-  //     console.error("Terjadi Kesalahan", error);
-  //     setUserData(null);
-  //     await Swal.fire({
-  //       title: "Gagal!",
-  //       text: "RFID tidak ditemukan atau terjadi kesalahan.",
-  //       icon: "error",
-  //       confirmButtonText: "OK",
-  //     });
-  //   }
-  // };
-
-  // const rfidInputRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (isModalOpen2) {
-  //     setTimeout(() => {
-  //       rfidInputRef.current?.focus();
-  //     }, 100); // Beri sedikit delay agar modal selesai dirender
-  //   }
-  // }, [isModalOpen2]);
-
-  // // Menangkap pemindaian kartu otomatis
-  // useEffect(() => {
-  //   const handleScanRFID = (event) => {
-  //     const scannedRfid = event.detail; // RFID dari event
-  //     setRfidNumber(scannedRfid);
-  //     tabrfid(); // Ambil data siswa setelah RFID terdeteksi
-  //   };
-
-  //   window.addEventListener("scanRFID", handleScanRFID);
-  //   return () => {
-  //     window.removeEventListener("scanRFID", handleScanRFID);
-  //   };
-  // }, []);
-
-  // // Menangani input manual RFID
-  // const handleManualRFID = (e) => {
-  //   const manualRfid = e.target.value;
-  //   setRfidNumber(manualRfid);
-  // };
-
-  // const add = async (e) => {
-  //   e.preventDefault();
-  //   e.persist();
-
-  //   const data = {
-  //     start_juz,
-  //     end_juz,
-  //     start_pojok,
-  //     end_pojok,
-  //     description,
-  //     member_id,
-  //     status,
-  //   };
-
-  //   try {
-  //     await axios.post(`${API_DUMMY_BYRTGHN}/api/customer/tahsin`, data, {
-  //       headers: {
-  //         "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
-  //       },
-  //     });
-
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Data Berhasil DiTambahkan",
-  //       showConfirmButton: false,
-  //       timer: 1500,
-  //     });
-  //     getAll()
-  //     setIsModalOpen(false);
-  //     // window.location.reload();
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 401) {
-  //       localStorage.clear();
-  //       window.location.reload(); // Redirect to login or perform other actions
-  //     } else {
-  //       setIsModalOpen(false);
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Tambah Data Gagal!",
-  //         showConfirmButton: false,
-  //         timer: 1500,
-  //       });
-  //       console.log("Error:", error.response ? error.response.data : error);
-  //     }
-  //   }
-  // };
 
   useEffect(() => {
     getAll(currentPage);
@@ -305,15 +233,6 @@ function DataTahsinWeek() {
               </select>
             </div>
           </div>
-          {/* <div className="search">
-            <input
-              type="search"
-              className="form-control widget-content-right w-100 mt-2 mb-2 d-lg-none d-md-block"
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div> */}
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Daftar Rekap Tahsin Week</p>
@@ -363,8 +282,17 @@ function DataTahsinWeek() {
                 >
                   Cari
                 </Button>
+                
+                {/* Tombol Export */}
+                <Button
+                 variant="contained"
+                 color="success"
+                 onClick={exportData}
+                 style={{ whiteSpace: "nowrap" }}
+                  >
+                 Export
+                </Button>
               </div>
-              ;
             </div>
             <div
               className="table-responsive-3"
