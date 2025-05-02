@@ -49,30 +49,28 @@ function DataTahsinDay() {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const organization_id = user?.organization_id || "";
-
+  
       if (!organization_id) {
         console.error("organization_id tidak ditemukan!");
         return;
       }
-
+  
       const response = await axios.get(
-        `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-day/member`,
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin`,
         {
           params: {
-            page: currentPage,
-            month: month || new Date().getMonth() + 1,
-            year: year || new Date().getFullYear(),
-            organization_id,
+            type: 1,
+            date: "2025-04-28",
           },
           headers: {
             "auth-tgh": `jwt ${localStorage.getItem("tokenpython")}`,
           },
         }
       );
-
+  
       setList(response.data.data);
       setPaginationInfo({
-        totalPages: response.data.pagination.total_page,
+        totalPages: response.data.pagination?.total_page || 1,
       });
     } catch (error) {
       console.error(
@@ -80,13 +78,13 @@ function DataTahsinDay() {
         error.response ? error.response.data : error
       );
     }
-  };
+  };  
 
   const handleExport = async () => {
     try {
       setIsLoading(true);
-  
-      if (!start_date) {
+      
+      if (exportType === "daily" && !start_date) {
         Swal.fire({
           icon: "warning",
           title: "Tanggal belum dipilih!",
@@ -94,7 +92,7 @@ function DataTahsinDay() {
         });
         return;
       }
-  
+
       const token = localStorage.getItem("tokenpython");
       if (!token) {
         Swal.fire({
@@ -104,17 +102,38 @@ function DataTahsinDay() {
         });
         return;
       }
-  
-      const url = `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin?type=1&date=${start_date}`;
-      const filename = `rekap_tahsin_${start_date}.xlsx`;
-  
+
+      let url = "";
+      let filename = "";
+
+      if (exportType === "monthly") {
+        const monthParam = month || new Date().getMonth() + 1;
+        const yearParam = year || new Date().getFullYear();
+        url = `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/monthly?as_file=true&type=1&month=${monthParam}&year=${yearParam}`;
+        filename = `rekap_tahsin_monthly_${monthParam}-${yearParam}.xlsx`;
+      } else if (exportType === "weekly") {
+        if (!start_date) {
+          Swal.fire({
+            icon: "warning",
+            title: "Tanggal belum dipilih!",
+            text: "Silakan pilih tanggal awal minggu terlebih dahulu sebelum export.",
+          });
+          return;
+        }
+        url = `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/weekly?as_file=true&type_param=1&start_date=${start_date}`;
+        filename = `rekap_tahsin_weekly_${start_date}.xlsx`;
+      } else if (exportType === "daily") {
+        url = `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/daily?as_file=true&type_param=22&date=${start_date}`;
+        filename = `rekap_tahsin_daily_${start_date}.xlsx`;
+      }
+
       const response = await axios.get(url, {
         responseType: "blob",
         headers: {
           "auth-tgh": `jwt ${token}`,
         },
       });
-  
+
       const urlBlob = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = urlBlob;
@@ -122,13 +141,13 @@ function DataTahsinDay() {
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);
-  
+
       Swal.fire({
         icon: "success",
         title: "Berhasil",
         text: "Data berhasil didownload!",
       });
-  
+
     } catch (error) {
       console.error("Error exporting data:", error);
       Swal.fire({
@@ -139,7 +158,7 @@ function DataTahsinDay() {
     } finally {
       setIsLoading(false);
     }
-  };  
+  };
 
   useEffect(() => {
     getAll();

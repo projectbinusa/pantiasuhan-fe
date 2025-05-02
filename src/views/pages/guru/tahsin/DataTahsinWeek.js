@@ -39,50 +39,34 @@ function DataTahsinWeek() {
         organization_id: localStorage.getItem("organization_id"),
         rolename: localStorage.getItem("rolename"),
       };
-
+  
       console.log("User Data dari localStorage:", userData); // Debugging
-
-      if (!userData.organization_id) {
-        console.error("organization_id tidak ditemukan dalam localStorage!");
-        return;
-      }
-
-      // Pastikan start_date dan end_date ada
-      if (!start_date || !end_date) {
-        console.error("start_date dan end_date harus diisi!");
-        return;
-      }
-
+  
       const token = localStorage.getItem("tokenpython"); // Pastikan token tersimpan dengan benar
       if (!token) {
         console.error("Token autentikasi tidak ditemukan!");
         return;
       }
-
+  
       // Set konfigurasi header
       const config = {
         headers: {
           "auth-tgh": `jwt ${token}`,
         },
-        params: {
-          start_date,
-          end_date,
-          organization_id: userData.organization_id,
-        },
       };
-
+  
       // Panggil API dengan axios
       const response = await axios.get(
-        `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-week/member`,
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin?type=1&week=2025-04-2028`,
         config
       );
-
+  
       // Set data ke state
       setList(response.data.data);
       setPaginationInfo({
         totalPages: response.data.pagination?.total_page || 1,
       });
-
+  
       console.log("API Response:", response.data);
     } catch (error) {
       console.error(
@@ -90,7 +74,7 @@ function DataTahsinWeek() {
         error.response ? error.response.data : error.message
       );
     }
-  };
+  };  
 
   const exportData = async () => {
     try {
@@ -115,10 +99,8 @@ function DataTahsinWeek() {
         return;
       }
 
-      const weekParam = `${start_date}-${end_date}`;
-
       const response = await axios.get(
-        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin?type=1&week=${weekParam}`,
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/weekly?as_file=true&type_param=1&start_date=${start_date}&end_date=${end_date}`,
         {
           responseType: "blob",
           headers: {

@@ -29,7 +29,7 @@ function DataTahsinMonth() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
+  
   // List bulan dan tahun
   const months = [
     { label: "Januari", value: "01" },
@@ -60,51 +60,46 @@ function DataTahsinMonth() {
         organization_id: localStorage.getItem("organization_id"),
         rolename: localStorage.getItem("rolename"),
       };
-
+  
       console.log("User Data dari localStorage:", userData); // Debugging
-
-      if (!userData.organization_id) {
-        console.error("organization_id tidak ditemukan dalam localStorage!");
-        return;
-      }
-
+  
       // Pastikan month dan year ada sebelum melakukan request
       if (!month || !year) {
         console.error("month dan year harus diisi!");
         return;
       }
-
+  
       // Ambil token dari localStorage
       const token = localStorage.getItem("tokenpython");
       if (!token) {
         console.error("Token autentikasi tidak ditemukan di localStorage!");
         return;
       }
-
+  
       console.log("Token ditemukan:", token); // Debugging
-
-      // Set konfigurasi header dengan format auth-tgh
+  
+      // Set konfigurasi header
       const config = {
         headers: {
           "auth-tgh": `jwt ${token}`,
         },
         params: {
+          type: 1,
           month,
           year,
-          organization_id: userData.organization_id,
         },
       };
-
+  
       console.log("Mengirim request ke API dengan config:", config); // Debugging
-
+  
       // Panggil API dengan axios
       const response = await axios.get(
-        `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-month/organization`,
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin`,
         config
       );
-
+  
       console.log("API Response:", response.data); // Debugging
-
+  
       if (response.data && response.data.data) {
         setList(response.data.data);
         setPaginationInfo({
@@ -122,66 +117,67 @@ function DataTahsinMonth() {
       setList([]); // Kosongkan list jika terjadi error
       setPaginationInfo({ totalPages: 1 });
     }
-  };
+  };  
 
-  const exportData = async () => {
-    try {
-      setIsLoading(true);
-  
-      if (!month || !year) {
-        Swal.fire({
-          icon: "warning",
-          title: "Bulan dan Tahun belum dipilih!",
-          text: "Silakan pilih bulan dan tahun terlebih dahulu sebelum export.",
-        });
-        return;
-      }
-  
-      const token = localStorage.getItem("tokenpython");
-      if (!token) {
-        Swal.fire({
-          icon: "error",
-          title: "Token tidak ditemukan",
-          text: "Silakan login ulang.",
-        });
-        return;
-      }
-  
-      const response = await axios.get(
-        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin?type=1&month=${month}&year=${year}`,
-        {
-          responseType: "blob",
-          headers: {
-            "auth-tgh": `jwt ${token}`,
-          },
-        }
-      );
-  
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `rekap_tahsin_monthly_${month}-${year}.xlsx`);
-      document.body.appendChild(link);
-      link.click();
-      link.parentNode.removeChild(link);
-  
+const exportData = async () => {
+  try {
+    setIsLoading(true);
+
+    if (!month || !year) {
       Swal.fire({
-        icon: "success",
-        title: "Berhasil",
-        text: "Data berhasil didownload!",
+        icon: "warning",
+        title: "Bulan dan Tahun belum dipilih!",
+        text: "Silakan pilih bulan dan tahun terlebih dahulu sebelum export.",
       });
-  
-    } catch (error) {
-      console.error("Error exporting data:", error);
+      return;
+    }
+
+    const token = localStorage.getItem("tokenpython");
+    if (!token) {
       Swal.fire({
         icon: "error",
-        title: "Gagal Export",
-        text: "Terjadi kesalahan saat mengunduh data.",
+        title: "Token tidak ditemukan",
+        text: "Silakan login ulang.",
       });
-    } finally {
-      setIsLoading(false);
+      return;
     }
-  };  
+
+    const response = await axios.get(
+      `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/monthly?as_file=true&type=1&month=${month}&year=${year}`,
+      {
+        responseType: "blob",
+        headers: {
+          "auth-tgh": `jwt ${token}`,
+        },
+      }
+    );
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `rekap_tahsin_monthly_${month}-${year}.xlsx`);
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
+
+    Swal.fire({
+      icon: "success",
+      title: "Berhasil",
+      text: "Data berhasil didownload!",
+    });
+
+  } catch (error) {
+    console.error("Error exporting data:", error);
+    Swal.fire({
+      icon: "error",
+      title: "Gagal Export",
+      text: "Terjadi kesalahan saat mengunduh data.",
+    });
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const toggleSidebar = () => {
     setSidebarToggled(!sidebarToggled);
