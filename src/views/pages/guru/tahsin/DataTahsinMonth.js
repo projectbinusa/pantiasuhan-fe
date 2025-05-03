@@ -28,7 +28,8 @@ function DataTahsinMonth() {
   const [searchTerm, setSearchTerm] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sidebarToggled, setSidebarToggled] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
+  
   // List bulan dan tahun
   const months = [
     { label: "Januari", value: "01" },
@@ -59,51 +60,46 @@ function DataTahsinMonth() {
         organization_id: localStorage.getItem("organization_id"),
         rolename: localStorage.getItem("rolename"),
       };
-
+  
       console.log("User Data dari localStorage:", userData); // Debugging
-
-      if (!userData.organization_id) {
-        console.error("organization_id tidak ditemukan dalam localStorage!");
-        return;
-      }
-
+  
       // Pastikan month dan year ada sebelum melakukan request
       if (!month || !year) {
         console.error("month dan year harus diisi!");
         return;
       }
-
+  
       // Ambil token dari localStorage
       const token = localStorage.getItem("tokenpython");
       if (!token) {
         console.error("Token autentikasi tidak ditemukan di localStorage!");
         return;
       }
-
+  
       console.log("Token ditemukan:", token); // Debugging
-
-      // Set konfigurasi header dengan format auth-tgh
+  
+      // Set konfigurasi header
       const config = {
         headers: {
           "auth-tgh": `jwt ${token}`,
         },
         params: {
+          type: 1,
           month,
           year,
-          organization_id: userData.organization_id,
         },
       };
-
+  
       console.log("Mengirim request ke API dengan config:", config); // Debugging
-
+  
       // Panggil API dengan axios
       const response = await axios.get(
-        `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-month/organization`,
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin`,
         config
       );
-
+  
       console.log("API Response:", response.data); // Debugging
-
+  
       if (response.data && response.data.data) {
         setList(response.data.data);
         setPaginationInfo({
@@ -121,9 +117,7 @@ function DataTahsinMonth() {
       setList([]); // Kosongkan list jika terjadi error
       setPaginationInfo({ totalPages: 1 });
     }
-  };
-
-  const [isLoading, setIsLoading] = useState(false);
+  };  
 
 const exportData = async () => {
   try {

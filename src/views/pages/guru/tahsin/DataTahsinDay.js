@@ -24,18 +24,17 @@ function DataTahsinDay() {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const organization_id = user?.organization_id || "";
-
+  
       if (!organization_id) {
         console.error("organization_id tidak ditemukan!");
         return;
       }
-
+  
       const response = await axios.get(
-        `${API_DUMMY_BYRTGHN}/api/member/tahsin/rekap-day/member`,
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin`,
         {
           params: {
             page: currentPage,
-            limit: rowsPerPage,
             month: month || new Date().getMonth() + 1,
             year: year || new Date().getFullYear(),
             organization_id,
@@ -46,7 +45,7 @@ function DataTahsinDay() {
         }
       );
 
-      setList(response.data.data || []);
+      setList(response.data.data);
       setPaginationInfo({
         totalPages: response.data.pagination?.total_page || 1,
       });
@@ -58,7 +57,7 @@ function DataTahsinDay() {
         text: "Gagal mengambil data, coba lagi!",
       });
     }
-  };
+  };  
 
   const handleExport = async () => {
     try {
