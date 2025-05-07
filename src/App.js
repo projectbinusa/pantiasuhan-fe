@@ -266,6 +266,7 @@ import EditDomain from "./views/pages/yayasan/domain/EditDomain.js";
 import AdminFasilitas from "./views/pages/admin/pantiasuhan/fasilitas/Fasilitas.js";
 import AddFasilitas from "./views/pages/admin/pantiasuhan/fasilitas/AddFasilitas.js";
 import EditFasilitas from "./views/pages/admin/pantiasuhan/fasilitas/EditFasilitas.js";
+import FasilitasPage from "./views/pages/admin/pantiasuhan/fasilitas/FasilitasPage.js";
 import Profile from "./views/pages/admin/pantiasuhan/profile/Profile.js";
 import EditProfile from "./views/pages/admin/pantiasuhan/profile/EditProfile.js";
 import AddPengurus from "./views/pages/admin/pantiasuhan/pengurus/AddPengurus.js";
@@ -314,6 +315,11 @@ import KitabWeek from "./views/pages/guru/hafalankitab/KitabWeek.js";
 import KitabWeakly from "./views/pages/guru/hafalankitab/KitabWeakly.js";
 import KitabMonth from "./views/pages/guru/hafalankitab/KitabMonth.js";
 import KitabDay from "./views/pages/guru/hafalankitab/KitabDay.js";
+import GaleriPage from "./views/pages/admin/pantiasuhan/galery/GaleriPage.js";
+
+
+
+
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -950,6 +956,7 @@ function App() {
             {/* end berita */}
             {/* galery */}
             <PrivateRoute path="/admin-galery" component={Galery} exact />
+            <PrivateRoute path="/galeri-page" component={GaleriPage} exact />
             <PrivateRoute path="/add-galery" component={AddGalery} exact />
             <PrivateRoute
               path="/edit-galery/:id"
@@ -1444,6 +1451,11 @@ function App() {
             <PrivateRoute
               path="/admin_fasilitas"
               component={AdminFasilitas}
+              exact
+            />
+            <PrivateRoute
+              path="/fasilitas_page"
+              component={FasilitasPage}
               exact
             />
             <PrivateRoute
