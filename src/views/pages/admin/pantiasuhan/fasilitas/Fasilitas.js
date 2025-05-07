@@ -386,7 +386,7 @@ function AdminFasilitas() {
           )}
         </Box>
       </Modal>
-    </div>
+    </div> 
   );
 }
 

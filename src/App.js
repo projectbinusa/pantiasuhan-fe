@@ -266,6 +266,11 @@ import EditDomain from "./views/pages/yayasan/domain/EditDomain.js";
 import AdminFasilitas from "./views/pages/admin/pantiasuhan/fasilitas/Fasilitas.js";
 import AddFasilitas from "./views/pages/admin/pantiasuhan/fasilitas/AddFasilitas.js";
 import EditFasilitas from "./views/pages/admin/pantiasuhan/fasilitas/EditFasilitas.js";
+import FasilitasPage from "./views/pages/public/FasilitasPage.js";
+import GaleriPage from "./views/pages/public/GaleriPage.js";
+import DonasiPublik from "./views/pages/public/DonasiPublik.js";
+import PageDonasi from "./views/pages/guru/donasi/PageDonasi.js";
+import PageKegiatan from "./views/pages/guru/kegiatan/PageKegiatan.js";
 import Profile from "./views/pages/admin/pantiasuhan/profile/Profile.js";
 import EditProfile from "./views/pages/admin/pantiasuhan/profile/EditProfile.js";
 import AddPengurus from "./views/pages/admin/pantiasuhan/pengurus/AddPengurus.js";
@@ -314,10 +319,6 @@ import KitabWeek from "./views/pages/guru/hafalankitab/KitabWeek.js";
 import KitabWeakly from "./views/pages/guru/hafalankitab/KitabWeakly.js";
 import KitabMonth from "./views/pages/guru/hafalankitab/KitabMonth.js";
 import KitabDay from "./views/pages/guru/hafalankitab/KitabDay.js";
-import DonasiBaru from "./views/pages/guru/donasi/PageDonasi.js";
-import KegiatanBaru from "./views/pages/guru/kegiatan/PageKegiatan.js";
-import DonasiPublik from "./views/pages/public/DonasiPublik.js";
-import KegiatanPublik from "./views/pages/public/Kegiatan.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -954,6 +955,7 @@ function App() {
             {/* end berita */}
             {/* galery */}
             <PrivateRoute path="/admin-galery" component={Galery} exact />
+            <PrivateRoute path="/galeri-page" component={GaleriPage} exact />
             <PrivateRoute path="/add-galery" component={AddGalery} exact />
             <PrivateRoute
               path="/edit-galery/:id"
@@ -1451,6 +1453,11 @@ function App() {
               exact
             />
             <PrivateRoute
+              path="/fasilitas_page"
+              component={FasilitasPage}
+              exact
+            />
+            <PrivateRoute
               path="/admin_fasilitas/add"
               component={AddFasilitas}
               exact
@@ -1617,10 +1624,9 @@ function App() {
             <PrivateRoute path="/guru/kitab/mingguan" component={KitabWeek} exact />
             <PrivateRoute path="/guru/kitab/tahunan" component={KitabYear} exact />
             <PrivateRoute path="/guru/presensi" component={AbsenMasuk} exact />
-            <PrivateRoute path="/guru/donasi" component={DonasiBaru} exact />
-            <PrivateRoute path="/guru/kegiatan" component={KegiatanBaru} exact />
+            <PrivateRoute path="/guru/donasi" component={PageDonasi} exact />
+            <PrivateRoute path="/guru/kegiatan" component={PageKegiatan} exact />
             <Route path="/donasipublik" component={DonasiPublik} exact />
-            <Route path="/kegiatananak" component={KegiatanPublik} exact />
           </Switch>
         </main>
         <LogPageView />

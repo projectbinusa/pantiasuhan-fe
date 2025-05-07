@@ -6,14 +6,11 @@ import "aos/dist/aos.css";
 import { API_DUMMY } from "../../../../../utils/base_URL";
 import SidebarPantiAdmin from "../../../../../component/SidebarPantiAdmin";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import {
-  uploadImageToS3,
-  uploadImageToS31,
-} from "../../../../../utils/uploadToS3";
+import { uploadImageToS3 } from "../../../../../utils/uploadToS3";
 
 const AddGalery = () => {
   const [judul, setJudul] = useState("");
-  const [foto, setFoto] = useState([null]);
+  const [foto, setFoto] = useState([]);
   const [deskripsi, setDeskripsi] = useState("");
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const history = useHistory();
@@ -22,21 +19,6 @@ const AddGalery = () => {
   useEffect(() => {
     AOS.init();
   }, []);
-
-  const handleFileChange = (index, file) => {
-    const updatedfoto = [...foto];
-    updatedfoto[index] = file;
-    setFoto(updatedfoto);
-  };
-
-  const addFileInput = () => {
-    setFoto([...foto, null]);
-  };
-
-  const removeFileInput = (index) => {
-    const updatedfoto = foto.filter((_, i) => i !== index);
-    setFoto(updatedfoto);
-  };
 
   const add = async (e) => {
     e.preventDefault();
@@ -53,7 +35,7 @@ const AddGalery = () => {
 
     try {
       const uploadedImageUrls = await Promise.all(
-        foto.map((file) => uploadImageToS3(file)) // Upload semua gambar
+        foto.map((file) => uploadImageToS3(file))
       );
 
       const response = await axios.post(
@@ -125,20 +107,18 @@ const AddGalery = () => {
   }, []);
 
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    setFoto([...foto, ...files]); // Tambahkan gambar baru ke state tanpa menghapus yang lama
+    const files = Array.from(e.target.files).filter(
+      (file) => file instanceof File
+    );
+    setFoto((prev) => [...prev, ...files]);
   };
 
   const removeImage = (index) => {
-    setFoto(foto.filter((_, i) => i !== index)); // Hapus gambar tertentu
+    setFoto(foto.filter((_, i) => i !== index));
   };
 
   return (
-    <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
-    >
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
       <button
         id="show-sidebar"
         className="btn btn-lg"
@@ -148,6 +128,7 @@ const AddGalery = () => {
         <i className="fas fa-bars"></i>
       </button>
       <SidebarPantiAdmin toggleSidebar={toggleSidebar} />
+
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container">
           <div className="row">
@@ -158,10 +139,8 @@ const AddGalery = () => {
                   <hr />
                   <form onSubmit={add}>
                     <div className="row">
-                      <div className="mb-3 col-lg-6 ">
-                        <label className="form-label font-weight-bold">
-                          Judul
-                        </label>
+                      <div className="mb-3 col-lg-6">
+                        <label className="form-label font-weight-bold">Judul</label>
                         <input
                           value={judul}
                           onChange={(e) => setJudul(e.target.value)}
@@ -171,10 +150,9 @@ const AddGalery = () => {
                           required
                         />
                       </div>
-                      {/* <div className="mb-3 col-lg-6">
-                        <label className="form-label font-weight-bold">
-                          Gambar
-                        </label>
+
+                      <div className="mb-3 col-lg-6">
+                        <label className="form-label font-weight-bold">Gambar</label>
                         <input
                           type="file"
                           multiple
@@ -183,42 +161,40 @@ const AddGalery = () => {
                           className="form-control"
                         />
                       </div>
-                      {/* Preview gambar yang dipilih */}
+
                       <div className="mb-3 col-lg-12">
                         {foto.length > 0 && (
                           <div className="d-flex flex-wrap">
-                            {foto.map((file, index) => (
-                              <div
-                                key={index}
-                                className="m-2 position-relative"
-                              >
-                                <img
-                                  src={URL.createObjectURL(file)}
-                                  alt="Preview"
-                                  className="img-thumbnail"
-                                  style={{
-                                    width: "100px",
-                                    height: "100px",
-                                    objectFit: "cover",
-                                  }}
-                                />
-                                <button
-                                  type="button"
-                                  className="btn btn-danger btn-sm position-absolute"
-                                  style={{ top: "5px", right: "5px" }}
-                                  onClick={() => removeImage(index)}
-                                >
-                                  &times;
-                                </button>
-                              </div>
-                            ))}
+                            {foto.map((file, index) =>
+                              file instanceof File ? (
+                                <div key={index} className="m-2 position-relative">
+                                  <img
+                                    src={URL.createObjectURL(file)}
+                                    alt={`Preview-${index}`}
+                                    className="img-thumbnail"
+                                    style={{
+                                      width: "100px",
+                                      height: "100px",
+                                      objectFit: "cover",
+                                    }}
+                                  />
+                                  <button
+                                    type="button"
+                                    className="btn btn-danger btn-sm position-absolute"
+                                    style={{ top: "5px", right: "5px" }}
+                                    onClick={() => removeImage(index)}
+                                  >
+                                    &times;
+                                  </button>
+                                </div>
+                              ) : null
+                            )}
                           </div>
                         )}
                       </div>
+
                       <div className="mb-3 col-lg-12">
-                        <label className="form-label font-weight-bold">
-                          Deskripsi
-                        </label>
+                        <label className="form-label font-weight-bold">Deskripsi</label>
                         <textarea
                           rows={4}
                           value={deskripsi}
@@ -229,6 +205,7 @@ const AddGalery = () => {
                         ></textarea>
                       </div>
                     </div>
+
                     <button
                       type="button"
                       className="btn btn-danger mt-3 mr-3"
@@ -236,7 +213,7 @@ const AddGalery = () => {
                     >
                       Batal
                     </button>
-                    <button type="submit" className="btn-primary mt-3">
+                    <button type="submit" className="btn btn-primary mt-3 ml-2">
                       Submit
                     </button>
                   </form>

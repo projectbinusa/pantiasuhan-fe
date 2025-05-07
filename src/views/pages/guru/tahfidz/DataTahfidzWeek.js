@@ -6,7 +6,6 @@ import {
   Box,
   Button,
   Pagination,
-  TextField,
 } from "@mui/material";
 import "../../../../css/button.css";
 import { API_DUMMY_BYRTGHN } from "../../../../utils/base_URL";
@@ -23,8 +22,7 @@ function DataTahfidzWeek() {
   const [searchTerm, setSearchTerm] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sidebarToggled, setSidebarToggled] = useState(true);
-  const [start_date, setStartDate] = useState("");
-  const [end_date, setEndDate] = useState("");
+  const [week, setWeek] = useState(""); // ganti jadi 1 input
   const [isLoading, setIsLoading] = useState(false);
 
   const getAll = async () => {
@@ -40,8 +38,8 @@ function DataTahfidzWeek() {
         return;
       }
 
-      if (!start_date || !end_date) {
-        console.error("start_date dan end_date harus diisi!");
+      if (!week) {
+        console.error("week harus diisi!");
         return;
       }
 
@@ -56,18 +54,18 @@ function DataTahfidzWeek() {
           "auth-tgh": `jwt ${token}`,
         },
         params: {
-          start_date,
-          end_date,
+          type: 2,
+          week: week,
           organization_id: userData.organization_id,
         },
       };
 
       const response = await axios.get(
-        `${API_DUMMY_BYRTGHN}/api/member/tahfidz/rekap-week/member`,
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin`,
         config
       );
 
-      setList(response.data.data);
+      setList(response.data.data || []);
       setPaginationInfo({
         totalPages: response.data.pagination?.total_page || 1,
       });
@@ -82,16 +80,16 @@ function DataTahfidzWeek() {
   const handleExport = async () => {
     try {
       setIsLoading(true);
-  
-      if (!start_date || !end_date) {
+
+      if (!week) {
         Swal.fire({
           icon: "warning",
-          title: "Tanggal belum dipilih!",
-          text: "Silakan pilih tanggal awal dan akhir minggu terlebih dahulu sebelum export.",
+          title: "Week belum dipilih!",
+          text: "Silakan isi week terlebih dahulu sebelum export.",
         });
         return;
       }
-  
+
       const token = localStorage.getItem("tokenpython");
       if (!token) {
         Swal.fire({
@@ -101,19 +99,17 @@ function DataTahfidzWeek() {
         });
         return;
       }
-  
-      // Format the week parameter as "YYYY-MM-DDYYYY-MM-DD"
-      const weekParam = `${start_date}${end_date}`;
-      const url = `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin?type=1&week=${weekParam}`;
-      const filename = `rekap_tahfidz_mingguan_${start_date}_to_${end_date}.xlsx`;
-  
+
+      const url = `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/weekly?as_file=true&type_param=2&start_date=${week}`;
+      const filename = `rekap_tahfidz_mingguan_${week}.xlsx`;
+
       const response = await axios.get(url, {
         responseType: "blob",
         headers: {
           "auth-tgh": `jwt ${token}`,
         },
       });
-  
+
       const urlBlob = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = urlBlob;
@@ -121,13 +117,13 @@ function DataTahfidzWeek() {
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);
-  
+
       Swal.fire({
         icon: "success",
         title: "Berhasil",
         text: "Data berhasil didownload!",
       });
-  
+
     } catch (error) {
       console.error("Error exporting data:", error);
       Swal.fire({
@@ -187,9 +183,7 @@ function DataTahfidzWeek() {
   const totalPages = Math.ceil(filteredList.length / rowsPerPage);
 
   return (
-    <div
-      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}
-    >
+    <div className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""}`}>
       <a
         id="show-sidebar"
         className="btn1 btn-lg"
@@ -217,38 +211,27 @@ function DataTahfidzWeek() {
               </select>
             </div>
           </div>
+
           <div className="main-card box-tabel mb-3 card">
             <div className="card-header" style={{ display: "flex" }}>
               <p className="mt-3">Daftar Rekap Tahfidz Mingguan</p>
               <div className="d-flex ml-auto gap-2">
-                {/* Input Start Date */}
                 <div className="col-auto">
                   <input
-                    type="date"
-                    className="form-select form-select-sm"
-                    value={start_date}
+                    type="text"
+                    className="form-control form-control-sm"
+                    placeholder="Contoh: 2025-04-2028"
+                    value={week}
                     style={{ height: "35px", fontSize: "12px" }}
-                    onChange={(e) => setStartDate(e.target.value)}
+                    onChange={(e) => setWeek(e.target.value)}
                   />
                 </div>
-
-                {/* Filter End Date */}
-                <div className="col-auto">
-                  <input
-                    type="date"
-                    className="form-select form-select-sm"
-                    value={end_date}
-                    style={{ height: "35px", fontSize: "12px" }}
-                    onChange={(e) => setEndDate(e.target.value)}
-                  />
-                </div>
-
-                <Button variant="contained" className="col-md-2" onClick={getAll}>
+                <Button variant="contained" onClick={getAll}>
                   Cari
                 </Button>
-                <Button 
-                  variant="contained" 
-                  color="success" 
+                <Button
+                  variant="contained"
+                  color="success"
                   onClick={handleExport}
                   disabled={isLoading}
                 >
@@ -256,10 +239,8 @@ function DataTahfidzWeek() {
                 </Button>
               </div>
             </div>
-            <div
-              className="table-responsive-3"
-              style={{ overflowX: "auto", maxWidth: "100%" }}
-            >
+
+            <div className="table-responsive-3" style={{ overflowX: "auto", maxWidth: "100%" }}>
               <table className="align-middle mb-0 table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -274,36 +255,20 @@ function DataTahfidzWeek() {
                 </thead>
                 <tbody>
                   {filteredList.length > 0 ? (
-                    filteredList.map((tahfidz, no) => {
-                      return (
-                        <tr key={no}>
-                          <td className="text-md-start text-end">
-                            {no + 1 + (currentPage - 1) * rowsPerPage}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.member_name}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.created_date}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.start_pojok} - {tahfidz.end_pojok}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.start_juz} - {tahfidz.end_juz}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.description}
-                          </td>
-                          <td className="text-md-start text-end">
-                            {tahfidz.status || "Pending"}
-                          </td>
-                        </tr>
-                      );
-                    })
+                    filteredList.map((tahfidz, no) => (
+                      <tr key={no}>
+                        <td>{no + 1 + (currentPage - 1) * rowsPerPage}</td>
+                        <td>{tahfidz.member_name}</td>
+                        <td>{tahfidz.created_date}</td>
+                        <td>{tahfidz.start_pojok} - {tahfidz.end_pojok}</td>
+                        <td>{tahfidz.start_juz} - {tahfidz.end_juz}</td>
+                        <td>{tahfidz.description}</td>
+                        <td>{tahfidz.status || "Pending"}</td>
+                      </tr>
+                    ))
                   ) : (
                     <tr>
-                      <td colSpan="7" className="text-center my-3">
+                      <td colSpan="7" className="text-center">
                         <div style={{ padding: "10px", color: "#555" }}>
                           Tidak ada data yang tersedia.
                         </div>
@@ -313,6 +278,7 @@ function DataTahfidzWeek() {
                 </tbody>
               </table>
             </div>
+
             <div className="card-header mt-3 d-flex justify-content-center">
               <Pagination
                 count={paginationInfo.totalPages}
@@ -326,6 +292,7 @@ function DataTahfidzWeek() {
                 color="primary"
               />
             </div>
+
           </div>
         </div>
       </div>
