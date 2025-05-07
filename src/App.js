@@ -317,6 +317,7 @@ import KitabDay from "./views/pages/guru/hafalankitab/KitabDay.js";
 import DonasiBaru from "./views/pages/guru/donasi/PageDonasi.js";
 import KegiatanBaru from "./views/pages/guru/kegiatan/PageKegiatan.js";
 import DonasiPublik from "./views/pages/public/DonasiPublik.js";
+import KegiatanPublik from "./views/pages/public/Kegiatan.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1619,6 +1620,7 @@ function App() {
             <PrivateRoute path="/guru/donasi" component={DonasiBaru} exact />
             <PrivateRoute path="/guru/kegiatan" component={KegiatanBaru} exact />
             <Route path="/donasipublik" component={DonasiPublik} exact />
+            <Route path="/kegiatananak" component={KegiatanPublik} exact />
           </Switch>
         </main>
         <LogPageView />
