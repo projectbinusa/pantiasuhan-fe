@@ -266,7 +266,11 @@ import EditDomain from "./views/pages/yayasan/domain/EditDomain.js";
 import AdminFasilitas from "./views/pages/admin/pantiasuhan/fasilitas/Fasilitas.js";
 import AddFasilitas from "./views/pages/admin/pantiasuhan/fasilitas/AddFasilitas.js";
 import EditFasilitas from "./views/pages/admin/pantiasuhan/fasilitas/EditFasilitas.js";
-import FasilitasPage from "./views/pages/admin/pantiasuhan/fasilitas/FasilitasPage.js";
+import FasilitasPage from "./views/pages/public/FasilitasPage.js";
+import GaleriPage from "./views/pages/public/GaleriPage.js";
+import DonasiPublik from "./views/pages/public/DonasiPublik.js";
+import PageDonasi from "./views/pages/guru/donasi/PageDonasi.js";
+import PageKegiatan from "./views/pages/guru/kegiatan/PageKegiatan.js";
 import Profile from "./views/pages/admin/pantiasuhan/profile/Profile.js";
 import EditProfile from "./views/pages/admin/pantiasuhan/profile/EditProfile.js";
 import AddPengurus from "./views/pages/admin/pantiasuhan/pengurus/AddPengurus.js";
@@ -315,11 +319,6 @@ import KitabWeek from "./views/pages/guru/hafalankitab/KitabWeek.js";
 import KitabWeakly from "./views/pages/guru/hafalankitab/KitabWeakly.js";
 import KitabMonth from "./views/pages/guru/hafalankitab/KitabMonth.js";
 import KitabDay from "./views/pages/guru/hafalankitab/KitabDay.js";
-import GaleriPage from "./views/pages/admin/pantiasuhan/galery/GaleriPage.js";
-
-
-
-
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1625,6 +1624,9 @@ function App() {
             <PrivateRoute path="/guru/kitab/mingguan" component={KitabWeek} exact />
             <PrivateRoute path="/guru/kitab/tahunan" component={KitabYear} exact />
             <PrivateRoute path="/guru/presensi" component={AbsenMasuk} exact />
+            <PrivateRoute path="/guru/donasi" component={PageDonasi} exact />
+            <PrivateRoute path="/guru/kegiatan" component={PageKegiatan} exact />
+            <Route path="/donasipublik" component={DonasiPublik} exact />
           </Switch>
         </main>
         <LogPageView />
