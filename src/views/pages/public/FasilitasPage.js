@@ -13,7 +13,7 @@ const FasilitasPage = () => {
           "x-origin": window.location.hostname,
         },
       });
-      setList(response.data.data); // Menyimpan data fasilitas yang diterima
+      setList(response.data.data);
     } catch (error) {
       console.log("Error fetching fasilitas data:", error);
     }
