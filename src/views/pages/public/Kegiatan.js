@@ -6,20 +6,20 @@ import FooterSekolah from "../../../component/FooterSekolah";
 import { API_DUMMY } from "../../../utils/base_URL";
 import "aos/dist/aos.css";
 
-const DonasiPublik = () => {
-  const [donations, setDonations] = useState([]);
+const Kegiatan = () => {
+  const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("Semua");
   const [currentPage, setCurrentPage] = useState(1);
-  const donationsPerPage = 6;
+  const activitiesPerPage = 6;
 
   // Fetch data dari API
-  const getAllDonations = async () => {
+  const getAllActivities = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${API_DUMMY}/api/public/donasi`, {
+      const response = await axios.get(`${API_DUMMY}/api/public/kegiatan`, {
         headers: {
           "x-origin": window.location.hostname,
         },
@@ -28,41 +28,32 @@ const DonasiPublik = () => {
       // Transform data dari API ke format yang sesuai
       const transformedData = response.data.data.map(item => ({
         id: item.id,
-        title: item.judul_donasi || "Program Donasi Panti Asuhan",
-        description: item.deskripsi_donasi || "Deskripsi donasi belum tersedia",
-        image: item.foto_donasi || "https://via.placeholder.com/500x300?text=No+Image",
+        title: item.judul_kegiatan || "Kegiatan Panti Asuhan",
+        description: item.deskripsi_kegiatan || "Deskripsi kegiatan belum tersedia",
+        image: item.foto_kegiatan || "https://via.placeholder.com/500x300?text=No+Image",
         category: item.kategori || "Umum",
-        date: item.tanggal_donasi || new Date().toISOString().split('T')[0],
-        collected: item.dana_terkumpul || 0,
-        target: item.target_dana || 0
+        date: item.tanggal_kegiatan || new Date().toISOString().split('T')[0],
+        participants: item.jumlah_peserta || 0,
+        location: item.lokasi || "Panti Asuhan"
       }));
       
-      setDonations(transformedData);
+      setActivities(transformedData);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching donations:", error);
-      setError("Gagal memuat data donasi");
+      console.error("Error fetching activities:", error);
+      setError("Gagal memuat data kegiatan");
       setLoading(false);
     }
   };
 
-  // Inisialisasi AOS
+  // Inisialisasi AOS dan fetch data
   useEffect(() => {
     AOS.init({
       duration: 1000,
       once: true
     });
-    getAllDonations();
+    getAllActivities();
   }, []);
-
-  // Format mata uang
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0
-    }).format(amount);
-  };
 
   // Format tanggal
   const formatDate = (dateString) => {
@@ -76,26 +67,26 @@ const DonasiPublik = () => {
     }
   };
 
-  // Filter donasi berdasarkan pencarian dan kategori
-  const filteredDonations = donations.filter(donation => {
-    const matchesSearch = donation.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         donation.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = filterCategory === "Semua" || donation.category === filterCategory;
+  // Filter kegiatan berdasarkan pencarian dan kategori
+  const filteredActivities = activities.filter(activity => {
+    const matchesSearch = activity.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         activity.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = filterCategory === "Semua" || activity.category === filterCategory;
     return matchesSearch && matchesCategory;
   });
 
-  // Get current donations
-  const indexOfLastDonation = currentPage * donationsPerPage;
-  const indexOfFirstDonation = indexOfLastDonation - donationsPerPage;
-  const currentDonations = filteredDonations.slice(indexOfFirstDonation, indexOfLastDonation);
+  // Get current activities
+  const indexOfLastActivity = currentPage * activitiesPerPage;
+  const indexOfFirstActivity = indexOfLastActivity - activitiesPerPage;
+  const currentActivities = filteredActivities.slice(indexOfFirstActivity, indexOfLastActivity);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Get unique categories
-  const categories = ["Semua", ...new Set(donations.map(donation => donation.category))];
+  const categories = ["Semua", ...new Set(activities.map(activity => activity.category))];
 
-  // Style objects
+  // Style objects (sama seperti sebelumnya)
   const styles = {
     page: {
       backgroundColor: "#f8f9fa",
@@ -103,7 +94,7 @@ const DonasiPublik = () => {
       fontFamily: "'Poppins', sans-serif"
     },
     hero: {
-      background: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')",
+      background: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.pinimg.com/736x/14/59/be/1459be85b4514cd99220685fdd072db1.jpg')",
       backgroundSize: "cover",
       backgroundPosition: "center",
       color: "white",
@@ -215,13 +206,13 @@ const DonasiPublik = () => {
       marginBottom: "1rem",
       flex: 1
     },
-    donationInfo: {
+    activityInfo: {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
       marginBottom: "1rem"
     },
-    donationAmount: {
+    participants: {
       fontSize: "0.9rem",
       color: "#007bff",
       fontWeight: "600"
@@ -229,6 +220,13 @@ const DonasiPublik = () => {
     dateText: {
       fontSize: "0.875rem",
       color: "#6c757d"
+    },
+    locationText: {
+      fontSize: "0.875rem",
+      color: "#6c757d",
+      marginBottom: "1rem",
+      display: "flex",
+      alignItems: "center"
     },
     button: {
       backgroundColor: "#007bff",
@@ -276,17 +274,6 @@ const DonasiPublik = () => {
       backgroundColor: "#007bff",
       color: "white",
       borderColor: "#007bff"
-    },
-    progressBar: {
-      height: "8px",
-      backgroundColor: "#e9ecef",
-      borderRadius: "4px",
-      marginBottom: "10px",
-      overflow: "hidden"
-    },
-    progress: {
-      height: "100%",
-      backgroundColor: "#28a745"
     }
   };
 
@@ -295,7 +282,7 @@ const DonasiPublik = () => {
       <div style={styles.page}>
         <Navbar />
         <div style={{...styles.container, textAlign: "center", padding: "100px 0"}}>
-          <p>Memuat data donasi...</p>
+          <p>Memuat data kegiatan...</p>
         </div>
         <FooterSekolah />
       </div>
@@ -309,7 +296,7 @@ const DonasiPublik = () => {
         <div style={{...styles.container, textAlign: "center", padding: "100px 0"}}>
           <p style={{color: "red"}}>{error}</p>
           <button 
-            onClick={getAllDonations}
+            onClick={getAllActivities}
             style={{
               padding: "10px 20px",
               backgroundColor: "#007bff",
@@ -335,9 +322,9 @@ const DonasiPublik = () => {
       <section style={styles.hero}>
         <div style={styles.container}>
           <div data-aos="fade-up">
-            <h1 style={styles.heroTitle}>Bantu Anak-anak Panti Asuhan</h1>
+            <h1 style={styles.heroTitle}>Kegiatan Anak Panti Asuhan</h1>
             <p style={styles.heroSubtitle}>
-              Salurkan donasi Anda untuk membantu memenuhi kebutuhan dan masa depan anak-anak panti asuhan
+              Lihat berbagai kegiatan positif yang dilakukan oleh anak-anak panti asuhan untuk pengembangan diri dan pendidikan
             </p>
           </div>
         </div>
@@ -350,7 +337,7 @@ const DonasiPublik = () => {
           <div style={styles.filterRow}>
             <input
               type="text"
-              placeholder="Cari program donasi..."
+              placeholder="Cari kegiatan..."
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
@@ -375,99 +362,83 @@ const DonasiPublik = () => {
           </div>
         </div>
 
-        {/* Donations List */}
+        {/* Activities List */}
         <div style={styles.grid}>
-          {currentDonations.length > 0 ? (
-            currentDonations.map((donation) => {
-              const progressPercentage = donation.target > 0 
-                ? Math.min(100, (donation.collected / donation.target) * 100)
-                : 0;
-                
-              return (
-                <div 
-                  key={donation.id}
-                  data-aos="fade-up"
-                  style={styles.card}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.transform = styles.cardHover.transform;
-                    e.currentTarget.style.boxShadow = styles.cardHover.boxShadow;
-                    e.currentTarget.querySelector('img').style.transform = styles.imageHover.transform;
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.transform = styles.card.transform;
-                    e.currentTarget.style.boxShadow = styles.card.boxShadow;
-                    e.currentTarget.querySelector('img').style.transform = styles.image.transform;
-                  }}
-                >
-                  <div style={styles.imageContainer}>
-                    <img 
-                      src={donation.image} 
-                      alt={donation.title}
-                      style={styles.image}
-                      onError={(e) => {
-                        e.target.src = "https://via.placeholder.com/500x300?text=Image+Not+Found";
-                      }}
-                    />
-                    <div style={styles.badge}>{donation.category}</div>
-                  </div>
-                  <div style={styles.cardBody}>
-                    <h3 style={styles.cardTitle}>{donation.title}</h3>
-                    <p style={styles.cardText}>{donation.description}</p>
-                    
-                    {donation.target > 0 && (
-                      <div style={styles.progressBar}>
-                        <div 
-                          style={{
-                            ...styles.progress,
-                            width: `${progressPercentage}%`
-                          }} 
-                        />
-                      </div>
-                    )}
-                    
-                    <div style={styles.donationInfo}>
-                      <span style={styles.donationAmount}>
-                        Terkumpul: {formatCurrency(donation.collected)}
-                      </span>
-                      <span style={styles.dateText}>
-                        {formatDate(donation.date)}
-                      </span>
-                    </div>
-                    
-                    {donation.target > 0 && (
-                      <div style={{fontSize: "0.8rem", color: "#6c757d", marginBottom: "10px"}}>
-                        Target: {formatCurrency(donation.target)}
-                      </div>
-                    )}
-                    
-                    <a
-                      href={`/donasi/detail/${donation.id}`}
-                      style={styles.button}
-                      onMouseOver={(e) => {
-                        e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor;
-                      }}
-                      onMouseOut={(e) => {
-                        e.currentTarget.style.backgroundColor = styles.button.backgroundColor;
-                      }}
-                    >
-                      Donasi Sekarang
-                    </a>
-                  </div>
+          {currentActivities.length > 0 ? (
+            currentActivities.map((activity) => (
+              <div 
+                key={activity.id}
+                data-aos="fade-up"
+                style={styles.card}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = styles.cardHover.transform;
+                  e.currentTarget.style.boxShadow = styles.cardHover.boxShadow;
+                  e.currentTarget.querySelector('img').style.transform = styles.imageHover.transform;
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = styles.card.transform;
+                  e.currentTarget.style.boxShadow = styles.card.boxShadow;
+                  e.currentTarget.querySelector('img').style.transform = styles.image.transform;
+                }}
+              >
+                <div style={styles.imageContainer}>
+                  <img 
+                    src={activity.image} 
+                    alt={activity.title}
+                    style={styles.image}
+                    onError={(e) => {
+                      e.target.src = "https://via.placeholder.com/500x300?text=Image+Not+Found";
+                    }}
+                  />
+                  <div style={styles.badge}>{activity.category}</div>
                 </div>
-              );
-            })
+                <div style={styles.cardBody}>
+                  <h3 style={styles.cardTitle}>{activity.title}</h3>
+                  <p style={styles.cardText}>{activity.description}</p>
+                  
+                  <div style={styles.activityInfo}>
+                    <span style={styles.participants}>
+                      Peserta: {activity.participants} anak
+                    </span>
+                    <span style={styles.dateText}>
+                      {formatDate(activity.date)}
+                    </span>
+                  </div>
+                  
+                  <p style={styles.locationText}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style={{marginRight: "5px"}}>
+                      <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                    </svg>
+                    {activity.location}
+                  </p>
+                  
+                  <a
+                    href={`/kegiatan/detail/${activity.id}`}
+                    style={styles.button}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor;
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.backgroundColor = styles.button.backgroundColor;
+                    }}
+                  >
+                    Lihat Detail
+                  </a>
+                </div>
+              </div>
+            ))
           ) : (
             <div style={styles.notFound} data-aos="fade-up">
-              <h4 style={{ color: "#555" }}>Tidak ada program donasi yang ditemukan</h4>
+              <h4 style={{ color: "#555" }}>Tidak ada kegiatan yang ditemukan</h4>
               <p>Silakan coba dengan kata kunci atau kategori yang berbeda</p>
             </div>
           )}
         </div>
 
         {/* Pagination */}
-        {filteredDonations.length > donationsPerPage && (
+        {filteredActivities.length > activitiesPerPage && (
           <ul style={styles.pagination} data-aos="fade-up">
-            {Array.from({ length: Math.ceil(filteredDonations.length / donationsPerPage) }).map((_, index) => (
+            {Array.from({ length: Math.ceil(filteredActivities.length / activitiesPerPage) }).map((_, index) => (
               <li key={index} style={styles.pageItem}>
                 <button
                   onClick={() => paginate(index + 1)}
@@ -489,4 +460,4 @@ const DonasiPublik = () => {
   );
 };
 
-export default DonasiPublik;
+export default Kegiatan;
