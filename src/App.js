@@ -314,6 +314,9 @@ import KitabWeek from "./views/pages/guru/hafalankitab/KitabWeek.js";
 import KitabWeakly from "./views/pages/guru/hafalankitab/KitabWeakly.js";
 import KitabMonth from "./views/pages/guru/hafalankitab/KitabMonth.js";
 import KitabDay from "./views/pages/guru/hafalankitab/KitabDay.js";
+import DonasiBaru from "./views/pages/guru/donasi/PageDonasi.js";
+import KegiatanBaru from "./views/pages/guru/kegiatan/PageKegiatan.js";
+import DonasiPublik from "./views/pages/public/DonasiPublik.js";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -1613,6 +1616,9 @@ function App() {
             <PrivateRoute path="/guru/kitab/mingguan" component={KitabWeek} exact />
             <PrivateRoute path="/guru/kitab/tahunan" component={KitabYear} exact />
             <PrivateRoute path="/guru/presensi" component={AbsenMasuk} exact />
+            <PrivateRoute path="/guru/donasi" component={DonasiBaru} exact />
+            <PrivateRoute path="/guru/kegiatan" component={KegiatanBaru} exact />
+            <Route path="/donasipublik" component={DonasiPublik} exact />
           </Switch>
         </main>
         <LogPageView />
