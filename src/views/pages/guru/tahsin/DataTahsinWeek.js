@@ -39,34 +39,34 @@ function DataTahsinWeek() {
         organization_id: localStorage.getItem("organization_id"),
         rolename: localStorage.getItem("rolename"),
       };
-  
+
       console.log("User Data dari localStorage:", userData); // Debugging
-  
+
       const token = localStorage.getItem("tokenpython"); // Pastikan token tersimpan dengan benar
       if (!token) {
         console.error("Token autentikasi tidak ditemukan!");
         return;
       }
-  
+
       // Set konfigurasi header
       const config = {
         headers: {
           "auth-tgh": `jwt ${token}`,
         },
       };
-  
+
       // Panggil API dengan axios
       const response = await axios.get(
         `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin?type=1&week=2025-04-2028`,
         config
       );
-  
+
       // Set data ke state
       setList(response.data.data);
       setPaginationInfo({
         totalPages: response.data.pagination?.total_page || 1,
       });
-  
+
       console.log("API Response:", response.data);
     } catch (error) {
       console.error(
@@ -74,7 +74,7 @@ function DataTahsinWeek() {
         error.response ? error.response.data : error.message
       );
     }
-  };  
+  };
 
   const exportData = async () => {
     try {
@@ -183,9 +183,8 @@ function DataTahsinWeek() {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -218,7 +217,7 @@ function DataTahsinWeek() {
             </div>
           </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex" }}>
+            <div className="card-header" style={{ display: "flex", flexWrap: "wrap" }}>
               <p className="mt-3">Daftar Rekap Tahsin Week</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
@@ -236,45 +235,55 @@ function DataTahsinWeek() {
                   </select>
                 </div>
               </div>
-              <div className="d-flex ml-auto gap-2">
-                {/* Input Start Date */}
-                <div className="col-auto">
-                  <input
-                    type="date"
-                    className="form-select form-select-sm"
-                    value={start_date}
-                    style={{ height: "35px", fontSize: "12px" }}
-                    onChange={(e) => setStartDate(e.target.value)}
-                  />
-                </div>
-
-                {/* Filter End Date */}
-                <div className="col-auto">
-                  <input
-                    type="date"
-                    className="form-select form-select-sm"
-                    value={end_date}
-                    style={{ height: "35px", fontSize: "12px" }}
-                    onChange={(e) => setEndDate(e.target.value)}
-                  />
+              <div className="d-flex ml-auto gap-2" style={{ flexWrap: "wrap", alignItems: "center" }}>
+                {/* Input Start Date and End Date in a compact group */}
+                <div className="d-flex align-items-center gap-1" style={{ marginRight: "8px" }}>
+                  <div style={{ minWidth: "120px" }}>
+                    <input
+                      type="date"
+                      className="form-control form-control-sm"
+                      value={start_date}
+                      style={{ width: "100%", height: "35px", fontSize: "12px" }}
+                      onChange={(e) => setStartDate(e.target.value)}
+                    />
+                  </div>
+                  <div style={{ minWidth: "120px" }}>
+                    <input
+                      type="date"
+                      className="form-control form-control-sm"
+                      value={end_date}
+                      style={{ width: "100%", height: "35px", fontSize: "12px" }}
+                      onChange={(e) => setEndDate(e.target.value)}
+                    />
+                  </div>
                 </div>
 
                 <Button
                   variant="contained"
-                  className="col-md-2"
+                  className="primary"
                   onClick={getAll}
+                  style={{
+                    whiteSpace: "nowrap",
+                    height: "35px",
+                    minWidth: "80px",
+                    marginRight: "8px"
+                  }}
                 >
                   Cari
                 </Button>
-                
+
                 {/* Tombol Export */}
                 <Button
-                 variant="contained"
-                 color="success"
-                 onClick={exportData}
-                 style={{ whiteSpace: "nowrap" }}
-                  >
-                 Export
+                  variant="contained"
+                  color="success"
+                  onClick={exportData}
+                  style={{
+                    whiteSpace: "nowrap",
+                    height: "35px",
+                    minWidth: "80px"
+                  }}
+                >
+                  Export
                 </Button>
               </div>
             </div>

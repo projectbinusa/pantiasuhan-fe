@@ -172,7 +172,7 @@ function KitabWeek() {
                                 </div>
 
                                 {/* Filter End Date */}
-                                <div className="col-auto">
+                                <div className="col-auto m-1">
                                     <input
                                         type="date"
                                         className="form-select form-select-sm"

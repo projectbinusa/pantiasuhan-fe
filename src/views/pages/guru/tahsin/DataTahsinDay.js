@@ -223,7 +223,7 @@ function DataTahsinDay() {
             </div>
           </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex" }}>
+            <div className="card-header" style={{ display: "flex", flexWrap: "wrap" }}>
               <p className="mt-3">Daftar Rekap Tahsin Day</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
@@ -241,7 +241,7 @@ function DataTahsinDay() {
                   </select>
                 </div>
               </div>
-              <div className="d-flex ml-auto gap-2">
+              <div className="d-flex ml-auto gap-1">
 
                 <div className="col-auto">
                   <input

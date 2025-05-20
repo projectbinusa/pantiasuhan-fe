@@ -29,7 +29,7 @@ function DataTahsinMonth() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sidebarToggled, setSidebarToggled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   // List bulan dan tahun
   const months = [
     { label: "Januari", value: "01" },
@@ -60,24 +60,24 @@ function DataTahsinMonth() {
         organization_id: localStorage.getItem("organization_id"),
         rolename: localStorage.getItem("rolename"),
       };
-  
+
       console.log("User Data dari localStorage:", userData); // Debugging
-  
+
       // Pastikan month dan year ada sebelum melakukan request
       if (!month || !year) {
         console.error("month dan year harus diisi!");
         return;
       }
-  
+
       // Ambil token dari localStorage
       const token = localStorage.getItem("tokenpython");
       if (!token) {
         console.error("Token autentikasi tidak ditemukan di localStorage!");
         return;
       }
-  
+
       console.log("Token ditemukan:", token); // Debugging
-  
+
       // Set konfigurasi header
       const config = {
         headers: {
@@ -89,17 +89,17 @@ function DataTahsinMonth() {
           year,
         },
       };
-  
+
       console.log("Mengirim request ke API dengan config:", config); // Debugging
-  
+
       // Panggil API dengan axios
       const response = await axios.get(
         `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin`,
         config
       );
-  
+
       console.log("API Response:", response.data); // Debugging
-  
+
       if (response.data && response.data.data) {
         setList(response.data.data);
         setPaginationInfo({
@@ -117,66 +117,66 @@ function DataTahsinMonth() {
       setList([]); // Kosongkan list jika terjadi error
       setPaginationInfo({ totalPages: 1 });
     }
-  };  
+  };
 
-const exportData = async () => {
-  try {
-    setIsLoading(true);
+  const exportData = async () => {
+    try {
+      setIsLoading(true);
 
-    if (!month || !year) {
+      if (!month || !year) {
+        Swal.fire({
+          icon: "warning",
+          title: "Bulan dan Tahun belum dipilih!",
+          text: "Silakan pilih bulan dan tahun terlebih dahulu sebelum export.",
+        });
+        return;
+      }
+
+      const token = localStorage.getItem("tokenpython");
+      if (!token) {
+        Swal.fire({
+          icon: "error",
+          title: "Token tidak ditemukan",
+          text: "Silakan login ulang.",
+        });
+        return;
+      }
+
+      const response = await axios.get(
+        `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/monthly?as_file=true&type=1&month=${month}&year=${year}`,
+        {
+          responseType: "blob",
+          headers: {
+            "auth-tgh": `jwt ${token}`,
+          },
+        }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `rekap_tahsin_monthly_${month}-${year}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+
       Swal.fire({
-        icon: "warning",
-        title: "Bulan dan Tahun belum dipilih!",
-        text: "Silakan pilih bulan dan tahun terlebih dahulu sebelum export.",
+        icon: "success",
+        title: "Berhasil",
+        text: "Data berhasil didownload!",
       });
-      return;
-    }
 
-    const token = localStorage.getItem("tokenpython");
-    if (!token) {
+    } catch (error) {
+      console.error("Error exporting data:", error);
       Swal.fire({
         icon: "error",
-        title: "Token tidak ditemukan",
-        text: "Silakan login ulang.",
+        title: "Gagal Export",
+        text: "Terjadi kesalahan saat mengunduh data.",
       });
-      return;
+    } finally {
+      setIsLoading(false);
     }
-
-    const response = await axios.get(
-      `${API_DUMMY_BYRTGHN}/api/member/guru/tahsin/export/monthly?as_file=true&type=1&month=${month}&year=${year}`,
-      {
-        responseType: "blob",
-        headers: {
-          "auth-tgh": `jwt ${token}`,
-        },
-      }
-    );
-
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", `rekap_tahsin_monthly_${month}-${year}.xlsx`);
-    document.body.appendChild(link);
-    link.click();
-    link.parentNode.removeChild(link);
-
-    Swal.fire({
-      icon: "success",
-      title: "Berhasil",
-      text: "Data berhasil didownload!",
-    });
-
-  } catch (error) {
-    console.error("Error exporting data:", error);
-    Swal.fire({
-      icon: "error",
-      title: "Gagal Export",
-      text: "Terjadi kesalahan saat mengunduh data.",
-    });
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
 
 
   const toggleSidebar = () => {
@@ -215,7 +215,7 @@ const exportData = async () => {
         value.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-  
+
   // Paginasi dengan slice()
   const paginatedList = filteredList.slice(
     (currentPage - 1) * rowsPerPage,
@@ -225,9 +225,8 @@ const exportData = async () => {
 
   return (
     <div
-      className={`page-wrapper chiller-theme ${
-        sidebarToggled ? "toggled" : ""
-      }`}
+      className={`page-wrapper chiller-theme ${sidebarToggled ? "toggled" : ""
+        }`}
     >
       <a
         id="show-sidebar"
@@ -260,7 +259,7 @@ const exportData = async () => {
             </div>
           </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex" }}>
+            <div className="card-header" style={{ display: "flex", flexWrap: "wrap" }}>
               <p className="mt-3">Daftar Rekap Tahsin Month</p>
               <div className="ml-2 row g-3 align-items-center d-lg-flex d-none d-md-none">
                 <div className="col-auto">
@@ -278,41 +277,46 @@ const exportData = async () => {
                   </select>
                 </div>
               </div>
-              <div className="d-flex ml-auto gap-2">
-                {/* Filter Bulan */}
-                <div className="col-auto">
-                  <Select
-                    value={month}
-                    onChange={(e) => setMonth(e.target.value)}
-                    displayEmpty
-                    variant="outlined"
-                    style={{ width: "110px", height: "35px", fontSize: "12px" }}
-                  >
-                    <MenuItem value="">Bulan</MenuItem>
-                    {months.map((m) => (
-                      <MenuItem key={m.value} value={m.value}>
-                        {m.label}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </div>
+              <div className="d-flex ml-auto gap-2" style={{ flexWrap: "wrap", alignItems: "center" }}>
+                {/* Group Bulan dan Tahun */}
+                <div className="d-flex align-items-center gap-1" style={{ marginRight: "8px" }}>
+                  {/* Filter Bulan */}
+                  <div style={{ minWidth: "120px" }}>
+                    <Select
+                      value={month}
+                      onChange={(e) => setMonth(e.target.value)}
+                      displayEmpty
+                      variant="outlined"
+                      size="small"
+                      style={{ height: "35px", fontSize: "12px", width: "100%" }}
+                    >
+                      <MenuItem value="">Pilih Bulan</MenuItem>
+                      {months.map((m) => (
+                        <MenuItem key={m.value} value={m.value}>
+                          {m.label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
 
-                {/* Filter Tahun */}
-                <div className="col-auto">
-                  <Select
-                    value={year}
-                    onChange={(e) => setYear(e.target.value)}
-                    displayEmpty
-                    variant="outlined"
-                    style={{ width: "110px", height: "35px", fontSize: "12px" }}
-                  >
-                    <MenuItem value="">Tahun</MenuItem>
-                    {years.map((y) => (
-                      <MenuItem key={y.value} value={y.value}>
-                        {y.label}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                  {/* Filter Tahun */}
+                  <div style={{ minWidth: "100px" }}>
+                    <Select
+                      value={year}
+                      onChange={(e) => setYear(e.target.value)}
+                      displayEmpty
+                      variant="outlined"
+                      size="small"
+                      style={{ height: "35px", fontSize: "12px", width: "100%" }}
+                    >
+                      <MenuItem value="">Pilih Tahun</MenuItem>
+                      {years.map((y) => (
+                        <MenuItem key={y.value} value={y.value}>
+                          {y.label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
                 </div>
 
                 {/* Tombol Cari */}
@@ -320,17 +324,26 @@ const exportData = async () => {
                   variant="contained"
                   color="primary"
                   onClick={getAll}
-                  style={{ whiteSpace: "nowrap" }}
+                  style={{
+                    whiteSpace: "nowrap",
+                    height: "35px",
+                    minWidth: "80px",
+                    marginRight: "8px"
+                  }}
                 >
                   Cari
                 </Button>
-                
+
                 {/* Tombol Export */}
                 <Button
                   variant="contained"
                   color="success"
                   onClick={exportData}
-                  style={{ whiteSpace: "nowrap" }}
+                  style={{
+                    whiteSpace: "nowrap",
+                    height: "35px",
+                    minWidth: "80px"
+                  }}
                 >
                   Export
                 </Button>
