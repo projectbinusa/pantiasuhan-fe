@@ -218,16 +218,16 @@ function DataTahfidzWeek() {
             </div>
           </div>
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header" style={{ display: "flex" }}>
+            <div className="card-header" style={{ display: "flex", flexWrap: "wrap" }}>
               <p className="mt-3">Daftar Rekap Tahfidz Mingguan</p>
-              <div className="d-flex ml-auto gap-2">
+              <div className="d-flex ml-auto gap-2" style={{ flexWrap: "wrap" }}>
                 {/* Input Start Date */}
                 <div className="col-auto">
                   <input
                     type="date"
                     className="form-select form-select-sm"
                     value={start_date}
-                    style={{ height: "35px", fontSize: "12px" }}
+                    style={{ width: "110px", height: "35px", fontSize: "9px" }}
                     onChange={(e) => setStartDate(e.target.value)}
                   />
                 </div>
@@ -238,21 +238,23 @@ function DataTahfidzWeek() {
                     type="date"
                     className="form-select form-select-sm"
                     value={end_date}
-                    style={{ height: "35px", fontSize: "12px" }}
+                    style={{ width: "110px", height: "35px", fontSize: "9px" }}
                     onChange={(e) => setEndDate(e.target.value)}
                   />
                 </div>
 
-                <Button variant="contained" className="col-md-2" onClick={getAll}>
+                <Button
+                 variant="contained"
+                  className="primary"
+                  s onClick={getAll}>
                   Cari
                 </Button>
                 <Button 
                   variant="contained" 
                   color="success" 
                   onClick={handleExport}
-                  disabled={isLoading}
                 >
-                  {isLoading ? "Exporting..." : "Export"}
+                  Export
                 </Button>
               </div>
             </div>

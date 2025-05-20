@@ -194,9 +194,9 @@ function DataTahfidzMonth() {
       <div className="page-content1" style={{ marginTop: "10px" }}>
         <div className="container box-table mt-3 app-main__outer" data-aos="fade-left">
           <div className="main-card box-tabel mb-3 card">
-            <div className="card-header d-flex flex-wrap align-items-center">
+            <div className="card-header" style={{ display: "flex", flexWrap: "wrap" }}>
               <p className="mt-3 mb-0">Daftar Rekap Tahfidz Bulanan</p>
-              <div className="d-flex ml-auto gap-2 flex-wrap">
+              <div className="d-flex ml-auto gap-2 flex-wrap items-left">
                 <Select
                   value={month}
                   onChange={(e) => setMonth(e.target.value)}
